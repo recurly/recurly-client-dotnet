@@ -37,12 +37,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InvalidCredentialsException.cs" />
+    <Compile Include="NotFoundException.cs" />
     <Compile Include="RecurlyAccount.cs" />
+    <Compile Include="RecurlyBillingInfo.cs" />
     <Compile Include="RecurlyClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="LICENSE.txt" />
+    <Compile Include="RecurlyCreditCard.cs" />
+    <Compile Include="RecurlyError.cs" />
+    <Compile Include="RecurlyException.cs" />
+    <Compile Include="RecurlyInvoice.cs" />
+    <Compile Include="RecurlyPlan.cs" />
+    <Compile Include="RecurlyServerException.cs" />
+    <Compile Include="RecurlySubscription.cs" />
+    <Compile Include="TemporarilyUnavailableException.cs" />
+    <Compile Include="ValidationException.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
