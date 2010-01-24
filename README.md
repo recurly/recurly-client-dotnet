@@ -1,4 +1,4 @@
-﻿Recurly PHP Client
+﻿Recurly .NET Client
 ==================
 
 The Recurly .NET Client library is an open source library to interact with Recurly's subscription management from your ASP.Net website. The library interacts with Recurly's [REST API](http://support.recurly.com/faqs/api).
