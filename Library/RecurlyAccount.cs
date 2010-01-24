@@ -28,6 +28,11 @@ namespace Recurly
             this.AccountCode = accountCode;
         }
 
+        internal RecurlyAccount(XmlTextReader xmlReader)
+        {
+            this.ReadXml(xmlReader);
+        }
+
         private RecurlyAccount()
         { }
 
@@ -129,7 +134,7 @@ namespace Recurly
             }
         }
 
-        protected void WriteXml(XmlTextWriter xmlWriter)
+        internal void WriteXml(XmlTextWriter xmlWriter)
         {
             xmlWriter.WriteStartElement("account"); // Start: account
 
