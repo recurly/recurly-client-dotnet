@@ -16,7 +16,7 @@ namespace Recurly
         internal const int HttpStatusCode = 422;
 
         internal ValidationException(RecurlyError[] errors)
-            : base(errors)
+            : base("The information being saved is not valid.", errors)
         { }
 
         internal ValidationException(string message, RecurlyError[] errors)

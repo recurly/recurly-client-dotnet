@@ -50,6 +50,7 @@
     <Compile Include="RecurlyPlan.cs" />
     <Compile Include="RecurlyServerException.cs" />
     <Compile Include="RecurlySubscription.cs" />
+    <Compile Include="RecurlyTransaction.cs" />
     <Compile Include="TemporarilyUnavailableException.cs" />
     <Compile Include="ValidationException.cs" />
   </ItemGroup>

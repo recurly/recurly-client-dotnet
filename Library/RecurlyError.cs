@@ -38,7 +38,10 @@ namespace Recurly
 
         public override string ToString()
         {
-            return this.Message;
+            if (!String.IsNullOrEmpty(this.Field))
+                return String.Format("{0} (Field: {1})", this.Message, this.Field);
+            else
+                return this.Message;
         }
 
         internal static RecurlyError[] ReadResponseAndParseErrors(HttpWebResponse response)

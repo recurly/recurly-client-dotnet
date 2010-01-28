@@ -20,6 +20,7 @@ namespace Recurly
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string CompanyName { get; set; }
+        public RecurlyBillingInfo BillingInfo { get; set; }
 
         private const string UrlPrefix = "/accounts/";
 
@@ -144,6 +145,9 @@ namespace Recurly
             xmlWriter.WriteElementString("first_name", this.FirstName);
             xmlWriter.WriteElementString("last_name", this.LastName);
             xmlWriter.WriteElementString("company_name", this.CompanyName);
+
+            if (this.BillingInfo != null)
+                this.BillingInfo.WriteXml(xmlWriter);
 
             xmlWriter.WriteEndElement(); // End: account
         }

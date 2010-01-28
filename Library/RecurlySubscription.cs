@@ -13,7 +13,6 @@ namespace Recurly
         /// Account in Recurly
         /// </summary>
         public RecurlyAccount Account { get; private set; }
-        public RecurlyBillingInfo BillingInfo { get; set; }
         public int? Quantity { get; set; }
         public string PlanCode { get; set; }
 
@@ -87,6 +86,16 @@ namespace Recurly
                 writeXmlDelegate);
         }
 
+        /// <summary>
+        /// Cancel an active subscription.  The subscription will not renew, but will continue to be active
+        /// through the remainder of the current term.
+        /// </summary>
+        /// <param name="accountCode">Subscriber's Account Code</param>
+        public static void CancelSubscription(string accountCode)
+        {
+            PerformRequest(HttpRequestMethod.Delete, SubscriptionUrl(accountCode));
+        }
+
         #region Read and Write XML documents
 
         internal void ReadXml(XmlTextReader reader)
@@ -134,9 +143,6 @@ namespace Recurly
                 xmlWriter.WriteElementString("unit_amount_in_cents", this.UnitAmountInCents.Value.ToString());
 
             this.Account.WriteXml(xmlWriter);
-
-            if (this.BillingInfo != null)
-                this.BillingInfo.WriteXml(xmlWriter);
 
             xmlWriter.WriteEndElement(); // End: subscription
         }
