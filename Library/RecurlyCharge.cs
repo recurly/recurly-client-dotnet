@@ -41,7 +41,7 @@ namespace Recurly
 
         internal static string ChargesUrl(string accountCode)
         {
-            return UrlPrefix + System.Web.HttpUtility.UrlEncode(accountCode) + UrlPostfix;
+            return RecurlyAccount.UrlPrefix + System.Web.HttpUtility.UrlEncode(accountCode) + UrlPostfix;
         }
 
         #region Read and Write XML documents

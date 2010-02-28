@@ -11,18 +11,25 @@ namespace Recurly
         internal RecurlyInvoiceList()
         { }
 
+        private const string UrlPostfix = "/invoices";
+
         public static RecurlyInvoice[] GetInvoices(string accountCode)
         {
             RecurlyInvoiceList invoiceList = new RecurlyInvoiceList();
 
             HttpStatusCode statusCode = RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Get,
-                RecurlyCharge.ChargesUrl(accountCode),
+                AccountInvoicesUrl(accountCode),
                 new RecurlyClient.ReadXmlDelegate(invoiceList.ReadXml));
 
             if (statusCode == HttpStatusCode.NotFound)
                 return null;
 
             return invoiceList.ToArray();
+        }
+
+        private static string AccountInvoicesUrl(string accountCode)
+        {
+            return RecurlyAccount.UrlPrefix + System.Web.HttpUtility.UrlEncode(accountCode) + UrlPostfix;
         }
 
         internal void ReadXml(XmlTextReader reader)

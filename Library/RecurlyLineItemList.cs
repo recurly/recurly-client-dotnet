@@ -47,7 +47,8 @@ namespace Recurly
             while (reader.Read())
             {
                 // End of account element, get out of here
-                if ((reader.Name == "charges" || reader.Name == "credits") && reader.NodeType == XmlNodeType.EndElement)
+                if ((reader.Name == "charges" || reader.Name == "credits" || reader.Name == "line_items") && 
+                    reader.NodeType == XmlNodeType.EndElement)
                     break;
 
                 if (reader.NodeType == XmlNodeType.Element)
@@ -59,6 +60,10 @@ namespace Recurly
                             break;
                         case "credit":
                             this.Add(new RecurlyCredit(reader));
+                            break;
+                        case "line_item":
+                            // TODO: Fix this to parse correctly for credits
+                            this.Add(new RecurlyCharge(reader));
                             break;
                     }
                 }

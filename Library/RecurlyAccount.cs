@@ -22,7 +22,7 @@ namespace Recurly
         public string CompanyName { get; set; }
         public RecurlyBillingInfo BillingInfo { get; set; }
 
-        private const string UrlPrefix = "/accounts/";
+        internal const string UrlPrefix = "/accounts/";
 
         public RecurlyAccount(string accountCode)
         {

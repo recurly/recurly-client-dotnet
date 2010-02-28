@@ -41,7 +41,7 @@ namespace Recurly
 
         internal static string CreditsUrl(string accountCode)
         {
-            return UrlPrefix + System.Web.HttpUtility.UrlEncode(accountCode) + UrlPostfix;
+            return RecurlyAccount.UrlPrefix + System.Web.HttpUtility.UrlEncode(accountCode) + UrlPostfix;
         }
 
         protected override string XmlRootNodeName { get { return "credit"; } }

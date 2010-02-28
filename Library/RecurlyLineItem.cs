@@ -17,8 +17,6 @@ namespace Recurly
         public DateTime? EndDate { get; protected set; }
         public string Description { get; protected set; }
 
-        protected const string UrlPrefix = "/accounts/";
-
         #region Constructors
 
         internal RecurlyLineItem()
@@ -39,7 +37,8 @@ namespace Recurly
             while (reader.Read())
             {
                 // End of account element, get out of here
-                if ((reader.Name == "charge" || reader.Name == "credit") && reader.NodeType == XmlNodeType.EndElement)
+                if ((reader.Name == "charge" || reader.Name == "credit" || reader.Name == "line_item") && 
+                    reader.NodeType == XmlNodeType.EndElement)
                     break;
 
                 if (reader.NodeType == XmlNodeType.Element)

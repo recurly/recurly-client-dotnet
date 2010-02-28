@@ -57,7 +57,8 @@ namespace Recurly
             while (reader.Read())
             {
                 // End of account element, get out of here
-                if (reader.Name == "transaction" && reader.NodeType == XmlNodeType.EndElement)
+                if ((reader.Name == "transaction" || reader.Name == "payment" || reader.Name == "refund") && 
+                    reader.NodeType == XmlNodeType.EndElement)
                     break;
 
                 if (reader.NodeType == XmlNodeType.Element)
