@@ -9,7 +9,7 @@ namespace Recurly
     /// <summary>
     /// An account in Recurly.
     /// </summary>
-    public class RecurlyAccount : RecurlyClient
+    public class RecurlyAccount
     {
         /// <summary>
         /// Account Code or unique ID for the account in Recurly
@@ -46,9 +46,9 @@ namespace Recurly
         {
             RecurlyAccount account = new RecurlyAccount();
 
-            HttpStatusCode statusCode = PerformRequest(HttpRequestMethod.Get,
+            HttpStatusCode statusCode = RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Get,
                 UrlPrefix + System.Web.HttpUtility.UrlEncode(accountCode),
-                new ReadXmlDelegate(account.ReadXml));
+                new RecurlyClient.ReadXmlDelegate(account.ReadXml));
 
             if (statusCode == HttpStatusCode.NotFound)
                 return null;
@@ -61,8 +61,9 @@ namespace Recurly
         /// </summary>
         public void Create()
         {
-            PerformRequest(HttpRequestMethod.Post, UrlPrefix, 
-                new WriteXmlDelegate(this.WriteXml));
+            RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Post, 
+                UrlPrefix,
+                new RecurlyClient.WriteXmlDelegate(this.WriteXml));
         }
 
         /// <summary>
@@ -70,8 +71,9 @@ namespace Recurly
         /// </summary>
         public void Update()
         {
-            PerformRequest(HttpRequestMethod.Put, UrlPrefix + System.Web.HttpUtility.UrlEncode(this.AccountCode),
-                new WriteXmlDelegate(this.WriteXml));
+            RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Put, 
+                UrlPrefix + System.Web.HttpUtility.UrlEncode(this.AccountCode),
+                new RecurlyClient.WriteXmlDelegate(this.WriteXml));
         }
 
         /// <summary>
@@ -90,7 +92,7 @@ namespace Recurly
         /// <param name="id">Account Code</param>
         public static void CloseAccount(string accountCode)
         {
-            PerformRequest(HttpRequestMethod.Delete, UrlPrefix + System.Web.HttpUtility.UrlEncode(accountCode));
+            RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Delete, UrlPrefix + System.Web.HttpUtility.UrlEncode(accountCode));
         }
 
         #region Read and Write XML documents

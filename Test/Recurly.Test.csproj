@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{CA094233-B9A7-4700-A70A-3401E14070B9}</ProjectGuid>
+    <ProjectGuid>{A610420B-4FEB-4590-A4B4-2926B4E52F47}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Recurly</RootNamespace>
-    <AssemblyName>Recurly</AssemblyName>
+    <RootNamespace>Recurly.Test</RootNamespace>
+    <AssemblyName>Recurly.Test</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,36 +31,26 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="nunit.framework, Version=2.5.3.9345, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL" />
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InvalidCredentialsException.cs" />
-    <Compile Include="NotFoundException.cs" />
-    <Compile Include="RecurlyAccount.cs" />
-    <Compile Include="RecurlyBillingInfo.cs" />
-    <Compile Include="RecurlyCharge.cs" />
-    <Compile Include="RecurlyInvoiceList.cs" />
-    <Compile Include="RecurlyLineItemList.cs" />
-    <Compile Include="RecurlyClient.cs" />
+    <Compile Include="AccountTest.cs" />
+    <Compile Include="BillingInfoTest.cs" />
+    <Compile Include="ChargeTest.cs" />
+    <Compile Include="Factories.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RecurlyCredit.cs" />
-    <Compile Include="RecurlyCreditCard.cs" />
-    <Compile Include="RecurlyError.cs" />
-    <Compile Include="RecurlyException.cs" />
-    <Compile Include="RecurlyInvoice.cs" />
-    <Compile Include="RecurlyLineItem.cs" />
-    <Compile Include="RecurlyPlan.cs" />
-    <Compile Include="Configuration\RecurlySection.cs" />
-    <Compile Include="RecurlyServerException.cs" />
-    <Compile Include="RecurlySubscription.cs" />
-    <Compile Include="RecurlyTransaction.cs" />
-    <Compile Include="RecurlyTransactionList.cs" />
-    <Compile Include="TemporarilyUnavailableException.cs" />
-    <Compile Include="ValidationException.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Library\Recurly.csproj">
+      <Project>{CA094233-B9A7-4700-A70A-3401E14070B9}</Project>
+      <Name>Recurly</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

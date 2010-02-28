@@ -6,12 +6,33 @@ using System.Text;
 
 namespace Recurly
 {
-    public class RecurlyTransaction : RecurlyClient
+    public class RecurlyTransaction
     {
         public string Id { get; private set; }
         public int AmountInCents { get; private set; }
         public DateTime Date { get; private set; }
-        
+        public string Message { get; private set; }
+        public string Status { get; private set; }
+        public bool Success { get; private set; }
+        public bool Voidable { get; private set; }
+        public bool Refundable { get; private set; }
+        public TransactionType Type { get; private set; }
+
+        public enum TransactionType : short
+        {
+            Unknown = 0,
+            Authorization,
+            Payment,
+            Refund
+        }
+
+        private RecurlyTransaction()
+        { }
+
+        internal RecurlyTransaction(XmlTextReader reader)
+        {
+            ReadXml(reader);
+        }
 
         private const string UrlPrefix = "/transactions/";
 
@@ -19,9 +40,9 @@ namespace Recurly
         {
             RecurlyTransaction transaction = new RecurlyTransaction();
 
-            HttpStatusCode statusCode = PerformRequest(HttpRequestMethod.Get,
+            HttpStatusCode statusCode = RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Get,
                 UrlPrefix + System.Web.HttpUtility.UrlEncode(transactionId),
-                new ReadXmlDelegate(transaction.ReadXml));
+                new RecurlyClient.ReadXmlDelegate(transaction.ReadXml));
 
             if (statusCode == HttpStatusCode.NotFound)
                 return null;
@@ -41,10 +62,30 @@ namespace Recurly
 
                 if (reader.NodeType == XmlNodeType.Element)
                 {
+                    bool boolVal;
                     switch (reader.Name)
                     {
                         case "id":
                             this.Id = reader.ReadElementContentAsString();
+                            break;
+
+                        case "action":
+                            string action = reader.ReadElementContentAsString();
+                            switch (action)
+                            {
+                                case "purchase":
+                                    this.Type = TransactionType.Payment;
+                                    break;
+                                case "credit":
+                                    this.Type = TransactionType.Refund;
+                                    break;
+                                case "authorization":
+                                    this.Type = TransactionType.Authorization;
+                                    break;
+                                default:
+                                    this.Type = TransactionType.Unknown;
+                                    break;
+                            }
                             break;
 
                         case "date":
@@ -57,6 +98,25 @@ namespace Recurly
                             int amount;
                             if (Int32.TryParse(reader.ReadElementContentAsString(), out amount))
                                 this.AmountInCents = amount;
+                            break;
+
+                        case "message":
+                            this.Message = reader.ReadElementContentAsString();
+                            break;
+
+                        case "success":
+                            if (Boolean.TryParse(reader.ReadElementContentAsString(), out boolVal))
+                                Success = boolVal;
+                            break;
+
+                        case "voidable":
+                            if (Boolean.TryParse(reader.ReadElementContentAsString(), out boolVal))
+                                Voidable = boolVal;
+                            break;
+
+                        case "refundable":
+                            if (Boolean.TryParse(reader.ReadElementContentAsString(), out boolVal))
+                                Refundable = boolVal;
                             break;
                     }
                 }

@@ -7,7 +7,7 @@ using System.Xml;
 
 namespace Recurly
 {
-    public class RecurlySubscription : RecurlyClient
+    public class RecurlySubscription
     {
         /// <summary>
         /// Account in Recurly
@@ -16,10 +16,48 @@ namespace Recurly
         public int? Quantity { get; set; }
         public string PlanCode { get; set; }
 
+        // Additional information
+        /// <summary>
+        /// Date the subscription started.
+        /// </summary>
+        public DateTime? ActivatedAt { get; private set; }
+        /// <summary>
+        /// If set, the date the subscriber canceled their subscription.
+        /// </summary>
+        public DateTime? CanceledAt { get; private set; }
+        /// <summary>
+        /// If set, the subscription will expire/terminate on this date.
+        /// </summary>
+        public DateTime? ExpiresAt { get; private set; }
+        /// <summary>
+        /// Date the current invoice period started.
+        /// </summary>
+        public DateTime? CurrentPeriodStartedAt { get; private set; }
+        /// <summary>
+        /// The subscription is paid until this date. Next invoice date.
+        /// </summary>
+        public DateTime? CurrentPeriodEndsAt { get; private set; }
+        /// <summary>
+        /// Date the trial started, if the subscription has a trial.
+        /// </summary>
+        public DateTime? TrialPeriodStartedAt { get; private set; }
+        /// <summary>
+        /// Date the trial ends, if the subscription has/had a trial.
+        /// </summary>
+        public DateTime? TrialPeriodEndsAt { get; private set; }
+
+        // TODO: Read pending subscription information
+
         public enum ChangeTimeframe
         {
             Now,
             Renewal
+        }
+
+        public enum RefundType
+        {
+            Full,
+            Partial
         }
 
         /// <summary>
@@ -52,9 +90,9 @@ namespace Recurly
         {
             RecurlySubscription sub = new RecurlySubscription(account);
 
-            HttpStatusCode statusCode = PerformRequest(HttpRequestMethod.Get,
+            HttpStatusCode statusCode = RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Get,
                 SubscriptionUrl(account.AccountCode),
-                new ReadXmlDelegate(sub.ReadXml));
+                new RecurlyClient.ReadXmlDelegate(sub.ReadXml));
 
             if (statusCode == HttpStatusCode.NotFound)
                 return null;
@@ -65,25 +103,25 @@ namespace Recurly
 
         public void Create()
         {
-            HttpStatusCode statusCode = PerformRequest(HttpRequestMethod.Post,
+            HttpStatusCode statusCode = RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Post,
                 SubscriptionUrl(this.Account.AccountCode),
-                new WriteXmlDelegate(WriteSubscriptionXml),
-                null);
-            // TODO: read subscription details
+                new RecurlyClient.WriteXmlDelegate(WriteSubscriptionXml),
+                new RecurlyClient.ReadXmlDelegate(this.ReadXml));
         }
 
         public void ChangeSubscription(ChangeTimeframe timeframe)
         {
-            WriteXmlDelegate writeXmlDelegate;
+            RecurlyClient.WriteXmlDelegate writeXmlDelegate;
 
             if (timeframe == ChangeTimeframe.Now)
-                writeXmlDelegate = new WriteXmlDelegate(WriteChangeSubscriptionNowXml);
+                writeXmlDelegate = new RecurlyClient.WriteXmlDelegate(WriteChangeSubscriptionNowXml);
             else
-                writeXmlDelegate = new WriteXmlDelegate(WriteChangeSubscriptionAtRenewalXml);
+                writeXmlDelegate = new RecurlyClient.WriteXmlDelegate(WriteChangeSubscriptionAtRenewalXml);
 
-            HttpStatusCode statusCode = PerformRequest(HttpRequestMethod.Put,
+            HttpStatusCode statusCode = RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Put,
                 SubscriptionUrl(this.Account.AccountCode),
-                writeXmlDelegate);
+                writeXmlDelegate,
+                new RecurlyClient.ReadXmlDelegate(this.ReadXml));
         }
 
         /// <summary>
@@ -93,7 +131,23 @@ namespace Recurly
         /// <param name="accountCode">Subscriber's Account Code</param>
         public static void CancelSubscription(string accountCode)
         {
-            PerformRequest(HttpRequestMethod.Delete, SubscriptionUrl(accountCode));
+            RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Delete, SubscriptionUrl(accountCode));
+        }
+
+        /// <summary>
+        /// Immediately terminate the subscription and issue a refund.  The refund can be for the full amount
+        /// or prorated until its paid-thru date.  If you need to refund a specific amount, please issue a
+        /// refund against the individual transaction instead.
+        /// </summary>
+        /// <param name="accountCode">Subscriber's Account Code</param>
+        /// <param name="refundType"></param>
+        public static void RefundSubscription(string accountCode, RefundType refundType)
+        {
+            string refundUrl = String.Format("{0}?refund={1}",
+                SubscriptionUrl(accountCode),
+                (refundType == RefundType.Full ? "full" : "partial"));
+
+            RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Delete, refundUrl);
         }
 
         #region Read and Write XML documents
@@ -108,6 +162,7 @@ namespace Recurly
 
                 if (reader.NodeType == XmlNodeType.Element)
                 {
+                    DateTime dateVal;
                     switch (reader.Name)
                     {
                         case "account":
@@ -124,6 +179,45 @@ namespace Recurly
 
                         case "unit_amount_in_cents":
                             this.UnitAmountInCents = reader.ReadElementContentAsInt();
+                            break;
+
+                        case "activated_at":
+                            if (DateTime.TryParse(reader.ReadElementContentAsString(), out dateVal))
+                                this.ActivatedAt = dateVal;
+                            break;
+
+                        case "canceled_at":
+                            if (DateTime.TryParse(reader.ReadElementContentAsString(), out dateVal))
+                                this.CanceledAt = dateVal;
+                            break;
+
+                        case "expires_at":
+                            if (DateTime.TryParse(reader.ReadElementContentAsString(), out dateVal))
+                                this.ExpiresAt = dateVal;
+                            break;
+
+                        case "current_period_started_at":
+                            if (DateTime.TryParse(reader.ReadElementContentAsString(), out dateVal))
+                                this.CurrentPeriodStartedAt = dateVal;
+                            break;
+
+                        case "current_period_ends_at":
+                            if (DateTime.TryParse(reader.ReadElementContentAsString(), out dateVal))
+                                this.CurrentPeriodEndsAt = dateVal;
+                            break;
+
+                        case "trial_period_started_at":
+                            if (DateTime.TryParse(reader.ReadElementContentAsString(), out dateVal))
+                                this.TrialPeriodStartedAt = dateVal;
+                            break;
+
+                        case "trial_period_ends_at":
+                            if (DateTime.TryParse(reader.ReadElementContentAsString(), out dateVal))
+                                this.TrialPeriodEndsAt = dateVal;
+                            break;
+
+                        case "pending_subscription":
+                            // TODO: Parse pending subscription
                             break;
                     }
                 }

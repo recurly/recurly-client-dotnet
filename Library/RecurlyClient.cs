@@ -8,24 +8,24 @@ using System.Xml;
 namespace Recurly
 {
     /// <summary>
-    /// Base class for the Recurly client library.
+    /// Class for the Recurly client library.
     /// </summary>
-    public class RecurlyClient
+    internal class RecurlyClient
     {
-        private const string ServerUrl = "https://app.recurly.com";
+        private const string ServerUrl = "https://{0}.recurly.com";
 
         /// <summary>
         /// Recurly API Username
         /// </summary>
-        public static string ApiUsername { get; set; }
+        public static string ApiUsername { get { return Configuration.RecurlySection.Current.Username; } }
         /// <summary>
         /// Recurly API Password
         /// </summary>
-        public static string ApiPassword { get; set; }
+        public static string ApiPassword { get { return Configuration.RecurlySection.Current.Password; } }
         /// <summary>
         /// Recurly Site Subdomain
         /// </summary>
-        public static string ApiSubdomain { get; set; }
+        public static string ApiSubdomain { get { return Configuration.RecurlySection.Current.Subdomain; } }
 
         #region Header Helper Methods
 
@@ -56,6 +56,8 @@ namespace Recurly
             {
                 if (_authorizationHeaderValue == null)
                 {
+                    Configuration.RecurlySection apiSection = Configuration.RecurlySection.Current;
+
                     if (!String.IsNullOrEmpty(ApiUsername) && !String.IsNullOrEmpty(ApiPassword))
                         _authorizationHeaderValue = "Basic " +
                             Convert.ToBase64String(Encoding.UTF8.GetBytes(ApiUsername + ":" + ApiPassword));
@@ -67,7 +69,7 @@ namespace Recurly
 
         #endregion
 
-        protected enum HttpRequestMethod
+        public enum HttpRequestMethod
         {
             /// <summary>
             /// Lookup information about an object
@@ -91,36 +93,36 @@ namespace Recurly
         /// Delegate to read the XML response from the server.
         /// </summary>
         /// <param name="xmlReader"></param>
-        protected delegate void ReadXmlDelegate(XmlTextReader xmlReader);
+        public delegate void ReadXmlDelegate(XmlTextReader xmlReader);
 
         /// <summary>
         /// Delegate to write the XML request to the server.
         /// </summary>
         /// <param name="xmlWriter"></param>
-        protected delegate void WriteXmlDelegate(XmlTextWriter xmlWriter);
+        public delegate void WriteXmlDelegate(XmlTextWriter xmlWriter);
 
 
-        protected static HttpStatusCode PerformRequest(HttpRequestMethod method, string urlPath)
+        public static HttpStatusCode PerformRequest(HttpRequestMethod method, string urlPath)
         {
             return PerformRequest(method, urlPath, null, null);
         }
 
-        protected static HttpStatusCode PerformRequest(HttpRequestMethod method, string urlPath,
+        public static HttpStatusCode PerformRequest(HttpRequestMethod method, string urlPath,
             ReadXmlDelegate readXmlDelegate)
         {
             return PerformRequest(method, urlPath, null, readXmlDelegate);
         }
 
-        protected static HttpStatusCode PerformRequest(HttpRequestMethod method, string urlPath,
+        public static HttpStatusCode PerformRequest(HttpRequestMethod method, string urlPath,
             WriteXmlDelegate writeXmlDelegate)
         {
             return PerformRequest(method, urlPath, writeXmlDelegate, null);
         }
 
-        protected static HttpStatusCode PerformRequest(HttpRequestMethod method, string urlPath,
+        public static HttpStatusCode PerformRequest(HttpRequestMethod method, string urlPath,
             WriteXmlDelegate writeXmlDelegate, ReadXmlDelegate readXmlDelegate)
         {
-            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(ServerUrl + urlPath);
+            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(String.Format(ServerUrl, ApiSubdomain) + urlPath);
             request.Accept = "application/xml";      // Tells the server to return XML instead of HTML
             request.ContentType = "application/xml"; // The request is an XML document
             request.SendChunked = false;             // Send it all as one request

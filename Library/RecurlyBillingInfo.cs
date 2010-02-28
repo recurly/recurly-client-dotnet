@@ -6,7 +6,7 @@ using System.Xml;
 
 namespace Recurly
 {
-    public class RecurlyBillingInfo : RecurlyClient
+    public class RecurlyBillingInfo
     {
         /// <summary>
         /// Account Code or unique ID for the account in Recurly
@@ -51,8 +51,9 @@ namespace Recurly
         {
             RecurlyBillingInfo billingInfo = new RecurlyBillingInfo();
 
-            HttpStatusCode statusCode = PerformRequest(HttpRequestMethod.Get, 
-                BillingInfoUrl(accountCode), new ReadXmlDelegate(billingInfo.ReadXml));
+            HttpStatusCode statusCode = RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Get,
+                BillingInfoUrl(accountCode), 
+                new RecurlyClient.ReadXmlDelegate(billingInfo.ReadXml));
 
             if (statusCode == HttpStatusCode.NotFound)
                 return null;
@@ -73,7 +74,9 @@ namespace Recurly
         /// </summary>
         public void Update()
         {
-            PerformRequest(HttpRequestMethod.Put, BillingInfoUrl(this.AccountCode), new WriteXmlDelegate(this.WriteXml));
+            RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Put, 
+                BillingInfoUrl(this.AccountCode), 
+                new RecurlyClient.WriteXmlDelegate(this.WriteXml));
         }
 
         /// <summary>
@@ -81,7 +84,8 @@ namespace Recurly
         /// </summary>
         public void ClearBillingInfo()
         {
-            PerformRequest(HttpRequestMethod.Delete, BillingInfoUrl(this.AccountCode));
+            RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Delete, 
+                BillingInfoUrl(this.AccountCode));
         }
 
         private static string BillingInfoUrl(string accountCode)

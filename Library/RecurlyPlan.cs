@@ -6,7 +6,7 @@ using System.Xml;
 
 namespace Recurly
 {
-    public class RecurlyPlan : RecurlyClient
+    public class RecurlyPlan
     {
         public string PlanCode { get; private set; }
         public string Name { get; private set; }
@@ -28,9 +28,9 @@ namespace Recurly
         {
             RecurlyPlan plan = new RecurlyPlan();
 
-            HttpStatusCode statusCode = PerformRequest(HttpRequestMethod.Get,
+            HttpStatusCode statusCode = RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Get,
                 UrlPrefix + System.Web.HttpUtility.UrlEncode(planCode),
-                new ReadXmlDelegate(plan.ReadXml));
+                new RecurlyClient.ReadXmlDelegate(plan.ReadXml));
 
             if (statusCode == HttpStatusCode.NotFound)
                 return null;

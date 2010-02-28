@@ -6,22 +6,40 @@ using System.Text;
 
 namespace Recurly
 {
-    public class RecurlyInvoice : RecurlyClient
+    public class RecurlyInvoice
     {
         public string Id { get; private set; }
         public string AccountCode { get; private set; }
         public DateTime Date { get; private set; }
         public int Number { get; private set; }
+        public RecurlyLineItemList LineItems { get; private set; }
+        public RecurlyTransactionList Payments { get; private set; }
 
         private const string UrlPrefix = "/invoices/";
 
+        internal RecurlyInvoice()
+        {
+            LineItems = new RecurlyLineItemList();
+            Payments = new RecurlyTransactionList();
+        }
+
+        internal RecurlyInvoice(XmlTextReader reader) : this()
+        {
+            ReadXml(reader);
+        }
+
+        /// <summary>
+        /// Look up an Invoice.
+        /// </summary>
+        /// <param name="invoiceId">Invoice ID</param>
+        /// <returns></returns>
         public static RecurlyInvoice Get(string invoiceId)
         {
             RecurlyInvoice invoice = new RecurlyInvoice();
 
-            HttpStatusCode statusCode = PerformRequest(HttpRequestMethod.Get,
+            HttpStatusCode statusCode = RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Get,
                 UrlPrefix + System.Web.HttpUtility.UrlEncode(invoiceId),
-                new ReadXmlDelegate(invoice.ReadXml));
+                new RecurlyClient.ReadXmlDelegate(invoice.ReadXml));
 
             if (statusCode == HttpStatusCode.NotFound)
                 return null;
@@ -63,12 +81,12 @@ namespace Recurly
                                 this.Number = invNumber;
                             break;
 
-                        //TODO: Read line items
                         case "line_items":
+                            LineItems.ReadXml(reader);
                             break;
 
-                        //TODO: Read transactions
                         case "payments":
+                            Payments.ReadXml(reader);
                             break;
                     }
                 }
