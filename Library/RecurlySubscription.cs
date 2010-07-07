@@ -226,12 +226,12 @@ namespace Recurly
 
                         case "trial_period_started_at":
                             if (DateTime.TryParse(reader.ReadElementContentAsString(), out dateVal))
-                                this.trialPeriodEndsAt = dateVal;
+                                this.TrialPeriodStartedAt = dateVal;
                             break;
 
                         case "trial_period_ends_at":
                             if (DateTime.TryParse(reader.ReadElementContentAsString(), out dateVal))
-                                this.TrialPeriodEndsAt = dateVal;
+                                this.trialPeriodEndsAt = dateVal;
                             break;
 
                         case "pending_subscription":
