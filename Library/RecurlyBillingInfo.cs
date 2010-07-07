@@ -24,6 +24,11 @@ namespace Recurly
         public string PhoneNumber { get; set; }
         public RecurlyCreditCard CreditCard { get; private set; }
 
+        /// <summary>
+        /// VAT Numbers
+        /// </summary>
+        public string VatNumber { get; set; }
+
         private const string UrlPrefix = "/accounts/";
         private const string UrlPostfix = "/billing_info";
 
@@ -149,6 +154,10 @@ namespace Recurly
                             this.PhoneNumber = reader.ReadElementContentAsString();
                             break;
 
+                        case "vat_number":
+                            this.VatNumber = reader.ReadElementContentAsString();
+                            break;
+
                         case "credit_card":
                             this.CreditCard = new RecurlyCreditCard();
                             this.CreditCard.ReadXml(reader);
@@ -174,6 +183,9 @@ namespace Recurly
 
             if (!String.IsNullOrEmpty(this.IpAddress))
                 xmlWriter.WriteElementString("ip_address", this.IpAddress);
+
+            if (!String.IsNullOrEmpty(this.VatNumber))
+                xmlWriter.WriteElementString("vat_number", this.VatNumber);
 
             if (this.CreditCard != null)
                 this.CreditCard.WriteXml(xmlWriter);

@@ -41,10 +41,28 @@ namespace Recurly
         /// Date the trial started, if the subscription has a trial.
         /// </summary>
         public DateTime? TrialPeriodStartedAt { get; private set; }
+
         /// <summary>
         /// Date the trial ends, if the subscription has/had a trial.
+        /// 
+        /// This may optionally be set on new subscriptions to specify an exact time for the 
+        /// subscription to commence.  The subscription will be active and in "trial" until
+        /// this date.
         /// </summary>
-        public DateTime? TrialPeriodEndsAt { get; private set; }
+        public DateTime? TrialPeriodEndsAt
+        {
+            get { return this.trialPeriodEndsAt; }
+            set
+            {
+                if (this.ActivatedAt.HasValue)
+                    throw new InvalidOperationException("Cannot set TrialPeriodEndsAt on existing subscriptions.");
+                if (value.HasValue && (value < DateTime.UtcNow))
+                    throw new ArgumentException("TrialPeriodEndsAt must occur in the future.");
+
+                this.trialPeriodEndsAt = value;
+            }
+        }
+        private DateTime? trialPeriodEndsAt;
 
         // TODO: Read pending subscription information
 
@@ -208,7 +226,7 @@ namespace Recurly
 
                         case "trial_period_started_at":
                             if (DateTime.TryParse(reader.ReadElementContentAsString(), out dateVal))
-                                this.TrialPeriodStartedAt = dateVal;
+                                this.trialPeriodEndsAt = dateVal;
                             break;
 
                         case "trial_period_ends_at":
@@ -235,6 +253,9 @@ namespace Recurly
 
             if (this.UnitAmountInCents.HasValue)
                 xmlWriter.WriteElementString("unit_amount_in_cents", this.UnitAmountInCents.Value.ToString());
+
+            if (this.TrialPeriodEndsAt.HasValue)
+                xmlWriter.WriteElementString("trial_ends_at", this.TrialPeriodEndsAt.Value.ToString("s"));
 
             this.Account.WriteXml(xmlWriter);
 

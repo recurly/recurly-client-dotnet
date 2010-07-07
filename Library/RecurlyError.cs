@@ -9,6 +9,7 @@ namespace Recurly
 {
     /// <summary>
     /// An individual error message.
+    /// For more information, please visit http://docs.recurly.com/api/errors
     /// </summary>
     public class RecurlyError
     {
@@ -20,6 +21,10 @@ namespace Recurly
         /// Field causing the error, if appropriate.
         /// </summary>
         public string Field { get; internal set; }
+        /// <summary>
+        /// Error code set for certain transaction failures.
+        /// </summary>
+        public string Code { get; internal set; }
 
         internal RecurlyError(XmlTextReader reader)
         {
@@ -28,6 +33,12 @@ namespace Recurly
                 try
                 {
                     this.Field = reader.GetAttribute("field");
+                }
+                catch (ArgumentOutOfRangeException)
+                { }
+                try
+                {
+                    this.Code = reader.GetAttribute("code");
                 }
                 catch (ArgumentOutOfRangeException)
                 { }
@@ -40,6 +51,8 @@ namespace Recurly
         {
             if (!String.IsNullOrEmpty(this.Field))
                 return String.Format("{0} (Field: {1})", this.Message, this.Field);
+            else if (!String.IsNullOrEmpty(this.Code))
+                return String.Format("{0} (Code: {1})", this.Message, this.Code);
             else
                 return this.Message;
         }
