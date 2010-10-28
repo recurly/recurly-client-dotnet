@@ -22,7 +22,7 @@ namespace Recurly
             Months
         }
 
-        private const string UrlPrefix = "/plans/";
+        private const string UrlPrefix = "/company/plans/";
 
         public static RecurlyPlan Get(string planCode)
         {
