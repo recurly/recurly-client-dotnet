@@ -34,7 +34,7 @@ namespace Recurly
                     switch (reader.Name)
                     {
                         case "year":
-                            this.ExpirationYear = reader.ReadContentAsInt();
+                            this.ExpirationYear = reader.ReadElementContentAsInt();
                             break;
 
                         case "month":
