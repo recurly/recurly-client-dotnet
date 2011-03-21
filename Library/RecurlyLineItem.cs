@@ -13,6 +13,7 @@ namespace Recurly
     {
         public string Id { get; protected set; }
         public int AmountInCents { get; protected set; }
+        public int Quantity { get; protected set; }
         public DateTime StartDate { get; protected set; }
         public DateTime? EndDate { get; protected set; }
         public string Description { get; protected set; }
@@ -21,6 +22,7 @@ namespace Recurly
 
         internal RecurlyLineItem()
         {
+            this.Quantity = 1;
         }
 
         internal RecurlyLineItem(XmlTextReader xmlReader)
@@ -65,6 +67,12 @@ namespace Recurly
                             if (Int32.TryParse(reader.ReadElementContentAsString(), out amount))
                                 this.AmountInCents = amount;
                             break;
+
+                        case "quantity":
+                            int quantity;
+                            if (Int32.TryParse(reader.ReadElementContentAsString(), out quantity))
+                                this.Quantity = quantity;
+                            break;
                     }
                 }
             }
@@ -81,6 +89,7 @@ namespace Recurly
 
             xmlWriter.WriteElementString("amount_in_cents", this.AmountInCents.ToString());
             xmlWriter.WriteElementString("description", this.Description);
+            xmlWriter.WriteElementString("quantity", this.Quantity.ToString());
 
             xmlWriter.WriteEndElement(); // End: charge
         }

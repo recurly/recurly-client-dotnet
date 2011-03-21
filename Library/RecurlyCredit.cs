@@ -25,8 +25,14 @@ namespace Recurly
 
         public static RecurlyCredit CreditAccount(string accountCode, int amountInCents, string description)
         {
+            return CreditAccount(accountCode, amountInCents, 1, description);
+        }
+
+        public static RecurlyCredit CreditAccount(string accountCode, int amountInCents, int quantity, string description)
+        {
             RecurlyCredit credit = new RecurlyCredit();
             credit.AmountInCents = amountInCents;
+            credit.Quantity = quantity;
             credit.StartDate = DateTime.UtcNow;
             credit.Description = description;
 

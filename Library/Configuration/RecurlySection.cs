@@ -39,6 +39,17 @@ namespace Recurly.Configuration
         }
 
         /// <summary>
+        /// API Private Key for Transparent Post API
+        /// </summary>
+        [ConfigurationProperty("private_key", IsRequired=false)]
+        //[StringValidator(MinLength=32, MaxLength=32)]
+        public string PrivateKey
+        {
+            get { return (string)base["private_key"]; }
+            set { base["private_key"] = value; }
+        }
+
+        /// <summary>
         /// Recurly Subdomain
         /// </summary>
         [ConfigurationProperty("subdomain", IsRequired=true)]
@@ -46,6 +57,35 @@ namespace Recurly.Configuration
         {
             get { return (string)base["subdomain"]; }
             set { base["subdomain"] = value; }
+        }
+
+        /// <summary>
+        /// Recurly account type
+        /// </summary>
+        public enum EnvironmentType
+        {
+            /// <summary>
+            /// Production Recurly account for live transactions
+            /// </summary>
+            Production,
+            /// <summary>
+            /// Sandbox Recurly account for test transctions
+            /// </summary>
+            Sandbox,
+            /// <summary>
+            /// Local development by Recurly developers
+            /// </summary>
+            Development
+        }
+
+        /// <summary>
+        /// Recurly environment. Use "Production" for live transactions and "Sandbox" for testing transactions.
+        /// </summary>
+        [ConfigurationProperty("environment", DefaultValue=EnvironmentType.Production, IsRequired=false)]
+        public EnvironmentType Environment
+        {
+            get { return (EnvironmentType)base["environment"]; }
+            set { base["environment"] = value; }
         }
 
         #endregion

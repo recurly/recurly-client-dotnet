@@ -17,8 +17,17 @@ namespace Recurly
         public string Address1 { get; set; }
         public string Address2 { get; set; }
         public string City { get; set; }
+        /// <summary>
+        /// 2-letter state or province preferred
+        /// </summary>
         public string State { get; set; }
+        /// <summary>
+        /// Zip code or Postal code
+        /// </summary>
         public string PostalCode { get; set; }
+        /// <summary>
+        /// 2-letter ISO country code
+        /// </summary>
         public string Country { get; set; }
         public string IpAddress { get; set; }
         public string PhoneNumber { get; set; }
@@ -183,6 +192,8 @@ namespace Recurly
 
             if (!String.IsNullOrEmpty(this.IpAddress))
                 xmlWriter.WriteElementString("ip_address", this.IpAddress);
+            else
+                System.Diagnostics.Debug.WriteLine("Recurly Client Library: Recording IP Address is strongly recommended.");
 
             if (!String.IsNullOrEmpty(this.VatNumber))
                 xmlWriter.WriteElementString("vat_number", this.VatNumber);

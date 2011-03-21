@@ -12,7 +12,9 @@ namespace Recurly
     /// </summary>
     internal class RecurlyClient
     {
-        private const string ServerUrl = "https://{0}.recurly.com";
+        private const string ProductionServerUrl = "https://api-production.recurly.com";
+        private const string SandboxServerUrl = "https://api-sandbox.recurly.com";
+        private const string DevelopmentServerUrl = "http://app.recurly.local:3000";
 
         /// <summary>
         /// Recurly API Username
@@ -26,6 +28,14 @@ namespace Recurly
         /// Recurly Site Subdomain
         /// </summary>
         public static string ApiSubdomain { get { return Configuration.RecurlySection.Current.Subdomain; } }
+        /// <summary>
+        /// Recurly Private Key for Transparent Post API
+        /// </summary>
+        public static string PrivateKey { get { return Configuration.RecurlySection.Current.PrivateKey; } }
+        /// <summary>
+        /// Recurly Environment: Production or Sandbox
+        /// </summary>
+        public static Configuration.RecurlySection.EnvironmentType Environment { get { return Configuration.RecurlySection.Current.Environment; } }
 
         #region Header Helper Methods
 
@@ -122,7 +132,7 @@ namespace Recurly
         public static HttpStatusCode PerformRequest(HttpRequestMethod method, string urlPath,
             WriteXmlDelegate writeXmlDelegate, ReadXmlDelegate readXmlDelegate)
         {
-            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(String.Format(ServerUrl, ApiSubdomain) + urlPath);
+            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(ServerUrl(Environment) + urlPath);
             request.Accept = "application/xml";      // Tells the server to return XML instead of HTML
             request.ContentType = "application/xml"; // The request is an XML document
             request.SendChunked = false;             // Send it all as one request
@@ -135,6 +145,9 @@ namespace Recurly
 
             if ((method == HttpRequestMethod.Post || method == HttpRequestMethod.Put) && (writeXmlDelegate != null))
             {
+                // 60 second timeout -- some payment gateways (e.g. PayPal) can take a while to respond
+                request.Timeout = 60000;
+
                 // Write POST/PUT body
                 using (Stream requestStream = request.GetRequestStream())
                     WritePostParameters(requestStream, writeXmlDelegate);
@@ -196,6 +209,21 @@ namespace Recurly
                 }
 
                 throw;
+            }
+        }
+
+        internal static string ServerUrl(Configuration.RecurlySection.EnvironmentType environment)
+        {
+            switch (environment)
+            {
+                case Configuration.RecurlySection.EnvironmentType.Production:
+                    return ProductionServerUrl;
+                case Configuration.RecurlySection.EnvironmentType.Sandbox:
+                    return SandboxServerUrl;
+                case Configuration.RecurlySection.EnvironmentType.Development:
+                    return DevelopmentServerUrl;
+                default:
+                    throw new ApplicationException("Unknown Recurly Environment.");
             }
         }
 

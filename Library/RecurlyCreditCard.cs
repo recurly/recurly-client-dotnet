@@ -18,6 +18,19 @@ namespace Recurly
         public int ExpirationMonth { get; set; }
         public int ExpirationYear { get; set; }
 
+        /// <summary>
+        /// Credit card's start date (month). Only used for Switch cards.
+        /// </summary>
+        public int? StartMonth { get; set; }
+        /// <summary>
+        /// Credit card's start date (year). Only used for Switch cards.
+        /// </summary>
+        public int? StartYear { get; set; }
+        /// <summary>
+        /// Credit card's issue number. Only used for Switch cards.
+        /// </summary>
+        public int? IssueNumber { get; set; }
+
         public string LastFour { get; private set; }
         public string CreditCardType { get; private set; }
 
@@ -61,6 +74,15 @@ namespace Recurly
             xmlWriter.WriteElementString("verification_value", this.VerificationValue);
             xmlWriter.WriteElementString("month", this.ExpirationMonth.ToString());
             xmlWriter.WriteElementString("year", this.ExpirationYear.ToString());
+
+            if (this.StartMonth.HasValue && this.StartYear.HasValue)
+            {
+                xmlWriter.WriteElementString("start_month", this.StartMonth.ToString());
+                xmlWriter.WriteElementString("start_year", this.StartYear.ToString());
+            }
+
+            if (this.IssueNumber.HasValue)
+                xmlWriter.WriteElementString("issue_number", this.IssueNumber.ToString());
 
             xmlWriter.WriteEndElement(); // End: credit_card
         }

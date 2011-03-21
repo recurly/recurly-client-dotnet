@@ -21,6 +21,8 @@ namespace Recurly
         public string LastName { get; set; }
         public string CompanyName { get; set; }
         public RecurlyBillingInfo BillingInfo { get; set; }
+        public string AcceptLanguage { get; set; }
+        public string HostedLoginToken { get; private set; }
 
         internal const string UrlPrefix = "/accounts/";
 
@@ -132,6 +134,10 @@ namespace Recurly
                         case "company_name":
                             this.CompanyName = reader.ReadElementContentAsString();
                             break;
+
+                        case "accept_language":
+                            this.AcceptLanguage = reader.ReadElementContentAsString();
+                            break;
                     }
                 }
             }
@@ -147,6 +153,7 @@ namespace Recurly
             xmlWriter.WriteElementString("first_name", this.FirstName);
             xmlWriter.WriteElementString("last_name", this.LastName);
             xmlWriter.WriteElementString("company_name", this.CompanyName);
+            xmlWriter.WriteElementString("accept_language", this.AcceptLanguage);
 
             if (this.BillingInfo != null)
                 this.BillingInfo.WriteXml(xmlWriter);
