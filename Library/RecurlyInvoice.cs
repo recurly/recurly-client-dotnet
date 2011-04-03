@@ -47,6 +47,26 @@ namespace Recurly
             return invoice;
         }
 
+        /// <summary>
+        /// Create an Invoice if there are outstanding charges on an account. If there are no outstanding
+        /// charges, null is returned.
+        /// </summary>
+        /// <param name="accountCode">Account code</param>
+        /// <returns></returns>
+        public static RecurlyInvoice Create(string accountCode)
+        {
+            RecurlyInvoice invoice = new RecurlyInvoice();
+
+            HttpStatusCode statusCode = RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Post,
+                UrlPrefix + System.Web.HttpUtility.UrlEncode(accountCode),
+                new RecurlyClient.ReadXmlDelegate(invoice.ReadXml));
+
+            if ((int)statusCode == ValidationException.HttpStatusCode)
+                return null;
+
+            return invoice;
+        }
+
         #region Read and Write XML documents
 
         internal void ReadXml(XmlTextReader reader)

@@ -15,6 +15,7 @@ namespace Recurly
         public RecurlyAccount Account { get; private set; }
         public int? Quantity { get; set; }
         public string PlanCode { get; set; }
+        public string CouponCode { get; set; }
 
         // Additional information
         /// <summary>
@@ -75,7 +76,8 @@ namespace Recurly
         public enum RefundType
         {
             Full,
-            Partial
+            Partial,
+            None
         }
 
         /// <summary>
@@ -161,11 +163,22 @@ namespace Recurly
         /// <param name="refundType"></param>
         public static void RefundSubscription(string accountCode, RefundType refundType)
         {
+            string refundTypeParameter = refundType.ToString().ToLower();
+
             string refundUrl = String.Format("{0}?refund={1}",
                 SubscriptionUrl(accountCode),
-                (refundType == RefundType.Full ? "full" : "partial"));
+                refundTypeParameter);
 
             RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Delete, refundUrl);
+        }
+
+        /// <summary>
+        /// Terminate the subscription immediately and do not issue a refund.
+        /// </summary>
+        /// <param name="accountCode"></param>
+        public static void TerminateSubscription(string accountCode)
+        {
+            RefundSubscription(accountCode, RefundType.None);
         }
 
         #region Read and Write XML documents
@@ -247,6 +260,9 @@ namespace Recurly
             xmlWriter.WriteStartElement("subscription"); // Start: subscription
 
             xmlWriter.WriteElementString("plan_code", this.PlanCode);
+
+            if (!String.IsNullOrEmpty(this.CouponCode))
+                xmlWriter.WriteElementString("coupon_code", this.CouponCode);
 
             if (this.Quantity.HasValue)
                 xmlWriter.WriteElementString("quantity", this.Quantity.Value.ToString());

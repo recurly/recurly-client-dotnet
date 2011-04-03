@@ -97,6 +97,25 @@ namespace Recurly
             RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Delete, UrlPrefix + System.Web.HttpUtility.UrlEncode(accountCode));
         }
 
+        /// <summary>
+        /// Lookup the active coupon for this account.
+        /// </summary>
+        /// <returns></returns>
+        public RecurlyAccountCoupon GetActiveCoupon()
+        {
+            return RecurlyAccountCoupon.Get(this.AccountCode);
+        }
+
+        /// <summary>
+        /// Redeem a coupon on the account.
+        /// </summary>
+        /// <param name="couponCode"></param>
+        /// <returns></returns>
+        public RecurlyAccountCoupon RedeemCoupon(string couponCode)
+        {
+            return RecurlyAccountCoupon.Redeem(this.AccountCode, couponCode);
+        }
+
         #region Read and Write XML documents
 
         internal void ReadXml(XmlTextReader reader)
