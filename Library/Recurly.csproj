@@ -41,6 +41,7 @@
     <Compile Include="InvalidCredentialsException.cs" />
     <Compile Include="NotFoundException.cs" />
     <Compile Include="RecurlyAccount.cs" />
+    <Compile Include="RecurlyAccountCoupon.cs" />
     <Compile Include="RecurlyBillingInfo.cs" />
     <Compile Include="RecurlyCharge.cs" />
     <Compile Include="RecurlyInvoiceList.cs" />
