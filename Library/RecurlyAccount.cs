@@ -157,6 +157,10 @@ namespace Recurly
                         case "accept_language":
                             this.AcceptLanguage = reader.ReadElementContentAsString();
                             break;
+
+                        case "hosted_login_token":
+                            this.HostedLoginToken = reader.ReadElementContentAsString();
+                            break;
                     }
                 }
             }
