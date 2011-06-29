@@ -159,7 +159,7 @@ namespace Recurly
                             this.IpAddress = reader.ReadElementContentAsString();
                             break;
 
-                        case "phone_number":
+                        case "phone":
                             this.PhoneNumber = reader.ReadElementContentAsString();
                             break;
 
@@ -189,6 +189,8 @@ namespace Recurly
             xmlWriter.WriteElementString("state", this.State);
             xmlWriter.WriteElementString("zip", this.PostalCode);
             xmlWriter.WriteElementString("country", this.Country);
+            xmlWriter.WriteElementString("phone", this.PhoneNumber);
+
 
             if (!String.IsNullOrEmpty(this.IpAddress))
                 xmlWriter.WriteElementString("ip_address", this.IpAddress);

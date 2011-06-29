@@ -13,12 +13,12 @@ namespace Recurly
 
         private const string UrlPostfix = "/invoices";
 
-        public static RecurlyInvoice[] GetInvoices(string accountCode)
+        public static RecurlyInvoice[] GetInvoices(string accountCode, int pageNumber = 1)
         {
             RecurlyInvoiceList invoiceList = new RecurlyInvoiceList();
 
             HttpStatusCode statusCode = RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Get,
-                AccountInvoicesUrl(accountCode),
+                AccountInvoicesUrl(accountCode, pageNumber),
                 new RecurlyClient.ReadXmlDelegate(invoiceList.ReadXml));
 
             if (statusCode == HttpStatusCode.NotFound)
@@ -27,9 +27,9 @@ namespace Recurly
             return invoiceList.ToArray();
         }
 
-        private static string AccountInvoicesUrl(string accountCode)
+        private static string AccountInvoicesUrl(string accountCode, int pageNumber)
         {
-            return RecurlyAccount.UrlPrefix + System.Web.HttpUtility.UrlEncode(accountCode) + UrlPostfix;
+            return RecurlyAccount.UrlPrefix + System.Web.HttpUtility.UrlEncode(accountCode) + UrlPostfix + "?page=" + pageNumber;
         }
 
         internal void ReadXml(XmlTextReader reader)

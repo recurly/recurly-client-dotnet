@@ -16,6 +16,7 @@ namespace Recurly
         public int? Quantity { get; set; }
         public string PlanCode { get; set; }
         public string CouponCode { get; set; }
+        public string State { get; private set; }
 
         // Additional information
         /// <summary>
@@ -202,6 +203,10 @@ namespace Recurly
 
                         case "plan_code":
                             this.PlanCode = reader.ReadElementContentAsString();
+                            break;
+
+                        case "state":
+                            this.State = reader.ReadElementContentAsString();
                             break;
 
                         case "quantity":

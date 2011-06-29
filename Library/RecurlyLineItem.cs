@@ -73,6 +73,10 @@ namespace Recurly
                             if (Int32.TryParse(reader.ReadElementContentAsString(), out quantity))
                                 this.Quantity = quantity;
                             break;
+
+                        case "description":
+                            this.Description = reader.ReadElementContentAsString();
+                            break;
                     }
                 }
             }
