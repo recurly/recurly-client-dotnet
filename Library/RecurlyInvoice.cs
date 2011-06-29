@@ -58,7 +58,7 @@ namespace Recurly
             RecurlyInvoice invoice = new RecurlyInvoice();
 
             HttpStatusCode statusCode = RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Post,
-                UrlPrefix + System.Web.HttpUtility.UrlEncode(accountCode),
+                "/accounts/" + System.Web.HttpUtility.UrlEncode(accountCode) + UrlPrefix,
                 new RecurlyClient.ReadXmlDelegate(invoice.ReadXml));
 
             if ((int)statusCode == ValidationException.HttpStatusCode)
