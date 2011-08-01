@@ -41,4 +41,4 @@ Your API username, password, and site subdomain can be specified in your **web.c
 
 ## API Documentation ##
 
-Please see the [Recurly API](http://support.recurly.com/faqs/api/) for more information.
+Please see the [Recurly API](http://docs.recurly.com/api/basics/) for more information.
