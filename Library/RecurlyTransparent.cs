@@ -27,7 +27,7 @@ namespace Recurly
 
         private const string SubscribeUrlFormat = "/transparent/{0}/subscription";
         private const string TransactionUrlFormat = "/transparent/{0}/transaction";
-        private const string UpdateBillingUrlFormat = "/transparent/{0}/update_billing";
+        private const string UpdateBillingUrlFormat = "/transparent/{0}/billing_info";
 
         private const string ResultsUrlPrefix = "/transparent/results/";
 
@@ -80,7 +80,7 @@ namespace Recurly
 
         private string EncodedData()
         {
-            string dataToProtect = String.Format("redirect_url={0}&account[account_code]={1}",
+            string dataToProtect = String.Format("redirect_url={0}&account%5Baccount_code%5D={1}",
                 System.Web.HttpUtility.UrlEncode(this.RedirectUrl),
                 System.Web.HttpUtility.UrlEncode(this.AccountCode));
 
