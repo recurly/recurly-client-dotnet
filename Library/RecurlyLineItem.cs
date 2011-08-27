@@ -39,7 +39,7 @@ namespace Recurly
             while (reader.Read())
             {
                 // End of account element, get out of here
-                if ((reader.Name == "charge" || reader.Name == "credit" || reader.Name == "line_item") && 
+                if ((reader.Name == "start_date" || reader.Name == "end_date" || reader.Name == "amount_in_cents"|| reader.Name == "description") && 
                     reader.NodeType == XmlNodeType.EndElement)
                     break;
 
