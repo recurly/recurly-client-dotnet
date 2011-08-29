@@ -140,7 +140,7 @@ namespace Recurly
             request.Headers.Add(HttpRequestHeader.Authorization, AuthorizationHeaderValue);
             request.Method = method.ToString().ToUpper();
 
-            System.Diagnostics.Debug.WriteLine(String.Format("Recurly: Requesting {0} {1}", 
+            System.Diagnostics.Debug.WriteLine(String.Format("Recurly: Requesting {0} {1}",
                 request.Method, request.RequestUri.ToString()));
 
             if ((method == HttpRequestMethod.Post || method == HttpRequestMethod.Put) && (writeXmlDelegate != null))
@@ -152,11 +152,11 @@ namespace Recurly
                 using (Stream requestStream = request.GetRequestStream())
                     WritePostParameters(requestStream, writeXmlDelegate);
             }
-
+            HttpWebResponse myresponse = null;
             try
             {
-                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-                return ReadWebResponse(response, readXmlDelegate);
+                myresponse = (HttpWebResponse)request.GetResponse();
+                return ReadWebResponse(myresponse, readXmlDelegate);
             }
             catch (WebException ex)
             {
@@ -166,7 +166,7 @@ namespace Recurly
                     HttpStatusCode statusCode = response.StatusCode;
                     RecurlyError[] errors;
 
-                    System.Diagnostics.Debug.WriteLine(String.Format("Recurly Library Received: {0} - {1}", 
+                    System.Diagnostics.Debug.WriteLine(String.Format("Recurly Library Received: {0} - {1}",
                         (int)statusCode, statusCode.ToString()));
 
                     switch (response.StatusCode)
@@ -209,6 +209,12 @@ namespace Recurly
                 }
 
                 throw;
+            }
+            finally
+            {
+                //close response
+                if (myresponse != null)
+                    myresponse.Close();
             }
         }
 
