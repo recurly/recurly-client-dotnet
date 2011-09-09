@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Recurly
 {
-    public class RecurlyInvoice
+    public class RecurlyInvoice : RecurlyLineItem
     {
         public string Id { get; private set; }
         public string AccountCode { get; private set; }
@@ -140,6 +140,10 @@ namespace Recurly
             return this.Id.GetHashCode();
         }
 
+        protected override string XmlRootNodeName
+        {
+            get { return "invoice"; }
+        }
         #endregion
     }
 }
