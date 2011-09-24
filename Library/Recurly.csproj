@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -12,6 +12,10 @@
     <AssemblyName>Recurly</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -38,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ForgedQueryStringException.cs" />
     <Compile Include="InvalidCredentialsException.cs" />
     <Compile Include="NotFoundException.cs" />
     <Compile Include="RecurlyAccount.cs" />
@@ -60,6 +65,7 @@
     <Compile Include="RecurlySubscription.cs" />
     <Compile Include="RecurlyTransaction.cs" />
     <Compile Include="RecurlyTransactionList.cs" />
+    <Compile Include="RecurlyVerification.cs" />
     <Compile Include="TemporarilyUnavailableException.cs" />
     <Compile Include="ValidationException.cs" />
   </ItemGroup>
