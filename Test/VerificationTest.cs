@@ -21,12 +21,14 @@ namespace Recurly.Test
             // Act
             var data1 = RecurlyVerification.DigestData(null);
             var data2 = RecurlyVerification.DigestData(new {});
-            var data3 = RecurlyVerification.DigestData(new Dictionary<string, object>());
+            var data3 = RecurlyVerification.DigestData(new {});
+            var data4 = RecurlyVerification.DigestData(new Dictionary<string, object>());
 
             // Assert
             Assert.That(data1, Is.EqualTo("[]"));
             Assert.That(data2, Is.EqualTo("[]"));
             Assert.That(data3, Is.EqualTo("[]"));
+            Assert.That(data4, Is.EqualTo("[]"));
         }
 
         [Test]
@@ -277,7 +279,7 @@ namespace Recurly.Test
                         account_code = "123",
                         amount_in_cents = 5000,
                         currency = "USD",
-                        uuid = new Guid("922ee630daa240da983bdac150d001a1")
+                        uuid = "922ee630daa240da983bdac150d001a1"
                     });
 
             // Assert
@@ -304,7 +306,7 @@ namespace Recurly.Test
                     account_code = "123",
                     amount_in_cents = 500,
                     currency = "USD",
-                    uuid = new Guid("922ee630daa240da983bdac150d001a1")
+                    uuid = "922ee630daa240da983bdac150d001a1"
                 });
 
             // Assert

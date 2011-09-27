@@ -161,10 +161,6 @@ namespace Recurly
             if (type.IsPrimitive || data is string || data is Guid)
             {
                 var val = data.ToString();
-                
-                if (data is Guid)
-                    val = val.Replace("-", string.Empty);
-
                 val = EscapeSyntaxChars(val);
 
                 return val;
