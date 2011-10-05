@@ -18,35 +18,25 @@ namespace Recurly.Configuration
         #region Properties
         
         /// <summary>
-        /// API Username
+        /// API Key
         /// </summary>
-        [ConfigurationProperty("username", IsRequired=true)]
-        public string Username
-        {
-            get { return (string)base["username"]; }
-            set { base["username"] = value; }
-        }
-
-        /// <summary>
-        /// API Password
-        /// </summary>
-        [ConfigurationProperty("password", IsRequired=true)]
+        [ConfigurationProperty("apiKey", IsRequired = true)]
         //[StringValidator(MinLength=32, MaxLength=32)]
-        public string Password
+        public string ApiKey
         {
-            get { return (string)base["password"]; }
-            set { base["password"] = value; }
+            get { return (string)base["apiKey"]; }
+            set { base["apiKey"] = value; }
         }
 
         /// <summary>
-        /// API Private Key for Transparent Post API
+        /// API Private Key for Recurly.js and Transparent Post API
         /// </summary>
-        [ConfigurationProperty("private_key", IsRequired=false)]
+        [ConfigurationProperty("privateKey", IsRequired=false)]
         //[StringValidator(MinLength=32, MaxLength=32)]
         public string PrivateKey
         {
-            get { return (string)base["private_key"]; }
-            set { base["private_key"] = value; }
+            get { return (string)base["privateKey"]; }
+            set { base["privateKey"] = value; }
         }
 
         /// <summary>
@@ -65,13 +55,9 @@ namespace Recurly.Configuration
         public enum EnvironmentType
         {
             /// <summary>
-            /// Production Recurly account for live transactions
+            /// Production or sandbox Recurly accounts
             /// </summary>
             Production,
-            /// <summary>
-            /// Sandbox Recurly account for test transctions
-            /// </summary>
-            Sandbox,
             /// <summary>
             /// Local development by Recurly developers
             /// </summary>
@@ -79,7 +65,7 @@ namespace Recurly.Configuration
         }
 
         /// <summary>
-        /// Recurly environment. Use "Production" for live transactions and "Sandbox" for testing transactions.
+        /// Recurly environment. Use "Production" unless you work for Recurly.
         /// </summary>
         [ConfigurationProperty("environment", DefaultValue=EnvironmentType.Production, IsRequired=false)]
         public EnvironmentType Environment

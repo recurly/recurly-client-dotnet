@@ -12,18 +12,13 @@ namespace Recurly
     /// </summary>
     internal class RecurlyClient
     {
-        private const string ProductionServerUrl = "https://api-production.recurly.com";
-        private const string SandboxServerUrl = "https://api-sandbox.recurly.com";
-        private const string DevelopmentServerUrl = "http://app.recurly.local:3000";
+        private const string ProductionServerUrl = "https://api.recurly.com";
+        private const string DevelopmentServerUrl = "http://api.lvh.me:3000";
 
         /// <summary>
-        /// Recurly API Username
+        /// Recurly API Key
         /// </summary>
-        public static string ApiUsername { get { return Configuration.RecurlySection.Current.Username; } }
-        /// <summary>
-        /// Recurly API Password
-        /// </summary>
-        public static string ApiPassword { get { return Configuration.RecurlySection.Current.Password; } }
+        public static string ApiKey { get { return Configuration.RecurlySection.Current.ApiKey; } }
         /// <summary>
         /// Recurly Site Subdomain
         /// </summary>
@@ -68,9 +63,9 @@ namespace Recurly
                 {
                     Configuration.RecurlySection apiSection = Configuration.RecurlySection.Current;
 
-                    if (!String.IsNullOrEmpty(ApiUsername) && !String.IsNullOrEmpty(ApiPassword))
+                    if (!String.IsNullOrEmpty(ApiKey))
                         _authorizationHeaderValue = "Basic " +
-                            Convert.ToBase64String(Encoding.UTF8.GetBytes(ApiUsername + ":" + ApiPassword));
+                            Convert.ToBase64String(Encoding.UTF8.GetBytes(ApiKey));
                 }
 
                 return _authorizationHeaderValue;
@@ -134,7 +129,7 @@ namespace Recurly
         {
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(ServerUrl(Environment) + urlPath);
             request.Accept = "application/xml";      // Tells the server to return XML instead of HTML
-            request.ContentType = "application/xml"; // The request is an XML document
+            request.ContentType = "application/xml; charset=utf-8"; // The request is an XML document
             request.SendChunked = false;             // Send it all as one request
             request.UserAgent = UserAgent;
             request.Headers.Add(HttpRequestHeader.Authorization, AuthorizationHeaderValue);
@@ -218,8 +213,6 @@ namespace Recurly
             {
                 case Configuration.RecurlySection.EnvironmentType.Production:
                     return ProductionServerUrl;
-                case Configuration.RecurlySection.EnvironmentType.Sandbox:
-                    return SandboxServerUrl;
                 case Configuration.RecurlySection.EnvironmentType.Development:
                     return DevelopmentServerUrl;
                 default:
