@@ -16,7 +16,7 @@ namespace Recurly
             RecurlyTransactionList transactionList = new RecurlyTransactionList();
 
             HttpStatusCode statusCode = RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Get,
-                RecurlyCharge.ChargesUrl(accountCode),
+                RecurlyTransaction.TransactionsUrl(accountCode),
                 new RecurlyClient.ReadXmlDelegate(transactionList.ReadXml));
 
             if (statusCode == HttpStatusCode.NotFound)

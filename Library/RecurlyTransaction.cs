@@ -35,6 +35,7 @@ namespace Recurly
         }
 
         private const string UrlPrefix = "/transactions/";
+        private const string UrlPostfix = "/transactions";
 
         public static RecurlyTransaction Get(string transactionId)
         {
@@ -48,6 +49,11 @@ namespace Recurly
                 return null;
 
             return transaction;
+        }
+
+        internal static string TransactionsUrl(string accountCode)
+        {
+            return RecurlyAccount.UrlPrefix + System.Web.HttpUtility.UrlEncode(accountCode) + UrlPostfix;
         }
 
         #region Read and Write XML documents

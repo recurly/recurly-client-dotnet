@@ -156,6 +156,15 @@ namespace Recurly
         }
 
         /// <summary>
+        /// Reactivate a canceled subscription.  The subscription will renew at the end of its current term.
+        /// </summary>
+        /// <param name="accountCode">Subscriber's Account Code</param>
+        public static void ReactivateSubscription(string accountCode)
+        {
+            RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Post, SubscriptionUrl(accountCode) + "/reactivate");
+        }
+
+        /// <summary>
         /// Immediately terminate the subscription and issue a refund.  The refund can be for the full amount
         /// or prorated until its paid-thru date.  If you need to refund a specific amount, please issue a
         /// refund against the individual transaction instead.
