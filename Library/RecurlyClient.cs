@@ -150,8 +150,8 @@ namespace Recurly
 
             try
             {
-                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-                return ReadWebResponse(response, readXmlDelegate);
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                    return ReadWebResponse(response, readXmlDelegate);
             }
             catch (WebException ex)
             {
