@@ -41,11 +41,11 @@ namespace Recurly
         /// </summary>
         /// <param name="accountCode">Account code</param>
         /// <returns></returns>
-        public static RecurlyAccountCoupon Get(string accountCode)
+        public static RecurlyAccountCoupon Get(string appName, string accountCode)
         {
             RecurlyAccountCoupon coupon = new RecurlyAccountCoupon();
 
-            HttpStatusCode statusCode = RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Get,
+            HttpStatusCode statusCode = RecurlyClient.PerformRequest(appName, RecurlyClient.HttpRequestMethod.Get,
                 CouponUrl(accountCode),
                 new RecurlyClient.ReadXmlDelegate(coupon.ReadXml));
 
@@ -61,13 +61,13 @@ namespace Recurly
         /// <param name="accountCode"></param>
         /// <param name="couponCode"></param>
         /// <returns></returns>
-        public static RecurlyAccountCoupon Redeem(string accountCode, string couponCode)
+        public static RecurlyAccountCoupon Redeem(string appName, string accountCode, string couponCode)
         {
             RecurlyAccountCoupon coupon = new RecurlyAccountCoupon();
             coupon.AccountCode = accountCode;
             coupon.CouponCode = couponCode;
 
-            HttpStatusCode statusCode = RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Post,
+            HttpStatusCode statusCode = RecurlyClient.PerformRequest(appName, RecurlyClient.HttpRequestMethod.Post,
                 CouponUrl(coupon.AccountCode),
                 new RecurlyClient.WriteXmlDelegate(coupon.WriteXml),
                 new RecurlyClient.ReadXmlDelegate(coupon.ReadXml));
@@ -79,17 +79,17 @@ namespace Recurly
         /// Remove the active coupon on an account.
         /// </summary>
         /// <param name="accountCode">Account code</param>
-        public static void RemoveCoupon(string accountCode)
+        public static void RemoveCoupon(string appName, string accountCode)
         {
-            RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Delete, CouponUrl(accountCode));
+            RecurlyClient.PerformRequest(appName, RecurlyClient.HttpRequestMethod.Delete, CouponUrl(accountCode));
         }
 
         /// <summary>
         /// Remove this coupon from the account. It will no longer be applied to future invoices.
         /// </summary>
-        public void Remove()
+        public void Remove(string appName)
         {
-            RemoveCoupon(this.AccountCode);
+            RemoveCoupon(appName, this.AccountCode);
         }
 
         #region Read and Write XML documents

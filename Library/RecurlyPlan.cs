@@ -24,11 +24,11 @@ namespace Recurly
 
         private const string UrlPrefix = "/company/plans/";
 
-        public static RecurlyPlan Get(string planCode)
+        public static RecurlyPlan Get(string appName, string planCode)
         {
             RecurlyPlan plan = new RecurlyPlan();
 
-            HttpStatusCode statusCode = RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Get,
+            HttpStatusCode statusCode = RecurlyClient.PerformRequest(appName, RecurlyClient.HttpRequestMethod.Get,
                 UrlPrefix + System.Web.HttpUtility.UrlEncode(planCode),
                 new RecurlyClient.ReadXmlDelegate(plan.ReadXml));
 

@@ -102,16 +102,16 @@ namespace Recurly
             return UrlPrefix + System.Web.HttpUtility.UrlEncode(accountCode) + UrlPostfix;
         }
 
-        public static RecurlySubscription Get(string accountCode)
+        public static RecurlySubscription Get(string appName, string accountCode)
         {
-            return Get(new RecurlyAccount(accountCode));
+            return Get(appName, new RecurlyAccount(accountCode));
         }
 
-        public static RecurlySubscription Get(RecurlyAccount account)
+        public static RecurlySubscription Get(string appName, RecurlyAccount account)
         {
             RecurlySubscription sub = new RecurlySubscription(account);
 
-            HttpStatusCode statusCode = RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Get,
+            HttpStatusCode statusCode = RecurlyClient.PerformRequest(appName, RecurlyClient.HttpRequestMethod.Get,
                 SubscriptionUrl(account.AccountCode),
                 new RecurlyClient.ReadXmlDelegate(sub.ReadXml));
 
@@ -122,15 +122,15 @@ namespace Recurly
         }
 
 
-        public void Create()
+        public void Create(string appName)
         {
-            HttpStatusCode statusCode = RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Post,
+            HttpStatusCode statusCode = RecurlyClient.PerformRequest(appName, RecurlyClient.HttpRequestMethod.Post,
                 SubscriptionUrl(this.Account.AccountCode),
                 new RecurlyClient.WriteXmlDelegate(WriteSubscriptionXml),
                 new RecurlyClient.ReadXmlDelegate(this.ReadXml));
         }
 
-        public void ChangeSubscription(ChangeTimeframe timeframe)
+        public void ChangeSubscription(string appName, ChangeTimeframe timeframe)
         {
             RecurlyClient.WriteXmlDelegate writeXmlDelegate;
 
@@ -139,7 +139,7 @@ namespace Recurly
             else
                 writeXmlDelegate = new RecurlyClient.WriteXmlDelegate(WriteChangeSubscriptionAtRenewalXml);
 
-            HttpStatusCode statusCode = RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Put,
+            HttpStatusCode statusCode = RecurlyClient.PerformRequest(appName, RecurlyClient.HttpRequestMethod.Put,
                 SubscriptionUrl(this.Account.AccountCode),
                 writeXmlDelegate,
                 new RecurlyClient.ReadXmlDelegate(this.ReadXml));
@@ -150,18 +150,18 @@ namespace Recurly
         /// through the remainder of the current term.
         /// </summary>
         /// <param name="accountCode">Subscriber's Account Code</param>
-        public static void CancelSubscription(string accountCode)
+        public static void CancelSubscription(string appName, string accountCode)
         {
-            RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Delete, SubscriptionUrl(accountCode));
+            RecurlyClient.PerformRequest(appName, RecurlyClient.HttpRequestMethod.Delete, SubscriptionUrl(accountCode));
         }
 
         /// <summary>
         /// Reactivate a canceled subscription.  The subscription will renew at the end of its current term.
         /// </summary>
         /// <param name="accountCode">Subscriber's Account Code</param>
-        public static void ReactivateSubscription(string accountCode)
+        public static void ReactivateSubscription(string appName, string accountCode)
         {
-            RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Post, SubscriptionUrl(accountCode) + "/reactivate");
+            RecurlyClient.PerformRequest(appName, RecurlyClient.HttpRequestMethod.Post, SubscriptionUrl(accountCode) + "/reactivate");
         }
 
         /// <summary>
@@ -171,7 +171,7 @@ namespace Recurly
         /// </summary>
         /// <param name="accountCode">Subscriber's Account Code</param>
         /// <param name="refundType"></param>
-        public static void RefundSubscription(string accountCode, RefundType refundType)
+        public static void RefundSubscription(string appName, string accountCode, RefundType refundType)
         {
             string refundTypeParameter = refundType.ToString().ToLower();
 
@@ -179,16 +179,16 @@ namespace Recurly
                 SubscriptionUrl(accountCode),
                 refundTypeParameter);
 
-            RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Delete, refundUrl);
+            RecurlyClient.PerformRequest(appName, RecurlyClient.HttpRequestMethod.Delete, refundUrl);
         }
 
         /// <summary>
         /// Terminate the subscription immediately and do not issue a refund.
         /// </summary>
         /// <param name="accountCode"></param>
-        public static void TerminateSubscription(string accountCode)
+        public static void TerminateSubscription(string appName, string accountCode)
         {
-            RefundSubscription(accountCode, RefundType.None);
+            RefundSubscription(appName, accountCode, RefundType.None);
         }
 
         #region Read and Write XML documents

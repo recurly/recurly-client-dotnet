@@ -14,11 +14,11 @@ namespace Recurly
         internal RecurlyLineItemList()
         { }
 
-        public static RecurlyLineItem[] GetCharges(string accountCode)
+        public static RecurlyLineItem[] GetCharges(string appName, string accountCode)
         {
             RecurlyLineItemList chargeList = new RecurlyLineItemList();
 
-            HttpStatusCode statusCode = RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Get,
+            HttpStatusCode statusCode = RecurlyClient.PerformRequest(appName, RecurlyClient.HttpRequestMethod.Get,
                 RecurlyCharge.ChargesUrl(accountCode),
                 new RecurlyClient.ReadXmlDelegate(chargeList.ReadXml));
 
@@ -28,11 +28,11 @@ namespace Recurly
             return chargeList.ToArray();
         }
 
-        public static RecurlyLineItem[] GetCredits(string accountCode)
+        public static RecurlyLineItem[] GetCredits(string appName, string accountCode)
         {
             RecurlyLineItemList creditList = new RecurlyLineItemList();
 
-            HttpStatusCode statusCode = RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Get,
+            HttpStatusCode statusCode = RecurlyClient.PerformRequest(appName, RecurlyClient.HttpRequestMethod.Get,
                 RecurlyCredit.CreditsUrl(accountCode),
                 new RecurlyClient.ReadXmlDelegate(creditList.ReadXml));
 

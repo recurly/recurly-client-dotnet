@@ -61,11 +61,11 @@ namespace Recurly
         /// </summary>
         /// <param name="accountCode"></param>
         /// <returns></returns>
-        public static RecurlyBillingInfo Get(string accountCode)
+        public static RecurlyBillingInfo Get(string appName, string accountCode)
         {
             RecurlyBillingInfo billingInfo = new RecurlyBillingInfo();
 
-            HttpStatusCode statusCode = RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Get,
+            HttpStatusCode statusCode = RecurlyClient.PerformRequest(appName, RecurlyClient.HttpRequestMethod.Get,
                 BillingInfoUrl(accountCode), 
                 new RecurlyClient.ReadXmlDelegate(billingInfo.ReadXml));
 
@@ -78,17 +78,17 @@ namespace Recurly
         /// <summary>
         /// Update an account's billing info in Recurly
         /// </summary>
-        public void Create()
+        public void Create(string appName)
         {
-            Update();
+            Update(appName);
         }
 
         /// <summary>
         /// Update an account's billing info in Recurly
         /// </summary>
-        public void Update()
+        public void Update(string appName)
         {
-            RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Put, 
+            RecurlyClient.PerformRequest(appName, RecurlyClient.HttpRequestMethod.Put, 
                 BillingInfoUrl(this.AccountCode), 
                 new RecurlyClient.WriteXmlDelegate(this.WriteXml));
         }
@@ -96,9 +96,9 @@ namespace Recurly
         /// <summary>
         /// Delete an account's billing info.
         /// </summary>
-        public void ClearBillingInfo()
+        public void ClearBillingInfo(string appName)
         {
-            RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Delete, 
+            RecurlyClient.PerformRequest(appName, RecurlyClient.HttpRequestMethod.Delete, 
                 BillingInfoUrl(this.AccountCode));
         }
 

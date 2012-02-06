@@ -13,11 +13,11 @@ namespace Recurly
 
         private const string UrlPostfix = "/invoices";
 
-        public static RecurlyInvoice[] GetInvoices(string accountCode, int pageNumber = 1)
+        public static RecurlyInvoice[] GetInvoices(string appName, string accountCode, int pageNumber = 1)
         {
             RecurlyInvoiceList invoiceList = new RecurlyInvoiceList();
 
-            HttpStatusCode statusCode = RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Get,
+            HttpStatusCode statusCode = RecurlyClient.PerformRequest(appName, RecurlyClient.HttpRequestMethod.Get,
                 AccountInvoicesUrl(accountCode, pageNumber),
                 new RecurlyClient.ReadXmlDelegate(invoiceList.ReadXml));
 

@@ -13,16 +13,16 @@ namespace Recurly.Test
         public void CreateAccount()
         {
             RecurlyAccount acct = Factories.NewAccount("Create Account");
-            acct.Create();
+            acct.Create("haro-test");
         }
 
         [Test]
         public void LookupAccount()
         {
             RecurlyAccount newAcct = Factories.NewAccount("Lookup Account");
-            newAcct.Create();
+            newAcct.Create("haro-test");
 
-            RecurlyAccount acct = RecurlyAccount.Get(newAcct.AccountCode);
+            RecurlyAccount acct = RecurlyAccount.Get("haro-test", newAcct.AccountCode);
             Assert.IsNotNull(acct);
             Assert.AreEqual(acct.AccountCode, newAcct.AccountCode);
             Assert.IsNotNullOrEmpty(acct.Email);
@@ -32,19 +32,19 @@ namespace Recurly.Test
         [ExpectedException(typeof(NotFoundException))]
         public void FindNonExistantAccount()
         {
-            RecurlyAccount acct = RecurlyAccount.Get("totallynotfound!@#$");
+            RecurlyAccount acct = RecurlyAccount.Get("haro-test", "totallynotfound!@#$");
         }
 
         [Test]
         public void UpdateAccount()
         {
             RecurlyAccount acct = Factories.NewAccount("Update Account");
-            acct.Create();
+            acct.Create("haro-test");
 
             acct.LastName = "UpdateTest123";
-            acct.Update();
+            acct.Update("haro-test");
 
-            RecurlyAccount getAcct = RecurlyAccount.Get(acct.AccountCode);
+            RecurlyAccount getAcct = RecurlyAccount.Get("haro-test",acct.AccountCode);
             Assert.AreEqual(acct.LastName, getAcct.LastName);
         }
 
@@ -52,9 +52,9 @@ namespace Recurly.Test
         public void CloseAccount()
         {
             RecurlyAccount acct = Factories.NewAccount("Close Account");
-            acct.Create();
+            acct.Create("haro-test");
 
-            acct.CloseAccount();
+            acct.CloseAccount("haro-test");
         }
     }
 }
