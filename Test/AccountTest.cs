@@ -13,16 +13,16 @@ namespace Recurly.Test
         public void CreateAccount()
         {
             RecurlyAccount acct = Factories.NewAccount("Create Account");
-            acct.Create("haro-test");
+            acct.Create("instance1");
         }
 
         [Test]
         public void LookupAccount()
         {
             RecurlyAccount newAcct = Factories.NewAccount("Lookup Account");
-            newAcct.Create("haro-test");
+            newAcct.Create("instance1");
 
-            RecurlyAccount acct = RecurlyAccount.Get("haro-test", newAcct.AccountCode);
+            RecurlyAccount acct = RecurlyAccount.Get("instance1", newAcct.AccountCode);
             Assert.IsNotNull(acct);
             Assert.AreEqual(acct.AccountCode, newAcct.AccountCode);
             Assert.IsNotNullOrEmpty(acct.Email);
@@ -32,19 +32,19 @@ namespace Recurly.Test
         [ExpectedException(typeof(NotFoundException))]
         public void FindNonExistantAccount()
         {
-            RecurlyAccount acct = RecurlyAccount.Get("haro-test", "totallynotfound!@#$");
+            RecurlyAccount acct = RecurlyAccount.Get("instance1", "totallynotfound!@#$");
         }
 
         [Test]
         public void UpdateAccount()
         {
             RecurlyAccount acct = Factories.NewAccount("Update Account");
-            acct.Create("haro-test");
+            acct.Create("instance1");
 
             acct.LastName = "UpdateTest123";
-            acct.Update("haro-test");
+            acct.Update("instance1");
 
-            RecurlyAccount getAcct = RecurlyAccount.Get("haro-test",acct.AccountCode);
+            RecurlyAccount getAcct = RecurlyAccount.Get("instance1", acct.AccountCode);
             Assert.AreEqual(acct.LastName, getAcct.LastName);
         }
 
@@ -52,9 +52,51 @@ namespace Recurly.Test
         public void CloseAccount()
         {
             RecurlyAccount acct = Factories.NewAccount("Close Account");
-            acct.Create("haro-test");
+            acct.Create("instance1");
 
-            acct.CloseAccount("haro-test");
+            acct.CloseAccount("instance1");
+        }
+
+        [Test]
+        public void CreateMultipleAccounts()
+        {
+            RecurlyAccount acct1 = Factories.NewAccount("Multiple Create Account - Instance 1");
+            acct1.Create("instance1");
+
+            RecurlyAccount acct2 = Factories.NewAccount("Multiple Create Account - Instance 2");
+            acct2.Create("instance2");
+        }
+
+        [Test]
+        public void LookupMultipleAccounts()
+        {
+            RecurlyAccount newAcct1 = Factories.NewAccount("Multiple Lookup Account - Instance 1");
+            newAcct1.Create("instance1");
+
+            RecurlyAccount newAcct2 = Factories.NewAccount("Multiple Lookup Account - Instance 2");
+            newAcct2.Create("instance2");
+
+            RecurlyAccount acct1 = RecurlyAccount.Get("instance1", newAcct1.AccountCode);
+            RecurlyAccount acct2 = RecurlyAccount.Get("instance2", newAcct2.AccountCode);
+
+            Assert.IsNotNull(acct1);
+            Assert.IsNotNull(acct2);
+        }
+
+        [Test]
+        public void CloseInstance1()
+        {
+            RecurlyAccount newAcct1 = Factories.NewAccount("CloseInstance1 Account - Instance 1");
+            newAcct1.Create("instance1");
+
+            RecurlyAccount newAcct2 = Factories.NewAccount("CloseInstance1 Account - Instance 2");
+            newAcct2.Create("instance2");
+
+            newAcct1.CloseAccount("instance1");
+
+            RecurlyAccount acct2 = RecurlyAccount.Get("instance2", newAcct2.AccountCode);
+
+            Assert.IsNotNull(acct2);
         }
     }
 }
