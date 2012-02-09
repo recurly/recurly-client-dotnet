@@ -33,11 +33,11 @@ namespace Recurly
         /// </summary>
         /// <param name="invoiceId">Invoice ID</param>
         /// <returns></returns>
-        public static RecurlyInvoice Get(string invoiceId)
+        public static RecurlyInvoice Get(string appName, string invoiceId)
         {
             RecurlyInvoice invoice = new RecurlyInvoice();
 
-            HttpStatusCode statusCode = RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Get,
+            HttpStatusCode statusCode = RecurlyClient.PerformRequest(appName, RecurlyClient.HttpRequestMethod.Get,
                 UrlPrefix + System.Web.HttpUtility.UrlEncode(invoiceId),
                 new RecurlyClient.ReadXmlDelegate(invoice.ReadXml));
 
@@ -53,11 +53,11 @@ namespace Recurly
         /// </summary>
         /// <param name="accountCode">Account code</param>
         /// <returns></returns>
-        public static RecurlyInvoice Create(string accountCode)
+        public static RecurlyInvoice Create(string appName, string accountCode)
         {
             RecurlyInvoice invoice = new RecurlyInvoice();
 
-            HttpStatusCode statusCode = RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Post,
+            HttpStatusCode statusCode = RecurlyClient.PerformRequest(appName, RecurlyClient.HttpRequestMethod.Post,
                 "/accounts/" + System.Web.HttpUtility.UrlEncode(accountCode) + UrlPrefix,
                 new RecurlyClient.ReadXmlDelegate(invoice.ReadXml));
 

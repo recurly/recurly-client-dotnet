@@ -23,12 +23,12 @@ namespace Recurly
 
         #endregion
 
-        public static RecurlyCredit CreditAccount(string accountCode, int amountInCents, string description)
+        public static RecurlyCredit CreditAccount(string appName, string accountCode, int amountInCents, string description)
         {
-            return CreditAccount(accountCode, amountInCents, 1, description);
+            return CreditAccount(appName, accountCode, amountInCents, 1, description);
         }
 
-        public static RecurlyCredit CreditAccount(string accountCode, int amountInCents, int quantity, string description)
+        public static RecurlyCredit CreditAccount(string appName, string accountCode, int amountInCents, int quantity, string description)
         {
             RecurlyCredit credit = new RecurlyCredit();
             credit.AmountInCents = amountInCents;
@@ -37,7 +37,7 @@ namespace Recurly
             credit.Description = description;
 
             /* HttpStatusCode statusCode = */
-            RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Post,
+            RecurlyClient.PerformRequest(appName, RecurlyClient.HttpRequestMethod.Post,
                 CreditsUrl(accountCode),
                 new RecurlyClient.WriteXmlDelegate(credit.WriteXml),
                 null);

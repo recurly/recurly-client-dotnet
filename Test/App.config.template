@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <configSections>
+    <section name="recurly" type="Recurly.Configuration.RecurlySection,Recurly"/>
+  </configSections>
+  <recurly>
+    <apps>
+      <add name="instance1" apiKey="key" privateKey="" subdomain="subdomain"/>
+      <add name="instance2" apiKey="key2" privateKey="" subdomain="subdomain"/>
+    </apps>
+  </recurly>
+</configuration>

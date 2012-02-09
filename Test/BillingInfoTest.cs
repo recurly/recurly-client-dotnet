@@ -13,54 +13,55 @@ namespace Recurly.Test
         public void UpdateBillingInfo()
         {
             RecurlyAccount acct = Factories.NewAccount("Update Billing Info");
-            acct.Create();
+            acct.Create("instance1");
 
             RecurlyBillingInfo billingInfo = Factories.NewBillingInfo(acct);
-            billingInfo.Update();
+            billingInfo.Update("instance1");
         }
 
         [Test]
         public void LookupBillingInfo()
         {
             RecurlyAccount newAcct = Factories.NewAccount("Lookup Billing Info");
-            newAcct.Create();
+            newAcct.Create("instance1");
 
             RecurlyBillingInfo billingInfo = Factories.NewBillingInfo(newAcct);
-            billingInfo.Update();
+            billingInfo.Create("instance1");
 
-            RecurlyBillingInfo lookupBilling = RecurlyBillingInfo.Get(newAcct.AccountCode);
+            RecurlyBillingInfo lookupBilling = RecurlyBillingInfo.Get("instance1", newAcct.AccountCode);
             Assert.AreEqual(billingInfo.Address1, lookupBilling.Address1);
             Assert.AreEqual(billingInfo.PostalCode, lookupBilling.PostalCode);
-            Assert.IsNotNullOrEmpty(billingInfo.CreditCard.CreditCardType);
+            Assert.IsNotNullOrEmpty(billingInfo.CreditCard.Number);
         }
 
         [Test]
+        [ExpectedException(typeof(NotFoundException))]
         public void LookupMissingInfo()
         {
             RecurlyAccount newAcct = Factories.NewAccount("Lookup Missing Billing Info");
-            newAcct.Create();
+            newAcct.Create("instance1");
 
-            RecurlyBillingInfo billingInfo = RecurlyBillingInfo.Get(newAcct.AccountCode);
-            Assert.IsNull(billingInfo);
+            RecurlyBillingInfo billingInfo = RecurlyBillingInfo.Get("instance1", newAcct.AccountCode);
         }
 
         [Test]
         public void ClearBillingInfo()
         {
             RecurlyAccount newAcct = Factories.NewAccount("Clear Billing Info");
-            newAcct.Create();
+            newAcct.Create("instance1");
 
             RecurlyBillingInfo billingInfo = Factories.NewBillingInfo(newAcct);
-            billingInfo.Update();
+            billingInfo.Update("instance1");
 
-            billingInfo.ClearBillingInfo();
+            billingInfo.ClearBillingInfo("instance1");
         }
 
         [Test]
         public void CloseAccount()
         {
             RecurlyAccount acct = Factories.NewAccount("Close Account");
-            acct.CloseAccount();
+            acct.Create("instance1");
+            acct.CloseAccount("instance1");
         }
     }
 }

@@ -37,11 +37,11 @@ namespace Recurly
         private const string UrlPrefix = "/transactions/";
         private const string UrlPostfix = "/transactions";
 
-        public static RecurlyTransaction Get(string transactionId)
+        public static RecurlyTransaction Get(string appName, string transactionId)
         {
             RecurlyTransaction transaction = new RecurlyTransaction();
 
-            HttpStatusCode statusCode = RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Get,
+            HttpStatusCode statusCode = RecurlyClient.PerformRequest(appName, RecurlyClient.HttpRequestMethod.Get,
                 UrlPrefix + System.Web.HttpUtility.UrlEncode(transactionId),
                 new RecurlyClient.ReadXmlDelegate(transaction.ReadXml));
 

@@ -15,18 +15,50 @@ namespace Recurly
         private const string ProductionServerUrl = "https://api.recurly.com";
         private const string DevelopmentServerUrl = "http://api.lvh.me:3000";
 
+        private static Dictionary<string, Recurly.Configuration.RecurlyApplication> _configurations = new Dictionary<string, Configuration.RecurlyApplication>();
+        private static Dictionary<string, string> _authorizationHeaders = new Dictionary<string, string>();
+
+        static RecurlyClient()
+        {
+            foreach (Recurly.Configuration.RecurlyApplication app in Configuration.RecurlySection.Current.RecurlyApplications)
+            {
+                _configurations.Add(app.Name.ToLower(), app);
+
+                _authorizationHeaders.Add(app.Name, "");
+                if (!String.IsNullOrEmpty(app.ApiKey))
+                {
+                    _authorizationHeaders[app.Name] = "Basic " + Convert.ToBase64String(Encoding.UTF8.GetBytes(app.ApiKey));
+                }
+            }
+        }
+
+        private Configuration.RecurlyApplication GetApplication(string appName)
+        {
+            return _configurations[appName];
+        }
+
         /// <summary>
         /// Recurly API Key
         /// </summary>
-        public static string ApiKey { get { return Configuration.RecurlySection.Current.ApiKey; } }
+        public string GetApiKey(string appName)
+        {
+            return this.GetApplication(appName).ApiKey;
+        }
+
         /// <summary>
         /// Recurly Site Subdomain
         /// </summary>
-        public static string ApiSubdomain { get { return Configuration.RecurlySection.Current.Subdomain; } }
+        public string GetApiSubdomain(string appName)
+        {
+            return this.GetApplication(appName).Subdomain; ;
+        }
         /// <summary>
         /// Recurly Private Key for Transparent Post API
         /// </summary>
-        public static string PrivateKey { get { return Configuration.RecurlySection.Current.PrivateKey; } }
+        public string PrivateKey(string appName)
+        {
+            return this.GetApplication(appName).PrivateKey;
+        }
         /// <summary>
         /// Recurly Environment: Production or Sandbox
         /// </summary>
@@ -48,27 +80,6 @@ namespace Recurly
                         System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString());
 
                 return _userAgent;
-            }
-        }
-
-        private static string _authorizationHeaderValue;
-        /// <summary>
-        /// Create the web request header value for the API Authorization.
-        /// </summary>
-        private static string AuthorizationHeaderValue
-        {
-            get
-            {
-                if (_authorizationHeaderValue == null)
-                {
-                    Configuration.RecurlySection apiSection = Configuration.RecurlySection.Current;
-
-                    if (!String.IsNullOrEmpty(ApiKey))
-                        _authorizationHeaderValue = "Basic " +
-                            Convert.ToBase64String(Encoding.UTF8.GetBytes(ApiKey));
-                }
-
-                return _authorizationHeaderValue;
             }
         }
 
@@ -107,24 +118,24 @@ namespace Recurly
         public delegate void WriteXmlDelegate(XmlTextWriter xmlWriter);
 
 
-        public static HttpStatusCode PerformRequest(HttpRequestMethod method, string urlPath)
+        public static HttpStatusCode PerformRequest(string appName, HttpRequestMethod method, string urlPath)
         {
-            return PerformRequest(method, urlPath, null, null);
+            return PerformRequest(appName, method, urlPath, null, null);
         }
 
-        public static HttpStatusCode PerformRequest(HttpRequestMethod method, string urlPath,
+        public static HttpStatusCode PerformRequest(string appName, HttpRequestMethod method, string urlPath,
             ReadXmlDelegate readXmlDelegate)
         {
-            return PerformRequest(method, urlPath, null, readXmlDelegate);
+            return PerformRequest(appName, method, urlPath, null, readXmlDelegate);
         }
 
-        public static HttpStatusCode PerformRequest(HttpRequestMethod method, string urlPath,
+        public static HttpStatusCode PerformRequest(string appName, HttpRequestMethod method, string urlPath,
             WriteXmlDelegate writeXmlDelegate)
         {
-            return PerformRequest(method, urlPath, writeXmlDelegate, null);
+            return PerformRequest(appName, method, urlPath, writeXmlDelegate, null);
         }
 
-        public static HttpStatusCode PerformRequest(HttpRequestMethod method, string urlPath,
+        public static HttpStatusCode PerformRequest(string appName, HttpRequestMethod method, string urlPath,
             WriteXmlDelegate writeXmlDelegate, ReadXmlDelegate readXmlDelegate)
         {
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(ServerUrl(Environment) + urlPath);
@@ -132,10 +143,10 @@ namespace Recurly
             request.ContentType = "application/xml; charset=utf-8"; // The request is an XML document
             request.SendChunked = false;             // Send it all as one request
             request.UserAgent = UserAgent;
-            request.Headers.Add(HttpRequestHeader.Authorization, AuthorizationHeaderValue);
+            request.Headers.Add(HttpRequestHeader.Authorization, _authorizationHeaders[appName]);
             request.Method = method.ToString().ToUpper();
 
-            System.Diagnostics.Debug.WriteLine(String.Format("Recurly: Requesting {0} {1}", 
+            System.Diagnostics.Debug.WriteLine(String.Format("Recurly: Requesting {0} {1}",
                 request.Method, request.RequestUri.ToString()));
 
             if ((method == HttpRequestMethod.Post || method == HttpRequestMethod.Put) && (writeXmlDelegate != null))
@@ -161,7 +172,7 @@ namespace Recurly
                     HttpStatusCode statusCode = response.StatusCode;
                     RecurlyError[] errors;
 
-                    System.Diagnostics.Debug.WriteLine(String.Format("Recurly Library Received: {0} - {1}", 
+                    System.Diagnostics.Debug.WriteLine(String.Format("Recurly Library Received: {0} - {1}",
                         (int)statusCode, statusCode.ToString()));
 
                     switch (response.StatusCode)
