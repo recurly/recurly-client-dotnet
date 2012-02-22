@@ -5,8 +5,8 @@
   </configSections>
   <recurly>
     <apps>
-      <add name="instance1" apiKey="key" privateKey="" subdomain="subdomain"/>
-      <add name="instance2" apiKey="key2" privateKey="" subdomain="subdomain"/>
+      <add name="instance1" apikey="key" privatekey="" subdomain="subdomain"/>
+      <add name="instance2" apikey="key2" privatekey="" subdomain="subdomain"/>
     </apps>
   </recurly>
 </configuration>
