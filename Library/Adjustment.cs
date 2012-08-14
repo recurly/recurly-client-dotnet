@@ -19,12 +19,26 @@ namespace Recurly
             Credit
         }
 
-        public string uuid { get; protected set; }
-        public int AmountInCents { get; protected set; }
+        private string _accountCode;
+        public string UUID { get; protected set; }
+        public string Description { get; protected set; }
+        public string AccountingCode { get; protected set; }
+        public string Origin { get; protected set; }
+        public int UnitAmountInCents { get; protected set; }
         public int Quantity { get; protected set; }
+        public int DiscountInCents { get; protected set; }
+        public int TaxInCents {get; protected set; }
+        public int TotalInCents { get; protected set; }
+        public string Currency { get; protected set; }
+        public bool Taxable { get; protected set; }
+
         public DateTime StartDate { get; protected set; }
         public DateTime? EndDate { get; protected set; }
-        public string Description { get; protected set; }
+
+        public DateTime CreatedAt { get ; protected set; }
+
+        private const string UrlPrefix = "/adjustments/";
+
 
         #region Constructors
 
@@ -47,44 +61,76 @@ namespace Recurly
             while (reader.Read())
             {
                 // End of account element, get out of here
-                if ((reader.Name == "charge" || reader.Name == "credit" || reader.Name == "line_item") &&
-                    reader.NodeType == XmlNodeType.EndElement)
+                if (reader.Name == "adjustment" && reader.NodeType == XmlNodeType.EndElement)
                     break;
 
                 if (reader.NodeType == XmlNodeType.Element)
                 {
-                    DateTime date;
                     switch (reader.Name)
-                    {
-                        case "id":
-                            this.Id = reader.ReadElementContentAsString();
+                    { 
+                        case "account":
+                            string href = reader.GetAttribute("href");
+                            this._accountCode = href.Substring(href.LastIndexOf("/") + 1);
                             break;
 
-                        case "start_date":
-                            if (DateTime.TryParse(reader.ReadElementContentAsString(), out date))
-                                this.StartDate = date;
-                            break;
-
-                        case "end_date":
-                            if (DateTime.TryParse(reader.ReadElementContentAsString(), out date))
-                                this.EndDate = date;
-                            break;
-
-                        case "amount_in_cents":
-                            int amount;
-                            if (Int32.TryParse(reader.ReadElementContentAsString(), out amount))
-                                this.AmountInCents = amount;
-                            break;
-
-                        case "quantity":
-                            int quantity;
-                            if (Int32.TryParse(reader.ReadElementContentAsString(), out quantity))
-                                this.Quantity = quantity;
+                        case "uuid":
+                            this.UUID = reader.ReadElementContentAsString();
                             break;
 
                         case "description":
                             this.Description = reader.ReadElementContentAsString();
                             break;
+
+                        case "accounting_code":
+                            this.AccountingCode = reader.ReadElementContentAsString();
+                            break;
+
+                        case "origin":
+                            this.Origin = reader.ReadElementContentAsString();
+                            break;
+
+                        case "unit_amount_in_cents":
+                            this.UnitAmountInCents = reader.ReadElementContentAsInt();
+                            break;
+
+                        case "quantity":
+                            this.Quantity = reader.ReadElementContentAsInt();
+                            break;
+
+                        case "discount_in_cents":
+                            this.DiscountInCents = reader.ReadElementContentAsInt();
+                            break;
+
+                        case "tax_in_cents":
+                            this.TaxInCents = reader.ReadElementContentAsInt();
+                            break;
+
+                        case "total_in_cents":
+                            this.TotalInCents = reader.ReadElementContentAsInt();
+                            break;
+
+                        case "currency":
+                            this.Currency = reader.ReadElementContentAsString();
+                            break;
+
+                        case "taxable":
+                            this.Taxable = reader.ReadElementContentAsBoolean();
+                            break;
+
+                        case "start_date":
+                            this.StartDate = reader.ReadElementContentAsDateTime();
+                            break;
+
+                        case "end_date":
+                           DateTime endDate;
+                           if (DateTime.TryParse(reader.ReadElementContentAsString(), out endDate))
+                                this.EndDate = endDate;
+                            break;
+
+                        case "created_at":
+                            this.CreatedAt = reader.ReadElementContentAsDateTime();
+                            break;
+
                     }
                 }
             }
@@ -97,7 +143,7 @@ namespace Recurly
         {
             get
             {
-                return AmountInCents <= 0 ? "credit" : "charge";
+                return UnitAmountInCents <= 0 ? "credit" : "charge";
             }
         }
 
@@ -105,7 +151,7 @@ namespace Recurly
         {
             xmlWriter.WriteStartElement(XmlRootNodeName); // Start: charge
 
-            xmlWriter.WriteElementString("amount_in_cents", this.AmountInCents.ToString());
+            xmlWriter.WriteElementString("unit_amount_in_cents", this.UnitAmountInCents.ToString());
             xmlWriter.WriteElementString("description", this.Description);
             xmlWriter.WriteElementString("quantity", this.Quantity.ToString());
 

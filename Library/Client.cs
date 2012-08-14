@@ -241,7 +241,9 @@ namespace Recurly
                 using (Stream responseStream = response.GetResponseStream())
                 {
                     using (XmlTextReader xmlReader = new XmlTextReader(responseStream))
+                    {
                         readXmlDelegate(xmlReader);
+                    }
                 }
             }
         }

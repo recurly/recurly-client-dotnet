@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Xml;
 using System.Text;
+using System.Diagnostics;
 
 namespace Recurly
 {
@@ -17,20 +18,27 @@ namespace Recurly
             Past_Due
         }
 
-
-        public string Id { get; private set; }
-        public string AccountCode { get; private set; }
-        public DateTime Date { get; private set; }
-        public int Number { get; private set; }
-        public RecurlyLineItemList LineItems { get; private set; }
-        public RecurlyTransactionList Payments { get; private set; }
+        private string _accountCode;
+        public string UUID { get; protected set; }
+        public InvoiceState State { get; protected set; }
+        public int InvoiceNumber { get; private set; }
+        public string PONumber { get; private set; }
+        public string VATNumber { get; private set; }
+        public int SubtotalInCents { get; private set; }
+        public int TaxInCents {get; protected set; }
+        public int TotalInCents { get; protected set; }
+        public string Currency { get; protected set; }
+        public DateTime CreatedAt { get; private set; }
+        
+        public RecurlyList<Adjustment> Adjustments { get; private set; }
+        public RecurlyList<Transaction> Transactions { get; private set; }
 
         private const string UrlPrefix = "/invoices/";
 
         internal Invoice()
         {
-            LineItems = new RecurlyLineItemList();
-            Payments = new RecurlyTransactionList();
+            Adjustments = new RecurlyList<Adjustment>();
+            Transactions = new RecurlyList<Transaction>();
         }
 
         internal Invoice(XmlTextReader reader)
@@ -92,33 +100,61 @@ namespace Recurly
                 {
                     switch (reader.Name)
                     {
-                        case "id":
-                            this.Id = reader.ReadElementContentAsString();
+                        case "account":
+                            string href = reader.GetAttribute("href");
+                            this._accountCode = href.Substring(href.LastIndexOf("/") + 1);
                             break;
 
-                        case "account_code":
-                            this.AccountCode = reader.ReadElementContentAsString();
+                        case "uuid":
+                            this.UUID = reader.ReadElementContentAsString();
                             break;
 
-                        case "date":
-                            DateTime date;
-                            if (DateTime.TryParse(reader.ReadElementContentAsString(), out date))
-                                this.Date = date;
+                        case "state":
+                            this.State = (InvoiceState)Enum.Parse(typeof(InvoiceState), reader.ReadElementContentAsString(), true);
                             break;
 
                         case "invoice_number":
                             int invNumber;
                             if (Int32.TryParse(reader.ReadElementContentAsString(), out invNumber))
-                                this.Number = invNumber;
+                                this.InvoiceNumber = invNumber;
+                            break;
+
+                        case "po_number":
+                            this.PONumber = reader.ReadElementContentAsString();
+                            break;
+
+                        case "vat_number":
+                            this.VATNumber = reader.ReadElementContentAsString();
+                            break;
+
+                        case "subtotal_in_cents":
+                            this.SubtotalInCents = reader.ReadElementContentAsInt();
+                            break;
+
+                        case "tax_in_cents":
+                            this.TaxInCents = reader.ReadElementContentAsInt();
+                            break;
+
+                        case "total_in_cents":
+                            this.TotalInCents = reader.ReadElementContentAsInt();
+                            break;
+
+                        case "currency":
+                            this.Currency = reader.ReadElementContentAsString();
+                            break;
+
+                        case "created_at":
+                            this.CreatedAt = reader.ReadElementContentAsDateTime();
                             break;
 
                         case "line_items":
-                            LineItems.ReadXml(reader);
+                            Adjustments.ReadXml(reader);
                             break;
 
-                        case "payments":
-                            Payments.ReadXml(reader);
+                        case "transactions":
+                            Transactions.ReadXml(reader);
                             break;
+
                     }
                 }
             }
@@ -130,7 +166,7 @@ namespace Recurly
 
         public override string ToString()
         {
-            return "Recurly Invoice: " + this.Id;
+            return "Recurly Invoice: " + this.UUID;
         }
 
         public override bool Equals(object obj)
@@ -143,12 +179,12 @@ namespace Recurly
 
         public bool Equals(Invoice invoice)
         {
-            return this.Id == invoice.Id;
+            return this.UUID == invoice.UUID;
         }
 
         public override int GetHashCode()
         {
-            return this.Id.GetHashCode();
+            return this.UUID.GetHashCode();
         }
 
         #endregion

@@ -1,81 +1,81 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Xml;
-using System.Text;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Net;
+//using System.Xml;
+//using System.Text;
 
-namespace Recurly
-{
-    public class RecurlyCredit : Adjustment
-    {
-        private const string UrlPostfix = "/credits";
+//namespace Recurly
+//{
+//    public class RecurlyCredit : Adjustment
+//    {
+//        private const string UrlPostfix = "/credits";
 
-        #region Constructors
+//        #region Constructors
 
-        internal RecurlyCredit()
-        {
-        }
+//        internal RecurlyCredit()
+//        {
+//        }
 
-        internal RecurlyCredit(XmlTextReader xmlReader)
-        {
-            ReadXml(xmlReader);
-        }
+//        internal RecurlyCredit(XmlTextReader xmlReader)
+//        {
+//            ReadXml(xmlReader);
+//        }
 
-        #endregion
+//        #endregion
 
-        public static RecurlyCredit CreditAccount(string accountCode, int amountInCents, string description)
-        {
-            return CreditAccount(accountCode, amountInCents, 1, description);
-        }
+//        public static RecurlyCredit CreditAccount(string accountCode, int amountInCents, string description)
+//        {
+//            return CreditAccount(accountCode, amountInCents, 1, description);
+//        }
 
-        public static RecurlyCredit CreditAccount(string accountCode, int amountInCents, int quantity, string description)
-        {
-            RecurlyCredit credit = new RecurlyCredit();
-            credit.AmountInCents = amountInCents;
-            credit.Quantity = quantity;
-            credit.StartDate = DateTime.UtcNow;
-            credit.Description = description;
+//        public static RecurlyCredit CreditAccount(string accountCode, int amountInCents, int quantity, string description)
+//        {
+//            RecurlyCredit credit = new RecurlyCredit();
+//            credit.AmountInCents = amountInCents;
+//            credit.Quantity = quantity;
+//            credit.StartDate = DateTime.UtcNow;
+//            credit.Description = description;
 
-            /* HttpStatusCode statusCode = */
-            Client.PerformRequest(Client.HttpRequestMethod.Post,
-                CreditsUrl(accountCode),
-                new Client.WriteXmlDelegate(credit.WriteXml),
-                null);
+//            /* HttpStatusCode statusCode = */
+//            Client.PerformRequest(Client.HttpRequestMethod.Post,
+//                CreditsUrl(accountCode),
+//                new Client.WriteXmlDelegate(credit.WriteXml),
+//                null);
 
-            return credit;
-        }
+//            return credit;
+//        }
 
-        internal static string CreditsUrl(string accountCode)
-        {
-            return Account.UrlPrefix + System.Web.HttpUtility.UrlEncode(accountCode) + UrlPostfix;
-        }
+//        internal static string CreditsUrl(string accountCode)
+//        {
+//            return Account.UrlPrefix + System.Web.HttpUtility.UrlEncode(accountCode) + UrlPostfix;
+//        }
 
 
-        #region Object Overrides
+//        #region Object Overrides
 
-        public override string ToString()
-        {
-            return "Recurly Credit: " + this.Id;
-        }
+//        public override string ToString()
+//        {
+//            return "Recurly Credit: " + this.UUID;
+//        }
 
-        public override bool Equals(object obj)
-        {
-            if (obj is RecurlyCredit)
-                return Equals((RecurlyCredit)obj);
-            else
-                return false;
-        }
+//        public override bool Equals(object obj)
+//        {
+//            if (obj is RecurlyCredit)
+//                return Equals((RecurlyCredit)obj);
+//            else
+//                return false;
+//        }
 
-        public bool Equals(RecurlyCredit credit)
-        {
-            return this.Id == credit.Id;
-        }
+//        public bool Equals(RecurlyCredit credit)
+//        {
+//            return this.UUID == credit.UUID;
+//        }
 
-        public override int GetHashCode()
-        {
-            return this.Id.GetHashCode();
-        }
+//        public override int GetHashCode()
+//        {
+//            return this.UUID.GetHashCode();
+//        }
 
-        #endregion
-    }
-}
+//        #endregion
+//    }
+//}

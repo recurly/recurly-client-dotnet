@@ -66,6 +66,7 @@
     <Compile Include="BillingInfoTest.cs" />
     <Compile Include="ChargeTest.cs" />
     <Compile Include="Factories.cs" />
+    <Compile Include="InvoiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SystemTest.cs" />
   </ItemGroup>
