@@ -1,0 +1,8 @@
+*.csproj.user
+*.suo
+bin/
+obj/
+*VisualState.xml
+Test/TestResult.xml
+Test/App.config
+Test/Recurly.Test.config

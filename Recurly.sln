@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recurly", "Library\Recurly.csproj", "{CA094233-B9A7-4700-A70A-3401E14070B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recurly.Test", "Test\Recurly.Test.csproj", "{A610420B-4FEB-4590-A4B4-2926B4E52F47}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CA094233-B9A7-4700-A70A-3401E14070B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA094233-B9A7-4700-A70A-3401E14070B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA094233-B9A7-4700-A70A-3401E14070B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA094233-B9A7-4700-A70A-3401E14070B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A610420B-4FEB-4590-A4B4-2926B4E52F47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A610420B-4FEB-4590-A4B4-2926B4E52F47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A610420B-4FEB-4590-A4B4-2926B4E52F47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A610420B-4FEB-4590-A4B4-2926B4E52F47}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
