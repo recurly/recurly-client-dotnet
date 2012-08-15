@@ -15,6 +15,9 @@ namespace Recurly
 
         private int _requestLimit = 50;
 
+        /// <summary>
+        /// TODO: implement 
+        /// </summary>
         public int RequestLimit
         {
             get
@@ -31,7 +34,7 @@ namespace Recurly
         }
 
        
-       public void ReadXml(XmlTextReader reader)
+       internal void ReadXml(XmlTextReader reader)
        {
            Type list = this.GetType().GetGenericArguments()[0];
            string element = "nothing";
@@ -39,6 +42,8 @@ namespace Recurly
                element = "line_items";
            else if (list == typeof(Transaction))
                element = "transactions";
+           else if (list == typeof(Invoice))
+               element = "invoices";
 
            while (reader.Read())
             {
@@ -57,6 +62,10 @@ namespace Recurly
 
                         case "transaction":
                             this.Add((T)(object)new Transaction(reader));
+                            break;
+
+                        case "invoice":
+                            this.Add((T)(object)new Invoice(reader));
                             break;
                     }
                 }

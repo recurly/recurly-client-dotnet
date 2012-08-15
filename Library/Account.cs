@@ -200,15 +200,13 @@ namespace Recurly
         }
 
         
-
-
         /// <summary>
         /// Returns a list of invoices for this account
         /// </summary>
         /// <returns></returns>
-        public List<Invoice> GetInvoices()
+        public RecurlyList<Invoice> GetInvoices()
         {
-            throw new NotSupportedException("Not yet supported.");
+            return Invoice.GetInvoices(this.AccountCode);
         }
 
         /// <summary>
@@ -216,7 +214,7 @@ namespace Recurly
         /// </summary>
         /// <param name="state"></param>
         /// <returns></returns>
-        public List<Invoice> GetInvoices(Invoice.InvoiceState state)
+        public RecurlyList<Invoice> GetInvoices(Invoice.InvoiceState state)
         {
             throw new NotSupportedException("Not yet supported.");
         }
@@ -225,7 +223,7 @@ namespace Recurly
         /// Returns a list of subscriptions for this account.
         /// </summary>
         /// <returns></returns>
-        public List<Subscription> GetSubscriptions()
+        public RecurlyList<Subscription> GetSubscriptions()
         {
             throw new NotSupportedException("Not yet supported.");
         }
@@ -235,7 +233,7 @@ namespace Recurly
         /// </summary>
         /// <param name="state"></param>
         /// <returns></returns>
-        public List<Subscription> GetSubscriptions(Subscription.SubstriptionState state)
+        public RecurlyList<Subscription> GetSubscriptions(Subscription.SubstriptionState state)
         {
             throw new NotSupportedException("Not yet supported.");
         }
@@ -244,7 +242,7 @@ namespace Recurly
         /// Returns a list of transactions for this account
         /// </summary>
         /// <returns></returns>
-        public List<Transaction> GetTransactions()
+        public RecurlyList<Transaction> GetTransactions()
         {
             throw new NotSupportedException("Not yet supported.");
         }
@@ -254,7 +252,7 @@ namespace Recurly
         /// </summary>
         /// <param name="state"></param>
         /// <returns></returns>
-        public List<Transaction> GetTransactions(Transaction.TransactionState state)
+        public RecurlyList<Transaction> GetTransactions(Transaction.TransactionState state)
         {
             throw new NotSupportedException("Not yet supported.");
         }

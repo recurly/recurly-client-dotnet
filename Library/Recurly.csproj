@@ -31,6 +31,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -73,14 +74,8 @@
     <Compile Include="Invoice.cs" />
     <Compile Include="NotFoundException.cs" />
     <Compile Include="Plan.cs" />
-    <Compile Include="RecurlyCharge.cs" />
-    <Compile Include="RecurlyInvoiceList.cs" />
-    <Compile Include="RecurlyLineItemList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RecurlyCredit.cs" />
-    <Compile Include="RecurlyCreditCard.cs" />
     <Compile Include="RecurlyList.cs" />
-    <Compile Include="RecurlyTransactionList.cs" />
     <Compile Include="RecurlyTransparent.cs" />
     <Compile Include="ServerException.cs" />
     <Compile Include="Subscription.cs" />

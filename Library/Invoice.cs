@@ -67,6 +67,59 @@ namespace Recurly
         }
 
         /// <summary>
+        /// Returns a PDF representation of an invoice
+        /// </summary>
+        /// <param name="invoiceId"></param>
+        /// <returns></returns>
+        public static byte[] GetPdf(string invoiceId, string acceptLanguage )
+        {
+             return Client.PerformDownloadRequest(UrlPrefix + System.Web.HttpUtility.UrlEncode(invoiceId),
+                "application/pdf", acceptLanguage);
+        }
+
+
+        internal static RecurlyList<Invoice> GetInvoices(string accountCode)
+        {
+            RecurlyList<Invoice> list = new RecurlyList<Invoice>();
+
+            HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
+                UrlPrefix + System.Web.HttpUtility.UrlEncode(accountCode),
+                new Client.ReadXmlDelegate(list.ReadXml)).StatusCode;
+
+            return list;
+        }
+
+        /// <summary>
+        /// Posts pending charges on an account
+        /// </summary>
+        public static void InvoicePendingCharges(string accountCode)
+        {
+            Client.PerformRequest(Client.HttpRequestMethod.Post,
+                UrlPrefix + System.Web.HttpUtility.UrlEncode(accountCode) + "/invoices"
+               );
+        }
+
+        /// <summary>
+        /// Marks an invoice as paid successfully
+        /// </summary>
+        public void MarkSuccessful()
+        {
+            Client.PerformRequest(Client.HttpRequestMethod.Put,
+                UrlPrefix + System.Web.HttpUtility.UrlEncode(InvoiceNumber.ToString()) + "/mark_successful"
+               );
+        }
+
+        /// <summary>
+        /// Marks an invoice as failed collection
+        /// </summary>
+        public void MarkFailed()
+        {
+            Client.PerformRequest(Client.HttpRequestMethod.Put,
+               UrlPrefix + System.Web.HttpUtility.UrlEncode(InvoiceNumber.ToString()) + "/mark_failed"
+              );
+        }
+
+        /// <summary>
         /// Create an Invoice if there are outstanding charges on an account. If there are no outstanding
         /// charges, null is returned.
         /// </summary>

@@ -210,6 +210,104 @@ namespace Recurly
             }
         }
 
+        /// <summary>
+        /// Used for downloading PDFs
+        /// </summary>
+        /// <param name="urlPath"></param>
+        /// <param name="acceptType"></param>
+        /// <param name="acceptLanguage"></param>
+        /// <returns></returns>
+        public static byte[] PerformDownloadRequest(string urlPath, string acceptType, string acceptLanguage)
+        {
+            var url = urlPath.Contains("://") ? urlPath : (ProductionServerUrl + urlPath);
+
+            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
+            request.Accept = acceptType;
+            request.ContentType = "application/xml; charset=utf-8"; // The request is an XML document
+            request.SendChunked = false;             // Send it all as one request
+            request.UserAgent = UserAgent;
+            request.Headers.Add(HttpRequestHeader.Authorization, AuthorizationHeaderValue);
+            request.Method = "GET";
+            request.Headers.Add("Accept-Language:" , acceptLanguage);
+
+            System.Diagnostics.Debug.WriteLine(String.Format("Recurly: Requesting {0} {1}",
+                request.Method, request.RequestUri.ToString()));
+
+            try
+            {
+                HttpWebResponse r = (HttpWebResponse)request.GetResponse();
+                byte[] pdf = null;
+                if (request.HaveResponse)
+                {
+                    if (r.StatusCode == HttpStatusCode.OK)
+                    {
+                        Stream s = r.GetResponseStream();
+                        int contentLength = (int)s.Length;
+                        pdf = new Byte[contentLength];
+                        for (int pos = 0; pos < contentLength; )
+                        {
+                            pos += s.Read(pdf, pos, contentLength - pos);
+                        }
+                    }
+                }
+                return pdf;
+
+            }
+            catch (WebException ex)
+            {
+                if (ex.Response != null)
+                {
+                    HttpWebResponse response = (HttpWebResponse)ex.Response;
+                    HttpStatusCode statusCode = response.StatusCode;
+                    Error[] errors;
+
+                    System.Diagnostics.Debug.WriteLine(String.Format("Recurly Library Received: {0} - {1}",
+                        (int)statusCode, statusCode.ToString()));
+
+                    switch (response.StatusCode)
+                    {
+                        case HttpStatusCode.OK:
+                        case HttpStatusCode.Accepted:
+                        case HttpStatusCode.Created:
+                        case HttpStatusCode.NoContent:
+                            
+                            return null;
+
+                        case HttpStatusCode.NotFound:
+                            errors = Error.ReadResponseAndParseErrors(response);
+                            if (errors.Length > 0)
+                                throw new NotFoundException(errors[0].Message, errors);
+                            else
+                                throw new NotFoundException("The requested object was not found.", errors);
+
+                        case HttpStatusCode.Unauthorized:
+                        case HttpStatusCode.Forbidden:
+                            errors = Error.ReadResponseAndParseErrors(response);
+                            throw new InvalidCredentialsException(errors);
+
+                        case HttpStatusCode.PreconditionFailed:
+                            errors = Error.ReadResponseAndParseErrors(response);
+                            throw new ValidationException(errors);
+
+                        case HttpStatusCode.ServiceUnavailable:
+                            throw new TemporarilyUnavailableException();
+
+                        case HttpStatusCode.InternalServerError:
+                            errors = Error.ReadResponseAndParseErrors(response);
+                            throw new ServerException(errors);
+                    }
+
+                    if ((int)statusCode == ValidationException.HttpStatusCode) // Unprocessable Entity
+                    {
+                        errors = Error.ReadResponseAndParseErrors(response);
+                        throw new ValidationException(errors);
+                    }
+                }
+
+                throw;
+            }
+        }
+
         public static void PerformPageRequests(string urlPath, ReadXmlDelegate readXmlDelegate)
         {
             var regex = new Regex("<([^>]+)>; rel=\"next\"");
