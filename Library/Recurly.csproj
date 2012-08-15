@@ -65,6 +65,7 @@
     <Compile Include="Client.cs" />
     <Compile Include="Configuration\Section.cs" />
     <Compile Include="Coupon.cs" />
+    <Compile Include="CouponRedemption.cs" />
     <Compile Include="Error.cs" />
     <Compile Include="Exception.cs" />
     <Compile Include="ForgedQueryStringException.cs" />

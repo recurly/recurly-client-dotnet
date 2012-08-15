@@ -18,12 +18,12 @@ namespace Recurly
             Past_Due
         }
 
-        private string _accountCode;
+        public string AccountCode { get; private set; }
         public string UUID { get; protected set; }
         public InvoiceState State { get; protected set; }
         public int InvoiceNumber { get; private set; }
         public string PONumber { get; private set; }
-        public string VATNumber { get; private set; }
+        public string VatNumber { get; private set; }
         public int SubtotalInCents { get; private set; }
         public int TaxInCents {get; protected set; }
         public int TotalInCents { get; protected set; }
@@ -102,7 +102,7 @@ namespace Recurly
                     {
                         case "account":
                             string href = reader.GetAttribute("href");
-                            this._accountCode = href.Substring(href.LastIndexOf("/") + 1);
+                            this.AccountCode = href.Substring(href.LastIndexOf("/") + 1);
                             break;
 
                         case "uuid":
@@ -124,7 +124,7 @@ namespace Recurly
                             break;
 
                         case "vat_number":
-                            this.VATNumber = reader.ReadElementContentAsString();
+                            this.VatNumber = reader.ReadElementContentAsString();
                             break;
 
                         case "subtotal_in_cents":

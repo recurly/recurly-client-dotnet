@@ -54,7 +54,7 @@ namespace Recurly.Test
             BillingInfo billingInfo = Factories.NewBillingInfo(newAcct);
             billingInfo.Update();
 
-            billingInfo.ClearBillingInfo();
+            billingInfo.Delete();
         }
 
         [Test]

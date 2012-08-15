@@ -30,10 +30,10 @@ namespace Recurly.Test
             billingInfo.State = "CA";
             billingInfo.Country = "US";
             billingInfo.PostalCode = "94105";
-            billingInfo.CreditCard.ExpirationMonth = DateTime.Now.Month;
-            billingInfo.CreditCard.ExpirationYear = DateTime.Now.Year + 1;
-            billingInfo.CreditCard.Number = "1";
-            billingInfo.CreditCard.VerificationValue = "123";
+            billingInfo.ExpirationMonth = DateTime.Now.Month;
+            billingInfo.ExpirationYear = DateTime.Now.Year + 1;
+            billingInfo.CreditCardNumber = "4111-1111-1111-1111";
+            billingInfo.VerificationValue = "123";
 
             return billingInfo;
         }

@@ -8,6 +8,17 @@ namespace Recurly
 {
     public class BillingInfo
     {
+
+        public enum CreditCardType : short
+        {
+            Visa,
+            MasterCard,
+            AmericanExpress,
+            Discover,
+            JCB
+        }
+
+
         /// <summary>
         /// Account Code or unique ID for the account in Recurly
         /// </summary>
@@ -22,21 +33,50 @@ namespace Recurly
         /// </summary>
         public string State { get; set; }
         /// <summary>
-        /// Zip code or Postal code
-        /// </summary>
-        public string PostalCode { get; set; }
-        /// <summary>
         /// 2-letter ISO country code
         /// </summary>
         public string Country { get; set; }
-        public string IpAddress { get; set; }
+        /// <summary>
+        /// Zip code or Postal code
+        /// </summary>
+        public string PostalCode { get; set; }
         public string PhoneNumber { get; set; }
-        public RecurlyCreditCard CreditCard { get; private set; }
-
         /// <summary>
         /// VAT Numbers
         /// </summary>
         public string VatNumber { get; set; }
+        public string IpAddress { get; set; }
+        public string IpAddressCountry { get; private set; }
+
+        /// <summary>
+        /// Credit Card Number, first six digits
+        /// </summary>
+        public string FirstSix { get; set; }
+
+        /// <summary>
+        /// Credit Card Number, last four digits
+        /// </summary>
+        public string LastFour { get; set; }
+
+        public CreditCardType CardType { get; set; }
+        public int ExpirationMonth { get; set; }
+        public int ExpirationYear { get; set; }
+
+
+        public string Company { get; set; }
+
+        /// <summary>
+        /// Paypal Billing Agreement ID
+        /// </summary>
+        public string BillingAgreementId { get; set; }
+
+
+        /// <summary>
+        /// Credit card number
+        /// </summary>
+        public string CreditCardNumber { get; set; }
+        public string VerificationValue { get; set; }
+
 
         private const string UrlPrefix = "/accounts/";
         private const string UrlPostfix = "/billing_info";
@@ -55,7 +95,7 @@ namespace Recurly
 
         private BillingInfo()
         {
-            this.CreditCard = new RecurlyCreditCard();
+            
         }
 
         /// <summary>
@@ -92,13 +132,14 @@ namespace Recurly
         {
             Client.PerformRequest(Client.HttpRequestMethod.Put,
                 BillingInfoUrl(this.AccountCode),
-                new Client.WriteXmlDelegate(this.WriteXml));
+                new Client.WriteXmlDelegate(this.WriteXml),
+                new Client.ReadXmlDelegate(this.ReadXml));
         }
 
         /// <summary>
         /// Delete an account's billing info.
         /// </summary>
-        public void ClearBillingInfo()
+        public void Delete()
         {
             Client.PerformRequest(Client.HttpRequestMethod.Delete,
                 BillingInfoUrl(this.AccountCode));
@@ -121,8 +162,9 @@ namespace Recurly
                 {
                     switch (reader.Name)
                     {
-                        case "account_code":
-                            this.AccountCode = reader.ReadElementContentAsString();
+                        case "account":
+                            string href = reader.GetAttribute("href");
+                            this.AccountCode = href.Substring(href.LastIndexOf("/") + 1);
                             break;
 
                         case "first_name":
@@ -131,6 +173,10 @@ namespace Recurly
 
                         case "last_name":
                             this.LastName = reader.ReadElementContentAsString();
+                            break;
+
+                        case "company":
+                            this.Company = reader.ReadElementContentAsString();
                             break;
 
                         case "address1":
@@ -157,10 +203,6 @@ namespace Recurly
                             this.Country = reader.ReadElementContentAsString();
                             break;
 
-                        case "ip_address":
-                            this.IpAddress = reader.ReadElementContentAsString();
-                            break;
-
                         case "phone":
                             this.PhoneNumber = reader.ReadElementContentAsString();
                             break;
@@ -169,10 +211,38 @@ namespace Recurly
                             this.VatNumber = reader.ReadElementContentAsString();
                             break;
 
-                        case "credit_card":
-                            this.CreditCard = new RecurlyCreditCard();
-                            this.CreditCard.ReadXml(reader);
+                        case "ip_address":
+                            this.IpAddress = reader.ReadElementContentAsString();
                             break;
+
+                        case "ip_address_country":
+                            this.IpAddressCountry = reader.ReadElementContentAsString();
+                            break;
+
+                        case "card_type":
+                            this.CardType = (CreditCardType)Enum.Parse(typeof(CreditCardType), reader.ReadElementContentAsString(), true);
+                            break;
+
+                        case "year":
+                            this.ExpirationYear = reader.ReadElementContentAsInt();
+                            break;
+                            
+                        case "month":
+                            this.ExpirationMonth = reader.ReadElementContentAsInt();
+                            break;
+
+                        case "first_six":
+                            this.FirstSix = reader.ReadElementContentAsString();
+                            break;
+
+                        case "last_four":
+                            this.LastFour = reader.ReadElementContentAsString();
+                            break;
+
+                        case "billing_agreement_id":
+                            this.BillingAgreementId = reader.ReadElementContentAsString();
+                            break;
+                       
                     }
                 }
             }
@@ -192,17 +262,24 @@ namespace Recurly
             xmlWriter.WriteElementString("country", this.Country);
             xmlWriter.WriteElementString("phone", this.PhoneNumber);
 
+            if (!String.IsNullOrEmpty(this.VatNumber))
+                xmlWriter.WriteElementString("vat_number", this.VatNumber);
 
             if (!String.IsNullOrEmpty(this.IpAddress))
                 xmlWriter.WriteElementString("ip_address", this.IpAddress);
             else
                 System.Diagnostics.Debug.WriteLine("Recurly Client Library: Recording IP Address is strongly recommended.");
 
-            if (!String.IsNullOrEmpty(this.VatNumber))
-                xmlWriter.WriteElementString("vat_number", this.VatNumber);
+            if (!String.IsNullOrEmpty(this.CreditCardNumber))
+            {
+                xmlWriter.WriteElementString("number", this.CreditCardNumber);
+                xmlWriter.WriteElementString("month", this.ExpirationMonth.ToString());
+                xmlWriter.WriteElementString("year", this.ExpirationYear.ToString());
 
-            if (this.CreditCard != null)
-                this.CreditCard.WriteXml(xmlWriter);
+                if (!String.IsNullOrEmpty(this.VerificationValue))
+                    xmlWriter.WriteElementString("verification_value", this.VerificationValue);
+            }
+            
 
             xmlWriter.WriteEndElement(); // End: billing_info
         }

@@ -199,15 +199,7 @@ namespace Recurly
             return Coupon.Get(this.AccountCode);
         }
 
-        /// <summary>
-        /// Redeem a coupon on the account.
-        /// </summary>
-        /// <param name="couponCode"></param>
-        /// <returns></returns>
-        public Coupon RedeemCoupon(string couponCode)
-        {
-            return Coupon.Redeem(this.AccountCode, couponCode);
-        }
+        
 
 
         /// <summary>
@@ -265,6 +257,19 @@ namespace Recurly
         public List<Transaction> GetTransactions(Transaction.TransactionState state)
         {
             throw new NotSupportedException("Not yet supported.");
+        }
+
+        /// <summary>
+        /// Returns a new adjustment (credit or charge) for this account
+        /// </summary>
+        /// <param name="description"></param>
+        /// <param name="unitAmountInCents"></param>
+        /// <param name="currency"></param>
+        /// <param name="quantity"></param>
+        /// <returns></returns>
+        public Adjustment CreateAdjustment(string description, int unitAmountInCents, string currency, int quantity=1)
+        {
+            return new Adjustment(this.AccountCode, description, currency, unitAmountInCents, quantity);
         }
 
         #region Read and Write XML documents
