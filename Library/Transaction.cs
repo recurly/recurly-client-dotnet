@@ -17,7 +17,18 @@ namespace Recurly
             Voided
         }
 
+        public enum TransactionType : short
+        {
+            Unknown = 0,
+            Authorization,
+            Payment,
+            Refund
+        }
+
+
         public string Id { get; private set; }
+
+
         public int AmountInCents { get; private set; }
         public DateTime Date { get; private set; }
         public string Message { get; private set; }
@@ -27,13 +38,7 @@ namespace Recurly
         public bool Refundable { get; private set; }
         public TransactionType Type { get; private set; }
 
-        public enum TransactionType : short
-        {
-            Unknown = 0,
-            Authorization,
-            Payment,
-            Refund
-        }
+       
 
         internal Transaction()
         { }

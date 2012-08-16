@@ -46,6 +46,10 @@ namespace Recurly
                element = "invoices";
            else if (list == typeof(Plan))
                element = "plans";
+           else if (list == typeof(AddOn))
+               element = "add_ons";
+           else if (list == typeof(Subscription))
+               element = "subscriptions";
 
            while (reader.Read())
             {
@@ -73,6 +77,15 @@ namespace Recurly
                         case "plan":
                             this.Add((T)(object)new Plan(reader));
                             break;
+
+                        case "add_on":
+                            this.Add((T)(object)new AddOn(reader));
+                            break;
+
+                        case "subscription":
+                            this.Add((T)(object)new Subscription(reader));
+                            break;
+
                     }
                 }
             }

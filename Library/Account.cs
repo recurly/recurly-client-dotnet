@@ -173,7 +173,7 @@ namespace Recurly
         /// Gets all adjustments for this account
         /// </summary>
         /// <returns></returns>
-        public List<Adjustment> GetAdjustments()
+        public RecurlyList<Adjustment> GetAdjustments()
         {
             throw new NotSupportedException("Not yet implemented");
         }
@@ -183,7 +183,7 @@ namespace Recurly
         /// </summary>
         /// <param name="type">Adjustment type to retrieve</param>
         /// <returns></returns>
-        public List<Adjustment> GetAdjustments(Adjustment.AdjustmentType type)
+        public RecurlyList<Adjustment> GetAdjustments(Adjustment.AdjustmentType type)
         {
             throw new NotSupportedException("Not yet implemented");
         }
@@ -225,7 +225,15 @@ namespace Recurly
         /// <returns></returns>
         public RecurlyList<Subscription> GetSubscriptions()
         {
-            throw new NotSupportedException("Not yet supported.");
+            RecurlyList<Subscription> l = new RecurlyList<Subscription>();
+            HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
+                UrlPrefix + System.Web.HttpUtility.UrlEncode(this.AccountCode) + "/subscriptions",
+                new Client.ReadXmlDelegate(l.ReadXml)).StatusCode;
+
+            if (statusCode == HttpStatusCode.NotFound)
+                return null;
+
+            return l;
         }
 
         /// <summary>
