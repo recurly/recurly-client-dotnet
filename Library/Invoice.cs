@@ -126,7 +126,7 @@ namespace Recurly
         /// <param name="accountCode">Account code</param>
         /// <returns></returns>
         public static Invoice Create(string accountCode)
-        {
+        {   
             Invoice invoice = new Invoice();
 
             HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Post,

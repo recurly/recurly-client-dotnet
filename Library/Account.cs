@@ -219,15 +219,19 @@ namespace Recurly
             throw new NotSupportedException("Not yet supported.");
         }
 
+      
+
         /// <summary>
-        /// Returns a list of subscriptions for this account.
+        /// Returns a list of subscriptions for this account
         /// </summary>
+        /// <param name="state"></param>
         /// <returns></returns>
-        public RecurlyList<Subscription> GetSubscriptions()
+        public RecurlyList<Subscription> GetSubscriptions(Subscription.SubstriptionState state = Subscription.SubstriptionState.All)
         {
             RecurlyList<Subscription> l = new RecurlyList<Subscription>();
             HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
-                UrlPrefix + System.Web.HttpUtility.UrlEncode(this.AccountCode) + "/subscriptions",
+                UrlPrefix + System.Web.HttpUtility.UrlEncode(this.AccountCode) + "/subscriptions/"
+                + "state=" + state.ToString(),
                 new Client.ReadXmlDelegate(l.ReadXml)).StatusCode;
 
             if (statusCode == HttpStatusCode.NotFound)
@@ -236,33 +240,26 @@ namespace Recurly
             return l;
         }
 
-        /// <summary>
-        /// Returns a list of subscriptions for this account
-        /// </summary>
-        /// <param name="state"></param>
-        /// <returns></returns>
-        public RecurlyList<Subscription> GetSubscriptions(Subscription.SubstriptionState state)
-        {
-            throw new NotSupportedException("Not yet supported.");
-        }
-
-        /// <summary>
-        /// Returns a list of transactions for this account
-        /// </summary>
-        /// <returns></returns>
-        public RecurlyList<Transaction> GetTransactions()
-        {
-            throw new NotSupportedException("Not yet supported.");
-        }
-
+       
         /// <summary>
         /// Returns a list of transactions for this account, by transaction type
         /// </summary>
         /// <param name="state"></param>
         /// <returns></returns>
-        public RecurlyList<Transaction> GetTransactions(Transaction.TransactionState state)
+        public RecurlyList<Transaction> GetTransactions(Transaction.TransactionState state = Transaction.TransactionState.All,
+            Transaction.TransactionType type = Transaction.TransactionType.All)
         {
-            throw new NotSupportedException("Not yet supported.");
+            RecurlyList<Transaction> l = new RecurlyList<Transaction>();
+            HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
+                UrlPrefix + System.Web.HttpUtility.UrlEncode(this.AccountCode) + "/transactions/"
+                + "state=" + state.ToString() + 
+                "&type=" + type.ToString(),
+                new Client.ReadXmlDelegate(l.ReadXml)).StatusCode;
+
+            if (statusCode == HttpStatusCode.NotFound)
+                return null;
+
+            return l;
         }
 
         /// <summary>

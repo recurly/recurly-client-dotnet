@@ -17,6 +17,7 @@ namespace Recurly
         // The currently valid Subscription States
         public enum SubstriptionState : short
         {
+            All = 0,
             Active,
             Canceled,
             Expired,

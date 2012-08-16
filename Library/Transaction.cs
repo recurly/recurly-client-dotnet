@@ -12,32 +12,66 @@ namespace Recurly
         // The currently valid Transaction States
         public enum TransactionState : short
         {
-            Successful,
+            All = 0,
+            Unknown,
+            Success,
             Failed,
             Voided
         }
 
         public enum TransactionType : short
         {
-            Unknown = 0,
+            All = 0,
+            Unknown,
             Authorization,
-            Payment,
+            Purchase,
             Refund
         }
 
 
-        public string Id { get; private set; }
+        public string UUID { get; private set; }
+        public TransactionType Action { get; set; }
+        public int AmountInCents { get; set; }
+        public int TaxInCents { get; set; }
+        public string Currency { get; set; }
 
+        public TransactionState Status { get; private set; }
 
-        public int AmountInCents { get; private set; }
-        public DateTime Date { get; private set; }
-        public string Message { get; private set; }
-        public string Status { get; private set; }
-        public bool Success { get; private set; }
+        public string Reference { get; set; }
+
+        public bool Test { get; private set; }
         public bool Voidable { get; private set; }
         public bool Refundable { get; private set; }
-        public TransactionType Type { get; private set; }
 
+        public string CCVResult { get; private set; }
+        public string AVSResult { get; private set; }
+        public string AVSResultStreet { get; private set; }
+        public string AVSResultPostal { get; private set; }
+
+        public DateTime CreatedAt { get; private set; }
+
+        private Account _account;
+
+        public string AccountCode { get; private set; }
+
+        public Account Account
+        {
+            get
+            {
+                if (null == _account)
+                {
+                    _account = Account.Get(this.AccountCode);
+                }
+
+                return _account;
+            }
+            set
+            {
+                _account = value;
+                this.AccountCode = value.AccountCode;
+            }
+        }
+        public int? Invoice { get; private set; }
        
 
         internal Transaction()
@@ -49,7 +83,6 @@ namespace Recurly
         }
 
         private const string UrlPrefix = "/transactions/";
-        private const string UrlPostfix = "/transactions";
 
         public static Transaction Get(string transactionId)
         {
@@ -65,83 +98,148 @@ namespace Recurly
             return transaction;
         }
 
-        internal static string TransactionsUrl(string accountCode)
+        /// <summary>
+        /// Creates an invoice, charge, and optionally account
+        /// </summary>
+        public void Create()
         {
-            return Account.UrlPrefix + System.Web.HttpUtility.UrlEncode(accountCode) + UrlPostfix;
+             Client.PerformRequest(Client.HttpRequestMethod.Get,
+                UrlPrefix,
+                new Client.WriteXmlDelegate(this.WriteXml),
+                new Client.ReadXmlDelegate(this.ReadXml));
         }
+
+
+        /// <summary>
+        /// Refunds a transaction
+        /// 
+        /// </summary>
+        /// <param name="refund">If present, the amount to refund. Otherwise it is a full refund.</param>
+        public void Refund(int? refund)
+        {
+            Client.PerformRequest(Client.HttpRequestMethod.Delete,
+                UrlPrefix + System.Web.HttpUtility.UrlEncode(this.UUID)
+                + (refund.HasValue ? "?amount_in_cents=" + refund.Value.ToString() : "")
+                );
+        }
+
 
         #region Read and Write XML documents
 
         internal void ReadXml(XmlTextReader reader)
         {
+            string href;
+            int amount;
             while (reader.Read())
             {
                 // End of account element, get out of here
-                if ((reader.Name == "transaction" || reader.Name == "payment" || reader.Name == "refund") &&
+                if ((reader.Name == "transaction") &&
                     reader.NodeType == XmlNodeType.EndElement)
                     break;
 
                 if (reader.NodeType == XmlNodeType.Element)
                 {
-                    bool boolVal;
+                   
                     switch (reader.Name)
                     {
-                        case "id":
-                            this.Id = reader.ReadElementContentAsString();
+                        case "account":
+                            href = reader.GetAttribute("href");
+                            this.AccountCode = href.Substring(href.LastIndexOf("/") + 1);
+                            break;
+
+                        case "invoice":
+                            href = reader.GetAttribute("href");
+                            this.Invoice = int.Parse(href.Substring(href.LastIndexOf("/") + 1));
+                            break;
+
+                        case "uuid":
+                            this.UUID = reader.ReadElementContentAsString();
                             break;
 
                         case "action":
-                            string action = reader.ReadElementContentAsString();
-                            switch (action)
-                            {
-                                case "purchase":
-                                    this.Type = TransactionType.Payment;
-                                    break;
-                                case "credit":
-                                    this.Type = TransactionType.Refund;
-                                    break;
-                                case "authorization":
-                                    this.Type = TransactionType.Authorization;
-                                    break;
-                                default:
-                                    this.Type = TransactionType.Unknown;
-                                    break;
-                            }
-                            break;
-
-                        case "date":
-                            DateTime date;
-                            if (DateTime.TryParse(reader.ReadElementContentAsString(), out date))
-                                this.Date = date;
+                            this.Action = (TransactionType)Enum.Parse(typeof(TransactionType), reader.ReadElementContentAsString(), true);
                             break;
 
                         case "amount_in_cents":
-                            int amount;
                             if (Int32.TryParse(reader.ReadElementContentAsString(), out amount))
                                 this.AmountInCents = amount;
                             break;
 
-                        case "message":
-                            this.Message = reader.ReadElementContentAsString();
+                        case "tax_in_cents":
+                            if (Int32.TryParse(reader.ReadElementContentAsString(), out amount))
+                                this.AmountInCents = amount;
                             break;
 
-                        case "success":
-                            if (Boolean.TryParse(reader.ReadElementContentAsString(), out boolVal))
-                                Success = boolVal;
+                        case "currency":
+                            this.Currency = reader.ReadElementContentAsString();
+                            break;
+
+                        case "status":
+                            this.Status = (TransactionState)Enum.Parse(typeof(TransactionState), reader.ReadElementContentAsString(), true);
+                            break;
+
+                        case "reference":
+                            this.Reference = reader.ReadElementContentAsString();
+                            break;
+
+                        case "test":
+                            this.Test = reader.ReadElementContentAsBoolean();
                             break;
 
                         case "voidable":
-                            if (Boolean.TryParse(reader.ReadElementContentAsString(), out boolVal))
-                                Voidable = boolVal;
+                            this.Voidable =  reader.ReadElementContentAsBoolean();
                             break;
 
                         case "refundable":
-                            if (Boolean.TryParse(reader.ReadElementContentAsString(), out boolVal))
-                                Refundable = boolVal;
+                            this.Refundable =  reader.ReadElementContentAsBoolean();
                             break;
+
+                        case "ccv_result":
+                            this.CCVResult = reader.ReadElementContentAsString();
+                            break;
+
+                        case "avs_result":
+                            this.AVSResult = reader.ReadElementContentAsString();
+                            break;
+
+                        case "avs_result_street":
+                            this.AVSResultStreet = reader.ReadElementContentAsString();
+                            break;
+
+                        case "avs_result_postal":
+                            this.AVSResultPostal = reader.ReadElementContentAsString();
+                            break;
+
+                        case "created_at":
+                            DateTime date;
+                            if (DateTime.TryParse(reader.ReadElementContentAsString(), out date))
+                                this.CreatedAt = date;
+                            break;
+
+                       
+                        case "details":
+                            // API docs say not to load details into objects
+                            break;
+
+                        
                     }
                 }
             }
+        }
+
+        internal void WriteXml(XmlTextWriter xmlWriter)
+        {
+            xmlWriter.WriteStartElement("transaction");
+
+            xmlWriter.WriteElementString("amount_in_cents", this.AmountInCents.ToString());
+            xmlWriter.WriteElementString("currency", this.Currency);
+
+
+            if (this.Account != null)
+            {
+                this.Account.WriteXml(xmlWriter);
+            }
+            xmlWriter.WriteEndElement(); 
         }
 
         #endregion
@@ -150,7 +248,7 @@ namespace Recurly
 
         public override string ToString()
         {
-            return "Recurly Transaction: " + this.Id;
+            return "Recurly Transaction: " + this.UUID;
         }
 
         public override bool Equals(object obj)
@@ -163,12 +261,12 @@ namespace Recurly
 
         public bool Equals(Transaction transaction)
         {
-            return this.Id == transaction.Id;
+            return this.UUID == transaction.UUID;
         }
 
         public override int GetHashCode()
         {
-            return this.Id.GetHashCode();
+            return this.UUID.GetHashCode();
         }
 
         #endregion
