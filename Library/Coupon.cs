@@ -140,7 +140,13 @@ namespace Recurly
             return coupon;
         }
 
-        
+        /// <summary>
+        /// Creates this coupon.
+        /// </summary>
+        public void Create()
+        {
+            Client.PerformRequest(Client.HttpRequestMethod.Post, UrlPrefix + System.Web.HttpUtility.UrlEncode(this.CouponCode));
+        }
 
         /// <summary>
         /// Deactivates this coupon.
