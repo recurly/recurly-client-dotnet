@@ -81,8 +81,8 @@
 //        private string EncodedData()
 //        {
 //            string dataToProtect = String.Format("redirect_url={0}&account%5Baccount_code%5D={1}",
-//                System.Web.HttpUtility.UrlEncode(this.RedirectUrl),
-//                System.Web.HttpUtility.UrlEncode(this.AccountCode));
+//                System.Uri.EscapeUriString(this.RedirectUrl),
+//                System.Uri.EscapeUriString(this.AccountCode));
 
 //            return String.Format("{0}|{1}", ComputePrivateHash(dataToProtect), dataToProtect);
 //        }
@@ -169,7 +169,7 @@
 //        private static HttpStatusCode GetResult(string resultKey, RecurlyClient.ReadXmlDelegate readXmlDelegate)
 //        {
 //            HttpStatusCode statusCode = RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Get,
-//                ResultsUrlPrefix + System.Web.HttpUtility.UrlEncode(resultKey),
+//                ResultsUrlPrefix + System.Uri.EscapeUriString(resultKey),
 //                readXmlDelegate);
 
 //            return statusCode;

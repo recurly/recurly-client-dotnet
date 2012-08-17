@@ -89,7 +89,7 @@ namespace Recurly
             Transaction transaction = new Transaction();
 
             HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
-                UrlPrefix + System.Web.HttpUtility.UrlEncode(transactionId),
+                UrlPrefix + System.Uri.EscapeUriString(transactionId),
                 new Client.ReadXmlDelegate(transaction.ReadXml)).StatusCode;
 
             if (statusCode == HttpStatusCode.NotFound)
@@ -118,7 +118,7 @@ namespace Recurly
         public void Refund(int? refund)
         {
             Client.PerformRequest(Client.HttpRequestMethod.Delete,
-                UrlPrefix + System.Web.HttpUtility.UrlEncode(this.UUID)
+                UrlPrefix + System.Uri.EscapeUriString(this.UUID)
                 + (refund.HasValue ? "?amount_in_cents=" + refund.Value.ToString() : "")
                 );
         }
@@ -144,7 +144,7 @@ namespace Recurly
                     {
                         case "account":
                             href = reader.GetAttribute("href");
-                            this.AccountCode = href.Substring(href.LastIndexOf("/") + 1);
+                            this.AccountCode = Uri.UnescapeDataString(href.Substring(href.LastIndexOf("/") + 1));
                             break;
 
                         case "invoice":

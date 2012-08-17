@@ -52,7 +52,7 @@ namespace Recurly
             cr.Currency = currency;
 
             HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
-               UrlPrefix + System.Web.HttpUtility.UrlEncode(accountCode),
+               UrlPrefix + System.Uri.EscapeUriString(accountCode),
                new Client.ReadXmlDelegate(cr.ReadXml)).StatusCode;
 
             return cr;
@@ -66,7 +66,7 @@ namespace Recurly
             cr.AccountCode = accountCode;
 
             HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
-                UrlPrefix + System.Web.HttpUtility.UrlEncode(accountCode),
+                UrlPrefix + System.Uri.EscapeUriString(accountCode),
                 new Client.ReadXmlDelegate(cr.ReadXml)).StatusCode;
 
             if (statusCode == HttpStatusCode.NotFound)
@@ -81,7 +81,7 @@ namespace Recurly
         public void Delete()
         {
             HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Delete,
-                UrlPrefix + System.Web.HttpUtility.UrlEncode(this.AccountCode)).StatusCode;
+                UrlPrefix + System.Uri.EscapeUriString(this.AccountCode)).StatusCode;
         }
 
 
@@ -104,12 +104,12 @@ namespace Recurly
                     {
                         case "account":
                             href = reader.GetAttribute("href");
-                            this.AccountCode = href.Substring(href.LastIndexOf("/") + 1);
+                            this.AccountCode = Uri.UnescapeDataString(href.Substring(href.LastIndexOf("/") + 1));
                             break;
 
                         case "coupon":
                             href = reader.GetAttribute("href");
-                            this.CouponCode = href.Substring(href.LastIndexOf("/") + 1);
+                            this.CouponCode =Uri.UnescapeDataString( href.Substring(href.LastIndexOf("/") + 1));
                             break;
 
                         case "single_use":

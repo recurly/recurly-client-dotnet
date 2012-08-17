@@ -9,57 +9,114 @@ namespace Recurly.Test
     [TestFixture]
     public class AccountTest
     {
-
+        
         [Test]
         public void CreateAccount()
         {
-            Account acct = Factories.NewAccount("Test Active Account");
+            Account acct = new Account(Factories.GetMockAccountName());
+            acct.Create();
+            Assert.IsNotNull(acct.CreatedAt);
+        }
+
+
+        [Test]
+        public void CreateAccountWithParameters()
+        {
+            Account acct = new Account(Factories.GetMockAccountName());
+            acct.Username = "testuser1";
+            acct.Email = "testemail@recurly.com";
+            acct.FirstName = "Test";
+            acct.LastName = "User";
+            acct.CompanyName = "Test Company";
+            acct.AcceptLanguage = "en";
+
             acct.Create();
 
-            acct = Factories.NewAccount("Test Closed Account");
-            acct.Create();
-            acct.Close();
+            Assert.AreEqual(acct.Username, "testuser1");
+            Assert.AreEqual(acct.Email, "testemail@recurly.com");
+            Assert.AreEqual(acct.FirstName, "Test");
+            Assert.AreEqual(acct.LastName, "User");
+            Assert.AreEqual(acct.CompanyName, "Test Company");
+            Assert.AreEqual(acct.AcceptLanguage, "en");
 
-            acct = Factories.NewAccount("Test Past Due Account");
+        }
+
+        [Test]
+        public void CreateAccountWithBillingInfo()
+        {
+            String a = Factories.GetMockAccountName();
+
+            Account acct = new Account(a, "BI", "User",
+                "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
+
             acct.Create();
 
-            //TODO: add subscription that is past due
+            BillingInfo t = BillingInfo.Get(a);
+            Assert.AreEqual(t, acct.BillingInfo);
+
         }
 
         [Test]
         public void List()
         {
-            Account.List();
-            // todo: assert size
+            Account acct = new Account(Factories.GetMockAccountName());
+            acct.Create();
+            acct = new Account(Factories.GetMockAccountName());
+            acct.Create();
+
+            RecurlyList<Account> accounts = Account.List();
+            Assert.IsTrue(accounts.Count >= 2);
         }
 
         [Test]
         public void ListActive()
         {
-            List<Account> accounts = Account.List(Account.AccountState.Active);
-            Assert.IsTrue(accounts.Count > 0);
+            Account acct = new Account(Factories.GetMockAccountName());
+            acct.Create();
+            acct = new Account(Factories.GetMockAccountName());
+            acct.Create();
+
+            List<Account> accounts = Account.List(Account.AccountState.active);
+            Assert.IsTrue(accounts.Count >= 2);
         }
 
         [Test]
         public void ListClosed()
         {
-            Account.List(Account.AccountState.Closed);
-            //TODO: assert size
-        }
+            Account acct = new Account(Factories.GetMockAccountName());
+            acct.Create();
+            acct.Close();
+            acct = new Account(Factories.GetMockAccountName());
+            acct.Create();
+            acct.Close();
 
-      
+            List<Account> accounts = Account.List(Account.AccountState.closed);
+            Assert.IsTrue(accounts.Count >= 2);
+        }
+        
         [Test]
         public void ListPastDue()
         {
-            Account.List(Account.AccountState.Past_Due);
-            //TODO: assert size
-        }
+            Account acct = new Account(Factories.GetMockAccountName());
+            acct.Create();
 
+            Adjustment a = acct.CreateAdjustment("Past Due", 5000, "USD", 1);
+            a.Create();
+
+            acct.InvoicePendingCharges();
+
+            RecurlyList<Account> accounts = Account.List(Account.AccountState.past_due);
+            Assert.IsTrue(accounts.Count > 0);
+        }
+      
 
         [Test]
         public void LookupAccount()
         {
-            Account newAcct = Factories.NewAccount("Lookup Account");
+            string a = Factories.GetMockAccountName();
+
+            Account newAcct = new Account(a);
+            newAcct.Email = "testemail@recurly.com";
             newAcct.Create();
 
             Account acct = Account.Get(newAcct.AccountCode);
@@ -78,7 +135,7 @@ namespace Recurly.Test
         [Test]
         public void UpdateAccount()
         {
-            Account acct = Factories.NewAccount("Update Account");
+            Account acct = new Account(Factories.GetMockAccountName());
             acct.Create();
 
             acct.LastName = "UpdateTest123";
@@ -91,13 +148,29 @@ namespace Recurly.Test
         [Test]
         public void CloseAccount()
         {
-            Account acct = Factories.NewAccount("Close Account");
+            string s = Factories.GetMockAccountName();
+            Account acct = new Account(s);
             acct.Create();
 
             acct.Close();
 
-            Account getAcct = Account.Get("Close Account");
-            Assert.AreEqual(getAcct.State, Recurly.Account.AccountState.Closed);
+            Account getAcct = Account.Get(s);
+            Assert.AreEqual(getAcct.State, Recurly.Account.AccountState.closed);
+        }
+
+        [Test]
+        public void ReopenAccount()
+        {
+            string s = Factories.GetMockAccountName();
+            Account acct = new Account(s);
+            acct.Create();
+            acct.Close();
+
+            acct.Reopen();
+
+            Account test = Account.Get(s);
+            Assert.AreEqual(acct.State, Recurly.Account.AccountState.active);
+            Assert.AreEqual(test.State, Recurly.Account.AccountState.active);
         }
 
         

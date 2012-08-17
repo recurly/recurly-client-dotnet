@@ -51,7 +51,7 @@ namespace Recurly
         public void Create()
         {
             Client.PerformRequest(Client.HttpRequestMethod.Post,
-                UrlPrefix + System.Web.HttpUtility.UrlEncode(this.PlanCode) + UrlPostfix + System.Web.HttpUtility.UrlEncode(this.AddOnCode),
+                UrlPrefix + System.Uri.EscapeUriString(this.PlanCode) + UrlPostfix + System.Uri.EscapeUriString(this.AddOnCode),
                 new Client.WriteXmlDelegate(this.WriteXml),
                 new Client.ReadXmlDelegate(this.ReadXml));
         }
@@ -62,7 +62,7 @@ namespace Recurly
         public void Update()
         {
             Client.PerformRequest(Client.HttpRequestMethod.Put,
-                UrlPrefix + System.Web.HttpUtility.UrlEncode(this.PlanCode) + UrlPostfix + System.Web.HttpUtility.UrlEncode(this.AddOnCode),
+                UrlPrefix + System.Uri.EscapeUriString(this.PlanCode) + UrlPostfix + System.Uri.EscapeUriString(this.AddOnCode),
                 new Client.WriteXmlDelegate(this.WriteXml),
                 new Client.ReadXmlDelegate(this.ReadXml));
         }
@@ -72,8 +72,8 @@ namespace Recurly
         /// </summary>
         public void Deactivate()
         {
-            Client.PerformRequest(Client.HttpRequestMethod.Delete, UrlPrefix + System.Web.HttpUtility.UrlEncode(this.PlanCode) +
-                UrlPostfix + System.Web.HttpUtility.UrlEncode(this.AddOnCode));
+            Client.PerformRequest(Client.HttpRequestMethod.Delete, UrlPrefix + System.Uri.EscapeUriString(this.PlanCode) +
+                UrlPostfix + System.Uri.EscapeUriString(this.AddOnCode));
         }
 
 

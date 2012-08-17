@@ -85,7 +85,7 @@ namespace Recurly
             Plan plan = new Plan();
 
             HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
-                UrlPrefix + System.Web.HttpUtility.UrlEncode(planCode),
+                UrlPrefix + System.Uri.EscapeUriString(planCode),
                 new Client.ReadXmlDelegate(plan.ReadXml)).StatusCode;
 
             if (statusCode == HttpStatusCode.NotFound)
@@ -110,7 +110,7 @@ namespace Recurly
         public void Update()
         {
             Client.PerformRequest(Client.HttpRequestMethod.Put,
-                UrlPrefix + System.Web.HttpUtility.UrlEncode(this.PlanCode),
+                UrlPrefix + System.Uri.EscapeUriString(this.PlanCode),
                 new Client.WriteXmlDelegate(this.WriteXml));
         }
 
@@ -119,7 +119,7 @@ namespace Recurly
         /// </summary>
         public void Deactivate()
         {
-            Client.PerformRequest(Client.HttpRequestMethod.Delete, UrlPrefix + System.Web.HttpUtility.UrlEncode(this.PlanCode));
+            Client.PerformRequest(Client.HttpRequestMethod.Delete, UrlPrefix + System.Uri.EscapeUriString(this.PlanCode));
         }
 
 

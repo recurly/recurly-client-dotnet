@@ -15,8 +15,9 @@ namespace Recurly
         // The currently valid adjustment types
         public enum AdjustmentType : short
         {
-            Charge,
-            Credit
+            all = 0,
+            charge,
+            credit
         }
 
         public string AccountCode { get; private set; }
@@ -66,7 +67,7 @@ namespace Recurly
         public void Create()
         {
             Client.PerformRequest(Client.HttpRequestMethod.Post,
-                UrlPrefix + System.Web.HttpUtility.UrlEncode(AccountCode) + UrlPostfix,
+                UrlPrefix + System.Uri.EscapeUriString(AccountCode) + UrlPostfix,
                 new Client.WriteXmlDelegate(this.WriteXml),
                 new Client.ReadXmlDelegate(this.ReadXml)
                 );
@@ -79,7 +80,7 @@ namespace Recurly
         /// </summary>
         public void Delete()
         {
-            Client.PerformRequest(Client.HttpRequestMethod.Delete, UrlPostfix + System.Web.HttpUtility.UrlEncode(AccountCode));
+            Client.PerformRequest(Client.HttpRequestMethod.Delete, UrlPostfix + System.Uri.EscapeUriString(AccountCode));
         }
 
 
@@ -99,7 +100,7 @@ namespace Recurly
                     { 
                         case "account":
                             string href = reader.GetAttribute("href");
-                            this.AccountCode = href.Substring(href.LastIndexOf("/") + 1);
+                            this.AccountCode = Uri.UnescapeDataString(href.Substring(href.LastIndexOf("/") + 1));
                             break;
 
                         case "uuid":
@@ -165,26 +166,16 @@ namespace Recurly
             }
         }
 
-        /// <summary>
-        /// XML root node name. Override for "credit" or "charge".
-        /// </summary>
-        private string XmlRootNodeName
-        {
-            get
-            {
-                return UnitAmountInCents <= 0 ? "credit" : "charge";
-            }
-        }
-
+        
         internal void WriteXml(XmlTextWriter xmlWriter)
         {
-            xmlWriter.WriteStartElement(XmlRootNodeName); // Start: charge
+            xmlWriter.WriteStartElement("adjustment"); 
             xmlWriter.WriteElementString("description", this.Description);
             xmlWriter.WriteElementString("unit_amount_in_cents", this.UnitAmountInCents.ToString());
             xmlWriter.WriteElementString("currency", this.Currency);
             xmlWriter.WriteElementString("quantity", this.Quantity.ToString());
             xmlWriter.WriteElementString("accounting_code", this.AccountingCode);
-            xmlWriter.WriteEndElement(); // End: charge
+            xmlWriter.WriteEndElement(); 
         }
 
         #endregion

@@ -8,9 +8,21 @@ namespace Recurly
     public class RecurlyList<T> : List<T>
     {
 
-        public RecurlyList() : base()
+        /// <summary>
+        ///  When paging
+        /// </summary>
+        private string _baseUrl;
+
+        public RecurlyList()
+            : base()
         {
 
+        }
+
+        public RecurlyList(string url)
+            : base()
+        {
+            this._baseUrl = url;
         }
 
         private int _requestLimit = 50;
@@ -50,6 +62,8 @@ namespace Recurly
                element = "add_ons";
            else if (list == typeof(Subscription))
                element = "subscriptions";
+           else if (list == typeof(Account))
+               element = "accounts";
 
            while (reader.Read())
             {
@@ -85,6 +99,11 @@ namespace Recurly
                         case "subscription":
                             this.Add((T)(object)new Subscription(reader));
                             break;
+
+                        case "account":
+                            this.Add((T)(object)new Account(reader));
+                            break;
+
 
                     }
                 }

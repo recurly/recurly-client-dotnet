@@ -22,7 +22,7 @@ namespace Recurly
             Dollars
         }
 
-        public List<CouponRedemption> Redemptions { get; private set; }
+        public RecurlyList<CouponRedemption> Redemptions { get; private set; }
 
         public string CouponCode { get; set; }
         public string Name { get; set; }
@@ -46,13 +46,13 @@ namespace Recurly
         /// <summary>
         /// A list of plans to limit the coupon
         /// </summary>
-        public List<Plan> Plans
+        public RecurlyList<Plan> Plans
         {
             get
             {
                 if (_plans == null)
                 {
-                    _plans = new List<Plan>();
+                    _plans = new RecurlyList<Plan>();
                     foreach (string planCode in _planCodes)
                     {
                         _plans.Add(Plan.Get(planCode));
@@ -73,7 +73,7 @@ namespace Recurly
         /// When loading a coupon we get plan codes
         /// </summary>
         private List<string> _planCodes;
-        private List<Plan> _plans;
+        private RecurlyList<Plan> _plans;
 
         public DateTime CreatedAt { get; private set; }
 
@@ -131,7 +131,7 @@ namespace Recurly
             Coupon coupon = new Coupon();
 
             HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
-                UrlPrefix + System.Web.HttpUtility.UrlEncode(couponCode),
+                UrlPrefix + System.Uri.EscapeUriString(couponCode),
                 new Client.ReadXmlDelegate(coupon.ReadXml)).StatusCode;
 
             if (statusCode == HttpStatusCode.NotFound)
@@ -145,7 +145,7 @@ namespace Recurly
         /// </summary>
         public void Create()
         {
-            Client.PerformRequest(Client.HttpRequestMethod.Post, UrlPrefix + System.Web.HttpUtility.UrlEncode(this.CouponCode));
+            Client.PerformRequest(Client.HttpRequestMethod.Post, UrlPrefix + System.Uri.EscapeUriString(this.CouponCode));
         }
 
         /// <summary>
@@ -153,7 +153,7 @@ namespace Recurly
         /// </summary>
         public void Deactivate()
         {
-            Client.PerformRequest(Client.HttpRequestMethod.Delete, UrlPrefix + System.Web.HttpUtility.UrlEncode(this.CouponCode));
+            Client.PerformRequest(Client.HttpRequestMethod.Delete, UrlPrefix + System.Uri.EscapeUriString(this.CouponCode));
         }
 
         #region Read and Write XML documents

@@ -81,7 +81,7 @@ namespace Recurly
         private const string UrlPrefix = "/accounts/";
         private const string UrlPostfix = "/billing_info";
 
-        public BillingInfo(string accountCode)
+        internal BillingInfo(string accountCode)
             : this()
         {
             this.AccountCode = accountCode;
@@ -147,7 +147,7 @@ namespace Recurly
 
         private static string BillingInfoUrl(string accountCode)
         {
-            return UrlPrefix + System.Web.HttpUtility.UrlEncode(accountCode) + UrlPostfix;
+            return UrlPrefix + System.Uri.EscapeUriString(accountCode) + UrlPostfix;
         }
 
         internal void ReadXml(XmlTextReader reader)
@@ -164,7 +164,7 @@ namespace Recurly
                     {
                         case "account":
                             string href = reader.GetAttribute("href");
-                            this.AccountCode = href.Substring(href.LastIndexOf("/") + 1);
+                            this.AccountCode = Uri.UnescapeDataString(href.Substring(href.LastIndexOf("/") + 1));
                             break;
 
                         case "first_name":
@@ -283,5 +283,33 @@ namespace Recurly
 
             xmlWriter.WriteEndElement(); // End: billing_info
         }
+
+
+        #region Object Overrides
+
+        public override string ToString()
+        {
+            return "Recurly Billing Info : " + this.AccountCode;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is BillingInfo)
+                return Equals((BillingInfo)obj);
+            else
+                return false;
+        }
+
+        public bool Equals(BillingInfo billingInfo)
+        {
+            return this.AccountCode == billingInfo.AccountCode;
+        }
+
+        public override int GetHashCode()
+        {
+            return this.AccountCode.GetHashCode();
+        }
+
+        #endregion
     }
 }

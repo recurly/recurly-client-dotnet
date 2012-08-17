@@ -12,20 +12,20 @@ namespace Recurly.Test
         [Test]
         public void UpdateBillingInfo()
         {
-            Account acct = Factories.NewAccount("Update Billing Info");
+            Account acct = new Account("Update Billing Info");
             acct.Create();
 
-            BillingInfo billingInfo = Factories.NewBillingInfo(acct);
+            BillingInfo billingInfo = new BillingInfo(acct);
             billingInfo.Update();
         }
 
         [Test]
         public void LookupBillingInfo()
         {
-            Account newAcct = Factories.NewAccount("Lookup Billing Info");
+            Account newAcct = new Account("Lookup Billing Info");
             newAcct.Create();
 
-            BillingInfo billingInfo = Factories.NewBillingInfo(newAcct);
+            BillingInfo billingInfo = new BillingInfo(newAcct);
             billingInfo.Update();
 
             BillingInfo lookupBilling = BillingInfo.Get(newAcct.AccountCode);
@@ -36,7 +36,7 @@ namespace Recurly.Test
         [Test]
         public void LookupMissingInfo()
         {
-            Account newAcct = Factories.NewAccount("Lookup Missing Billing Info");
+            Account newAcct = new Account("Lookup Missing Billing Info");
             newAcct.Create();
 
             Assert.Throws(typeof(NotFoundException), delegate
@@ -48,10 +48,10 @@ namespace Recurly.Test
         [Test]
         public void ClearBillingInfo()
         {
-            Account newAcct = Factories.NewAccount("Clear Billing Info");
+            Account newAcct = new Account("Clear Billing Info");
             newAcct.Create();
 
-            BillingInfo billingInfo = Factories.NewBillingInfo(newAcct);
+            BillingInfo billingInfo = new BillingInfo(newAcct);
             billingInfo.Update();
 
             billingInfo.Delete();
@@ -60,7 +60,7 @@ namespace Recurly.Test
         [Test]
         public void CloseAccount()
         {
-            Account acct = Factories.NewAccount("Close Account");
+            Account acct = new Account("Close Account");
             acct.Create();
             acct.Close();
 

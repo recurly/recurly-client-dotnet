@@ -57,7 +57,7 @@ namespace Recurly
             Invoice invoice = new Invoice();
 
             HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
-                UrlPrefix + System.Web.HttpUtility.UrlEncode(invoiceId),
+                UrlPrefix + System.Uri.EscapeUriString(invoiceId),
                 new Client.ReadXmlDelegate(invoice.ReadXml)).StatusCode;
 
             if (statusCode == HttpStatusCode.NotFound)
@@ -73,7 +73,7 @@ namespace Recurly
         /// <returns></returns>
         public static byte[] GetPdf(string invoiceId, string acceptLanguage )
         {
-             return Client.PerformDownloadRequest(UrlPrefix + System.Web.HttpUtility.UrlEncode(invoiceId),
+             return Client.PerformDownloadRequest(UrlPrefix + System.Uri.EscapeUriString(invoiceId),
                 "application/pdf", acceptLanguage);
         }
 
@@ -83,21 +83,12 @@ namespace Recurly
             RecurlyList<Invoice> list = new RecurlyList<Invoice>();
 
             HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
-                UrlPrefix + System.Web.HttpUtility.UrlEncode(accountCode),
+                UrlPrefix + System.Uri.EscapeUriString(accountCode),
                 new Client.ReadXmlDelegate(list.ReadXml)).StatusCode;
 
             return list;
         }
 
-        /// <summary>
-        /// Posts pending charges on an account
-        /// </summary>
-        public static void InvoicePendingCharges(string accountCode)
-        {
-            Client.PerformRequest(Client.HttpRequestMethod.Post,
-                UrlPrefix + System.Web.HttpUtility.UrlEncode(accountCode) + "/invoices"
-               );
-        }
 
         /// <summary>
         /// Marks an invoice as paid successfully
@@ -105,7 +96,7 @@ namespace Recurly
         public void MarkSuccessful()
         {
             Client.PerformRequest(Client.HttpRequestMethod.Put,
-                UrlPrefix + System.Web.HttpUtility.UrlEncode(InvoiceNumber.ToString()) + "/mark_successful"
+                UrlPrefix + System.Uri.EscapeUriString(InvoiceNumber.ToString()) + "/mark_successful"
                );
         }
 
@@ -115,7 +106,7 @@ namespace Recurly
         public void MarkFailed()
         {
             Client.PerformRequest(Client.HttpRequestMethod.Put,
-               UrlPrefix + System.Web.HttpUtility.UrlEncode(InvoiceNumber.ToString()) + "/mark_failed"
+               UrlPrefix + System.Uri.EscapeUriString(InvoiceNumber.ToString()) + "/mark_failed"
               );
         }
 
@@ -130,7 +121,7 @@ namespace Recurly
             Invoice invoice = new Invoice();
 
             HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Post,
-                "/accounts/" + System.Web.HttpUtility.UrlEncode(accountCode) + UrlPrefix,
+                "/accounts/" + System.Uri.EscapeUriString(accountCode) + UrlPrefix,
                 new Client.ReadXmlDelegate(invoice.ReadXml)).StatusCode;
 
             if ((int)statusCode == ValidationException.HttpStatusCode)
@@ -155,7 +146,7 @@ namespace Recurly
                     {
                         case "account":
                             string href = reader.GetAttribute("href");
-                            this.AccountCode = href.Substring(href.LastIndexOf("/") + 1);
+                            this.AccountCode = Uri.UnescapeDataString(href.Substring(href.LastIndexOf("/") + 1));
                             break;
 
                         case "uuid":

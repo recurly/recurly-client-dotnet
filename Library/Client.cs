@@ -142,7 +142,13 @@ namespace Recurly
 
                 // Write POST/PUT body
                 using (Stream requestStream = request.GetRequestStream())
+                {
                     WritePostParameters(requestStream, writeXmlDelegate);
+                }
+            }
+            else
+            {
+                request.ContentLength = 0;
             }
 
             try

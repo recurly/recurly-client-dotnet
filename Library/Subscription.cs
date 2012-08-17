@@ -216,7 +216,7 @@ namespace Recurly
                 writeXmlDelegate = new Client.WriteXmlDelegate(WriteChangeSubscriptionAtRenewalXml);
 
             Client.PerformRequest(Client.HttpRequestMethod.Put,
-                UrlPrefix + System.Web.HttpUtility.UrlEncode(this.UUID),
+                UrlPrefix + System.Uri.EscapeUriString(this.UUID),
                 writeXmlDelegate,
                 new Client.ReadXmlDelegate(this.ReadXml));
         }
@@ -228,7 +228,7 @@ namespace Recurly
         /// <param name="accountCode">Subscriber's Account Code</param>
         public void Cancel()
         {
-            Client.PerformRequest(Client.HttpRequestMethod.Put, UrlPrefix + System.Web.HttpUtility.UrlEncode(this.UUID) + "/cancel");
+            Client.PerformRequest(Client.HttpRequestMethod.Put, UrlPrefix + System.Uri.EscapeUriString(this.UUID) + "/cancel");
         }
 
         /// <summary>
@@ -237,7 +237,7 @@ namespace Recurly
         /// <param name="accountCode">Subscriber's Account Code</param>
         public void Reactivate()
         {
-            Client.PerformRequest(Client.HttpRequestMethod.Put, UrlPrefix + System.Web.HttpUtility.UrlEncode(this.UUID) + "/reactivate");
+            Client.PerformRequest(Client.HttpRequestMethod.Put, UrlPrefix + System.Uri.EscapeUriString(this.UUID) + "/reactivate");
         }
 
         /// <summary>
@@ -246,7 +246,7 @@ namespace Recurly
         /// <param name="nextRenewalDate"></param>
         public void Terminate(RefundType refund)
         {
-            Client.PerformRequest(Client.HttpRequestMethod.Put, UrlPrefix + System.Web.HttpUtility.UrlEncode(this.UUID) + "/terminate?refund=" +
+            Client.PerformRequest(Client.HttpRequestMethod.Put, UrlPrefix + System.Uri.EscapeUriString(this.UUID) + "/terminate?refund=" +
                 refund.ToString() );
         }
 
@@ -259,7 +259,7 @@ namespace Recurly
         public void Postpone(DateTime nextRenewalDate)
         {
             Client.PerformRequest(Client.HttpRequestMethod.Put,
-                UrlPrefix + System.Web.HttpUtility.UrlEncode(this.UUID) + "/postpone?next_renewal_date=" +
+                UrlPrefix + System.Uri.EscapeUriString(this.UUID) + "/postpone?next_renewal_date=" +
                 nextRenewalDate.ToString("c"));
         }
 
@@ -274,7 +274,7 @@ namespace Recurly
         {
             RecurlyList<Subscription> l = new RecurlyList<Subscription>();
             HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
-                UrlPrefix + "?state=" + System.Web.HttpUtility.UrlEncode(state.ToString()),
+                UrlPrefix + "?state=" + System.Uri.EscapeUriString(state.ToString()),
                 new Client.ReadXmlDelegate(l.ReadXml)).StatusCode;
 
             if (statusCode == HttpStatusCode.NotFound)

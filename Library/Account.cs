@@ -17,9 +17,9 @@ namespace Recurly
         // The currently valid account states
         public enum AccountState : short
         {
-            Active,
-            Closed,
-            Past_Due
+            active,
+            closed,
+            past_due
         }
 
 
@@ -37,7 +37,7 @@ namespace Recurly
         public string HostedLoginToken { get; private set; }
         public DateTime CreatedAt { get; private set; }
 
-        private BillingInfo _billingInfo;
+        private BillingInfo _billingInfo = null;
 
         public BillingInfo BillingInfo
         {
@@ -60,7 +60,28 @@ namespace Recurly
 
         public Account(string accountCode)
         {
+            this.AccountCode = accountCode;            
+        }
+
+
+        /// <summary>
+        /// Creates a new account with required billing information
+        /// </summary>
+        /// <param name="accountCode"></param>
+        /// <param name="firstName"></param>
+        /// <param name="lastName"></param>
+        /// <param name="creditCardNumber"></param>
+        /// <param name="expirationMonth"></param>
+        /// <param name="expirationYear"></param>
+        public Account(string accountCode, string firstName, string lastName, string creditCardNumber, int expirationMonth, int expirationYear)
+        {
             this.AccountCode = accountCode;
+            this._billingInfo = new BillingInfo(accountCode);
+            this._billingInfo.FirstName = firstName;
+            this._billingInfo.LastName = lastName;
+            this._billingInfo.CreditCardNumber = creditCardNumber;
+            this._billingInfo.ExpirationMonth = expirationMonth;
+            this._billingInfo.ExpirationYear = expirationYear;
         }
 
         internal Account(XmlTextReader xmlReader)
@@ -81,7 +102,7 @@ namespace Recurly
             Account account = new Account();
 
             HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
-                UrlPrefix + System.Web.HttpUtility.UrlEncode(accountCode),
+                UrlPrefix + System.Uri.EscapeUriString(accountCode),
                 new Client.ReadXmlDelegate(account.ReadXml)).StatusCode;
 
             if (statusCode == HttpStatusCode.NotFound)
@@ -90,23 +111,23 @@ namespace Recurly
             return account;
         }
 
-        /// <summary>
-        /// Lists all accounts: active, closed, past due
-        /// </summary>
-        /// <returns></returns>
-        public static List<Account> List()
-        {
-            return List(null);
-        }
-
+        
         /// <summary>
         /// Lists accounts, limited to state
         /// </summary>
         /// <param name="state">Account state to retrieve</param>
         /// <returns></returns>
-        public static List<Account> List(AccountState state)
+        public static RecurlyList<Account> List(AccountState state = AccountState.active)
         {
-            return List(state.ToString());
+            RecurlyList<Account> l = new RecurlyList<Account>();
+            HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
+                UrlPrefix + "?state=" + state.ToString(),
+                new Client.ReadXmlDelegate(l.ReadXml)).StatusCode;
+
+            if (statusCode == HttpStatusCode.NotFound)
+                return null;
+
+            return l;
         }
         
         /// <summary>
@@ -116,7 +137,8 @@ namespace Recurly
         {
             Client.PerformRequest(Client.HttpRequestMethod.Post,
                 UrlPrefix,
-                new Client.WriteXmlDelegate(this.WriteXml));
+                new Client.WriteXmlDelegate(this.WriteXml),
+                new Client.ReadXmlDelegate(this.ReadXml));
         }
 
         /// <summary>
@@ -125,7 +147,7 @@ namespace Recurly
         public void Update()
         {
             Client.PerformRequest(Client.HttpRequestMethod.Put,
-                UrlPrefix + System.Web.HttpUtility.UrlEncode(this.AccountCode),
+                UrlPrefix + System.Uri.EscapeUriString(this.AccountCode),
                 new Client.WriteXmlDelegate(this.WriteXml));
         }
 
@@ -136,7 +158,7 @@ namespace Recurly
         public void Close()
         {
             Close(this.AccountCode);
-            this.State = AccountState.Closed;
+            this.State = AccountState.closed;
 
         }
 
@@ -147,7 +169,7 @@ namespace Recurly
         /// <param name="id">Account Code</param>
         public static void Close(string accountCode)
         {
-            Client.PerformRequest(Client.HttpRequestMethod.Delete, UrlPrefix + System.Web.HttpUtility.UrlEncode(accountCode));
+            Client.PerformRequest(Client.HttpRequestMethod.Delete, UrlPrefix + System.Uri.EscapeUriString(accountCode));
         }
 
         /// <summary>
@@ -156,7 +178,7 @@ namespace Recurly
         public void Reopen()
         {
             Reopen(this.AccountCode);
-            this.State = AccountState.Active;
+            this.State = AccountState.active;
         }
 
         /// <summary>
@@ -166,24 +188,27 @@ namespace Recurly
         public static void Reopen(string accountCode)
         {
             Client.PerformRequest(Client.HttpRequestMethod.Put,
-                UrlPrefix + System.Web.HttpUtility.UrlEncode(accountCode) + "/reopen");
+                UrlPrefix + System.Uri.EscapeUriString(accountCode) + "/reopen");
         }
 
+      
         /// <summary>
-        /// Gets all adjustments for this account
+        /// Posts pending charges on an account
         /// </summary>
-        /// <returns></returns>
-        public RecurlyList<Adjustment> GetAdjustments()
+        public void InvoicePendingCharges()
         {
-            throw new NotSupportedException("Not yet implemented");
+            Client.PerformRequest(Client.HttpRequestMethod.Post,
+                UrlPrefix + System.Uri.EscapeUriString(this.AccountCode) + "/invoices"
+               );
         }
+
 
         /// <summary>
         /// Gets all adjustments for this account, by type
         /// </summary>
         /// <param name="type">Adjustment type to retrieve</param>
         /// <returns></returns>
-        public RecurlyList<Adjustment> GetAdjustments(Adjustment.AdjustmentType type)
+        public RecurlyList<Adjustment> GetAdjustments(Adjustment.AdjustmentType type = Adjustment.AdjustmentType.all)
         {
             throw new NotSupportedException("Not yet implemented");
         }
@@ -230,7 +255,7 @@ namespace Recurly
         {
             RecurlyList<Subscription> l = new RecurlyList<Subscription>();
             HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
-                UrlPrefix + System.Web.HttpUtility.UrlEncode(this.AccountCode) + "/subscriptions/"
+                UrlPrefix + System.Uri.EscapeUriString(this.AccountCode) + "/subscriptions/"
                 + "state=" + state.ToString(),
                 new Client.ReadXmlDelegate(l.ReadXml)).StatusCode;
 
@@ -251,7 +276,7 @@ namespace Recurly
         {
             RecurlyList<Transaction> l = new RecurlyList<Transaction>();
             HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
-                UrlPrefix + System.Web.HttpUtility.UrlEncode(this.AccountCode) + "/transactions/"
+                UrlPrefix + System.Uri.EscapeUriString(this.AccountCode) + "/transactions/"
                 + "state=" + state.ToString() + 
                 "&type=" + type.ToString(),
                 new Client.ReadXmlDelegate(l.ReadXml)).StatusCode;
@@ -345,8 +370,8 @@ namespace Recurly
             xmlWriter.WriteElementString("company_name", this.CompanyName);
             xmlWriter.WriteElementString("accept_language", this.AcceptLanguage);
 
-            if (this.BillingInfo != null)
-                this.BillingInfo.WriteXml(xmlWriter);
+            if (this._billingInfo != null)
+                this._billingInfo.WriteXml(xmlWriter);
 
             xmlWriter.WriteEndElement(); // End: account
         }
@@ -380,35 +405,6 @@ namespace Recurly
 
         #endregion
 
-        #region Helpers
-        private static List<Account> List(string state)
-        {
-            var accounts = new List<Account>();
-
-            Client.ReadXmlDelegate read = delegate(XmlTextReader reader)
-            {
-                while (reader.Read())
-                {
-                    if (reader.Name == "account" && reader.NodeType == XmlNodeType.Element)
-                        accounts.Add(new Account(reader));
-
-                    if (reader.Name == "accounts" && reader.NodeType == XmlNodeType.EndElement)
-                        break;
-                }
-            };
-
-            var url = UrlPrefix;
-
-            if (state != null)
-            {
-                url += "?state=" + state;
-            }
-
-            Client.PerformPageRequests(url, read);
-
-            return accounts;
-        }
-
-        #endregion
+       
     }
 }
