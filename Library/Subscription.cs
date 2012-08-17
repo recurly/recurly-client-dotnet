@@ -156,7 +156,7 @@ namespace Recurly
         public RecurlyList<AddOn> AddOns { get; set; }
 
         public int? TotalBillingCycles { get; set; }
-        public DateTime FirstRenewalDate { get; set; }
+        public DateTime? FirstRenewalDate { get; set; }
 
         private const string UrlPrefix = "/subscription/";
 
@@ -438,8 +438,8 @@ namespace Recurly
             if (this.TotalBillingCycles.HasValue)
                 xmlWriter.WriteElementString("total_billing_cycles", this.TotalBillingCycles.Value.ToString());
 
-            if (null != this.FirstRenewalDate)
-                xmlWriter.WriteElementString("first_renewal_date", this.FirstRenewalDate.ToString("s"));
+            if (this.FirstRenewalDate.HasValue)
+                xmlWriter.WriteElementString("first_renewal_date", this.FirstRenewalDate.Value.ToString("s"));
 
 
             this.Account.WriteXml(xmlWriter);

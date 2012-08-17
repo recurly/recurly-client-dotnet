@@ -49,7 +49,7 @@ namespace Recurly
                     {
                         _billingInfo = BillingInfo.Get(this.AccountCode);
                     }
-                    catch (NotFoundException e)
+                    catch (NotFoundException)
                     {
                         _billingInfo = null;
                     }
@@ -242,17 +242,6 @@ namespace Recurly
             return l;
         }
 
-
-
-        /// <summary>
-        /// Lookup the active coupon for this account.
-        /// </summary>
-        /// <returns></returns>
-        public Coupon GetActiveCoupon()
-        {
-            return Coupon.Get(this.AccountCode);
-        }
-
         
         /// <summary>
         /// Returns a list of invoices for this account
@@ -327,6 +316,36 @@ namespace Recurly
         public Adjustment CreateAdjustment(string description, int unitAmountInCents, string currency, int quantity=1)
         {
             return new Adjustment(this.AccountCode, description, currency, unitAmountInCents, quantity);
+        }
+
+        /// <summary>
+        /// Redeems a coupon on this account
+        /// </summary>
+        /// <param name="couponCode"></param>
+        /// <param name="currency"></param>
+        /// <returns></returns>
+        public CouponRedemption RedeemCoupon(string couponCode, string currency)
+        {
+            return  CouponRedemption.Redeem(this.AccountCode, couponCode, currency);
+        }
+
+
+        /// <summary>
+        /// Returns the active coupon redemption on this account
+        /// </summary>
+        /// <returns></returns>
+        public CouponRedemption GetActiveCoupon()
+        {
+            CouponRedemption cr = new CouponRedemption();
+            
+            HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
+                UrlPrefix + System.Uri.EscapeUriString(this.AccountCode) + "/redemption",
+                new Client.ReadXmlDelegate(cr.ReadXml)).StatusCode;
+
+            if (statusCode == HttpStatusCode.NotFound)
+                return null;
+
+            return cr;
         }
 
         #region Read and Write XML documents

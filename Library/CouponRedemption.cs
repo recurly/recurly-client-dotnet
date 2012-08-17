@@ -44,35 +44,20 @@ namespace Recurly
         /// </summary>
         /// <param name="accountCode"></param>
         /// <param name="currency"></param>
-        public static CouponRedemption Redeem(string accountCode, string currency)
+        internal static CouponRedemption Redeem(string accountCode, string couponCode, string currency)
         {
             CouponRedemption cr = new CouponRedemption();
 
             cr.AccountCode = accountCode;
             cr.Currency = currency;
 
-            HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
-               UrlPrefix + System.Uri.EscapeUriString(accountCode),
+            HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Post,
+               "/coupons/" + System.Uri.EscapeUriString(couponCode) + "/redeem",
+               new Client.WriteXmlDelegate(cr.WriteXml),
                new Client.ReadXmlDelegate(cr.ReadXml)).StatusCode;
 
             return cr;
 
-        }
-
-
-        public static CouponRedemption Get(string accountCode)
-        {
-            CouponRedemption cr = new CouponRedemption();
-            cr.AccountCode = accountCode;
-
-            HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
-                UrlPrefix + System.Uri.EscapeUriString(accountCode),
-                new Client.ReadXmlDelegate(cr.ReadXml)).StatusCode;
-
-            if (statusCode == HttpStatusCode.NotFound)
-                return null;
-
-            return cr;
         }
 
         /// <summary>
@@ -81,7 +66,10 @@ namespace Recurly
         public void Delete()
         {
             HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Delete,
-                UrlPrefix + System.Uri.EscapeUriString(this.AccountCode)).StatusCode;
+                "/accounts/" + System.Uri.EscapeUriString(this.AccountCode) + "/redemption" ).StatusCode;
+            this.AccountCode = null;
+            this.CouponCode = null;
+            this.Currency = null;
         }
 
 

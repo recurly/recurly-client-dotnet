@@ -11,15 +11,17 @@ namespace Recurly
 
         public enum CouponState : short
         {
-            Redeemable,
-            Expired,
-            Maxed_Out
+            all=0,
+            redeemable,
+            expired,
+            inactive,
+            maxed_out
         }
 
         public enum CouponDiscountType
         {
-            Percent,
-            Dollars
+            percent,
+            dollars
         }
 
         public RecurlyList<CouponRedemption> Redemptions { get; private set; }
@@ -28,7 +30,7 @@ namespace Recurly
         public string Name { get; set; }
         public string HostedDescription { get; set; }
         public string InvoiceDescription { get; set; }
-        public DateTime RedeemByDate { get; set; }
+        public DateTime? RedeemByDate { get; set; }
         public bool? SingleUse { get; set; }
         public int? AppliesForMonths { get; set; }
         public int? MaxRedemptions { get; set; }
@@ -100,7 +102,7 @@ namespace Recurly
             this.CouponCode = couponCode;
             this.Name = name;
             this.DiscountInCents = discountInCents;
-            this.DiscountType = CouponDiscountType.Dollars;
+            this.DiscountType = CouponDiscountType.dollars;
         }
 
         /// <summary>
@@ -114,7 +116,7 @@ namespace Recurly
             this.CouponCode = couponCode;
             this.Name = name;
             this.DiscountPercent = discountPercent;
-            this.DiscountType = CouponDiscountType.Percent;
+            this.DiscountType = CouponDiscountType.percent;
         }
 
         #endregion
@@ -145,7 +147,9 @@ namespace Recurly
         /// </summary>
         public void Create()
         {
-            Client.PerformRequest(Client.HttpRequestMethod.Post, UrlPrefix + System.Uri.EscapeUriString(this.CouponCode));
+            Client.PerformRequest(Client.HttpRequestMethod.Post, UrlPrefix, 
+                new Client.WriteXmlDelegate(this.WriteXml),
+                new Client.ReadXmlDelegate(this.ReadXml));
         }
 
         /// <summary>
@@ -156,11 +160,32 @@ namespace Recurly
             Client.PerformRequest(Client.HttpRequestMethod.Delete, UrlPrefix + System.Uri.EscapeUriString(this.CouponCode));
         }
 
+
+        /// <summary>
+        /// Lists coupons, limited to state
+        /// </summary>
+        /// <param name="state">Account state to retrieve</param>
+        /// <returns></returns>
+        public static RecurlyList<Coupon> List(CouponState state = CouponState.all)
+        {
+            RecurlyList<Coupon> l = new RecurlyList<Coupon>();
+            HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
+                UrlPrefix + (state != CouponState.all ? "?state=" + state.ToString() : ""),
+                new Client.ReadXmlDelegate(l.ReadXml)).StatusCode;
+
+            if (statusCode == HttpStatusCode.NotFound)
+                return null;
+
+            return l;
+        }
+
         #region Read and Write XML documents
 
         internal void ReadXml(XmlTextReader reader)
         {
             DateTime date;
+            int m;
+
             while (reader.Read())
             {
                 // End of coupon element, get out of here
@@ -201,11 +226,13 @@ namespace Recurly
                             break;
 
                         case "applies_for_months":
-                            this.AppliesForMonths = reader.ReadElementContentAsInt();
+                            if (int.TryParse(reader.ReadElementContentAsString(), out m))
+                                this.AppliesForMonths = m;
                             break;
 
                         case "max_redemptions":
-                            this.MaxRedemptions = reader.ReadElementContentAsInt();
+                            if (int.TryParse(reader.ReadElementContentAsString(), out m))
+                                this.MaxRedemptions = m;
                             break;
 
                         case "applies_to_all_plans":
@@ -255,9 +282,8 @@ namespace Recurly
         }
 
         internal void ReadXmlDiscounts(XmlTextReader reader)
-        {
-            if (this.DiscountInCents == null)
-                this.DiscountInCents = new Dictionary<string, int>();
+        {            
+            this.DiscountInCents = new Dictionary<string, int>();
 
             while (reader.Read())
             {
@@ -279,8 +305,8 @@ namespace Recurly
             xmlWriter.WriteElementString("name", this.Name);
             xmlWriter.WriteElementString("hosted_description", this.HostedDescription);
             xmlWriter.WriteElementString("invoice_description", this.InvoiceDescription);
-            if (null != this.RedeemByDate)
-                xmlWriter.WriteElementString("redeem_by_date", this.RedeemByDate.ToString("s"));
+            if (this.RedeemByDate.HasValue)
+                xmlWriter.WriteElementString("redeem_by_date", this.RedeemByDate.Value.ToString("s"));
 
             if (SingleUse.HasValue)
                 xmlWriter.WriteElementString("single_use", this.SingleUse.Value.ToString());
@@ -293,10 +319,10 @@ namespace Recurly
 
             xmlWriter.WriteElementString("discount_type", DiscountType.ToString().ToLower());
 
-            if (CouponDiscountType.Percent == DiscountType && DiscountPercent.HasValue)
+            if (CouponDiscountType.percent == DiscountType && DiscountPercent.HasValue)
                 xmlWriter.WriteElementString("discount_percent", DiscountPercent.Value.ToString());
 
-            if (CouponDiscountType.Dollars == DiscountType && null != DiscountInCents)
+            if (CouponDiscountType.dollars == DiscountType && null != DiscountInCents)
             {
                 xmlWriter.WriteStartElement("discount_in_cents");
                 foreach(KeyValuePair<string, int> d in DiscountInCents)

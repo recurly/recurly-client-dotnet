@@ -64,6 +64,8 @@ namespace Recurly
                element = "subscriptions";
            else if (list == typeof(Account))
                element = "accounts";
+           else if (list == typeof(Coupon))
+               element = "coupons";
 
            while (reader.Read())
             {
@@ -104,6 +106,9 @@ namespace Recurly
                             this.Add((T)(object)new Account(reader));
                             break;
 
+                        case "coupon":
+                            this.Add((T)(object)new Coupon(reader));
+                            break;
 
                     }
                 }

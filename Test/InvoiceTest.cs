@@ -9,19 +9,75 @@ namespace Recurly.Test
     [TestFixture]
     class InvoiceTest
     {
+        
+
+        [Test]
+        public void GetInvoices()
+        {
+            Assert.Fail("not written");
+        }
+
+        [Test]
+        public void GetOpenInvoices()
+        {
+            Assert.Fail("not written");
+        }
+
+        [Test]
+        public void GetCollectedInvoices()
+        {
+            Assert.Fail("not written");
+        }
+
+        [Test]
+        public void GetFailedInvoices()
+        {
+            Assert.Fail("not written");
+        }
+
+        [Test]
+        public void GetPastDueInvoices()
+        {
+            Assert.Fail("not written");
+        }
+
+        [Test]
+        public void GetInvoicesForAccount()
+        {
+            Assert.Fail("not written");
+        }
+
         [Test]
         public void GetInvoice()
         {
-            // Account a = Account.Get("josh1");
-
-            Invoice i = Invoice.Get("1008");
-            foreach (Transaction t in i.Transactions)
-            {
-                System.Diagnostics.Debug.WriteLine("Found transaction: ");
-                System.Diagnostics.Debug.WriteLine(t.AmountInCents);
-                System.Diagnostics.Debug.WriteLine(t.ToString());
-
-            }
+            Assert.Fail("not written");
         }
+
+        [Test]
+        public void GetInvoicePDF()
+        {
+            Assert.Fail("not written");
+        }
+
+        [Test]
+        public void Post()
+        {
+            Assert.Fail("not written");
+        }
+
+
+        [Test]
+        public void Pay()
+        {
+            Assert.Fail("not written");
+        }
+
+        [Test]
+        public void FailedCollection()
+        {
+            Assert.Fail("not written");
+        }
+
+
     }
 }

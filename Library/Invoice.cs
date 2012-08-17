@@ -130,6 +130,25 @@ namespace Recurly
             return invoice;
         }
 
+        /// <summary>
+        /// Returns the active coupon redemption on this invoice
+        /// </summary>
+        /// <returns></returns>
+        public CouponRedemption GetCoupon()
+        {
+            CouponRedemption cr = new CouponRedemption();
+
+            HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
+                UrlPrefix + System.Uri.EscapeUriString(this.InvoiceNumber.ToString()) + "/redemption",
+                new Client.ReadXmlDelegate(cr.ReadXml)).StatusCode;
+
+            if (statusCode == HttpStatusCode.NotFound)
+                return null;
+
+            return cr;
+        }
+
+
         #region Read and Write XML documents
 
         internal void ReadXml(XmlTextReader reader)
