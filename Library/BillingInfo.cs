@@ -136,14 +136,7 @@ namespace Recurly
                 new Client.ReadXmlDelegate(this.ReadXml));
         }
 
-        /// <summary>
-        /// Delete an account's billing info.
-        /// </summary>
-        public void Delete()
-        {
-            Client.PerformRequest(Client.HttpRequestMethod.Delete,
-                BillingInfoUrl(this.AccountCode));
-        }
+
 
         private static string BillingInfoUrl(string accountCode)
         {

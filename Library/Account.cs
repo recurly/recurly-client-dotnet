@@ -45,7 +45,14 @@ namespace Recurly
             {
                 if (null == _billingInfo)
                 {
-                    _billingInfo = BillingInfo.Get(this.AccountCode);
+                    try
+                    {
+                        _billingInfo = BillingInfo.Get(this.AccountCode);
+                    }
+                    catch (NotFoundException e)
+                    {
+                        _billingInfo = null;
+                    }
                 }
 
                 return _billingInfo;
@@ -111,7 +118,17 @@ namespace Recurly
             return account;
         }
 
-        
+
+        /// <summary>
+        /// Delete an account's billing info.
+        /// </summary>
+        public void ClearBillingInfo()
+        {
+            Client.PerformRequest(Client.HttpRequestMethod.Delete,
+                UrlPrefix + System.Uri.EscapeUriString(this.AccountCode) + "/billing_info");
+            this._billingInfo = null;
+        }
+
         /// <summary>
         /// Lists accounts, limited to state
         /// </summary>
@@ -208,9 +225,21 @@ namespace Recurly
         /// </summary>
         /// <param name="type">Adjustment type to retrieve</param>
         /// <returns></returns>
-        public RecurlyList<Adjustment> GetAdjustments(Adjustment.AdjustmentType type = Adjustment.AdjustmentType.all)
+        public RecurlyList<Adjustment> GetAdjustments(Adjustment.AdjustmentType type = Adjustment.AdjustmentType.all,
+            Adjustment.AdjustmentState state = Adjustment.AdjustmentState.any)
         {
-            throw new NotSupportedException("Not yet implemented");
+            RecurlyList<Adjustment> l = new RecurlyList<Adjustment>();
+            HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
+                UrlPrefix + System.Uri.EscapeUriString(this.AccountCode) + "/adjustments/?" 
+                + (Adjustment.AdjustmentState.any == state ? "" : "state=" + state.ToString()) 
+                + (Adjustment.AdjustmentType.all == type ? "" : "&type=" + type.ToString()) 
+                ,
+                new Client.ReadXmlDelegate(l.ReadXml)).StatusCode;
+
+            if (statusCode == HttpStatusCode.NotFound)
+                return null;
+
+            return l;
         }
 
 

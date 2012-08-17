@@ -20,6 +20,13 @@ namespace Recurly
             credit
         }
 
+        public enum AdjustmentState : short
+        {
+            any = 0,
+            pending,
+            invoiced
+        }
+
         public string AccountCode { get; private set; }
         public string UUID { get; protected set; }
         public string Description { get; protected set; }
