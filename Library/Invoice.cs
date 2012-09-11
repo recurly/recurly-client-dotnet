@@ -19,7 +19,7 @@ namespace Recurly
         }
 
         public string AccountCode { get; private set; }
-        public string UUID { get; protected set; }
+        public string Uuid { get; protected set; }
         public InvoiceState State { get; protected set; }
         public int InvoiceNumber { get; private set; }
         public string PONumber { get; private set; }
@@ -30,15 +30,15 @@ namespace Recurly
         public string Currency { get; protected set; }
         public DateTime CreatedAt { get; private set; }
         
-        public RecurlyList<Adjustment> Adjustments { get; private set; }
-        public RecurlyList<Transaction> Transactions { get; private set; }
+        public AdjustmentList Adjustments { get; private set; }
+        public TransactionList Transactions { get; private set; }
 
-        private const string UrlPrefix = "/invoices/";
+        internal const string UrlPrefix = "/invoices/";
 
         internal Invoice()
         {
-            Adjustments = new RecurlyList<Adjustment>();
-            Transactions = new RecurlyList<Transaction>();
+            Adjustments = new AdjustmentList();
+            Transactions = new TransactionList();
         }
 
         internal Invoice(XmlTextReader reader)
@@ -78,16 +78,7 @@ namespace Recurly
         }
 
 
-        internal static RecurlyList<Invoice> GetInvoices(string accountCode)
-        {
-            RecurlyList<Invoice> list = new RecurlyList<Invoice>();
-
-            HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
-                UrlPrefix + System.Uri.EscapeUriString(accountCode),
-                new Client.ReadXmlDelegate(list.ReadXml)).StatusCode;
-
-            return list;
-        }
+        
 
 
         /// <summary>
@@ -169,7 +160,7 @@ namespace Recurly
                             break;
 
                         case "uuid":
-                            this.UUID = reader.ReadElementContentAsString();
+                            this.Uuid = reader.ReadElementContentAsString();
                             break;
 
                         case "state":
@@ -229,7 +220,7 @@ namespace Recurly
 
         public override string ToString()
         {
-            return "Recurly Invoice: " + this.UUID;
+            return "Recurly Invoice: " + this.Uuid;
         }
 
         public override bool Equals(object obj)
@@ -242,12 +233,12 @@ namespace Recurly
 
         public bool Equals(Invoice invoice)
         {
-            return this.UUID == invoice.UUID;
+            return this.Uuid == invoice.Uuid;
         }
 
         public override int GetHashCode()
         {
-            return this.UUID.GetHashCode();
+            return this.Uuid.GetHashCode();
         }
 
         #endregion

@@ -24,7 +24,7 @@ namespace Recurly
             dollars
         }
 
-        public RecurlyList<CouponRedemption> Redemptions { get; private set; }
+        public CouponRedemptionList Redemptions { get; private set; }
 
         public string CouponCode { get; set; }
         public string Name { get; set; }
@@ -48,34 +48,11 @@ namespace Recurly
         /// <summary>
         /// A list of plans to limit the coupon
         /// </summary>
-        public RecurlyList<Plan> Plans
+        public List<string> Plans
         {
-            get
-            {
-                if (_plans == null)
-                {
-                    _plans = new RecurlyList<Plan>();
-                    foreach (string planCode in _planCodes)
-                    {
-                        _plans.Add(Plan.Get(planCode));
-                    }
-                }
-                return _plans;
-
-            }
-            set{
-                foreach (Plan p in value)
-                {
-                    _planCodes.Add(p.PlanCode);
-                }
-            }
+            get;
+            set;
         }
-
-        /// <summary>
-        /// When loading a coupon we get plan codes
-        /// </summary>
-        private List<string> _planCodes;
-        private RecurlyList<Plan> _plans;
 
         public DateTime CreatedAt { get; private set; }
 
@@ -121,7 +98,7 @@ namespace Recurly
 
         #endregion
 
-        private const string UrlPrefix = "/coupons/";
+        internal const string UrlPrefix = "/coupons/";
 
         /// <summary>
         /// Look up a coupon
@@ -160,24 +137,6 @@ namespace Recurly
             Client.PerformRequest(Client.HttpRequestMethod.Delete, UrlPrefix + System.Uri.EscapeUriString(this.CouponCode));
         }
 
-
-        /// <summary>
-        /// Lists coupons, limited to state
-        /// </summary>
-        /// <param name="state">Account state to retrieve</param>
-        /// <returns></returns>
-        public static RecurlyList<Coupon> List(CouponState state = CouponState.all)
-        {
-            RecurlyList<Coupon> l = new RecurlyList<Coupon>();
-            HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
-                UrlPrefix + (state != CouponState.all ? "?state=" + state.ToString() : ""),
-                new Client.ReadXmlDelegate(l.ReadXml)).StatusCode;
-
-            if (statusCode == HttpStatusCode.NotFound)
-                return null;
-
-            return l;
-        }
 
         #region Read and Write XML documents
 
@@ -260,8 +219,8 @@ namespace Recurly
 
         internal void ReadXmlPlanCodes(XmlTextReader reader)
         {
-            if (_planCodes == null)
-                _planCodes = new List<string>();
+            if (Plans == null)
+                Plans = new List<string>();
 
             while (reader.Read())
             {
@@ -273,7 +232,7 @@ namespace Recurly
                     switch (reader.Name)
                     {
                         case "plan_code":
-                            this._planCodes.Add(reader.ReadElementContentAsString());
+                            this.Plans.Add(reader.ReadElementContentAsString());
                             break;
 
                     }
@@ -329,6 +288,17 @@ namespace Recurly
                 {
                     xmlWriter.WriteElementString(d.Key, d.Value.ToString());
                 }
+                xmlWriter.WriteEndElement();
+            }
+
+            if (Plans.Count > 0)
+            {
+                xmlWriter.WriteStartElement("plan_codes");
+                foreach (String s in Plans)
+                {
+                    xmlWriter.WriteElementString("plan_code", s);
+                }
+
                 xmlWriter.WriteEndElement();
             }
 

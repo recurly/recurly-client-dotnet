@@ -61,8 +61,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Account.cs" />
+    <Compile Include="List\AccountList.cs" />
     <Compile Include="AddOn.cs" />
     <Compile Include="Adjustment.cs" />
+    <Compile Include="List\AdjustmentList.cs" />
     <Compile Include="BillingInfo.cs" />
     <Compile Include="Client.cs" />
     <Compile Include="Configuration\Section.cs" />
@@ -73,15 +75,22 @@
     <Compile Include="ForgedQueryStringException.cs" />
     <Compile Include="InvalidCredentialsException.cs" />
     <Compile Include="Invoice.cs" />
+    <Compile Include="List\AddOnList.cs" />
+    <Compile Include="List\CouponList.cs" />
+    <Compile Include="List\CouponRedemptionList.cs" />
+    <Compile Include="List\InvoiceList.cs" />
+    <Compile Include="List\PlanList.cs" />
+    <Compile Include="List\SubscriptionList.cs" />
     <Compile Include="NotFoundException.cs" />
     <Compile Include="Plan.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RecurlyList.cs" />
+    <Compile Include="List\RecurlyList.cs" />
     <Compile Include="RecurlyTransparent.cs" />
     <Compile Include="ServerException.cs" />
     <Compile Include="Subscription.cs" />
     <Compile Include="TemporarilyUnavailableException.cs" />
     <Compile Include="Transaction.cs" />
+    <Compile Include="List\TransactionList.cs" />
     <Compile Include="ValidationException.cs" />
   </ItemGroup>
   <ItemGroup>

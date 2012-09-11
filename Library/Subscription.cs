@@ -68,7 +68,7 @@ namespace Recurly
             }
         }
 
-        public string UUID { get; private set; }
+        public string Uuid { get; private set; }
 
         public SubstriptionState State { get; private set; }
 
@@ -153,12 +153,12 @@ namespace Recurly
         /// <summary>
         /// List of add ons for this subscription
         /// </summary>
-        public RecurlyList<AddOn> AddOns { get; set; }
+        public AddOnList AddOns { get; set; }
 
         public int? TotalBillingCycles { get; set; }
         public DateTime? FirstRenewalDate { get; set; }
 
-        private const string UrlPrefix = "/subscription/";
+        internal const string UrlPrefix = "/subscription/";
 
         internal Subscription()
         {
@@ -216,7 +216,7 @@ namespace Recurly
                 writeXmlDelegate = new Client.WriteXmlDelegate(WriteChangeSubscriptionAtRenewalXml);
 
             Client.PerformRequest(Client.HttpRequestMethod.Put,
-                UrlPrefix + System.Uri.EscapeUriString(this.UUID),
+                UrlPrefix + System.Uri.EscapeUriString(this.Uuid),
                 writeXmlDelegate,
                 new Client.ReadXmlDelegate(this.ReadXml));
         }
@@ -228,7 +228,7 @@ namespace Recurly
         /// <param name="accountCode">Subscriber's Account Code</param>
         public void Cancel()
         {
-            Client.PerformRequest(Client.HttpRequestMethod.Put, UrlPrefix + System.Uri.EscapeUriString(this.UUID) + "/cancel");
+            Client.PerformRequest(Client.HttpRequestMethod.Put, UrlPrefix + System.Uri.EscapeUriString(this.Uuid) + "/cancel");
         }
 
         /// <summary>
@@ -237,7 +237,7 @@ namespace Recurly
         /// <param name="accountCode">Subscriber's Account Code</param>
         public void Reactivate()
         {
-            Client.PerformRequest(Client.HttpRequestMethod.Put, UrlPrefix + System.Uri.EscapeUriString(this.UUID) + "/reactivate");
+            Client.PerformRequest(Client.HttpRequestMethod.Put, UrlPrefix + System.Uri.EscapeUriString(this.Uuid) + "/reactivate");
         }
 
         /// <summary>
@@ -246,7 +246,7 @@ namespace Recurly
         /// <param name="nextRenewalDate"></param>
         public void Terminate(RefundType refund)
         {
-            Client.PerformRequest(Client.HttpRequestMethod.Put, UrlPrefix + System.Uri.EscapeUriString(this.UUID) + "/terminate?refund=" +
+            Client.PerformRequest(Client.HttpRequestMethod.Put, UrlPrefix + System.Uri.EscapeUriString(this.Uuid) + "/terminate?refund=" +
                 refund.ToString() );
         }
 
@@ -259,29 +259,11 @@ namespace Recurly
         public void Postpone(DateTime nextRenewalDate)
         {
             Client.PerformRequest(Client.HttpRequestMethod.Put,
-                UrlPrefix + System.Uri.EscapeUriString(this.UUID) + "/postpone?next_renewal_date=" +
+                UrlPrefix + System.Uri.EscapeUriString(this.Uuid) + "/postpone?next_renewal_date=" +
                 nextRenewalDate.ToString("c"));
         }
 
-        /// <summary>
-        /// Returns a list of recurly subscriptions
-        /// 
-        /// A subscription will belong to more than one state.
-        /// </summary>
-        /// <param name="state">State of subscriptions to return, defaults to "live"</param>
-        /// <returns></returns>
-        public static RecurlyList<Subscription> GetSubscriptions(SubstriptionState state = SubstriptionState.Live)
-        {
-            RecurlyList<Subscription> l = new RecurlyList<Subscription>();
-            HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
-                UrlPrefix + "?state=" + System.Uri.EscapeUriString(state.ToString()),
-                new Client.ReadXmlDelegate(l.ReadXml)).StatusCode;
-
-            if (statusCode == HttpStatusCode.NotFound)
-                return null;
-
-            return l;
-        }
+       
 
 
         #region Read and Write XML documents
@@ -329,7 +311,7 @@ namespace Recurly
                             break;
 
                         case "uuid":
-                            this.UUID = reader.ReadElementContentAsString();
+                            this.Uuid = reader.ReadElementContentAsString();
                             break;
 
                         case "state":
@@ -385,7 +367,7 @@ namespace Recurly
 
                         case "subscription_add_ons":
                             if (null == this.AddOns)
-                                this.AddOns = new RecurlyList<AddOn>();
+                                this.AddOns = new AddOnList();
                             this.AddOns.ReadXml(reader);
 
                             break;

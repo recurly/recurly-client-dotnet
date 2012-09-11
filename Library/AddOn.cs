@@ -77,20 +77,7 @@ namespace Recurly
         }
 
 
-        /// <summary>
-        /// Retrieves a list of all active plans
-        /// </summary>
-        /// <returns></returns>
-        public static RecurlyList<Plan> GetPlans()
-        {
-            RecurlyList<Plan> list = new RecurlyList<Plan>();
-
-            Client.PerformRequest(Client.HttpRequestMethod.Put,
-                UrlPrefix,
-                new Client.ReadXmlDelegate(list.ReadXml));
-
-            return list;
-        }
+        
 
         #region Read and Write XML documents
 

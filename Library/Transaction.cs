@@ -29,7 +29,7 @@ namespace Recurly
         }
 
 
-        public string UUID { get; private set; }
+        public string Uuid { get; private set; }
         public TransactionType Action { get; set; }
         public int AmountInCents { get; set; }
         public int TaxInCents { get; set; }
@@ -44,9 +44,9 @@ namespace Recurly
         public bool Refundable { get; private set; }
 
         public string CCVResult { get; private set; }
-        public string AVSResult { get; private set; }
-        public string AVSResultStreet { get; private set; }
-        public string AVSResultPostal { get; private set; }
+        public string AvsResult { get; private set; }
+        public string AvsResultStreet { get; private set; }
+        public string AvsResultPostal { get; private set; }
 
         public DateTime CreatedAt { get; private set; }
 
@@ -118,7 +118,7 @@ namespace Recurly
         public void Refund(int? refund)
         {
             Client.PerformRequest(Client.HttpRequestMethod.Delete,
-                UrlPrefix + System.Uri.EscapeUriString(this.UUID)
+                UrlPrefix + System.Uri.EscapeUriString(this.Uuid)
                 + (refund.HasValue ? "?amount_in_cents=" + refund.Value.ToString() : "")
                 );
         }
@@ -153,7 +153,7 @@ namespace Recurly
                             break;
 
                         case "uuid":
-                            this.UUID = reader.ReadElementContentAsString();
+                            this.Uuid = reader.ReadElementContentAsString();
                             break;
 
                         case "action":
@@ -199,15 +199,15 @@ namespace Recurly
                             break;
 
                         case "avs_result":
-                            this.AVSResult = reader.ReadElementContentAsString();
+                            this.AvsResult = reader.ReadElementContentAsString();
                             break;
 
                         case "avs_result_street":
-                            this.AVSResultStreet = reader.ReadElementContentAsString();
+                            this.AvsResultStreet = reader.ReadElementContentAsString();
                             break;
 
                         case "avs_result_postal":
-                            this.AVSResultPostal = reader.ReadElementContentAsString();
+                            this.AvsResultPostal = reader.ReadElementContentAsString();
                             break;
 
                         case "created_at":
@@ -248,7 +248,7 @@ namespace Recurly
 
         public override string ToString()
         {
-            return "Recurly Transaction: " + this.UUID;
+            return "Recurly Transaction: " + this.Uuid;
         }
 
         public override bool Equals(object obj)
@@ -261,12 +261,12 @@ namespace Recurly
 
         public bool Equals(Transaction transaction)
         {
-            return this.UUID == transaction.UUID;
+            return this.Uuid == transaction.Uuid;
         }
 
         public override int GetHashCode()
         {
-            return this.UUID.GetHashCode();
+            return this.Uuid.GetHashCode();
         }
 
         #endregion

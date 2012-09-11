@@ -129,23 +129,7 @@ namespace Recurly
             this._billingInfo = null;
         }
 
-        /// <summary>
-        /// Lists accounts, limited to state
-        /// </summary>
-        /// <param name="state">Account state to retrieve</param>
-        /// <returns></returns>
-        public static RecurlyList<Account> List(AccountState state = AccountState.active)
-        {
-            RecurlyList<Account> l = new RecurlyList<Account>();
-            HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
-                UrlPrefix + "?state=" + state.ToString(),
-                new Client.ReadXmlDelegate(l.ReadXml)).StatusCode;
-
-            if (statusCode == HttpStatusCode.NotFound)
-                return null;
-
-            return l;
-        }
+        
         
         /// <summary>
         /// Create a new account in Recurly
@@ -225,14 +209,14 @@ namespace Recurly
         /// </summary>
         /// <param name="type">Adjustment type to retrieve</param>
         /// <returns></returns>
-        public RecurlyList<Adjustment> GetAdjustments(Adjustment.AdjustmentType type = Adjustment.AdjustmentType.all,
+        public AdjustmentList GetAdjustments(Adjustment.AdjustmentType type = Adjustment.AdjustmentType.all,
             Adjustment.AdjustmentState state = Adjustment.AdjustmentState.any)
         {
-            RecurlyList<Adjustment> l = new RecurlyList<Adjustment>();
+            AdjustmentList l = new AdjustmentList();
             HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
-                UrlPrefix + System.Uri.EscapeUriString(this.AccountCode) + "/adjustments/?" 
-                + (Adjustment.AdjustmentState.any == state ? "" : "state=" + state.ToString()) 
-                + (Adjustment.AdjustmentType.all == type ? "" : "&type=" + type.ToString()) 
+                Account.UrlPrefix + System.Uri.EscapeUriString(this.AccountCode) + "/adjustments/?"
+                + (Adjustment.AdjustmentState.any == state ? "" : "state=" + state.ToString())
+                + (Adjustment.AdjustmentType.all == type ? "" : "&type=" + type.ToString())
                 ,
                 new Client.ReadXmlDelegate(l.ReadXml)).StatusCode;
 
@@ -247,9 +231,9 @@ namespace Recurly
         /// Returns a list of invoices for this account
         /// </summary>
         /// <returns></returns>
-        public RecurlyList<Invoice> GetInvoices()
+        public InvoiceList GetInvoices()
         {
-            return Invoice.GetInvoices(this.AccountCode);
+            return InvoiceList.GetInvoices(this.AccountCode);
         }
 
         /// <summary>
@@ -257,7 +241,7 @@ namespace Recurly
         /// </summary>
         /// <param name="state"></param>
         /// <returns></returns>
-        public RecurlyList<Invoice> GetInvoices(Invoice.InvoiceState state)
+        public InvoiceList GetInvoices(Invoice.InvoiceState state)
         {
             throw new NotSupportedException("Not yet supported.");
         }
@@ -269,9 +253,9 @@ namespace Recurly
         /// </summary>
         /// <param name="state"></param>
         /// <returns></returns>
-        public RecurlyList<Subscription> GetSubscriptions(Subscription.SubstriptionState state = Subscription.SubstriptionState.All)
+        public SubscriptionList GetSubscriptions(Subscription.SubstriptionState state = Subscription.SubstriptionState.All)
         {
-            RecurlyList<Subscription> l = new RecurlyList<Subscription>();
+            SubscriptionList l = new SubscriptionList();
             HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
                 UrlPrefix + System.Uri.EscapeUriString(this.AccountCode) + "/subscriptions/"
                 + "state=" + state.ToString(),
@@ -289,10 +273,10 @@ namespace Recurly
         /// </summary>
         /// <param name="state"></param>
         /// <returns></returns>
-        public RecurlyList<Transaction> GetTransactions(Transaction.TransactionState state = Transaction.TransactionState.All,
+        public TransactionList GetTransactions(Transaction.TransactionState state = Transaction.TransactionState.All,
             Transaction.TransactionType type = Transaction.TransactionType.All)
         {
-            RecurlyList<Transaction> l = new RecurlyList<Transaction>();
+            TransactionList l = new TransactionList();
             HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
                 UrlPrefix + System.Uri.EscapeUriString(this.AccountCode) + "/transactions/"
                 + "state=" + state.ToString() + 

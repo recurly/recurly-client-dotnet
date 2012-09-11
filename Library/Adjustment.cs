@@ -28,7 +28,7 @@ namespace Recurly
         }
 
         public string AccountCode { get; private set; }
-        public string UUID { get; protected set; }
+        public string Uuid { get; protected set; }
         public string Description { get; protected set; }
         public string AccountingCode { get; protected set; }
         public string Origin { get; protected set; }
@@ -111,7 +111,7 @@ namespace Recurly
                             break;
 
                         case "uuid":
-                            this.UUID = reader.ReadElementContentAsString();
+                            this.Uuid = reader.ReadElementContentAsString();
                             break;
 
                         case "description":

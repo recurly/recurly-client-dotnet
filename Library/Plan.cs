@@ -41,7 +41,7 @@ namespace Recurly
 
         public int? TotalBillingCycles { get; set; }
 
-        public RecurlyList<AddOn> AddOns { get; private set; }
+        public AddOnList AddOns { get; private set; }
 
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace Recurly
         /// </summary>
         public Dictionary<string, int> SetupFeeInCents { get; set; }
 
-        private const string UrlPrefix = "/plans/";
+        internal const string UrlPrefix = "/plans/";
 
         #region Constructors
         internal Plan()
@@ -123,20 +123,7 @@ namespace Recurly
         }
 
 
-        /// <summary>
-        /// Retrieves a list of all active plans
-        /// </summary>
-        /// <returns></returns>
-        public static RecurlyList<Plan> GetPlans()
-        {
-            RecurlyList<Plan> list = new RecurlyList<Plan>();
-
-            Client.PerformRequest(Client.HttpRequestMethod.Put,
-                UrlPrefix,
-                new Client.ReadXmlDelegate(list.ReadXml));
-
-            return list;
-        }
+        
 
         /// <summary>
         /// Returns an new add on associated with this plan.

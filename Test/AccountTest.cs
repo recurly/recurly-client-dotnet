@@ -64,7 +64,7 @@ namespace Recurly.Test
             acct = new Account(Factories.GetMockAccountName());
             acct.Create();
 
-            RecurlyList<Account> accounts = Account.List();
+            AccountList accounts = AccountList.List();
             Assert.IsTrue(accounts.Count >= 2);
         }
 
@@ -76,7 +76,7 @@ namespace Recurly.Test
             acct = new Account(Factories.GetMockAccountName());
             acct.Create();
 
-            List<Account> accounts = Account.List(Account.AccountState.active);
+            AccountList accounts = AccountList.List(Account.AccountState.active);
             Assert.IsTrue(accounts.Count >= 2);
         }
 
@@ -90,7 +90,7 @@ namespace Recurly.Test
             acct.Create();
             acct.Close();
 
-            List<Account> accounts = Account.List(Account.AccountState.closed);
+            AccountList accounts = AccountList.List(Account.AccountState.closed);
             Assert.IsTrue(accounts.Count >= 2);
         }
         
@@ -105,7 +105,7 @@ namespace Recurly.Test
 
             acct.InvoicePendingCharges();
 
-            RecurlyList<Account> accounts = Account.List(Account.AccountState.past_due);
+            AccountList accounts = AccountList.List(Account.AccountState.past_due);
             Assert.IsTrue(accounts.Count > 0);
         }
       

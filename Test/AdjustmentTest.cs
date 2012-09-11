@@ -36,7 +36,7 @@ namespace Recurly.Test
 
             acct.InvoicePendingCharges();
 
-            RecurlyList<Adjustment> adjustments = acct.GetAdjustments();
+            AdjustmentList adjustments = acct.GetAdjustments();
             Assert.IsTrue(adjustments.Count == 2);
         }
 
@@ -58,7 +58,7 @@ namespace Recurly.Test
 
             acct.InvoicePendingCharges();
 
-            RecurlyList<Adjustment> adjustments = acct.GetAdjustments(Adjustment.AdjustmentType.credit);
+            AdjustmentList adjustments = acct.GetAdjustments(Adjustment.AdjustmentType.credit);
             Assert.IsTrue(adjustments.Count == 2);
             int sum = adjustments[0].UnitAmountInCents + adjustments[1].UnitAmountInCents;
             Assert.AreEqual(sum , -5678);
@@ -77,7 +77,7 @@ namespace Recurly.Test
             a = acct.CreateAdjustment("Credit", -3456, "USD", 1);
             a.Create();
 
-            RecurlyList<Adjustment> adjustments = acct.GetAdjustments(Adjustment.AdjustmentType.credit);
+            AdjustmentList adjustments = acct.GetAdjustments(Adjustment.AdjustmentType.credit);
             Assert.IsTrue(adjustments.Count == 1);
             Assert.AreEqual(adjustments[0].UnitAmountInCents, -3456);
         }
@@ -96,7 +96,7 @@ namespace Recurly.Test
 
             acct.InvoicePendingCharges();
 
-            RecurlyList<Adjustment> adjustments = acct.GetAdjustments(Adjustment.AdjustmentType.charge);
+            AdjustmentList adjustments = acct.GetAdjustments(Adjustment.AdjustmentType.charge);
             Assert.IsTrue(adjustments.Count == 1);
             Assert.AreEqual(adjustments[0].UnitAmountInCents, 1234);
         }
@@ -114,7 +114,7 @@ namespace Recurly.Test
             a.Create();
 
 
-            RecurlyList<Adjustment> adjustments = acct.GetAdjustments(state: Adjustment.AdjustmentState.pending);
+            AdjustmentList adjustments = acct.GetAdjustments(state: Adjustment.AdjustmentState.pending);
             Assert.IsTrue(adjustments.Count == 2);
 
             acct.InvoicePendingCharges();

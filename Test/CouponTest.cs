@@ -20,7 +20,7 @@ namespace Recurly.Test
             c = new Coupon(s, Factories.GetMockCouponName(), 2);
             c.Create();
 
-            RecurlyList<Coupon> list = Coupon.List();
+            CouponList list = CouponList.List();
             Assert.IsTrue(list.Count > 1);
 
         }
@@ -37,7 +37,7 @@ namespace Recurly.Test
             c = new Coupon(s, Factories.GetMockCouponName(), 2);
             c.Create();
 
-            RecurlyList<Coupon> list = Coupon.List();
+            CouponList list = CouponList.List();
             Assert.IsTrue(list.Count > 1);
 
         }
@@ -54,7 +54,7 @@ namespace Recurly.Test
             c = new Coupon(s, Factories.GetMockCouponName(), 2);
             c.Create();
 
-            RecurlyList<Coupon> list = Coupon.List();
+            CouponList list = CouponList.List();
             Assert.IsTrue(list.Count > 1);
 
         }
@@ -71,7 +71,7 @@ namespace Recurly.Test
             c = new Coupon(s, Factories.GetMockCouponName(), 2);
             c.Create();
 
-            RecurlyList<Coupon> list = Coupon.List();
+            CouponList list = CouponList.List();
             Assert.IsTrue(list.Count > 1);
 
         }
