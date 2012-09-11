@@ -10,10 +10,9 @@ namespace Recurly
     {
         public enum IntervalUnit
         {
-            Days,
-            Months
+            days,
+            months
         }
-
 
         public string PlanCode { get; set; }
         public string Name { get; set; }
@@ -21,10 +20,10 @@ namespace Recurly
         public string SuccessUrl { get; set; }
         public string CancelUrl { get; set; }
 
-        public bool DisplayDonationAmounts { get; set; }
-        public bool DisplayQuantity { get; set; }
-        public bool DisplayPhoneNumber { get; set; }
-        public bool BypassHostedConfirmation { get; set; }
+        public bool? DisplayDonationAmounts { get; set; }
+        public bool? DisplayQuantity { get; set; }
+        public bool? DisplayPhoneNumber { get; set; }
+        public bool? BypassHostedConfirmation { get; set; }
 
         public string UnitName { get; set; }
         public string PaymentPageTOSLink { get; set; }
@@ -32,7 +31,7 @@ namespace Recurly
         public int PlanIntervalLength { get; set; }
         public IntervalUnit PlanIntervalUnit { get; set; }
 
-        public int TrialIntervalLength { get; private set; }
+        public int TrialIntervalLength { get; set; }
         public IntervalUnit TrialIntervalUnit { get; set; }
 
         public string AccountingCode { get; set; }
@@ -44,15 +43,37 @@ namespace Recurly
         public AddOnList AddOns { get; private set; }
 
 
+        private Dictionary<string, int> _unitAmountInCents;
         /// <summary>
         /// A dictionary of currencies and values for the subscription amount
         /// </summary>
-        public Dictionary<string, int> UnitAmountInCents { get; set; }
+        public Dictionary<string, int> UnitAmountInCents
+        {
+            get
+            {
+                if (null == _unitAmountInCents)
+                {
+                    _unitAmountInCents = new Dictionary<string, int>();
+                }
+                return _unitAmountInCents;
+            }
+        }
 
+        private Dictionary<string, int> _setupFeeInCents;
         /// <summary>
         /// A dictionary of currency and values for the setup fee
         /// </summary>
-        public Dictionary<string, int> SetupFeeInCents { get; set; }
+        public Dictionary<string, int> SetupFeeInCents
+        {
+            get
+            {
+                if (null == _setupFeeInCents)
+                    _setupFeeInCents = new Dictionary<string, int>();
+
+                return _setupFeeInCents;
+            }
+
+        }
 
         internal const string UrlPrefix = "/plans/";
 
@@ -86,7 +107,7 @@ namespace Recurly
 
             HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
                 UrlPrefix + System.Uri.EscapeUriString(planCode),
-                new Client.ReadXmlDelegate(plan.ReadXml)).StatusCode;
+                new Client.ReadXmlDelegate(plan.ReadXml));
 
             if (statusCode == HttpStatusCode.NotFound)
                 return null;
@@ -141,8 +162,6 @@ namespace Recurly
 
         internal void ReadXmlSetupFee(XmlTextReader reader)
         {
-            if (this.SetupFeeInCents == null)
-                this.SetupFeeInCents = new Dictionary<string, int>();
 
             while (reader.Read())
             {
@@ -158,8 +177,6 @@ namespace Recurly
 
         internal void ReadXmlUnitAmount(XmlTextReader reader)
         {
-            if (this.UnitAmountInCents == null)
-                this.UnitAmountInCents = new Dictionary<string, int>();
 
             while (reader.Read())
             {
@@ -272,14 +289,21 @@ namespace Recurly
 
             xmlWriter.WriteElementString("plan_code", this.PlanCode);
             xmlWriter.WriteElementString("name", this.Name);
-            xmlWriter.WriteElementString("description", this.Description);
-            xmlWriter.WriteElementString("accounting_code", this.AccountingCode);
-            xmlWriter.WriteElementString("plan_interval_unit", this.PlanIntervalUnit.ToString());
-            xmlWriter.WriteElementString("plan_interval_length", this.PlanIntervalLength.ToString());
-            xmlWriter.WriteElementString("trial_interval_unit", this.TrialIntervalUnit.ToString());
-            xmlWriter.WriteElementString("trial_interval_length", this.TrialIntervalLength.ToString());
-
-            if (null !=  this.SetupFeeInCents)
+            if (null != this.Description && this.Description.Length > 0)
+                xmlWriter.WriteElementString("description", this.Description);
+            if (null != this.AccountingCode && this.AccountingCode.Length > 0)
+                xmlWriter.WriteElementString("accounting_code", this.AccountingCode);
+            if (this.PlanIntervalLength > 0)
+            {
+                xmlWriter.WriteElementString("plan_interval_unit", this.PlanIntervalUnit.ToString());
+                xmlWriter.WriteElementString("plan_interval_length", this.PlanIntervalLength.ToString());
+            }
+            if (this.TrialIntervalLength > 0)
+            {
+                xmlWriter.WriteElementString("trial_interval_unit", this.TrialIntervalUnit.ToString());
+                xmlWriter.WriteElementString("trial_interval_length", this.TrialIntervalLength.ToString());
+            }
+            if (null !=  this.SetupFeeInCents &&  this._setupFeeInCents.Count > 0)
             {
                 xmlWriter.WriteStartElement("setup_fee_in_cents");
                 foreach (KeyValuePair<string, int> d in this.SetupFeeInCents)
@@ -289,7 +313,7 @@ namespace Recurly
                 xmlWriter.WriteEndElement();
             }
 
-            if (null != this.UnitAmountInCents)
+            if (null != this.UnitAmountInCents && this._unitAmountInCents.Count > 0)
             {
                 xmlWriter.WriteStartElement("unit_amount_in_cents");
                 foreach (KeyValuePair<string, int> d in UnitAmountInCents)
@@ -299,11 +323,27 @@ namespace Recurly
                 xmlWriter.WriteEndElement();
             }
 
-            xmlWriter.WriteElementString("total_billing_cycles", this.TotalBillingCycles.ToString());
-            xmlWriter.WriteElementString("unit_name", this.UnitName);
-            xmlWriter.WriteElementString("display_quantity", this.DisplayQuantity.ToString());
-            xmlWriter.WriteElementString("success_urL", this.SuccessUrl);
-            xmlWriter.WriteElementString("cancel_url", this.CancelUrl);
+            if (this.TotalBillingCycles > 0)
+                xmlWriter.WriteElementString("total_billing_cycles", this.TotalBillingCycles.ToString());
+            if (null != this.UnitName && this.UnitName.Length > 0)
+                xmlWriter.WriteElementString("unit_name", this.UnitName);
+
+            if (null != this.DisplayDonationAmounts && this.DisplayDonationAmounts.HasValue)
+                xmlWriter.WriteElementString("display_donation_amounts", this.DisplayDonationAmounts.ToString());
+
+            if (null != this.DisplayQuantity && this.DisplayQuantity.HasValue)
+                xmlWriter.WriteElementString("display_quantity", this.DisplayQuantity.ToString());
+
+            if (null != this.DisplayPhoneNumber && this.DisplayPhoneNumber.HasValue)
+                xmlWriter.WriteElementString("display_phone_number", this.DisplayPhoneNumber.ToString());
+
+            if (null != this.BypassHostedConfirmation && this.BypassHostedConfirmation.HasValue)
+                xmlWriter.WriteElementString("bypass_hosted_confirmation", this.BypassHostedConfirmation.ToString());
+
+            if (null != this.SuccessUrl && this.SuccessUrl.Length > 0)
+                xmlWriter.WriteElementString("success_url", this.SuccessUrl);
+            if (null != this.CancelUrl && this.CancelUrl.Length > 0)
+                xmlWriter.WriteElementString("cancel_url", this.CancelUrl);
 
             xmlWriter.WriteEndElement();
         }

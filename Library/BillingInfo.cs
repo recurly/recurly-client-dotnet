@@ -109,7 +109,7 @@ namespace Recurly
 
             HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
                 BillingInfoUrl(accountCode),
-                new Client.ReadXmlDelegate(billingInfo.ReadXml)).StatusCode;
+                new Client.ReadXmlDelegate(billingInfo.ReadXml));
 
             if (statusCode == HttpStatusCode.NotFound)
                 return null;

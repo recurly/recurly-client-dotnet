@@ -184,7 +184,7 @@ namespace Recurly
             Subscription s = new Subscription();
             HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
                 UrlPrefix,
-                new Client.ReadXmlDelegate(s.ReadXml)).StatusCode;
+                new Client.ReadXmlDelegate(s.ReadXml));
 
             if (statusCode == HttpStatusCode.NotFound)
                 return null;

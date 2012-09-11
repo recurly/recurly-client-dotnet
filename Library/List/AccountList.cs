@@ -36,7 +36,7 @@ namespace Recurly
             AccountList l = new AccountList();
             HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
                 Account.UrlPrefix + "?state=" + state.ToString(),
-                new Client.ReadXmlDelegate(l.ReadXml)).StatusCode;
+                new Client.ReadXmlDelegate(l.ReadXml));
 
             if (statusCode == HttpStatusCode.NotFound)
                 return null;

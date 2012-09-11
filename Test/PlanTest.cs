@@ -11,40 +11,100 @@ namespace Recurly.Test
     {
 
         [Test]
-        public void ListPlans()
-        {
-            Assert.Fail("Not written");
-        }
-
-        [Test]
         public void LookupPlan()
         {
-            Assert.Fail("Not written");
+            String s = Factories.GetMockPlanCode();
+            Plan p = new Plan(s, Factories.GetMockPlanName());
+            p.Description = "Test Lookup";
+            p.UnitAmountInCents.Add("USD", 100);
+            p.Create();
+
+            Plan l = Plan.Get(s);
+            Assert.IsNotNull(l.CreatedAt);
+            Assert.AreEqual(l.UnitAmountInCents["USD"], 100);
+            Assert.AreEqual(l.PlanCode, s);
+            Assert.AreEqual(l.Description, "Test Lookup");
         }
 
         [Test]
         public void CreatePlanSmall()
         {
-            Assert.Fail("Not written");
+            Plan p = new Plan(Factories.GetMockPlanCode(), Factories.GetMockPlanName());
+            p.SetupFeeInCents.Add("USD",100);
+            p.Create();
+
+            Assert.IsNotNull(p.CreatedAt);
+            Assert.AreEqual(p.SetupFeeInCents["USD"], 100);
         }
 
         [Test]
         public void CreatePlan()
         {
-            Assert.Fail("Not written");
+            Plan p = new Plan(Factories.GetMockPlanCode(), Factories.GetMockPlanName());
+            p.SetupFeeInCents.Add("USD",500);
+            p.AccountingCode = "accountingcode123";
+            p.Description = "a test plan";
+            p.DisplayDonationAmounts = true;
+            p.DisplayPhoneNumber = false;
+            p.DisplayQuantity = true;
+            p.TotalBillingCycles = 5;
+            p.TrialIntervalUnit = Plan.IntervalUnit.months;
+            p.TrialIntervalLength = 1;
+            p.PlanIntervalUnit = Plan.IntervalUnit.days;
+            p.PlanIntervalLength = 180;
+            p.Create();
+
+            Assert.IsNotNull(p.CreatedAt);
+            Assert.AreEqual(p.AccountingCode, "accountingcode123");
+            Assert.AreEqual(p.Description, "a test plan");
+            Assert.IsTrue(p.DisplayDonationAmounts.Value);
+            Assert.IsFalse(p.DisplayPhoneNumber.Value);
+            Assert.IsTrue(p.DisplayQuantity.Value);
+            Assert.AreEqual(p.TotalBillingCycles, 5);
+            Assert.AreEqual(p.TrialIntervalUnit, Plan.IntervalUnit.months);
+            Assert.AreEqual(p.TrialIntervalLength, 1);
+            Assert.AreEqual(p.PlanIntervalUnit, Plan.IntervalUnit.days);
+            Assert.AreEqual(p.PlanIntervalLength, 180);
+
         }
 
         [Test]
         public void UpdatePlan()
         {
-            Assert.Fail("Not written");
+            String s = Factories.GetMockPlanCode();
+            Plan p = new Plan(s, Factories.GetMockPlanName());
+            p.Description = "Test Update";
+            p.UnitAmountInCents.Add("USD", 100);
+            p.Create();
+
+
+            p.UnitAmountInCents["USD"] = 5000;
+            p.SetupFeeInCents.Add("USD", 100);
+
+            p.Update();
+
+            p = Plan.Get(s);
+            Assert.AreEqual(p.UnitAmountInCents["USD"], 5000);
+            Assert.AreEqual(p.SetupFeeInCents["USD"], 100);
+
         }
 
 
         [Test]
-        public void DeletePlan()
+        public void DeactivatePlan()
         {
-            Assert.Fail("Not written");
+            String s = Factories.GetMockPlanCode();
+            Plan p = new Plan(s, Factories.GetMockPlanName());
+            p.Description = "Test Delete";
+            p.UnitAmountInCents.Add("USD", 100);
+            p.Create();
+
+            p = Plan.Get(s);
+            Assert.IsNotNull(p.CreatedAt);
+            Assert.AreEqual(p.UnitAmountInCents["USD"], 100);
+
+            p.Deactivate();
+
         }
 
     }

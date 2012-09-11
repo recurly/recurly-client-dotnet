@@ -33,7 +33,7 @@ namespace Recurly
             InvoiceList list = new InvoiceList();
             HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
                 Invoice.UrlPrefix + System.Uri.EscapeUriString(accountCode),
-                new Client.ReadXmlDelegate(list.ReadXml)).StatusCode;
+                new Client.ReadXmlDelegate(list.ReadXml));
 
             return list;
         }

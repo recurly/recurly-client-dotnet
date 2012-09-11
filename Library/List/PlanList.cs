@@ -30,11 +30,11 @@ namespace Recurly
         /// Retrieves a list of all active plans
         /// </summary>
         /// <returns></returns>
-        public static RecurlyList<Plan> GetPlans()
+        public static PlanList GetPlans()
         {
             PlanList list = new PlanList();
 
-            Client.PerformRequest(Client.HttpRequestMethod.Put,
+            Client.PerformRequest(Client.HttpRequestMethod.Get,
                 Plan.UrlPrefix,
                 new Client.ReadXmlDelegate(list.ReadXml));
 

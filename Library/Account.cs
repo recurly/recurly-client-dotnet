@@ -110,7 +110,7 @@ namespace Recurly
 
             HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
                 UrlPrefix + System.Uri.EscapeUriString(accountCode),
-                new Client.ReadXmlDelegate(account.ReadXml)).StatusCode;
+                new Client.ReadXmlDelegate(account.ReadXml));
 
             if (statusCode == HttpStatusCode.NotFound)
                 return null;
@@ -218,7 +218,7 @@ namespace Recurly
                 + (Adjustment.AdjustmentState.any == state ? "" : "state=" + state.ToString())
                 + (Adjustment.AdjustmentType.all == type ? "" : "&type=" + type.ToString())
                 ,
-                new Client.ReadXmlDelegate(l.ReadXml)).StatusCode;
+                new Client.ReadXmlDelegate(l.ReadXml));
 
             if (statusCode == HttpStatusCode.NotFound)
                 return null;
@@ -259,7 +259,7 @@ namespace Recurly
             HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
                 UrlPrefix + System.Uri.EscapeUriString(this.AccountCode) + "/subscriptions/"
                 + "state=" + state.ToString(),
-                new Client.ReadXmlDelegate(l.ReadXml)).StatusCode;
+                new Client.ReadXmlDelegate(l.ReadXml));
 
             if (statusCode == HttpStatusCode.NotFound)
                 return null;
@@ -281,7 +281,7 @@ namespace Recurly
                 UrlPrefix + System.Uri.EscapeUriString(this.AccountCode) + "/transactions/"
                 + "state=" + state.ToString() + 
                 "&type=" + type.ToString(),
-                new Client.ReadXmlDelegate(l.ReadXml)).StatusCode;
+                new Client.ReadXmlDelegate(l.ReadXml));
 
             if (statusCode == HttpStatusCode.NotFound)
                 return null;
@@ -324,7 +324,7 @@ namespace Recurly
             
             HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
                 UrlPrefix + System.Uri.EscapeUriString(this.AccountCode) + "/redemption",
-                new Client.ReadXmlDelegate(cr.ReadXml)).StatusCode;
+                new Client.ReadXmlDelegate(cr.ReadXml));
 
             if (statusCode == HttpStatusCode.NotFound)
                 return null;

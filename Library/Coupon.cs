@@ -48,10 +48,18 @@ namespace Recurly
         /// <summary>
         /// A list of plans to limit the coupon
         /// </summary>
+
+        private List<string> _plans;
+
         public List<string> Plans
         {
-            get;
-            set;
+            get
+            {
+                if (null == _plans)
+                    _plans = new List<string>();
+
+                return _plans;
+            }
         }
 
         public DateTime CreatedAt { get; private set; }
@@ -111,7 +119,7 @@ namespace Recurly
 
             HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
                 UrlPrefix + System.Uri.EscapeUriString(couponCode),
-                new Client.ReadXmlDelegate(coupon.ReadXml)).StatusCode;
+                new Client.ReadXmlDelegate(coupon.ReadXml));
 
             if (statusCode == HttpStatusCode.NotFound)
                 return null;
@@ -219,8 +227,6 @@ namespace Recurly
 
         internal void ReadXmlPlanCodes(XmlTextReader reader)
         {
-            if (Plans == null)
-                Plans = new List<string>();
 
             while (reader.Read())
             {
@@ -291,7 +297,7 @@ namespace Recurly
                 xmlWriter.WriteEndElement();
             }
 
-            if (Plans.Count > 0)
+            if (null != Plans && Plans.Count > 0)
             {
                 xmlWriter.WriteStartElement("plan_codes");
                 foreach (String s in Plans)

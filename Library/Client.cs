@@ -14,7 +14,7 @@ namespace Recurly
     internal class Client
     {
         private const string ProductionServerUrl = "https://api.recurly.com/v2";
- 
+
         /// <summary>
         /// Recurly API Key
         /// </summary>
@@ -103,24 +103,24 @@ namespace Recurly
         public delegate void WriteXmlDelegate(XmlTextWriter xmlWriter);
 
 
-        public static HttpWebResponse PerformRequest(HttpRequestMethod method, string urlPath)
+        public static HttpStatusCode PerformRequest(HttpRequestMethod method, string urlPath)
         {
             return PerformRequest(method, urlPath, null, null);
         }
 
-        public static HttpWebResponse PerformRequest(HttpRequestMethod method, string urlPath,
+        public static HttpStatusCode PerformRequest(HttpRequestMethod method, string urlPath,
             ReadXmlDelegate readXmlDelegate)
         {
             return PerformRequest(method, urlPath, null, readXmlDelegate);
         }
 
-        public static HttpWebResponse PerformRequest(HttpRequestMethod method, string urlPath,
+        public static HttpStatusCode PerformRequest(HttpRequestMethod method, string urlPath,
             WriteXmlDelegate writeXmlDelegate)
         {
             return PerformRequest(method, urlPath, writeXmlDelegate, null);
         }
 
-        public static HttpWebResponse PerformRequest(HttpRequestMethod method, string urlPath,
+        public static HttpStatusCode PerformRequest(HttpRequestMethod method, string urlPath,
             WriteXmlDelegate writeXmlDelegate, ReadXmlDelegate readXmlDelegate)
         {
             var url = urlPath.Contains("://") ? urlPath : (ProductionServerUrl + urlPath);
@@ -156,8 +156,10 @@ namespace Recurly
                 using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
                 {
                     ReadWebResponse(response, readXmlDelegate);
+                    HttpStatusCode c = response.StatusCode;
+                    response.Close();
+                    return c;
 
-                    return response;
                 }
             }
             catch (WebException ex)
@@ -179,7 +181,7 @@ namespace Recurly
                         case HttpStatusCode.NoContent:
                             ReadWebResponse(response, readXmlDelegate);
 
-                            return response;
+                            return HttpStatusCode.NoContent;
 
                         case HttpStatusCode.NotFound:
                             errors = Error.ReadResponseAndParseErrors(response);
@@ -234,7 +236,7 @@ namespace Recurly
             request.UserAgent = UserAgent;
             request.Headers.Add(HttpRequestHeader.Authorization, AuthorizationHeaderValue);
             request.Method = "GET";
-            request.Headers.Add("Accept-Language:" , acceptLanguage);
+            request.Headers.Add("Accept-Language:", acceptLanguage);
 
             System.Diagnostics.Debug.WriteLine(String.Format("Recurly: Requesting {0} {1}",
                 request.Method, request.RequestUri.ToString()));
@@ -276,7 +278,7 @@ namespace Recurly
                         case HttpStatusCode.Accepted:
                         case HttpStatusCode.Created:
                         case HttpStatusCode.NoContent:
-                            
+
                             return null;
 
                         case HttpStatusCode.NotFound:
@@ -314,41 +316,40 @@ namespace Recurly
             }
         }
 
-        public static void PerformPageRequests(string urlPath, ReadXmlDelegate readXmlDelegate)
-        {
-            var regex = new Regex("<([^>]+)>; rel=\"next\"");
-            var url = urlPath + (urlPath.Contains("?") ? "&" : "?") + "per_page=200";
-
-            while (url != null)
-            {
-                var response = PerformRequest(HttpRequestMethod.Get, url, readXmlDelegate);
-                var link = response.Headers["Link"];
-
-                url = null;
-
-                if (link != null)
-                {
-                    var match = regex.Match(link);
-
-                    if (match.Success)
-                    {
-                        url = match.Groups[1].Value;
-                    }
-                }
-            }
-        }
-
         private static void ReadWebResponse(HttpWebResponse response, ReadXmlDelegate readXmlDelegate)
         {
             if (readXmlDelegate != null)
             {
+#if (DEBUG)
+                MemoryStream responseStream = CopyAndClose(response.GetResponseStream());
+                Console.WriteLine("Got Response:");
+
+                StreamReader reader = new StreamReader(responseStream);
+
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    Console.WriteLine(line);
+                }
+
+                responseStream.Position = 0;
+                using (XmlTextReader xmlReader = new XmlTextReader(responseStream))
+                {
+                    readXmlDelegate(xmlReader);
+                }
+
+
+#else
+
                 using (Stream responseStream = response.GetResponseStream())
                 {
+
                     using (XmlTextReader xmlReader = new XmlTextReader(responseStream))
                     {
                         readXmlDelegate(xmlReader);
                     }
                 }
+#endif
             }
         }
 
@@ -363,6 +364,42 @@ namespace Recurly
 
                 xmlWriter.WriteEndDocument();
             }
+#if (DEBUG)
+            /// Also copy XML to debug output
+            Console.WriteLine("Sending Data:");
+            MemoryStream s = new MemoryStream();
+            using (XmlTextWriter xmlWriter = new XmlTextWriter(s, Encoding.UTF8))
+            {
+                xmlWriter.WriteStartDocument();
+                xmlWriter.Formatting = Formatting.Indented;
+
+                writeXmlDelegate(xmlWriter);
+
+                xmlWriter.WriteEndDocument();
+            }
+            Console.WriteLine(Encoding.UTF8.GetString(s.ToArray()));
+#endif
+
         }
+
+
+        private static MemoryStream CopyAndClose(Stream inputStream)
+        {
+            const int readSize = 256;
+            byte[] buffer = new byte[readSize];
+            MemoryStream ms = new MemoryStream();
+
+            int count = inputStream.Read(buffer, 0, readSize);
+            while (count > 0)
+            {
+                ms.Write(buffer, 0, count);
+                count = inputStream.Read(buffer, 0, readSize);
+            }
+            ms.Position = 0;
+            inputStream.Close();
+            return ms;
+        }
+
     }
+
 }

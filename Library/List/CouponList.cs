@@ -36,7 +36,7 @@ namespace Recurly
             CouponList l = new CouponList();
             HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
                 Coupon.UrlPrefix + (state != Coupon.CouponState.all ? "?state=" + state.ToString() : ""),
-                new Client.ReadXmlDelegate(l.ReadXml)).StatusCode;
+                new Client.ReadXmlDelegate(l.ReadXml));
 
             if (statusCode == HttpStatusCode.NotFound)
                 return null;

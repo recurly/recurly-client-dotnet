@@ -58,7 +58,7 @@ namespace Recurly
 
             HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
                 UrlPrefix + System.Uri.EscapeUriString(invoiceId),
-                new Client.ReadXmlDelegate(invoice.ReadXml)).StatusCode;
+                new Client.ReadXmlDelegate(invoice.ReadXml));
 
             if (statusCode == HttpStatusCode.NotFound)
                 return null;
@@ -113,7 +113,7 @@ namespace Recurly
 
             HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Post,
                 "/accounts/" + System.Uri.EscapeUriString(accountCode) + UrlPrefix,
-                new Client.ReadXmlDelegate(invoice.ReadXml)).StatusCode;
+                new Client.ReadXmlDelegate(invoice.ReadXml));
 
             if ((int)statusCode == ValidationException.HttpStatusCode)
                 return null;
@@ -131,7 +131,7 @@ namespace Recurly
 
             HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
                 UrlPrefix + System.Uri.EscapeUriString(this.InvoiceNumber.ToString()) + "/redemption",
-                new Client.ReadXmlDelegate(cr.ReadXml)).StatusCode;
+                new Client.ReadXmlDelegate(cr.ReadXml));
 
             if (statusCode == HttpStatusCode.NotFound)
                 return null;

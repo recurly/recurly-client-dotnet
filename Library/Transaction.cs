@@ -90,7 +90,7 @@ namespace Recurly
 
             HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
                 UrlPrefix + System.Uri.EscapeUriString(transactionId),
-                new Client.ReadXmlDelegate(transaction.ReadXml)).StatusCode;
+                new Client.ReadXmlDelegate(transaction.ReadXml));
 
             if (statusCode == HttpStatusCode.NotFound)
                 return null;

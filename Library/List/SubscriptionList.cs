@@ -38,7 +38,7 @@ namespace Recurly
             SubscriptionList l = new SubscriptionList();
             HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
                 Subscription.UrlPrefix + "?state=" + System.Uri.EscapeUriString(state.ToString()),
-                new Client.ReadXmlDelegate(l.ReadXml)).StatusCode;
+                new Client.ReadXmlDelegate(l.ReadXml));
 
             if (statusCode == HttpStatusCode.NotFound)
                 return null;

@@ -26,6 +26,16 @@ namespace Recurly.Test
             return name + " " + DateTime.Now.ToString("yyyyMMddhhmmFFFFFFF");
         }
 
+        public static string GetMockPlanCode(string name = "pc")
+        {
+            return name.Replace(" ", "") + DateTime.Now.ToString("yyyyMMddhhmmFFFFFFF");
+        }
+        
+        public static string GetMockPlanName(string name = "Test Plan")
+        {
+            return name + " " + DateTime.Now.ToString("yyyyMMddhhmmFFFFFFF");
+        }
+
         public static BillingInfo NewBillingInfo(Account account)
         {
             BillingInfo billingInfo = new BillingInfo(account);

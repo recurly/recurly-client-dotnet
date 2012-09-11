@@ -54,7 +54,7 @@ namespace Recurly
             HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Post,
                "/coupons/" + System.Uri.EscapeUriString(couponCode) + "/redeem",
                new Client.WriteXmlDelegate(cr.WriteXml),
-               new Client.ReadXmlDelegate(cr.ReadXml)).StatusCode;
+               new Client.ReadXmlDelegate(cr.ReadXml));
 
             return cr;
 
@@ -66,7 +66,7 @@ namespace Recurly
         public void Delete()
         {
             HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Delete,
-                "/accounts/" + System.Uri.EscapeUriString(this.AccountCode) + "/redemption" ).StatusCode;
+                "/accounts/" + System.Uri.EscapeUriString(this.AccountCode) + "/redemption" );
             this.AccountCode = null;
             this.CouponCode = null;
             this.Currency = null;
