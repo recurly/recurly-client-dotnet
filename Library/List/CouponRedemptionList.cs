@@ -21,7 +21,6 @@ namespace Recurly
                 if (reader.NodeType == XmlNodeType.Element)
                 {
                     this.Add(new CouponRedemption(reader));
-                    break;
                 }
             }
 
