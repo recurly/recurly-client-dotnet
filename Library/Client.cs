@@ -124,6 +124,9 @@ namespace Recurly
             WriteXmlDelegate writeXmlDelegate, ReadXmlDelegate readXmlDelegate)
         {
             var url = urlPath.Contains("://") ? urlPath : (ProductionServerUrl + urlPath);
+            #if (DEBUG)
+            Console.WriteLine("Requesting " + method.ToString() + " " + url);
+#endif
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
             request.Accept = "application/xml";      // Tells the server to return XML instead of HTML
             request.ContentType = "application/xml; charset=utf-8"; // The request is an XML document
@@ -236,7 +239,7 @@ namespace Recurly
             request.UserAgent = UserAgent;
             request.Headers.Add(HttpRequestHeader.Authorization, AuthorizationHeaderValue);
             request.Method = "GET";
-            request.Headers.Add("Accept-Language:", acceptLanguage);
+            request.Headers.Add("Accept-Language", acceptLanguage);
 
             System.Diagnostics.Debug.WriteLine(String.Format("Recurly: Requesting {0} {1}",
                 request.Method, request.RequestUri.ToString()));
@@ -245,16 +248,22 @@ namespace Recurly
             {
                 HttpWebResponse r = (HttpWebResponse)request.GetResponse();
                 byte[] pdf = null;
+                byte[] buffer = new byte[2048];
+                int bytesRead = 0;
                 if (request.HaveResponse)
                 {
                     if (r.StatusCode == HttpStatusCode.OK)
                     {
-                        Stream s = r.GetResponseStream();
-                        int contentLength = (int)s.Length;
-                        pdf = new Byte[contentLength];
-                        for (int pos = 0; pos < contentLength; )
+                        using (MemoryStream ms = new MemoryStream())
                         {
-                            pos += s.Read(pdf, pos, contentLength - pos);
+                            using (BinaryReader reader = new BinaryReader(r.GetResponseStream(), Encoding.Default))
+                            {
+                                while ((bytesRead = reader.Read(buffer, 0, 2048)) > 0)
+                                {
+                                    ms.Write(buffer, 0, bytesRead);
+                                }
+                            }
+                            pdf = ms.ToArray();
                         }
                     }
                 }

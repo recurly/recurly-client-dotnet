@@ -82,6 +82,33 @@ namespace Recurly
             ReadXml(reader);
         }
 
+        /// <summary>
+        /// Creates a new transaction
+        /// </summary>
+        /// <param name="account"></param>
+        /// <param name="amountInCents"></param>
+        /// <param name="currency"></param>
+        public Transaction(Account account, int amountInCents, string currency)
+        {
+            this.Account = account;
+            this.AmountInCents = amountInCents;
+            this.Currency = currency;
+        }
+
+        /// <summary>
+        /// Creates a new transaction
+        /// </summary>
+        /// <param name="accountCode"></param>
+        /// <param name="amountInCents"></param>
+        /// <param name="currency"></param>
+        public Transaction(string accountCode, int amountInCents, string currency)
+        {
+            this.AccountCode = accountCode;
+            this.AmountInCents = amountInCents;
+            this.Currency = currency;
+        }
+
+
         private const string UrlPrefix = "/transactions/";
 
         public static Transaction Get(string transactionId)
@@ -103,7 +130,7 @@ namespace Recurly
         /// </summary>
         public void Create()
         {
-             Client.PerformRequest(Client.HttpRequestMethod.Get,
+             Client.PerformRequest(Client.HttpRequestMethod.Post,
                 UrlPrefix,
                 new Client.WriteXmlDelegate(this.WriteXml),
                 new Client.ReadXmlDelegate(this.ReadXml));
@@ -115,12 +142,12 @@ namespace Recurly
         /// 
         /// </summary>
         /// <param name="refund">If present, the amount to refund. Otherwise it is a full refund.</param>
-        public void Refund(int? refund)
+        public void Refund(int? refund = null)
         {
             Client.PerformRequest(Client.HttpRequestMethod.Delete,
                 UrlPrefix + System.Uri.EscapeUriString(this.Uuid)
                 + (refund.HasValue ? "?amount_in_cents=" + refund.Value.ToString() : "")
-                );
+                , new Client.ReadXmlDelegate(this.ReadXml));
         }
 
 
@@ -144,12 +171,14 @@ namespace Recurly
                     {
                         case "account":
                             href = reader.GetAttribute("href");
-                            this.AccountCode = Uri.UnescapeDataString(href.Substring(href.LastIndexOf("/") + 1));
+                            if (null != href)
+                                this.AccountCode = Uri.UnescapeDataString(href.Substring(href.LastIndexOf("/") + 1));
                             break;
 
                         case "invoice":
                             href = reader.GetAttribute("href");
-                            this.Invoice = int.Parse(href.Substring(href.LastIndexOf("/") + 1));
+                            if (null != href)
+                                this.Invoice = int.Parse(href.Substring(href.LastIndexOf("/") + 1));
                             break;
 
                         case "uuid":

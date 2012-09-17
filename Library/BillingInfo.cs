@@ -244,16 +244,24 @@ namespace Recurly
         internal void WriteXml(XmlTextWriter xmlWriter)
         {
             xmlWriter.WriteStartElement("billing_info"); // Start: billing_info
-
-            xmlWriter.WriteElementString("first_name", this.FirstName);
-            xmlWriter.WriteElementString("last_name", this.LastName);
-            xmlWriter.WriteElementString("address1", this.Address1);
-            xmlWriter.WriteElementString("address2", this.Address2);
-            xmlWriter.WriteElementString("city", this.City);
-            xmlWriter.WriteElementString("state", this.State);
-            xmlWriter.WriteElementString("zip", this.PostalCode);
-            xmlWriter.WriteElementString("country", this.Country);
-            xmlWriter.WriteElementString("phone", this.PhoneNumber);
+            if (!String.IsNullOrEmpty(this.FirstName))
+                xmlWriter.WriteElementString("first_name", this.FirstName);
+            if (!String.IsNullOrEmpty(this.LastName))
+                xmlWriter.WriteElementString("last_name", this.LastName);
+            if (!String.IsNullOrEmpty(this.Address1))
+                xmlWriter.WriteElementString("address1", this.Address1);
+            if (!String.IsNullOrEmpty(this.Address2))
+                xmlWriter.WriteElementString("address2", this.Address2);
+            if (!String.IsNullOrEmpty(this.City))
+                xmlWriter.WriteElementString("city", this.City);
+            if (!String.IsNullOrEmpty(this.State))
+                xmlWriter.WriteElementString("state", this.State);
+            if (!String.IsNullOrEmpty(this.PostalCode))
+                xmlWriter.WriteElementString("zip", this.PostalCode);
+            if (!String.IsNullOrEmpty(this.Country))
+                xmlWriter.WriteElementString("country", this.Country);
+            if (!String.IsNullOrEmpty(this.PhoneNumber))
+                xmlWriter.WriteElementString("phone", this.PhoneNumber);
 
             if (!String.IsNullOrEmpty(this.VatNumber))
                 xmlWriter.WriteElementString("vat_number", this.VatNumber);
@@ -272,7 +280,7 @@ namespace Recurly
                 if (!String.IsNullOrEmpty(this.VerificationValue))
                     xmlWriter.WriteElementString("verification_value", this.VerificationValue);
             }
-            
+
 
             xmlWriter.WriteEndElement(); // End: billing_info
         }

@@ -41,11 +41,24 @@ namespace Recurly
         }
 
 
-
+        private string _accountCode;
+        private Account _account;
         /// <summary>
         /// Account in Recurly
         /// </summary>
-        public Account Account { get; private set; }
+        public Account Account
+        {
+            get
+            {
+                if (null == _account)
+                {
+                    _account = Account.Get(this._accountCode);
+                }
+
+                return _account;
+            }
+        }
+
 
         private Plan _plan;
         private string _planCode;
@@ -158,7 +171,7 @@ namespace Recurly
         public int? TotalBillingCycles { get; set; }
         public DateTime? FirstRenewalDate { get; set; }
 
-        internal const string UrlPrefix = "/subscription/";
+        internal const string UrlPrefix = "/subscriptions/";
 
         internal Subscription()
         {
@@ -170,14 +183,15 @@ namespace Recurly
             this.ReadXml(reader);
         }
 
-        public Subscription(Account account)
+        public Subscription(Account account, Plan plan, string currency)
         {
-            this.Account = account;
+            this._accountCode = account.AccountCode;
+            this._account = account;
+            this.Plan = plan;
+            this.Currency = currency;
             this.Quantity = 1;
         }
 
-
-       
 
         public static Subscription Get(string uuid)
         {
@@ -228,7 +242,8 @@ namespace Recurly
         /// <param name="accountCode">Subscriber's Account Code</param>
         public void Cancel()
         {
-            Client.PerformRequest(Client.HttpRequestMethod.Put, UrlPrefix + System.Uri.EscapeUriString(this.Uuid) + "/cancel");
+            Client.PerformRequest(Client.HttpRequestMethod.Put, UrlPrefix + System.Uri.EscapeUriString(this.Uuid) + "/cancel",
+                new Client.ReadXmlDelegate(this.ReadXml));
         }
 
         /// <summary>
@@ -237,7 +252,8 @@ namespace Recurly
         /// <param name="accountCode">Subscriber's Account Code</param>
         public void Reactivate()
         {
-            Client.PerformRequest(Client.HttpRequestMethod.Put, UrlPrefix + System.Uri.EscapeUriString(this.Uuid) + "/reactivate");
+            Client.PerformRequest(Client.HttpRequestMethod.Put, UrlPrefix + System.Uri.EscapeUriString(this.Uuid) + "/reactivate",
+                new Client.ReadXmlDelegate(this.ReadXml));
         }
 
         /// <summary>
@@ -247,7 +263,8 @@ namespace Recurly
         public void Terminate(RefundType refund)
         {
             Client.PerformRequest(Client.HttpRequestMethod.Put, UrlPrefix + System.Uri.EscapeUriString(this.Uuid) + "/terminate?refund=" +
-                refund.ToString() );
+                refund.ToString(),
+                 new Client.ReadXmlDelegate(this.ReadXml));
         }
 
 
@@ -260,7 +277,8 @@ namespace Recurly
         {
             Client.PerformRequest(Client.HttpRequestMethod.Put,
                 UrlPrefix + System.Uri.EscapeUriString(this.Uuid) + "/postpone?next_renewal_date=" +
-                nextRenewalDate.ToString("c"));
+                nextRenewalDate.ToString("yyyy-MM-dd"),
+                 new Client.ReadXmlDelegate(this.ReadXml));
         }
 
        
@@ -272,7 +290,6 @@ namespace Recurly
         {
             while (reader.Read())
             {
-                // End of account element, get out of here
                 if (reader.Name == "plan" && reader.NodeType == XmlNodeType.EndElement)
                     break;
 
@@ -283,7 +300,6 @@ namespace Recurly
                         case "plan_code":
                             this._planCode = reader.ReadElementContentAsString();
                             break;
-                            // case "plan_name":
                     }
                 }
             }
@@ -291,9 +307,10 @@ namespace Recurly
 
         internal void ReadXml(XmlTextReader reader)
         {
+            string href;
+
             while (reader.Read())
             {
-                // End of subscription element, get out of here
                 if (reader.Name == "subscription" && reader.NodeType == XmlNodeType.EndElement)
                     break;
 
@@ -303,7 +320,9 @@ namespace Recurly
                     switch (reader.Name)
                     {
                         case "account":
-                            this.Account = new Account(reader);
+                             href = reader.GetAttribute("href");
+                            if (null != href)
+                                this._accountCode = Uri.UnescapeDataString(href.Substring(href.LastIndexOf("/") + 1));
                             break;
 
                         case "plan":

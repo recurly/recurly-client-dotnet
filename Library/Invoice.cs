@@ -50,14 +50,14 @@ namespace Recurly
         /// <summary>
         /// Look up an Invoice.
         /// </summary>
-        /// <param name="invoiceId">Invoice ID</param>
+        /// <param name="invoiceNumber">Invoice Number</param>
         /// <returns></returns>
-        public static Invoice Get(string invoiceId)
+        public static Invoice Get(int invoiceNumber)
         {
             Invoice invoice = new Invoice();
 
             HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
-                UrlPrefix + System.Uri.EscapeUriString(invoiceId),
+                UrlPrefix + invoiceNumber.ToString(),
                 new Client.ReadXmlDelegate(invoice.ReadXml));
 
             if (statusCode == HttpStatusCode.NotFound)
@@ -69,11 +69,11 @@ namespace Recurly
         /// <summary>
         /// Returns a PDF representation of an invoice
         /// </summary>
-        /// <param name="invoiceId"></param>
+        /// <param name="acceptLanguage">Language for invoice, defaults to en-US.</param>
         /// <returns></returns>
-        public static byte[] GetPdf(string invoiceId, string acceptLanguage )
+        public byte[] GetPdf( string acceptLanguage="en-US" )
         {
-             return Client.PerformDownloadRequest(UrlPrefix + System.Uri.EscapeUriString(invoiceId),
+             return Client.PerformDownloadRequest(UrlPrefix + InvoiceNumber,
                 "application/pdf", acceptLanguage);
         }
 
@@ -87,8 +87,9 @@ namespace Recurly
         public void MarkSuccessful()
         {
             Client.PerformRequest(Client.HttpRequestMethod.Put,
-                UrlPrefix + System.Uri.EscapeUriString(InvoiceNumber.ToString()) + "/mark_successful"
-               );
+                UrlPrefix + System.Uri.EscapeUriString(InvoiceNumber.ToString()) + "/mark_successful",
+              new Client.ReadXmlDelegate(this.ReadXml) );
+            
         }
 
         /// <summary>
@@ -97,8 +98,9 @@ namespace Recurly
         public void MarkFailed()
         {
             Client.PerformRequest(Client.HttpRequestMethod.Put,
-               UrlPrefix + System.Uri.EscapeUriString(InvoiceNumber.ToString()) + "/mark_failed"
-              );
+               UrlPrefix + System.Uri.EscapeUriString(InvoiceNumber.ToString()) + "/mark_failed",
+              new Client.ReadXmlDelegate(this.ReadXml) );
+           
         }
 
         /// <summary>

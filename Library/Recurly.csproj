@@ -72,7 +72,6 @@
     <Compile Include="CouponRedemption.cs" />
     <Compile Include="Error.cs" />
     <Compile Include="Exception.cs" />
-    <Compile Include="ForgedQueryStringException.cs" />
     <Compile Include="InvalidCredentialsException.cs" />
     <Compile Include="Invoice.cs" />
     <Compile Include="List\AddOnList.cs" />

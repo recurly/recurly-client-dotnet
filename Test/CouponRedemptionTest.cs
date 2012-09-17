@@ -77,7 +77,26 @@ namespace Recurly.Test
         [Test]
         public void LookupCouponInvoice()
         {
-            Assert.Fail("not written");
+            string s = Factories.GetMockCouponCode();
+            Dictionary<string, int> discounts = new Dictionary<string,int>();
+            discounts.Add("USD",1000);
+            Coupon c = new Coupon(s, Factories.GetMockCouponName(), discounts);
+            c.Create();
+
+            string act = Factories.GetMockAccountName();
+            Account acct = new Account(s, "John", "Doe", "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 2);
+            acct.Create();
+
+            Adjustment a = acct.CreateAdjustment("Test Charge", 5000, "USD");
+            a.Create();
+
+            CouponRedemption cr = acct.RedeemCoupon(s, "USD");
+
+            Invoice i1 = acct.InvoicePendingCharges();
+
+            CouponRedemption cr2 = i1.GetCoupon();
+
+            Assert.AreEqual(cr, cr2);
         }
 
     }

@@ -196,11 +196,14 @@ namespace Recurly
         /// <summary>
         /// Posts pending charges on an account
         /// </summary>
-        public void InvoicePendingCharges()
+        public Invoice InvoicePendingCharges()
         {
+            Invoice i = new Invoice();
             Client.PerformRequest(Client.HttpRequestMethod.Post,
                 UrlPrefix + System.Uri.EscapeUriString(this.AccountCode) + "/invoices"
-               );
+               , new Client.ReadXmlDelegate(i.ReadXml));
+
+            return i;
         }
 
 
@@ -338,7 +341,6 @@ namespace Recurly
         {
             while (reader.Read())
             {
-                // End of account element, get out of here
                 if (reader.Name == "account" && reader.NodeType == XmlNodeType.EndElement)
                     break;
 
@@ -395,12 +397,18 @@ namespace Recurly
             xmlWriter.WriteStartElement("account"); // Start: account
 
             xmlWriter.WriteElementString("account_code", this.AccountCode);
-            xmlWriter.WriteElementString("username", this.Username);
-            xmlWriter.WriteElementString("email", this.Email);
-            xmlWriter.WriteElementString("first_name", this.FirstName);
-            xmlWriter.WriteElementString("last_name", this.LastName);
-            xmlWriter.WriteElementString("company_name", this.CompanyName);
-            xmlWriter.WriteElementString("accept_language", this.AcceptLanguage);
+            if (null != this.Username && this.Username.Length > 0)
+                xmlWriter.WriteElementString("username", this.Username);
+            if (null != this.Email && this.Email.Length > 0)
+                xmlWriter.WriteElementString("email", this.Email);
+            if (null != this.FirstName && this.FirstName.Length > 0)
+                xmlWriter.WriteElementString("first_name", this.FirstName);
+            if (null != this.LastName && this.LastName.Length > 0)
+                xmlWriter.WriteElementString("last_name", this.LastName);
+            if (null != this.CompanyName && this.CompanyName.Length > 0)
+                xmlWriter.WriteElementString("company_name", this.CompanyName);
+            if (null != this.AcceptLanguage && this.AcceptLanguage.Length > 0)
+                xmlWriter.WriteElementString("accept_language", this.AcceptLanguage);
 
             if (this._billingInfo != null)
                 this._billingInfo.WriteXml(xmlWriter);
