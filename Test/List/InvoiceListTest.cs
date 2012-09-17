@@ -7,36 +7,41 @@ using NUnit.Framework;
 namespace Recurly.Test
 {
     [TestFixture]
-    class InvoiceTest
+    class InvoiceListTest
     {
-  
+
         [Test]
-        public void GetInvoice()
+        public void GetInvoices()
         {
             Assert.Fail("not written");
         }
 
         [Test]
-        public void GetInvoicePDF()
+        public void GetOpenInvoices()
         {
             Assert.Fail("not written");
         }
 
         [Test]
-        public void Post()
-        {
-            Assert.Fail("not written");
-        }
-
-
-        [Test]
-        public void Pay()
+        public void GetCollectedInvoices()
         {
             Assert.Fail("not written");
         }
 
         [Test]
-        public void FailedCollection()
+        public void GetFailedInvoices()
+        {
+            Assert.Fail("not written");
+        }
+
+        [Test]
+        public void GetPastDueInvoices()
+        {
+            Assert.Fail("not written");
+        }
+
+        [Test]
+        public void GetInvoicesForAccount()
         {
             Assert.Fail("not written");
         }

@@ -11,54 +11,6 @@ namespace Recurly.Test
     {
 
         [Test]
-        public void ListLiveSubscriptions()
-        {
-            Assert.Fail("Not written");
-        }
-
-        [Test]
-        public void ListActiveSubscriptions()
-        {
-            Assert.Fail("Not written");
-        }
-
-        [Test]
-        public void ListCanceledSubscriptions()
-        {
-            Assert.Fail("Not written");
-        }
-
-        [Test]
-        public void ListExpiredSubscriptions()
-        {
-            Assert.Fail("Not written");
-        }
-
-        [Test]
-        public void ListFutureSubscriptions()
-        {
-            Assert.Fail("Not written");
-        }
-
-        [Test]
-        public void ListInTrialSubscriptions()
-        {
-            Assert.Fail("Not written");
-        }
-
-        [Test]
-        public void ListPastDueSubscriptions()
-        {
-            Assert.Fail("Not written");
-        }
-
-        [Test]
-        public void ListForAccount()
-        {
-            Assert.Fail("Not written");
-        }
-
-        [Test]
         public void LookupSubscription()
         {
             Assert.Fail("Not written");

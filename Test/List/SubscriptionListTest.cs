@@ -7,43 +7,53 @@ using NUnit.Framework;
 namespace Recurly.Test
 {
     [TestFixture]
-    public class TransactionTest
+    public class SubscriptionListTest
     {
 
         [Test]
-        public void LookupTransaction()
-        {
-            Assert.Fail("Not written");
-        }
-
-
-        [Test]
-        public void CreateTransactionNewAccount()
-        {
-            Assert.Fail("Not written");
-        }
-
-
-        [Test]
-        public void CreateTransactionExistingAccount()
+        public void ListLiveSubscriptions()
         {
             Assert.Fail("Not written");
         }
 
         [Test]
-        public void CreateTransactionExistingAccountNewBillingInfo()
+        public void ListActiveSubscriptions()
         {
             Assert.Fail("Not written");
         }
 
         [Test]
-        public void RefundTransactionFull()
+        public void ListCanceledSubscriptions()
         {
             Assert.Fail("Not written");
         }
 
         [Test]
-        public void RefundTransactionPartial()
+        public void ListExpiredSubscriptions()
+        {
+            Assert.Fail("Not written");
+        }
+
+        [Test]
+        public void ListFutureSubscriptions()
+        {
+            Assert.Fail("Not written");
+        }
+
+        [Test]
+        public void ListInTrialSubscriptions()
+        {
+            Assert.Fail("Not written");
+        }
+
+        [Test]
+        public void ListPastDueSubscriptions()
+        {
+            Assert.Fail("Not written");
+        }
+
+        [Test]
+        public void ListForAccount()
         {
             Assert.Fail("Not written");
         }
