@@ -265,14 +265,14 @@ namespace Recurly
         /// </summary>
         /// <param name="state"></param>
         /// <returns></returns>
-        public TransactionList GetTransactions(Transaction.TransactionState state = Transaction.TransactionState.all,
-            Transaction.TransactionType type = Transaction.TransactionType.all)
+        public TransactionList GetTransactions(TransactionList.TransactionState state = TransactionList.TransactionState.all,
+            TransactionList.TransactionType type = TransactionList.TransactionType.all)
         {
             TransactionList l = new TransactionList();
             HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
-                UrlPrefix + System.Uri.EscapeUriString(this.AccountCode) + "/transactions/"
-                + "state=" + state.ToString() + 
-                "&type=" + type.ToString(),
+                UrlPrefix + System.Uri.EscapeUriString(this.AccountCode) + "/transactions/?"
+                + (state != TransactionList.TransactionState.all ? "state=" + state.ToString() : "" ) 
+                + (type != TransactionList.TransactionType.all ? "&type=" + type.ToString() : "" ),
                 new Client.ReadXmlDelegate(l.ReadXml));
 
             if (statusCode == HttpStatusCode.NotFound)

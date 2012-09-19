@@ -78,6 +78,7 @@ namespace Recurly.Test
         [Test]
         public void LookupCouponInvoice()
         {
+            
             string s = Factories.GetMockCouponCode();
             Dictionary<string, int> discounts = new Dictionary<string,int>();
             discounts.Add("USD",1000);
@@ -88,14 +89,13 @@ namespace Recurly.Test
             Account acct = new Account(s, "John", "Doe", "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 2);
             acct.Create();
 
+            CouponRedemption cr = acct.RedeemCoupon(s, "USD");
+
             Transaction t = new Transaction(acct, 5000, "USD");
             t.Create();
 
-            CouponRedemption cr = acct.RedeemCoupon(s, "USD");
 
-            Invoice i1 = acct.InvoicePendingCharges();
-            Thread.Sleep(2);
-            CouponRedemption cr2 = i1.GetCoupon();
+            CouponRedemption cr2 = Invoice.Get(t.Invoice.Value).GetCoupon();
 
             Assert.AreEqual(cr, cr2);
         }

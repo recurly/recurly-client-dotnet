@@ -26,7 +26,8 @@ namespace Recurly
             unknown,
             authorization,
             purchase,
-            refund
+            refund,
+            verify
         }
 
 

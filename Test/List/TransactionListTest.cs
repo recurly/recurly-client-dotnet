@@ -10,16 +10,49 @@ namespace Recurly.Test
     public class TransactionListTest
     {
 
+
         [Test]
         public void ListAllTransactions()
         {
-            Assert.Fail("Not written");
+            for (int x = 0; x < 5; x++)
+            {
+                String a = Factories.GetMockAccountName();
+                Account acct = new Account(a, "New Txn", "User",
+                    "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
+                acct.Create();
+
+                Transaction t = new Transaction(acct.AccountCode, 3000 + x, "USD");
+
+                t.Create();
+
+            }
+
+            TransactionList list = TransactionList.GetTransactions();
+
+            Assert.IsTrue(list.Count > 0);
         }
 
         [Test]
         public void ListSuccessfulTransactions()
         {
-            Assert.Fail("Not written");
+
+            for (int x = 0; x < 2; x++)
+            {
+                String a = Factories.GetMockAccountName();
+                Account acct = new Account(a, "New Txn", "User",
+                    "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
+                acct.Create();
+
+                Transaction t = new Transaction(acct.AccountCode, 3000 + x, "USD");
+
+                t.Create();
+
+            }
+
+            TransactionList list = TransactionList.GetTransactions(TransactionList.TransactionState.successful);
+
+            Assert.IsTrue(list.Count > 0);
+
         }
 
         [Test]
@@ -31,7 +64,22 @@ namespace Recurly.Test
         [Test]
         public void ListVoidedTransactions()
         {
-            Assert.Fail("Not written");
+            for (int x = 0; x < 2; x++)
+            {
+                String a = Factories.GetMockAccountName();
+                Account acct = new Account(a, "New Txn", "User",
+                    "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
+                acct.Create();
+
+                Transaction t = new Transaction(acct.AccountCode, 3000 + x, "USD");
+
+                t.Create();
+                t.Refund();
+            }
+
+            TransactionList list = TransactionList.GetTransactions(TransactionList.TransactionState.successful);
+
+            Assert.IsTrue(list.Count > 0);
         }
 
         [Test]
@@ -43,7 +91,25 @@ namespace Recurly.Test
         [Test]
         public void ListRefundedTransactions()
         {
-            Assert.Fail("Not written");
+            for (int x = 0; x < 2; x++)
+            {
+                String a = Factories.GetMockAccountName();
+                Account acct = new Account(a, "New Txn", "User",
+                    "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
+                acct.Create();
+
+                Transaction t = new Transaction(acct.AccountCode, 3000 + x, "USD");
+
+                t.Create();
+
+                t.Refund(1500);
+
+
+            }
+
+            TransactionList list = TransactionList.GetTransactions(TransactionList.TransactionState.successful);
+
+            Assert.IsTrue(list.Count > 0);
         }
 
         [Test]
@@ -55,7 +121,22 @@ namespace Recurly.Test
         [Test]
         public void ListTransactionsForAccount()
         {
-            Assert.Fail("Not written");
+
+            String a = Factories.GetMockAccountName();
+            Account acct = new Account(a, "New Txn", "User",
+                "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
+            acct.Create();
+
+            Transaction t = new Transaction(acct.AccountCode, 3000, "USD");
+            t.Create();
+
+            Transaction t2 = new Transaction(acct.AccountCode, 200, "USD");
+            t2.Create();
+
+
+            TransactionList list = acct.GetTransactions();
+            Assert.IsTrue(list.Count > 0);
+
         }
 
     }
