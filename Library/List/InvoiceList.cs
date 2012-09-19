@@ -32,12 +32,31 @@ namespace Recurly
         {
             InvoiceList list = new InvoiceList();
             HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
-                Invoice.UrlPrefix + System.Uri.EscapeUriString(accountCode),
+                "/accounts/" + System.Uri.EscapeUriString(accountCode) + "/invoices",
                 new Client.ReadXmlDelegate(list.ReadXml));
 
             return list;
         }
 
+        public static InvoiceList GetInvoices()
+        {
+            InvoiceList list = new InvoiceList();
+            HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
+                Invoice.UrlPrefix,
+                new Client.ReadXmlDelegate(list.ReadXml));
+
+            return list;
+        }
+
+        public static InvoiceList GetInvoices(Invoice.InvoiceState state)
+        {
+            InvoiceList list = new InvoiceList();
+            HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
+                Invoice.UrlPrefix + "?state=" + state.ToString(),
+                new Client.ReadXmlDelegate(list.ReadXml));
+
+            return list;
+        }
     }
 
 }

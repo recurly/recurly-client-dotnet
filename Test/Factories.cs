@@ -54,6 +54,5 @@ namespace Recurly.Test
             return billingInfo;
         }
 
-
     }
 }

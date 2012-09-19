@@ -12,10 +12,10 @@ namespace Recurly
         // The currently valid Invoice States
         public enum InvoiceState
         {
-            Open,
-            Collected,
-            Failed,
-            Past_Due
+            open,
+            collected,
+            failed,
+            past_due
         }
 
         public string AccountCode { get; private set; }

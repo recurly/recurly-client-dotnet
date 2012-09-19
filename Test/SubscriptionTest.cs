@@ -27,7 +27,7 @@ namespace Recurly.Test
             sub.Create();
 
             Assert.IsNotNull(sub.ActivatedAt);
-            Assert.AreEqual(sub.State, Subscription.SubstriptionState.Active);
+            Assert.AreEqual(sub.State, Subscription.SubstriptionState.active);
 
             string id = sub.Uuid;
 
@@ -86,7 +86,7 @@ namespace Recurly.Test
             sub.Create();
 
             Assert.IsNotNull(sub.ActivatedAt);
-            Assert.AreEqual(sub.State, Subscription.SubstriptionState.Active);
+            Assert.AreEqual(sub.State, Subscription.SubstriptionState.active);
 
             p.Deactivate();
 
@@ -95,7 +95,27 @@ namespace Recurly.Test
         [Test]
         public void CreateSubscriptionWithCoupon()
         {
-            Assert.Fail("Not written");
+            String s = Factories.GetMockPlanCode();
+            Plan p = new Plan(s, Factories.GetMockPlanName());
+            p.Description = "Create Subscription With Coupon Test";
+            p.UnitAmountInCents.Add("USD", 100);
+            p.Create();
+
+            String code = Factories.GetMockCouponCode();
+            Coupon c = new Coupon(code, "Sub Test " + Factories.GetMockCouponName(), 10);
+            c.Create();
+
+            String a = Factories.GetMockAccountName();
+            Account acct = new Account(a, "New Txn", "User",
+                "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
+
+            Subscription sub = new Subscription(acct, p, "USD", code);
+            sub.Create();
+
+            Assert.IsNotNull(sub.ActivatedAt);
+            Assert.AreEqual(sub.State, Subscription.SubstriptionState.active);
+
+            p.Deactivate();
         }
 
         [Test]
@@ -107,7 +127,9 @@ namespace Recurly.Test
             p.UnitAmountInCents.Add("USD", 1500);
             p.Create();
 
-            Plan p2 = new Plan(s, Factories.GetMockPlanName());
+            String s2 = Factories.GetMockPlanCode();
+
+            Plan p2 = new Plan(s2, Factories.GetMockPlanName());
             p2.Description = "Update Subscription Plan 2";
             p2.UnitAmountInCents.Add("USD", 750);
             p2.Create();
@@ -151,7 +173,7 @@ namespace Recurly.Test
             sub.Cancel();
 
             Assert.IsNotNull(sub.CanceledAt);
-            Assert.AreEqual(sub.State, Subscription.SubstriptionState.Canceled);
+            Assert.AreEqual(sub.State, Subscription.SubstriptionState.canceled);
             p.Deactivate();
 
         }
@@ -174,11 +196,11 @@ namespace Recurly.Test
             sub.Create();
 
             sub.Cancel();
-            Assert.AreEqual(sub.State, Subscription.SubstriptionState.Canceled);
+            Assert.AreEqual(sub.State, Subscription.SubstriptionState.canceled);
 
             sub.Reactivate();
 
-            Assert.AreEqual(sub.State, Subscription.SubstriptionState.Active);
+            Assert.AreEqual(sub.State, Subscription.SubstriptionState.active);
             p.Deactivate();
 
         }
@@ -201,7 +223,7 @@ namespace Recurly.Test
 
             sub.Terminate(Subscription.RefundType.none);
 
-            Assert.AreEqual(sub.State, Subscription.SubstriptionState.Canceled);
+            Assert.AreEqual(sub.State, Subscription.SubstriptionState.expired);
             p.Deactivate();
 
         }
@@ -224,7 +246,7 @@ namespace Recurly.Test
 
             sub.Terminate(Subscription.RefundType.partial);
 
-            Assert.AreEqual(sub.State, Subscription.SubstriptionState.Canceled);
+            Assert.AreEqual(sub.State, Subscription.SubstriptionState.expired);
             p.Deactivate();
 
         }
@@ -247,7 +269,7 @@ namespace Recurly.Test
 
             sub.Terminate(Subscription.RefundType.full);
 
-            Assert.AreEqual(sub.State, Subscription.SubstriptionState.Canceled);
+            Assert.AreEqual(sub.State, Subscription.SubstriptionState.expired);
             p.Deactivate();
 
         }

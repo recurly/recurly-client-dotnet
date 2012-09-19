@@ -239,29 +239,18 @@ namespace Recurly
             return InvoiceList.GetInvoices(this.AccountCode);
         }
 
-        /// <summary>
-        /// Returns a list of invoices in a specific state
-        /// </summary>
-        /// <param name="state"></param>
-        /// <returns></returns>
-        public InvoiceList GetInvoices(Invoice.InvoiceState state)
-        {
-            throw new NotSupportedException("Not yet supported.");
-        }
-
-      
-
+       
         /// <summary>
         /// Returns a list of subscriptions for this account
         /// </summary>
         /// <param name="state"></param>
         /// <returns></returns>
-        public SubscriptionList GetSubscriptions(Subscription.SubstriptionState state = Subscription.SubstriptionState.All)
+        public SubscriptionList GetSubscriptions(Subscription.SubstriptionState state = Subscription.SubstriptionState.all)
         {
             SubscriptionList l = new SubscriptionList();
             HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
                 UrlPrefix + System.Uri.EscapeUriString(this.AccountCode) + "/subscriptions/"
-                + "state=" + state.ToString(),
+                + (state.Equals(Subscription.SubstriptionState.all) ? "" :  "?state=" + state.ToString() ),
                 new Client.ReadXmlDelegate(l.ReadXml));
 
             if (statusCode == HttpStatusCode.NotFound)
@@ -276,8 +265,8 @@ namespace Recurly
         /// </summary>
         /// <param name="state"></param>
         /// <returns></returns>
-        public TransactionList GetTransactions(Transaction.TransactionState state = Transaction.TransactionState.All,
-            Transaction.TransactionType type = Transaction.TransactionType.All)
+        public TransactionList GetTransactions(Transaction.TransactionState state = Transaction.TransactionState.all,
+            Transaction.TransactionType type = Transaction.TransactionType.all)
         {
             TransactionList l = new TransactionList();
             HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,

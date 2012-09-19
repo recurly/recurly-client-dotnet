@@ -18,7 +18,7 @@ namespace Recurly
                     reader.NodeType == XmlNodeType.EndElement)
                     break;
 
-                if (reader.NodeType == XmlNodeType.Element)
+                if (reader.NodeType == XmlNodeType.Element && reader.Name.Equals("transaction"))
                 {
                     this.Add(new Transaction(reader));
                 }

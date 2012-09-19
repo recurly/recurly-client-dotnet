@@ -14,11 +14,11 @@ namespace Recurly
 
             while (reader.Read())
             {
-                if (reader.Name.Equals("redemption") &&
+                if (reader.Name.Equals("redemptions") &&
                     reader.NodeType == XmlNodeType.EndElement)
                     break;
 
-                if (reader.NodeType == XmlNodeType.Element)
+                if (reader.NodeType == XmlNodeType.Element && reader.Name.Equals("redemption"))
                 {
                     this.Add(new CouponRedemption(reader));
                 }

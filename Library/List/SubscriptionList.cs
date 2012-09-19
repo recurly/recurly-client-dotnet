@@ -18,7 +18,7 @@ namespace Recurly
                     reader.NodeType == XmlNodeType.EndElement)
                     break;
 
-                if (reader.NodeType == XmlNodeType.Element)
+                if (reader.NodeType == XmlNodeType.Element && reader.Name.Equals("subscription"))
                 {
                     this.Add(new Subscription(reader));
                 }
@@ -33,7 +33,7 @@ namespace Recurly
         /// </summary>
         /// <param name="state">State of subscriptions to return, defaults to "live"</param>
         /// <returns></returns>
-        public static SubscriptionList GetSubscriptions(Subscription.SubstriptionState state = Subscription.SubstriptionState.Live)
+        public static SubscriptionList GetSubscriptions(Subscription.SubstriptionState state = Subscription.SubstriptionState.live)
         {
             SubscriptionList l = new SubscriptionList();
             HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,

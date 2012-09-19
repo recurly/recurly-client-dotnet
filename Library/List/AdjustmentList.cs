@@ -14,11 +14,11 @@ namespace Recurly
 
             while (reader.Read())
             {
-                if (reader.Name.Equals("line_items") &&
-                    reader.NodeType == XmlNodeType.EndElement)
+                if ( (reader.Name.Equals("adjustments") || reader.Name.Equals("line_items") )
+                    && reader.NodeType == XmlNodeType.EndElement)
                     break;
 
-                if (reader.NodeType == XmlNodeType.Element)
+                if (reader.NodeType == XmlNodeType.Element && reader.Name.Equals("adjustment"))
                 {
                     this.Add(new Adjustment(reader));
                 }

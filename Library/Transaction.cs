@@ -12,20 +12,21 @@ namespace Recurly
         // The currently valid Transaction States
         public enum TransactionState : short
         {
-            All = 0,
-            Unknown,
-            Success,
-            Failed,
-            Voided
+            all = 0,
+            unknown,
+            success,
+            failed,
+            voided,
+            declined
         }
 
         public enum TransactionType : short
         {
-            All = 0,
-            Unknown,
-            Authorization,
-            Purchase,
-            Refund
+            all = 0,
+            unknown,
+            authorization,
+            purchase,
+            refund
         }
 
 
@@ -204,7 +205,11 @@ namespace Recurly
                             break;
 
                         case "status":
-                            this.Status = (TransactionState)Enum.Parse(typeof(TransactionState), reader.ReadElementContentAsString(), true);
+                            string state = reader.ReadElementContentAsString();
+                            if ("void" == state)
+                                this.Status = TransactionState.voided;
+                            else
+                                this.Status = (TransactionState)Enum.Parse(typeof(TransactionState),state , true);
                             break;
 
                         case "reference":

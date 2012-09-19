@@ -17,14 +17,14 @@ namespace Recurly
         // The currently valid Subscription States
         public enum SubstriptionState : short
         {
-            All = 0,
-            Active,
-            Canceled,
-            Expired,
-            Future,
-            In_Trial,
-            Live,
-            Past_Due
+            all = 0,
+            active,
+            canceled,
+            expired,
+            future,
+            in_trial,
+            live,
+            past_due
         }
 
         public enum ChangeTimeframe : short
@@ -158,10 +158,30 @@ namespace Recurly
         private bool _isPendingSubscription { get; set; }
 
 
+        private Coupon _coupon;
+        private string _couponCode;
+
         /// <summary>
         /// Optional coupon for the subscription
         /// </summary>
-        public Coupon Coupon { get; set; }
+        public Coupon Coupon
+        {
+            get
+            {
+                if (null == _coupon)
+                {
+                    _coupon = Coupon.Get(this._couponCode);
+                }
+
+                return _coupon;
+            }
+            set
+            {
+                _coupon = value;
+                _couponCode = value.CouponCode;
+            }
+        }
+
 
         /// <summary>
         /// List of add ons for this subscription
@@ -183,6 +203,12 @@ namespace Recurly
             this.ReadXml(reader);
         }
 
+        /// <summary>
+        /// Creates a new subscription
+        /// </summary>
+        /// <param name="account"></param>
+        /// <param name="plan"></param>
+        /// <param name="currency"></param>
         public Subscription(Account account, Plan plan, string currency)
         {
             this._accountCode = account.AccountCode;
@@ -190,6 +216,23 @@ namespace Recurly
             this.Plan = plan;
             this.Currency = currency;
             this.Quantity = 1;
+        }
+
+        /// <summary>
+        /// Creates a new subscription, with coupon
+        /// </summary>
+        /// <param name="account"></param>
+        /// <param name="plan"></param>
+        /// <param name="currency"></param>
+        /// <param name="couponCode"></param>
+        public Subscription(Account account, Plan plan, string currency, string couponCode)
+        {
+            this._accountCode = account.AccountCode;
+            this._account = account;
+            this.Plan = plan;
+            this.Currency = currency;
+            this.Quantity = 1;
+            this._couponCode = couponCode;
         }
 
 
@@ -455,8 +498,8 @@ namespace Recurly
             }
 
 
-            if (null != this.Coupon)
-                xmlWriter.WriteElementString("coupon_code", this.Coupon.CouponCode);
+            if (null != this._couponCode)
+                xmlWriter.WriteElementString("coupon_code", this._couponCode);
 
             if (this.UnitAmountInCents.HasValue)
                 xmlWriter.WriteElementString("unit_amount_in_cents", this.UnitAmountInCents.Value.ToString());

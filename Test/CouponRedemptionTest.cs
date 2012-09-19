@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Recurly;
 using NUnit.Framework;
+using System.Threading;
 
 namespace Recurly.Test
 {
@@ -23,7 +24,7 @@ namespace Recurly.Test
             Assert.IsNotNull(acct.CreatedAt);
 
             CouponRedemption cr = acct.RedeemCoupon(s, "USD");
-
+            Thread.Sleep(2);
             Assert.IsNotNull(cr);
             Assert.AreEqual(cr.Currency, "USD");
             Assert.AreEqual(cr.AccountCode, act);
@@ -87,13 +88,13 @@ namespace Recurly.Test
             Account acct = new Account(s, "John", "Doe", "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 2);
             acct.Create();
 
-            Adjustment a = acct.CreateAdjustment("Test Charge", 5000, "USD");
-            a.Create();
+            Transaction t = new Transaction(acct, 5000, "USD");
+            t.Create();
 
             CouponRedemption cr = acct.RedeemCoupon(s, "USD");
 
             Invoice i1 = acct.InvoicePendingCharges();
-
+            Thread.Sleep(2);
             CouponRedemption cr2 = i1.GetCoupon();
 
             Assert.AreEqual(cr, cr2);
