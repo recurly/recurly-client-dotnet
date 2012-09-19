@@ -29,15 +29,15 @@ namespace Recurly
 
         public enum ChangeTimeframe : short
         {
-            Now,
-            Renewal
+            now,
+            renewal
         }
 
         public enum RefundType : short
         {
-            Full,
-            Partial,
-            None
+            full,
+            partial,
+            none
         }
 
 
@@ -197,7 +197,7 @@ namespace Recurly
         {
             Subscription s = new Subscription();
             HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
-                UrlPrefix,
+                UrlPrefix + System.Uri.EscapeUriString(uuid),
                 new Client.ReadXmlDelegate(s.ReadXml));
 
             if (statusCode == HttpStatusCode.NotFound)
@@ -224,7 +224,7 @@ namespace Recurly
         {
             Client.WriteXmlDelegate writeXmlDelegate;
 
-            if (timeframe == ChangeTimeframe.Now)
+            if (timeframe == ChangeTimeframe.now)
                 writeXmlDelegate = new Client.WriteXmlDelegate(WriteChangeSubscriptionNowXml);
             else
                 writeXmlDelegate = new Client.WriteXmlDelegate(WriteChangeSubscriptionAtRenewalXml);
@@ -392,9 +392,43 @@ namespace Recurly
                             break;
 
                         case "pending_subscription":
-                            Subscription s = new Subscription(reader);
-                            s._isPendingSubscription = true;
-                            this.PendingSubscription = s;
+                            this.PendingSubscription = new Subscription();
+                            this.PendingSubscription._isPendingSubscription = true;
+                            this.PendingSubscription.ReadPendingSubscription(reader);
+                            break;
+                    }
+                }
+            }
+        }
+
+        protected void ReadPendingSubscription(XmlTextReader reader)
+        {
+            while (reader.Read())
+            {
+                if (reader.Name == "pending_subscription" && reader.NodeType == XmlNodeType.EndElement)
+                    break;
+
+                if (reader.NodeType == XmlNodeType.Element)
+                {
+                    switch (reader.Name)
+                    {
+                        case "plan":
+                            ReadPlanXml(reader);
+                            break;
+
+                        case "unit_amount_in_cents":
+                            this.UnitAmountInCents = reader.ReadElementContentAsInt();
+                            break;
+
+                        case "quantity":
+                            this.Quantity = reader.ReadElementContentAsInt();
+                            break;
+
+                        case "subscription_add_ons":
+                            if (null == this.AddOns)
+                                this.AddOns = new AddOnList();
+                            this.AddOns.ReadXml(reader);
+
                             break;
                     }
                 }
@@ -450,12 +484,12 @@ namespace Recurly
 
         protected void WriteChangeSubscriptionNowXml(XmlTextWriter xmlWriter)
         {
-            WriteChangeSubscriptionXml(xmlWriter, ChangeTimeframe.Now);
+            WriteChangeSubscriptionXml(xmlWriter, ChangeTimeframe.now);
         }
 
         protected void WriteChangeSubscriptionAtRenewalXml(XmlTextWriter xmlWriter)
         {
-            WriteChangeSubscriptionXml(xmlWriter, ChangeTimeframe.Renewal);
+            WriteChangeSubscriptionXml(xmlWriter, ChangeTimeframe.renewal);
         }
 
         protected void WriteChangeSubscriptionXml(XmlTextWriter xmlWriter, ChangeTimeframe timeframe)
@@ -475,6 +509,34 @@ namespace Recurly
                 xmlWriter.WriteElementString("unit_amount_in_cents", this.UnitAmountInCents.Value.ToString());
 
             xmlWriter.WriteEndElement(); // End: subscription
+        }
+
+        #endregion
+
+
+        #region Object Overrides
+
+        public override string ToString()
+        {
+            return "Recurly Subscription: " + this.Uuid;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Subscription)
+                return Equals((Subscription)obj);
+            else
+                return false;
+        }
+
+        public bool Equals(Subscription subscription)
+        {
+            return this.Uuid == subscription.Uuid;
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Uuid.GetHashCode();
         }
 
         #endregion

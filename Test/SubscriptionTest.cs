@@ -13,13 +13,60 @@ namespace Recurly.Test
         [Test]
         public void LookupSubscription()
         {
-            Assert.Fail("Not written");
+            String s = Factories.GetMockPlanCode();
+            Plan p = new Plan(s, Factories.GetMockPlanName());
+            p.Description = "Lookup Subscription Test";
+            p.UnitAmountInCents.Add("USD", 1500);
+            p.Create();
+
+            String a = Factories.GetMockAccountName();
+            Account acct = new Account(a, "New Txn", "User",
+                "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
+
+            Subscription sub = new Subscription(acct, p, "USD");
+            sub.Create();
+
+            Assert.IsNotNull(sub.ActivatedAt);
+            Assert.AreEqual(sub.State, Subscription.SubstriptionState.Active);
+
+            string id = sub.Uuid;
+
+            Subscription t = Subscription.Get(id);
+
+            Assert.AreEqual(sub, t);
+
+            p.Deactivate();
+
         }
 
         [Test]
         public void LookupSubscriptionPendingChanges()
         {
-            Assert.Fail("Not written");
+            String s = Factories.GetMockPlanCode();
+            Plan p = new Plan(s, Factories.GetMockPlanName());
+            p.Description = "Lookup Subscription With Pending Changes Test";
+            p.UnitAmountInCents.Add("USD", 1500);
+            p.Create();
+
+            String a = Factories.GetMockAccountName();
+            Account acct = new Account(a, "New Txn", "User",
+                "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
+
+            Subscription sub = new Subscription(acct, p, "USD");
+            sub.Create();
+            String id = sub.Uuid;
+            sub.UnitAmountInCents = 3000;
+            
+            sub.ChangeSubscription(Subscription.ChangeTimeframe.renewal);
+
+
+            Subscription newSubscription = Subscription.Get(id);
+            Assert.IsNotNull(newSubscription.PendingSubscription);
+            Assert.AreEqual(newSubscription.PendingSubscription.UnitAmountInCents, 3000);
+
+            p.Deactivate();
+
+
         }
 
         [Test]
@@ -39,7 +86,10 @@ namespace Recurly.Test
             sub.Create();
 
             Assert.IsNotNull(sub.ActivatedAt);
-            Assert.AreEqual(sub.State, Subscription.SubstriptionState.Live);
+            Assert.AreEqual(sub.State, Subscription.SubstriptionState.Active);
+
+            p.Deactivate();
+
         }
 
         [Test]
@@ -51,7 +101,34 @@ namespace Recurly.Test
         [Test]
         public void UpdateSubscription()
         {
-            Assert.Fail("Not written");
+            String s = Factories.GetMockPlanCode();
+            Plan p = new Plan(s, Factories.GetMockPlanName());
+            p.Description = "Update Subscription Plan 1";
+            p.UnitAmountInCents.Add("USD", 1500);
+            p.Create();
+
+            Plan p2 = new Plan(s, Factories.GetMockPlanName());
+            p2.Description = "Update Subscription Plan 2";
+            p2.UnitAmountInCents.Add("USD", 750);
+            p2.Create();
+
+            String a = Factories.GetMockAccountName();
+            Account acct = new Account(a, "New Txn", "User",
+                "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
+
+            Subscription sub = new Subscription(acct, p, "USD");
+            sub.Create();
+            String id = sub.Uuid;
+            sub.Plan = p2;
+
+            sub.ChangeSubscription(Subscription.ChangeTimeframe.now);
+
+            Subscription newSubscription = Subscription.Get(id);
+            Assert.IsNull(newSubscription.PendingSubscription);
+            Assert.AreEqual(newSubscription.Plan, p2);
+
+            p.Deactivate();
+            p2.Deactivate();
         }
 
 
@@ -60,7 +137,7 @@ namespace Recurly.Test
         {
             String s = Factories.GetMockPlanCode();
             Plan p = new Plan(s, Factories.GetMockPlanName());
-            p.Description = "Create Subscription Test";
+            p.Description = "Cancel Subscription Test";
             p.UnitAmountInCents.Add("USD", 100);
             p.Create();
 
@@ -75,6 +152,8 @@ namespace Recurly.Test
 
             Assert.IsNotNull(sub.CanceledAt);
             Assert.AreEqual(sub.State, Subscription.SubstriptionState.Canceled);
+            p.Deactivate();
+
         }
 
 
@@ -83,7 +162,7 @@ namespace Recurly.Test
         {
             String s = Factories.GetMockPlanCode();
             Plan p = new Plan(s, Factories.GetMockPlanName());
-            p.Description = "Create Subscription Test";
+            p.Description = "Reactivate Subscription Test";
             p.UnitAmountInCents.Add("USD", 100);
             p.Create();
 
@@ -95,28 +174,82 @@ namespace Recurly.Test
             sub.Create();
 
             sub.Cancel();
+            Assert.AreEqual(sub.State, Subscription.SubstriptionState.Canceled);
 
             sub.Reactivate();
 
             Assert.AreEqual(sub.State, Subscription.SubstriptionState.Active);
+            p.Deactivate();
+
         }
 
         [Test]
         public void TerminateSubscriptionNoRefund()
         {
-            Assert.Fail("Not written");
+            String s = Factories.GetMockPlanCode();
+            Plan p = new Plan(s, Factories.GetMockPlanName());
+            p.Description = "Terminate No Refund Subscription Test";
+            p.UnitAmountInCents.Add("USD", 200);
+            p.Create();
+
+            String a = Factories.GetMockAccountName();
+            Account acct = new Account(a, "New Txn", "User",
+                "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
+
+            Subscription sub = new Subscription(acct, p, "USD");
+            sub.Create();
+
+            sub.Terminate(Subscription.RefundType.none);
+
+            Assert.AreEqual(sub.State, Subscription.SubstriptionState.Canceled);
+            p.Deactivate();
+
         }
 
         [Test]
         public void TerminateSubscriptionPartialRefund()
         {
-            Assert.Fail("Not written");
+            String s = Factories.GetMockPlanCode();
+            Plan p = new Plan(s, Factories.GetMockPlanName());
+            p.Description = "Terminate Partial Refund Subscription Test";
+            p.UnitAmountInCents.Add("USD", 2000);
+            p.Create();
+
+            String a = Factories.GetMockAccountName();
+            Account acct = new Account(a, "New Txn", "User",
+                "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
+
+            Subscription sub = new Subscription(acct, p, "USD");
+            sub.Create();
+
+            sub.Terminate(Subscription.RefundType.partial);
+
+            Assert.AreEqual(sub.State, Subscription.SubstriptionState.Canceled);
+            p.Deactivate();
+
         }
 
         [Test]
         public void TerminateSubscriptionFullRefund()
         {
-            Assert.Fail("Not written");
+            String s = Factories.GetMockPlanCode();
+            Plan p = new Plan(s, Factories.GetMockPlanName());
+            p.Description = "Terminate Full Refund Subscription Test";
+            p.UnitAmountInCents.Add("USD", 20000);
+            p.Create();
+
+            String a = Factories.GetMockAccountName();
+            Account acct = new Account(a, "New Txn", "User",
+                "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
+
+            Subscription sub = new Subscription(acct, p, "USD");
+            sub.Create();
+
+            sub.Terminate(Subscription.RefundType.full);
+
+            Assert.AreEqual(sub.State, Subscription.SubstriptionState.Canceled);
+            p.Deactivate();
+
         }
 
         [Test]
@@ -124,7 +257,7 @@ namespace Recurly.Test
         {
             String s = Factories.GetMockPlanCode();
             Plan p = new Plan(s, Factories.GetMockPlanName());
-            p.Description = "Create Subscription Test";
+            p.Description = "Postpone Subscription Test";
             p.UnitAmountInCents.Add("USD", 100);
             p.Create();
 
@@ -139,6 +272,8 @@ namespace Recurly.Test
             sub.Postpone(renewal);
             int diff = renewal.Date.Subtract(sub.CurrentPeriodEndsAt.Value.Date).Days;
             Assert.AreEqual(diff, 1);
+            p.Deactivate();
+
         }
 
 

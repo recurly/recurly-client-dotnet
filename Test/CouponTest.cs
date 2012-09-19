@@ -128,6 +128,7 @@ namespace Recurly.Test
             c.DiscountInCents.Add("USD", 100);
             c.Plans.Add(p.PlanCode);
 
+            p.Deactivate();
         }
 
         [Test]

@@ -24,6 +24,8 @@ namespace Recurly.Test
             Assert.AreEqual(l.UnitAmountInCents["USD"], 100);
             Assert.AreEqual(l.PlanCode, s);
             Assert.AreEqual(l.Description, "Test Lookup");
+            p.Deactivate();
+
         }
 
         [Test]
@@ -35,6 +37,8 @@ namespace Recurly.Test
 
             Assert.IsNotNull(p.CreatedAt);
             Assert.AreEqual(p.SetupFeeInCents["USD"], 100);
+            p.Deactivate();
+
         }
 
         [Test]
@@ -65,6 +69,8 @@ namespace Recurly.Test
             Assert.AreEqual(p.TrialIntervalLength, 1);
             Assert.AreEqual(p.PlanIntervalUnit, Plan.IntervalUnit.days);
             Assert.AreEqual(p.PlanIntervalLength, 180);
+            p.Deactivate();
+
 
         }
 
@@ -86,6 +92,8 @@ namespace Recurly.Test
             p = Plan.Get(s);
             Assert.AreEqual(p.UnitAmountInCents["USD"], 5000);
             Assert.AreEqual(p.SetupFeeInCents["USD"], 100);
+            p.Deactivate();
+
 
         }
 
@@ -98,13 +106,22 @@ namespace Recurly.Test
             p.Description = "Test Delete";
             p.UnitAmountInCents.Add("USD", 100);
             p.Create();
-
+            
             p = Plan.Get(s);
             Assert.IsNotNull(p.CreatedAt);
             Assert.AreEqual(p.UnitAmountInCents["USD"], 100);
 
             p.Deactivate();
 
+            try
+            {
+                Plan p2 = Plan.Get(s);
+                Assert.Fail("Plan has not been deactivated.");
+            }
+            catch (Exception)
+            {
+                // Expected
+            }
         }
 
     }
