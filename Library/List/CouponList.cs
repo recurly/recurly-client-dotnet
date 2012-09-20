@@ -8,8 +8,12 @@ namespace Recurly
 {
     public class CouponList : RecurlyList<Coupon>
     {
+        internal CouponList(string baseUrl)
+            : base(Client.HttpRequestMethod.Get, baseUrl)
+        {
+        }
 
-        internal void ReadXml(XmlTextReader reader)
+        internal override void ReadXml(XmlTextReader reader)
         {
 
             while (reader.Read())
@@ -26,6 +30,7 @@ namespace Recurly
 
         }
 
+
         /// <summary>
         /// Lists coupons, limited to state
         /// </summary>
@@ -33,15 +38,8 @@ namespace Recurly
         /// <returns></returns>
         public static CouponList List(Coupon.CouponState state = Coupon.CouponState.all)
         {
-            CouponList l = new CouponList();
-            HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
-                Coupon.UrlPrefix + (state != Coupon.CouponState.all ? "?state=" + state.ToString() : ""),
-                new Client.ReadXmlDelegate(l.ReadXml));
+            return new CouponList(Coupon.UrlPrefix + (state != Coupon.CouponState.all ? "?state=" + state.ToString() : ""));
 
-            if (statusCode == HttpStatusCode.NotFound)
-                return null;
-
-            return l;
         }
 
 

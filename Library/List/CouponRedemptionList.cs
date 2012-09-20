@@ -9,9 +9,8 @@ namespace Recurly
     public class CouponRedemptionList : RecurlyList<CouponRedemption>
     {
 
-        internal void ReadXml(XmlTextReader reader)
+        internal override void ReadXml(XmlTextReader reader)
         {
-
             while (reader.Read())
             {
                 if (reader.Name.Equals("redemptions") &&
@@ -25,7 +24,5 @@ namespace Recurly
             }
 
         }
-
     }
-
 }

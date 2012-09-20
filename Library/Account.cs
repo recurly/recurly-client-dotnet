@@ -221,7 +221,7 @@ namespace Recurly
                 + (Adjustment.AdjustmentState.any == state ? "" : "state=" + state.ToString())
                 + (Adjustment.AdjustmentType.all == type ? "" : "&type=" + type.ToString())
                 ,
-                new Client.ReadXmlDelegate(l.ReadXml));
+                new Client.ReadXmlListDelegate(l.ReadXmlList));
 
             if (statusCode == HttpStatusCode.NotFound)
                 return null;
@@ -247,16 +247,8 @@ namespace Recurly
         /// <returns></returns>
         public SubscriptionList GetSubscriptions(Subscription.SubstriptionState state = Subscription.SubstriptionState.all)
         {
-            SubscriptionList l = new SubscriptionList();
-            HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
-                UrlPrefix + System.Uri.EscapeUriString(this.AccountCode) + "/subscriptions/"
-                + (state.Equals(Subscription.SubstriptionState.all) ? "" :  "?state=" + state.ToString() ),
-                new Client.ReadXmlDelegate(l.ReadXml));
-
-            if (statusCode == HttpStatusCode.NotFound)
-                return null;
-
-            return l;
+            return new SubscriptionList(UrlPrefix + System.Uri.EscapeUriString(this.AccountCode) + "/subscriptions/"
+                + (state.Equals(Subscription.SubstriptionState.all) ? "" :  "?state=" + state.ToString() ));
         }
 
        
@@ -268,17 +260,9 @@ namespace Recurly
         public TransactionList GetTransactions(TransactionList.TransactionState state = TransactionList.TransactionState.all,
             TransactionList.TransactionType type = TransactionList.TransactionType.all)
         {
-            TransactionList l = new TransactionList();
-            HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
-                UrlPrefix + System.Uri.EscapeUriString(this.AccountCode) + "/transactions/?"
-                + (state != TransactionList.TransactionState.all ? "state=" + state.ToString() : "" ) 
-                + (type != TransactionList.TransactionType.all ? "&type=" + type.ToString() : "" ),
-                new Client.ReadXmlDelegate(l.ReadXml));
-
-            if (statusCode == HttpStatusCode.NotFound)
-                return null;
-
-            return l;
+            return new TransactionList(UrlPrefix + System.Uri.EscapeUriString(this.AccountCode) + "/transactions/?"
+                + (state != TransactionList.TransactionState.all ? "state=" + state.ToString() : "")
+                + (type != TransactionList.TransactionType.all ? "&type=" + type.ToString() : ""));
         }
 
         /// <summary>

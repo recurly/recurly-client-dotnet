@@ -2,46 +2,142 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Xml;
+using System.Collections;
 
 namespace Recurly
 {
-    public abstract class RecurlyList<T> : List<T>
+    /// <summary>
+    /// A base class that handles paged results from Recurly's API.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public abstract class RecurlyList<T> : IEnumerator<T>
     {
 
-        /// <summary>
-        ///  When paging
-        /// </summary>
-        private string _baseUrl;
+       
+        protected List<T> _items;
+        protected string _cursor;
+        protected int _records;
+        protected int _currentPosition = 0;
+        protected T _current;
+        protected string _baseUrl;
 
-        public RecurlyList()
-            : base()
+        internal Client.HttpRequestMethod _method;
+
+        internal RecurlyList() {}
+
+        internal RecurlyList(Client.HttpRequestMethod method, String baseUrl)
         {
+            this._baseUrl = baseUrl;
+            this._method = method;
 
+            this.readItems();
         }
 
-        public RecurlyList(string url)
-            : base()
+        internal abstract void ReadXml(XmlTextReader reader);
+
+        internal void readItems()
         {
-            this._baseUrl = url;
+            Client.PerformRequest(_method, _baseUrl + "&per_page=" + Configuration.Section.Current.PageSize +
+                    (_cursor != null ? "&cursor=" + _cursor : ""), new Client.ReadXmlListDelegate(this.ReadXmlList));
         }
 
-        private int _requestLimit = 50;
+        internal void ReadXmlList(XmlTextReader reader, int records, string cursor)
+        {
+            if (null == _items)
+            {
+                if (records > 0)
+                    _items = new List<T>(records);
+                else
+                    _items = new List<T>();
+                this._records = records;
+            }
+            this._cursor = cursor;
+            this.ReadXml(reader);
+        }
 
-        /// <summary>
-        /// TODO: implement 
-        /// </summary>
-        public int RequestLimit
+        void IDisposable.Dispose() { }
+
+
+        internal void Add(T item)
+        {
+            if (null == _items)
+            {
+
+                _items = new List<T>();
+            }
+
+            _items.Add(item);
+        }
+
+        public void Reset()
+        {
+            _currentPosition = 0;
+        }
+
+        public bool MoveNext()
+        {
+            if (++_currentPosition >= _records)
+            {
+                return false;
+            }
+            else
+            {
+                while (_currentPosition > _items.Count)
+                {
+                    readItems();
+                }
+                _current = _items[_currentPosition];
+            }
+            return true;
+        }
+
+        public int Count
+        {
+            get { return _records; }
+        }
+
+        public int Capacity
+        {
+            get { return Configuration.Section.Current.PageSize; }
+        }
+
+        public T this[int i]
         {
             get
             {
-                return _requestLimit;
+                while (i > _items.Count)
+                {
+                    readItems();
+                }
+                return _items[i];
             }
             set
             {
-                if (value <= 1 || value > 200)
-                    throw new ArgumentOutOfRangeException("Request limit must be between 1 and 200.");
-                else
-                    _requestLimit = value;
+                throw new NotSupportedException("This list is read only.");
+            }
+
+        }
+
+        public T Current
+        {
+            get { return _current; }
+        }
+
+        object IEnumerator.Current
+        {
+            get { return _current; }
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            while (_currentPosition < _records)
+            {
+                if (_currentPosition > _items.Count)
+                {
+                    readItems();
+                }
+                yield return _items[_currentPosition];
+                _currentPosition++;
             }
         }
 

@@ -38,7 +38,7 @@ namespace Recurly.Test
                 {
                     i.MarkSuccessful();
                 }
-                Thread.Sleep(1);
+                Thread.Sleep(1000);
             } 
             
             InvoiceList list = InvoiceList.GetInvoices();
@@ -60,7 +60,7 @@ namespace Recurly.Test
 
                 Invoice i = acct.InvoicePendingCharges();
 
-                Thread.Sleep(1);
+                Thread.Sleep(1000);
             }
             InvoiceList list = InvoiceList.GetInvoices(Invoice.InvoiceState.open);
 
@@ -82,7 +82,7 @@ namespace Recurly.Test
 
 
                 i.MarkSuccessful();
-                Thread.Sleep(1);
+                Thread.Sleep(1000);
             }
             InvoiceList list = InvoiceList.GetInvoices(Invoice.InvoiceState.collected);
 
@@ -103,7 +103,7 @@ namespace Recurly.Test
                 Invoice i = acct.InvoicePendingCharges();
 
                 i.MarkFailed();
-                Thread.Sleep(1);
+                Thread.Sleep(1000);
             }
             InvoiceList list = InvoiceList.GetInvoices(Invoice.InvoiceState.failed);
 
@@ -123,7 +123,7 @@ namespace Recurly.Test
 
                 Invoice i = acct.InvoicePendingCharges();
 
-                Thread.Sleep(1);
+                Thread.Sleep(1000);
             }
             InvoiceList list = InvoiceList.GetInvoices(Invoice.InvoiceState.past_due);
 

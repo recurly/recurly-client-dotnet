@@ -24,7 +24,7 @@ namespace Recurly.Test
             Assert.IsNotNull(acct.CreatedAt);
 
             CouponRedemption cr = acct.RedeemCoupon(s, "USD");
-            Thread.Sleep(2);
+            Thread.Sleep(2000);
             Assert.IsNotNull(cr);
             Assert.AreEqual(cr.Currency, "USD");
             Assert.AreEqual(cr.AccountCode, act);

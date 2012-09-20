@@ -9,7 +9,12 @@ namespace Recurly
     public class InvoiceList : RecurlyList<Invoice>
     {
 
-        internal void ReadXml(XmlTextReader reader)
+        internal InvoiceList(string baseUrl)
+            : base(Client.HttpRequestMethod.Get, baseUrl)
+        {
+        }
+
+        internal override void ReadXml(XmlTextReader reader)
         {
 
             while (reader.Read())
@@ -27,35 +32,19 @@ namespace Recurly
 
         }
 
-
         public static InvoiceList GetInvoices(string accountCode)
         {
-            InvoiceList list = new InvoiceList();
-            HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
-                "/accounts/" + System.Uri.EscapeUriString(accountCode) + "/invoices",
-                new Client.ReadXmlDelegate(list.ReadXml));
-
-            return list;
+            return new InvoiceList("/accounts/" + System.Uri.EscapeUriString(accountCode) + "/invoices");
         }
 
         public static InvoiceList GetInvoices()
         {
-            InvoiceList list = new InvoiceList();
-            HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
-                Invoice.UrlPrefix,
-                new Client.ReadXmlDelegate(list.ReadXml));
-
-            return list;
+            return new InvoiceList(Invoice.UrlPrefix);
         }
 
         public static InvoiceList GetInvoices(Invoice.InvoiceState state)
         {
-            InvoiceList list = new InvoiceList();
-            HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
-                Invoice.UrlPrefix + "?state=" + state.ToString(),
-                new Client.ReadXmlDelegate(list.ReadXml));
-
-            return list;
+            return new InvoiceList(Invoice.UrlPrefix + "?state=" + state.ToString());
         }
     }
 

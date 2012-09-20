@@ -24,9 +24,15 @@ namespace Recurly
             refund
         }
 
-        internal void ReadXml(XmlTextReader reader)
-        {
+        internal TransactionList() : base() { }
 
+        internal TransactionList(string baseUrl)
+            : base(Client.HttpRequestMethod.Get, baseUrl)
+        {
+        }
+
+        internal override void ReadXml(XmlTextReader reader)
+        {
             while (reader.Read())
             {
                 if (reader.Name.Equals("transactions") &&
@@ -49,23 +55,13 @@ namespace Recurly
         /// <param name="state"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static TransactionList GetTransactions(TransactionState state = TransactionState.all, 
+        public static TransactionList GetTransactions(TransactionState state = TransactionState.all,
             TransactionType type = TransactionType.all)
         {
-            TransactionList l = new TransactionList();
-            HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
-                 "/transactions/?" + 
-                (state != TransactionState.all ? "state=" + System.Uri.EscapeUriString(state.ToString()) : "" )
-                + (type != TransactionType.all ? "&type=" + System.Uri.EscapeUriString(type.ToString()) : "" ),
-                new Client.ReadXmlDelegate(l.ReadXml));
-
-            if (statusCode == HttpStatusCode.NotFound)
-                return null;
-
-            return l;
+            return new TransactionList("/transactions/?" +
+                (state != TransactionState.all ? "state=" + System.Uri.EscapeUriString(state.ToString()) : "")
+                + (type != TransactionType.all ? "&type=" + System.Uri.EscapeUriString(type.ToString()) : "")
+            );
         }
-
-
     }
-
 }

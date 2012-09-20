@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Recurly;
 using NUnit.Framework;
+using System.Threading;
 
 namespace Recurly.Test
 {
@@ -33,7 +34,7 @@ namespace Recurly.Test
             Coupon c = new Coupon(s, Factories.GetMockCouponName(), 1);
             c.Create();
             c.Deactivate();
-            
+            Thread.Sleep(1000);
             s = Factories.GetMockCouponCode();
             c = new Coupon(s, Factories.GetMockCouponName(), 2);
             c.Create();
