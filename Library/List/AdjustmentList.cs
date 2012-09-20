@@ -9,12 +9,12 @@ namespace Recurly
     public class AdjustmentList : RecurlyList<Adjustment>
     {
 
-        internal void ReadXml(XmlTextReader reader)
+        internal override void ReadXml(XmlTextReader reader)
         {
 
             while (reader.Read())
             {
-                if ( (reader.Name.Equals("adjustments") || reader.Name.Equals("line_items") )
+                if ((reader.Name.Equals("adjustments") || reader.Name.Equals("line_items"))
                     && reader.NodeType == XmlNodeType.EndElement)
                     break;
 
@@ -25,7 +25,6 @@ namespace Recurly
             }
 
         }
-        
-    }
 
+    }
 }

@@ -9,7 +9,7 @@ namespace Recurly
     public class AddOnList : RecurlyList<AddOn>
     {
 
-        internal void ReadXml(XmlTextReader reader)
+        internal override void ReadXml(XmlTextReader reader)
         {
 
             while (reader.Read())
@@ -25,6 +25,7 @@ namespace Recurly
             }
 
         }
+
 
     }
 

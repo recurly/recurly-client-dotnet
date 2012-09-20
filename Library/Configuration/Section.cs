@@ -49,6 +49,15 @@ namespace Recurly.Configuration
             set { base["subdomain"] = value; }
         }
 
+        /// <summary>
+        /// Default Page Size or limit to the number of results returned at a time
+        /// </summary>
+        [ConfigurationProperty("pageSize", IsRequired = false, DefaultValue=200)]
+        public int PageSize
+        {
+            get { return (int)base["pageSize"]; }
+            set { base["pageSize"] = value; }
+        }
       
         #endregion
     }

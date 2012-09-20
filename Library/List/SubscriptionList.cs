@@ -9,7 +9,7 @@ namespace Recurly
     public class SubscriptionList : RecurlyList<Subscription>
     {
 
-        internal void ReadXml(XmlTextReader reader)
+        internal override void ReadXml(XmlTextReader reader)
         {
 
             while (reader.Read())
@@ -26,6 +26,7 @@ namespace Recurly
 
         }
 
+
         /// <summary>
         /// Returns a list of recurly subscriptions
         /// 
@@ -36,9 +37,8 @@ namespace Recurly
         public static SubscriptionList GetSubscriptions(Subscription.SubstriptionState state = Subscription.SubstriptionState.live)
         {
             SubscriptionList l = new SubscriptionList();
-            HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
-                Subscription.UrlPrefix + "?state=" + System.Uri.EscapeUriString(state.ToString()),
-                new Client.ReadXmlDelegate(l.ReadXml));
+            l.BaseUrl = Subscription.UrlPrefix + "?state=" + System.Uri.EscapeUriString(state.ToString());
+            HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get, l.BaseUrl, new Client.ReadXmlListDelegate(l.ReadXmlList));
 
             if (statusCode == HttpStatusCode.NotFound)
                 return null;

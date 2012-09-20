@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Recurly;
 using NUnit.Framework;
+using System.Threading;
 
 namespace Recurly.Test
 {

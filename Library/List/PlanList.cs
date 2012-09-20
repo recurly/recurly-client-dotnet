@@ -9,7 +9,7 @@ namespace Recurly
     public class PlanList : RecurlyList<Plan>
     {
 
-        internal void ReadXml(XmlTextReader reader)
+        internal override void ReadXml(XmlTextReader reader)
         {
 
             while (reader.Read())
@@ -33,10 +33,8 @@ namespace Recurly
         public static PlanList GetPlans()
         {
             PlanList list = new PlanList();
-
-            Client.PerformRequest(Client.HttpRequestMethod.Get,
-                Plan.UrlPrefix,
-                new Client.ReadXmlDelegate(list.ReadXml));
+            list.BaseUrl = Plan.UrlPrefix;
+            Client.PerformRequest(Client.HttpRequestMethod.Get, list.BaseUrl, new Client.ReadXmlListDelegate(list.ReadXmlList));
 
             return list;
         }

@@ -221,7 +221,7 @@ namespace Recurly
                 + (Adjustment.AdjustmentState.any == state ? "" : "state=" + state.ToString())
                 + (Adjustment.AdjustmentType.all == type ? "" : "&type=" + type.ToString())
                 ,
-                new Client.ReadXmlDelegate(l.ReadXml));
+                new Client.ReadXmlListDelegate(l.ReadXmlList));
 
             if (statusCode == HttpStatusCode.NotFound)
                 return null;
@@ -251,7 +251,7 @@ namespace Recurly
             HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
                 UrlPrefix + System.Uri.EscapeUriString(this.AccountCode) + "/subscriptions/"
                 + (state.Equals(Subscription.SubstriptionState.all) ? "" :  "?state=" + state.ToString() ),
-                new Client.ReadXmlDelegate(l.ReadXml));
+                new Client.ReadXmlListDelegate(l.ReadXmlList));
 
             if (statusCode == HttpStatusCode.NotFound)
                 return null;
@@ -273,7 +273,7 @@ namespace Recurly
                 UrlPrefix + System.Uri.EscapeUriString(this.AccountCode) + "/transactions/?"
                 + (state != TransactionList.TransactionState.all ? "state=" + state.ToString() : "" ) 
                 + (type != TransactionList.TransactionType.all ? "&type=" + type.ToString() : "" ),
-                new Client.ReadXmlDelegate(l.ReadXml));
+                new Client.ReadXmlListDelegate(l.ReadXmlList));
 
             if (statusCode == HttpStatusCode.NotFound)
                 return null;

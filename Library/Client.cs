@@ -5,6 +5,8 @@ using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
+using System.Web;
+using System.Collections.Specialized;
 
 namespace Recurly
 {
@@ -97,6 +99,14 @@ namespace Recurly
         public delegate void ReadXmlDelegate(XmlTextReader xmlReader);
 
         /// <summary>
+        /// Reads paged XML responses from the server
+        /// </summary>
+        /// <param name="xmlReader"></param>
+        /// <param name="records"></param>
+        /// <param name="cursor"></param>
+        public delegate void ReadXmlListDelegate(XmlTextReader xmlReader, int records, string cursor);
+
+        /// <summary>
         /// Delegate to write the XML request to the server.
         /// </summary>
         /// <param name="xmlWriter"></param>
@@ -105,23 +115,38 @@ namespace Recurly
 
         public static HttpStatusCode PerformRequest(HttpRequestMethod method, string urlPath)
         {
-            return PerformRequest(method, urlPath, null, null);
+            return PerformRequest(method, urlPath, null, null, null);
         }
 
         public static HttpStatusCode PerformRequest(HttpRequestMethod method, string urlPath,
             ReadXmlDelegate readXmlDelegate)
         {
-            return PerformRequest(method, urlPath, null, readXmlDelegate);
+            return PerformRequest(method, urlPath, null, readXmlDelegate, null);
         }
 
+       
         public static HttpStatusCode PerformRequest(HttpRequestMethod method, string urlPath,
             WriteXmlDelegate writeXmlDelegate)
         {
-            return PerformRequest(method, urlPath, writeXmlDelegate, null);
+            return PerformRequest(method, urlPath, writeXmlDelegate, null, null);
         }
 
         public static HttpStatusCode PerformRequest(HttpRequestMethod method, string urlPath,
             WriteXmlDelegate writeXmlDelegate, ReadXmlDelegate readXmlDelegate)
+        {
+            return PerformRequest(method, urlPath, writeXmlDelegate, readXmlDelegate, null);
+        }
+
+        public static HttpStatusCode PerformRequest(HttpRequestMethod method, string urlPath,
+            ReadXmlListDelegate readXmlListDelegate)
+        {
+            return PerformRequest(method, urlPath, null, null, readXmlListDelegate);
+        }
+
+
+
+        public static HttpStatusCode PerformRequest(HttpRequestMethod method, string urlPath,
+            WriteXmlDelegate writeXmlDelegate, ReadXmlDelegate readXmlDelegate, ReadXmlListDelegate readXmlListDelegate)
         {
             var url = urlPath.Contains("://") ? urlPath : (ProductionServerUrl + urlPath);
             #if (DEBUG)
@@ -158,7 +183,8 @@ namespace Recurly
             {
                 using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
                 {
-                    ReadWebResponse(response, readXmlDelegate);
+
+                    ReadWebResponse(response, readXmlDelegate, readXmlListDelegate);
                     HttpStatusCode c = response.StatusCode;
                     response.Close();
                     return c;
@@ -182,7 +208,7 @@ namespace Recurly
                         case HttpStatusCode.Accepted:
                         case HttpStatusCode.Created:
                         case HttpStatusCode.NoContent:
-                            ReadWebResponse(response, readXmlDelegate);
+                            ReadWebResponse(response, readXmlDelegate, readXmlListDelegate);
 
                             return HttpStatusCode.NoContent;
 
@@ -325,26 +351,53 @@ namespace Recurly
             }
         }
 
-        private static void ReadWebResponse(HttpWebResponse response, ReadXmlDelegate readXmlDelegate)
+        private static void ReadWebResponse(HttpWebResponse response, ReadXmlDelegate readXmlDelegate, ReadXmlListDelegate readXmlListDelegate)
         {
-            if (readXmlDelegate != null)
+            if (readXmlDelegate != null || readXmlListDelegate != null)
             {
 #if (DEBUG)
                 MemoryStream responseStream = CopyAndClose(response.GetResponseStream());
-                Console.WriteLine("Got Response:");
+                System.Diagnostics.Debug.WriteLine("Got Response:");
 
                 StreamReader reader = new StreamReader(responseStream);
 
                 string line;
                 while ((line = reader.ReadLine()) != null)
                 {
-                    Console.WriteLine(line);
+                    System.Diagnostics.Debug.WriteLine(line);
                 }
 
                 responseStream.Position = 0;
                 using (XmlTextReader xmlReader = new XmlTextReader(responseStream))
                 {
-                    readXmlDelegate(xmlReader);
+                    // Check for pagination
+                    int records = -1;
+                    string cursor = string.Empty;
+
+                    if (null != response.Headers["X-Records"])
+                    {
+                        Int32.TryParse(response.Headers["X-Records"], out records);
+                    }
+
+                    if (null != response.Headers["Link"])
+                    {
+                        var regex = new Regex("<([^>]+)>; rel=\"next\"");
+                        var match = regex.Match(response.Headers["Link"]);
+
+                        if (match.Success)
+                        {
+                            Uri u = new Uri(match.Groups[1].Value);
+                            NameValueCollection queryString = HttpUtility.ParseQueryString(u.Query);
+                            if (null != queryString["cursor"])
+                                cursor = queryString["cursor"];
+                        }
+
+                    }
+
+                    if (records >= 0)
+                        readXmlListDelegate(xmlReader, records, cursor);
+                    else
+                        readXmlDelegate(xmlReader);
                 }
 
 
@@ -355,6 +408,33 @@ namespace Recurly
 
                     using (XmlTextReader xmlReader = new XmlTextReader(responseStream))
                     {
+                         // Check for pagination
+                    int records = 0;
+                    string cursor = string.Empty;
+
+                    if (null != response.Headers["X-Records"])
+                    {
+                        Int32.TryParse(response.Headers["X-Records"], out records);
+                    }
+
+                    if (null != response.Headers["Link"])
+                    {
+                        var regex = new Regex("<([^>]+)>; rel=\"next\"");
+                        var match = regex.Match(response.Headers["Link"]);
+
+                        if (match.Success)
+                        {
+                           Uri u = new Uri(match.Groups[1].Value);
+                            NameValueCollection queryString = HttpUtility.ParseQueryString(u.Query);
+                            if (null != queryString["cursor"])
+                                cursor = queryString["cursor"];
+                        }
+
+                    }
+
+                    if (records > 0 )
+                        readXmlListDelegate(xmlReader, records, cursor);
+                    else
                         readXmlDelegate(xmlReader);
                     }
                 }

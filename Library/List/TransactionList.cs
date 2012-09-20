@@ -24,7 +24,7 @@ namespace Recurly
             refund
         }
 
-        internal void ReadXml(XmlTextReader reader)
+        internal override void ReadXml(XmlTextReader reader)
         {
 
             while (reader.Read())
@@ -53,11 +53,12 @@ namespace Recurly
             TransactionType type = TransactionType.all)
         {
             TransactionList l = new TransactionList();
-            HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
-                 "/transactions/?" + 
+
+            l.BaseUrl = "/transactions/?" + 
                 (state != TransactionState.all ? "state=" + System.Uri.EscapeUriString(state.ToString()) : "" )
-                + (type != TransactionType.all ? "&type=" + System.Uri.EscapeUriString(type.ToString()) : "" ),
-                new Client.ReadXmlDelegate(l.ReadXml));
+                + (type != TransactionType.all ? "&type=" + System.Uri.EscapeUriString(type.ToString()) : "" );
+
+            HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get, l.BaseUrl, new Client.ReadXmlListDelegate(l.ReadXmlList));
 
             if (statusCode == HttpStatusCode.NotFound)
                 return null;
