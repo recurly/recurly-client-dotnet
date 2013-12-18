@@ -44,11 +44,11 @@ namespace Recurly
         /// </summary>
         /// <param name="accountCode"></param>
         /// <returns></returns>
-        public static RecurlyAccount Get(string accountCode)
+        public static RecurlyAccount Get(string appName, string accountCode)
         {
             RecurlyAccount account = new RecurlyAccount();
 
-            HttpStatusCode statusCode = RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Get,
+            HttpStatusCode statusCode = RecurlyClient.PerformRequest(appName, RecurlyClient.HttpRequestMethod.Get,
                 UrlPrefix + System.Web.HttpUtility.UrlEncode(accountCode),
                 new RecurlyClient.ReadXmlDelegate(account.ReadXml));
 
@@ -61,9 +61,9 @@ namespace Recurly
         /// <summary>
         /// Create a new account in Recurly
         /// </summary>
-        public void Create()
+        public void Create(string appName)
         {
-            RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Post, 
+            RecurlyClient.PerformRequest(appName, RecurlyClient.HttpRequestMethod.Post,
                 UrlPrefix,
                 new RecurlyClient.WriteXmlDelegate(this.WriteXml));
         }
@@ -71,9 +71,9 @@ namespace Recurly
         /// <summary>
         /// Update an existing account in Recurly
         /// </summary>
-        public void Update()
+        public void Update(string appName)
         {
-            RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Put, 
+            RecurlyClient.PerformRequest(appName, RecurlyClient.HttpRequestMethod.Put,
                 UrlPrefix + System.Web.HttpUtility.UrlEncode(this.AccountCode),
                 new RecurlyClient.WriteXmlDelegate(this.WriteXml));
         }
@@ -82,9 +82,9 @@ namespace Recurly
         /// Close the account and cancel any active subscriptions (if there is one).
         /// Note: This does not create a refund for any time remaining.
         /// </summary>
-        public void CloseAccount()
+        public void CloseAccount(string appName)
         {
-            CloseAccount(this.AccountCode);
+            CloseAccount(appName, this.AccountCode);
         }
 
         /// <summary>
@@ -92,18 +92,18 @@ namespace Recurly
         /// Note: This does not create a refund for any time remaining.
         /// </summary>
         /// <param name="id">Account Code</param>
-        public static void CloseAccount(string accountCode)
+        public static void CloseAccount(string appName, string accountCode)
         {
-            RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Delete, UrlPrefix + System.Web.HttpUtility.UrlEncode(accountCode));
+            RecurlyClient.PerformRequest(appName, RecurlyClient.HttpRequestMethod.Delete, UrlPrefix + System.Web.HttpUtility.UrlEncode(accountCode));
         }
 
         /// <summary>
         /// Lookup the active coupon for this account.
         /// </summary>
         /// <returns></returns>
-        public RecurlyAccountCoupon GetActiveCoupon()
+        public RecurlyAccountCoupon GetActiveCoupon(string appName)
         {
-            return RecurlyAccountCoupon.Get(this.AccountCode);
+            return RecurlyAccountCoupon.Get(appName, this.AccountCode);
         }
 
         /// <summary>
@@ -111,9 +111,9 @@ namespace Recurly
         /// </summary>
         /// <param name="couponCode"></param>
         /// <returns></returns>
-        public RecurlyAccountCoupon RedeemCoupon(string couponCode)
+        public RecurlyAccountCoupon RedeemCoupon(string appName, string couponCode)
         {
-            return RecurlyAccountCoupon.Redeem(this.AccountCode, couponCode);
+            return RecurlyAccountCoupon.Redeem(appName, this.AccountCode, couponCode);
         }
 
         #region Read and Write XML documents
