@@ -8,7 +8,9 @@ namespace Recurly
 {
     public class RecurlyTransaction
     {
+        public string AccountCode { get; private set; }
         public string Id { get; private set; }
+        public string Description { get; set; }
         public int AmountInCents { get; private set; }
         public DateTime Date { get; private set; }
         public string Message { get; private set; }
@@ -17,6 +19,7 @@ namespace Recurly
         public bool Voidable { get; private set; }
         public bool Refundable { get; private set; }
         public TransactionType Type { get; private set; }
+        public RecurlyBillingInfo BillingInfo { get; set; }
 
         public enum TransactionType : short
         {
@@ -32,6 +35,17 @@ namespace Recurly
         internal RecurlyTransaction(XmlTextReader reader)
         {
             ReadXml(reader);
+        }
+
+        public RecurlyTransaction(string accountCode) : this()
+        {
+            this.AccountCode = accountCode;
+        }
+
+        public RecurlyTransaction(RecurlyAccount account)
+            : this()
+        {
+            this.AccountCode = account.AccountCode;
         }
 
         private const string UrlPrefix = "/transactions/";
@@ -54,6 +68,16 @@ namespace Recurly
         internal static string TransactionsUrl(string accountCode)
         {
             return RecurlyAccount.UrlPrefix + System.Web.HttpUtility.UrlEncode(accountCode) + UrlPostfix;
+        }
+
+        /// <summary>
+        /// Create a transaction in Recurly
+        /// </summary>
+        public void Create()
+        {
+            RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Post,
+                "/transactions",
+                new RecurlyClient.WriteXmlDelegate(this.WriteXml));
         }
 
         #region Read and Write XML documents
@@ -130,6 +154,24 @@ namespace Recurly
             }
         }
 
+        internal void WriteXml(XmlTextWriter xmlWriter)
+        {
+            xmlWriter.WriteStartElement("transaction"); // Start: transaction
+
+            if (!String.IsNullOrEmpty(this.Description))
+                xmlWriter.WriteElementString("description", this.Description);
+            xmlWriter.WriteElementString("amount_in_cents", this.AmountInCents.ToString("d", new CultureInfo("en-US")));
+            xmlWriter.WriteElementString("currency", this.Currency);
+
+
+            xmlWriter.WriteStartElement("account"); // Start: account
+            xmlWriter.WriteElementString("account_code", this.AccountCode);
+            if (this.BillingInfo != null)
+                this.BillingInfo.WriteXml(xmlWriter);
+            xmlWriter.WriteEndElement(); // End: account
+
+            xmlWriter.WriteEndElement(); // End: transaction
+        }
         #endregion
 
         #region Object Overrides
