@@ -15,19 +15,21 @@ If you do not have git and have some interest in learning about a wonderful sour
 
 ## Configuration
 
-Your API Key, and site subdomain can be specified in your **web.config** file:
+Your API Key, and site subdomain can be specified in your **web.config** or for testing **app.config** file:
 
     <?xml version="1.0" encoding="utf-8" ?>
     <configuration>
       <configSections>
         <section name="recurly" type="Recurly.Configuration.RecurlySection,Recurly"/>
-      </configSections>
+      </configSections>      
       
-      <recurly 
-        apiKey="123456789012345678901234567890ab"
-        privateKey="123456789012345678901234567890cd"
-        subdomain="company" />
-      
+      <recurly>
+        <apps>
+          <add name="instance1" apikey="apiKey1" privatekey="" subdomain="subdomain1"/>
+          <add name="instance2" apikey="apiKey2" privatekey="" subdomain="subdomain2"/>
+        </apps>
+      </recurly>
+    
     </configuration>
 
 __Please note:__ API credentials changed with version v0.0.4.2. **API Username** and **Environment** are no longer required. **Password** has been renamed to **API Key**.
