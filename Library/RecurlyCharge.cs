@@ -23,7 +23,7 @@ namespace Recurly
 
         #endregion
 
-        public static RecurlyCharge ChargeAccount(string accountCode, int amountInCents, string description)
+        public static RecurlyCharge ChargeAccount(string appName, string accountCode, int amountInCents, string description)
         {
             RecurlyCharge charge = new RecurlyCharge();
             charge.AmountInCents = amountInCents;
@@ -31,7 +31,7 @@ namespace Recurly
             charge.Description = description;
 
             /* HttpStatusCode statusCode = */
-            RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Post,
+            RecurlyClient.PerformRequest(appName, RecurlyClient.HttpRequestMethod.Post,
                 ChargesUrl(accountCode),
                 new RecurlyClient.WriteXmlDelegate(charge.WriteXml),
                 null);

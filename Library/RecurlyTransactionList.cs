@@ -11,11 +11,11 @@ namespace Recurly
         internal RecurlyTransactionList()
         { }
 
-        public static RecurlyTransaction[] GetTransactions(string accountCode)
+        public static RecurlyTransaction[] GetTransactions(string appName, string accountCode)
         {
             RecurlyTransactionList transactionList = new RecurlyTransactionList();
 
-            HttpStatusCode statusCode = RecurlyClient.PerformRequest(RecurlyClient.HttpRequestMethod.Get,
+            HttpStatusCode statusCode = RecurlyClient.PerformRequest(appName, RecurlyClient.HttpRequestMethod.Get,
                 RecurlyTransaction.TransactionsUrl(accountCode),
                 new RecurlyClient.ReadXmlDelegate(transactionList.ReadXml));
 
