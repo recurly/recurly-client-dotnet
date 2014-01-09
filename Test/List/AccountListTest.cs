@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Recurly;
-using NUnit.Framework;
-using System.Threading;
+﻿using NUnit.Framework;
 
 namespace Recurly.Test
 {
@@ -31,7 +26,7 @@ namespace Recurly.Test
             acct = new Account(Factories.GetMockAccountName());
             acct.Create();
 
-            AccountList accounts = AccountList.List(Account.AccountState.active);
+            AccountList accounts = AccountList.List(Account.AccountState.Active);
             Assert.IsTrue(accounts.Count >= 2);
         }
 
@@ -45,7 +40,7 @@ namespace Recurly.Test
             acct.Create();
             acct.Close();
 
-            AccountList accounts = AccountList.List(Account.AccountState.closed);
+            AccountList accounts = AccountList.List(Account.AccountState.Closed);
             Assert.IsTrue(accounts.Count >= 2);
         }
 
@@ -60,7 +55,7 @@ namespace Recurly.Test
 
             acct.InvoicePendingCharges();
 
-            AccountList accounts = AccountList.List(Account.AccountState.past_due);
+            AccountList accounts = AccountList.List(Account.AccountState.PastDue);
             Assert.IsTrue(accounts.Count > 0);
         }
 

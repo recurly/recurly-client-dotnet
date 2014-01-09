@@ -36,7 +36,7 @@ namespace Recurly
         /// </summary>
         /// <param name="state">Account state to retrieve</param>
         /// <returns></returns>
-        public static AccountList List(Recurly.Account.AccountState state = Recurly.Account.AccountState.active )
+        public static AccountList List(Recurly.Account.AccountState state = Recurly.Account.AccountState.Active )
         {
             return new AccountList( Account.UrlPrefix + "?state=" + state.ToString() );
         }

@@ -15,6 +15,8 @@ namespace Recurly
     /// </summary>
     internal class Client
     {
+        // TODO update for multi-tenancy. Currently, is hardcoded to test server, ignores configuration.
+
         private const string ProductionServerUrl = "https://api.recurly.com/v2";
 
         /// <summary>

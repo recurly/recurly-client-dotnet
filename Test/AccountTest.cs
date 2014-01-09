@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Recurly;
 using NUnit.Framework;
 
 namespace Recurly.Test
@@ -73,7 +70,7 @@ namespace Recurly.Test
 
         [Test]
         [ExpectedException(typeof(NotFoundException))]
-        public void FindNonExistantAccount()
+        public void FindNonExistentAccount()
         {
             Account acct = Account.Get("totallynotfound!@#$");
         }
@@ -101,7 +98,7 @@ namespace Recurly.Test
             acct.Close();
 
             Account getAcct = Account.Get(s);
-            Assert.AreEqual(getAcct.State, Recurly.Account.AccountState.closed);
+            Assert.AreEqual(getAcct.State, Account.AccountState.Closed);
         }
 
         [Test]
@@ -115,8 +112,8 @@ namespace Recurly.Test
             acct.Reopen();
 
             Account test = Account.Get(s);
-            Assert.AreEqual(acct.State, Recurly.Account.AccountState.active);
-            Assert.AreEqual(test.State, Recurly.Account.AccountState.active);
+            Assert.AreEqual(acct.State, Account.AccountState.Active);
+            Assert.AreEqual(test.State, Account.AccountState.Active);
         }
 
         
