@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Recurly;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace Recurly.Test
 {
@@ -58,7 +54,7 @@ namespace Recurly.Test
 
             acct.InvoicePendingCharges();
 
-            AdjustmentList adjustments = acct.GetAdjustments(Adjustment.AdjustmentType.credit);
+            AdjustmentList adjustments = acct.GetAdjustments(Adjustment.AdjustmentType.Credit);
             Assert.IsTrue(adjustments.Count == 2);
             int sum = adjustments[0].UnitAmountInCents + adjustments[1].UnitAmountInCents;
             Assert.AreEqual(sum , -5678);
@@ -77,7 +73,7 @@ namespace Recurly.Test
             a = acct.CreateAdjustment("Credit", -3456, "USD", 1);
             a.Create();
 
-            AdjustmentList adjustments = acct.GetAdjustments(Adjustment.AdjustmentType.credit);
+            AdjustmentList adjustments = acct.GetAdjustments(Adjustment.AdjustmentType.Credit);
             Assert.IsTrue(adjustments.Count == 1);
             Assert.AreEqual(adjustments[0].UnitAmountInCents, -3456);
         }
@@ -96,7 +92,7 @@ namespace Recurly.Test
 
             acct.InvoicePendingCharges();
 
-            AdjustmentList adjustments = acct.GetAdjustments(Adjustment.AdjustmentType.charge);
+            AdjustmentList adjustments = acct.GetAdjustments(Adjustment.AdjustmentType.Charge);
             Assert.IsTrue(adjustments.Count == 1);
             Assert.AreEqual(adjustments[0].UnitAmountInCents, 1234);
         }
@@ -114,12 +110,12 @@ namespace Recurly.Test
             a.Create();
 
 
-            AdjustmentList adjustments = acct.GetAdjustments(state: Adjustment.AdjustmentState.pending);
+            AdjustmentList adjustments = acct.GetAdjustments(state: Adjustment.AdjustmentState.Pending);
             Assert.IsTrue(adjustments.Count == 2);
 
             acct.InvoicePendingCharges();
 
-            adjustments = acct.GetAdjustments(state: Adjustment.AdjustmentState.invoiced);
+            adjustments = acct.GetAdjustments(state: Adjustment.AdjustmentState.Invoiced);
             Assert.IsTrue(adjustments.Count == 2);
 
         }

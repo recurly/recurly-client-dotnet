@@ -109,7 +109,7 @@ namespace Recurly
         public static Account Get(string accountCode)
         {
             var account = new Account();
-
+            // GET /accounts/<account code>
             var statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
                 UrlPrefix + Uri.EscapeUriString(accountCode),
                 account.ReadXml);
@@ -135,6 +135,7 @@ namespace Recurly
         /// </summary>
         public void Create()
         {
+            // POST /accounts
             Client.PerformRequest(Client.HttpRequestMethod.Post, UrlPrefix, WriteXml, ReadXml);
         }
 
@@ -143,6 +144,7 @@ namespace Recurly
         /// </summary>
         public void Update()
         {
+            // PUT /accounts/<account code>
             Client.PerformRequest(Client.HttpRequestMethod.Put,
                 UrlPrefix + Uri.EscapeUriString(AccountCode),
                 WriteXml);
@@ -168,6 +170,7 @@ namespace Recurly
         /// <param name="accountCode">Account Code</param>
         public static void Close(string accountCode)
         {
+            // DELETE /accounts/<account code>
             Client.PerformRequest(Client.HttpRequestMethod.Delete,
                 UrlPrefix + Uri.EscapeUriString(accountCode));
         }
@@ -190,6 +193,7 @@ namespace Recurly
         /// <param name="accountCode">Account Code</param>
         public static void Reopen(string accountCode)
         {
+            // PUT /accounts/<account code>/reopen
             Client.PerformRequest(Client.HttpRequestMethod.Put,
                 UrlPrefix + Uri.EscapeUriString(accountCode) + "/reopen");
         }
@@ -217,14 +221,14 @@ namespace Recurly
         /// <param name="type">Adjustment type to retrieve. Optional, default: All.</param>
         /// <param name="state">State of the Adjustments to retrieve. Optional, default: Any.</param>
         /// <returns></returns>
-        public AdjustmentList GetAdjustments(Adjustment.AdjustmentType type = Adjustment.AdjustmentType.all,
-            Adjustment.AdjustmentState state = Adjustment.AdjustmentState.any)
+        public AdjustmentList GetAdjustments(Adjustment.AdjustmentType type = Adjustment.AdjustmentType.All,
+            Adjustment.AdjustmentState state = Adjustment.AdjustmentState.Any)
         {
             var adjustments = new AdjustmentList();
             var statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
                 UrlPrefix + Uri.EscapeUriString(AccountCode) + "/adjustments/?"
-                + (Adjustment.AdjustmentState.any == state ? "" : "state=" + state)
-                + (Adjustment.AdjustmentType.all == type ? "" : "&type=" + type)
+                + (Adjustment.AdjustmentState.Any == state ? "" : "state=" + state)
+                + (Adjustment.AdjustmentType.All == type ? "" : "&type=" + type)
                 , adjustments.ReadXmlList);
 
             return statusCode == HttpStatusCode.NotFound ? null : adjustments;
@@ -270,14 +274,15 @@ namespace Recurly
         /// <summary>
         /// Returns a new adjustment (credit or charge) for this account
         /// </summary>
-        /// <param name="description"></param>
-        /// <param name="unitAmountInCents"></param>
-        /// <param name="currency"></param>
-        /// <param name="quantity"></param>
+        /// <param name="description">Description of the adjustment for the invoice.</param>
+        /// <param name="unitAmountInCents">Positive amount for a charge, negative amount for a credit. Max 10,000,000.</param>
+        /// <param name="currency">Currency, 3-letter ISO code.</param>
+        /// <param name="quantity">Quantity, defaults to 1.</param>
+        /// <param name="accountingCode">Accounting code. Max of 20 characters.</param>
         /// <returns></returns>
-        public Adjustment CreateAdjustment(string description, int unitAmountInCents, string currency, int quantity=1)
+        public Adjustment CreateAdjustment(string description, int unitAmountInCents, string currency, int quantity=1, string accountingCode = "")
         {
-            return new Adjustment(AccountCode, description, currency, unitAmountInCents, quantity);
+            return new Adjustment(AccountCode, description, currency, unitAmountInCents, quantity, accountingCode);
         }
 
         /// <summary>

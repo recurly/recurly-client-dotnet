@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using System.Globalization;
+using System.Xml;
 
 namespace Recurly
 {
@@ -34,6 +35,14 @@ namespace Recurly
         {
             if (!value.IsNullOrEmpty())
                 writer.WriteElementString(localName, value);
+        }
+    }
+
+    public static class IntExtensions
+    {
+        public static string AsString(this int i)
+        {
+            return i.ToString(CultureInfo.InvariantCulture);
         }
     }
 }
