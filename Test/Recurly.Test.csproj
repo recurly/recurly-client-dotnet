@@ -68,6 +68,7 @@
     <Compile Include="BillingInfoTest.cs" />
     <Compile Include="CouponRedemptionTest.cs" />
     <Compile Include="CouponTest.cs" />
+    <Compile Include="ExtensionTest.cs" />
     <Compile Include="Factories.cs" />
     <Compile Include="InvoiceTest.cs" />
     <Compile Include="List\AccountListTest.cs" />

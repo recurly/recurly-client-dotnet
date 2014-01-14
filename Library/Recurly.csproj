@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Account.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="List\AccountList.cs" />
     <Compile Include="AddOn.cs" />
     <Compile Include="Adjustment.cs" />

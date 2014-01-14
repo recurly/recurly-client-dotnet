@@ -155,9 +155,10 @@ namespace Recurly
         public void Close()
         {
             Close(AccountCode);
-            // TODO clear Open from the enum, add Closed
-            State = AccountState.Closed;
-
+            // TODO clear Open from the enum, add Closed // done 1/13/14
+            if(State.Is(AccountState.Active))
+                State ^= AccountState.Active;
+            State |= AccountState.Closed;
         }
 
         /// <summary>
@@ -177,8 +178,10 @@ namespace Recurly
         public void Reopen()
         {
             Reopen(AccountCode);
-            // TODO Clear Closed, add Active
-            State = AccountState.Active;
+            // TODO Clear Closed, add Active // done 1/13/14
+            if(State.Is(AccountState.Closed))
+                State ^= AccountState.Closed;
+            State |= AccountState.Active;
         }
 
         /// <summary>
@@ -367,19 +370,13 @@ namespace Recurly
 
             xmlWriter.WriteElementString("account_code", AccountCode);
 
-            // TODO flatten these
-            if (!string.IsNullOrEmpty(Username))
-                xmlWriter.WriteElementString("username", Username);
-            if (!string.IsNullOrEmpty(Email))
-                xmlWriter.WriteElementString("email", Email);
-            if (!string.IsNullOrEmpty(FirstName))
-                xmlWriter.WriteElementString("first_name", FirstName);
-            if (!string.IsNullOrEmpty(LastName))
-                xmlWriter.WriteElementString("last_name", LastName);
-            if (!string.IsNullOrEmpty(CompanyName))
-                xmlWriter.WriteElementString("company_name", CompanyName);
-            if (!string.IsNullOrEmpty(AcceptLanguage))
-                xmlWriter.WriteElementString("accept_language", AcceptLanguage);
+            // TODO flatten these // done 1/13/14
+            xmlWriter.WriteStringIfValid("username", Username);
+            xmlWriter.WriteStringIfValid("email", Email);
+            xmlWriter.WriteStringIfValid("first_name", FirstName);
+            xmlWriter.WriteStringIfValid("last_name", LastName);
+            xmlWriter.WriteStringIfValid("company_name", CompanyName);
+            xmlWriter.WriteStringIfValid("accept_language", AcceptLanguage);
 
             if (_billingInfo != null)
                 _billingInfo.WriteXml(xmlWriter);
