@@ -97,7 +97,7 @@ namespace Recurly.Test
             Plan p = new Plan(s, Factories.GetMockPlanName());
             p.Description = "Subscription Test";
             p.PlanIntervalLength = 1;
-            p.PlanIntervalUnit = Plan.IntervalUnit.months;
+            p.PlanIntervalUnit = Plan.IntervalUnit.Months;
             p.UnitAmountInCents.Add("USD", 400);
             p.Create();
 
@@ -128,7 +128,7 @@ namespace Recurly.Test
             Plan p = new Plan(s, Factories.GetMockPlanName());
             p.Description = "Subscription Test";
             p.PlanIntervalLength = 1;
-            p.PlanIntervalUnit = Plan.IntervalUnit.months;
+            p.PlanIntervalUnit = Plan.IntervalUnit.Months;
             p.UnitAmountInCents.Add("USD", 400);
             p.Create();
 
@@ -159,9 +159,9 @@ namespace Recurly.Test
             Plan p = new Plan(s, Factories.GetMockPlanName());
             p.Description = "Subscription Test";
             p.PlanIntervalLength = 1;
-            p.PlanIntervalUnit = Plan.IntervalUnit.months;
+            p.PlanIntervalUnit = Plan.IntervalUnit.Months;
             p.TrialIntervalLength = 1;
-            p.TrialIntervalUnit = Plan.IntervalUnit.months;
+            p.TrialIntervalUnit = Plan.IntervalUnit.Months;
             p.UnitAmountInCents.Add("USD", 400);
             p.Create();
 
@@ -192,7 +192,7 @@ namespace Recurly.Test
             Plan p = new Plan(s, Factories.GetMockPlanName());
             p.Description = "Subscription Test";
             p.PlanIntervalLength = 1;
-            p.PlanIntervalUnit = Plan.IntervalUnit.months;
+            p.PlanIntervalUnit = Plan.IntervalUnit.Months;
             p.UnitAmountInCents.Add("USD", 200100);
             p.Create();
 

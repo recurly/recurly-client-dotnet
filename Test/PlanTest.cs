@@ -52,9 +52,9 @@ namespace Recurly.Test
             p.DisplayPhoneNumber = false;
             p.DisplayQuantity = true;
             p.TotalBillingCycles = 5;
-            p.TrialIntervalUnit = Plan.IntervalUnit.months;
+            p.TrialIntervalUnit = Plan.IntervalUnit.Months;
             p.TrialIntervalLength = 1;
-            p.PlanIntervalUnit = Plan.IntervalUnit.days;
+            p.PlanIntervalUnit = Plan.IntervalUnit.Days;
             p.PlanIntervalLength = 180;
             p.Create();
 
@@ -65,9 +65,9 @@ namespace Recurly.Test
             Assert.IsFalse(p.DisplayPhoneNumber.Value);
             Assert.IsTrue(p.DisplayQuantity.Value);
             Assert.AreEqual(p.TotalBillingCycles, 5);
-            Assert.AreEqual(p.TrialIntervalUnit, Plan.IntervalUnit.months);
+            Assert.AreEqual(p.TrialIntervalUnit, Plan.IntervalUnit.Months);
             Assert.AreEqual(p.TrialIntervalLength, 1);
-            Assert.AreEqual(p.PlanIntervalUnit, Plan.IntervalUnit.days);
+            Assert.AreEqual(p.PlanIntervalUnit, Plan.IntervalUnit.Days);
             Assert.AreEqual(p.PlanIntervalLength, 180);
             p.Deactivate();
 
