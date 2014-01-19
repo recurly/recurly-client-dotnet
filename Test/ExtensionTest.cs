@@ -7,6 +7,9 @@ namespace Recurly.Test
     [TestFixture]
     public class EnumExtensionTest
     {
+        private const string NullString = null;
+        private const string EmptyString = "";
+
         [Test]
         public void IsDetectsFlagOverlap()
         {
@@ -55,6 +58,41 @@ namespace Recurly.Test
             var declarative = AccountState.Closed.Add(AccountState.PastDue);
 
             Assert.AreEqual(bitOperation, declarative);
+        }
+
+        [TestCase(NullString, NullString),
+        TestCase(EmptyString, EmptyString),
+        TestCase("maxed_out", "MaxedOut"),
+        TestCase("past_due", "PastDue"),
+        TestCase("all", "All"),
+        TestCase("CLOSED", "Closed"),
+        TestCase("PascalCase", "PascalCase"),
+        TestCase("Notpascalcase", "Notpascalcase"),
+        TestCase("Extra_long_string_WITH_varying_cASE", "ExtraLongStringWithVaryingCase")]
+        public void ToPascalCaseConvertsCorrectly(string input, string expected)
+        {
+            var actual = input.ToPascalCase();
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase("past_due", AccountState.PastDue),
+        TestCase("active", AccountState.Active)]
+        public void ParseAsEnumParsesAccountStateCorrectly(string toParse, AccountState expected)
+        {
+            var actual = toParse.ParseAsEnum<AccountState>();
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void ParseAsEnumPreservesFlagsParsing()
+        {
+            const AccountState state = AccountState.Active | AccountState.PastDue;
+
+            var stateString = state.ToString();
+
+            var result = stateString.ParseAsEnum<AccountState>();
+
+            Assert.AreEqual(state, result);
         }
     }
 }

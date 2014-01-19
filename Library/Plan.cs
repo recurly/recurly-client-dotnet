@@ -233,7 +233,7 @@ namespace Recurly
                         break;
 
                     case "plan_interval_unit":
-                        PlanIntervalUnit = (IntervalUnit)Enum.Parse(typeof(IntervalUnit), reader.ReadElementContentAsString(), true);
+                        PlanIntervalUnit = reader.ReadElementContentAsString().ParseAsEnum<IntervalUnit>();
                         break;
 
                     case "trial_interval_length":
@@ -241,7 +241,7 @@ namespace Recurly
                         break;
 
                     case "trial_interval_unit":
-                        TrialIntervalUnit = (IntervalUnit)Enum.Parse(typeof(IntervalUnit), reader.ReadElementContentAsString(), true);
+                        TrialIntervalUnit = reader.ReadElementContentAsString().ParseAsEnum<IntervalUnit>();
                         break;
 
                     case "accounting_code":

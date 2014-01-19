@@ -162,11 +162,11 @@ namespace Recurly
                         break;
 
                     case "state":
-                        State = (CouponState)Enum.Parse(typeof(CouponState), reader.ReadElementContentAsString(), true);
+                        State = reader.ReadElementContentAsString().ParseAsEnum<CouponState>();
                         break;
 
                     case "discount_type":
-                        DiscountType = (CouponDiscountType)Enum.Parse(typeof(CouponDiscountType), reader.ReadElementContentAsString(), true);
+                        DiscountType = reader.ReadElementContentAsString().ParseAsEnum<CouponDiscountType>();
                         break;
 
                     case "discount_percent":

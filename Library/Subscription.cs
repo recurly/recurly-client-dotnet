@@ -342,7 +342,7 @@ namespace Recurly
                         break;
 
                     case "state":
-                        State = (SubscriptionState)Enum.Parse(typeof(SubscriptionState), reader.ReadElementContentAsString(), true);
+                        State = reader.ReadElementContentAsString().ParseAsEnum<SubscriptionState>();
                         break;
 
                     case "unit_amount_in_cents":

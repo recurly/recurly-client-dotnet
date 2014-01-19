@@ -331,7 +331,7 @@ namespace Recurly
 
                     case "state":
                         // TODO investigate in case of incoming data representing multiple states, as http://docs.recurly.com/api/accounts says is possible
-                        State = (AccountState)Enum.Parse(typeof(AccountState), reader.ReadElementContentAsString(), true);
+                        State = reader.ReadElementContentAsString().ParseAsEnum<AccountState>();
                         break;
 
                     case "username":

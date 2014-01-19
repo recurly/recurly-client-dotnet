@@ -150,7 +150,7 @@ namespace Recurly
                         break;
 
                     case "state":
-                        State = (InvoiceState)Enum.Parse(typeof(InvoiceState), reader.ReadElementContentAsString(), true);
+                        State = reader.ReadElementContentAsString().ParseAsEnum<InvoiceState>();
                         break;
 
                     case "invoice_number":

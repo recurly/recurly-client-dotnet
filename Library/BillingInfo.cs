@@ -204,7 +204,7 @@ namespace Recurly
                         break;
 
                     case "card_type":
-                        CardType = (CreditCardType)Enum.Parse(typeof(CreditCardType), reader.ReadElementContentAsString(), true);
+                        CardType = reader.ReadElementContentAsString().ParseAsEnum<CreditCardType>();
                         break;
 
                     case "year":

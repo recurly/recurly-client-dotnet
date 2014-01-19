@@ -173,7 +173,7 @@ namespace Recurly
                         break;
 
                     case "action":
-                        Action = (TransactionType)Enum.Parse(typeof(TransactionType), reader.ReadElementContentAsString(), true);
+                        Action = reader.ReadElementContentAsString().ParseAsEnum<TransactionType>();
                         break;
 
                     case "amount_in_cents":
@@ -192,10 +192,7 @@ namespace Recurly
 
                     case "status":
                         var state = reader.ReadElementContentAsString();
-                        if ("void" == state)
-                            Status = TransactionState.Voided;
-                        else
-                            Status = (TransactionState)Enum.Parse(typeof(TransactionState),state , true);
+                        Status = "void" == state ? TransactionState.Voided : state.ParseAsEnum<TransactionState>();
                         break;
 
                     case "reference":
