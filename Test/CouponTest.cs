@@ -39,7 +39,7 @@ namespace Recurly.Test
             c = new Coupon(s, Factories.GetMockCouponName(), 2);
             c.Create();
 
-            CouponList list = CouponList.List(Coupon.CouponState.redeemable);
+            CouponList list = CouponList.List(Coupon.CouponState.Redeemable);
             Assert.IsTrue(list.Count > 1);
 
         }
@@ -91,7 +91,7 @@ namespace Recurly.Test
             c = Coupon.Get(s);
             Assert.IsNotNull(s);
             Assert.AreEqual(c.DiscountPercent.Value, 10);
-            Assert.AreEqual(c.DiscountType, Coupon.CouponDiscountType.percent);
+            Assert.AreEqual(c.DiscountType, Coupon.CouponDiscountType.Percent);
 
         }
 
@@ -111,7 +111,7 @@ namespace Recurly.Test
             Assert.IsNotNull(s);
             Assert.AreEqual(c.DiscountInCents["USD"], 100);
             Assert.AreEqual(c.DiscountInCents["EUR"], 50);
-            Assert.AreEqual(c.DiscountType, Coupon.CouponDiscountType.dollars);
+            Assert.AreEqual(c.DiscountType, Coupon.CouponDiscountType.Dollars);
 
         }
 
@@ -148,7 +148,7 @@ namespace Recurly.Test
 
             c = Coupon.Get(s);
             Assert.IsNotNull(s);
-            Assert.AreEqual(c.State, Coupon.CouponState.inactive);
+            Assert.AreEqual(c.State, Coupon.CouponState.Inactive);
 
         }
 

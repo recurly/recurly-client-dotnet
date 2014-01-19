@@ -36,9 +36,9 @@ namespace Recurly
         /// </summary>
         /// <param name="state">Account state to retrieve</param>
         /// <returns></returns>
-        public static CouponList List(Coupon.CouponState state = Coupon.CouponState.all)
+        public static CouponList List(Coupon.CouponState state = Coupon.CouponState.All)
         {
-            return new CouponList(Coupon.UrlPrefix + (state != Coupon.CouponState.all ? "?state=" + state.ToString() : ""));
+            return new CouponList(Coupon.UrlPrefix + (state != Coupon.CouponState.All ? "?state=" + state.ToString() : ""));
 
         }
 
