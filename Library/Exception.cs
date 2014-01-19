@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Recurly
 {
@@ -15,9 +13,8 @@ namespace Recurly
         public Error[] Errors { get; private set; }
 
         internal Exception(Error[] errors)
-            : base()
         {
-            this.Errors = errors;
+            Errors = errors;
         }
 
         internal Exception(string message)
@@ -31,7 +28,7 @@ namespace Recurly
         internal Exception(string message, Error[] errors)
             : base(message)
         {
-            this.Errors = errors;
+            Errors = errors;
         }
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Recurly
+﻿namespace Recurly
 {
     /// <summary>
     /// Exception when a validation error prevents an object from being created, updated, or deleted.
