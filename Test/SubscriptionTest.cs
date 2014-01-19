@@ -27,7 +27,7 @@ namespace Recurly.Test
             sub.Create();
 
             Assert.IsNotNull(sub.ActivatedAt);
-            Assert.AreEqual(sub.State, Subscription.SubstriptionState.active);
+            Assert.AreEqual(sub.State, Subscription.SubscriptionState.Active);
 
             string id = sub.Uuid;
 
@@ -57,7 +57,7 @@ namespace Recurly.Test
             String id = sub.Uuid;
             sub.UnitAmountInCents = 3000;
             
-            sub.ChangeSubscription(Subscription.ChangeTimeframe.renewal);
+            sub.ChangeSubscription(Subscription.ChangeTimeframe.Renewal);
 
 
             Subscription newSubscription = Subscription.Get(id);
@@ -86,7 +86,7 @@ namespace Recurly.Test
             sub.Create();
 
             Assert.IsNotNull(sub.ActivatedAt);
-            Assert.AreEqual(sub.State, Subscription.SubstriptionState.active);
+            Assert.AreEqual(sub.State, Subscription.SubscriptionState.Active);
 
             p.Deactivate();
 
@@ -113,7 +113,7 @@ namespace Recurly.Test
             sub.Create();
 
             Assert.IsNotNull(sub.ActivatedAt);
-            Assert.AreEqual(sub.State, Subscription.SubstriptionState.active);
+            Assert.AreEqual(sub.State, Subscription.SubscriptionState.Active);
 
             p.Deactivate();
         }
@@ -143,7 +143,7 @@ namespace Recurly.Test
             String id = sub.Uuid;
             sub.Plan = p2;
 
-            sub.ChangeSubscription(Subscription.ChangeTimeframe.now);
+            sub.ChangeSubscription(Subscription.ChangeTimeframe.Now);
 
             Subscription newSubscription = Subscription.Get(id);
             Assert.IsNull(newSubscription.PendingSubscription);
@@ -173,7 +173,7 @@ namespace Recurly.Test
             sub.Cancel();
 
             Assert.IsNotNull(sub.CanceledAt);
-            Assert.AreEqual(sub.State, Subscription.SubstriptionState.canceled);
+            Assert.AreEqual(sub.State, Subscription.SubscriptionState.Canceled);
             p.Deactivate();
 
         }
@@ -196,11 +196,11 @@ namespace Recurly.Test
             sub.Create();
 
             sub.Cancel();
-            Assert.AreEqual(sub.State, Subscription.SubstriptionState.canceled);
+            Assert.AreEqual(sub.State, Subscription.SubscriptionState.Canceled);
 
             sub.Reactivate();
 
-            Assert.AreEqual(sub.State, Subscription.SubstriptionState.active);
+            Assert.AreEqual(sub.State, Subscription.SubscriptionState.Active);
             p.Deactivate();
 
         }
@@ -221,9 +221,9 @@ namespace Recurly.Test
             Subscription sub = new Subscription(acct, p, "USD");
             sub.Create();
 
-            sub.Terminate(Subscription.RefundType.none);
+            sub.Terminate(Subscription.RefundType.None);
 
-            Assert.AreEqual(sub.State, Subscription.SubstriptionState.expired);
+            Assert.AreEqual(sub.State, Subscription.SubscriptionState.Expired);
             p.Deactivate();
 
         }
@@ -244,9 +244,9 @@ namespace Recurly.Test
             Subscription sub = new Subscription(acct, p, "USD");
             sub.Create();
 
-            sub.Terminate(Subscription.RefundType.partial);
+            sub.Terminate(Subscription.RefundType.Partial);
 
-            Assert.AreEqual(sub.State, Subscription.SubstriptionState.expired);
+            Assert.AreEqual(sub.State, Subscription.SubscriptionState.Expired);
             p.Deactivate();
 
         }
@@ -267,9 +267,9 @@ namespace Recurly.Test
             Subscription sub = new Subscription(acct, p, "USD");
             sub.Create();
 
-            sub.Terminate(Subscription.RefundType.full);
+            sub.Terminate(Subscription.RefundType.Full);
 
-            Assert.AreEqual(sub.State, Subscription.SubstriptionState.expired);
+            Assert.AreEqual(sub.State, Subscription.SubscriptionState.Expired);
             p.Deactivate();
 
         }

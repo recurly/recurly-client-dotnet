@@ -38,7 +38,7 @@ namespace Recurly
         /// </summary>
         /// <param name="state">State of subscriptions to return, defaults to "live"</param>
         /// <returns></returns>
-        public static SubscriptionList GetSubscriptions(Subscription.SubstriptionState state = Subscription.SubstriptionState.live)
+        public static SubscriptionList GetSubscriptions(Subscription.SubscriptionState state = Subscription.SubscriptionState.Live)
         {
             return new SubscriptionList(Subscription.UrlPrefix + "?state=" + System.Uri.EscapeUriString(state.ToString()));
         }

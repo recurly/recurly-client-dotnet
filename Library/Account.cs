@@ -250,10 +250,10 @@ namespace Recurly
         /// </summary>
         /// <param name="state"></param>
         /// <returns></returns>
-        public SubscriptionList GetSubscriptions(Subscription.SubstriptionState state = Subscription.SubstriptionState.all)
+        public SubscriptionList GetSubscriptions(Subscription.SubscriptionState state = Subscription.SubscriptionState.All)
         {
             return new SubscriptionList(UrlPrefix + Uri.EscapeUriString(AccountCode) + "/subscriptions/"
-                + (state.Equals(Subscription.SubstriptionState.all) ? "" :  "?state=" + state));
+                + (state.Equals(Subscription.SubscriptionState.All) ? "" :  "?state=" + state));
         }
 
 

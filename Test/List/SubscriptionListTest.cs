@@ -32,7 +32,7 @@ namespace Recurly.Test
                 Thread.Sleep(1);
             }
 
-            SubscriptionList list = SubscriptionList.GetSubscriptions(Subscription.SubstriptionState.live);
+            SubscriptionList list = SubscriptionList.GetSubscriptions(Subscription.SubscriptionState.Live);
             Assert.IsTrue(list.Count > 0);
             p.Deactivate();
         }
@@ -58,7 +58,7 @@ namespace Recurly.Test
                 Thread.Sleep(1);
             }
 
-            SubscriptionList list = SubscriptionList.GetSubscriptions(Subscription.SubstriptionState.active);
+            SubscriptionList list = SubscriptionList.GetSubscriptions(Subscription.SubscriptionState.Active);
             Assert.IsTrue(list.Count > 0);
             p.Deactivate();
         }
@@ -85,7 +85,7 @@ namespace Recurly.Test
                 Thread.Sleep(1);
             }
 
-            SubscriptionList list = SubscriptionList.GetSubscriptions(Subscription.SubstriptionState.canceled);
+            SubscriptionList list = SubscriptionList.GetSubscriptions(Subscription.SubscriptionState.Canceled);
             Assert.IsTrue(list.Count > 0);
             p.Deactivate();
         }
@@ -115,7 +115,7 @@ namespace Recurly.Test
                 Thread.Sleep(1);
             }
 
-            SubscriptionList list = SubscriptionList.GetSubscriptions(Subscription.SubstriptionState.canceled);
+            SubscriptionList list = SubscriptionList.GetSubscriptions(Subscription.SubscriptionState.Canceled);
             Assert.IsTrue(list.Count > 0);
 
             p.Deactivate();
@@ -146,7 +146,7 @@ namespace Recurly.Test
                 Thread.Sleep(1);
             }
 
-            SubscriptionList list = SubscriptionList.GetSubscriptions(Subscription.SubstriptionState.canceled);
+            SubscriptionList list = SubscriptionList.GetSubscriptions(Subscription.SubscriptionState.Canceled);
             Assert.IsTrue(list.Count > 0);
 
             p.Deactivate();
@@ -179,7 +179,7 @@ namespace Recurly.Test
                 Thread.Sleep(1);
             }
 
-            SubscriptionList list = SubscriptionList.GetSubscriptions(Subscription.SubstriptionState.canceled);
+            SubscriptionList list = SubscriptionList.GetSubscriptions(Subscription.SubscriptionState.Canceled);
             Assert.IsTrue(list.Count > 0);
 
             p.Deactivate();
@@ -208,7 +208,7 @@ namespace Recurly.Test
                 Thread.Sleep(1);
             }
 
-            SubscriptionList list = SubscriptionList.GetSubscriptions(Subscription.SubstriptionState.past_due);
+            SubscriptionList list = SubscriptionList.GetSubscriptions(Subscription.SubscriptionState.PastDue);
             Assert.IsTrue(list.Count > 0);
 
             p.Deactivate();
@@ -241,7 +241,7 @@ namespace Recurly.Test
             Subscription sub2 = new Subscription(acct, p2, "USD");
             sub2.Create();
 
-            SubscriptionList list = acct.GetSubscriptions(Subscription.SubstriptionState.all);
+            SubscriptionList list = acct.GetSubscriptions(Subscription.SubscriptionState.All);
             Assert.IsTrue(list.Count > 0);
 
             p.Deactivate();

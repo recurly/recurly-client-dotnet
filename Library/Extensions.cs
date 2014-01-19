@@ -1,21 +1,38 @@
 ﻿using System.Globalization;
 using System.Xml;
+using AccountState = Recurly.Account.AccountState;
+using SubscriptionState = Recurly.Subscription.SubscriptionState;
 
 namespace Recurly
 {
     public static class EnumExtensions
     {
-        public static bool Is(this Account.AccountState source, Account.AccountState target)
+        public static bool Is(this AccountState source, AccountState target)
         {
             return (source & target) == target;
         }
 
-        public static Account.AccountState Remove(this Account.AccountState source, Account.AccountState target)
+        public static AccountState Remove(this AccountState source, AccountState target)
         {
             return source.Is(target) ? source ^ target : source;
         }
 
-        public static Account.AccountState Add(this Account.AccountState source, Account.AccountState target)
+        public static AccountState Add(this AccountState source, AccountState target)
+        {
+            return source | target;
+        }
+
+        public static bool Is(this SubscriptionState source, SubscriptionState target)
+        {
+            return (source & target) == target;
+        }
+
+        public static SubscriptionState Remove(this SubscriptionState source, SubscriptionState target)
+        {
+            return source.Is(target) ? source ^ target : source;
+        }
+
+        public static SubscriptionState Add(this SubscriptionState source, SubscriptionState target)
         {
             return source | target;
         }
