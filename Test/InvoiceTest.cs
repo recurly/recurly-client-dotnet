@@ -61,7 +61,7 @@ namespace Recurly.Test
 
             Invoice i = acct.InvoicePendingCharges();
 
-            Assert.AreEqual(i.State, Invoice.InvoiceState.open);
+            Assert.AreEqual(i.State, Invoice.InvoiceState.Open);
             Assert.AreEqual(i.TotalInCents, 7500);
         }
 
@@ -80,7 +80,7 @@ namespace Recurly.Test
 
             i.MarkSuccessful();
 
-            Assert.AreEqual(i.State, Invoice.InvoiceState.collected);
+            Assert.AreEqual(i.State, Invoice.InvoiceState.Collected);
 
         }
 
@@ -97,7 +97,7 @@ namespace Recurly.Test
 
             i.MarkFailed();
 
-            Assert.AreEqual(i.State, Invoice.InvoiceState.failed);
+            Assert.AreEqual(i.State, Invoice.InvoiceState.Failed);
         }
 
 
