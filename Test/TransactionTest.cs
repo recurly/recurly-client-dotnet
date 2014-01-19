@@ -91,7 +91,7 @@ namespace Recurly.Test
 
             t.Refund();
 
-            Assert.AreEqual(t.Status, Transaction.TransactionState.voided);
+            Assert.AreEqual(t.Status, Transaction.TransactionState.Voided);
 
         }
 
