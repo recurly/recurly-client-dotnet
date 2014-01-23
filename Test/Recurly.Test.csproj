@@ -70,6 +70,7 @@
     <Compile Include="CouponTest.cs" />
     <Compile Include="ExtensionTest.cs" />
     <Compile Include="Factories.cs" />
+    <Compile Include="SettingsFixture.cs" />
     <Compile Include="InvoiceTest.cs" />
     <Compile Include="List\AccountListTest.cs" />
     <Compile Include="List\InvoiceListTest.cs" />
