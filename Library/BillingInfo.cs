@@ -103,7 +103,7 @@ namespace Recurly
         {
             var billingInfo = new BillingInfo();
 
-            var statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
                 BillingInfoUrl(accountCode),
                 billingInfo.ReadXml);
 
@@ -123,7 +123,7 @@ namespace Recurly
         /// </summary>
         public void Update()
         {
-            Client.PerformRequest(Client.HttpRequestMethod.Put,
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
                 BillingInfoUrl(AccountCode),
                 WriteXml,
                 ReadXml);

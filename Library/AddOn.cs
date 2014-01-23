@@ -7,7 +7,7 @@ namespace Recurly
     public class AddOn
     {
 
-        public string PlanCode {get; private set; }
+        public string PlanCode { get; private set; }
         public string AddOnCode { get; set; }
         public string Name { get; set; }
 
@@ -48,7 +48,7 @@ namespace Recurly
         /// </summary>
         public void Create()
         {
-            Client.PerformRequest(Client.HttpRequestMethod.Post,
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 UrlPrefix + Uri.EscapeUriString(PlanCode) + UrlPostfix + Uri.EscapeUriString(AddOnCode),
                 WriteXml,
                 ReadXml);
@@ -59,7 +59,7 @@ namespace Recurly
         /// </summary>
         public void Update()
         {
-            Client.PerformRequest(Client.HttpRequestMethod.Put,
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
                 UrlPrefix + Uri.EscapeUriString(PlanCode) + UrlPostfix + Uri.EscapeUriString(AddOnCode),
                 WriteXml,
                 ReadXml);
@@ -70,7 +70,7 @@ namespace Recurly
         /// </summary>
         public void Deactivate()
         {
-            Client.PerformRequest(Client.HttpRequestMethod.Delete,
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Delete,
                 UrlPrefix + Uri.EscapeUriString(PlanCode) + UrlPostfix + Uri.EscapeUriString(AddOnCode));
         }
         

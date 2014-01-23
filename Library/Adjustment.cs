@@ -81,7 +81,7 @@ namespace Recurly
         public void Create()
         {
             // POST /accounts/<account code>/adjustments
-            Client.PerformRequest(Client.HttpRequestMethod.Post,
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 UrlPrefix + Uri.EscapeUriString(AccountCode) + UrlPostfix,
                 WriteXml,
                 ReadXml);
@@ -95,7 +95,7 @@ namespace Recurly
         public void Delete()
         {
             // DELETE /adjustments/<uuid>
-            Client.PerformRequest(Client.HttpRequestMethod.Delete,
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Delete,
                 UrlPostfix + Uri.EscapeUriString(Uuid));
         }
 

@@ -110,7 +110,7 @@ namespace Recurly
         {
             var account = new Account();
             // GET /accounts/<account code>
-            var statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
                 UrlPrefix + Uri.EscapeUriString(accountCode),
                 account.ReadXml);
 
@@ -123,7 +123,7 @@ namespace Recurly
         /// </summary>
         public void ClearBillingInfo()
         {
-            Client.PerformRequest(Client.HttpRequestMethod.Delete,
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Delete,
                 UrlPrefix + Uri.EscapeUriString(AccountCode) + "/billing_info");
             _billingInfo = null;
         }
@@ -136,7 +136,7 @@ namespace Recurly
         public void Create()
         {
             // POST /accounts
-            Client.PerformRequest(Client.HttpRequestMethod.Post, UrlPrefix, WriteXml, ReadXml);
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Post, UrlPrefix, WriteXml, ReadXml);
         }
 
         /// <summary>
@@ -145,7 +145,7 @@ namespace Recurly
         public void Update()
         {
             // PUT /accounts/<account code>
-            Client.PerformRequest(Client.HttpRequestMethod.Put,
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
                 UrlPrefix + Uri.EscapeUriString(AccountCode),
                 WriteXml);
         }
@@ -171,7 +171,7 @@ namespace Recurly
         public static void Close(string accountCode)
         {
             // DELETE /accounts/<account code>
-            Client.PerformRequest(Client.HttpRequestMethod.Delete,
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Delete,
                 UrlPrefix + Uri.EscapeUriString(accountCode));
         }
 
@@ -194,7 +194,7 @@ namespace Recurly
         public static void Reopen(string accountCode)
         {
             // PUT /accounts/<account code>/reopen
-            Client.PerformRequest(Client.HttpRequestMethod.Put,
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
                 UrlPrefix + Uri.EscapeUriString(accountCode) + "/reopen");
         }
 
@@ -207,7 +207,7 @@ namespace Recurly
         public Invoice InvoicePendingCharges()
         {
             var i = new Invoice();
-            Client.PerformRequest(Client.HttpRequestMethod.Post,
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 UrlPrefix + Uri.EscapeUriString(AccountCode) + "/invoices",
                 i.ReadXml);
 
@@ -225,7 +225,7 @@ namespace Recurly
             Adjustment.AdjustmentState state = Adjustment.AdjustmentState.Any)
         {
             var adjustments = new AdjustmentList();
-            var statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
                 UrlPrefix + Uri.EscapeUriString(AccountCode) + "/adjustments/?"
                 + (Adjustment.AdjustmentState.Any == state ? "" : "state=" + state)
                 + (Adjustment.AdjustmentType.All == type ? "" : "&type=" + type)
@@ -305,7 +305,7 @@ namespace Recurly
         {
             var cr = new CouponRedemption();
             
-            var statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
                 UrlPrefix + Uri.EscapeUriString(AccountCode) + "/redemption",
                 cr.ReadXml);
 

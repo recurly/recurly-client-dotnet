@@ -107,7 +107,7 @@ namespace Recurly
         {
             var transaction = new Transaction();
 
-            HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
+            HttpStatusCode statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
                 UrlPrefix + Uri.EscapeUriString(transactionId),
                 transaction.ReadXml);
 
@@ -119,7 +119,7 @@ namespace Recurly
         /// </summary>
         public void Create()
         {
-             Client.PerformRequest(Client.HttpRequestMethod.Post,
+             Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 UrlPrefix,
                 WriteXml,
                 ReadXml);
@@ -133,7 +133,7 @@ namespace Recurly
         /// <param name="refund">If present, the amount to refund. Otherwise it is a full refund.</param>
         public void Refund(int? refund = null)
         {
-            Client.PerformRequest(Client.HttpRequestMethod.Delete,
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Delete,
                 UrlPrefix + Uri.EscapeUriString(Uuid) + (refund.HasValue ? "?amount_in_cents=" + refund.Value : ""),
                 ReadXml);
         }

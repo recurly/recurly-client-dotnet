@@ -18,24 +18,23 @@ namespace Recurly
     /// </summary>
     internal class Client
     {
-        // TODO update for multi-tenancy. Currently, is hardcoded to test server, ignores configuration. // done 1/17/14
-
         // refactored all these settings for increased testability
+        public Settings Settings { get; protected set; }
 
-        public static Settings Settings { get; protected set; }
-
-        static Client()
+        private static Client _instance;
+        internal static Client Instance
         {
-            Settings = Settings.Instance;
+            get { return _instance ?? (_instance = new Client(Settings.Instance)); }
         }
 
-        private Client()
+        private Client(Settings settings)
         {
+            Settings = settings;
         }
 
-        internal static void ApplySettings(Settings newSettings)
+        internal static void ChangeInstance(Client client)
         {
-            Settings = newSettings;
+            _instance = client;
         }
 
         public enum HttpRequestMethod
@@ -79,37 +78,37 @@ namespace Recurly
         public delegate void WriteXmlDelegate(XmlTextWriter xmlWriter);
 
 
-        public static HttpStatusCode PerformRequest(HttpRequestMethod method, string urlPath)
+        public HttpStatusCode PerformRequest(HttpRequestMethod method, string urlPath)
         {
             return PerformRequest(method, urlPath, null, null, null);
         }
 
-        public static HttpStatusCode PerformRequest(HttpRequestMethod method, string urlPath,
+        public HttpStatusCode PerformRequest(HttpRequestMethod method, string urlPath,
             ReadXmlDelegate readXmlDelegate)
         {
             return PerformRequest(method, urlPath, null, readXmlDelegate, null);
         }
 
 
-        public static HttpStatusCode PerformRequest(HttpRequestMethod method, string urlPath,
+        public HttpStatusCode PerformRequest(HttpRequestMethod method, string urlPath,
             WriteXmlDelegate writeXmlDelegate)
         {
             return PerformRequest(method, urlPath, writeXmlDelegate, null, null);
         }
 
-        public static HttpStatusCode PerformRequest(HttpRequestMethod method, string urlPath,
+        public HttpStatusCode PerformRequest(HttpRequestMethod method, string urlPath,
             WriteXmlDelegate writeXmlDelegate, ReadXmlDelegate readXmlDelegate)
         {
             return PerformRequest(method, urlPath, writeXmlDelegate, readXmlDelegate, null);
         }
 
-        public static HttpStatusCode PerformRequest(HttpRequestMethod method, string urlPath,
+        public HttpStatusCode PerformRequest(HttpRequestMethod method, string urlPath,
             ReadXmlListDelegate readXmlListDelegate)
         {
             return PerformRequest(method, urlPath, null, null, readXmlListDelegate);
         }
 
-        public static HttpStatusCode PerformRequest(HttpRequestMethod method, string urlPath,
+        protected virtual HttpStatusCode PerformRequest(HttpRequestMethod method, string urlPath,
             WriteXmlDelegate writeXmlDelegate, ReadXmlDelegate readXmlDelegate, ReadXmlListDelegate readXmlListDelegate)
         {
             var url = Settings.GetServerUri(urlPath);
@@ -212,7 +211,7 @@ namespace Recurly
         /// <param name="acceptType"></param>
         /// <param name="acceptLanguage"></param>
         /// <returns></returns>
-        public static byte[] PerformDownloadRequest(string urlPath, string acceptType, string acceptLanguage)
+        public virtual byte[] PerformDownloadRequest(string urlPath, string acceptType, string acceptLanguage)
         {
             var url = Settings.GetServerUri(urlPath);
 
@@ -299,7 +298,7 @@ namespace Recurly
             }
         }
 
-        private static void ReadWebResponse(HttpWebResponse response, ReadXmlDelegate readXmlDelegate, ReadXmlListDelegate readXmlListDelegate)
+        protected virtual void ReadWebResponse(HttpWebResponse response, ReadXmlDelegate readXmlDelegate, ReadXmlListDelegate readXmlListDelegate)
         {
             if (readXmlDelegate == null && readXmlListDelegate == null) return;
 #if (DEBUG)
@@ -387,7 +386,7 @@ namespace Recurly
 #endif
         }
 
-        private static void WritePostParameters(Stream outputStream, WriteXmlDelegate writeXmlDelegate)
+        protected virtual void WritePostParameters(Stream outputStream, WriteXmlDelegate writeXmlDelegate)
         {
             using (var xmlWriter = new XmlTextWriter(outputStream, Encoding.UTF8))
             {
@@ -416,8 +415,7 @@ namespace Recurly
 
         }
 
-
-        private static MemoryStream CopyAndClose(Stream inputStream)
+        protected virtual MemoryStream CopyAndClose(Stream inputStream)
         {
             const int readSize = 256;
             var buffer = new byte[readSize];
@@ -435,5 +433,4 @@ namespace Recurly
         }
 
     }
-
 }

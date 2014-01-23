@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Xml;
 
-
 namespace Recurly
 {
     /// <summary>
@@ -42,7 +41,7 @@ namespace Recurly
         {
             var cr = new CouponRedemption {AccountCode = accountCode, Currency = currency};
 
-            var statusCode = Client.PerformRequest(Client.HttpRequestMethod.Post,
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                "/coupons/" + Uri.EscapeUriString(couponCode) + "/redeem",
                cr.WriteXml,
                cr.ReadXml);
@@ -56,7 +55,7 @@ namespace Recurly
         /// </summary>
         public void Delete()
         {
-            var statusCode = Client.PerformRequest(Client.HttpRequestMethod.Delete,
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Delete,
                 "/accounts/" + Uri.EscapeUriString(AccountCode) + "/redemption" );
             AccountCode = null;
             CouponCode = null;
