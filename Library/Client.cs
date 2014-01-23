@@ -27,7 +27,7 @@ namespace Recurly
             get { return _instance ?? (_instance = new Client(Settings.Instance)); }
         }
 
-        private Client(Settings settings)
+        protected Client(Settings settings)
         {
             Settings = settings;
         }
