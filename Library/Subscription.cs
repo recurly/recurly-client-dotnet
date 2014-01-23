@@ -213,7 +213,7 @@ namespace Recurly
         public static Subscription Get(string uuid)
         {
             var s = new Subscription();
-            var statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
                 UrlPrefix + Uri.EscapeUriString(uuid),
                 s.ReadXml);
 
@@ -223,7 +223,7 @@ namespace Recurly
 
         public void Create()
         {
-            Client.PerformRequest(Client.HttpRequestMethod.Post,
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 UrlPrefix,
                 WriteSubscriptionXml,
                 ReadXml);
@@ -242,7 +242,7 @@ namespace Recurly
             else
                 writeXmlDelegate = WriteChangeSubscriptionAtRenewalXml;
 
-            Client.PerformRequest(Client.HttpRequestMethod.Put,
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
                 UrlPrefix + Uri.EscapeUriString(Uuid),
                 writeXmlDelegate,
                 ReadXml);
@@ -255,7 +255,7 @@ namespace Recurly
         /// <param name="accountCode">Subscriber's Account Code</param>
         public void Cancel()
         {
-            Client.PerformRequest(Client.HttpRequestMethod.Put,
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
                 UrlPrefix + Uri.EscapeUriString(Uuid) + "/cancel",
                 ReadXml);
         }
@@ -266,7 +266,7 @@ namespace Recurly
         /// <param name="accountCode">Subscriber's Account Code</param>
         public void Reactivate()
         {
-            Client.PerformRequest(Client.HttpRequestMethod.Put,
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
                 UrlPrefix + Uri.EscapeUriString(Uuid) + "/reactivate",
                 ReadXml);
         }
@@ -277,7 +277,7 @@ namespace Recurly
         /// <param name="nextRenewalDate"></param>
         public void Terminate(RefundType refund)
         {
-            Client.PerformRequest(Client.HttpRequestMethod.Put,
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
                 UrlPrefix + Uri.EscapeUriString(Uuid) + "/terminate?refund=" + refund,
                 ReadXml);
         }
@@ -288,7 +288,7 @@ namespace Recurly
         /// <param name="nextRenewalDate"></param>
         public void Postpone(DateTime nextRenewalDate)
         {
-            Client.PerformRequest(Client.HttpRequestMethod.Put,
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
                 UrlPrefix + Uri.EscapeUriString(Uuid) + "/postpone?next_renewal_date=" + nextRenewalDate.ToString("yyyy-MM-dd"),
                 ReadXml);
         }

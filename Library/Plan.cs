@@ -89,7 +89,7 @@ namespace Recurly
         {
             var plan = new Plan();
 
-            var statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
                 UrlPrefix + Uri.EscapeUriString(planCode),
                 plan.ReadXml);
 
@@ -101,7 +101,7 @@ namespace Recurly
         /// </summary>
         public void Create()
         {
-            Client.PerformRequest(Client.HttpRequestMethod.Post,
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 UrlPrefix,
                 WriteXml);
         }
@@ -111,7 +111,7 @@ namespace Recurly
         /// </summary>
         public void Update()
         {
-            Client.PerformRequest(Client.HttpRequestMethod.Put,
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
                 UrlPrefix + Uri.EscapeUriString(PlanCode),
                 WriteXml);
         }
@@ -121,7 +121,7 @@ namespace Recurly
         /// </summary>
         public void Deactivate()
         {
-            Client.PerformRequest(Client.HttpRequestMethod.Delete, UrlPrefix + Uri.EscapeUriString(PlanCode));
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Delete, UrlPrefix + Uri.EscapeUriString(PlanCode));
         }
 
 

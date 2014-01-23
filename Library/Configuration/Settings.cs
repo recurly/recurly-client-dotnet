@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
+
+[assembly: InternalsVisibleTo("Recurly.Test")]
 
 namespace Recurly.Configuration
 {
@@ -58,7 +61,7 @@ namespace Recurly.Configuration
             PageSize = Section.Current.PageSize;
         }
 
-        protected Settings(string apiKey, string subdomain, string privateKey, int pageSize)
+        internal Settings(string apiKey, string subdomain, string privateKey, int pageSize)
         {
             ApiKey = apiKey;
             Subdomain = subdomain;

@@ -37,7 +37,7 @@ namespace Recurly
 
         internal void readItems()
         {
-            Client.PerformRequest(_method, _baseUrl + "&per_page=" + Configuration.Section.Current.PageSize +
+            Client.Instance.PerformRequest(_method, _baseUrl + "&per_page=" + Configuration.Section.Current.PageSize +
                     (_cursor != null ? "&cursor=" + _cursor : ""), new Client.ReadXmlListDelegate(this.ReadXmlList));
         }
 

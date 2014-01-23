@@ -1,5 +1,6 @@
 
-*Recurly.Test.config # adding this back
+Test/Recurly.Test.config # adding this back
+Test/SettingsFixture.cs
 
 # Created by http://www.gitignore.io
 

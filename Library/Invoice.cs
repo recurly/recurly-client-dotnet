@@ -53,7 +53,7 @@ namespace Recurly
         {
             var invoice = new Invoice();
 
-            var statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
                 UrlPrefix + invoiceNumber,
                 invoice.ReadXml);
 
@@ -67,7 +67,7 @@ namespace Recurly
         /// <returns></returns>
         public byte[] GetPdf(string acceptLanguage = "en-US")
         {
-            return Client.PerformDownloadRequest(UrlPrefix + InvoiceNumber,
+            return Client.Instance.PerformDownloadRequest(UrlPrefix + InvoiceNumber,
                "application/pdf", acceptLanguage);
         }
 
@@ -76,7 +76,7 @@ namespace Recurly
         /// </summary>
         public void MarkSuccessful()
         {
-            Client.PerformRequest(Client.HttpRequestMethod.Put,
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
                 UrlPrefix + InvoiceNumber + "/mark_successful",
                 ReadXml);
 
@@ -87,7 +87,7 @@ namespace Recurly
         /// </summary>
         public void MarkFailed()
         {
-            Client.PerformRequest(Client.HttpRequestMethod.Put,
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
                UrlPrefix + InvoiceNumber + "/mark_failed",
                ReadXml);
 
@@ -103,7 +103,7 @@ namespace Recurly
         {
             var invoice = new Invoice();
 
-            var statusCode = Client.PerformRequest(Client.HttpRequestMethod.Post,
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 "/accounts/" + Uri.EscapeUriString(accountCode) + UrlPrefix,
                 invoice.ReadXml);
 
@@ -118,7 +118,7 @@ namespace Recurly
         {
             var cr = new CouponRedemption();
 
-            var statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
                 UrlPrefix + InvoiceNumber + "/redemption",
                 cr.ReadXml);
 
