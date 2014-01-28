@@ -1,90 +1,93 @@
-﻿using System.Reflection;
-using NUnit.Framework;
+﻿using System.Net;
+using FluentAssertions;
+using Xunit;
+using Xunit.Extensions;
 using AccountState = Recurly.Account.AccountState;
 
 namespace Recurly.Test
 {
-    [TestFixture]
     public class EnumExtensionTest
     {
         private const string NullString = null;
         private const string EmptyString = "";
 
-        [Test]
-        public void IsDetectsFlagOverlap()
+        [Fact]
+        public void Enum_Is_detects_overlap()
         {
             const AccountState state = AccountState.Active | AccountState.PastDue;
 
-            Assert.IsTrue(state.Is(AccountState.PastDue));
-            Assert.IsTrue(state.Is(AccountState.Active));
-            Assert.IsFalse(state.Is(AccountState.Closed));
+            state.Is(AccountState.PastDue).Should().BeTrue();
+            state.Is(AccountState.Active).Should().BeTrue();
+            state.Is(AccountState.Closed).Should().BeFalse();
         }
 
-        [Test]
-        public void RemoveProperlyRemovesFlags()
+        [Fact]
+        public void Enum_Remove_properly_removes_flags()
         {
             var state = AccountState.Active | AccountState.PastDue;
             state = state.Remove(AccountState.PastDue);
 
-            Assert.IsFalse(state.Is(AccountState.PastDue));
-            Assert.IsTrue(state.Is(AccountState.Active));
-            Assert.IsFalse(state.Is(AccountState.Closed));
+            state.Is(AccountState.PastDue).Should().BeFalse();
+            state.Is(AccountState.Active).Should().BeTrue();
+            state.Is(AccountState.Closed).Should().BeFalse();
         }
 
-        [Test]
-        public void RemoveMatchesBitwiseOperation()
+        [Fact]
+        public void Enum_Remove_matches_bitwise_operation()
         {
             const AccountState bitwise = (AccountState.Closed | AccountState.PastDue) ^ AccountState.PastDue;
             var declarative = (AccountState.Closed | AccountState.PastDue).Remove(AccountState.PastDue);
 
-            Assert.AreEqual(bitwise, declarative);
+            bitwise.Should().Be(declarative);
         }
 
-        [Test]
-        public void AddProperlyAddsFlags()
+        [Fact]
+        public void Enum_Add_properly_adds_flags()
         {
             var state = AccountState.Active;
             state = state.Add(AccountState.PastDue);
 
-            Assert.IsTrue(state.Is(AccountState.PastDue));
-            Assert.IsTrue(state.Is(AccountState.Active));
-            Assert.IsFalse(state.Is(AccountState.Closed));
+            state.Is(AccountState.PastDue).Should().BeTrue();
+            state.Is(AccountState.Active).Should().BeTrue();
+            state.Is(AccountState.Closed).Should().BeFalse();
         }
 
-        [Test]
-        public void AddMatchesBitwiseOperation()
+        [Fact]
+        public void Enum_Add_matches_bitwise_operation()
         {
             const AccountState bitOperation = AccountState.Closed | AccountState.PastDue;
             var declarative = AccountState.Closed.Add(AccountState.PastDue);
 
-            Assert.AreEqual(bitOperation, declarative);
+            bitOperation.Should().Be(declarative);
         }
 
-        [TestCase(NullString, NullString),
-        TestCase(EmptyString, EmptyString),
-        TestCase("maxed_out", "MaxedOut"),
-        TestCase("past_due", "PastDue"),
-        TestCase("all", "All"),
-        TestCase("CLOSED", "Closed"),
-        TestCase("PascalCase", "PascalCase"),
-        TestCase("Notpascalcase", "Notpascalcase"),
-        TestCase("Extra_long_string_WITH_varying_cASE", "ExtraLongStringWithVaryingCase")]
-        public void ToPascalCaseConvertsCorrectly(string input, string expected)
+        [Theory,
+        InlineData(NullString, NullString),
+        InlineData(EmptyString, EmptyString),
+        InlineData("maxed_out", "MaxedOut"),
+        InlineData("past_due", "PastDue"),
+        InlineData("all", "All"),
+        InlineData("CLOSED", "Closed"),
+        InlineData("PascalCase", "PascalCase"),
+        InlineData("Notpascalcase", "Notpascalcase"),
+        InlineData("Extra_long_string_WITH_varying_cASE", "ExtraLongStringWithVaryingCase")]
+        public void ToPascalCase_converts_correctly(string input, string expected)
         {
             var actual = input.ToPascalCase();
-            Assert.AreEqual(expected, actual);
+            actual.Should().Be(expected);
         }
 
-        [TestCase("past_due", AccountState.PastDue),
-        TestCase("active", AccountState.Active)]
-        public void ParseAsEnumParsesAccountStateCorrectly(string toParse, AccountState expected)
+        [Theory,
+        InlineData("past_due", AccountState.PastDue),
+        InlineData("active", AccountState.Active)]
+        public void String_ParseAsEnum_parses_AccountState_correctly(string toParse, AccountState expected)
         {
             var actual = toParse.ParseAsEnum<AccountState>();
-            Assert.AreEqual(expected, actual);
+            actual.Should().Be(expected);
         }
 
-        [Test]
-        public void ParseAsEnumPreservesFlagsParsing()
+        [Fact]
+        public void String_ParseAsEnum_preserves_flags_parsing()
         {
             const AccountState state = AccountState.Active | AccountState.PastDue;
 
@@ -92,7 +95,26 @@ namespace Recurly.Test
 
             var result = stateString.ParseAsEnum<AccountState>();
 
-            Assert.AreEqual(state, result);
+            result.Should().Be(state);
+        }
+
+        [Theory,
+        InlineData(1, TestEnum.One),
+        InlineData(2, TestEnum.Two),
+        InlineData(3, TestEnum.Three),
+        InlineData(200, HttpStatusCode.OK),
+        InlineData(304, HttpStatusCode.NotModified)]
+        public void Int_ParseAsEnum_parses_enums_correctly(int toParse, TestEnum expected)
+        {
+            var actual = toParse.ParseAsEnum<TestEnum>();
+            actual.Should().Be(expected);
+        }
+
+        public enum TestEnum
+        {
+            One = 1,
+            Two = 2,
+            Three
         }
     }
 }
