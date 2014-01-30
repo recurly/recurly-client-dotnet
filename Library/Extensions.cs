@@ -48,6 +48,16 @@ namespace Recurly
             return string.IsNullOrEmpty(source);
         }
 
+        public static bool IsNullOrWhiteSpace(this string source)
+        {
+            return source.SafeTrim().IsNullOrEmpty();
+        }
+
+        public static string SafeTrim(this string source)
+        {
+            return source == null ? null : source.Trim();
+        }
+
         public static T ParseAsEnum<T>(this string source)
         {
             var sanitized = source.ToPascalCase();
@@ -105,6 +115,11 @@ namespace Recurly
         public static string AsString(this int i)
         {
             return i.ToString(CultureInfo.InvariantCulture);
+        }
+
+        public static T ParseAsEnum<T>(this int i)
+        {
+            return (T)Enum.ToObject(typeof (T), i);
         }
     }
 }
