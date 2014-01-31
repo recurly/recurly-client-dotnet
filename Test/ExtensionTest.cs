@@ -1,8 +1,10 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using FluentAssertions;
 using Xunit;
 using Xunit.Extensions;
 using AccountState = Recurly.Account.AccountState;
+using CreditCardType = Recurly.BillingInfo.CreditCardType;
 
 namespace Recurly.Test
 {
@@ -10,6 +12,7 @@ namespace Recurly.Test
     {
         private const string NullString = null;
         private const string EmptyString = "";
+        private const string WhiteSpaceString = "  \n  ";
 
         [Fact]
         public void Enum_Is_detects_overlap()
@@ -78,11 +81,31 @@ namespace Recurly.Test
         }
 
         [Theory,
+        InlineData(NullString),
+        InlineData(EmptyString),
+        InlineData("NotAMember")]
+        public void String_ParseAsEnum_throws_exception_with_invalid_members(string toParse)
+        {
+            Action parse = () => toParse.ParseAsEnum<AccountState>();
+            parse.ShouldThrow<ArgumentException>();
+        }
+
+        [Theory,
         InlineData("past_due", AccountState.PastDue),
         InlineData("active", AccountState.Active)]
+        // TODO add test for BillingInfo.CreditCardType.JCB
         public void String_ParseAsEnum_parses_AccountState_correctly(string toParse, AccountState expected)
         {
             var actual = toParse.ParseAsEnum<AccountState>();
+            actual.Should().Be(expected);
+        }
+
+        [Theory,
+        InlineData("jcb", CreditCardType.JCB),
+        InlineData("master_card", CreditCardType.MasterCard)]
+        public void String_ParseAsEnum_parses_CreditCardType_correctly(string toParse, CreditCardType expected)
+        {
+            var actual = toParse.ParseAsEnum<CreditCardType>();
             actual.Should().Be(expected);
         }
 
@@ -115,6 +138,27 @@ namespace Recurly.Test
             One = 1,
             Two = 2,
             Three
+        }
+
+        [Theory,
+        InlineData(NullString),
+        InlineData(EmptyString),
+        InlineData(WhiteSpaceString)]
+        public void EnumNameToTransportCase_throws_exception_with_null_or_whitespace(string enumName)
+        {
+            Action a = () => enumName.EnumNameToTransportCase();
+            a.ShouldThrow<ArgumentException>();
+        }
+
+        [Theory,
+        InlineData("MaxedOut", "maxed_out"),
+        InlineData("Active", "active"),
+        InlineData("Closed, PastDue", "closed,past_due"),
+        InlineData("JCB", "jcb")]
+        public void EnumNameToTransportCase_should_remove_uppercase_and_add_underscores_at_words(string toConvert, string expected)
+        {
+            var actual = toConvert.EnumNameToTransportCase();
+            actual.Should().Be(expected);
         }
     }
 }
