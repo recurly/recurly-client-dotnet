@@ -93,7 +93,6 @@ namespace Recurly.Test
         [Theory,
         InlineData("past_due", AccountState.PastDue),
         InlineData("active", AccountState.Active)]
-        // TODO add test for BillingInfo.CreditCardType.JCB
         public void String_ParseAsEnum_parses_AccountState_correctly(string toParse, AccountState expected)
         {
             var actual = toParse.ParseAsEnum<AccountState>();
