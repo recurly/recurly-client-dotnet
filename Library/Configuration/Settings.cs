@@ -36,8 +36,6 @@ namespace Recurly.Configuration
             }
         }
 
-
-
         public string GetServerUri(string givenPath)
         {
             if (givenPath.Contains("://"))

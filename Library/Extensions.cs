@@ -204,6 +204,20 @@ namespace Recurly
 
             return result.ToString();
         }
+
+        public static string GetUrlFromLinkHeader(this string linkHeader, string rel)
+        {
+            if (linkHeader.IsNullOrEmpty())
+                throw new ArgumentNullException("linkHeader");
+
+            if(rel.IsNullOrEmpty())
+                throw new ArgumentNullException("rel");
+
+            var regex = new Regex(string.Format("<([^>]+)>; rel=\"{0}\"", rel));
+            var match = regex.Match(linkHeader);
+
+            return match.Success ? match.Groups[1].Value : null;
+        }
     }
 
     public static class XmlWriterExtensions

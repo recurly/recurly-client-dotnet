@@ -159,5 +159,40 @@ namespace Recurly.Test
             var actual = toConvert.EnumNameToTransportCase();
             actual.Should().Be(expected);
         }
+
+        [Theory,
+        InlineData(NullString, NullString),
+        InlineData(EmptyString, EmptyString),
+        InlineData(FullLinkHeader, NullString),
+        InlineData(FullLinkHeader, EmptyString)]
+        public void GetUrlFromLinkHeader_throws_exception_when_passed_null_or_empty(string linkHeader, string name)
+        {
+            Action a = () => linkHeader.GetUrlFromLinkHeader(name);
+            a.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Theory,
+        InlineData(FullLinkHeader, "prev", "https://your-subdomain.recurly.com/v2/transactions?cursor=-1318344434"),
+        InlineData(FullLinkHeader, "next", "https://your-subdomain.recurly.com/v2/transactions?cursor=1318388868"),
+        InlineData(FullLinkHeader, "start", "https://your-subdomain.recurly.com/v2/transactions")]
+        public void GetUrlFromLinkHeader_extracts_correctly(string linkHeader, string name, string expected)
+        {
+            var actual = linkHeader.GetUrlFromLinkHeader(name);
+
+            actual.Should().Be(expected);
+        }
+
+        [Fact]
+        public void GetUrlFromLinkHeader_returns_null_when_name_is_not_found()
+        {
+            var actual = LinkHeaderOnlyNext.GetUrlFromLinkHeader("prev");
+            actual.Should().BeNull();
+        }
+
+        public const string FullLinkHeader = @"<https://your-subdomain.recurly.com/v2/transactions>; rel=""start"",
+  <https://your-subdomain.recurly.com/v2/transactions?cursor=-1318344434>; rel=""prev"",
+  <https://your-subdomain.recurly.com/v2/transactions?cursor=1318388868>; rel=""next""";
+  
+        public const string LinkHeaderOnlyNext = "<https://your-subdomain.recurly.com/v2/transactions?cursor=1318388868>; rel=\"next\"";
     }
 }

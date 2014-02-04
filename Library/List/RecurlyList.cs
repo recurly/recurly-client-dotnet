@@ -1,145 +1,79 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 using System.Xml;
-using System.Collections;
+using Recurly.Configuration;
+using HttpRequestMethod = Recurly.Client.HttpRequestMethod;
 
 namespace Recurly
 {
-    /// <summary>
-    /// A base class that handles paged results from Recurly's API.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public abstract class RecurlyList<T> : IEnumerator<T>
+    public abstract class RecurlyList<T> : IEnumerable<T>
     {
+        protected List<T> Items;
+        internal HttpRequestMethod Method;
+        protected string BaseUrl;
+        protected string StartUrl;
+        protected string NextUrl;
+        protected string PrevUrl;
 
-       
-        protected List<T> _items;
-        protected string _cursor;
-        protected int _records;
-        protected int _currentPosition = 0;
-        protected T _current;
-        protected string _baseUrl;
-
-        internal Client.HttpRequestMethod _method;
-
-        internal RecurlyList() {}
-
-        internal RecurlyList(Client.HttpRequestMethod method, String baseUrl)
+        public int Count
         {
-            this._baseUrl = baseUrl;
-            this._method = method;
+            get { return Items.Count; }
+        }
 
-            this.readItems();
+        public int Capacity { get; protected set; }
+
+        internal RecurlyList(HttpRequestMethod method, string url)
+        {
+            Method = method;
+            BaseUrl = url;
+
+            GetItems();
+        }
+
+        protected void GetItems()
+        {
+            Client.Instance.PerformRequest(Method,
+                BaseUrl + "&per_page=" + Settings.Instance.PageSize,
+                ReadXmlListDelegate);
+        }
+
+        protected void ReadXmlListDelegate(XmlTextReader xmlReader, int records, string start, string next, string prev)
+        {
+            if (Items == null)
+            {
+                Items = records > 0 ? new List<T>(records) : new List<T>();
+            }
+            Capacity = records;
+            StartUrl = start;
+            NextUrl = next;
+            PrevUrl = prev;
+            ReadXml(xmlReader);
         }
 
         internal abstract void ReadXml(XmlTextReader reader);
 
-        internal void readItems()
+        protected void Add(T item)
         {
-            Client.Instance.PerformRequest(_method, _baseUrl + "&per_page=" + Configuration.Section.Current.PageSize +
-                    (_cursor != null ? "&cursor=" + _cursor : ""), new Client.ReadXmlListDelegate(this.ReadXmlList));
-        }
-
-        internal void ReadXmlList(XmlTextReader reader, int records, string cursor)
-        {
-            if (null == _items)
+            if (Items == null)
             {
-                if (records > 0)
-                    _items = new List<T>(records);
-                else
-                    _items = new List<T>();
-                this._records = records;
-            }
-            this._cursor = cursor;
-            this.ReadXml(reader);
-        }
-
-        void IDisposable.Dispose() { }
-
-
-        internal void Add(T item)
-        {
-            if (null == _items)
-            {
-
-                _items = new List<T>();
+                Items = new List<T>();
             }
 
-            _items.Add(item);
-        }
-
-        public void Reset()
-        {
-            _currentPosition = 0;
-        }
-
-        public bool MoveNext()
-        {
-            if (++_currentPosition >= _records)
-            {
-                return false;
-            }
-            else
-            {
-                while (_currentPosition > _items.Count)
-                {
-                    readItems();
-                }
-                _current = _items[_currentPosition];
-            }
-            return true;
-        }
-
-        public int Count
-        {
-            get { return _records; }
-        }
-
-        public int Capacity
-        {
-            get { return Configuration.Section.Current.PageSize; }
-        }
-
-        public T this[int i]
-        {
-            get
-            {
-                while (i > _items.Count)
-                {
-                    readItems();
-                }
-                return _items[i];
-            }
-            set
-            {
-                throw new NotSupportedException("This list is read only.");
-            }
-
-        }
-
-        public T Current
-        {
-            get { return _current; }
-        }
-
-        object IEnumerator.Current
-        {
-            get { return _current; }
+            Items.Add(item);
         }
 
         public IEnumerator<T> GetEnumerator()
         {
-            while (_currentPosition < _records)
-            {
-                if (_currentPosition > _items.Count)
-                {
-                    readItems();
-                }
-                yield return _items[_currentPosition];
-                _currentPosition++;
-            }
+            return Items.GetEnumerator();
         }
 
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public abstract RecurlyList<T> Start { get; }
+        public abstract RecurlyList<T> Next { get; }
+        public abstract RecurlyList<T> Prev { get; }
     }
 }

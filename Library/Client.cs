@@ -68,8 +68,7 @@ namespace Recurly
         /// </summary>
         /// <param name="xmlReader"></param>
         /// <param name="records"></param>
-        /// <param name="cursor"></param>
-        public delegate void ReadXmlListDelegate(XmlTextReader xmlReader, int records, string cursor);
+        public delegate void ReadXmlListDelegate(XmlTextReader xmlReader, int records, string start, string next, string prev);
 
         /// <summary>
         /// Delegate to write the XML request to the server.
@@ -319,66 +318,60 @@ namespace Recurly
                 // Check for pagination
                 var records = -1;
                 var cursor = string.Empty;
+                string start = null;
+                string next = null;
+                string prev = null;
 
                 if (null != response.Headers["X-Records"])
                 {
                     Int32.TryParse(response.Headers["X-Records"], out records);
                 }
 
-                if (null != response.Headers["Link"])
+                var link = response.Headers["Link"];
+
+                if (!link.IsNullOrEmpty())
                 {
-                    var regex = new Regex("<([^>]+)>; rel=\"next\"");
-                    var match = regex.Match(response.Headers["Link"]);
-
-                    if (match.Success)
-                    {
-                        var u = new Uri(match.Groups[1].Value);
-                        var queryString = HttpUtility.ParseQueryString(u.Query);
-                        if (null != queryString["cursor"])
-                            cursor = queryString["cursor"];
-                    }
-
+                    start = link.GetUrlFromLinkHeader("start");
+                    next = link.GetUrlFromLinkHeader("next");
+                    prev = link.GetUrlFromLinkHeader("prev");
                 }
 
                 if (records >= 0)
-                    readXmlListDelegate(xmlReader, records, cursor);
+                    readXmlListDelegate(xmlReader, records, start, next, prev);
                 else
                     readXmlDelegate(xmlReader);
             }
 
 #else
 
-            using (var responseStream = response.GetResponseStream())
+            using(var responseStream = response.GetResponseStream())
             {
 
-                using (var xmlReader = new XmlTextReader(responseStream))
+                using(var xmlReader = new XmlTextReader(responseStream))
                 {
                     // Check for pagination
-                    int records = 0;
-                    string cursor = string.Empty;
+                    var records = -1;
+                    var cursor = string.Empty;
+                    string start = null;
+                    string next = null;
+                    string prev = null;
 
                     if (null != response.Headers["X-Records"])
                     {
                         Int32.TryParse(response.Headers["X-Records"], out records);
                     }
 
-                    if (null != response.Headers["Link"])
+                    var link = response.Headers["Link"];
+
+                    if (!link.IsNullOrEmpty())
                     {
-                        var regex = new Regex("<([^>]+)>; rel=\"next\"");
-                        var match = regex.Match(response.Headers["Link"]);
-
-                        if (match.Success)
-                        {
-                            var u = new Uri(match.Groups[1].Value);
-                            var queryString = HttpUtility.ParseQueryString(u.Query);
-                            if (null != queryString["cursor"])
-                                cursor = queryString["cursor"];
-                        }
-
+                        start = link.GetUrlFromLinkHeader("start");
+                        next = link.GetUrlFromLinkHeader("next");
+                        prev = link.GetUrlFromLinkHeader("prev");
                     }
 
-                    if (records > 0)
-                        readXmlListDelegate(xmlReader, records, cursor);
+                    if (records >= 0)
+                        readXmlListDelegate(xmlReader, records, start, next, prev);
                     else
                         readXmlDelegate(xmlReader);
                 }

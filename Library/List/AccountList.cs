@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Xml;
-using System.Net;
+﻿using System.Xml;
 
 namespace Recurly
 {
@@ -25,10 +21,25 @@ namespace Recurly
 
                 if (reader.NodeType == XmlNodeType.Element && reader.Name.Equals("account"))
                 {
-                    this.Add(new Account(reader));
+                    Add(new Account(reader));
                 }
             }
 
+        }
+
+        public override RecurlyList<Account> Start
+        {
+            get { return new AccountList(StartUrl); }
+        }
+
+        public override RecurlyList<Account> Next
+        {
+            get { return new AccountList(NextUrl); }
+        }
+
+        public override RecurlyList<Account> Prev
+        {
+            get { return new AccountList(PrevUrl); }
         }
 
         /// <summary>
@@ -36,9 +47,9 @@ namespace Recurly
         /// </summary>
         /// <param name="state">Account state to retrieve</param>
         /// <returns></returns>
-        public static AccountList List(Recurly.Account.AccountState state = Recurly.Account.AccountState.Active )
+        public static AccountList List(Account.AccountState state = Account.AccountState.Active )
         {
-            return new AccountList( Account.UrlPrefix + "?state=" + state.ToString() );
+            return new AccountList(Account.UrlPrefix + "?state=" + state.ToString().EnumNameToTransportCase());
         }
 
     }
