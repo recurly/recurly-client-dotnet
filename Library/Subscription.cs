@@ -278,7 +278,7 @@ namespace Recurly
         public void Terminate(RefundType refund)
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
-                UrlPrefix + Uri.EscapeUriString(Uuid) + "/terminate?refund=" + refund,
+                UrlPrefix + Uri.EscapeUriString(Uuid) + "/terminate?refund=" + refund.ToString().EnumNameToTransportCase(),
                 ReadXml);
         }
 
@@ -501,7 +501,7 @@ namespace Recurly
         {
             xmlWriter.WriteStartElement("subscription"); // Start: subscription
 
-            xmlWriter.WriteElementString("timeframe", timeframe.ToString());
+            xmlWriter.WriteElementString("timeframe", timeframe.ToString().EnumNameToTransportCase());
             xmlWriter.WriteElementString("quantity", Quantity.AsString());
 
             xmlWriter.WriteStringIfValid("plan_code", _planCode);

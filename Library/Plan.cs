@@ -273,12 +273,12 @@ namespace Recurly
             xmlWriter.WriteStringIfValid("accounting_code", AccountingCode);
             if (PlanIntervalLength > 0)
             {
-                xmlWriter.WriteElementString("plan_interval_unit", PlanIntervalUnit.ToString());
+                xmlWriter.WriteElementString("plan_interval_unit", PlanIntervalUnit.ToString().EnumNameToTransportCase());
                 xmlWriter.WriteElementString("plan_interval_length", PlanIntervalLength.AsString());
             }
             if (TrialIntervalLength > 0)
             {
-                xmlWriter.WriteElementString("trial_interval_unit", TrialIntervalUnit.ToString());
+                xmlWriter.WriteElementString("trial_interval_unit", TrialIntervalUnit.ToString().EnumNameToTransportCase());
                 xmlWriter.WriteElementString("trial_interval_length", TrialIntervalLength.AsString());
             }
             if (null !=  SetupFeeInCents &&  _setupFeeInCents.Count > 0)

@@ -8,7 +8,7 @@ using CreditCardType = Recurly.BillingInfo.CreditCardType;
 
 namespace Recurly.Test
 {
-    public class EnumExtensionTest
+    public class ExtensionTest
     {
         private const string NullString = null;
         private const string EmptyString = "";

@@ -133,7 +133,8 @@ namespace Recurly
         /// </summary>
         public void Deactivate()
         {
-            Client.Instance.PerformRequest(Client.HttpRequestMethod.Delete, UrlPrefix + System.Uri.EscapeUriString(this.CouponCode));
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Delete,
+                UrlPrefix + Uri.EscapeUriString(CouponCode));
         }
 
 
@@ -259,15 +260,15 @@ namespace Recurly
                 xmlWriter.WriteElementString("redeem_by_date", RedeemByDate.Value.ToString("s"));
 
             if (SingleUse.HasValue)
-                xmlWriter.WriteElementString("single_use", this.SingleUse.Value.ToString());
+                xmlWriter.WriteElementString("single_use", SingleUse.Value.ToString());
 
             if (AppliesForMonths.HasValue)
-                xmlWriter.WriteElementString("applies_for_months", AppliesForMonths.Value.ToString());
+                xmlWriter.WriteElementString("applies_for_months", AppliesForMonths.Value.AsString());
 
             if (AppliesToAllPlans.HasValue)
                 xmlWriter.WriteElementString("applies_to_all_plans", AppliesToAllPlans.Value.ToString());
 
-            xmlWriter.WriteElementString("discount_type", DiscountType.ToString().ToLower());
+            xmlWriter.WriteElementString("discount_type", DiscountType.ToString().EnumNameToTransportCase());
 
             if (CouponDiscountType.Percent == DiscountType && DiscountPercent.HasValue)
                 xmlWriter.WriteElementString("discount_percent", DiscountPercent.Value.AsString());

@@ -227,8 +227,8 @@ namespace Recurly
             var adjustments = new AdjustmentList();
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
                 UrlPrefix + Uri.EscapeUriString(AccountCode) + "/adjustments/?"
-                + (Adjustment.AdjustmentState.Any == state ? "" : "state=" + state)
-                + (Adjustment.AdjustmentType.All == type ? "" : "&type=" + type)
+                + (Adjustment.AdjustmentState.Any == state ? "" : "state=" + state.ToString().EnumNameToTransportCase())
+                + (Adjustment.AdjustmentType.All == type ? "" : "&type=" + type.ToString().EnumNameToTransportCase())
                 , adjustments.ReadXmlList);
 
             return statusCode == HttpStatusCode.NotFound ? null : adjustments;
@@ -253,7 +253,7 @@ namespace Recurly
         public SubscriptionList GetSubscriptions(Subscription.SubscriptionState state = Subscription.SubscriptionState.All)
         {
             return new SubscriptionList(UrlPrefix + Uri.EscapeUriString(AccountCode) + "/subscriptions/"
-                + (state.Equals(Subscription.SubscriptionState.All) ? "" :  "?state=" + state));
+                + (state.Equals(Subscription.SubscriptionState.All) ? "" :  "?state=" + state.ToString().EnumNameToTransportCase()));
         }
 
 

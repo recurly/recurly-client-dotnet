@@ -79,6 +79,7 @@
     <Compile Include="BillingInfoTest.cs" />
     <Compile Include="CouponRedemptionTest.cs" />
     <Compile Include="CouponTest.cs" />
+    <Compile Include="EnumTest.cs" />
     <Compile Include="ExtensionTest.cs" />
     <Compile Include="Factories.cs" />
     <Compile Include="FixtureImporterTests.cs" />

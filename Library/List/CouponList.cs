@@ -38,7 +38,7 @@ namespace Recurly
         /// <returns></returns>
         public static CouponList List(Coupon.CouponState state = Coupon.CouponState.All)
         {
-            return new CouponList(Coupon.UrlPrefix + (state != Coupon.CouponState.All ? "?state=" + state.ToString() : ""));
+            return new CouponList(Coupon.UrlPrefix + (state != Coupon.CouponState.All ? "?state=" + state.ToString().EnumNameToTransportCase() : ""));
 
         }
 

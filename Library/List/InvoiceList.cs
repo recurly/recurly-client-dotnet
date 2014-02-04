@@ -44,7 +44,7 @@ namespace Recurly
 
         public static InvoiceList GetInvoices(Invoice.InvoiceState state)
         {
-            return new InvoiceList(Invoice.UrlPrefix + "?state=" + state.ToString());
+            return new InvoiceList(Invoice.UrlPrefix + "?state=" + state.ToString().EnumNameToTransportCase());
         }
     }
 

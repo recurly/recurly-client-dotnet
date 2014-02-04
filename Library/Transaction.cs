@@ -247,7 +247,7 @@ namespace Recurly
         {
             xmlWriter.WriteStartElement("transaction");
 
-            xmlWriter.WriteElementString("amount_in_cents", AmountInCents.ToString());
+            xmlWriter.WriteElementString("amount_in_cents", AmountInCents.AsString());
             xmlWriter.WriteElementString("currency", Currency);
 
 
