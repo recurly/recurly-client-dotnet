@@ -4,15 +4,12 @@ namespace Recurly
 {
     public class AccountList : RecurlyList<Account>
     {
-
-        internal AccountList(string baseUrl)
-            : base(Client.HttpRequestMethod.Get, baseUrl)
+        internal AccountList(string baseUrl) : base(Client.HttpRequestMethod.Get, baseUrl)
         {
         }
 
         internal override void ReadXml(XmlTextReader reader)
         {
-           
             while (reader.Read())
             {
                 if (reader.Name.Equals("accounts") &&
@@ -51,7 +48,5 @@ namespace Recurly
         {
             return new AccountList(Account.UrlPrefix + "?state=" + state.ToString().EnumNameToTransportCase());
         }
-
     }
-
 }

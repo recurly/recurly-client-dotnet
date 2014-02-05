@@ -1,35 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Xml;
-using System.Net;
+﻿using System.Xml;
 
 namespace Recurly
 {
     public class SubscriptionList : RecurlyList<Subscription>
     {
-
-        internal SubscriptionList(string baseUrl)
-            : base(Client.HttpRequestMethod.Get, baseUrl)
+        internal SubscriptionList(string baseUrl) : base(Client.HttpRequestMethod.Get, baseUrl)
         {
+        }
+
+        public override RecurlyList<Subscription> Start
+        {
+            get { return new SubscriptionList(StartUrl); }
+        }
+
+        public override RecurlyList<Subscription> Next
+        {
+            get { return new SubscriptionList(NextUrl); }
+        }
+
+        public override RecurlyList<Subscription> Prev
+        {
+            get { return new SubscriptionList(PrevUrl); }
         }
 
         internal override void ReadXml(XmlTextReader reader)
         {
             while (reader.Read())
             {
-                if (reader.Name.Equals("subscriptions") &&
-                    reader.NodeType == XmlNodeType.EndElement)
+                if (reader.Name == "subscriptions" && reader.NodeType == XmlNodeType.EndElement)
                     break;
 
-                if (reader.NodeType == XmlNodeType.Element && reader.Name.Equals("subscription"))
+                if (reader.NodeType == XmlNodeType.Element && reader.Name == "subscription")
                 {
-                    this.Add(new Subscription(reader));
+                    Add(new Subscription(reader));
                 }
             }
-
         }
-
 
         /// <summary>
         /// Returns a list of recurly subscriptions
@@ -40,9 +46,7 @@ namespace Recurly
         /// <returns></returns>
         public static SubscriptionList GetSubscriptions(Subscription.SubscriptionState state = Subscription.SubscriptionState.Live)
         {
-            return new SubscriptionList(Subscription.UrlPrefix + "?state=" + System.Uri.EscapeUriString(state.ToString()));
+            return new SubscriptionList(Subscription.UrlPrefix + "?state=" + state.ToString().EnumNameToTransportCase());
         }
-
     }
-
 }

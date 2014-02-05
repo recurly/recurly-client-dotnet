@@ -1,32 +1,40 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Xml;
-using System.Net;
 
 namespace Recurly
 {
     public class AddOnList : RecurlyList<AddOn>
     {
-
         internal override void ReadXml(XmlTextReader reader)
         {
 
             while (reader.Read())
             {
-                if ( (reader.Name.Equals("add_ons") || reader.Name.Equals("subscription_add_ons") ) &&
+                if ((reader.Name =="add_ons" || reader.Name == "subscription_add_ons") &&
                     reader.NodeType == XmlNodeType.EndElement)
                     break;
 
-                if (reader.NodeType == XmlNodeType.Element && reader.Name.Equals("add_on") )
+                if (reader.NodeType == XmlNodeType.Element && reader.Name == "add_on")
                 {
-                    this.Add(new AddOn (reader));
+                    Add(new AddOn(reader));
                 }
             }
-
         }
 
+        public override RecurlyList<AddOn> Start
+        {
+            get { throw new NotImplementedException(); }
+        }
 
+        public override RecurlyList<AddOn> Next
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public override RecurlyList<AddOn> Prev
+        {
+            get { throw new NotImplementedException(); }
+        }
     }
 
 }

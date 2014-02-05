@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Xml;
-using System.Net;
 
 namespace Recurly
 {
@@ -24,30 +21,42 @@ namespace Recurly
             refund
         }
 
-        internal TransactionList() : base() { }
-
-        internal TransactionList(string baseUrl)
-            : base(Client.HttpRequestMethod.Get, baseUrl)
+        internal TransactionList()
         {
+        }
+
+        internal TransactionList(string baseUrl) : base(Client.HttpRequestMethod.Get, baseUrl)
+        {
+        }
+
+        public override RecurlyList<Transaction> Start
+        {
+            get { return new TransactionList(StartUrl); }
+        }
+
+        public override RecurlyList<Transaction> Next
+        {
+            get { return new TransactionList(NextUrl); }
+        }
+
+        public override RecurlyList<Transaction> Prev
+        {
+            get { return new TransactionList(PrevUrl); }
         }
 
         internal override void ReadXml(XmlTextReader reader)
         {
             while (reader.Read())
             {
-                if (reader.Name.Equals("transactions") &&
-                    reader.NodeType == XmlNodeType.EndElement)
+                if (reader.Name == "transactions" && reader.NodeType == XmlNodeType.EndElement)
                     break;
 
-                if (reader.NodeType == XmlNodeType.Element && reader.Name.Equals("transaction"))
+                if (reader.NodeType == XmlNodeType.Element && reader.Name == "transaction")
                 {
-                    this.Add(new Transaction(reader));
+                    Add(new Transaction(reader));
                 }
             }
-
         }
-
-
 
         /// <summary>
         /// Lists transactions by state and type. Defaults to all.
@@ -59,8 +68,8 @@ namespace Recurly
             TransactionType type = TransactionType.all)
         {
             return new TransactionList("/transactions/?" +
-                (state != TransactionState.all ? "state=" + System.Uri.EscapeUriString(state.ToString()) : "")
-                + (type != TransactionType.all ? "&type=" + System.Uri.EscapeUriString(type.ToString()) : "")
+                (state != TransactionState.all ? "state=" + Uri.EscapeUriString(state.ToString()) : "")
+                + (type != TransactionType.all ? "&type=" + Uri.EscapeUriString(type.ToString()) : "")
             );
         }
     }

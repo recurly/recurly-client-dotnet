@@ -1,35 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Xml;
-using System.Net;
+﻿using System.Xml;
 
 namespace Recurly
 {
     public class CouponList : RecurlyList<Coupon>
     {
-        internal CouponList(string baseUrl)
-            : base(Client.HttpRequestMethod.Get, baseUrl)
+        internal CouponList(string baseUrl) : base(Client.HttpRequestMethod.Get, baseUrl)
         {
+        }
+
+        public override RecurlyList<Coupon> Start
+        {
+            get { return new CouponList(StartUrl); }
+        }
+
+        public override RecurlyList<Coupon> Next
+        {
+            get { return new CouponList(NextUrl); }
+        }
+
+        public override RecurlyList<Coupon> Prev
+        {
+            get { return new CouponList(PrevUrl); }
         }
 
         internal override void ReadXml(XmlTextReader reader)
         {
-
             while (reader.Read())
             {
-                if (reader.Name.Equals("coupons") &&
-                    reader.NodeType == XmlNodeType.EndElement)
+                if (reader.Name == "coupons" && reader.NodeType == XmlNodeType.EndElement)
                     break;
 
-                if (reader.NodeType == XmlNodeType.Element && reader.Name.Equals("coupon"))
+                if (reader.NodeType == XmlNodeType.Element && reader.Name == "coupon")
                 {
-                    this.Add(new Coupon(reader));
+                    Add(new Coupon(reader));
                 }
             }
-
         }
-
 
         /// <summary>
         /// Lists coupons, limited to state
@@ -39,10 +45,6 @@ namespace Recurly
         public static CouponList List(Coupon.CouponState state = Coupon.CouponState.All)
         {
             return new CouponList(Coupon.UrlPrefix + (state != Coupon.CouponState.All ? "?state=" + state.ToString().EnumNameToTransportCase() : ""));
-
         }
-
-
     }
-
 }

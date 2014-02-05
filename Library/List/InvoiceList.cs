@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Xml;
-using System.Net;
+﻿using System.Xml;
 
 namespace Recurly
 {
@@ -14,18 +10,32 @@ namespace Recurly
         {
         }
 
+        public override RecurlyList<Invoice> Start
+        {
+            get { return new InvoiceList(StartUrl); }
+        }
+
+        public override RecurlyList<Invoice> Next
+        {
+            get { return new InvoiceList(NextUrl); }
+        }
+
+        public override RecurlyList<Invoice> Prev
+        {
+            get { return new InvoiceList(PrevUrl); }
+        }
+
         internal override void ReadXml(XmlTextReader reader)
         {
 
             while (reader.Read())
             {
-                if (reader.Name.Equals("invoices") &&
-                    reader.NodeType == XmlNodeType.EndElement)
+                if (reader.Name == "invoices" && reader.NodeType == XmlNodeType.EndElement)
                     break;
 
                 if (reader.NodeType == XmlNodeType.Element)
                 {
-                    this.Add(new Invoice(reader));
+                    Add(new Invoice(reader));
                     break;
                 }
             }
