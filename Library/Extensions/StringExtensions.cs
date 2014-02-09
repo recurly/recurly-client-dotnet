@@ -1,82 +1,9 @@
-﻿using System;
-using System.Globalization;
+using System;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Xml;
-using AccountState = Recurly.Account.AccountState;
-using SubscriptionState = Recurly.Subscription.SubscriptionState;
 
 namespace Recurly
 {
-    public static class EnumExtensions
-    {
-        /// <summary>
-        /// Checks if the <paramref name="source"/> <see cref="Account.AccountState"/> contains the flag for the <paramref name="target"/> <see cref="Account.AccountState"/>.
-        /// </summary>
-        /// <param name="source">The <see cref="Account.AccountState"/> to question for the given <paramref name="target"/> flag.</param>
-        /// <param name="target">The <see cref="Account.AccountState"/> flag to question for.</param>
-        /// <returns>true if the <paramref name="source"/> flags contain the <paramref name="target"/> flags, false otherwise.</returns>
-        public static bool Is(this AccountState source, AccountState target)
-        {
-            return (source & target) == target;
-        }
-
-        /// <summary>
-        /// Removes the <paramref name="target"/> <see cref="Account.AccountState"/> flag from the <paramref name="source"/> <see cref="Account.AccountState"/> (if it exists).
-        /// </summary>
-        /// <param name="source">The <see cref="Account.AccountState"/> to remove the <paramref name="target"/> from.</param>
-        /// <param name="target">The <see cref="Account.AccountState"/> flag to attempt to remove from <paramref name="source"/>.</param>
-        /// <returns><paramref name="source"/> with <paramref name="target"/> removed if <paramref name="target"/> was present, merely <paramref name="source"/> otherwise.</returns>
-        public static AccountState Remove(this AccountState source, AccountState target)
-        {
-            return source.Is(target) ? source ^ target : source;
-        }
-
-        /// <summary>
-        /// Adds the <paramref name="target"/> <see cref="Account.AccountState"/> to the given <paramref name="source"/> <see cref="Account.AccountState"/>.
-        /// </summary>
-        /// <param name="source">The <see cref="Account.AccountState"/> flags to be added to.</param>
-        /// <param name="target">The <see cref="Account.AccountState"/> flags to add to <paramref name="source"/>.</param>
-        /// <returns>The result of the bitwise OR of the two <see cref="Account.AccountState"/> flags.</returns>
-        public static AccountState Add(this AccountState source, AccountState target)
-        {
-            return source | target;
-        }
-
-        /// <summary>
-        /// Checks if the <paramref name="source"/> <see cref="Subscription.SubscriptionState"/> contains the flag for the <paramref name="target"/> <see cref="Subscription.SubscriptionState"/>.
-        /// </summary>
-        /// <param name="source">The <see cref="Subscription.SubscriptionState"/> to question for the given <paramref name="target"/> flag.</param>
-        /// <param name="target">The <see cref="Subscription.SubscriptionState"/> flag to question for.</param>
-        /// <returns>true if the <paramref name="source"/> flags contain the <paramref name="target"/> flags, false otherwise.</returns>
-        public static bool Is(this SubscriptionState source, SubscriptionState target)
-        {
-            return (source & target) == target;
-        }
-
-        /// <summary>
-        /// Removes the <paramref name="target"/> <see cref="Subscription.SubscriptionState"/> flag from the <paramref name="source"/> <see cref="Subscription.SubscriptionState"/> (if it exists).
-        /// </summary>
-        /// <param name="source">The <see cref="Subscription.SubscriptionState"/> to remove the <paramref name="target"/> from.</param>
-        /// <param name="target">The <see cref="Subscription.SubscriptionState"/> flag to attempt to remove from <paramref name="source"/>.</param>
-        /// <returns><paramref name="source"/> with <paramref name="target"/> removed if <paramref name="target"/> was present, merely <paramref name="source"/> otherwise.</returns>
-        public static SubscriptionState Remove(this SubscriptionState source, SubscriptionState target)
-        {
-            return source.Is(target) ? source ^ target : source;
-        }
-
-        /// <summary>
-        /// Adds the <paramref name="target"/> <see cref="Subscription.SubscriptionState"/> to the given <paramref name="source"/> <see cref="Subscription.SubscriptionState"/>.
-        /// </summary>
-        /// <param name="source">The <see cref="Subscription.SubscriptionState"/> flags to be added to.</param>
-        /// <param name="target">The <see cref="Subscription.SubscriptionState"/> flags to add to <paramref name="source"/>.</param>
-        /// <returns>The result of the bitwise OR of the two <see cref="Subscription.SubscriptionState"/> flags.</returns>
-        public static SubscriptionState Add(this SubscriptionState source, SubscriptionState target)
-        {
-            return source | target;
-        }
-    }
-
     public static class StringExtensions
     {
         /// <summary>
@@ -218,46 +145,77 @@ namespace Recurly
 
             return match.Success ? match.Groups[1].Value : null;
         }
-    }
 
-    public static class XmlWriterExtensions
-    {
-        /// <summary>
-        /// Convenience implementation of <see cref="T:System.Xml.XmlWriter.WriteElementString(string, string)"/> that guards it with
-        /// a check if <paramref name="value"/> is null or empty, writing the value if it is not null or empty.
-        /// </summary>
-        /// <param name="writer">The <see cref="T:System.Xml.XmlWriter"/> that will be written to.</param>
-        /// <param name="localName"></param>
-        /// <param name="value"></param>
-        public static void WriteStringIfValid(this XmlWriter writer, string localName, string value)
+        public static bool IsNumeric(this string source)
         {
-            if (!value.IsNullOrEmpty())
-                writer.WriteElementString(localName, value);
-        }
-    }
-
-    public static class IntExtensions
-    {
-        /// <summary>
-        /// Convenience method to convert an <see cref="int"/> to a <see cref="T:System.String"/> using the Invariant Culture.
-        /// </summary>
-        /// <param name="i">The int to convert to a <see cref="T:System.String"/>.</param>
-        /// <returns>The results of converting <paramref name="i"/> using the Invariant Culture.</returns>
-        public static string AsString(this int i)
-        {
-            return i.ToString(CultureInfo.InvariantCulture);
+            return source != null && Regex.IsMatch(source, "^[0-9]+$");
         }
 
         /// <summary>
-        /// Attempts to parse the <see cref="System.Int32"/> <paramref name="i"/> to the given Enumeration <typeparamref name="T"/>.
+        /// Determines if a given string is a valid credit card number, also providing the CreditCardType enum for types that Recurly supports.
+        /// 
+        /// Algorithm adapted from http://cuinl.tripod.com/Tips/o-1.htm
         /// </summary>
-        /// <typeparam name="T">The enum to attempt to parse to.</typeparam>
-        /// <param name="i">The int to attempt to parse.</param>
-        /// <returns>The results of attempting to parse the transformed string to the given enum.</returns>
-        /// <exception cref="T:System.ArgumentException"><typeparamref name="T"/> is not an <see cref="T:System.Enum"/>. -or- <paramref name="i"/> does not match a member of the enum.</exception>
-        public static T ParseAsEnum<T>(this int i)
+        /// <param name="source"></param>
+        /// <param name="type"></param>
+        /// <returns>true if the given string is a valid credit card number that is of a type that Recurly supports, false otherwise.</returns>
+        public static bool IsValidCreditCardNumber(this string source, out BillingInfo.CreditCardType type)
         {
-            return (T)Enum.ToObject(typeof(T), i);
+            type = BillingInfo.CreditCardType.Invalid;
+            if (source.IsNullOrEmpty()) return false;
+
+            var card = source.Trim().Replace("-", "").Replace(" ", "");
+
+            if (card.Length < 14 || !card.IsNumeric()) return false;
+
+            var firstTwo = Int32.Parse(card.Substring(0, 2));
+
+            if (firstTwo >= 34 && firstTwo <= 37)
+            {
+                type = BillingInfo.CreditCardType.AmericanExpress;
+                return card.Length == 15;
+            }
+            if (firstTwo >= 51 && firstTwo <= 55)
+            {
+                type = BillingInfo.CreditCardType.MasterCard;
+                return card.Length == 16;
+            }
+
+            var firstFour = Int32.Parse(card.Substring(0, 4));
+            var firstThree = Int32.Parse(card.Substring(0, 3));
+            switch (firstFour)
+            {
+                case 1800:
+                case 2131:
+                    type = BillingInfo.CreditCardType.JCB;
+                    return card.Length == 15;
+                case 6011:
+                    type = BillingInfo.CreditCardType.Discover;
+                    return card.Length == 16;
+                default:
+                    if (!(firstThree >= 300 && firstThree <= 305))
+                    {
+                        if (card.StartsWith("3"))
+                        {
+                            type = BillingInfo.CreditCardType.JCB;
+                            return card.Length == 16;
+                        }
+                        if (card.StartsWith("4"))
+                        {
+                            type = BillingInfo.CreditCardType.Visa;
+                            return card.Length == 16;
+                        }
+                    }
+                    break;
+            }
+
+            return false;
+        }
+
+        public static bool IsValidCreditCardNumber(this string source)
+        {
+            BillingInfo.CreditCardType type;
+            return source.IsValidCreditCardNumber(out type);
         }
     }
 }

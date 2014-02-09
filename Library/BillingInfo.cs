@@ -9,6 +9,7 @@ namespace Recurly
     {
         public enum CreditCardType : short
         {
+            Invalid,
             Visa,
             MasterCard,
             AmericanExpress,
@@ -78,14 +79,12 @@ namespace Recurly
         private const string UrlPrefix = "/accounts/";
         private const string UrlPostfix = "/billing_info";
 
-        internal BillingInfo(string accountCode)
-            : this()
+        internal BillingInfo(string accountCode) : this()
         {
             AccountCode = accountCode;
         }
 
-        public BillingInfo(Account account)
-            : this()
+        public BillingInfo(Account account) : this()
         {
             AccountCode = account.AccountCode;
         }

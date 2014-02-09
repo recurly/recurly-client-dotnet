@@ -14,90 +14,93 @@ namespace Recurly.Test
             acct.CreatedAt.Should().NotBe(default(DateTime));
         }
 
-        //[Fact]
-        //public void CreateAccountWithParameters()
-        //{
-        //    Account acct = new Account(Factories.GetMockAccountName());
-        //    acct.Username = "testuser1";
-        //    acct.Email = "testemail@recurly.com";
-        //    acct.FirstName = "Test";
-        //    acct.LastName = "User";
-        //    acct.CompanyName = "Test Company";
-        //    acct.AcceptLanguage = "en";
+        [Fact]
+        public void CreateAccountWithParameters()
+        {
+            var acct = new Account(Factories.GetUniqueAccountCode())
+            {
+                Username = "testuser1",
+                Email = "testemail@recurly.com",
+                FirstName = "Test",
+                LastName = "User",
+                CompanyName = "Test Company",
+                AcceptLanguage = "en"
+            };
 
-        //    acct.Create();
+            acct.Create();
 
-        //    Assert.AreEqual(acct.Username, "testuser1");
-        //    Assert.AreEqual(acct.Email, "testemail@recurly.com");
-        //    Assert.AreEqual(acct.FirstName, "Test");
-        //    Assert.AreEqual(acct.LastName, "User");
-        //    Assert.AreEqual(acct.CompanyName, "Test Company");
-        //    Assert.AreEqual(acct.AcceptLanguage, "en");
+            acct.Username.Should().Be("testuser1");
+            acct.Email.Should().Be("testemail@recurly.com");
+            acct.FirstName.Should().Be("Test");
+            acct.LastName.Should().Be("User");
+            acct.CompanyName.Should().Be("Test Company");
+            acct.AcceptLanguage.Should().Be("en");
+        }
 
-        //}
+        [Fact]
+        public void CreateAccountWithBillingInfo()
+        {
+            // Arrange
+            var accountCode = Factories.GetUniqueAccountCode();
+            var account = new Account(accountCode, "BI", "User",
+                "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
 
-        //[Fact]
-        //public void CreateAccountWithBillingInfo()
-        //{
-        //    String a = Factories.GetMockAccountName();
+            // Act
+            account.Create();
+            var infoFromService = BillingInfo.Get(accountCode);
 
-        //    Account acct = new Account(a, "BI", "User",
-        //        "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
+            // Assert
+            infoFromService.Should().Be(account.BillingInfo);
+        }
 
-        //    acct.Create();
+        [Fact]
+        public void LookupAccount()
+        {
+            var newAcct = new Account(Factories.GetUniqueAccountCode())
+            {
+                Email = "testemail@recurly.com"
+            };
+            newAcct.Create();
 
-        //    BillingInfo t = BillingInfo.Get(a);
-        //    Assert.AreEqual(t, acct.BillingInfo);
+            var account = Account.Get(newAcct.AccountCode);
+            
+            account.Should().NotBeNull();
+            account.AccountCode.Should().Be(newAcct.AccountCode);
+            account.Email.Should().Be(newAcct.Email);
+        }
 
-        //}
+        [Fact]
+        public void FindNonExistentAccount()
+        {
+            Action get = () => Account.Get("totallynotfound!@#$");
+            get.ShouldThrow<NotFoundException>();
+        }
 
-        //[Fact]
-        //public void LookupAccount()
-        //{
-        //    string a = Factories.GetMockAccountName();
+        [Fact]
+        public void UpdateAccount()
+        {
+            var acct = new Account(Factories.GetUniqueAccountCode());
+            acct.Create();
 
-        //    Account newAcct = new Account(a);
-        //    newAcct.Email = "testemail@recurly.com";
-        //    newAcct.Create();
+            acct.LastName = "UpdateTest123";
+            acct.Update();
 
-        //    Account acct = Account.Get(newAcct.AccountCode);
-        //    Assert.IsNotNull(acct);
-        //    Assert.AreEqual(acct.AccountCode, newAcct.AccountCode);
-        //    Assert.IsNotNullOrEmpty(acct.Email);
-        //}
+            var getAcct = Account.Get(acct.AccountCode);
+            acct.LastName.Should().Be(getAcct.LastName);
+        }
 
-        //[Fact]
-        //[ExpectedException(typeof(NotFoundException))]
-        //public void FindNonExistentAccount()
-        //{
-        //    Account acct = Account.Get("totallynotfound!@#$");
-        //}
+        [Fact]
+        public void CloseAccount()
+        {
+            var accountCode = Factories.GetUniqueAccountCode();
+            var acct = new Account(accountCode);
+            acct.Create();
 
-        //[Fact]
-        //public void UpdateAccount()
-        //{
-        //    Account acct = new Account(Factories.GetMockAccountName());
-        //    acct.Create();
+            acct.Close();
 
-        //    acct.LastName = "UpdateTest123";
-        //    acct.Update();
-
-        //    Account getAcct = Account.Get(acct.AccountCode);
-        //    Assert.AreEqual(acct.LastName, getAcct.LastName);
-        //}
-
-        //[Fact]
-        //public void CloseAccount()
-        //{
-        //    string s = Factories.GetMockAccountName();
-        //    Account acct = new Account(s);
-        //    acct.Create();
-
-        //    acct.Close();
-
-        //    Account getAcct = Account.Get(s);
-        //    Assert.AreEqual(getAcct.State, Account.AccountState.Closed);
-        //}
+            var getAcct = Account.Get(accountCode);
+            getAcct.State.Should().Be(Account.AccountState.Closed);
+        }
 
         //[Fact]
         //public void ReopenAccount()
@@ -113,7 +116,5 @@ namespace Recurly.Test
         //    Assert.AreEqual(acct.State, Account.AccountState.Active);
         //    Assert.AreEqual(test.State, Account.AccountState.Active);
         //}
-
-        
     }
 }

@@ -1,15 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Recurly;
-using NUnit.Framework;
+using FluentAssertions;
+using NUnit.Framework.Constraints;
+using Xunit;
+using Xunit.Extensions;
+using CreditCardType = Recurly.BillingInfo.CreditCardType;
 
 namespace Recurly.Test
 {
-    [TestFixture]
-    public class BillingInfoTest
+    public class BillingInfoTest : BaseTest
     {
-        [Test]
+        [Fact]
         public void UpdateBillingInfo()
         {
             string s = Factories.GetMockAccountName("Update Billing Info");
@@ -27,14 +27,14 @@ namespace Recurly.Test
 
             Account a = Account.Get(s);
 
-            Assert.AreEqual(a.BillingInfo.FirstName, "Jane");
-            Assert.AreEqual(a.BillingInfo.LastName, "Smith");
-            Assert.AreEqual(a.BillingInfo.ExpirationMonth, DateTime.Now.AddMonths(3).Month);
-            Assert.AreEqual(a.BillingInfo.ExpirationYear, DateTime.Now.AddYears(3).Year);
+            Assert.Equal(a.BillingInfo.FirstName, "Jane");
+            Assert.Equal(a.BillingInfo.LastName, "Smith");
+            Assert.Equal(a.BillingInfo.ExpirationMonth, DateTime.Now.AddMonths(3).Month);
+            Assert.Equal(a.BillingInfo.ExpirationYear, DateTime.Now.AddYears(3).Year);
 
         }
 
-        [Test]
+        [Fact]
         public void LookupBillingInfo()
         {
             string s = Factories.GetMockAccountName("Update Billing Info");
@@ -44,13 +44,13 @@ namespace Recurly.Test
 
             Account a = Account.Get(s);
 
-            Assert.AreEqual(a.BillingInfo.FirstName, "John");
-            Assert.AreEqual(a.BillingInfo.LastName, "Doe");
-            Assert.AreEqual(a.BillingInfo.ExpirationMonth, DateTime.Now.Month);
-            Assert.AreEqual(a.BillingInfo.ExpirationYear, DateTime.Now.Year+2);
+            Assert.Equal(a.BillingInfo.FirstName, "John");
+            Assert.Equal(a.BillingInfo.LastName, "Doe");
+            Assert.Equal(a.BillingInfo.ExpirationMonth, DateTime.Now.Month);
+            Assert.Equal(a.BillingInfo.ExpirationYear, DateTime.Now.Year+2);
         }
 
-        [Test]
+        [Fact]
         public void LookupMissingInfo()
         {
             Account newAcct = new Account(Factories.GetMockAccountName("Lookup Missing Billing Info"));
@@ -62,7 +62,7 @@ namespace Recurly.Test
             });
         }
 
-        [Test]
+        [Fact]
         
         public void ClearBillingInfo()
         {
@@ -74,12 +74,33 @@ namespace Recurly.Test
 
             newAcct.ClearBillingInfo();
 
-            Assert.IsNull(newAcct.BillingInfo);
+            Assert.Null(newAcct.BillingInfo);
             Account t = Account.Get(s);
-            Assert.IsNull(t.BillingInfo);
+            Assert.Null(t.BillingInfo);
 
         }
 
-      
+        [Theory,
+        InlineData(NullString, false, CreditCardType.Invalid),
+        InlineData(EmptyString, false, CreditCardType.Invalid),
+        InlineData("4234 1234 1234 1234", true, CreditCardType.Visa),
+        InlineData("6011 1234 1234 1234", true, CreditCardType.Discover),
+        InlineData("3434 1234 1234 123", true, CreditCardType.AmericanExpress),
+        InlineData("5134 1234 1234 1234", true, CreditCardType.MasterCard),
+        InlineData("1800 1234 1234 123", true, CreditCardType.JCB),
+        InlineData("2131 1234 1234 123", true, CreditCardType.JCB),
+        InlineData("3131 1234 1234 1234", true, CreditCardType.JCB),
+        InlineData("not a card number", false, CreditCardType.Invalid),
+        InlineData("1801 1234 1234 1234", false, CreditCardType.Invalid),
+        InlineData("too short", false, CreditCardType.Invalid),
+        InlineData("6011 1234 123", false, CreditCardType.Invalid)]
+        public void IsValidCreditCreditCardNumber_behaves_as_expected(string toTest, bool expectedResult, CreditCardType expectedType)
+        {
+            CreditCardType actualType;
+            var actualResult = toTest.IsValidCreditCardNumber(out actualType);
+
+            actualResult.Should().Be(expectedResult);
+            actualType.Should().Be(expectedType);
+        }
     }
 }

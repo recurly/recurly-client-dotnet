@@ -63,7 +63,8 @@
     <Compile Include="Account.cs" />
     <Compile Include="Address.cs" />
     <Compile Include="Configuration\Settings.cs" />
-    <Compile Include="Extensions.cs" />
+    <Compile Include="Extensions\EnumExtensions.cs" />
+    <Compile Include="Extensions\PrimitiveExtensions.cs" />
     <Compile Include="List\AccountList.cs" />
     <Compile Include="AddOn.cs" />
     <Compile Include="Adjustment.cs" />
@@ -90,11 +91,13 @@
     <Compile Include="PropertyOutOfRangeException.cs" />
     <Compile Include="RecurlyTransparent.cs" />
     <Compile Include="ServerException.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Subscription.cs" />
     <Compile Include="TemporarilyUnavailableException.cs" />
     <Compile Include="Transaction.cs" />
     <Compile Include="List\TransactionList.cs" />
     <Compile Include="ValidationException.cs" />
+    <Compile Include="Extensions\XmlWriterExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
