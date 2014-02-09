@@ -91,7 +91,7 @@ namespace Recurly
         protected void GetItems()
         {
             Client.Instance.PerformRequest(Method,
-                BaseUrl + "&per_page=" + Settings.Instance.PageSize,
+                BaseUrl + "&per_page=" + Client.Instance.Settings.PageSize,
                 ReadXmlList);
         }
 

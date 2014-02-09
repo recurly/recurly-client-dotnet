@@ -1,66 +1,73 @@
-﻿using NUnit.Framework;
+﻿using FluentAssertions;
+using Recurly.Configuration;
+using Xunit;
+using AccountState = Recurly.Account.AccountState;
 
 namespace Recurly.Test
 {
-    [TestFixture]
-    public class AccountListTest
+    public class AccountListTest : BaseTest
     {
-
-        [Test]
+        [Fact]
         public void List()
         {
-            Account acct = new Account(Factories.GetMockAccountName());
-            acct.Create();
-            acct = new Account(Factories.GetMockAccountName());
-            acct.Create();
-
-            AccountList accounts = AccountList.List();
-            Assert.IsTrue(accounts.Count >= 2);
+            var accounts = Accounts.List();
+            accounts.Should().NotBeEmpty();
         }
 
-        [Test]
+        [Fact]
         public void ListActive()
         {
-            Account acct = new Account(Factories.GetMockAccountName());
-            acct.Create();
-            acct = new Account(Factories.GetMockAccountName());
-            acct.Create();
+            CreateNewAccount();
+            CreateNewAccount();
 
-            AccountList accounts = AccountList.List(Account.AccountState.Active);
-            Assert.IsTrue(accounts.Count >= 2);
+            var accounts = Accounts.List(AccountState.Active);
+            accounts.Should().HaveCount(x => x >= 2);
         }
 
-        [Test]
+        [Fact]
         public void ListClosed()
         {
-            Account acct = new Account(Factories.GetMockAccountName());
-            acct.Create();
-            acct.Close();
-            acct = new Account(Factories.GetMockAccountName());
-            acct.Create();
-            acct.Close();
+            CreateNewAccount().Close();
+            CreateNewAccount().Close();
 
-            AccountList accounts = AccountList.List(Account.AccountState.Closed);
-            Assert.IsTrue(accounts.Count >= 2);
+            AccountList accounts = Accounts.List(AccountState.Closed);
+            accounts.Should().HaveCount(x => x >= 2);
         }
 
-        [Test]
+        [Fact]
         public void ListPastDue()
         {
-            Account acct = new Account(Factories.GetMockAccountName());
-            acct.Create();
+            var acct = CreateNewAccount();
 
-            Adjustment a = acct.CreateAdjustment("Past Due", 5000, "USD", 1);
-            a.Create();
+            var adjustment = acct.CreateAdjustment("Past Due", 5000, "USD", 1);
+            adjustment.Create();
 
             acct.InvoicePendingCharges();
 
-            AccountList accounts = AccountList.List(Account.AccountState.PastDue);
-            Assert.IsTrue(accounts.Count > 0);
+            var accounts = Accounts.List(AccountState.PastDue);
+            accounts.Should().NotBeEmpty();
         }
 
+        [Fact]
+        public void AccountList_supports_paging()
+        {
+            var testSettings = SettingsFixture.TestSettings;
+            var moddedSettings = new Settings(testSettings.ApiKey, testSettings.Subdomain,
+                testSettings.PrivateKey, 5);
+            Client.Instance.ApplySettings(moddedSettings);
 
+            var accounts = Accounts.List();
+            accounts.Should().HaveCount(5);
+            accounts.Capacity.Should().BeGreaterOrEqualTo(5);
 
+            accounts.Next.Should().NotBeEmpty();
+        }
 
+        private static Account CreateNewAccount()
+        {
+            var account = new Account(Factories.GetUniqueAccountCode());
+            account.Create();
+            return account;
+        }
     }
 }

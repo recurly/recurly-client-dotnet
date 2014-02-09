@@ -58,7 +58,7 @@ namespace Recurly.Test
             };
             newAcct.Create();
 
-            var account = Account.Get(newAcct.AccountCode);
+            var account = Accounts.Get(newAcct.AccountCode);
             
             account.Should().NotBeNull();
             account.AccountCode.Should().Be(newAcct.AccountCode);
@@ -68,7 +68,7 @@ namespace Recurly.Test
         [Fact]
         public void FindNonExistentAccount()
         {
-            Action get = () => Account.Get("totallynotfound!@#$");
+            Action get = () => Accounts.Get("totallynotfound!@#$");
             get.ShouldThrow<NotFoundException>();
         }
 
@@ -81,7 +81,7 @@ namespace Recurly.Test
             acct.LastName = "UpdateTest123";
             acct.Update();
 
-            var getAcct = Account.Get(acct.AccountCode);
+            var getAcct = Accounts.Get(acct.AccountCode);
             acct.LastName.Should().Be(getAcct.LastName);
         }
 
@@ -94,7 +94,7 @@ namespace Recurly.Test
 
             acct.Close();
 
-            var getAcct = Account.Get(accountCode);
+            var getAcct = Accounts.Get(accountCode);
             getAcct.State.Should().Be(Account.AccountState.Closed);
         }
 
@@ -108,7 +108,7 @@ namespace Recurly.Test
 
             acct.Reopen();
 
-            var test = Account.Get(accountCode);
+            var test = Accounts.Get(accountCode);
             acct.State.Should().Be(test.State).And.Be(Account.AccountState.Active);
         }
     }

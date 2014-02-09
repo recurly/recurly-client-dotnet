@@ -58,7 +58,7 @@ namespace Recurly
             Quantity = quantity;
             AccountingCode = accountingCode;
 
-            if (!accountCode.IsNullOrEmpty() && accountCode.Length > AccountingCodeMaxLength)
+            if (!AccountingCode.IsNullOrEmpty() && AccountingCode.Length > AccountingCodeMaxLength)
                 throw new PropertyOutOfRangeException("AccountingCode",
                     string.Format("Adjustment's AccountingCode can be at most {0} characters in length.", AccountingCodeMaxLength));
 

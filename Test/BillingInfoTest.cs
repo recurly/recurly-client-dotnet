@@ -25,7 +25,7 @@ namespace Recurly.Test
             billingInfo.ExpirationYear = DateTime.Now.AddYears(3).Year;
             billingInfo.Update();
 
-            Account a = Account.Get(s);
+            Account a = Accounts.Get(s);
 
             Assert.Equal(a.BillingInfo.FirstName, "Jane");
             Assert.Equal(a.BillingInfo.LastName, "Smith");
@@ -42,7 +42,7 @@ namespace Recurly.Test
                 "John", "Doe", "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 2);
             acct.Create();
 
-            Account a = Account.Get(s);
+            Account a = Accounts.Get(s);
 
             Assert.Equal(a.BillingInfo.FirstName, "John");
             Assert.Equal(a.BillingInfo.LastName, "Doe");
@@ -75,7 +75,7 @@ namespace Recurly.Test
             newAcct.ClearBillingInfo();
 
             Assert.Null(newAcct.BillingInfo);
-            Account t = Account.Get(s);
+            Account t = Accounts.Get(s);
             Assert.Null(t.BillingInfo);
 
         }

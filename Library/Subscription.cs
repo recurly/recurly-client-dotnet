@@ -46,7 +46,7 @@ namespace Recurly
         /// </summary>
         public Account Account
         {
-            get { return _account ?? (_account = Account.Get(_accountCode)); }
+            get { return _account ?? (_account = Accounts.Get(_accountCode)); }
         }
 
 

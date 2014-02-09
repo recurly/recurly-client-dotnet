@@ -99,25 +99,8 @@ namespace Recurly
             ReadXml(xmlReader);
         }
 
-        private Account()
+        internal Account()
         { }
-
-        /// <summary>
-        /// Lookup a Recurly account
-        /// </summary>
-        /// <param name="accountCode"></param>
-        /// <returns></returns>
-        public static Account Get(string accountCode)
-        {
-            var account = new Account();
-            // GET /accounts/<account code>
-            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
-                UrlPrefix + Uri.EscapeUriString(accountCode),
-                account.ReadXml);
-
-            return statusCode == HttpStatusCode.NotFound ? null : account;
-        }
-
 
         /// <summary>
         /// Delete an account's billing info.
@@ -128,8 +111,6 @@ namespace Recurly
                 UrlPrefix + Uri.EscapeUriString(AccountCode) + "/billing_info");
             _billingInfo = null;
         }
-
-        
         
         /// <summary>
         /// Create a new account in Recurly
@@ -157,23 +138,10 @@ namespace Recurly
         /// </summary>
         public void Close()
         {
-            Close(AccountCode);
-            // TODO clear Open from the enum, add Closed // done 1/13/14
+            Accounts.Close(AccountCode);
             if(State.Is(AccountState.Active))
                 State ^= AccountState.Active;
             State |= AccountState.Closed;
-        }
-
-        /// <summary>
-        /// Close the account and cancel any active subscriptions (if there is one).
-        /// Note: This does not create a refund for any time remaining.
-        /// </summary>
-        /// <param name="accountCode">Account Code</param>
-        public static void Close(string accountCode)
-        {
-            // DELETE /accounts/<account code>
-            Client.Instance.PerformRequest(Client.HttpRequestMethod.Delete,
-                UrlPrefix + Uri.EscapeUriString(accountCode));
         }
 
         /// <summary>
@@ -181,24 +149,11 @@ namespace Recurly
         /// </summary>
         public void Reopen()
         {
-            Reopen(AccountCode);
-            // TODO Clear Closed, add Active // done 1/13/14
+            Accounts.Reopen(AccountCode);
             if(State.Is(AccountState.Closed))
                 State ^= AccountState.Closed;
             State |= AccountState.Active;
         }
-
-        /// <summary>
-        /// Reopen an existing account in recurly.
-        /// </summary>
-        /// <param name="accountCode">Account Code</param>
-        public static void Reopen(string accountCode)
-        {
-            // PUT /accounts/<account code>/reopen
-            Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
-                UrlPrefix + Uri.EscapeUriString(accountCode) + "/reopen");
-        }
-
 
         // This method appears to not conform to the API given http://docs.recurly.com/api/accounts
         // TODO confirm if usage is correct
@@ -214,7 +169,6 @@ namespace Recurly
 
             return i;
         }
-
 
         /// <summary>
         /// Gets all adjustments for this account, by type
@@ -234,7 +188,6 @@ namespace Recurly
 
             return statusCode == HttpStatusCode.NotFound ? null : adjustments;
         }
-
         
         /// <summary>
         /// Returns a list of invoices for this account
@@ -244,7 +197,6 @@ namespace Recurly
         {
             return InvoiceList.GetInvoices(AccountCode);
         }
-
        
         /// <summary>
         /// Returns a list of subscriptions for this account
@@ -256,7 +208,6 @@ namespace Recurly
             return new SubscriptionList(UrlPrefix + Uri.EscapeUriString(AccountCode) + "/subscriptions/"
                 + (state.Equals(Subscription.SubscriptionState.All) ? "" :  "?state=" + state.ToString().EnumNameToTransportCase()));
         }
-
 
         /// <summary>
         /// Returns a list of transactions for this account, by transaction type
@@ -380,7 +331,6 @@ namespace Recurly
 
             xmlWriter.WriteElementString("account_code", AccountCode);
 
-            // TODO flatten these // done 1/13/14
             xmlWriter.WriteStringIfValid("username", Username);
             xmlWriter.WriteStringIfValid("email", Email);
             xmlWriter.WriteStringIfValid("first_name", FirstName);
@@ -423,5 +373,59 @@ namespace Recurly
         }
 
         #endregion
+    }
+
+    public static class Accounts
+    {
+        internal const string UrlPrefix = "/accounts/";
+
+        /// <summary>
+        /// Lookup a Recurly account
+        /// </summary>
+        /// <param name="accountCode"></param>
+        /// <returns></returns>
+        public static Account Get(string accountCode)
+        {
+            var account = new Account();
+            // GET /accounts/<account code>
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
+                UrlPrefix + Uri.EscapeUriString(accountCode),
+                account.ReadXml);
+
+            return statusCode == HttpStatusCode.NotFound ? null : account;
+        }
+
+        /// <summary>
+        /// Close the account and cancel any active subscriptions (if there is one).
+        /// Note: This does not create a refund for any time remaining.
+        /// </summary>
+        /// <param name="accountCode">Account Code</param>
+        public static void Close(string accountCode)
+        {
+            // DELETE /accounts/<account code>
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Delete,
+                Account.UrlPrefix + Uri.EscapeUriString(accountCode));
+        }
+
+        /// <summary>
+        /// Reopen an existing account in recurly.
+        /// </summary>
+        /// <param name="accountCode">Account Code</param>
+        public static void Reopen(string accountCode)
+        {
+            // PUT /accounts/<account code>/reopen
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
+                Account.UrlPrefix + Uri.EscapeUriString(accountCode) + "/reopen");
+        }
+
+        /// <summary>
+        /// Lists accounts, limited to state
+        /// </summary>
+        /// <param name="state">Account state to retrieve</param>
+        /// <returns></returns>
+        public static AccountList List(Account.AccountState state = Account.AccountState.Active)
+        {
+            return new AccountList(Account.UrlPrefix + "?state=" + state.ToString().EnumNameToTransportCase());
+        }
     }
 }
