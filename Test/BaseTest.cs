@@ -2,11 +2,13 @@
 {
     public abstract class BaseTest
     {
-        internal readonly TestClient ClientInstance;
+        //internal readonly TestClient ClientInstance;
         protected BaseTest()
         {
-            ClientInstance = new TestClient(SettingsFixture.TestSettings);
-            Client.ChangeInstance(ClientInstance);
+            //ClientInstance = new TestClient(SettingsFixture.TestSettings);
+            //Client.ChangeInstance(ClientInstance);
+
+            Client.Instance.ApplySettings(SettingsFixture.TestSettings);
         }
     }
 }

@@ -36,6 +36,7 @@ namespace Recurly
         public string AcceptLanguage { get; set; }
         public string HostedLoginToken { get; private set; }
         public DateTime CreatedAt { get; private set; }
+        public Address Address { get; set; }
 
         private BillingInfo _billingInfo;
 
@@ -365,6 +366,10 @@ namespace Recurly
                     case "created_at":
                         CreatedAt = reader.ReadElementContentAsDateTime();
                         break;
+
+                    case "address":
+                        Address = new Address(reader);
+                        break;
                 }
             }
         }
@@ -385,6 +390,9 @@ namespace Recurly
 
             if (_billingInfo != null)
                 _billingInfo.WriteXml(xmlWriter);
+
+            if (Address != null)
+                Address.WriteXml(xmlWriter);
 
             xmlWriter.WriteEndElement(); // End: account
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using FluentAssertions;
 using Xunit;
 
 namespace Recurly.Test
@@ -8,12 +9,12 @@ namespace Recurly.Test
         [Fact]
         public void CreateAccount()
         {
-            Account acct = new Account(Factories.GetMockAccountName());
+            var acct = new Account(Factories.GetUniqueAccountCode());
             acct.Create();
-            //Assert.IsNotNull(acct.CreatedAt); // I don't know what this was testing, a non-nullable DateTime can never be null!
+            acct.CreatedAt.Should().NotBe(default(DateTime));
         }
 
-        //[Test]
+        //[Fact]
         //public void CreateAccountWithParameters()
         //{
         //    Account acct = new Account(Factories.GetMockAccountName());
@@ -35,7 +36,7 @@ namespace Recurly.Test
 
         //}
 
-        //[Test]
+        //[Fact]
         //public void CreateAccountWithBillingInfo()
         //{
         //    String a = Factories.GetMockAccountName();
@@ -50,7 +51,7 @@ namespace Recurly.Test
 
         //}
 
-        //[Test]
+        //[Fact]
         //public void LookupAccount()
         //{
         //    string a = Factories.GetMockAccountName();
@@ -65,14 +66,14 @@ namespace Recurly.Test
         //    Assert.IsNotNullOrEmpty(acct.Email);
         //}
 
-        //[Test]
+        //[Fact]
         //[ExpectedException(typeof(NotFoundException))]
         //public void FindNonExistentAccount()
         //{
         //    Account acct = Account.Get("totallynotfound!@#$");
         //}
 
-        //[Test]
+        //[Fact]
         //public void UpdateAccount()
         //{
         //    Account acct = new Account(Factories.GetMockAccountName());
@@ -85,7 +86,7 @@ namespace Recurly.Test
         //    Assert.AreEqual(acct.LastName, getAcct.LastName);
         //}
 
-        //[Test]
+        //[Fact]
         //public void CloseAccount()
         //{
         //    string s = Factories.GetMockAccountName();
@@ -98,7 +99,7 @@ namespace Recurly.Test
         //    Assert.AreEqual(getAcct.State, Account.AccountState.Closed);
         //}
 
-        //[Test]
+        //[Fact]
         //public void ReopenAccount()
         //{
         //    string s = Factories.GetMockAccountName();

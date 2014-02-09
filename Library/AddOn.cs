@@ -147,7 +147,7 @@ namespace Recurly
                 xmlWriter.WriteStartElement("unit_amount_in_cents");
                 foreach (var d in UnitAmountInCents)
                 {
-                    xmlWriter.WriteElementString(d.Key, d.Value.ToString());
+                    xmlWriter.WriteElementString(d.Key, d.Value.AsString());
                 }
                 xmlWriter.WriteEndElement();
             }

@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Account.cs" />
+    <Compile Include="Address.cs" />
     <Compile Include="Configuration\Settings.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="List\AccountList.cs" />

@@ -37,6 +37,11 @@ namespace Recurly
             _instance = client;
         }
 
+        internal void ApplySettings(Settings settings)
+        {
+            Settings = settings;
+        }
+
         public enum HttpRequestMethod
         {
             /// <summary>

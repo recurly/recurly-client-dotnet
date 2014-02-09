@@ -1,15 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Recurly;
 
 namespace Recurly.Test
 {
      //<summary>
      //Helper factories for the tests
      //</summary>
-    class Factories
+    internal class Factories
     {
+        public static string GetUniqueAccountCode()
+        {
+            return Guid.NewGuid().ToString();
+        }
         
         public static string GetMockAccountName(string name = "Test Account")
         {
