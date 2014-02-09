@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -154,7 +155,7 @@ namespace Recurly
         /// <summary>
         /// Determines if a given string is a valid credit card number, also providing the CreditCardType enum for types that Recurly supports.
         /// 
-        /// Algorithm adapted from http://cuinl.tripod.com/Tips/o-1.htm
+        /// Algorithm adapted from http://cuinl.tripod.com/Tips/o-1.htm and http://www.codeproject.com/Articles/20271/Ultimate-NET-Credit-Card-Utility-Class
         /// </summary>
         /// <param name="source"></param>
         /// <param name="type"></param>
@@ -166,19 +167,19 @@ namespace Recurly
 
             var card = source.Trim().Replace("-", "").Replace(" ", "");
 
-            if (card.Length < 14 || !card.IsNumeric()) return false;
+            if (card.Length < 13 || !card.IsNumeric()) return false;
 
             var firstTwo = Int32.Parse(card.Substring(0, 2));
 
-            if (firstTwo >= 34 && firstTwo <= 37)
+            if (firstTwo >= 34 && firstTwo <= 37 && card.Length == 15)
             {
                 type = BillingInfo.CreditCardType.AmericanExpress;
-                return card.Length == 15;
+                return card.PassesLuhnsTest();
             }
             if (firstTwo >= 51 && firstTwo <= 55)
             {
                 type = BillingInfo.CreditCardType.MasterCard;
-                return card.Length == 16;
+                return card.Length == 16 && card.PassesLuhnsTest();
             }
 
             var firstFour = Int32.Parse(card.Substring(0, 4));
@@ -188,28 +189,65 @@ namespace Recurly
                 case 1800:
                 case 2131:
                     type = BillingInfo.CreditCardType.JCB;
-                    return card.Length == 15;
+                    return card.Length == 15 && card.PassesLuhnsTest();
                 case 6011:
                     type = BillingInfo.CreditCardType.Discover;
-                    return card.Length == 16;
+                    return card.Length == 16 && card.PassesLuhnsTest();
                 default:
                     if (!(firstThree >= 300 && firstThree <= 305))
                     {
                         if (card.StartsWith("3"))
                         {
                             type = BillingInfo.CreditCardType.JCB;
-                            return card.Length == 16;
+                            return card.Length == 16 && card.PassesLuhnsTest();
                         }
                         if (card.StartsWith("4"))
                         {
                             type = BillingInfo.CreditCardType.Visa;
-                            return card.Length == 16;
+                            return (card.Length == 13 || card.Length == 16) && card.PassesLuhnsTest();
                         }
                     }
                     break;
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Validates a given credit card number against Luhn's Test.
+        /// 
+        /// Adapted from http://www.codeproject.com/Articles/20271/Ultimate-NET-Credit-Card-Utility-Class
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public static bool PassesLuhnsTest(this string source)
+        {
+            if (source.IsNullOrEmpty()) return false;
+
+            var card = source.Trim().Replace("-", "").Replace(" ", "");
+
+            if (!card.IsNumeric()) return false;
+
+            var numbers = card.Select(x => Int32.Parse(x.AsString())).ToArray();
+
+            var sum = 0;
+            var alt = false;
+            for (var k = numbers.Length - 1; k <= 0; --k)
+            {
+                var now = numbers[k];
+                if (alt)
+                {
+                    now *= 2;
+                    if (now > 9)
+                    {
+                        now -= 9;
+                    }
+                }
+                sum += now;
+                alt = !alt;
+            }
+
+            return sum % 10 == 0;
         }
 
         public static bool IsValidCreditCardNumber(this string source)

@@ -15,6 +15,11 @@ namespace Recurly
             return i.ToString(CultureInfo.InvariantCulture);
         }
 
+        public static string AsString(this char c)
+        {
+            return c.ToString(CultureInfo.InvariantCulture);
+        }
+
         /// <summary>
         /// Attempts to parse the <see cref="System.Int32"/> <paramref name="i"/> to the given Enumeration <typeparamref name="T"/>.
         /// </summary>
