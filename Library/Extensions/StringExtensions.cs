@@ -255,5 +255,12 @@ namespace Recurly
             BillingInfo.CreditCardType type;
             return source.IsValidCreditCardNumber(out type);
         }
+
+        public static string Last(this string source, int chars)
+        {
+            if (source.IsNullOrEmpty() || chars <= 0 || source.Length < chars) return source;
+
+            return source.Substring(source.Length - chars, chars);
+        }
     }
 }

@@ -194,5 +194,21 @@ namespace Recurly.Test
   <https://your-subdomain.recurly.com/v2/transactions?cursor=1318388868>; rel=""next""";
   
         public const string LinkHeaderOnlyNext = "<https://your-subdomain.recurly.com/v2/transactions?cursor=1318388868>; rel=\"next\"";
+
+        [Theory,
+         InlineData(NullString, 6, NullString),
+         InlineData(EmptyString, 6, EmptyString),
+         InlineData("1234567890", 4, "7890"),
+         InlineData("word", 1, "d"),
+         InlineData("word", 4, "word"),
+         InlineData("word", 0, "word"),
+         InlineData("short", 10, "short"),
+         InlineData("3566002020360505", 4, "0505")]
+        public void StringLast_gets_last_chars(string use, int count, string expected)
+        {
+            var actual = use.Last(count);
+
+            actual.Should().Be(expected);
+        }
     }
 }

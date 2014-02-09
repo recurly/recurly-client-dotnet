@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 
 namespace Recurly
 {
@@ -18,6 +20,11 @@ namespace Recurly
         public static string AsString(this char c)
         {
             return c.ToString(CultureInfo.InvariantCulture);
+        }
+
+        public static string AsString(this IEnumerable<char> chars)
+        {
+            return new string(chars.ToArray());
         }
 
         /// <summary>

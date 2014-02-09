@@ -97,6 +97,7 @@
     <Compile Include="SubscriptionTest.cs" />
     <Compile Include="SystemTest.cs" />
     <Compile Include="TestClient.cs" />
+    <Compile Include="TestCreditCardNumbers.cs" />
     <Compile Include="TransactionTest.cs" />
   </ItemGroup>
   <ItemGroup>

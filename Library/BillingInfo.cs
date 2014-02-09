@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Net;
 using System.Xml;
 
@@ -68,11 +69,33 @@ namespace Recurly
         /// </summary>
         public string BillingAgreementId { get; set; }
 
+        private string _cardNumber;
 
         /// <summary>
         /// Credit card number
         /// </summary>
-        public string CreditCardNumber { get; set; }
+        public string CreditCardNumber
+        {
+            get { return _cardNumber; }
+            set
+            {
+                _cardNumber = value;
+                CreditCardType type;
+                if (value.IsValidCreditCardNumber(out type))
+                {
+                    var digits = value.Where(char.IsDigit).AsString();
+                    CardType = type;
+                    FirstSix = digits.Substring(0, 6);
+                    LastFour = digits.Last(4);
+                }
+                else
+                {
+                    CardType = CreditCardType.Invalid;
+                    FirstSix = LastFour = null;
+                }
+            }
+        }
+
         public string VerificationValue { get; set; }
 
 

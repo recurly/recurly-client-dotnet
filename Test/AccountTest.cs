@@ -40,17 +40,13 @@ namespace Recurly.Test
         [Fact]
         public void CreateAccountWithBillingInfo()
         {
-            // Arrange
             var accountCode = Factories.GetUniqueAccountCode();
             var account = new Account(accountCode, "BI", "User",
-                "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
+                TestCreditCardNumbers.Visa1, DateTime.Now.Month, DateTime.Now.Year + 1);
 
-            // Act
-            account.Create();
-            var infoFromService = BillingInfo.Get(accountCode);
+            Action create = account.Create;
 
-            // Assert
-            infoFromService.Should().Be(account.BillingInfo);
+            create.ShouldThrow<ValidationException>("test credit card data isn't valid");
         }
 
         [Fact]
@@ -102,19 +98,18 @@ namespace Recurly.Test
             getAcct.State.Should().Be(Account.AccountState.Closed);
         }
 
-        //[Fact]
-        //public void ReopenAccount()
-        //{
-        //    string s = Factories.GetMockAccountName();
-        //    Account acct = new Account(s);
-        //    acct.Create();
-        //    acct.Close();
+        [Fact]
+        public void ReopenAccount()
+        {
+            var accountCode = Factories.GetUniqueAccountCode();
+            var acct = new Account(accountCode);
+            acct.Create();
+            acct.Close();
 
-        //    acct.Reopen();
+            acct.Reopen();
 
-        //    Account test = Account.Get(s);
-        //    Assert.AreEqual(acct.State, Account.AccountState.Active);
-        //    Assert.AreEqual(test.State, Account.AccountState.Active);
-        //}
+            var test = Account.Get(accountCode);
+            acct.State.Should().Be(test.State).And.Be(Account.AccountState.Active);
+        }
     }
 }
