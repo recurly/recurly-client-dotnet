@@ -12,7 +12,7 @@ namespace Recurly.Test
         [Fact]
         public void UpdateBillingInfo()
         {
-            string s = Factories.GetMockAccountName("Update Billing Info");
+            string s = BaseTest.GetMockAccountName("Update Billing Info");
             Account acct = new Account(s,
                 "John","Doe", "4111111111111111", DateTime.Now.Month, DateTime.Now.Year+2);
             acct.Create();
@@ -37,7 +37,7 @@ namespace Recurly.Test
         [Fact]
         public void LookupBillingInfo()
         {
-            string s = Factories.GetMockAccountName("Update Billing Info");
+            string s = BaseTest.GetMockAccountName("Update Billing Info");
             Account acct = new Account(s,
                 "John", "Doe", "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 2);
             acct.Create();
@@ -53,7 +53,7 @@ namespace Recurly.Test
         [Fact]
         public void LookupMissingInfo()
         {
-            Account newAcct = new Account(Factories.GetMockAccountName("Lookup Missing Billing Info"));
+            Account newAcct = new Account(BaseTest.GetMockAccountName("Lookup Missing Billing Info"));
             newAcct.Create();
 
             Assert.Throws(typeof(NotFoundException), delegate
@@ -66,7 +66,7 @@ namespace Recurly.Test
         
         public void ClearBillingInfo()
         {
-            string s = Factories.GetMockAccountName("Clear Billing Info");
+            string s = BaseTest.GetMockAccountName("Clear Billing Info");
 
             Account newAcct = new Account(s,
                 "George", "Jefferson", "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 2);

@@ -13,7 +13,7 @@ namespace Recurly.Test
         [Test]
         public void LookupTransaction()
         {
-            String a = Factories.GetMockAccountName();
+            String a = BaseTest.GetMockAccountName();
             Account acct = new Account(a, "New Txn", "User",
                 "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
 
@@ -32,7 +32,7 @@ namespace Recurly.Test
         [Test]
         public void CreateTransactionNewAccount()
         {
-            String a = Factories.GetMockAccountName();
+            String a = BaseTest.GetMockAccountName();
             Account acct = new Account(a, "New Txn", "User",
                 "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
 
@@ -47,7 +47,7 @@ namespace Recurly.Test
         [Test]
         public void CreateTransactionExistingAccount()
         {
-            String a = Factories.GetMockAccountName();
+            String a = BaseTest.GetMockAccountName();
             Account acct = new Account(a, "New Txn", "User",
                 "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
             acct.Create();
@@ -64,12 +64,12 @@ namespace Recurly.Test
         [Test]
         public void CreateTransactionExistingAccountNewBillingInfo()
         {
-            String a = Factories.GetMockAccountName();
+            String a = BaseTest.GetMockAccountName();
             Account acct = new Account(a, "Change Billing Info", "User",
                 "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
             acct.Create();
 
-            acct.BillingInfo = Factories.NewBillingInfo(acct);
+            acct.BillingInfo = BaseTest.NewBillingInfo(acct);
 
             Transaction t = new Transaction(acct, 5000, "USD");
 
@@ -81,7 +81,7 @@ namespace Recurly.Test
         [Test]
         public void RefundTransactionFull()
         {
-            String a = Factories.GetMockAccountName();
+            String a = BaseTest.GetMockAccountName();
             Account acct = new Account(a, "New Txn", "User",
                 "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
 
@@ -98,7 +98,7 @@ namespace Recurly.Test
         [Test]
         public void RefundTransactionPartial()
         {
-            String a = Factories.GetMockAccountName();
+            String a = BaseTest.GetMockAccountName();
             Account acct = new Account(a, "New Txn", "User",
                 "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
 

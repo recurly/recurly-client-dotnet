@@ -18,7 +18,7 @@ namespace Recurly.Test
 
             for (int x = 0; x < 6; x++)
             {
-                Account acct = new Account(Factories.GetMockAccountName());
+                Account acct = new Account(BaseTest.GetMockAccountName());
                 acct.Create();
 
                 Adjustment a = acct.CreateAdjustment("Test Charge", 500 + x, "USD");
@@ -52,7 +52,7 @@ namespace Recurly.Test
         {
             for (int x = 0; x < 2; x++)
             {
-                Account acct = new Account(Factories.GetMockAccountName());
+                Account acct = new Account(BaseTest.GetMockAccountName());
                 acct.Create();
 
                 Adjustment a = acct.CreateAdjustment("Test Charge", 500 + x, "USD");
@@ -72,7 +72,7 @@ namespace Recurly.Test
         {
             for (int x = 0; x < 2; x++)
             {
-                Account acct = new Account(Factories.GetMockAccountName());
+                Account acct = new Account(BaseTest.GetMockAccountName());
                 acct.Create();
 
                 Adjustment a = acct.CreateAdjustment("Test Charge", 500 + x, "USD");
@@ -94,7 +94,7 @@ namespace Recurly.Test
         {
             for (int x = 0; x < 2; x++)
             {
-                Account acct = new Account(Factories.GetMockAccountName());
+                Account acct = new Account(BaseTest.GetMockAccountName());
                 acct.Create();
 
                 Adjustment a = acct.CreateAdjustment("Test Charge", 500 + x, "USD");
@@ -115,7 +115,7 @@ namespace Recurly.Test
         {
             for (int x = 0; x < 2; x++)
             {
-                Account acct = new Account(Factories.GetMockAccountName());
+                Account acct = new Account(BaseTest.GetMockAccountName());
                 acct.Create();
 
                 Adjustment a = acct.CreateAdjustment("Test Charge", 500 + x, "USD");
@@ -133,7 +133,7 @@ namespace Recurly.Test
         [Test]
         public void GetInvoicesForAccount()
         {
-            string accountCode = Factories.GetMockAccountName();
+            string accountCode = BaseTest.GetMockAccountName();
             Account acct = new Account(accountCode);
             acct.Create();
 

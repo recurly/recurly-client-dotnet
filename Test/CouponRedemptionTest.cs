@@ -14,11 +14,11 @@ namespace Recurly.Test
         [Test]
         public void RedeemCoupon()
         {
-            string s = Factories.GetMockCouponCode();
-            Coupon c = new Coupon(s, Factories.GetMockCouponName(), 10);
+            string s = BaseTest.GetMockCouponCode();
+            Coupon c = new Coupon(s, BaseTest.GetMockCouponName(), 10);
             c.Create();
 
-            string act = Factories.GetMockAccountName();
+            string act = BaseTest.GetMockAccountName();
             Account acct = new Account(act);
             acct.Create();
             Assert.IsNotNull(acct.CreatedAt);
@@ -33,11 +33,11 @@ namespace Recurly.Test
         [Test]
         public void LookupRedemption()
         {
-            string s = Factories.GetMockCouponCode();
-            Coupon c = new Coupon(s, Factories.GetMockCouponName(), 10);
+            string s = BaseTest.GetMockCouponCode();
+            Coupon c = new Coupon(s, BaseTest.GetMockCouponName(), 10);
             c.Create();
 
-            string act = Factories.GetMockAccountName();
+            string act = BaseTest.GetMockAccountName();
             Account acct = new Account(act);
             acct.Create();
             Assert.IsNotNull(acct.CreatedAt);
@@ -56,11 +56,11 @@ namespace Recurly.Test
         [ExpectedException(typeof(NotFoundException))]
         public void RemoveCoupon()
         {
-            string s = Factories.GetMockCouponCode();
-            Coupon c = new Coupon(s, Factories.GetMockCouponName(), 10);
+            string s = BaseTest.GetMockCouponCode();
+            Coupon c = new Coupon(s, BaseTest.GetMockCouponName(), 10);
             c.Create();
 
-            string act = Factories.GetMockAccountName();
+            string act = BaseTest.GetMockAccountName();
             Account acct = new Account(act);
             acct.Create();
             Assert.IsNotNull(acct.CreatedAt);
@@ -79,13 +79,13 @@ namespace Recurly.Test
         public void LookupCouponInvoice()
         {
             
-            string s = Factories.GetMockCouponCode();
+            string s = BaseTest.GetMockCouponCode();
             Dictionary<string, int> discounts = new Dictionary<string,int>();
             discounts.Add("USD",1000);
-            Coupon c = new Coupon(s, Factories.GetMockCouponName(), discounts);
+            Coupon c = new Coupon(s, BaseTest.GetMockCouponName(), discounts);
             c.Create();
 
-            string act = Factories.GetMockAccountName();
+            string act = BaseTest.GetMockAccountName();
             Account acct = new Account(s, "John", "Doe", "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 2);
             acct.Create();
 

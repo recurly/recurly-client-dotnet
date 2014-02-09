@@ -9,7 +9,7 @@ namespace Recurly.Test
         [Test]
         public void CreateAdjustment()
         {
-            Account acct = new Account(Factories.GetMockAccountName());
+            Account acct = new Account(BaseTest.GetMockAccountName());
             acct.Create();
 
             Adjustment a = acct.CreateAdjustment("Charge", 5000, "USD", 1);
@@ -21,7 +21,7 @@ namespace Recurly.Test
         [Test]
         public void ListAdjustments()
         {
-            Account acct = new Account(Factories.GetMockAccountName());
+            Account acct = new Account(BaseTest.GetMockAccountName());
             acct.Create();
 
             Adjustment a = acct.CreateAdjustment("Charge", 5000, "USD", 1);
@@ -43,7 +43,7 @@ namespace Recurly.Test
         [Test]
         public void ListAdjustmentsOverCredit()
         {
-            Account acct = new Account(Factories.GetMockAccountName());
+            Account acct = new Account(BaseTest.GetMockAccountName());
             acct.Create();
 
             Adjustment a = acct.CreateAdjustment("Charge", 1234, "USD", 1);
@@ -64,7 +64,7 @@ namespace Recurly.Test
         [Test]
         public void ListAdjustmentsCredits()
         {
-            Account acct = new Account(Factories.GetMockAccountName());
+            Account acct = new Account(BaseTest.GetMockAccountName());
             acct.Create();
 
             Adjustment a = acct.CreateAdjustment("Charge", 3456, "USD", 1);
@@ -81,7 +81,7 @@ namespace Recurly.Test
         [Test]
         public void ListAdjustmentsCharges()
         {
-            Account acct = new Account(Factories.GetMockAccountName());
+            Account acct = new Account(BaseTest.GetMockAccountName());
             acct.Create();
 
             Adjustment a = acct.CreateAdjustment("Charge", 1234, "USD", 1);
@@ -100,7 +100,7 @@ namespace Recurly.Test
         [Test]
         public void ListAdjustmentsPendingToInvoiced()
         {
-            Account acct = new Account(Factories.GetMockAccountName());
+            Account acct = new Account(BaseTest.GetMockAccountName());
             acct.Create();
 
             Adjustment a = acct.CreateAdjustment("Charge", 1234, "USD", 1);

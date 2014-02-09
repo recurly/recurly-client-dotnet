@@ -9,7 +9,7 @@ namespace Recurly.Test
         [Fact]
         public void CreateAccount()
         {
-            var acct = new Account(Factories.GetUniqueAccountCode());
+            var acct = new Account(GetUniqueAccountCode());
             acct.Create();
             acct.CreatedAt.Should().NotBe(default(DateTime));
         }
@@ -17,7 +17,7 @@ namespace Recurly.Test
         [Fact]
         public void CreateAccountWithParameters()
         {
-            var acct = new Account(Factories.GetUniqueAccountCode())
+            var acct = new Account(GetUniqueAccountCode())
             {
                 Username = "testuser1",
                 Email = "testemail@recurly.com",
@@ -40,7 +40,7 @@ namespace Recurly.Test
         [Fact]
         public void CreateAccountWithBillingInfo()
         {
-            var accountCode = Factories.GetUniqueAccountCode();
+            var accountCode = GetUniqueAccountCode();
             var account = new Account(accountCode, "BI", "User",
                 TestCreditCardNumbers.Visa1, DateTime.Now.Month, DateTime.Now.Year + 1);
 
@@ -52,7 +52,7 @@ namespace Recurly.Test
         [Fact]
         public void LookupAccount()
         {
-            var newAcct = new Account(Factories.GetUniqueAccountCode())
+            var newAcct = new Account(GetUniqueAccountCode())
             {
                 Email = "testemail@recurly.com"
             };
@@ -75,7 +75,7 @@ namespace Recurly.Test
         [Fact]
         public void UpdateAccount()
         {
-            var acct = new Account(Factories.GetUniqueAccountCode());
+            var acct = new Account(GetUniqueAccountCode());
             acct.Create();
 
             acct.LastName = "UpdateTest123";
@@ -88,7 +88,7 @@ namespace Recurly.Test
         [Fact]
         public void CloseAccount()
         {
-            var accountCode = Factories.GetUniqueAccountCode();
+            var accountCode = GetUniqueAccountCode();
             var acct = new Account(accountCode);
             acct.Create();
 
@@ -101,7 +101,7 @@ namespace Recurly.Test
         [Fact]
         public void ReopenAccount()
         {
-            var accountCode = Factories.GetUniqueAccountCode();
+            var accountCode = GetUniqueAccountCode();
             var acct = new Account(accountCode);
             acct.Create();
             acct.Close();

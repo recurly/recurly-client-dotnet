@@ -16,7 +16,7 @@ namespace Recurly.Test
         {
             for (int x = 0; x < 5; x++)
             {
-                String a = Factories.GetMockAccountName();
+                String a = BaseTest.GetMockAccountName();
                 Account acct = new Account(a, "New Txn", "User",
                     "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
                 acct.Create();
@@ -38,7 +38,7 @@ namespace Recurly.Test
 
             for (int x = 0; x < 2; x++)
             {
-                String a = Factories.GetMockAccountName();
+                String a = BaseTest.GetMockAccountName();
                 Account acct = new Account(a, "New Txn", "User",
                     "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
                 acct.Create();
@@ -66,7 +66,7 @@ namespace Recurly.Test
         {
             for (int x = 0; x < 2; x++)
             {
-                String a = Factories.GetMockAccountName();
+                String a = BaseTest.GetMockAccountName();
                 Account acct = new Account(a, "New Txn", "User",
                     "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
                 acct.Create();
@@ -93,7 +93,7 @@ namespace Recurly.Test
         {
             for (int x = 0; x < 2; x++)
             {
-                String a = Factories.GetMockAccountName();
+                String a = BaseTest.GetMockAccountName();
                 Account acct = new Account(a, "New Txn", "User",
                     "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
                 acct.Create();
@@ -122,7 +122,7 @@ namespace Recurly.Test
         public void ListTransactionsForAccount()
         {
 
-            String a = Factories.GetMockAccountName();
+            String a = BaseTest.GetMockAccountName();
             Account acct = new Account(a, "New Txn", "User",
                 "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
             acct.Create();

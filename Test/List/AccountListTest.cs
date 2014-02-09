@@ -62,12 +62,5 @@ namespace Recurly.Test
 
             accounts.Next.Should().NotBeEmpty();
         }
-
-        private static Account CreateNewAccount()
-        {
-            var account = new Account(Factories.GetUniqueAccountCode());
-            account.Create();
-            return account;
-        }
     }
 }

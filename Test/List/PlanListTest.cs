@@ -13,11 +13,11 @@ namespace Recurly.Test
         [Test]
         public void ListPlans()
         {
-            Plan p = new Plan(Factories.GetMockPlanCode(), Factories.GetMockPlanName());
+            Plan p = new Plan(BaseTest.GetMockPlanCode(), BaseTest.GetMockPlanName());
             p.SetupFeeInCents.Add("USD", 100);
             p.Create();
 
-            p = new Plan(Factories.GetMockPlanCode(), Factories.GetMockPlanName());
+            p = new Plan(BaseTest.GetMockPlanCode(), BaseTest.GetMockPlanName());
             p.SetupFeeInCents.Add("USD", 200);
             p.Create();
 

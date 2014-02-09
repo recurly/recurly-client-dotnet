@@ -13,8 +13,8 @@ namespace Recurly.Test
         [Test]
         public void LookupPlan()
         {
-            String s = Factories.GetMockPlanCode();
-            Plan p = new Plan(s, Factories.GetMockPlanName());
+            String s = BaseTest.GetMockPlanCode();
+            Plan p = new Plan(s, BaseTest.GetMockPlanName());
             p.Description = "Test Lookup";
             p.UnitAmountInCents.Add("USD", 100);
             p.Create();
@@ -31,7 +31,7 @@ namespace Recurly.Test
         [Test]
         public void CreatePlanSmall()
         {
-            Plan p = new Plan(Factories.GetMockPlanCode(), Factories.GetMockPlanName());
+            Plan p = new Plan(BaseTest.GetMockPlanCode(), BaseTest.GetMockPlanName());
             p.SetupFeeInCents.Add("USD",100);
             p.Create();
 
@@ -44,7 +44,7 @@ namespace Recurly.Test
         [Test]
         public void CreatePlan()
         {
-            Plan p = new Plan(Factories.GetMockPlanCode(), Factories.GetMockPlanName());
+            Plan p = new Plan(BaseTest.GetMockPlanCode(), BaseTest.GetMockPlanName());
             p.SetupFeeInCents.Add("USD",500);
             p.AccountingCode = "accountingcode123";
             p.Description = "a test plan";
@@ -77,8 +77,8 @@ namespace Recurly.Test
         [Test]
         public void UpdatePlan()
         {
-            String s = Factories.GetMockPlanCode();
-            Plan p = new Plan(s, Factories.GetMockPlanName());
+            String s = BaseTest.GetMockPlanCode();
+            Plan p = new Plan(s, BaseTest.GetMockPlanName());
             p.Description = "Test Update";
             p.UnitAmountInCents.Add("USD", 100);
             p.Create();
@@ -101,8 +101,8 @@ namespace Recurly.Test
         [Test]
         public void DeactivatePlan()
         {
-            String s = Factories.GetMockPlanCode();
-            Plan p = new Plan(s, Factories.GetMockPlanName());
+            String s = BaseTest.GetMockPlanCode();
+            Plan p = new Plan(s, BaseTest.GetMockPlanName());
             p.Description = "Test Delete";
             p.UnitAmountInCents.Add("USD", 100);
             p.Create();
