@@ -7,12 +7,8 @@ namespace Recurly.Test
         protected const string NullString = null;
         protected const string EmptyString = "";
 
-        //internal readonly TestClient ClientInstance;
         protected BaseTest()
         {
-            //ClientInstance = new TestClient(SettingsFixture.TestSettings);
-            //Client.ChangeInstance(ClientInstance);
-
             Client.Instance.ApplySettings(SettingsFixture.TestSettings);
         }
 
@@ -37,32 +33,32 @@ namespace Recurly.Test
             return Guid.NewGuid().ToString();
         }
 
-        public static string GetMockAccountName(string name = "Test Account")
+        public string GetMockAccountName(string name = "Test Account")
         {
             return name + " " + DateTime.Now.ToString("yyyyMMddhhmmFFFFFFF");
         }
 
-        public static string GetMockCouponCode(string name = "cc")
+        public string GetMockCouponCode(string name = "cc")
         {
             return name + DateTime.Now.ToString("yyyyMMddhhmmFFFFFFF");
         }
 
-        public static string GetMockCouponName(string name = "Test Coupon")
+        public string GetMockCouponName(string name = "Test Coupon")
         {
             return name + " " + DateTime.Now.ToString("yyyyMMddhhmmFFFFFFF");
         }
 
-        public static string GetMockPlanCode(string name = "pc")
+        public string GetMockPlanCode(string name = "pc")
         {
             return name.Replace(" ", "") + DateTime.Now.ToString("yyyyMMddhhmmFFFFFFF");
         }
 
-        public static string GetMockPlanName(string name = "Test Plan")
+        public string GetMockPlanName(string name = "Test Plan")
         {
             return name + " " + DateTime.Now.ToString("yyyyMMddhhmmFFFFFFF");
         }
 
-        public static BillingInfo NewBillingInfo(Account account)
+        public BillingInfo NewBillingInfo(Account account)
         {
             var billingInfo = new BillingInfo(account)
             {

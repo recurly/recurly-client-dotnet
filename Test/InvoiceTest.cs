@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Recurly;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace Recurly.Test
 {
     [TestFixture]
-    class InvoiceTest
+    class InvoiceTest : BaseTest
     {
   
         [Test]
         public void GetInvoice()
         {
-            Account acct = new Account(BaseTest.GetMockAccountName());
+            Account acct = new Account(GetMockAccountName());
             acct.Create();
 
             Adjustment a = acct.CreateAdjustment("Test Charge", 5000, "USD");
@@ -29,7 +25,7 @@ namespace Recurly.Test
         [Test]
         public void GetInvoicePDF()
         {
-            Account acct = new Account(BaseTest.GetMockAccountName());
+            Account acct = new Account(GetMockAccountName());
             acct.Create();
 
             Adjustment a = acct.CreateAdjustment("Test Charge", 5000, "USD");
@@ -46,7 +42,7 @@ namespace Recurly.Test
         [Test]
         public void Post()
         {
-            Account acct = new Account(BaseTest.GetMockAccountName());
+            Account acct = new Account(GetMockAccountName());
             acct.Create();
 
             Adjustment a = acct.CreateAdjustment("Test Charge", 5000, "USD");
@@ -70,7 +66,7 @@ namespace Recurly.Test
         [Test]
         public void MarkSuccessful()
         {
-            Account acct = new Account(BaseTest.GetMockAccountName());
+            Account acct = new Account(GetMockAccountName());
             acct.Create();
 
             Adjustment a = acct.CreateAdjustment("Test Charge", 3999, "USD");
@@ -87,7 +83,7 @@ namespace Recurly.Test
         [Test]
         public void FailedCollection()
         {
-            Account acct = new Account(BaseTest.GetMockAccountName());
+            Account acct = new Account(GetMockAccountName());
             acct.Create();
 
             Adjustment a = acct.CreateAdjustment("Test Charge", 3999, "USD");

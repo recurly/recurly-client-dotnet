@@ -1,23 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Recurly;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace Recurly.Test
 {
     [TestFixture]
-    class PlanListTest
+    class PlanListTest : BaseTest
     {
 
         [Test]
         public void ListPlans()
         {
-            Plan p = new Plan(BaseTest.GetMockPlanCode(), BaseTest.GetMockPlanName());
+            Plan p = new Plan(GetMockPlanCode(), GetMockPlanName());
             p.SetupFeeInCents.Add("USD", 100);
             p.Create();
 
-            p = new Plan(BaseTest.GetMockPlanCode(), BaseTest.GetMockPlanName());
+            p = new Plan(GetMockPlanCode(), GetMockPlanName());
             p.SetupFeeInCents.Add("USD", 200);
             p.Create();
 

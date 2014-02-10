@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Recurly;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System.Threading;
 
 
 namespace Recurly.Test
 {
     [TestFixture]
-    class InvoiceListTest
+    class InvoiceListTest : BaseTest
     {
 
         [Test]
@@ -18,7 +14,7 @@ namespace Recurly.Test
 
             for (int x = 0; x < 6; x++)
             {
-                Account acct = new Account(BaseTest.GetMockAccountName());
+                Account acct = new Account(GetMockAccountName());
                 acct.Create();
 
                 Adjustment a = acct.CreateAdjustment("Test Charge", 500 + x, "USD");
@@ -52,7 +48,7 @@ namespace Recurly.Test
         {
             for (int x = 0; x < 2; x++)
             {
-                Account acct = new Account(BaseTest.GetMockAccountName());
+                Account acct = new Account(GetMockAccountName());
                 acct.Create();
 
                 Adjustment a = acct.CreateAdjustment("Test Charge", 500 + x, "USD");
@@ -72,7 +68,7 @@ namespace Recurly.Test
         {
             for (int x = 0; x < 2; x++)
             {
-                Account acct = new Account(BaseTest.GetMockAccountName());
+                Account acct = new Account(GetMockAccountName());
                 acct.Create();
 
                 Adjustment a = acct.CreateAdjustment("Test Charge", 500 + x, "USD");
@@ -94,7 +90,7 @@ namespace Recurly.Test
         {
             for (int x = 0; x < 2; x++)
             {
-                Account acct = new Account(BaseTest.GetMockAccountName());
+                Account acct = new Account(GetMockAccountName());
                 acct.Create();
 
                 Adjustment a = acct.CreateAdjustment("Test Charge", 500 + x, "USD");
@@ -115,7 +111,7 @@ namespace Recurly.Test
         {
             for (int x = 0; x < 2; x++)
             {
-                Account acct = new Account(BaseTest.GetMockAccountName());
+                Account acct = new Account(GetMockAccountName());
                 acct.Create();
 
                 Adjustment a = acct.CreateAdjustment("Test Charge", 500 + x, "USD");
@@ -133,7 +129,7 @@ namespace Recurly.Test
         [Test]
         public void GetInvoicesForAccount()
         {
-            string accountCode = BaseTest.GetMockAccountName();
+            string accountCode = GetMockAccountName();
             Account acct = new Account(accountCode);
             acct.Create();
 

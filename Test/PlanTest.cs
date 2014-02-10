@@ -1,20 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Recurly;
 using NUnit.Framework;
 
 namespace Recurly.Test
 {
     [TestFixture]
-    class  PlanTest
+    class  PlanTest : BaseTest
     {
 
         [Test]
         public void LookupPlan()
         {
-            String s = BaseTest.GetMockPlanCode();
-            Plan p = new Plan(s, BaseTest.GetMockPlanName());
+            String s = GetMockPlanCode();
+            Plan p = new Plan(s, GetMockPlanName());
             p.Description = "Test Lookup";
             p.UnitAmountInCents.Add("USD", 100);
             p.Create();
@@ -31,7 +28,7 @@ namespace Recurly.Test
         [Test]
         public void CreatePlanSmall()
         {
-            Plan p = new Plan(BaseTest.GetMockPlanCode(), BaseTest.GetMockPlanName());
+            Plan p = new Plan(GetMockPlanCode(), GetMockPlanName());
             p.SetupFeeInCents.Add("USD",100);
             p.Create();
 
@@ -44,7 +41,7 @@ namespace Recurly.Test
         [Test]
         public void CreatePlan()
         {
-            Plan p = new Plan(BaseTest.GetMockPlanCode(), BaseTest.GetMockPlanName());
+            Plan p = new Plan(GetMockPlanCode(), GetMockPlanName());
             p.SetupFeeInCents.Add("USD",500);
             p.AccountingCode = "accountingcode123";
             p.Description = "a test plan";
@@ -77,8 +74,8 @@ namespace Recurly.Test
         [Test]
         public void UpdatePlan()
         {
-            String s = BaseTest.GetMockPlanCode();
-            Plan p = new Plan(s, BaseTest.GetMockPlanName());
+            String s = GetMockPlanCode();
+            Plan p = new Plan(s, GetMockPlanName());
             p.Description = "Test Update";
             p.UnitAmountInCents.Add("USD", 100);
             p.Create();
@@ -101,8 +98,8 @@ namespace Recurly.Test
         [Test]
         public void DeactivatePlan()
         {
-            String s = BaseTest.GetMockPlanCode();
-            Plan p = new Plan(s, BaseTest.GetMockPlanName());
+            String s = GetMockPlanCode();
+            Plan p = new Plan(s, GetMockPlanName());
             p.Description = "Test Delete";
             p.UnitAmountInCents.Add("USD", 100);
             p.Create();

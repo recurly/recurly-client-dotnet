@@ -1,24 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using Recurly;
 using NUnit.Framework;
 using System.Threading;
 
 namespace Recurly.Test
 {
     [TestFixture]
-    public class CouponRedemptionTest
+    public class CouponRedemptionTest : BaseTest
     {
 
         [Test]
         public void RedeemCoupon()
         {
-            string s = BaseTest.GetMockCouponCode();
-            Coupon c = new Coupon(s, BaseTest.GetMockCouponName(), 10);
+            string s = GetMockCouponCode();
+            Coupon c = new Coupon(s, GetMockCouponName(), 10);
             c.Create();
 
-            string act = BaseTest.GetMockAccountName();
+            string act = GetMockAccountName();
             Account acct = new Account(act);
             acct.Create();
             Assert.IsNotNull(acct.CreatedAt);
@@ -33,11 +31,11 @@ namespace Recurly.Test
         [Test]
         public void LookupRedemption()
         {
-            string s = BaseTest.GetMockCouponCode();
-            Coupon c = new Coupon(s, BaseTest.GetMockCouponName(), 10);
+            string s = GetMockCouponCode();
+            Coupon c = new Coupon(s, GetMockCouponName(), 10);
             c.Create();
 
-            string act = BaseTest.GetMockAccountName();
+            string act = GetMockAccountName();
             Account acct = new Account(act);
             acct.Create();
             Assert.IsNotNull(acct.CreatedAt);
@@ -56,11 +54,11 @@ namespace Recurly.Test
         [ExpectedException(typeof(NotFoundException))]
         public void RemoveCoupon()
         {
-            string s = BaseTest.GetMockCouponCode();
-            Coupon c = new Coupon(s, BaseTest.GetMockCouponName(), 10);
+            string s = GetMockCouponCode();
+            Coupon c = new Coupon(s, GetMockCouponName(), 10);
             c.Create();
 
-            string act = BaseTest.GetMockAccountName();
+            string act = GetMockAccountName();
             Account acct = new Account(act);
             acct.Create();
             Assert.IsNotNull(acct.CreatedAt);
@@ -79,13 +77,13 @@ namespace Recurly.Test
         public void LookupCouponInvoice()
         {
             
-            string s = BaseTest.GetMockCouponCode();
+            string s = GetMockCouponCode();
             Dictionary<string, int> discounts = new Dictionary<string,int>();
             discounts.Add("USD",1000);
-            Coupon c = new Coupon(s, BaseTest.GetMockCouponName(), discounts);
+            Coupon c = new Coupon(s, GetMockCouponName(), discounts);
             c.Create();
 
-            string act = BaseTest.GetMockAccountName();
+            string act = GetMockAccountName();
             Account acct = new Account(s, "John", "Doe", "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 2);
             acct.Create();
 

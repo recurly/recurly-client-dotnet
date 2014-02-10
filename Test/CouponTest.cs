@@ -1,24 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Recurly;
+﻿using System.Collections.Generic;
 using NUnit.Framework;
 using System.Threading;
 
 namespace Recurly.Test
 {
     [TestFixture]
-    public class CouponTest
+    public class CouponTest : BaseTest
     {
 
         [Test]
         public void ListCoupons()
         {
-            string s = BaseTest.GetMockCouponCode();
-            Coupon c = new Coupon(s, BaseTest.GetMockCouponName(), 1);
+            string s = GetMockCouponCode();
+            Coupon c = new Coupon(s, GetMockCouponName(), 1);
             c.Create();
-            s = BaseTest.GetMockCouponCode();
-            c = new Coupon(s, BaseTest.GetMockCouponName(), 2);
+            s = GetMockCouponCode();
+            c = new Coupon(s, GetMockCouponName(), 2);
             c.Create();
 
             CouponList list = CouponList.List();
@@ -30,13 +27,13 @@ namespace Recurly.Test
         public void ListCouponsRedeemable()
         {
 
-            string s = BaseTest.GetMockCouponCode();
-            Coupon c = new Coupon(s, BaseTest.GetMockCouponName(), 1);
+            string s = GetMockCouponCode();
+            Coupon c = new Coupon(s, GetMockCouponName(), 1);
             c.Create();
             c.Deactivate();
             Thread.Sleep(1000);
-            s = BaseTest.GetMockCouponCode();
-            c = new Coupon(s, BaseTest.GetMockCouponName(), 2);
+            s = GetMockCouponCode();
+            c = new Coupon(s, GetMockCouponName(), 2);
             c.Create();
 
             CouponList list = CouponList.List(Coupon.CouponState.Redeemable);
@@ -48,11 +45,11 @@ namespace Recurly.Test
         public void ListCouponsExpired()
         {
 
-            string s = BaseTest.GetMockCouponCode();
-            Coupon c = new Coupon(s, BaseTest.GetMockCouponName(), 1);
+            string s = GetMockCouponCode();
+            Coupon c = new Coupon(s, GetMockCouponName(), 1);
             c.Create();
-            s = BaseTest.GetMockCouponCode();
-            c = new Coupon(s, BaseTest.GetMockCouponName(), 2);
+            s = GetMockCouponCode();
+            c = new Coupon(s, GetMockCouponName(), 2);
             c.Create();
 
             CouponList list = CouponList.List();
@@ -64,12 +61,12 @@ namespace Recurly.Test
         public void ListCouponsMaxedOut()
         {
 
-            string s = BaseTest.GetMockCouponCode();
-            Coupon c = new Coupon(s, BaseTest.GetMockCouponName(), 1);
+            string s = GetMockCouponCode();
+            Coupon c = new Coupon(s, GetMockCouponName(), 1);
             c.MaxRedemptions = 1;
             c.Create();
 
-            Account t = new Account(BaseTest.GetMockAccountName("Coupon Redemption Max"));
+            Account t = new Account(GetMockAccountName("Coupon Redemption Max"));
             t.Create();
             t.RedeemCoupon(s, "USD");
 
@@ -82,8 +79,8 @@ namespace Recurly.Test
         [Test]
         public void CreateCouponPercent()
         {
-            string s = BaseTest.GetMockCouponCode();
-            Coupon c = new Coupon(s, BaseTest.GetMockCouponName(), 10);
+            string s = GetMockCouponCode();
+            Coupon c = new Coupon(s, GetMockCouponName(), 10);
             c.Create();
 
             Assert.IsNotNull(c.CreatedAt);
@@ -98,8 +95,8 @@ namespace Recurly.Test
         [Test]
         public void CreateCouponDollars()
         {
-            string s = BaseTest.GetMockCouponCode();
-            Coupon c = new Coupon(s, BaseTest.GetMockCouponName(), new Dictionary<string,int>());
+            string s = GetMockCouponCode();
+            Coupon c = new Coupon(s, GetMockCouponName(), new Dictionary<string,int>());
             c.DiscountInCents.Add("USD", 100);
             c.DiscountInCents.Add("EUR", 50);
 
@@ -118,14 +115,14 @@ namespace Recurly.Test
         [Test]
         public void CreateCouponPlan()
         {
-            Plan p = new Plan(BaseTest.GetMockPlanCode("coupon plan"), "Coupon Test");
+            Plan p = new Plan(GetMockPlanCode("coupon plan"), "Coupon Test");
             p.SetupFeeInCents.Add("USD", 500);
             p.UnitAmountInCents.Add("USD", 5000);
             p.Create();
 
 
-            string s = BaseTest.GetMockCouponCode();
-            Coupon c = new Coupon(s, BaseTest.GetMockCouponName(), new Dictionary<string, int>());
+            string s = GetMockCouponCode();
+            Coupon c = new Coupon(s, GetMockCouponName(), new Dictionary<string, int>());
             c.DiscountInCents.Add("USD", 100);
             c.Plans.Add(p.PlanCode);
 
@@ -135,8 +132,8 @@ namespace Recurly.Test
         [Test]
         public void DeactivateCoupon()
         {
-            string s = BaseTest.GetMockCouponCode();
-            Coupon c = new Coupon(s, BaseTest.GetMockCouponName(), new Dictionary<string, int>());
+            string s = GetMockCouponCode();
+            Coupon c = new Coupon(s, GetMockCouponName(), new Dictionary<string, int>());
             c.DiscountInCents.Add("USD", 100);
             c.DiscountInCents.Add("EUR", 50);
 

@@ -1,25 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Recurly;
 using NUnit.Framework;
 
 namespace Recurly.Test
 {
     [TestFixture]
-    public class SubscriptionTest
+    public class SubscriptionTest : BaseTest
     {
 
         [Test]
         public void LookupSubscription()
         {
-            String s = BaseTest.GetMockPlanCode();
-            Plan p = new Plan(s, BaseTest.GetMockPlanName());
+            String s = GetMockPlanCode();
+            Plan p = new Plan(s, GetMockPlanName());
             p.Description = "Lookup Subscription Test";
             p.UnitAmountInCents.Add("USD", 1500);
             p.Create();
 
-            String a = BaseTest.GetMockAccountName();
+            String a = GetMockAccountName();
             Account acct = new Account(a, "New Txn", "User",
                 "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
 
@@ -42,13 +39,13 @@ namespace Recurly.Test
         [Test]
         public void LookupSubscriptionPendingChanges()
         {
-            String s = BaseTest.GetMockPlanCode();
-            Plan p = new Plan(s, BaseTest.GetMockPlanName());
+            String s = GetMockPlanCode();
+            Plan p = new Plan(s, GetMockPlanName());
             p.Description = "Lookup Subscription With Pending Changes Test";
             p.UnitAmountInCents.Add("USD", 1500);
             p.Create();
 
-            String a = BaseTest.GetMockAccountName();
+            String a = GetMockAccountName();
             Account acct = new Account(a, "New Txn", "User",
                 "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
 
@@ -72,13 +69,13 @@ namespace Recurly.Test
         [Test]
         public void CreateSubscription()
         {
-            String s = BaseTest.GetMockPlanCode();
-            Plan p = new Plan(s, BaseTest.GetMockPlanName());
+            String s = GetMockPlanCode();
+            Plan p = new Plan(s, GetMockPlanName());
             p.Description = "Create Subscription Test";
             p.UnitAmountInCents.Add("USD", 100);
             p.Create();
 
-            String a = BaseTest.GetMockAccountName();
+            String a = GetMockAccountName();
             Account acct = new Account(a, "New Txn", "User",
                 "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
 
@@ -95,17 +92,17 @@ namespace Recurly.Test
         [Test]
         public void CreateSubscriptionWithCoupon()
         {
-            String s = BaseTest.GetMockPlanCode();
-            Plan p = new Plan(s, BaseTest.GetMockPlanName());
+            String s = GetMockPlanCode();
+            Plan p = new Plan(s, GetMockPlanName());
             p.Description = "Create Subscription With Coupon Test";
             p.UnitAmountInCents.Add("USD", 100);
             p.Create();
 
-            String code = BaseTest.GetMockCouponCode();
-            Coupon c = new Coupon(code, "Sub Test " + BaseTest.GetMockCouponName(), 10);
+            String code = GetMockCouponCode();
+            Coupon c = new Coupon(code, "Sub Test " + GetMockCouponName(), 10);
             c.Create();
 
-            String a = BaseTest.GetMockAccountName();
+            String a = GetMockAccountName();
             Account acct = new Account(a, "New Txn", "User",
                 "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
 
@@ -121,20 +118,20 @@ namespace Recurly.Test
         [Test]
         public void UpdateSubscription()
         {
-            String s = BaseTest.GetMockPlanCode();
-            Plan p = new Plan(s, BaseTest.GetMockPlanName());
+            String s = GetMockPlanCode();
+            Plan p = new Plan(s, GetMockPlanName());
             p.Description = "Update Subscription Plan 1";
             p.UnitAmountInCents.Add("USD", 1500);
             p.Create();
 
-            String s2 = BaseTest.GetMockPlanCode();
+            String s2 = GetMockPlanCode();
 
-            Plan p2 = new Plan(s2, BaseTest.GetMockPlanName());
+            Plan p2 = new Plan(s2, GetMockPlanName());
             p2.Description = "Update Subscription Plan 2";
             p2.UnitAmountInCents.Add("USD", 750);
             p2.Create();
 
-            String a = BaseTest.GetMockAccountName();
+            String a = GetMockAccountName();
             Account acct = new Account(a, "New Txn", "User",
                 "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
 
@@ -157,13 +154,13 @@ namespace Recurly.Test
         [Test]
         public void CancelSubscription()
         {
-            String s = BaseTest.GetMockPlanCode();
-            Plan p = new Plan(s, BaseTest.GetMockPlanName());
+            String s = GetMockPlanCode();
+            Plan p = new Plan(s, GetMockPlanName());
             p.Description = "Cancel Subscription Test";
             p.UnitAmountInCents.Add("USD", 100);
             p.Create();
 
-            String a = BaseTest.GetMockAccountName();
+            String a = GetMockAccountName();
             Account acct = new Account(a, "New Txn", "User",
                 "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
 
@@ -182,13 +179,13 @@ namespace Recurly.Test
         [Test]
         public void ReactivateSubscription()
         {
-            String s = BaseTest.GetMockPlanCode();
-            Plan p = new Plan(s, BaseTest.GetMockPlanName());
+            String s = GetMockPlanCode();
+            Plan p = new Plan(s, GetMockPlanName());
             p.Description = "Reactivate Subscription Test";
             p.UnitAmountInCents.Add("USD", 100);
             p.Create();
 
-            String a = BaseTest.GetMockAccountName();
+            String a = GetMockAccountName();
             Account acct = new Account(a, "New Txn", "User",
                 "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
 
@@ -208,13 +205,13 @@ namespace Recurly.Test
         [Test]
         public void TerminateSubscriptionNoRefund()
         {
-            String s = BaseTest.GetMockPlanCode();
-            Plan p = new Plan(s, BaseTest.GetMockPlanName());
+            String s = GetMockPlanCode();
+            Plan p = new Plan(s, GetMockPlanName());
             p.Description = "Terminate No Refund Subscription Test";
             p.UnitAmountInCents.Add("USD", 200);
             p.Create();
 
-            String a = BaseTest.GetMockAccountName();
+            String a = GetMockAccountName();
             Account acct = new Account(a, "New Txn", "User",
                 "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
 
@@ -231,13 +228,13 @@ namespace Recurly.Test
         [Test]
         public void TerminateSubscriptionPartialRefund()
         {
-            String s = BaseTest.GetMockPlanCode();
-            Plan p = new Plan(s, BaseTest.GetMockPlanName());
+            String s = GetMockPlanCode();
+            Plan p = new Plan(s, GetMockPlanName());
             p.Description = "Terminate Partial Refund Subscription Test";
             p.UnitAmountInCents.Add("USD", 2000);
             p.Create();
 
-            String a = BaseTest.GetMockAccountName();
+            String a = GetMockAccountName();
             Account acct = new Account(a, "New Txn", "User",
                 "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
 
@@ -254,13 +251,13 @@ namespace Recurly.Test
         [Test]
         public void TerminateSubscriptionFullRefund()
         {
-            String s = BaseTest.GetMockPlanCode();
-            Plan p = new Plan(s, BaseTest.GetMockPlanName());
+            String s = GetMockPlanCode();
+            Plan p = new Plan(s, GetMockPlanName());
             p.Description = "Terminate Full Refund Subscription Test";
             p.UnitAmountInCents.Add("USD", 20000);
             p.Create();
 
-            String a = BaseTest.GetMockAccountName();
+            String a = GetMockAccountName();
             Account acct = new Account(a, "New Txn", "User",
                 "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
 
@@ -277,13 +274,13 @@ namespace Recurly.Test
         [Test]
         public void PostponeSubscription()
         {
-            String s = BaseTest.GetMockPlanCode();
-            Plan p = new Plan(s, BaseTest.GetMockPlanName());
+            String s = GetMockPlanCode();
+            Plan p = new Plan(s, GetMockPlanName());
             p.Description = "Postpone Subscription Test";
             p.UnitAmountInCents.Add("USD", 100);
             p.Create();
 
-            String a = BaseTest.GetMockAccountName();
+            String a = GetMockAccountName();
             Account acct = new Account(a, "New Txn", "User",
                 "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
 
