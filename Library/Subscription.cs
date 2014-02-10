@@ -38,7 +38,6 @@ namespace Recurly
             None
         }
 
-
         private string _accountCode;
         private Account _account;
         /// <summary>
@@ -48,7 +47,6 @@ namespace Recurly
         {
             get { return _account ?? (_account = Accounts.Get(_accountCode)); }
         }
-
 
         private Plan _plan;
         private string _planCode;
@@ -139,7 +137,6 @@ namespace Recurly
         /// </summary>
         private bool _isPendingSubscription { get; set; }
 
-
         private Coupon _coupon;
         private string _couponCode;
 
@@ -155,7 +152,6 @@ namespace Recurly
                 _couponCode = value.CouponCode;
             }
         }
-
 
         /// <summary>
         /// List of add ons for this subscription
@@ -208,18 +204,6 @@ namespace Recurly
             Quantity = 1;
             _couponCode = couponCode;
         }
-
-
-        public static Subscription Get(string uuid)
-        {
-            var s = new Subscription();
-            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
-                UrlPrefix + Uri.EscapeUriString(uuid),
-                s.ReadXml);
-
-            return statusCode == HttpStatusCode.NotFound ? null : s;
-        }
-
 
         public void Create()
         {
@@ -539,5 +523,30 @@ namespace Recurly
         }
 
         #endregion
+    }
+
+    public class Subscriptions
+    {
+        /// <summary>
+        /// Returns a list of recurly subscriptions
+        /// 
+        /// A subscription will belong to more than one state.
+        /// </summary>
+        /// <param name="state">State of subscriptions to return, defaults to "live"</param>
+        /// <returns></returns>
+        public static SubscriptionList List(Subscription.SubscriptionState state = Subscription.SubscriptionState.Live)
+        {
+            return new SubscriptionList(Subscription.UrlPrefix + "?state=" + state.ToString().EnumNameToTransportCase());
+        }
+
+        public static Subscription Get(string uuid)
+        {
+            var s = new Subscription();
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
+                Subscription.UrlPrefix + Uri.EscapeUriString(uuid),
+                s.ReadXml);
+
+            return statusCode == HttpStatusCode.NotFound ? null : s;
+        }
     }
 }

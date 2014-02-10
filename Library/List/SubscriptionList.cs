@@ -36,17 +36,5 @@ namespace Recurly
                 }
             }
         }
-
-        /// <summary>
-        /// Returns a list of recurly subscriptions
-        /// 
-        /// A subscription will belong to more than one state.
-        /// </summary>
-        /// <param name="state">State of subscriptions to return, defaults to "live"</param>
-        /// <returns></returns>
-        public static SubscriptionList GetSubscriptions(Subscription.SubscriptionState state = Subscription.SubscriptionState.Live)
-        {
-            return new SubscriptionList(Subscription.UrlPrefix + "?state=" + state.ToString().EnumNameToTransportCase());
-        }
     }
 }

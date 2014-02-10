@@ -1,248 +1,212 @@
 ﻿using System;
-using NUnit.Framework;
 using System.Threading;
+using FluentAssertions;
+using Xunit;
 
 namespace Recurly.Test
 {
-    [TestFixture]
     public class SubscriptionListTest : BaseTest
     {
-
-        [Test]
+        [Fact]
         public void ListLiveSubscriptions()
         {
-            String s = GetMockPlanCode();
-            Plan p = new Plan(s, GetMockPlanName());
-            p.Description = "Subscription Test";
+            var p = new Plan(GetMockPlanCode(), GetMockPlanName()) {Description = "Subscription Test"};
             p.UnitAmountInCents.Add("USD", 200);
             p.Create();
 
-            for (int x = 0; x < 2; x++)
+            for (var x = 0; x < 2; x++)
             {
-                String a = GetMockAccountName();
-                Account acct = new Account(a, "New Txn", "User",
-                    "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
+                var account = CreateNewAccountWithBillingInfo();
 
-                Subscription sub = new Subscription(acct, p, "USD");
+                var sub = new Subscription(account, p, "USD");
                 sub.Create();
-
-                Thread.Sleep(1);
             }
 
-            SubscriptionList list = SubscriptionList.GetSubscriptions(Subscription.SubscriptionState.Live);
-            Assert.IsTrue(list.Count > 0);
+            var subs = Subscriptions.List(Subscription.SubscriptionState.Live);
+            subs.Should().NotBeEmpty();
             p.Deactivate();
         }
 
-        [Test]
+        [Fact]
         public void ListActiveSubscriptions()
         {
-            String s = GetMockPlanCode();
-            Plan p = new Plan(s, GetMockPlanName());
-            p.Description = "Subscription Test";
+            var p = new Plan(GetMockPlanCode(), GetMockPlanName()) { Description = "Subscription Test" };
             p.UnitAmountInCents.Add("USD", 300);
             p.Create();
 
-            for (int x = 0; x < 2; x++)
+            for (var x = 0; x < 2; x++)
             {
-                String a = GetMockAccountName();
-                Account acct = new Account(a, "New Txn", "User",
-                    "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
+                var account = CreateNewAccountWithBillingInfo();
 
-                Subscription sub = new Subscription(acct, p, "USD");
+                var sub = new Subscription(account, p, "USD");
                 sub.Create();
-
-                Thread.Sleep(1);
             }
 
-            SubscriptionList list = SubscriptionList.GetSubscriptions(Subscription.SubscriptionState.Active);
-            Assert.IsTrue(list.Count > 0);
+            var subs = Subscriptions.List(Subscription.SubscriptionState.Active);
+            subs.Should().NotBeEmpty();
             p.Deactivate();
         }
 
-        [Test]
+        [Fact]
         public void ListCanceledSubscriptions()
         {
-            String s = GetMockPlanCode();
-            Plan p = new Plan(s, GetMockPlanName());
-            p.Description = "Subscription Test";
+            var p = new Plan(GetMockPlanCode(), GetMockPlanName()) { Description = "Subscription Test" };
             p.UnitAmountInCents.Add("USD", 400);
             p.Create();
 
-            for (int x = 0; x < 2; x++)
+            for (var x = 0; x < 2; x++)
             {
-                String a = GetMockAccountName();
-                Account acct = new Account(a, "New Txn", "User",
-                    "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
+                var account = CreateNewAccountWithBillingInfo();
 
-                Subscription sub = new Subscription(acct, p, "USD");
+                var sub = new Subscription(account, p, "USD");
                 sub.Create();
 
                 sub.Cancel();
-                Thread.Sleep(1);
             }
 
-            SubscriptionList list = SubscriptionList.GetSubscriptions(Subscription.SubscriptionState.Canceled);
-            Assert.IsTrue(list.Count > 0);
+            var subs = Subscriptions.List(Subscription.SubscriptionState.Canceled);
+            subs.Should().NotBeEmpty();
             p.Deactivate();
         }
 
-        [Test]
+        [Fact]
         public void ListExpiredSubscriptions()
         {
-            String s = GetMockPlanCode();
-            Plan p = new Plan(s, GetMockPlanName());
-            p.Description = "Subscription Test";
-            p.PlanIntervalLength = 1;
-            p.PlanIntervalUnit = Plan.IntervalUnit.Months;
-            p.UnitAmountInCents.Add("USD", 400);
-            p.Create();
-
-            for (int x = 0; x < 2; x++)
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
             {
-                String a = GetMockAccountName();
-                Account acct = new Account(a, "New Txn", "User",
-                    "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
+                Description = "Subscription Test",
+                PlanIntervalLength = 1,
+                PlanIntervalUnit = Plan.IntervalUnit.Months
+            };
+            plan.UnitAmountInCents.Add("USD", 400);
+            plan.Create();
 
-                Subscription sub = new Subscription(acct, p, "USD");
-                sub.StartsAt = DateTime.Now.AddMonths(-5);
-                
+            for (var x = 0; x < 2; x++)
+            {
+                var account = CreateNewAccountWithBillingInfo();
+                var sub = new Subscription(account, plan, "USD")
+                {
+                    StartsAt = DateTime.Now.AddMonths(-5)
+                };
+
                 sub.Create();
-
-                Thread.Sleep(1);
             }
 
-            SubscriptionList list = SubscriptionList.GetSubscriptions(Subscription.SubscriptionState.Canceled);
-            Assert.IsTrue(list.Count > 0);
+            var subs = Subscriptions.List(Subscription.SubscriptionState.Expired);
+            subs.Should().NotBeEmpty();
 
-            p.Deactivate();
+            plan.Deactivate();
         }
 
-        [Test]
+        [Fact]
         public void ListFutureSubscriptions()
         {
-            String s = GetMockPlanCode();
-            Plan p = new Plan(s, GetMockPlanName());
-            p.Description = "Subscription Test";
-            p.PlanIntervalLength = 1;
-            p.PlanIntervalUnit = Plan.IntervalUnit.Months;
-            p.UnitAmountInCents.Add("USD", 400);
-            p.Create();
-
-            for (int x = 0; x < 2; x++)
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
             {
-                String a = GetMockAccountName();
-                Account acct = new Account(a, "New Txn", "User",
-                    "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
+                Description = "Subscription Test",
+                PlanIntervalLength = 1,
+                PlanIntervalUnit = Plan.IntervalUnit.Months
+            };
+            plan.UnitAmountInCents.Add("USD", 400);
+            plan.Create();
 
-                Subscription sub = new Subscription(acct, p, "USD");
-                sub.StartsAt = DateTime.Now.AddMonths(1);
+            for (var x = 0; x < 2; x++)
+            {
+                var account = CreateNewAccountWithBillingInfo();
+                var sub = new Subscription(account, plan, "USD")
+                {
+                    StartsAt = DateTime.Now.AddMonths(1)
+                };
 
                 sub.Create();
-
-                Thread.Sleep(1);
             }
 
-            SubscriptionList list = SubscriptionList.GetSubscriptions(Subscription.SubscriptionState.Canceled);
-            Assert.IsTrue(list.Count > 0);
+            var subs = Subscriptions.List(Subscription.SubscriptionState.Future);
+            subs.Should().NotBeEmpty();
 
-            p.Deactivate();
+            plan.Deactivate();
         }
 
-        [Test]
+        [Fact]
         public void ListInTrialSubscriptions()
         {
-            String s = GetMockPlanCode();
-            Plan p = new Plan(s, GetMockPlanName());
-            p.Description = "Subscription Test";
-            p.PlanIntervalLength = 1;
-            p.PlanIntervalUnit = Plan.IntervalUnit.Months;
-            p.TrialIntervalLength = 1;
-            p.TrialIntervalUnit = Plan.IntervalUnit.Months;
-            p.UnitAmountInCents.Add("USD", 400);
-            p.Create();
-
-            for (int x = 0; x < 2; x++)
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
             {
-                String a = GetMockAccountName();
-                Account acct = new Account(a, "New Txn", "User",
-                    "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
+                Description = "Subscription Test",
+                PlanIntervalLength = 1,
+                PlanIntervalUnit = Plan.IntervalUnit.Months,
+                TrialIntervalLength = 2,
+                TrialIntervalUnit = Plan.IntervalUnit.Months
+            };
+            plan.UnitAmountInCents.Add("USD", 400);
+            plan.Create();
 
-                Subscription sub = new Subscription(acct, p, "USD");
-                sub.StartsAt = DateTime.Now.AddMonths(1);
+            for (var x = 0; x < 2; x++)
+            {
+                var account = CreateNewAccountWithBillingInfo();
+                var sub = new Subscription(account, plan, "USD")
+                {
+                    StartsAt = DateTime.Now.AddMonths(1)
+                };
 
                 sub.Create();
-
-                Thread.Sleep(1);
             }
 
-            SubscriptionList list = SubscriptionList.GetSubscriptions(Subscription.SubscriptionState.Canceled);
-            Assert.IsTrue(list.Count > 0);
+            var subs = Subscriptions.List(Subscription.SubscriptionState.InTrial);
+            subs.Should().NotBeEmpty();
 
-            p.Deactivate();
+            plan.Deactivate();
         }
 
-        [Test]
+        [Fact]
         public void ListPastDueSubscriptions()
         {
-            String s = GetMockPlanCode();
-            Plan p = new Plan(s, GetMockPlanName());
-            p.Description = "Subscription Test";
-            p.PlanIntervalLength = 1;
-            p.PlanIntervalUnit = Plan.IntervalUnit.Months;
-            p.UnitAmountInCents.Add("USD", 200100);
-            p.Create();
-
-            for (int x = 0; x < 2; x++)
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
             {
-                String a = GetMockAccountName();
-                Account acct = new Account(a, "New Txn", "User",
-                "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
+                Description = "Subscription Test",
+                PlanIntervalLength = 1,
+                PlanIntervalUnit = Plan.IntervalUnit.Months
+            };
+            plan.UnitAmountInCents.Add("USD", 200100);
+            plan.Create();
 
-                Subscription sub = new Subscription(acct, p, "USD");
+            for (var x = 0; x < 2; x++)
+            {
+                var account = CreateNewAccountWithBillingInfo();
+                var sub = new Subscription(account, plan, "USD");
                 sub.Create();
-
-                Thread.Sleep(1);
             }
 
-            SubscriptionList list = SubscriptionList.GetSubscriptions(Subscription.SubscriptionState.PastDue);
-            Assert.IsTrue(list.Count > 0);
+            var list = Subscriptions.List(Subscription.SubscriptionState.PastDue);
+            list.Should().NotBeEmpty();
 
-            p.Deactivate();
+            plan.Deactivate();
         }
 
-        [Test]
+        [Fact]
         public void ListForAccount()
         {
-            String s = GetMockPlanCode();
-            Plan p = new Plan(s, GetMockPlanName());
-            p.Description = "Subscription Test";
+            var plan1 = new Plan(GetMockPlanCode(), GetMockPlanName()) {Description = "Subscription Test"};
+            plan1.UnitAmountInCents.Add("USD", 400);
+            plan1.Create();
 
-            p.UnitAmountInCents.Add("USD", 400);
-            p.Create();
+            var plan2 = new Plan(GetMockPlanCode(), GetMockPlanName()) {Description = "Subscription Test"};
+            plan2.UnitAmountInCents.Add("USD", 500);
+            plan2.Create();
 
-            String s2 = GetMockPlanCode();
-            Plan p2 = new Plan(s2, GetMockPlanName());
-            p2.Description = "Subscription Test";
+            var account = CreateNewAccountWithBillingInfo();
 
-            p2.UnitAmountInCents.Add("USD", 500);
-            p2.Create();
-
-            String a = GetMockAccountName();
-            Account acct = new Account(a, "New Txn", "User",
-                "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
-
-            Subscription sub = new Subscription(acct, p, "USD");
+            var sub = new Subscription(account, plan1, "USD");
             sub.Create();
 
-            Subscription sub2 = new Subscription(acct, p2, "USD");
+            var sub2 = new Subscription(account, plan2, "USD");
             sub2.Create();
 
-            SubscriptionList list = acct.GetSubscriptions(Subscription.SubscriptionState.All);
-            Assert.IsTrue(list.Count > 0);
+            SubscriptionList list = account.GetSubscriptions(Subscription.SubscriptionState.All);
+            list.Should().NotBeEmpty();
 
-            p.Deactivate();
-            p2.Deactivate();
+            plan1.Deactivate();
+            plan2.Deactivate();
         }
 
     }
