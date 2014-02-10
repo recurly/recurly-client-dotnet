@@ -39,7 +39,20 @@ namespace Recurly
 
         public int? TotalBillingCycles { get; set; }
 
-        public AddOnList AddOns { get; private set; }
+        private AddOnList _addOns;
+
+        public AddOnList AddOns
+        {
+            get
+            {
+                if (_addOns == null)
+                {
+                    var url = UrlPrefix + PlanCode + "/add_ons/";
+                    _addOns = new AddOnList(url);
+                }
+                return _addOns;
+            }
+        }
 
 
         private Dictionary<string, int> _unitAmountInCents;
@@ -119,6 +132,17 @@ namespace Recurly
         {
             var a = new AddOn(PlanCode, addOnCode, name);
             return a;
+        }
+
+        public AddOn GetAddOn(string addOnCode)
+        {
+            var addOn = new AddOn();
+
+            var status = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
+                UrlPrefix + PlanCode + "/add_ons/" + addOnCode,
+                addOn.ReadXml);
+
+            return status == HttpStatusCode.OK ? addOn : null;
         }
 
         #region Read and Write XML documents

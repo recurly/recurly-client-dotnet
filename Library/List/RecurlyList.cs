@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
-using Recurly.Configuration;
 using HttpRequestMethod = Recurly.Client.HttpRequestMethod;
 
 namespace Recurly
