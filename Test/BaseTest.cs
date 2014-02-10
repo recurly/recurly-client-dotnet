@@ -28,6 +28,13 @@ namespace Recurly.Test
             return account;
         }
 
+        protected Coupon CreateNewCoupon(int discountPercent)
+        {
+            var coupon = new Coupon(GetMockCouponCode(), GetMockCouponName(), discountPercent);
+            coupon.Create();
+            return coupon;
+        }
+
         public string GetUniqueAccountCode()
         {
             return Guid.NewGuid().ToString();

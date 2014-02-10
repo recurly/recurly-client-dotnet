@@ -1,101 +1,85 @@
 ﻿using System;
 using System.Collections.Generic;
-using NUnit.Framework;
-using System.Threading;
+using FluentAssertions;
+using Xunit;
 
 namespace Recurly.Test
 {
-    [TestFixture]
     public class CouponRedemptionTest : BaseTest
     {
-
-        [Test]
+        [Fact]
         public void RedeemCoupon()
         {
-            string s = GetMockCouponCode();
-            Coupon c = new Coupon(s, GetMockCouponName(), 10);
-            c.Create();
+            var coupon = new Coupon(GetMockCouponCode(), GetMockCouponName(), 10);
+            coupon.Create();
 
-            string act = GetMockAccountName();
-            Account acct = new Account(act);
-            acct.Create();
-            Assert.IsNotNull(acct.CreatedAt);
+            var account = CreateNewAccount();
+            account.CreatedAt.Should().NotBe(default(DateTime));
 
-            CouponRedemption cr = acct.RedeemCoupon(s, "USD");
-            Thread.Sleep(2000);
-            Assert.IsNotNull(cr);
-            Assert.AreEqual(cr.Currency, "USD");
-            Assert.AreEqual(cr.AccountCode, act);
+            var redemption = account.RedeemCoupon(coupon.CouponCode, "USD");
+
+            redemption.Should().NotBeNull();
+            redemption.Currency.Should().Be("USD");
+            redemption.AccountCode.Should().Be(account.AccountCode);
+            redemption.CreatedAt.Should().NotBe(default(DateTime));
         }
 
-        [Test]
+        [Fact]
         public void LookupRedemption()
         {
-            string s = GetMockCouponCode();
-            Coupon c = new Coupon(s, GetMockCouponName(), 10);
-            c.Create();
+            var coupon = new Coupon(GetMockCouponCode(), GetMockCouponName(), 10);
+            coupon.Create();
 
-            string act = GetMockAccountName();
-            Account acct = new Account(act);
-            acct.Create();
-            Assert.IsNotNull(acct.CreatedAt);
+            var account = CreateNewAccount();
+            account.CreatedAt.Should().NotBe(default(DateTime));
 
-            CouponRedemption cr = acct.RedeemCoupon(s, "USD");
+            var redemption = account.RedeemCoupon(coupon.CouponCode, "USD");
+            redemption.Should().NotBeNull();
 
-            Assert.IsNotNull(cr);
+            redemption = account.GetActiveCoupon();
+            redemption.CouponCode.Should().Be(coupon.CouponCode);
+            redemption.AccountCode.Should().Be(account.AccountCode);
+            redemption.CreatedAt.Should().NotBe(default(DateTime));
 
-            cr = acct.GetActiveCoupon();
-            Assert.AreEqual(cr.CouponCode, s);
-            Assert.AreEqual(cr.AccountCode, act);
-            
         }
 
-        [Test]
-        [ExpectedException(typeof(NotFoundException))]
+        [Fact]
         public void RemoveCoupon()
         {
-            string s = GetMockCouponCode();
-            Coupon c = new Coupon(s, GetMockCouponName(), 10);
-            c.Create();
+            var coupon = new Coupon(GetMockCouponCode(), GetMockCouponName(), 10);
+            coupon.Create();
 
-            string act = GetMockAccountName();
-            Account acct = new Account(act);
-            acct.Create();
-            Assert.IsNotNull(acct.CreatedAt);
+            var account = CreateNewAccount();
+            account.CreatedAt.Should().NotBe(default(DateTime));
 
-            CouponRedemption cr = acct.RedeemCoupon(s, "USD");
+            var redemption = account.RedeemCoupon(coupon.CouponCode, "USD");
+            redemption.Should().NotBeNull();
+            
+            redemption.Delete();
 
-            Assert.IsNotNull(cr);
-
-            cr.Delete();
-
-            cr = acct.GetActiveCoupon();
-            Assert.IsNull(cr);
+            Action getCoupon = () => account.GetActiveCoupon();
+            getCoupon.ShouldThrow<NotFoundException>();
         }
 
-        [Test]
+        [Fact]
         public void LookupCouponInvoice()
         {
-            
-            string s = GetMockCouponCode();
-            Dictionary<string, int> discounts = new Dictionary<string,int>();
-            discounts.Add("USD",1000);
-            Coupon c = new Coupon(s, GetMockCouponName(), discounts);
-            c.Create();
+            var discounts = new Dictionary<string,int> {{"USD", 1000}};
+            var coupon = new Coupon(GetMockCouponCode(), GetMockCouponName(), discounts);
+            coupon.Create();
 
-            string act = GetMockAccountName();
-            Account acct = new Account(s, "John", "Doe", "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 2);
-            acct.Create();
+            var account = CreateNewAccountWithBillingInfo();
 
-            CouponRedemption cr = acct.RedeemCoupon(s, "USD");
+            var redemption = account.RedeemCoupon(coupon.CouponCode, "USD");
 
-            Transaction t = new Transaction(acct, 5000, "USD");
-            t.Create();
+            var transaction = new Transaction(account, 5000, "USD");
+            transaction.Create();
 
+            transaction.Invoice.Should().HaveValue();
+            var invoice = Invoice.Get(transaction.Invoice.Value);
+            var fromInvoice = invoice.GetCoupon();
 
-            CouponRedemption cr2 = Invoice.Get(t.Invoice.Value).GetCoupon();
-
-            Assert.AreEqual(cr, cr2);
+            redemption.Should().Be(fromInvoice);
         }
 
     }

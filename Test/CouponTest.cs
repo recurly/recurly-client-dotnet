@@ -1,154 +1,140 @@
-﻿using System.Collections.Generic;
-using NUnit.Framework;
-using System.Threading;
+﻿using System;
+using System.Collections.Generic;
+using FluentAssertions;
+using Xunit;
 
 namespace Recurly.Test
 {
-    [TestFixture]
     public class CouponTest : BaseTest
     {
-
-        [Test]
+        [Fact]
         public void ListCoupons()
         {
-            string s = GetMockCouponCode();
-            Coupon c = new Coupon(s, GetMockCouponName(), 1);
-            c.Create();
-            s = GetMockCouponCode();
-            c = new Coupon(s, GetMockCouponName(), 2);
-            c.Create();
+            CreateNewCoupon(1);
+            CreateNewCoupon(2);
 
-            CouponList list = CouponList.List();
-            Assert.IsTrue(list.Count > 1);
+            var coupons = Coupons.List();
+            coupons.Should().NotBeEmpty();
 
         }
 
-        [Test]
+        [Fact]
         public void ListCouponsRedeemable()
         {
+            var coupon1 = CreateNewCoupon(1);
+            coupon1.Deactivate();
+            CreateNewCoupon(2);
 
-            string s = GetMockCouponCode();
-            Coupon c = new Coupon(s, GetMockCouponName(), 1);
-            c.Create();
-            c.Deactivate();
-            Thread.Sleep(1000);
-            s = GetMockCouponCode();
-            c = new Coupon(s, GetMockCouponName(), 2);
-            c.Create();
-
-            CouponList list = CouponList.List(Coupon.CouponState.Redeemable);
-            Assert.IsTrue(list.Count > 1);
-
+            var coupons = Coupons.List(Coupon.CouponState.Redeemable);
+            coupons.Should().NotBeEmpty();
         }
 
-        [Test]
+        [Fact]
         public void ListCouponsExpired()
         {
+            // Recurly API doesn't allow for creation of expired coupons
+            //var coupon = new Coupon(GetMockCouponCode(), GetMockCouponName(), 10)
+            //{
+            //    RedeemByDate = DateTime.UtcNow.Subtract(TimeSpan.FromDays(5))
+            //};
+            //coupon.Create();
 
-            string s = GetMockCouponCode();
-            Coupon c = new Coupon(s, GetMockCouponName(), 1);
-            c.Create();
-            s = GetMockCouponCode();
-            c = new Coupon(s, GetMockCouponName(), 2);
-            c.Create();
+            //coupon.CreatedAt.Should().NotBe(default(DateTime));
 
-            CouponList list = CouponList.List();
-            Assert.IsTrue(list.Count > 1);
-
+            var expiredCoupons = Coupons.List(Coupon.CouponState.Expired);
+            expiredCoupons.Should().NotBeEmpty();
         }
 
-        [Test]
+        [Fact]
         public void ListCouponsMaxedOut()
         {
+            // Coupons that get maxed out apparently get state Inactive rather than MaxedOut, making this untestable
+            //var coupon = new Coupon(GetMockCouponCode(), GetMockCouponName(), 10) {MaxRedemptions = 1};
+            //coupon.Create();
 
-            string s = GetMockCouponCode();
-            Coupon c = new Coupon(s, GetMockCouponName(), 1);
-            c.MaxRedemptions = 1;
-            c.Create();
+            //var account = CreateNewAccount();
+            //account.RedeemCoupon(coupon.CouponCode, "USD");
 
-            Account t = new Account(GetMockAccountName("Coupon Redemption Max"));
-            t.Create();
-            t.RedeemCoupon(s, "USD");
+            //var fromService = Coupons.Get(coupon.CouponCode);
+            //fromService.MaxRedemptions.Should().Be(1);
+            //fromService.State.Should().Be(Coupon.CouponState.MaxedOut); // Actually is Inactive
 
-
-            CouponList list = CouponList.List();
-            Assert.IsTrue(list.Count > 1);
-
+            var list = Coupons.List(Coupon.CouponState.MaxedOut); // cannot search for Inactive, service returns Bad Request
+            list.Should().NotBeEmpty();
         }
 
-        [Test]
+        [Fact]
         public void CreateCouponPercent()
         {
-            string s = GetMockCouponCode();
-            Coupon c = new Coupon(s, GetMockCouponName(), 10);
-            c.Create();
+            var coupon = new Coupon(GetMockCouponCode(), GetMockCouponName(), 10);
+            coupon.Create();
 
-            Assert.IsNotNull(c.CreatedAt);
+            coupon.CreatedAt.Should().NotBe(default(DateTime));
 
-            c = Coupon.Get(s);
-            Assert.IsNotNull(s);
-            Assert.AreEqual(c.DiscountPercent.Value, 10);
-            Assert.AreEqual(c.DiscountType, Coupon.CouponDiscountType.Percent);
+            coupon = Coupons.Get(coupon.CouponCode);
 
+            coupon.Should().NotBeNull();
+            coupon.DiscountPercent.Should().Be(10);
+            coupon.DiscountType.Should().Be(Coupon.CouponDiscountType.Percent);
         }
 
-        [Test]
+        [Fact]
         public void CreateCouponDollars()
         {
-            string s = GetMockCouponCode();
-            Coupon c = new Coupon(s, GetMockCouponName(), new Dictionary<string,int>());
-            c.DiscountInCents.Add("USD", 100);
-            c.DiscountInCents.Add("EUR", 50);
+            var discounts = new Dictionary<string, int> {{"USD", 100}, {"EUR", 50}};
+            var coupon = new Coupon(GetMockCouponCode(), GetMockCouponName(), discounts);
 
-            c.Create();
+            coupon.Create();
+            coupon.CreatedAt.Should().NotBe(default(DateTime));
 
-            Assert.IsNotNull(c.CreatedAt);
+            coupon = Coupons.Get(coupon.CouponCode);
 
-            c = Coupon.Get(s);
-            Assert.IsNotNull(s);
-            Assert.AreEqual(c.DiscountInCents["USD"], 100);
-            Assert.AreEqual(c.DiscountInCents["EUR"], 50);
-            Assert.AreEqual(c.DiscountType, Coupon.CouponDiscountType.Dollars);
-
+            coupon.Should().NotBeNull();
+            coupon.DiscountInCents.Should().Equal(discounts);
+            coupon.DiscountType.Should().Be(Coupon.CouponDiscountType.Dollars);
         }
 
-        [Test]
+        [Fact]
         public void CreateCouponPlan()
         {
-            Plan p = new Plan(GetMockPlanCode("coupon plan"), "Coupon Test");
-            p.SetupFeeInCents.Add("USD", 500);
-            p.UnitAmountInCents.Add("USD", 5000);
-            p.Create();
+            var plan = new Plan(GetMockPlanCode("coupon plan"), "Coupon Test");
+            plan.SetupFeeInCents.Add("USD", 500);
+            plan.UnitAmountInCents.Add("USD", 5000);
+            plan.Create();
 
+            var coupon = new Coupon(GetMockCouponCode(), GetMockCouponName(), new Dictionary<string, int>());
+            coupon.DiscountInCents.Add("USD", 100);
+            coupon.Plans.Add(plan.PlanCode);
 
-            string s = GetMockCouponCode();
-            Coupon c = new Coupon(s, GetMockCouponName(), new Dictionary<string, int>());
-            c.DiscountInCents.Add("USD", 100);
-            c.Plans.Add(p.PlanCode);
+            Action a = coupon.Create;
+            a.ShouldNotThrow();
 
-            p.Deactivate();
+            plan.Deactivate();
         }
 
-        [Test]
+        [Fact]
+        public void Coupon_plan_must_exist()
+        {
+            var coupon = new Coupon(GetMockCouponCode(), GetMockCouponName(), 10);
+            coupon.Plans.Add("notrealplan");
+
+            Action create = coupon.Create;
+            create.ShouldThrow<ValidationException>();
+        }
+
+        [Fact]
         public void DeactivateCoupon()
         {
-            string s = GetMockCouponCode();
-            Coupon c = new Coupon(s, GetMockCouponName(), new Dictionary<string, int>());
-            c.DiscountInCents.Add("USD", 100);
-            c.DiscountInCents.Add("EUR", 50);
+            var discounts = new Dictionary<string, int> { { "USD", 100 }, { "EUR", 50 } };
+            var coupon = new Coupon(GetMockCouponCode(), GetMockCouponName(), discounts);
+            coupon.Create();
+            coupon.CreatedAt.Should().NotBe(default(DateTime));
 
-            c.Create();
+            coupon.Deactivate();
 
-            Assert.IsNotNull(c.CreatedAt);
-
-            c.Deactivate();
-
-            c = Coupon.Get(s);
-            Assert.IsNotNull(s);
-            Assert.AreEqual(c.State, Coupon.CouponState.Inactive);
-
+            coupon = Coupons.Get(coupon.CouponCode);
+            coupon.Should().NotBeNull();
+            coupon.State.Should().Be(Coupon.CouponState.Inactive);
         }
-
-
     }
 }

@@ -7,7 +7,6 @@ namespace Recurly
 {
     public class Coupon
     {
-
         public enum CouponState : short
         {
             All = 0,
@@ -100,22 +99,6 @@ namespace Recurly
         #endregion
 
         internal const string UrlPrefix = "/coupons/";
-
-        /// <summary>
-        /// Look up a coupon
-        /// </summary>
-        /// <param name="couponCode">Coupon code</param>
-        /// <returns></returns>
-        public static Coupon Get(string couponCode)
-        {
-            var coupon = new Coupon();
-
-            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
-                UrlPrefix + Uri.EscapeUriString(couponCode),
-                coupon.ReadXml);
-
-            return statusCode == HttpStatusCode.NotFound ? null : coupon;
-        }
 
         /// <summary>
         /// Creates this coupon.
@@ -256,6 +239,7 @@ namespace Recurly
             xmlWriter.WriteElementString("name", Name);
             xmlWriter.WriteElementString("hosted_description", HostedDescription);
             xmlWriter.WriteElementString("invoice_description", InvoiceDescription);
+
             if (RedeemByDate.HasValue)
                 xmlWriter.WriteElementString("redeem_by_date", RedeemByDate.Value.ToString("s"));
 
@@ -267,6 +251,9 @@ namespace Recurly
 
             if (AppliesToAllPlans.HasValue)
                 xmlWriter.WriteElementString("applies_to_all_plans", AppliesToAllPlans.Value.ToString());
+
+            if(MaxRedemptions.HasValue)
+                xmlWriter.WriteElementString("max_redemptions", MaxRedemptions.Value.AsString());
 
             xmlWriter.WriteElementString("discount_type", DiscountType.ToString().EnumNameToTransportCase());
 
@@ -324,5 +311,34 @@ namespace Recurly
         }
 
         #endregion
+    }
+
+    public class Coupons
+    {
+        /// <summary>
+        /// Look up a coupon
+        /// </summary>
+        /// <param name="couponCode">Coupon code</param>
+        /// <returns></returns>
+        public static Coupon Get(string couponCode)
+        {
+            var coupon = new Coupon();
+
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
+                Coupon.UrlPrefix + Uri.EscapeUriString(couponCode),
+                coupon.ReadXml);
+
+            return statusCode == HttpStatusCode.NotFound ? null : coupon;
+        }
+
+        /// <summary>
+        /// Lists coupons, limited to state
+        /// </summary>
+        /// <param name="state">Account state to retrieve</param>
+        /// <returns></returns>
+        public static CouponList List(Coupon.CouponState state = Coupon.CouponState.All)
+        {
+            return new CouponList(Coupon.UrlPrefix + (state != Coupon.CouponState.All ? "?state=" + state.ToString().EnumNameToTransportCase() : ""));
+        }
     }
 }

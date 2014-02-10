@@ -91,8 +91,14 @@ namespace Recurly
         protected void GetItems()
         {
             Client.Instance.PerformRequest(Method,
-                BaseUrl + "&per_page=" + Client.Instance.Settings.PageSize,
+                ApplyPaging(BaseUrl),
                 ReadXmlList);
+        }
+
+        protected string ApplyPaging(string baseUrl)
+        {
+            var divider = baseUrl.Contains("?") ? "&" : "?";
+            return baseUrl + divider + "per_page=" + Client.Instance.Settings.PageSize;
         }
 
         internal void ReadXmlList(XmlTextReader xmlReader, int records, string start, string next, string prev)

@@ -36,15 +36,5 @@ namespace Recurly
                 }
             }
         }
-
-        /// <summary>
-        /// Lists coupons, limited to state
-        /// </summary>
-        /// <param name="state">Account state to retrieve</param>
-        /// <returns></returns>
-        public static CouponList List(Coupon.CouponState state = Coupon.CouponState.All)
-        {
-            return new CouponList(Coupon.UrlPrefix + (state != Coupon.CouponState.All ? "?state=" + state.ToString().EnumNameToTransportCase() : ""));
-        }
     }
 }

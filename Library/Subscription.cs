@@ -148,7 +148,7 @@ namespace Recurly
         /// </summary>
         public Coupon Coupon
         {
-            get { return _coupon ?? (_coupon = Coupon.Get(_couponCode)); }
+            get { return _coupon ?? (_coupon = Coupons.Get(_couponCode)); }
             set
             {
                 _coupon = value;
