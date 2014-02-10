@@ -27,6 +27,11 @@ namespace Recurly
             return new string(chars.ToArray());
         }
 
+        public static string AsString(this bool b)
+        {
+            return b.ToString().ToLowerInvariant();
+        }
+
         /// <summary>
         /// Attempts to parse the <see cref="System.Int32"/> <paramref name="i"/> to the given Enumeration <typeparamref name="T"/>.
         /// </summary>

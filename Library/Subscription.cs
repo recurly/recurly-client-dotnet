@@ -55,7 +55,7 @@ namespace Recurly
 
         public Plan Plan
         {
-            get { return _plan ?? (_plan = Plan.Get(_planCode)); }
+            get { return _plan ?? (_plan = Plans.Get(_planCode)); }
             set
             {
                 _plan = value;

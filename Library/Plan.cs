@@ -81,29 +81,14 @@ namespace Recurly
         #endregion
 
         /// <summary>
-        /// Retrieves a Plan
-        /// </summary>
-        /// <param name="planCode"></param>
-        /// <returns></returns>
-        public static Plan Get(string planCode)
-        {
-            var plan = new Plan();
-
-            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
-                UrlPrefix + Uri.EscapeUriString(planCode),
-                plan.ReadXml);
-
-            return statusCode == HttpStatusCode.NotFound ? null : plan;
-        }
-
-        /// <summary>
         /// Create a new plan in Recurly
         /// </summary>
         public void Create()
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 UrlPrefix,
-                WriteXml);
+                WriteXml,
+                ReadXml);
         }
 
         /// <summary>
@@ -123,9 +108,6 @@ namespace Recurly
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Delete, UrlPrefix + Uri.EscapeUriString(PlanCode));
         }
-
-
-        
 
         /// <summary>
         /// Returns an new add on associated with this plan.
@@ -173,6 +155,8 @@ namespace Recurly
 
         internal void ReadXml(XmlTextReader reader)
         {
+            UnitAmountInCents.Clear();
+            SetupFeeInCents.Clear();
             while (reader.Read())
             {
                 // End of account element, get out of here
@@ -307,16 +291,16 @@ namespace Recurly
             xmlWriter.WriteStringIfValid("unit_name", UnitName);
 
             if (DisplayDonationAmounts.HasValue)
-                xmlWriter.WriteElementString("display_donation_amounts", DisplayDonationAmounts.Value.ToString());
+                xmlWriter.WriteElementString("display_donation_amounts", DisplayDonationAmounts.Value.AsString());
 
             if (DisplayQuantity.HasValue)
-                xmlWriter.WriteElementString("display_quantity", DisplayQuantity.Value.ToString());
+                xmlWriter.WriteElementString("display_quantity", DisplayQuantity.Value.AsString());
 
             if (DisplayPhoneNumber.HasValue)
-                xmlWriter.WriteElementString("display_phone_number", DisplayPhoneNumber.Value.ToString());
+                xmlWriter.WriteElementString("display_phone_number", DisplayPhoneNumber.Value.AsString());
 
             if (BypassHostedConfirmation.HasValue)
-                xmlWriter.WriteElementString("bypass_hosted_confirmation", BypassHostedConfirmation.Value.ToString());
+                xmlWriter.WriteElementString("bypass_hosted_confirmation", BypassHostedConfirmation.Value.AsString());
 
             xmlWriter.WriteStringIfValid("success_url", SuccessUrl);
             xmlWriter.WriteStringIfValid("cancel_url", CancelUrl);
@@ -351,5 +335,33 @@ namespace Recurly
         }
 
         #endregion
+    }
+
+    public class Plans
+    {
+        /// <summary>
+        /// Retrieves a list of all active plans
+        /// </summary>
+        /// <returns></returns>
+        public static PlanList List()
+        {
+            return new PlanList(Plan.UrlPrefix);
+        }
+
+        /// <summary>
+        /// Retrieves a Plan
+        /// </summary>
+        /// <param name="planCode"></param>
+        /// <returns></returns>
+        public static Plan Get(string planCode)
+        {
+            var plan = new Plan();
+
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
+                Plan.UrlPrefix + Uri.EscapeUriString(planCode),
+                plan.ReadXml);
+
+            return statusCode == HttpStatusCode.NotFound ? null : plan;
+        }
     }
 }

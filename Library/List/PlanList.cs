@@ -36,14 +36,5 @@ namespace Recurly
                 }
             }
         }
-
-        /// <summary>
-        /// Retrieves a list of all active plans
-        /// </summary>
-        /// <returns></returns>
-        public static PlanList GetPlans()
-        {
-            return new PlanList(Plan.UrlPrefix);
-        }
     }
 }

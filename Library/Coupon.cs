@@ -244,13 +244,13 @@ namespace Recurly
                 xmlWriter.WriteElementString("redeem_by_date", RedeemByDate.Value.ToString("s"));
 
             if (SingleUse.HasValue)
-                xmlWriter.WriteElementString("single_use", SingleUse.Value.ToString());
+                xmlWriter.WriteElementString("single_use", SingleUse.Value.AsString());
 
             if (AppliesForMonths.HasValue)
                 xmlWriter.WriteElementString("applies_for_months", AppliesForMonths.Value.AsString());
 
             if (AppliesToAllPlans.HasValue)
-                xmlWriter.WriteElementString("applies_to_all_plans", AppliesToAllPlans.Value.ToString());
+                xmlWriter.WriteElementString("applies_to_all_plans", AppliesToAllPlans.Value.AsString());
 
             if(MaxRedemptions.HasValue)
                 xmlWriter.WriteElementString("max_redemptions", MaxRedemptions.Value.AsString());

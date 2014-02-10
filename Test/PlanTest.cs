@@ -1,124 +1,110 @@
 ﻿using System;
-using NUnit.Framework;
+using FluentAssertions;
+using Xunit;
 
 namespace Recurly.Test
 {
-    [TestFixture]
-    class  PlanTest : BaseTest
+    public class PlanTest : BaseTest
     {
-
-        [Test]
+        [Fact]
         public void LookupPlan()
         {
-            String s = GetMockPlanCode();
-            Plan p = new Plan(s, GetMockPlanName());
-            p.Description = "Test Lookup";
-            p.UnitAmountInCents.Add("USD", 100);
-            p.Create();
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName()) {Description = "Test Lookup"};
+            plan.UnitAmountInCents.Add("USD", 100);
+            plan.Create();
 
-            Plan l = Plan.Get(s);
-            Assert.IsNotNull(l.CreatedAt);
-            Assert.AreEqual(l.UnitAmountInCents["USD"], 100);
-            Assert.AreEqual(l.PlanCode, s);
-            Assert.AreEqual(l.Description, "Test Lookup");
-            p.Deactivate();
+            plan.CreatedAt.Should().NotBe(default(DateTime));
 
+            var fromService = Plans.Get(plan.PlanCode);
+            fromService.PlanCode.Should().Be(plan.PlanCode);
+            fromService.UnitAmountInCents.Should().Contain("USD", 100);
+            fromService.Description.Should().Be("Test Lookup");
+
+            plan.Deactivate(); // weird cleanup
         }
 
-        [Test]
+        [Fact]
         public void CreatePlanSmall()
         {
-            Plan p = new Plan(GetMockPlanCode(), GetMockPlanName());
-            p.SetupFeeInCents.Add("USD",100);
-            p.Create();
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName());
+            plan.SetupFeeInCents.Add("USD", 100);
+            plan.Create();
 
-            Assert.IsNotNull(p.CreatedAt);
-            Assert.AreEqual(p.SetupFeeInCents["USD"], 100);
-            p.Deactivate();
+            plan.CreatedAt.Should().NotBe(default(DateTime));
+            plan.SetupFeeInCents.Should().Contain("USD", 100);
 
+            plan.Deactivate();
         }
 
-        [Test]
+        [Fact]
         public void CreatePlan()
         {
-            Plan p = new Plan(GetMockPlanCode(), GetMockPlanName());
-            p.SetupFeeInCents.Add("USD",500);
-            p.AccountingCode = "accountingcode123";
-            p.Description = "a test plan";
-            p.DisplayDonationAmounts = true;
-            p.DisplayPhoneNumber = false;
-            p.DisplayQuantity = true;
-            p.TotalBillingCycles = 5;
-            p.TrialIntervalUnit = Plan.IntervalUnit.Months;
-            p.TrialIntervalLength = 1;
-            p.PlanIntervalUnit = Plan.IntervalUnit.Days;
-            p.PlanIntervalLength = 180;
-            p.Create();
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
+            {
+                AccountingCode = "accountingcode123",
+                Description = "a test plan",
+                DisplayDonationAmounts = true,
+                DisplayPhoneNumber = false,
+                DisplayQuantity = true,
+                TotalBillingCycles = 5,
+                TrialIntervalUnit = Plan.IntervalUnit.Months,
+                TrialIntervalLength = 1,
+                PlanIntervalUnit = Plan.IntervalUnit.Days,
+                PlanIntervalLength = 180
+            };
+            plan.SetupFeeInCents.Add("USD", 500);
+            plan.Create();
 
-            Assert.IsNotNull(p.CreatedAt);
-            Assert.AreEqual(p.AccountingCode, "accountingcode123");
-            Assert.AreEqual(p.Description, "a test plan");
-            Assert.IsTrue(p.DisplayDonationAmounts.Value);
-            Assert.IsFalse(p.DisplayPhoneNumber.Value);
-            Assert.IsTrue(p.DisplayQuantity.Value);
-            Assert.AreEqual(p.TotalBillingCycles, 5);
-            Assert.AreEqual(p.TrialIntervalUnit, Plan.IntervalUnit.Months);
-            Assert.AreEqual(p.TrialIntervalLength, 1);
-            Assert.AreEqual(p.PlanIntervalUnit, Plan.IntervalUnit.Days);
-            Assert.AreEqual(p.PlanIntervalLength, 180);
-            p.Deactivate();
+            plan.CreatedAt.Should().NotBe(default(DateTime));
+            plan.AccountingCode.Should().Be("accountingcode123");
+            plan.Description.Should().Be("a test plan");
+            plan.DisplayDonationAmounts.Should().HaveValue().And.Be(true);
+            plan.DisplayPhoneNumber.Should().HaveValue().And.Be(false);
+            plan.DisplayQuantity.Should().HaveValue().And.Be(true);
+            plan.TotalBillingCycles.Should().Be(5);
+            plan.TrialIntervalUnit.Should().Be(Plan.IntervalUnit.Months);
+            plan.TrialIntervalLength.Should().Be(1);
+            plan.PlanIntervalUnit.Should().Be(Plan.IntervalUnit.Days);
+            plan.PlanIntervalLength.Should().Be(180);
 
-
+            plan.Deactivate();
         }
 
-        [Test]
+        [Fact]
         public void UpdatePlan()
         {
-            String s = GetMockPlanCode();
-            Plan p = new Plan(s, GetMockPlanName());
-            p.Description = "Test Update";
-            p.UnitAmountInCents.Add("USD", 100);
-            p.Create();
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName()) {Description = "Test Update"};
+            plan.UnitAmountInCents.Add("USD", 100);
+            plan.Create();
+            
+            plan.UnitAmountInCents["USD"] = 5000;
+            plan.SetupFeeInCents["USD"] = 100;
 
+            plan.Update();
 
-            p.UnitAmountInCents["USD"] = 5000;
-            p.SetupFeeInCents.Add("USD", 100);
+            plan = Plans.Get(plan.PlanCode);
+            plan.UnitAmountInCents.Should().Contain("USD", 5000);
+            plan.SetupFeeInCents.Should().Contain("USD", 100);
 
-            p.Update();
-
-            p = Plan.Get(s);
-            Assert.AreEqual(p.UnitAmountInCents["USD"], 5000);
-            Assert.AreEqual(p.SetupFeeInCents["USD"], 100);
-            p.Deactivate();
-
-
+            plan.Deactivate();
         }
 
 
-        [Test]
+        [Fact]
         public void DeactivatePlan()
         {
-            String s = GetMockPlanCode();
-            Plan p = new Plan(s, GetMockPlanName());
-            p.Description = "Test Delete";
-            p.UnitAmountInCents.Add("USD", 100);
-            p.Create();
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName()) {Description = "Test Delete"};
+            plan.UnitAmountInCents.Add("USD", 100);
+            plan.Create();
             
-            p = Plan.Get(s);
-            Assert.IsNotNull(p.CreatedAt);
-            Assert.AreEqual(p.UnitAmountInCents["USD"], 100);
+            plan = Plans.Get(plan.PlanCode);
+            plan.CreatedAt.Should().NotBe(default(DateTime));
+            plan.UnitAmountInCents.Should().Contain("USD", 100);
 
-            p.Deactivate();
+            plan.Deactivate();
 
-            try
-            {
-                Plan p2 = Plan.Get(s);
-                Assert.Fail("Plan has not been deactivated.");
-            }
-            catch (Exception)
-            {
-                // Expected
-            }
+            Action get = () => Plans.Get(plan.PlanCode);
+            get.ShouldThrow<NotFoundException>();
         }
 
     }

@@ -23,7 +23,7 @@ namespace Recurly
 
             writer.WriteElementString("uuid", Uuid);
             writer.WriteElementString("quantity", Quantity.AsString());
-            writer.WriteElementString("prorate", Prorate.ToString());
+            writer.WriteElementString("prorate", Prorate.AsString());
 
             writer.WriteEndElement(); // adjustment
             writer.WriteEndElement(); // line_items
