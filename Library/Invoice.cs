@@ -19,7 +19,7 @@ namespace Recurly
         public string Uuid { get; protected set; }
         public InvoiceState State { get; protected set; }
         public int InvoiceNumber { get; private set; }
-        public string PONumber { get; private set; }
+        public string PoNumber { get; private set; }
         public string VatNumber { get; private set; }
         public int SubtotalInCents { get; private set; }
         public int TaxInCents { get; protected set; }
@@ -42,22 +42,6 @@ namespace Recurly
             : this()
         {
             ReadXml(reader);
-        }
-
-        /// <summary>
-        /// Look up an Invoice.
-        /// </summary>
-        /// <param name="invoiceNumber">Invoice Number</param>
-        /// <returns></returns>
-        public static Invoice Get(int invoiceNumber)
-        {
-            var invoice = new Invoice();
-
-            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
-                UrlPrefix + invoiceNumber,
-                invoice.ReadXml);
-
-            return statusCode == HttpStatusCode.NotFound ? null : invoice;
         }
 
         /// <summary>
@@ -94,23 +78,6 @@ namespace Recurly
         }
 
         /// <summary>
-        /// Create an Invoice if there are outstanding charges on an account. If there are no outstanding
-        /// charges, null is returned.
-        /// </summary>
-        /// <param name="accountCode">Account code</param>
-        /// <returns></returns>
-        public static Invoice Create(string accountCode)
-        {
-            var invoice = new Invoice();
-
-            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
-                "/accounts/" + Uri.EscapeUriString(accountCode) + UrlPrefix,
-                invoice.ReadXml);
-
-            return (int)statusCode == ValidationException.HttpStatusCode ? null : invoice;
-        }
-
-        /// <summary>
         /// Returns the active coupon redemption on this invoice
         /// </summary>
         /// <returns></returns>
@@ -125,6 +92,17 @@ namespace Recurly
             return statusCode == HttpStatusCode.NotFound ? null : cr;
         }
 
+        public Invoice Refund(Adjustment adjustment, bool prorate, int quantity = 0)
+        {
+            var refund = new Refund(adjustment, prorate, quantity == 0 ? adjustment.Quantity : quantity);
+
+            var response = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
+                UrlPrefix + InvoiceNumber + "/refund",
+                refund.WriteXml,
+                ReadXml);
+
+            return response == HttpStatusCode.Created ? this : null;
+        }
 
         #region Read and Write XML documents
 
@@ -160,7 +138,7 @@ namespace Recurly
                         break;
 
                     case "po_number":
-                        PONumber = reader.ReadElementContentAsString();
+                        PoNumber = reader.ReadElementContentAsString();
                         break;
 
                     case "vat_number":
@@ -225,5 +203,56 @@ namespace Recurly
         }
 
         #endregion
+    }
+
+    public class Invoices
+    {
+        public static InvoiceList List(string accountCode)
+        {
+            return new InvoiceList("/accounts/" + Uri.EscapeUriString(accountCode) + "/invoices");
+        }
+
+        public static InvoiceList List()
+        {
+            return new InvoiceList(Invoice.UrlPrefix);
+        }
+
+        public static InvoiceList List(Invoice.InvoiceState state)
+        {
+            return new InvoiceList(Invoice.UrlPrefix + "?state=" + state.ToString().EnumNameToTransportCase());
+        }
+
+        /// <summary>
+        /// Look up an Invoice.
+        /// </summary>
+        /// <param name="invoiceNumber">Invoice Number</param>
+        /// <returns></returns>
+        public static Invoice Get(int invoiceNumber)
+        {
+            var invoice = new Invoice();
+
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
+                Invoice.UrlPrefix + invoiceNumber,
+                invoice.ReadXml);
+
+            return statusCode == HttpStatusCode.NotFound ? null : invoice;
+        }
+
+        /// <summary>
+        /// Create an Invoice if there are outstanding charges on an account. If there are no outstanding
+        /// charges, null is returned.
+        /// </summary>
+        /// <param name="accountCode">Account code</param>
+        /// <returns></returns>
+        public static Invoice Create(string accountCode)
+        {
+            var invoice = new Invoice();
+
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
+                "/accounts/" + Uri.EscapeUriString(accountCode) + Invoice.UrlPrefix,
+                invoice.ReadXml);
+
+            return (int)statusCode == ValidationException.HttpStatusCode ? null : invoice;
+        }
     }
 }

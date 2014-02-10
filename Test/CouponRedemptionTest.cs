@@ -76,7 +76,7 @@ namespace Recurly.Test
             transaction.Create();
 
             transaction.Invoice.Should().HaveValue();
-            var invoice = Invoice.Get(transaction.Invoice.Value);
+            var invoice = Invoices.Get(transaction.Invoice.Value);
             var fromInvoice = invoice.GetCoupon();
 
             redemption.Should().Be(fromInvoice);

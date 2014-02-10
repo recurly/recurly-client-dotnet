@@ -37,7 +37,7 @@ namespace Recurly.Test
                 Thread.Sleep(1000);
             } 
             
-            InvoiceList list = InvoiceList.GetInvoices();
+            InvoiceList list = Invoices.List();
 
             Assert.IsTrue(list.Count > 0);
 
@@ -58,7 +58,7 @@ namespace Recurly.Test
 
                 Thread.Sleep(1000);
             }
-            InvoiceList list = InvoiceList.GetInvoices(Invoice.InvoiceState.Open);
+            InvoiceList list = Invoices.List(Invoice.InvoiceState.Open);
 
             Assert.IsTrue(list.Count > 0);
         }
@@ -80,7 +80,7 @@ namespace Recurly.Test
                 i.MarkSuccessful();
                 Thread.Sleep(1000);
             }
-            InvoiceList list = InvoiceList.GetInvoices(Invoice.InvoiceState.Collected);
+            InvoiceList list = Invoices.List(Invoice.InvoiceState.Collected);
 
             Assert.IsTrue(list.Count > 0);
         }
@@ -101,7 +101,7 @@ namespace Recurly.Test
                 i.MarkFailed();
                 Thread.Sleep(1000);
             }
-            InvoiceList list = InvoiceList.GetInvoices(Invoice.InvoiceState.Failed);
+            InvoiceList list = Invoices.List(Invoice.InvoiceState.Failed);
 
             Assert.IsTrue(list.Count > 0);
         }
@@ -121,7 +121,7 @@ namespace Recurly.Test
 
                 Thread.Sleep(1000);
             }
-            InvoiceList list = InvoiceList.GetInvoices(Invoice.InvoiceState.PastDue);
+            InvoiceList list = Invoices.List(Invoice.InvoiceState.PastDue);
 
             Assert.IsTrue(list.Count > 0);
         }
@@ -142,7 +142,7 @@ namespace Recurly.Test
             a = acct.CreateAdjustment("Test Charge #2", 350, "USD");
             a.Create();
 
-            InvoiceList list = InvoiceList.GetInvoices(accountCode);
+            InvoiceList list = Invoices.List(accountCode);
 
             Assert.IsTrue(list.Count > 0);
 

@@ -41,21 +41,6 @@ namespace Recurly
             }
 
         }
-
-        public static InvoiceList GetInvoices(string accountCode)
-        {
-            return new InvoiceList("/accounts/" + System.Uri.EscapeUriString(accountCode) + "/invoices");
-        }
-
-        public static InvoiceList GetInvoices()
-        {
-            return new InvoiceList(Invoice.UrlPrefix);
-        }
-
-        public static InvoiceList GetInvoices(Invoice.InvoiceState state)
-        {
-            return new InvoiceList(Invoice.UrlPrefix + "?state=" + state.ToString().EnumNameToTransportCase());
-        }
     }
 
 }

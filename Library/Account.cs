@@ -188,7 +188,7 @@ namespace Recurly
         /// <returns></returns>
         public InvoiceList GetInvoices()
         {
-            return InvoiceList.GetInvoices(AccountCode);
+            return Invoices.List(AccountCode);
         }
        
         /// <summary>

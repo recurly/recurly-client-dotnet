@@ -1,101 +1,88 @@
-﻿using NUnit.Framework;
+﻿using FluentAssertions;
+using Xunit;
 
 namespace Recurly.Test
 {
-    [TestFixture]
-    class InvoiceTest : BaseTest
+    public class InvoiceTest : BaseTest
     {
-  
-        [Test]
+        [Fact]
         public void GetInvoice()
         {
-            Account acct = new Account(GetMockAccountName());
-            acct.Create();
+            var account = CreateNewAccount();
 
-            Adjustment a = acct.CreateAdjustment("Test Charge", 5000, "USD");
-            a.Create();
+            var adjustment = account.CreateAdjustment("Test Charge", 5000, "USD");
+            adjustment.Create();
 
-            Invoice i = acct.InvoicePendingCharges();
+            var invoice = account.InvoicePendingCharges();
 
-            Invoice i2 = Invoice.Get(i.InvoiceNumber);
+            var fromService = Invoices.Get(invoice.InvoiceNumber);
 
-            Assert.AreEqual(i, i2);
+            invoice.Should().Be(fromService);
         }
 
-        [Test]
-        public void GetInvoicePDF()
+        [Fact]
+        public void GetInvoicePdf()
         {
-            Account acct = new Account(GetMockAccountName());
-            acct.Create();
+            var account = CreateNewAccount();
 
-            Adjustment a = acct.CreateAdjustment("Test Charge", 5000, "USD");
-            a.Create();
+            var adjustment = account.CreateAdjustment("Test Charge", 5000, "USD");
+            adjustment.Create();
 
-            Invoice i = acct.InvoicePendingCharges();
+            var invoice = account.InvoicePendingCharges();
 
-            byte[] pdf = i.GetPdf();
-            // Not sure what the PDF size will be, so guessing the results are correct if length is greater than 25000 bytes.
-            Assert.IsTrue(pdf.Length > 25000);
+            var pdf = invoice.GetPdf();
 
+            pdf.Should().NotBeEmpty();
         }
 
-        [Test]
-        public void Post()
+        [Fact]
+        public void AdjustmentAggregationInAnInvoice()
         {
-            Account acct = new Account(GetMockAccountName());
-            acct.Create();
+            var account = CreateNewAccount();
 
-            Adjustment a = acct.CreateAdjustment("Test Charge", 5000, "USD");
-            a.Create();
+            var adjustment = account.CreateAdjustment("Test Charge", 5000, "USD");
+            adjustment.Create();
 
-            a = acct.CreateAdjustment("Test Charge 2", 5000, "USD");
-            a.Create();
+            adjustment = account.CreateAdjustment("Test Charge 2", 5000, "USD");
+            adjustment.Create();
 
-            a = acct.CreateAdjustment("Test Credit", -2500, "USD");
-            a.Create();
+            adjustment = account.CreateAdjustment("Test Credit", -2500, "USD");
+            adjustment.Create();
 
+            var invoice = account.InvoicePendingCharges();
 
-            Invoice i = acct.InvoicePendingCharges();
-
-            Assert.AreEqual(i.State, Invoice.InvoiceState.Open);
-            Assert.AreEqual(i.TotalInCents, 7500);
+            invoice.State.Should().Be(Invoice.InvoiceState.Open);
+            invoice.TotalInCents.Should().Be(7500);
         }
 
-       
-
-        [Test]
+        [Fact]
         public void MarkSuccessful()
         {
-            Account acct = new Account(GetMockAccountName());
-            acct.Create();
+            var account = CreateNewAccount();
 
-            Adjustment a = acct.CreateAdjustment("Test Charge", 3999, "USD");
-            a.Create();
+            var adjustment = account.CreateAdjustment("Test Charge", 3999, "USD");
+            adjustment.Create();
 
-            Invoice i = acct.InvoicePendingCharges();
+            var invoice = account.InvoicePendingCharges();
 
-            i.MarkSuccessful();
+            invoice.MarkSuccessful();
 
-            Assert.AreEqual(i.State, Invoice.InvoiceState.Collected);
-
+            invoice.State.Should().Be(Invoice.InvoiceState.Collected);
         }
 
-        [Test]
+        [Fact]
         public void FailedCollection()
         {
-            Account acct = new Account(GetMockAccountName());
-            acct.Create();
+            var account = CreateNewAccount();
 
-            Adjustment a = acct.CreateAdjustment("Test Charge", 3999, "USD");
-            a.Create();
+            var adjustment = account.CreateAdjustment("Test Charge", 3999, "USD");
+            adjustment.Create();
 
-            Invoice i = acct.InvoicePendingCharges();
+            var invoice = account.InvoicePendingCharges();
 
-            i.MarkFailed();
+            invoice.MarkFailed();
 
-            Assert.AreEqual(i.State, Invoice.InvoiceState.Failed);
+            invoice.State.Should().Be(Invoice.InvoiceState.Failed);
         }
-
-
     }
 }
