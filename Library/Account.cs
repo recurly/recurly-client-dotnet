@@ -208,12 +208,12 @@ namespace Recurly
         /// <param name="state">Transactions of this state will be retrieved. Optional, default: All.</param>
         /// <param name="type">Transactions of this type will be retrieved. Optional, default: All.</param>
         /// <returns></returns>
-        public TransactionList GetTransactions(TransactionList.TransactionState state = TransactionList.TransactionState.all,
-            TransactionList.TransactionType type = TransactionList.TransactionType.all)
+        public TransactionList GetTransactions(TransactionList.TransactionState state = TransactionList.TransactionState.All,
+            TransactionList.TransactionType type = TransactionList.TransactionType.All)
         {
             return new TransactionList(UrlPrefix + Uri.EscapeUriString(AccountCode) + "/transactions/?"
-                + (state != TransactionList.TransactionState.all ? "state=" + state : "")
-                + (type != TransactionList.TransactionType.all ? "&type=" + type : ""));
+                + (state != TransactionList.TransactionState.All ? "state=" + state.ToString().EnumNameToTransportCase() : "")
+                + (type != TransactionList.TransactionType.All ? "&type=" + type.ToString().EnumNameToTransportCase() : ""));
         }
 
         /// <summary>

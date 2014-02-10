@@ -6,7 +6,6 @@ namespace Recurly
 {
     public class Transaction
     {
-
         // The currently valid Transaction States
         public enum TransactionState : short
         {
@@ -27,7 +26,6 @@ namespace Recurly
             Refund,
             Verify
         }
-
 
         public string Uuid { get; private set; }
         public TransactionType Action { get; set; }
@@ -100,19 +98,7 @@ namespace Recurly
             Currency = currency;
         }
 
-
-        private const string UrlPrefix = "/transactions/";
-
-        public static Transaction Get(string transactionId)
-        {
-            var transaction = new Transaction();
-
-            HttpStatusCode statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
-                UrlPrefix + Uri.EscapeUriString(transactionId),
-                transaction.ReadXml);
-
-            return statusCode == HttpStatusCode.NotFound ? null : transaction;
-        }
+        internal const string UrlPrefix = "/transactions/";
 
         /// <summary>
         /// Creates an invoice, charge, and optionally account
@@ -124,7 +110,6 @@ namespace Recurly
                 WriteXml,
                 ReadXml);
         }
-
 
         /// <summary>
         /// Refunds a transaction
@@ -284,5 +269,34 @@ namespace Recurly
         }
 
         #endregion
+    }
+
+    public class Transactions
+    {
+        /// <summary>
+        /// Lists transactions by state and type. Defaults to all.
+        /// </summary>
+        /// <param name="state"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static TransactionList List(TransactionList.TransactionState state = TransactionList.TransactionState.All,
+            TransactionList.TransactionType type = TransactionList.TransactionType.All)
+        {
+            return new TransactionList("/transactions/?" +
+                (state != TransactionList.TransactionState.All ? "state=" +state.ToString().EnumNameToTransportCase() : "")
+                + (type != TransactionList.TransactionType.All ? "&type=" +type.ToString().EnumNameToTransportCase() : "")
+            );
+        }
+
+        public static Transaction Get(string transactionId)
+        {
+            var transaction = new Transaction();
+
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
+                Transaction.UrlPrefix + Uri.EscapeUriString(transactionId),
+                transaction.ReadXml);
+
+            return statusCode == HttpStatusCode.NotFound ? null : transaction;
+        }
     }
 }

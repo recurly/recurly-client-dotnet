@@ -7,18 +7,18 @@ namespace Recurly
     {
         public enum TransactionState : short
         {
-            all = 0,
-            successful,
-            failed,
-            voided
+            All = 0,
+            Successful,
+            Failed,
+            Voided
         }
 
         public enum TransactionType : short
         {
-            all = 0,
-            authorization,
-            purchase,
-            refund
+            All = 0,
+            Authorization,
+            Purchase,
+            Refund
         }
 
         internal TransactionList()
@@ -56,21 +56,6 @@ namespace Recurly
                     Add(new Transaction(reader));
                 }
             }
-        }
-
-        /// <summary>
-        /// Lists transactions by state and type. Defaults to all.
-        /// </summary>
-        /// <param name="state"></param>
-        /// <param name="type"></param>
-        /// <returns></returns>
-        public static TransactionList GetTransactions(TransactionState state = TransactionState.all,
-            TransactionType type = TransactionType.all)
-        {
-            return new TransactionList("/transactions/?" +
-                (state != TransactionState.all ? "state=" + Uri.EscapeUriString(state.ToString()) : "")
-                + (type != TransactionType.all ? "&type=" + Uri.EscapeUriString(type.ToString()) : "")
-            );
         }
     }
 }

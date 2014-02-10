@@ -21,10 +21,16 @@ namespace Recurly.Test
 
         protected Account CreateNewAccountWithBillingInfo()
         {
-            var code = GetUniqueAccountCode();
-            var account = new Account(code, NewBillingInfo(code));
+            var account = NewAccountWithBillingInfo();
             account.Create();
 
+            return account;
+        }
+
+        protected Account NewAccountWithBillingInfo()
+        {
+            var code = GetUniqueAccountCode();
+            var account = new Account(code, NewBillingInfo(code));
             return account;
         }
 
