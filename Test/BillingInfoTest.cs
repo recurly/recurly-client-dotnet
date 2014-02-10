@@ -1,6 +1,5 @@
 ﻿using System;
 using FluentAssertions;
-using NUnit.Framework.Constraints;
 using Xunit;
 using Xunit.Extensions;
 using CreditCardType = Recurly.BillingInfo.CreditCardType;
@@ -12,72 +11,60 @@ namespace Recurly.Test
         [Fact]
         public void UpdateBillingInfo()
         {
-            string s = BaseTest.GetMockAccountName("Update Billing Info");
-            Account acct = new Account(s,
-                "John","Doe", "4111111111111111", DateTime.Now.Month, DateTime.Now.Year+2);
-            acct.Create();
+            var account = CreateNewAccount();
 
-            BillingInfo billingInfo = new BillingInfo(acct);
-            billingInfo.FirstName = "Jane";
-            billingInfo.LastName = "Smith";
-            billingInfo.CreditCardNumber = "4111111111111111";
-            billingInfo.ExpirationMonth = DateTime.Now.AddMonths(3).Month;
-            billingInfo.ExpirationYear = DateTime.Now.AddYears(3).Year;
-            billingInfo.Update();
+            var info = NewBillingInfo(account);
+            info.FirstName = "Jane";
+            info.LastName = "Smith";
+            info.ExpirationMonth = DateTime.Now.AddMonths(3).Month;
+            info.ExpirationYear = DateTime.Now.AddYears(3).Year;
+            info.Update();
 
-            Account a = Accounts.Get(s);
+            var get = Accounts.Get(account.AccountCode);
 
-            Assert.Equal(a.BillingInfo.FirstName, "Jane");
-            Assert.Equal(a.BillingInfo.LastName, "Smith");
-            Assert.Equal(a.BillingInfo.ExpirationMonth, DateTime.Now.AddMonths(3).Month);
-            Assert.Equal(a.BillingInfo.ExpirationYear, DateTime.Now.AddYears(3).Year);
-
+            get.BillingInfo.FirstName.Should().Be("Jane");
+            get.BillingInfo.LastName.Should().Be("Smith");
+            get.BillingInfo.ExpirationMonth.Should().Be(DateTime.Now.AddMonths(3).Month);
+            get.BillingInfo.ExpirationYear.Should().Be(DateTime.Now.AddYears(3).Year);
         }
 
         [Fact]
         public void LookupBillingInfo()
         {
-            string s = BaseTest.GetMockAccountName("Update Billing Info");
-            Account acct = new Account(s,
-                "John", "Doe", "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 2);
-            acct.Create();
+            var accountCode = GetUniqueAccountCode();
+            var info = NewBillingInfo(accountCode);
+            var account = new Account(accountCode, info);
+            account.Create();
 
-            Account a = Accounts.Get(s);
+            var get = Accounts.Get(accountCode);
 
-            Assert.Equal(a.BillingInfo.FirstName, "John");
-            Assert.Equal(a.BillingInfo.LastName, "Doe");
-            Assert.Equal(a.BillingInfo.ExpirationMonth, DateTime.Now.Month);
-            Assert.Equal(a.BillingInfo.ExpirationYear, DateTime.Now.Year+2);
+            get.BillingInfo.FirstName.Should().Be(info.FirstName);
+            get.BillingInfo.LastName.Should().Be(info.LastName);
+            get.BillingInfo.ExpirationMonth.Should().Be(info.ExpirationMonth);
+            get.BillingInfo.ExpirationYear.Should().Be(info.ExpirationYear);
         }
 
         [Fact]
         public void LookupMissingInfo()
         {
-            Account newAcct = new Account(BaseTest.GetMockAccountName("Lookup Missing Billing Info"));
-            newAcct.Create();
+            var newAcct = CreateNewAccount();
 
-            Assert.Throws(typeof(NotFoundException), delegate
-            {
-                BillingInfo.Get(newAcct.AccountCode);
-            });
+            Action getInfo = () => BillingInfo.Get(newAcct.AccountCode);
+            getInfo.ShouldThrow<NotFoundException>();
         }
 
         [Fact]
         
         public void ClearBillingInfo()
         {
-            string s = BaseTest.GetMockAccountName("Clear Billing Info");
+            var account = CreateNewAccountWithBillingInfo();
 
-            Account newAcct = new Account(s,
-                "George", "Jefferson", "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 2);
-            newAcct.Create();
+            account.ClearBillingInfo();
 
-            newAcct.ClearBillingInfo();
+            account.BillingInfo.Should().BeNull();
 
-            Assert.Null(newAcct.BillingInfo);
-            Account t = Accounts.Get(s);
-            Assert.Null(t.BillingInfo);
-
+            var fromNetwork = Accounts.Get(account.AccountCode);
+            fromNetwork.BillingInfo.Should().BeNull();
         }
 
         [Theory,

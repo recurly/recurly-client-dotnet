@@ -23,7 +23,16 @@ namespace Recurly.Test
             return account;
         }
 
-        public static string GetUniqueAccountCode()
+        protected Account CreateNewAccountWithBillingInfo()
+        {
+            var code = GetUniqueAccountCode();
+            var account = new Account(code, NewBillingInfo(code));
+            account.Create();
+
+            return account;
+        }
+
+        public string GetUniqueAccountCode()
         {
             return Guid.NewGuid().ToString();
         }
@@ -55,20 +64,39 @@ namespace Recurly.Test
 
         public static BillingInfo NewBillingInfo(Account account)
         {
-            BillingInfo billingInfo = new BillingInfo(account);
-            billingInfo.FirstName = account.FirstName;
-            billingInfo.LastName = account.LastName;
-            billingInfo.Address1 = "123 Test St";
-            billingInfo.City = "San Francsico";
-            billingInfo.State = "CA";
-            billingInfo.Country = "US";
-            billingInfo.PostalCode = "94105";
-            billingInfo.ExpirationMonth = DateTime.Now.Month;
-            billingInfo.ExpirationYear = DateTime.Now.Year + 1;
-            billingInfo.CreditCardNumber = "4111-1111-1111-1111";
-            billingInfo.VerificationValue = "123";
-
+            var billingInfo = new BillingInfo(account)
+            {
+                FirstName = account.FirstName,
+                LastName = account.LastName,
+                Address1 = "123 Test St",
+                City = "San Francisco",
+                State = "CA",
+                Country = "US",
+                PostalCode = "94105",
+                ExpirationMonth = DateTime.Now.Month,
+                ExpirationYear = DateTime.Now.Year + 1,
+                CreditCardNumber = TestCreditCardNumbers.Visa1,
+                VerificationValue = "123"
+            };
             return billingInfo;
+        }
+
+        public BillingInfo NewBillingInfo(string accountCode)
+        {
+            return new BillingInfo(accountCode)
+            {
+                FirstName = "John",
+                LastName = "Smith",
+                Address1 = "123 Test St",
+                City = "San Francisco",
+                State = "CA",
+                Country = "US",
+                PostalCode = "94105",
+                ExpirationMonth = DateTime.Now.Month,
+                ExpirationYear = DateTime.Now.Year + 1,
+                CreditCardNumber = TestCreditCardNumbers.Visa1,
+                VerificationValue = "123"
+            };
         }
     }
 }

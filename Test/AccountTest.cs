@@ -41,12 +41,11 @@ namespace Recurly.Test
         public void CreateAccountWithBillingInfo()
         {
             var accountCode = GetUniqueAccountCode();
-            var account = new Account(accountCode, "BI", "User",
-                TestCreditCardNumbers.Visa1, DateTime.Now.Month, DateTime.Now.Year + 1);
+            var account = new Account(accountCode, NewBillingInfo(accountCode));
 
             Action create = account.Create;
 
-            create.ShouldThrow<ValidationException>("test credit card data isn't valid");
+            create.ShouldNotThrow<ValidationException>();
         }
 
         [Fact]

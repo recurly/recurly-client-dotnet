@@ -22,7 +22,6 @@ namespace Recurly
             PastDue = 4
         }
 
-
         /// <summary>
         /// Account Code or unique ID for the account in Recurly
         /// </summary>
@@ -71,27 +70,22 @@ namespace Recurly
             AccountCode = accountCode;            
         }
 
+        [Obsolete("This constructor doesn't actually require all the information")]
+        public Account(string accountCode, string firstName, string lastName, string creditCardNumber, int expireMonth,
+            int expireYear)
+        {
+            
+        }
 
         /// <summary>
         /// Creates a new account with required billing information
         /// </summary>
         /// <param name="accountCode"></param>
-        /// <param name="firstName"></param>
-        /// <param name="lastName"></param>
-        /// <param name="creditCardNumber"></param>
-        /// <param name="expirationMonth"></param>
-        /// <param name="expirationYear"></param>
-        public Account(string accountCode, string firstName, string lastName, string creditCardNumber, int expirationMonth, int expirationYear)
+        /// <param name="billingInfo"></param>
+        public Account(string accountCode, BillingInfo billingInfo)
         {
             AccountCode = accountCode;
-            _billingInfo = new BillingInfo(accountCode)
-            {
-                FirstName = firstName,
-                LastName = lastName,
-                CreditCardNumber = creditCardNumber,
-                ExpirationMonth = expirationMonth,
-                ExpirationYear = expirationYear
-            };
+            _billingInfo = billingInfo;
         }
 
         internal Account(XmlTextReader xmlReader)

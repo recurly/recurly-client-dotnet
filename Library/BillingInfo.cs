@@ -248,7 +248,6 @@ namespace Recurly
                     case "billing_agreement_id":
                         BillingAgreementId = reader.ReadElementContentAsString();
                         break;
-                       
                 }
             }
         }
@@ -285,7 +284,6 @@ namespace Recurly
 
             xmlWriter.WriteEndElement(); // End: billing_info
         }
-
 
         #region Object Overrides
 
