@@ -1,4 +1,4 @@
-﻿# Recurly .NET Client
+# Recurly .NET Client
 
 The Recurly .NET Client library is an open source library to interact with Recurly's subscription management from your ASP.Net website.
 The library interacts with Recurly's [REST API](http://support.recurly.com/faqs/api).  This library works with .NET 2.0 and greater.
@@ -32,12 +32,7 @@ Your API Key, and site subdomain can be specified in your **web.config** file:
 
 
 ## To Do
-* Finish implementing v2 of the API	
-* Write unit tests
-* List/paginate through accounts, transactions, etc
-* Process POST notifications
-* Member variable validation
-* Validate credit card information before submitting request
+* Final review against API specs
 
 
 ## API Documentation
