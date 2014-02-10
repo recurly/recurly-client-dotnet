@@ -156,7 +156,6 @@ namespace Recurly
         }
 
         // This method appears to not conform to the API given http://docs.recurly.com/api/accounts
-        // TODO confirm if usage is correct
         /// <summary>
         /// Posts pending charges on an account
         /// </summary>

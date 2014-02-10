@@ -36,6 +36,8 @@ namespace Recurly
         public string Currency { get; protected set; }
         public bool Taxable { get; protected set; }
 
+        public AdjustmentState State { get; protected set; }
+
         public DateTime StartDate { get; protected set; }
         public DateTime? EndDate { get; protected set; }
 
@@ -57,6 +59,7 @@ namespace Recurly
             UnitAmountInCents = unitAmountInCents;
             Quantity = quantity;
             AccountingCode = accountingCode;
+            State = AdjustmentState.Pending;
 
             if (!AccountingCode.IsNullOrEmpty() && AccountingCode.Length > AccountingCodeMaxLength)
                 throw new PropertyOutOfRangeException("AccountingCode",
@@ -174,6 +177,10 @@ namespace Recurly
 
                     case "created_at":
                         CreatedAt = reader.ReadElementContentAsDateTime();
+                        break;
+
+                    case "state":
+                        State = reader.ReadElementContentAsString().ParseAsEnum<AdjustmentState>();
                         break;
 
                 }
