@@ -279,7 +279,7 @@ namespace Recurly
         /// <param name="state"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static TransactionList List(TransactionList.TransactionState state = TransactionList.TransactionState.All,
+        public static RecurlyList<Transaction> List(TransactionList.TransactionState state = TransactionList.TransactionState.All,
             TransactionList.TransactionType type = TransactionList.TransactionType.All)
         {
             return new TransactionList("/transactions/?" +

@@ -31,17 +31,17 @@ namespace Recurly
 
         public override RecurlyList<Transaction> Start
         {
-            get { return new TransactionList(StartUrl); }
+            get { return HasStartPage() ? new TransactionList(StartUrl) : RecurlyList.Empty<Transaction>(); }
         }
 
         public override RecurlyList<Transaction> Next
         {
-            get { return new TransactionList(NextUrl); }
+            get { return HasNextPage() ? new TransactionList(NextUrl) : RecurlyList.Empty<Transaction>(); }
         }
 
         public override RecurlyList<Transaction> Prev
         {
-            get { return new TransactionList(PrevUrl); }
+            get { return HasPrevPage() ? new TransactionList(PrevUrl) : RecurlyList.Empty<Transaction>(); }
         }
 
         internal override void ReadXml(XmlTextReader reader)

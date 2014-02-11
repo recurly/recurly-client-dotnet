@@ -22,7 +22,7 @@ namespace Recurly
             Dollars
         }
 
-        public CouponRedemptionList Redemptions { get; private set; }
+        public RecurlyList<CouponRedemption> Redemptions { get; private set; }
 
         public string CouponCode { get; set; }
         public string Name { get; set; }
@@ -336,7 +336,7 @@ namespace Recurly
         /// </summary>
         /// <param name="state">Account state to retrieve</param>
         /// <returns></returns>
-        public static CouponList List(Coupon.CouponState state = Coupon.CouponState.All)
+        public static RecurlyList<Coupon> List(Coupon.CouponState state = Coupon.CouponState.All)
         {
             return new CouponList(Coupon.UrlPrefix + (state != Coupon.CouponState.All ? "?state=" + state.ToString().EnumNameToTransportCase() : ""));
         }

@@ -202,7 +202,7 @@ namespace Recurly.Test
             var sub2 = new Subscription(account, plan2, "USD");
             sub2.Create();
 
-            SubscriptionList list = account.GetSubscriptions(Subscription.SubscriptionState.All);
+            var list = account.GetSubscriptions(Subscription.SubscriptionState.All);
             list.Should().NotBeEmpty();
 
             plan1.Deactivate();

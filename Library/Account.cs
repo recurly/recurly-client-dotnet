@@ -70,13 +70,6 @@ namespace Recurly
             AccountCode = accountCode;            
         }
 
-        [Obsolete("This constructor doesn't actually require all the information")]
-        public Account(string accountCode, string firstName, string lastName, string creditCardNumber, int expireMonth,
-            int expireYear)
-        {
-            
-        }
-
         /// <summary>
         /// Creates a new account with required billing information
         /// </summary>
@@ -169,7 +162,7 @@ namespace Recurly
         /// <param name="type">Adjustment type to retrieve. Optional, default: All.</param>
         /// <param name="state">State of the Adjustments to retrieve. Optional, default: Any.</param>
         /// <returns></returns>
-        public AdjustmentList GetAdjustments(Adjustment.AdjustmentType type = Adjustment.AdjustmentType.All,
+        public RecurlyList<Adjustment> GetAdjustments(Adjustment.AdjustmentType type = Adjustment.AdjustmentType.All,
             Adjustment.AdjustmentState state = Adjustment.AdjustmentState.Any)
         {
             var adjustments = new AdjustmentList();
@@ -186,7 +179,7 @@ namespace Recurly
         /// Returns a list of invoices for this account
         /// </summary>
         /// <returns></returns>
-        public InvoiceList GetInvoices()
+        public RecurlyList<Invoice> GetInvoices()
         {
             return Invoices.List(AccountCode);
         }
@@ -196,7 +189,7 @@ namespace Recurly
         /// </summary>
         /// <param name="state"></param>
         /// <returns></returns>
-        public SubscriptionList GetSubscriptions(Subscription.SubscriptionState state = Subscription.SubscriptionState.All)
+        public RecurlyList<Subscription> GetSubscriptions(Subscription.SubscriptionState state = Subscription.SubscriptionState.All)
         {
             return new SubscriptionList(UrlPrefix + Uri.EscapeUriString(AccountCode) + "/subscriptions/"
                 + (state.Equals(Subscription.SubscriptionState.All) ? "" :  "?state=" + state.ToString().EnumNameToTransportCase()));
@@ -208,7 +201,7 @@ namespace Recurly
         /// <param name="state">Transactions of this state will be retrieved. Optional, default: All.</param>
         /// <param name="type">Transactions of this type will be retrieved. Optional, default: All.</param>
         /// <returns></returns>
-        public TransactionList GetTransactions(TransactionList.TransactionState state = TransactionList.TransactionState.All,
+        public RecurlyList<Transaction> GetTransactions(TransactionList.TransactionState state = TransactionList.TransactionState.All,
             TransactionList.TransactionType type = TransactionList.TransactionType.All)
         {
             return new TransactionList(UrlPrefix + Uri.EscapeUriString(AccountCode) + "/transactions/?"
@@ -416,7 +409,7 @@ namespace Recurly
         /// </summary>
         /// <param name="state">Account state to retrieve</param>
         /// <returns></returns>
-        public static AccountList List(Account.AccountState state = Account.AccountState.Active)
+        public static RecurlyList<Account> List(Account.AccountState state = Account.AccountState.Active)
         {
             return new AccountList(Account.UrlPrefix + "?state=" + state.ToString().EnumNameToTransportCase());
         }

@@ -12,17 +12,17 @@ namespace Recurly
 
         public override RecurlyList<Invoice> Start
         {
-            get { return new InvoiceList(StartUrl); }
+            get { return HasStartPage() ? new InvoiceList(StartUrl) : RecurlyList.Empty<Invoice>(); }
         }
 
         public override RecurlyList<Invoice> Next
         {
-            get { return new InvoiceList(NextUrl); }
+            get { return HasNextPage() ? new InvoiceList(NextUrl) : RecurlyList.Empty<Invoice>(); }
         }
 
         public override RecurlyList<Invoice> Prev
         {
-            get { return new InvoiceList(PrevUrl); }
+            get { return HasPrevPage() ? new InvoiceList(PrevUrl) : RecurlyList.Empty<Invoice>(); }
         }
 
         internal override void ReadXml(XmlTextReader reader)

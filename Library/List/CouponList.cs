@@ -10,17 +10,17 @@ namespace Recurly
 
         public override RecurlyList<Coupon> Start
         {
-            get { return new CouponList(StartUrl); }
+            get { return HasStartPage() ? new CouponList(StartUrl) : RecurlyList.Empty<Coupon>(); }
         }
 
         public override RecurlyList<Coupon> Next
         {
-            get { return new CouponList(NextUrl); }
+            get { return HasNextPage() ? new CouponList(NextUrl) : RecurlyList.Empty<Coupon>(); }
         }
 
         public override RecurlyList<Coupon> Prev
         {
-            get { return new CouponList(PrevUrl); }
+            get { return HasPrevPage() ? new CouponList(PrevUrl) : RecurlyList.Empty<Coupon>(); }
         }
 
         internal override void ReadXml(XmlTextReader reader)

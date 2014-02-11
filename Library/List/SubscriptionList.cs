@@ -10,17 +10,17 @@ namespace Recurly
 
         public override RecurlyList<Subscription> Start
         {
-            get { return new SubscriptionList(StartUrl); }
+            get { return HasStartPage() ? new SubscriptionList(StartUrl) : RecurlyList.Empty<Subscription>(); }
         }
 
         public override RecurlyList<Subscription> Next
         {
-            get { return new SubscriptionList(NextUrl); }
+            get { return HasNextPage() ? new SubscriptionList(NextUrl) : RecurlyList.Empty<Subscription>(); }
         }
 
         public override RecurlyList<Subscription> Prev
         {
-            get { return new SubscriptionList(PrevUrl); }
+            get { return HasPrevPage() ? new SubscriptionList(PrevUrl) : RecurlyList.Empty<Subscription>(); }
         }
 
         internal override void ReadXml(XmlTextReader reader)

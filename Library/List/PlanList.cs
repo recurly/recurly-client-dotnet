@@ -10,17 +10,17 @@ namespace Recurly
 
         public override RecurlyList<Plan> Start
         {
-            get { return new PlanList(StartUrl); }
+            get { return HasStartPage() ? new PlanList(StartUrl) : RecurlyList.Empty<Plan>(); }
         }
 
         public override RecurlyList<Plan> Next
         {
-            get { return new PlanList(NextUrl); }
+            get { return HasNextPage() ? new PlanList(NextUrl) : RecurlyList.Empty<Plan>(); }
         }
 
         public override RecurlyList<Plan> Prev
         {
-            get { return new PlanList(PrevUrl); }
+            get { return HasPrevPage() ? new PlanList(PrevUrl) : RecurlyList.Empty<Plan>(); }
         }
 
         internal override void ReadXml(XmlTextReader reader)

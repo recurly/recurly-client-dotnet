@@ -30,7 +30,7 @@ namespace Recurly.Test
             CreateNewAccount().Close();
             CreateNewAccount().Close();
 
-            AccountList accounts = Accounts.List(AccountState.Closed);
+            var accounts = Accounts.List(AccountState.Closed);
             accounts.Should().HaveCount(x => x >= 2);
         }
 

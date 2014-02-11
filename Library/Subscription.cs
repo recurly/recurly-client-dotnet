@@ -156,7 +156,7 @@ namespace Recurly
         /// <summary>
         /// List of add ons for this subscription
         /// </summary>
-        public AddOnList AddOns { get; set; } // TODO we're sure it's okay to use the same object as Plan?
+        public RecurlyList<AddOn> AddOns { get; set; } // TODO we're sure it's okay to use the same object as Plan?
 
         public int? TotalBillingCycles { get; set; }
         public DateTime? FirstRenewalDate { get; set; }
@@ -534,7 +534,7 @@ namespace Recurly
         /// </summary>
         /// <param name="state">State of subscriptions to return, defaults to "live"</param>
         /// <returns></returns>
-        public static SubscriptionList List(Subscription.SubscriptionState state = Subscription.SubscriptionState.Live)
+        public static RecurlyList<Subscription> List(Subscription.SubscriptionState state = Subscription.SubscriptionState.Live)
         {
             return new SubscriptionList(Subscription.UrlPrefix + "?state=" + state.ToString().EnumNameToTransportCase());
         }

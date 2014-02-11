@@ -41,7 +41,7 @@ namespace Recurly
 
         private AddOnList _addOns;
 
-        public AddOnList AddOns
+        public RecurlyList<AddOn> AddOns
         {
             get
             {
@@ -367,7 +367,7 @@ namespace Recurly
         /// Retrieves a list of all active plans
         /// </summary>
         /// <returns></returns>
-        public static PlanList List()
+        public static RecurlyList<Plan> List()
         {
             return new PlanList(Plan.UrlPrefix);
         }

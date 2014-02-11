@@ -27,8 +27,8 @@ namespace Recurly
         public string Currency { get; protected set; }
         public DateTime CreatedAt { get; private set; }
 
-        public AdjustmentList Adjustments { get; private set; }
-        public TransactionList Transactions { get; private set; }
+        public RecurlyList<Adjustment> Adjustments { get; private set; }
+        public RecurlyList<Transaction> Transactions { get; private set; }
 
         internal const string UrlPrefix = "/invoices/";
 
@@ -207,17 +207,17 @@ namespace Recurly
 
     public class Invoices
     {
-        public static InvoiceList List(string accountCode)
+        public static RecurlyList<Invoice> List(string accountCode)
         {
             return new InvoiceList("/accounts/" + Uri.EscapeUriString(accountCode) + "/invoices");
         }
 
-        public static InvoiceList List()
+        public static RecurlyList<Invoice> List()
         {
             return new InvoiceList(Invoice.UrlPrefix);
         }
 
-        public static InvoiceList List(Invoice.InvoiceState state)
+        public static RecurlyList<Invoice> List(Invoice.InvoiceState state)
         {
             return new InvoiceList(Invoice.UrlPrefix + "?state=" + state.ToString().EnumNameToTransportCase());
         }

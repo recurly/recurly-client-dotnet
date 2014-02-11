@@ -12,38 +12,9 @@ namespace Recurly
         internal HttpRequestMethod Method;
         protected string BaseUrl;
 
-        private string _startUrl;
-        public string StartUrl
-        {
-            get
-            {
-                if(_startUrl.IsNullOrEmpty())
-                    throw new NotSupportedException("No Start page available.");
-                return _startUrl;
-            }
-        }
-
-        private string _nextUrl;
-        public string NextUrl
-        {
-            get
-            {
-                if(_nextUrl.IsNullOrEmpty())
-                    throw new NotSupportedException("No Next page available.");
-                return _nextUrl;
-            }
-        }
-
-        private string _prevUrl;
-        public string PrevUrl
-        {
-            get
-            {
-                if (_prevUrl.IsNullOrEmpty())
-                    throw new NotSupportedException("No Previous page available.");
-                return _prevUrl;
-            }
-        }
+        protected string StartUrl { get; set; }
+        protected string NextUrl { get; set; }
+        protected string PrevUrl { get; set; }
 
         public int Count
         {
@@ -62,17 +33,17 @@ namespace Recurly
 
         public bool HasStartPage()
         {
-            return _startUrl.IsNullOrEmpty();
+            return !StartUrl.IsNullOrEmpty();
         }
 
         public bool HasNextPage()
         {
-            return _nextUrl.IsNullOrEmpty();
+            return !NextUrl.IsNullOrEmpty();
         }
 
         public bool HasPrevPage()
         {
-            return _prevUrl.IsNullOrEmpty();
+            return !PrevUrl.IsNullOrEmpty();
         }
 
         internal RecurlyList()
@@ -107,9 +78,9 @@ namespace Recurly
                 Items = records > 0 ? new List<T>(records) : new List<T>();
             }
             _capacity = records;
-            _startUrl = start;
-            _nextUrl = next;
-            _prevUrl = prev;
+            StartUrl = start;
+            NextUrl = next;
+            PrevUrl = prev;
             ReadXml(xmlReader);
         }
 
@@ -139,6 +110,52 @@ namespace Recurly
         {
             get { return Items[i]; }
             set { throw new NotSupportedException("RecurlyLists are readonly!"); }
+        }
+    }
+
+    public class RecurlyList
+    {
+        public static RecurlyList<T> Empty<T>()
+        {
+            return EmptyRecurlyList<T>.Instance;
+        }
+    }
+
+    internal class EmptyRecurlyList<T>
+    {
+        private static volatile EmptyRecurlyListImpl<T> _instance;
+
+        public static RecurlyList<T> Instance
+        {
+            get { return _instance ?? (_instance = new EmptyRecurlyListImpl<T>()); }
+        } 
+    }
+
+    internal class EmptyRecurlyListImpl<T> : RecurlyList<T>
+    {
+        public EmptyRecurlyListImpl()
+        {
+            Items = new List<T>();
+        }
+
+        public override RecurlyList<T> Start
+        {
+            get { return new EmptyRecurlyListImpl<T>(); }
+        }
+
+        public override RecurlyList<T> Next
+        {
+            get { return new EmptyRecurlyListImpl<T>(); }
+        }
+
+        public override RecurlyList<T> Prev
+        {
+            get { return new EmptyRecurlyListImpl<T>(); }
+        }
+
+        internal override void ReadXml(XmlTextReader reader)
+        {
+            throw new NotSupportedException("Empty Recurly Lists are read only!");
         }
     }
 }
