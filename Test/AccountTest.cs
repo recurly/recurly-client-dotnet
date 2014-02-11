@@ -110,5 +110,15 @@ namespace Recurly.Test
             var test = Accounts.Get(accountCode);
             acct.State.Should().Be(test.State).And.Be(Account.AccountState.Active);
         }
+
+        [Fact]
+        public void GetAccountNotes()
+        {
+            var account = CreateNewAccount();
+
+            var notes = account.GetNotes();
+
+            notes.Should().BeEmpty();
+        }
     }
 }

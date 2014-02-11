@@ -209,6 +209,11 @@ namespace Recurly
                 + (type != TransactionList.TransactionType.All ? "&type=" + type.ToString().EnumNameToTransportCase() : ""));
         }
 
+        public RecurlyList<Note> GetNotes()
+        {
+            return new NoteList(UrlPrefix + Uri.EscapeUriString(AccountCode) + "/notes/");
+        }
+
         /// <summary>
         /// Returns a new adjustment (credit or charge) for this account
         /// </summary>

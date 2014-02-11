@@ -12,11 +12,10 @@ namespace Recurly
         {
             while (reader.Read())
             {
-                if (reader.Name.Equals("accounts") &&
-                    reader.NodeType == XmlNodeType.EndElement)
+                if (reader.Name == "accounts" && reader.NodeType == XmlNodeType.EndElement)
                     break;
 
-                if (reader.NodeType == XmlNodeType.Element && reader.Name.Equals("account"))
+                if (reader.NodeType == XmlNodeType.Element && reader.Name == "account")
                 {
                     Add(new Account(reader));
                 }
