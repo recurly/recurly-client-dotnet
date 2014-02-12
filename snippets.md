@@ -333,3 +333,11 @@ var addon = plan.GetAddOn("ipaddresses");
 addon.UnitAmountInCents["USD"] = 200;
 addon.Update();
 ```
+
+##Delete an add-on
+```c#
+var plan = Plans.Get("gold");
+var addon = plan.GetAddOn("ipaddresses");
+addon.Deactivate();
+```
+
