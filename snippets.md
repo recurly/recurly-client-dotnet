@@ -1,4 +1,5 @@
 #Accounts
+
 ##List Accounts
 ```c#
 var accounts = Accounts.List();
@@ -124,6 +125,7 @@ account.ClearBillingInfo();
 ```
 
 #Coupon
+
 ##List active coupons
 ```c#
 var coupons = Coupons.List();
@@ -166,3 +168,168 @@ var coupon = Coupons.Get("special");
 coupon.Deactivate();
 ```
 
+#Coupon Redemptions
+
+##Redeem a coupon before or after a subscription
+```c#
+var account = Accounts.Get("1");
+var redemption = account.Redeem("special", "USD");
+```
+
+##Lookup a coupon redemption on an account
+```c#
+var account = Accounts.Get("1");
+var redemption = account.GetActiveCoupon();
+```
+
+##Remove a coupon from an account
+```c#
+var account = Accounts.Get("1");
+var redemption = account.GetActiveCoupon();
+redemption.Delete();
+```
+
+##Lookup a coupon redemption on an invoice
+```c#
+var invoice = Invoices.Get(1);
+var redemption = invoice.GetCoupon();
+```
+
+#Invoices
+
+##List invoices
+```c#
+var invoices = Invoices.List();
+while(invoices.Any())
+{
+	foreach(var invoice in invoices)
+		Console.WriteLine("Invoice: " + invoice);
+	invoices = invoices.Next;
+}
+```
+
+##List an account's invoices
+```c#
+var invoices = Invoices.List("1"); // account code
+while(invoices.Any())
+{
+	foreach(var invoice in invoices)
+		Console.WriteLine("Invoice: " + invoice);
+	invoices = invoices.Next;
+}
+```
+
+##Lookup invoice details
+```c#
+var invoice = Invoices.Get(1005);
+```
+
+##Retrieve a PDF invoice
+```c#
+var invoice = Invoices.Get(1005);
+byte[] pdf = invoice.GetPdf();
+```
+
+##Post an invoice: invoice pending charges on an account
+```c#
+var account = Accounts.Get("1");
+var invoice = account.InvoicePendingCharges()
+```
+
+##Mark an invoice as paid successfully
+```c#
+var invoice = Invoices.Get(1005);
+invoice.MarkSuccessful();
+```
+
+##Mark an invoice as failed collection
+```c#
+var invoice = Invoices.Get(1005);
+invoice.MarkFailed();
+```
+
+##Line item refunds
+```c#
+var invoice = Invoices.Get(1005);
+var adjustment = invoice.Adjustments.First(x => x.Uuid == "e1234245132465");
+invoice = invoice.Refund(adjustment, false, 1); // adjustment, prorate, quantity
+```
+
+#Plans
+##List plans
+```c#
+var plans = Plans.List();
+while(plans.Any())
+{
+	foreach(var plan in plans)
+		Console.WriteLine("Plan: " + plan);
+	plans = plans.Next;
+}
+```
+
+##Lookup plan details
+```c#
+var plan = Plans.Get("gold");
+```
+
+##Create plan
+```c#
+var plan = new Plan("gold", "Gold plan"); // plan code, name
+plan.UnitAmountInCents.Add("USD", 1000);
+plan.UnitAmountInCents.Add("EUR", 800);
+plan.SetupFeeInCents.Add("USD", 6000);
+plan.SetupFeeInCents.Add("EUR", 4500);
+plan.PlanIntervalLength = 1;
+plan.PlanIntervalUnit = Plan.IntervalUnit.Month;
+plan.TaxExempt = false;
+plan.Create();
+```
+
+##Update Plan
+```c#
+var plan = Plans.Get("gold");
+plan.SetupFeeInCents["EUR"] = 5000;
+plan.Update();
+```
+
+##Delete Plan
+```c#
+var plan = Plans.Get("gold");
+plan.Deactivate();
+```
+
+#Plan Addons
+
+##List add-ons for a plan
+```c#
+var plan = Plans.Get("gold");
+var addons = plan.AddOns;
+while(addons.Any())
+{
+	foreach(var addon in addons)
+		Console.WriteLine("Addon: " + addon);
+	addons = addons.Next;
+}
+```
+
+##Lookup an add-on
+```c#
+var plan = Plans.Get("gold");
+var addon = plan.GetAddOn("addOnCode");
+```
+
+##Create an add-on
+```c#
+var plan = Plans.Get("gold");
+var addon = plan.CreateAddOn("ipaddresses", "Extra IP Addresses"); // add-on code, name
+addon.UnitAmountInCents.Add("USD", 200);
+addon.Create();
+```
+
+##Update an add-on
+```c#
+var plan = Plans.Get("gold");
+var addon = plan.GetAddOn("ipaddresses");
+addon.UnitAmountInCents["USD"] = 200;
+addon.Update();
+```
