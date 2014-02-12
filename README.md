@@ -16,19 +16,21 @@ If you do not have git and have some interest in learning about a wonderful sour
 
 Your API Key, site subdomain, private key, and (optionally) page size setting can be specified in your **app.config** or **web.config** file:
 
-    <?xml version="1.0" encoding="utf-8" ?>
-    <configuration>
-      <configSections>
-        <section name="recurly" type="Recurly.Configuration.RecurlySection,Recurly"/>
-      </configSections>
-      
-      <recurly 
-        apiKey="123456789012345678901234567890ab"
-        privateKey="123456789012345678901234567890cd"
-        subdomain="company"
-		pageSize="50" /> <!-- 50 is the default -->
-      
-    </configuration>
+```xml
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <configSections>
+    <section name="recurly" type="Recurly.Configuration.RecurlySection,Recurly"/>
+  </configSections>
+  
+  <recurly 
+    apiKey="123456789012345678901234567890ab"
+    privateKey="123456789012345678901234567890cd"
+    subdomain="company"
+	pageSize="50" /> <!-- 50 is the default -->
+  
+</configuration>
+```
 
 ## Getting Started
 Add the Recurly project from the Library folder to your solution and reference it in the projects that will make calls to the Recurly service. Add your settings to your config file and you can start interacting with Recurly!
