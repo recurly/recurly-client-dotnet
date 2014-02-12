@@ -156,7 +156,7 @@ namespace Recurly
         /// <summary>
         /// List of add ons for this subscription
         /// </summary>
-        public RecurlyList<AddOn> AddOns { get; set; } // TODO we're sure it's okay to use the same object as Plan?
+        public RecurlyList<SubscriptionAddOn> AddOns { get; set; }
 
         public int? TotalBillingCycles { get; set; }
         public DateTime? FirstRenewalDate { get; set; }
@@ -386,7 +386,7 @@ namespace Recurly
 
                     case "subscription_add_ons":
                         if (null == AddOns)
-                            AddOns = new AddOnList();
+                            AddOns = new SubscriptionAddOnList();
                         AddOns.ReadXml(reader);
 
                         break;
@@ -429,7 +429,7 @@ namespace Recurly
 
                     case "subscription_add_ons":
                         if (null == AddOns)
-                            AddOns = new AddOnList();
+                            AddOns = new SubscriptionAddOnList();
                         AddOns.ReadXml(reader);
 
                         break;

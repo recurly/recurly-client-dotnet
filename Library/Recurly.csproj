@@ -84,6 +84,7 @@
     <Compile Include="List\InvoiceList.cs" />
     <Compile Include="List\NoteList.cs" />
     <Compile Include="List\PlanList.cs" />
+    <Compile Include="List\SubscriptionAddOnList.cs" />
     <Compile Include="List\SubscriptionList.cs" />
     <Compile Include="Note.cs" />
     <Compile Include="NotFoundException.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="ServerException.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Subscription.cs" />
+    <Compile Include="SubscriptionAddOn.cs" />
     <Compile Include="TemporarilyUnavailableException.cs" />
     <Compile Include="Transaction.cs" />
     <Compile Include="List\TransactionList.cs" />
