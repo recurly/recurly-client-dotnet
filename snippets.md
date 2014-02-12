@@ -341,3 +341,82 @@ var addon = plan.GetAddOn("ipaddresses");
 addon.Deactivate();
 ```
 
+#Subscriptions
+
+##List Subscriptions
+```c#
+var subscriptions = Subscriptions.List();
+while(subscriptions.Any())
+{
+	foreach(var plan in subscriptions)
+		Console.WriteLine("Subscription: " + subscription);
+	subscriptions = subscriptions.Next;
+}
+```
+
+##List an account's subscriptions
+```c#
+var account = Accounts.Get("1");
+var subscriptions = account.GetSubscriptions();
+while(subscriptions.Any())
+{
+	foreach(var plan in subscriptions)
+		Console.WriteLine("Subscription: " + subscription);
+	subscriptions = subscriptions.Next;
+}
+```
+
+##Lookup subscription details
+```c#
+var subscription = Subscriptions.Get("44f83d7cba354d5b84812419f923ea96");
+```
+
+##Create Subscription
+```c#
+var account = Accounts.Get("1");
+var plan = Plans.Get("gold");
+var subscription = new Subscription(account, plan, "USD"); // account, plan, currency
+subscription.Create();
+```
+
+##Update subscription
+```c#
+var subscription = Subscriptions.Get("44f83d7cba354d5b84812419f923ea96");
+subscription.Plan = Plans.Get("silver");
+subscription.Quantity = 2;
+subscription.ChangeSubscription(Subscription.ChangeTimeframe.Now); // performs the update operation
+```
+
+##Cancel a subscription
+```c#
+var subscription = Subscriptions.Get("44f83d7cba354d5b84812419f923ea96");
+subscription.Cancel();
+```
+
+##Reactivating a canceled subscription
+```c#
+var subscription = Subscriptions.Get("44f83d7cba354d5b84812419f923ea96");
+subscription.Reactivate();
+```
+
+##Terminate a subscription
+```c#
+var subscription = Subscriptions.Get("44f83d7cba354d5b84812419f923ea96");
+subscription.Terminate(Subscription.RefundType.Full);
+//subscription.Terminate(Subscription.RefundType.Partial);
+//subscription.Terminate(Subscription.RefundType.None);
+```
+
+##Postpone a subscription
+```c#
+var subscription = Subscriptions.Get("44f83d7cba354d5b84812419f923ea96");
+subscription.Postpone(new DateTime(2012, 12, 31));
+```
+
+##Preview a subscription
+```c#
+var account = Accounts.Get("1");
+var plan = Plans.Get("gold");
+var subscription = new Subscription(account, plan, "USD"); // account, plan, currency
+subscription.Preview();
+```
