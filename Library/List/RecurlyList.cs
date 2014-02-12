@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml;
 using HttpRequestMethod = Recurly.Client.HttpRequestMethod;
 
@@ -30,6 +31,21 @@ namespace Recurly
         public abstract RecurlyList<T> Start { get; }
         public abstract RecurlyList<T> Next { get; }
         public abstract RecurlyList<T> Prev { get; }
+
+        public IList<T> All
+        {
+            get
+            {
+                var that = HasStartPage() ? Start : this;
+                var list = new List<T>();
+                while (that.Any())
+                {
+                    list.AddRange(that);
+                    that = that.Next;
+                }
+                return list;
+            }
+        }
 
         public bool HasStartPage()
         {
