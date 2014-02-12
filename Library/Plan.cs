@@ -39,6 +39,8 @@ namespace Recurly
 
         public int? TotalBillingCycles { get; set; }
 
+        public bool? TaxExempt { get; set; }
+
         private AddOnList _addOns;
 
         public RecurlyList<AddOn> AddOns
@@ -260,6 +262,10 @@ namespace Recurly
                         CreatedAt = reader.ReadElementContentAsDateTime();
                         break;
 
+                    case "tax_exempt":
+                        TaxExempt = reader.ReadElementContentAsBoolean();
+                        break;
+
                     case "unit_amount_in_cents":
                         ReadXmlUnitAmount(reader);
                         break;
@@ -325,6 +331,9 @@ namespace Recurly
 
             if (BypassHostedConfirmation.HasValue)
                 xmlWriter.WriteElementString("bypass_hosted_confirmation", BypassHostedConfirmation.Value.AsString());
+
+            if(TaxExempt.HasValue)
+                xmlWriter.WriteElementString("tax_exempt", TaxExempt.Value.AsString());
 
             xmlWriter.WriteStringIfValid("success_url", SuccessUrl);
             xmlWriter.WriteStringIfValid("cancel_url", CancelUrl);
