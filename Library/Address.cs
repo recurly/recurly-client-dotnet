@@ -2,7 +2,7 @@
 
 namespace Recurly
 {
-    public class Address
+    public class Address : RecurlyEntity
     {
         public string Address1 { get; set; }
         public string Address2 { get; set; }
@@ -17,7 +17,7 @@ namespace Recurly
             ReadXml(reader);
         }
 
-        internal void ReadXml(XmlTextReader reader)
+        internal override void ReadXml(XmlTextReader reader)
         {
             while (reader.Read())
             {
@@ -59,7 +59,7 @@ namespace Recurly
             }
         }
 
-        internal void WriteXml(XmlTextWriter xmlWriter)
+        internal override void WriteXml(XmlTextWriter xmlWriter)
         {
             xmlWriter.WriteStartElement("address");
 

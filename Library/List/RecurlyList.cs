@@ -6,7 +6,7 @@ using HttpRequestMethod = Recurly.Client.HttpRequestMethod;
 
 namespace Recurly
 {
-    public abstract class RecurlyList<T> : IEnumerable<T>
+    public abstract class RecurlyList<T> : IEnumerable<T> where T : RecurlyEntity
     {
         protected List<T> Items;
         internal HttpRequestMethod Method;
@@ -115,13 +115,13 @@ namespace Recurly
 
     public class RecurlyList
     {
-        public static RecurlyList<T> Empty<T>()
+        public static RecurlyList<T> Empty<T>() where T : RecurlyEntity
         {
             return EmptyRecurlyList<T>.Instance;
         }
     }
 
-    internal class EmptyRecurlyList<T>
+    internal class EmptyRecurlyList<T> where T : RecurlyEntity
     {
         private static volatile EmptyRecurlyListImpl<T> _instance;
 
@@ -131,7 +131,7 @@ namespace Recurly
         } 
     }
 
-    internal class EmptyRecurlyListImpl<T> : RecurlyList<T>
+    internal class EmptyRecurlyListImpl<T> : RecurlyList<T> where T : RecurlyEntity
     {
         public EmptyRecurlyListImpl()
         {

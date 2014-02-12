@@ -8,7 +8,7 @@ namespace Recurly
     /// <summary>
     /// Represents subscriptions for accounts
     /// </summary>
-    public class Subscription
+    public class Subscription : RecurlyEntity
     {
         // changed to flags based on http://docs.recurly.com/api/subscriptions saying Subscriptions can be in multiple states
         [Flags]
@@ -297,7 +297,7 @@ namespace Recurly
             }
         }
 
-        internal void ReadXml(XmlTextReader reader)
+        internal override void ReadXml(XmlTextReader reader)
         {
             string href;
 
@@ -389,6 +389,11 @@ namespace Recurly
                         break;
                 }
             }
+        }
+
+        internal override void WriteXml(XmlTextWriter writer)
+        {
+            throw new NotImplementedException();
         }
 
         protected void ReadPendingSubscription(XmlTextReader reader)
@@ -525,7 +530,7 @@ namespace Recurly
         #endregion
     }
 
-    public class Subscriptions
+    public sealed class Subscriptions
     {
         /// <summary>
         /// Returns a list of recurly subscriptions

@@ -90,7 +90,7 @@ namespace Recurly.Test
             account.InvoicePendingCharges();
 
             var adjustments = account.GetAdjustments(Adjustment.AdjustmentType.Charge);
-            adjustments.Should().HaveCount(1);
+            adjustments.Should().HaveCount(2);
             adjustments.Should().Contain(x => x.UnitAmountInCents == 1234);
         }
 
@@ -114,6 +114,37 @@ namespace Recurly.Test
             adjustments = account.GetAdjustments(state: Adjustment.AdjustmentState.Invoiced);
             adjustments.Should().HaveCount(3);
             adjustments.Should().OnlyContain(x => x.State == Adjustment.AdjustmentState.Invoiced);
+        }
+
+        [Fact]
+        public void AdjustmentGet()
+        {
+            var account = CreateNewAccountWithBillingInfo();
+
+            var adjustment = account.CreateAdjustment("Charge", 1234, "USD");
+            adjustment.Create();
+
+            adjustment.Uuid.Should().NotBeNullOrEmpty();
+
+            var fromService = Adjustments.Get(adjustment.Uuid);
+
+            fromService.Should().NotBeNull();
+        }
+
+        [Fact]
+        public void AdjustmentDelete()
+        {
+            var account = CreateNewAccountWithBillingInfo();
+
+            var adjustment = account.CreateAdjustment("Charge", 1234, "USD");
+            adjustment.Create();
+
+            adjustment.Uuid.Should().NotBeNullOrEmpty();
+
+            adjustment.Delete();
+
+            Action get = () => Adjustments.Get(adjustment.Uuid);
+            get.ShouldThrow<NotFoundException>();
         }
     }
 }

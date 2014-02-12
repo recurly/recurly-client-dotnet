@@ -6,7 +6,7 @@ namespace Recurly
     /// <summary>
     /// Represents an instance where a coupon has been redeemed for a subscription
     /// </summary>
-    public class CouponRedemption
+    public class CouponRedemption : RecurlyEntity
     {
 
         public string AccountCode { get; set; }
@@ -56,7 +56,7 @@ namespace Recurly
         public void Delete()
         {
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Delete,
-                "/accounts/" + Uri.EscapeUriString(AccountCode) + "/redemption" );
+                "/accounts/" + Uri.EscapeUriString(AccountCode) + "/redemption");
             AccountCode = null;
             CouponCode = null;
             Currency = null;
@@ -66,7 +66,7 @@ namespace Recurly
 
         #region Read and Write XML documents
 
-        internal void ReadXml(XmlTextReader reader)
+        internal override void ReadXml(XmlTextReader reader)
         {
             while (reader.Read())
             {
@@ -117,7 +117,7 @@ namespace Recurly
             }
         }
 
-        internal void WriteXml(XmlTextWriter xmlWriter)
+        internal override void WriteXml(XmlTextWriter xmlWriter)
         {
             xmlWriter.WriteStartElement("redemption"); // Start: coupon
 

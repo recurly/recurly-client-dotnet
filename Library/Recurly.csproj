@@ -91,7 +91,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="List\RecurlyList.cs" />
     <Compile Include="PropertyOutOfRangeException.cs" />
-    <Compile Include="RecurlyTransparent.cs" />
+    <Compile Include="QueryBuilder.cs" />
+    <Compile Include="RecurlyEntity.cs" />
     <Compile Include="Refund.cs" />
     <Compile Include="ServerException.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />

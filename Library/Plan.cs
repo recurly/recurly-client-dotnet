@@ -5,7 +5,7 @@ using System.Xml;
 
 namespace Recurly
 {
-    public class Plan
+    public class Plan : RecurlyEntity
     {
         public enum IntervalUnit
         {
@@ -47,7 +47,7 @@ namespace Recurly
             {
                 if (_addOns == null)
                 {
-                    var url = UrlPrefix + PlanCode + "/add_ons/";
+                    var url = UrlPrefix + Uri.EscapeUriString(PlanCode) + "/add_ons/";
                     _addOns = new AddOnList(url);
                 }
                 return _addOns;
@@ -139,7 +139,7 @@ namespace Recurly
             var addOn = new AddOn();
 
             var status = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
-                UrlPrefix + PlanCode + "/add_ons/" + addOnCode,
+                UrlPrefix + Uri.EscapeUriString(PlanCode) + "/add_ons/" + Uri.EscapeUriString(addOnCode),
                 addOn.ReadXml);
 
             return status == HttpStatusCode.OK ? addOn : null;
@@ -177,7 +177,7 @@ namespace Recurly
             }
         }
 
-        internal void ReadXml(XmlTextReader reader)
+        internal override void ReadXml(XmlTextReader reader)
         {
             UnitAmountInCents.Clear();
             SetupFeeInCents.Clear();
@@ -271,7 +271,7 @@ namespace Recurly
             }
         }
 
-        internal void WriteXml(XmlTextWriter xmlWriter)
+        internal override void WriteXml(XmlTextWriter xmlWriter)
         {
             xmlWriter.WriteStartElement("plan");
 
@@ -361,7 +361,7 @@ namespace Recurly
         #endregion
     }
 
-    public class Plans
+    public sealed class Plans
     {
         /// <summary>
         /// Retrieves a list of all active plans

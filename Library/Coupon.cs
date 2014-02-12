@@ -5,7 +5,7 @@ using System.Xml;
 
 namespace Recurly
 {
-    public class Coupon
+    public class Coupon : RecurlyEntity
     {
         public enum CouponState : short
         {
@@ -123,7 +123,7 @@ namespace Recurly
 
         #region Read and Write XML documents
 
-        internal void ReadXml(XmlTextReader reader)
+        internal override void ReadXml(XmlTextReader reader)
         {
             while (reader.Read())
             {
@@ -231,7 +231,7 @@ namespace Recurly
             }
         }
 
-        internal void WriteXml(XmlTextWriter xmlWriter)
+        internal override void WriteXml(XmlTextWriter xmlWriter)
         {
             xmlWriter.WriteStartElement("coupon"); // Start: coupon
 
@@ -313,7 +313,7 @@ namespace Recurly
         #endregion
     }
 
-    public class Coupons
+    public sealed class Coupons
     {
         /// <summary>
         /// Look up a coupon

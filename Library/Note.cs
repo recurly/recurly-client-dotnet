@@ -3,7 +3,7 @@ using System.Xml;
 
 namespace Recurly
 {
-    public class Note
+    public class Note : RecurlyEntity
     {
         public string AccountCode { get; protected set; }
         public string Message { get; protected set; }
@@ -14,7 +14,7 @@ namespace Recurly
             ReadXml(xmlReader);
         }
 
-        internal void ReadXml(XmlTextReader reader)
+        internal override void ReadXml(XmlTextReader reader)
         {
             while (reader.Read())
             {
@@ -41,6 +41,11 @@ namespace Recurly
                         break;
                 }
             }
+        }
+
+        internal override void WriteXml(XmlTextWriter writer)
+        {
+            throw new NotImplementedException();
         }
     }
 }

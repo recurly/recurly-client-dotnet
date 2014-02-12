@@ -9,7 +9,7 @@ namespace Recurly
     /// 
     /// http://docs.recurly.com/api/accounts
     /// </summary>
-    public class Account
+    public class Account : RecurlyEntity
     {
 
         // The currently valid account states
@@ -167,9 +167,9 @@ namespace Recurly
         {
             var adjustments = new AdjustmentList();
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
-                UrlPrefix + Uri.EscapeUriString(AccountCode) + "/adjustments/?"
-                + (Adjustment.AdjustmentState.Any == state ? "" : "state=" + state.ToString().EnumNameToTransportCase())
-                + (Adjustment.AdjustmentType.All == type ? "" : "&type=" + type.ToString().EnumNameToTransportCase())
+                UrlPrefix + Uri.EscapeUriString(AccountCode) + "/adjustments/"
+                + Build.QueryStringWith(Adjustment.AdjustmentState.Any == state ? "" : "state=" + state.ToString().EnumNameToTransportCase())
+                .AndWith(Adjustment.AdjustmentType.All == type ? "" : "type=" + type.ToString().EnumNameToTransportCase())
                 , adjustments.ReadXmlList);
 
             return statusCode == HttpStatusCode.NotFound ? null : adjustments;
@@ -192,7 +192,7 @@ namespace Recurly
         public RecurlyList<Subscription> GetSubscriptions(Subscription.SubscriptionState state = Subscription.SubscriptionState.All)
         {
             return new SubscriptionList(UrlPrefix + Uri.EscapeUriString(AccountCode) + "/subscriptions/"
-                + (state.Equals(Subscription.SubscriptionState.All) ? "" :  "?state=" + state.ToString().EnumNameToTransportCase()));
+                + Build.QueryStringWith(state.Equals(Subscription.SubscriptionState.All) ? "" :  "state=" + state.ToString().EnumNameToTransportCase()));
         }
 
         /// <summary>
@@ -204,9 +204,9 @@ namespace Recurly
         public RecurlyList<Transaction> GetTransactions(TransactionList.TransactionState state = TransactionList.TransactionState.All,
             TransactionList.TransactionType type = TransactionList.TransactionType.All)
         {
-            return new TransactionList(UrlPrefix + Uri.EscapeUriString(AccountCode) + "/transactions/?"
-                + (state != TransactionList.TransactionState.All ? "state=" + state.ToString().EnumNameToTransportCase() : "")
-                + (type != TransactionList.TransactionType.All ? "&type=" + type.ToString().EnumNameToTransportCase() : ""));
+            return new TransactionList(UrlPrefix + Uri.EscapeUriString(AccountCode) + "/transactions/"
+                 + Build.QueryStringWith(state != TransactionList.TransactionState.All ? "state=" + state.ToString().EnumNameToTransportCase() : "")
+                   .AndWith(type != TransactionList.TransactionType.All ? "type=" + type.ToString().EnumNameToTransportCase() : ""));
         }
 
         public RecurlyList<Note> GetNotes()
@@ -222,10 +222,11 @@ namespace Recurly
         /// <param name="currency">Currency, 3-letter ISO code.</param>
         /// <param name="quantity">Quantity, defaults to 1.</param>
         /// <param name="accountingCode">Accounting code. Max of 20 characters.</param>
+        /// <param name="taxExempt"></param>
         /// <returns></returns>
-        public Adjustment CreateAdjustment(string description, int unitAmountInCents, string currency, int quantity=1, string accountingCode = "")
+        public Adjustment CreateAdjustment(string description, int unitAmountInCents, string currency, int quantity=1, string accountingCode = "", bool taxExempt = false)
         {
-            return new Adjustment(AccountCode, description, currency, unitAmountInCents, quantity, accountingCode);
+            return new Adjustment(AccountCode, description, currency, unitAmountInCents, quantity, accountingCode, taxExempt);
         }
 
         /// <summary>
@@ -257,7 +258,7 @@ namespace Recurly
 
         #region Read and Write XML documents
 
-        internal void ReadXml(XmlTextReader reader)
+        internal override void ReadXml(XmlTextReader reader)
         {
             while (reader.Read())
             {
@@ -316,7 +317,7 @@ namespace Recurly
             }
         }
 
-        internal void WriteXml(XmlTextWriter xmlWriter)
+        internal override void WriteXml(XmlTextWriter xmlWriter)
         {
             xmlWriter.WriteStartElement("account"); // Start: account
 
@@ -366,7 +367,7 @@ namespace Recurly
         #endregion
     }
 
-    public static class Accounts
+    public sealed class Accounts
     {
         internal const string UrlPrefix = "/accounts/";
 

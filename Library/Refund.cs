@@ -2,7 +2,7 @@
 
 namespace Recurly
 {
-    public class Refund
+    public class Refund : RecurlyEntity
     {
         public bool Prorate { get; protected set; }
         public int Quantity { get; protected set; }
@@ -15,7 +15,12 @@ namespace Recurly
             Uuid = adjustment.Uuid;
         }
 
-        internal void WriteXml(XmlTextWriter writer)
+        internal override void ReadXml(XmlTextReader reader)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        internal override void WriteXml(XmlTextWriter writer)
         {
             writer.WriteStartElement("invoice");
             writer.WriteStartElement("line_items");

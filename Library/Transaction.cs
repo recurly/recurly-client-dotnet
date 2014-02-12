@@ -4,7 +4,7 @@ using System.Xml;
 
 namespace Recurly
 {
-    public class Transaction
+    public class Transaction : RecurlyEntity
     {
         // The currently valid Transaction States
         public enum TransactionState : short
@@ -126,7 +126,7 @@ namespace Recurly
 
         #region Read and Write XML documents
 
-        internal void ReadXml(XmlTextReader reader)
+        internal override void ReadXml(XmlTextReader reader)
         {
             while (reader.Read())
             {
@@ -228,7 +228,7 @@ namespace Recurly
             }
         }
 
-        internal void WriteXml(XmlTextWriter xmlWriter)
+        internal override void WriteXml(XmlTextWriter xmlWriter)
         {
             xmlWriter.WriteStartElement("transaction");
 
@@ -271,8 +271,9 @@ namespace Recurly
         #endregion
     }
 
-    public class Transactions
+    public sealed class Transactions
     {
+        private static readonly QueryStringBuilder Build = new QueryStringBuilder();
         /// <summary>
         /// Lists transactions by state and type. Defaults to all.
         /// </summary>
@@ -282,9 +283,9 @@ namespace Recurly
         public static RecurlyList<Transaction> List(TransactionList.TransactionState state = TransactionList.TransactionState.All,
             TransactionList.TransactionType type = TransactionList.TransactionType.All)
         {
-            return new TransactionList("/transactions/?" +
-                (state != TransactionList.TransactionState.All ? "state=" +state.ToString().EnumNameToTransportCase() : "")
-                + (type != TransactionList.TransactionType.All ? "&type=" +type.ToString().EnumNameToTransportCase() : "")
+            return new TransactionList("/transactions/" +
+                Build.QueryStringWith(state != TransactionList.TransactionState.All ? "state=" +state.ToString().EnumNameToTransportCase() : "")
+                .AndWith(type != TransactionList.TransactionType.All ? "type=" +type.ToString().EnumNameToTransportCase() : "")
             );
         }
 

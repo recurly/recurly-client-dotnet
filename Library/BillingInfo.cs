@@ -6,7 +6,7 @@ using System.Xml;
 
 namespace Recurly
 {
-    public class BillingInfo
+    public class BillingInfo : RecurlyEntity
     {
         public enum CreditCardType : short
         {
@@ -156,7 +156,7 @@ namespace Recurly
             return UrlPrefix + Uri.EscapeUriString(accountCode) + UrlPostfix;
         }
 
-        internal void ReadXml(XmlTextReader reader)
+        internal override void ReadXml(XmlTextReader reader)
         {
             while (reader.Read())
             {
@@ -252,7 +252,7 @@ namespace Recurly
             }
         }
 
-        internal void WriteXml(XmlTextWriter xmlWriter)
+        internal override void WriteXml(XmlTextWriter xmlWriter)
         {
             xmlWriter.WriteStartElement("billing_info"); // Start: billing_info
             xmlWriter.WriteStringIfValid("first_name", FirstName);

@@ -4,7 +4,7 @@ using System.Xml;
 
 namespace Recurly
 {
-    public class AddOn
+    public class AddOn : RecurlyEntity
     {
 
         public string PlanCode { get; private set; }
@@ -94,7 +94,7 @@ namespace Recurly
             }
         }
 
-        internal void ReadXml(XmlTextReader reader)
+        internal override void ReadXml(XmlTextReader reader)
         {
             while (reader.Read())
             {
@@ -135,7 +135,7 @@ namespace Recurly
             }
         }
 
-        internal void WriteXml(XmlTextWriter xmlWriter)
+        internal override void WriteXml(XmlTextWriter xmlWriter)
         {
             xmlWriter.WriteStartElement("add_on");
 

@@ -4,7 +4,7 @@ using System.Xml;
 
 namespace Recurly
 {
-    public class Invoice
+    public class Invoice : RecurlyEntity
     {
         // The currently valid Invoice States
         public enum InvoiceState
@@ -106,7 +106,7 @@ namespace Recurly
 
         #region Read and Write XML documents
 
-        internal void ReadXml(XmlTextReader reader)
+        internal override void ReadXml(XmlTextReader reader)
         {
             while (reader.Read())
             {
@@ -177,6 +177,11 @@ namespace Recurly
             }
         }
 
+        internal override void WriteXml(XmlTextWriter writer)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
 
         #region Object Overrides
@@ -205,7 +210,7 @@ namespace Recurly
         #endregion
     }
 
-    public class Invoices
+    public sealed class Invoices
     {
         public static RecurlyList<Invoice> List(string accountCode)
         {

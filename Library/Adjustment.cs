@@ -6,7 +6,7 @@ namespace Recurly
     /// <summary>
     /// Represents adjustments - credits and charges - on accounts.
     /// </summary>
-    public class Adjustment
+    public class Adjustment : RecurlyEntity
     {
         // The currently valid adjustment types
         public enum AdjustmentType : short
@@ -34,7 +34,7 @@ namespace Recurly
         public int TaxInCents { get; protected set; }
         public int TotalInCents { get; protected set; }
         public string Currency { get; protected set; }
-        public bool Taxable { get; protected set; }
+        public bool TaxExempt { get; protected set; }
 
         public AdjustmentState State { get; protected set; }
 
@@ -44,14 +44,19 @@ namespace Recurly
         public DateTime CreatedAt { get ; protected set; }
 
         private const string UrlPrefix = "/accounts/";
-        private const string UrlPostfix = "/adjustments";
+        private const string UrlPostfix = "/adjustments/";
 
         private const int AccountingCodeMaxLength = 20;
         private const int UnitAmountMax = 10000000;
 
         #region Constructors
 
-        internal Adjustment(string accountCode, string description, string currency, int unitAmountInCents, int quantity, string accountingCode = "")
+        internal Adjustment()
+        {
+            
+        }
+
+        internal Adjustment(string accountCode, string description, string currency, int unitAmountInCents, int quantity, string accountingCode = "", bool taxExempt = false)
         {
             AccountCode = accountCode;
             Description = description;
@@ -59,6 +64,7 @@ namespace Recurly
             UnitAmountInCents = unitAmountInCents;
             Quantity = quantity;
             AccountingCode = accountingCode;
+            TaxExempt = taxExempt;
             State = AdjustmentState.Pending;
 
             if (!AccountingCode.IsNullOrEmpty() && AccountingCode.Length > AccountingCodeMaxLength)
@@ -105,7 +111,7 @@ namespace Recurly
 
         #region Read and Write XML documents
 
-        internal void ReadXml(XmlTextReader reader)
+        internal override void ReadXml(XmlTextReader reader)
         {
             while (reader.Read())
             {
@@ -161,8 +167,8 @@ namespace Recurly
                         Currency = reader.ReadElementContentAsString();
                         break;
 
-                    case "taxable":
-                        Taxable = reader.ReadElementContentAsBoolean();
+                    case "tax_exempt":
+                        TaxExempt = reader.ReadElementContentAsBoolean();
                         break;
 
                     case "start_date":
@@ -188,7 +194,7 @@ namespace Recurly
         }
 
         
-        internal void WriteXml(XmlTextWriter xmlWriter)
+        internal override void WriteXml(XmlTextWriter xmlWriter)
         {
             xmlWriter.WriteStartElement("adjustment"); 
             xmlWriter.WriteElementString("description", Description);
@@ -196,9 +202,22 @@ namespace Recurly
             xmlWriter.WriteElementString("currency", Currency);
             xmlWriter.WriteElementString("quantity", Quantity.AsString());
             xmlWriter.WriteElementString("accounting_code", AccountingCode);
+            xmlWriter.WriteElementString("tax_exempt", TaxExempt.AsString());
             xmlWriter.WriteEndElement(); 
         }
 
         #endregion
+    }
+
+    public class Adjustments
+    {
+        public static Adjustment Get(string uuid)
+        {
+            var adjustment = new Adjustment();
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
+                "/adjustments/" + Uri.EscapeUriString(uuid),
+                adjustment.WriteXml);
+            return adjustment;
+        }
     }
 }
