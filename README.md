@@ -36,12 +36,14 @@ Add the Recurly project from the Library folder to your solution and reference i
 ## Example usage
 To create a new Recurly account with account code and name:
 
-	var account = new Account("123")
-	{
-		FirstName = "John",
-		LastName = "Smith"
-	}
-	account.Create();
+```c#
+var account = new Account("123")
+{
+	FirstName = "John",
+	LastName = "Smith"
+}
+account.Create();
+```
 
 To get a Recurly account with account code "123":
 
