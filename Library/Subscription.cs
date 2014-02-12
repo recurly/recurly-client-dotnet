@@ -266,6 +266,14 @@ namespace Recurly
                 ReadXml);
         }
 
+        public void Preview()
+        {
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
+                UrlPrefix + "preview",
+                WriteXml,
+                ReadXml);
+        }
+
         /// <summary>
         /// 
         /// </summary>
