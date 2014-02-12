@@ -47,27 +47,37 @@ account.Create();
 
 To get a Recurly account with account code "123":
 
-	var account = Accounts.Get("123");
+```c#
+var account = Accounts.Get("123");
+```
 
 List all available accounts and print their account codes:
 
-	var accounts = Accounts.List();
-	foreach(var account in accounts)
-		Console.WriteLine(account.AccountCode);
+```c#
+var accounts = Accounts.List();
+foreach(var account in accounts)
+	Console.WriteLine(account.AccountCode);
+```
 
 Get an account's billing information:
 
-	var account = Accounts.Get("123");
-	var info = account.BillingInfo;
+```c#
+var account = Accounts.Get("123");
+var info = account.BillingInfo;
+```
 
 Create a coupon with code **WINTER**, name, and with a 10% discount:
 
-	var coupon = new Coupon("WINTER", "Winter discount", 10);
-	coupon.Create();
+```c#
+var coupon = new Coupon("WINTER", "Winter discount", 10);
+coupon.Create();
+```
 
 Redeem that coupon on an account that uses US dollars, getting a CouponRedemption object:
 
-	var redemption = account.RedeemCoupon("WINTER", "USD");
+```c#
+var redemption = account.RedeemCoupon("WINTER", "USD");
+```
 
 All the major sections of the API (Accounts, Invoices, Transactions, etc.) have static references for getting or listing their types, and concrete implementations for manipulating concrete objects.
 
