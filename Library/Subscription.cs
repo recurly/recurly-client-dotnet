@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Xml;
+using Recurly.Extensions;
 
 namespace Recurly
 {
@@ -133,9 +135,9 @@ namespace Recurly
         public Subscription PendingSubscription { get; private set; }
 
         /// <summary>
-        /// If true, this is a "pending subscripition" object and no changes are allowed
+        /// If true, this is a "pending subscription" object and no changes are allowed
         /// </summary>
-        private bool _isPendingSubscription { get; set; }
+        private bool IsPendingSubscription { get; set; }
 
         private Coupon _coupon;
         private string _couponCode;
@@ -156,7 +158,7 @@ namespace Recurly
         /// <summary>
         /// List of add ons for this subscription
         /// </summary>
-        public RecurlyList<SubscriptionAddOn> AddOns { get; set; }
+        public List<SubscriptionAddOn> AddOns { get; set; }
 
         public int? TotalBillingCycles { get; set; }
         public DateTime? FirstRenewalDate { get; set; }
@@ -165,7 +167,7 @@ namespace Recurly
 
         internal Subscription()
         {
-            _isPendingSubscription = false;
+            IsPendingSubscription = false;
         }
 
         internal Subscription(XmlTextReader reader)
@@ -385,14 +387,15 @@ namespace Recurly
                         break;
 
                     case "subscription_add_ons":
-                        if (null == AddOns)
-                            AddOns = new SubscriptionAddOnList();
-                        AddOns.ReadXml(reader);
-
+                        var newList = new SubscriptionAddOnList();
+                        newList.ReadXml(reader);
+                        if (AddOns == null)
+                            AddOns = new List<SubscriptionAddOn>();
+                        AddOns.AddRange(newList.All);
                         break;
 
                     case "pending_subscription":
-                        PendingSubscription = new Subscription {_isPendingSubscription = true};
+                        PendingSubscription = new Subscription {IsPendingSubscription = true};
                         PendingSubscription.ReadPendingSubscription(reader);
                         break;
                 }
@@ -427,11 +430,12 @@ namespace Recurly
                         Quantity = reader.ReadElementContentAsInt();
                         break;
 
-                    case "subscription_add_ons":
-                        if (null == AddOns)
-                            AddOns = new SubscriptionAddOnList();
-                        AddOns.ReadXml(reader);
-
+                    case "subscription_add_ons":        
+                        var newList = new SubscriptionAddOnList();
+                        newList.ReadXml(reader);
+                        if (AddOns == null)
+                            AddOns = new List<SubscriptionAddOn>();
+                        AddOns.AddRange(newList.All);
                         break;
                 }
             }
@@ -446,19 +450,9 @@ namespace Recurly
             // <account> and billing info
             Account.WriteXml(xmlWriter);
 
-            if (null != AddOns)
-            {
-                xmlWriter.WriteStartElement("subscription_add_ons");
-                foreach (var addOn in AddOns)
-                {
-                    addOn.WriteXml(xmlWriter);
-                }
-                xmlWriter.WriteEndElement();
-            }
+            xmlWriter.WriteIfCollectionHasAny("subscription_add_ons", AddOns);
 
-
-            if (null != _couponCode)
-                xmlWriter.WriteElementString("coupon_code", _couponCode);
+            xmlWriter.WriteStringIfValid("coupon_code", _couponCode);
 
             if (UnitAmountInCents.HasValue)
                 xmlWriter.WriteElementString("unit_amount_in_cents", UnitAmountInCents.Value.AsString());
@@ -477,7 +471,6 @@ namespace Recurly
 
             if (FirstRenewalDate.HasValue)
                 xmlWriter.WriteElementString("first_renewal_date", FirstRenewalDate.Value.ToString("s"));
-
 
             Account.WriteXml(xmlWriter);
 

@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Net;
+using System.Xml;
 using FluentAssertions;
 using Xunit;
 using Xunit.Extensions;
@@ -210,5 +213,78 @@ namespace Recurly.Test
 
             actual.Should().Be(expected);
         }
+
+        [Fact]
+        public void WriteIfCollectionHasAny_renders_key_value_pair_collections_correctly()
+        {
+            var units = new Dictionary<string, int>
+            {
+                {"USD", 1000},
+                {"EUR", 800}
+            };
+
+            var stringWriter = new StringWriter();
+            var xmlWriter = new XmlTextWriter(stringWriter);
+            xmlWriter.WriteIfCollectionHasAny("unit_amount_in_cents", units, pair => pair.Key, pair => pair.Value.AsString());
+            xmlWriter.Flush();
+            xmlWriter.Close();
+
+            stringWriter.ToString().Should().Be(ValidKeyValueXml);
+        }
+
+        [Fact]
+        public void WriteIfCollectionHasAny_renders_RecurlyEntity_lists_correctly()
+        {
+            var list = new List<SubscriptionAddOn>
+            {
+                new SubscriptionAddOn("addon1", 100),
+                new SubscriptionAddOn("addon2", 200, 2)
+            };
+
+            var stringWriter = new StringWriter();
+            var xmlWriter = new XmlTextWriter(stringWriter);
+            xmlWriter.WriteIfCollectionHasAny("subscription_add_ons", list);
+            xmlWriter.Flush();
+            xmlWriter.Close();
+
+            var actual = stringWriter.ToString();
+
+            actual.Should().Be(ValidEntityXml);
+        }
+
+        [Fact]
+        public void WriteIfCollectionHasAny_renders_static_names_correctly()
+        {
+            var list = new List<string>
+            {
+                "plan1",
+                "plan2"
+            };
+
+            var stringWriter = new StringWriter();
+            var xmlWriter = new XmlTextWriter(stringWriter);
+            xmlWriter.WriteIfCollectionHasAny("plan_codes", list, s => "plan_code", s => s);
+            xmlWriter.Flush();
+            xmlWriter.Close();
+
+            var actual = stringWriter.ToString();
+
+            actual.Should().Be(StaticNamesXml);
+        }
+
+        public const string ValidKeyValueXml = "<unit_amount_in_cents>" +
+                                               "<USD>1000</USD>" +
+                                               "<EUR>800</EUR>" +
+                                               "</unit_amount_in_cents>";
+
+        public const string ValidEntityXml = "<subscription_add_ons>" +
+                                             "<subscription_add_on><add_on_code>addon1</add_on_code><quantity>1</quantity><unit_amount_in_cents>100</unit_amount_in_cents></subscription_add_on>" +
+                                             "<subscription_add_on><add_on_code>addon2</add_on_code><quantity>2</quantity><unit_amount_in_cents>200</unit_amount_in_cents></subscription_add_on>" +
+                                             "</subscription_add_ons>";
+
+        public const string StaticNamesXml = "<plan_codes>" +
+                                             "<plan_code>plan1</plan_code>" +
+                                             "<plan_code>plan2</plan_code>" +
+                                             "</plan_codes>";
     }
 }

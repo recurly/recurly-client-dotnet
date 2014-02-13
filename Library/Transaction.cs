@@ -235,11 +235,11 @@ namespace Recurly
             xmlWriter.WriteElementString("amount_in_cents", AmountInCents.AsString());
             xmlWriter.WriteElementString("currency", Currency);
 
-
             if (Account != null)
             {
                 Account.WriteXml(xmlWriter);
             }
+
             xmlWriter.WriteEndElement(); 
         }
 

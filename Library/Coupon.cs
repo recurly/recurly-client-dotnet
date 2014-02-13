@@ -260,27 +260,13 @@ namespace Recurly
             if (CouponDiscountType.Percent == DiscountType && DiscountPercent.HasValue)
                 xmlWriter.WriteElementString("discount_percent", DiscountPercent.Value.AsString());
 
-            if (CouponDiscountType.Dollars == DiscountType && null != DiscountInCents)
+            if (CouponDiscountType.Dollars == DiscountType)
             {
-                xmlWriter.WriteStartElement("discount_in_cents");
-                foreach(var d in DiscountInCents)
-                {
-                    xmlWriter.WriteElementString(d.Key, d.Value.AsString());
-                }
-                xmlWriter.WriteEndElement();
+                xmlWriter.WriteIfCollectionHasAny("discount_in_cents", DiscountInCents, pair => pair.Key,
+                    pair => pair.Value.AsString());
             }
 
-            if (null != Plans && Plans.Count > 0)
-            {
-                xmlWriter.WriteStartElement("plan_codes");
-                foreach (var s in Plans)
-                {
-                    xmlWriter.WriteElementString("plan_code", s);
-                }
-
-                xmlWriter.WriteEndElement();
-            }
-
+            xmlWriter.WriteIfCollectionHasAny("plan_codes", Plans, s => "plan_code", s => s);
 
             xmlWriter.WriteEndElement(); // End: coupon
         }

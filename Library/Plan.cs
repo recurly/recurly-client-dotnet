@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Xml;
+using Recurly.Extensions;
 
 namespace Recurly
 {
@@ -295,25 +296,10 @@ namespace Recurly
                 xmlWriter.WriteElementString("trial_interval_unit", TrialIntervalUnit.ToString().EnumNameToTransportCase());
                 xmlWriter.WriteElementString("trial_interval_length", TrialIntervalLength.AsString());
             }
-            if (null !=  SetupFeeInCents &&  _setupFeeInCents.Count > 0)
-            {
-                xmlWriter.WriteStartElement("setup_fee_in_cents");
-                foreach (var d in SetupFeeInCents)
-                {
-                    xmlWriter.WriteElementString(d.Key, d.Value.ToString());
-                }
-                xmlWriter.WriteEndElement();
-            }
 
-            if (null != UnitAmountInCents && _unitAmountInCents.Count > 0)
-            {
-                xmlWriter.WriteStartElement("unit_amount_in_cents");
-                foreach (KeyValuePair<string, int> d in UnitAmountInCents)
-                {
-                    xmlWriter.WriteElementString(d.Key, d.Value.AsString());
-                }
-                xmlWriter.WriteEndElement();
-            }
+            xmlWriter.WriteIfCollectionHasAny("setup_fee_in_cents", SetupFeeInCents, pair => pair.Key, pair => pair.Value.AsString());
+
+            xmlWriter.WriteIfCollectionHasAny("unit_amount_in_cents", UnitAmountInCents, pair => pair.Key, pair => pair.Value.AsString());
 
             if (TotalBillingCycles.HasValue && TotalBillingCycles > 0)
                 xmlWriter.WriteElementString("total_billing_cycles", TotalBillingCycles.Value.AsString());

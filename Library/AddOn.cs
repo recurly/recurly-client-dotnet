@@ -142,15 +142,8 @@ namespace Recurly
             xmlWriter.WriteElementString("add_on_code", PlanCode);
             xmlWriter.WriteElementString("name", Name);
 
-            if (null != UnitAmountInCents)
-            {
-                xmlWriter.WriteStartElement("unit_amount_in_cents");
-                foreach (var d in UnitAmountInCents)
-                {
-                    xmlWriter.WriteElementString(d.Key, d.Value.AsString());
-                }
-                xmlWriter.WriteEndElement();
-            }
+            xmlWriter.WriteIfCollectionHasAny("unit_amount_in_cents", UnitAmountInCents, pair => pair.Key,
+                pair => pair.Value.AsString());
 
             xmlWriter.WriteEndElement();
         }

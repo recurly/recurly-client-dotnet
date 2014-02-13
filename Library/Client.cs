@@ -93,7 +93,6 @@ namespace Recurly
             return PerformRequest(method, urlPath, null, readXmlDelegate, null);
         }
 
-
         public HttpStatusCode PerformRequest(HttpRequestMethod method, string urlPath,
             WriteXmlDelegate writeXmlDelegate)
         {

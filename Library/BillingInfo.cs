@@ -267,12 +267,12 @@ namespace Recurly
 
             xmlWriter.WriteStringIfValid("vat_number", VatNumber);
 
-            if (!string.IsNullOrEmpty(IpAddress))
+            if (!IpAddress.IsNullOrEmpty())
                 xmlWriter.WriteElementString("ip_address", IpAddress);
             else
                 Debug.WriteLine("Recurly Client Library: Recording IP Address is strongly recommended.");
 
-            if (!string.IsNullOrEmpty(CreditCardNumber))
+            if (!CreditCardNumber.IsNullOrEmpty())
             {
                 xmlWriter.WriteElementString("number", CreditCardNumber);
                 xmlWriter.WriteElementString("month", ExpirationMonth.AsString());
@@ -280,7 +280,6 @@ namespace Recurly
 
                 xmlWriter.WriteStringIfValid("verification_value", VerificationValue);
             }
-
 
             xmlWriter.WriteEndElement(); // End: billing_info
         }
