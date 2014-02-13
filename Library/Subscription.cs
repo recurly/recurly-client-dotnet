@@ -155,10 +155,15 @@ namespace Recurly
             }
         }
 
+        private List<SubscriptionAddOn> _addOns; 
         /// <summary>
         /// List of add ons for this subscription
         /// </summary>
-        public List<SubscriptionAddOn> AddOns { get; set; }
+        public List<SubscriptionAddOn> AddOns
+        {
+            get { return _addOns ?? (_addOns = new List<SubscriptionAddOn>()); }
+            set { _addOns = value; }
+        }
 
         public int? TotalBillingCycles { get; set; }
         public DateTime? FirstRenewalDate { get; set; }
@@ -389,8 +394,6 @@ namespace Recurly
                     case "subscription_add_ons":
                         var newList = new SubscriptionAddOnList();
                         newList.ReadXml(reader);
-                        if (AddOns == null)
-                            AddOns = new List<SubscriptionAddOn>();
                         AddOns.AddRange(newList.All);
                         break;
 
@@ -433,8 +436,6 @@ namespace Recurly
                     case "subscription_add_ons":        
                         var newList = new SubscriptionAddOnList();
                         newList.ReadXml(reader);
-                        if (AddOns == null)
-                            AddOns = new List<SubscriptionAddOn>();
                         AddOns.AddRange(newList.All);
                         break;
                 }
