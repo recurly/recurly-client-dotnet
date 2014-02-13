@@ -420,3 +420,38 @@ var plan = Plans.Get("gold");
 var subscription = new Subscription(account, plan, "USD"); // account, plan, currency
 subscription.Preview();
 ```
+
+#Subscription Add-ons
+
+##Create a subscription with Add-Ons
+```c#
+var account = Accounts.Get("1");
+var plan = Plans.Get("gold");
+var subscription = new Subscription(account, plan, "USD"); // account, plan, currency
+subscription.AddOns.Add(new SubscriptionAddOn("extra_users", 1000, 2));
+subscription.AddOns.Add(new SubscriptionAddOn("extra_ips", 100, 3));
+subscription.Create();
+```
+
+##Update subscription with add-ons
+```c#
+var subscription = Subscriptions.Get("44f83d7cba354d5b84812419f923ea96");
+
+// append a new add-on
+var newAddOn = new SubscriptionAddOn("my_new_add_on", 100, 2);
+subscription.AddOns.Add(newAddOn);
+
+// change a quantity of an existing add-on
+var existingAddOn = subscription.AddOns.First(x => x.AddOnCode == "extra_ips");
+existingAddOn.Quantity = 6;
+
+// remove an add-on
+subscription.AddOns.RemoveAt(0);
+
+// remove all add-ons
+subscription.AddOns.Clear();
+
+// call for an update
+subscription.ChangeSubscription(Subscription.ChangeTimeframe.Now);
+```
+
