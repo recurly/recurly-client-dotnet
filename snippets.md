@@ -348,7 +348,7 @@ addon.Deactivate();
 var subscriptions = Subscriptions.List();
 while(subscriptions.Any())
 {
-	foreach(var plan in subscriptions)
+	foreach(var subscription in subscriptions)
 		Console.WriteLine("Subscription: " + subscription);
 	subscriptions = subscriptions.Next;
 }
@@ -360,7 +360,7 @@ var account = Accounts.Get("1");
 var subscriptions = account.GetSubscriptions();
 while(subscriptions.Any())
 {
-	foreach(var plan in subscriptions)
+	foreach(var subscription in subscriptions)
 		Console.WriteLine("Subscription: " + subscription);
 	subscriptions = subscriptions.Next;
 }
@@ -477,3 +477,69 @@ subscription.PoNumber = "PO1234";
 subscription.ChangeSubscription(Subscription.ChangeTimeframe.Now);
 ```
 
+#Transaction
+
+##List transactions
+```c#
+var transactions = Transactions.List();
+while(transactions.Any())
+{
+	foreach(var transaction in transactions)
+		Console.WriteLine("Transaction: " + transaction);
+	transactions = transactions.Next;
+}
+```
+
+##List an account's transactions
+```c#
+var account = Accounts.Get("1");
+var transactions = account.GetTransactions();
+while(transactions.Any())
+{
+	foreach(var transaction in transactions)
+		Console.WriteLine("Transaction: " + transaction);
+	transactions = transactions.Next;
+}
+```
+
+##Lookup transaction
+```c#
+var transaction = Transactions.Get("a13acd8fe4294916b79aec87b7ea441f");
+```
+
+##Create Transaction
+###Example with stored billing info
+```c#
+var transaction = new Transaction("1", 100, "USD"); // account code, unit amount in cents, currency
+transaction.Create();
+```
+
+###Example with new billing info
+```c#
+var account = Accounts.Get("1");
+account.BillingInfo = new BillingInfo(account.AccountCode)
+{
+	FirstName = "Verana",
+	LastName = "Example",
+	CreditCardNumber = "4111-1111-1111-1111",
+	VerificationValue = "123",
+	ExpirationYear = 2015,
+	ExpirationMonth = 11
+};
+var transaction = new Transaction(account, 100, "USD");
+transaction.Create();
+```
+
+##Refund transactions
+
+###Partial Refund Example
+```c#
+var transaction = Transactions.Get("a13acd8fe4294916b79aec87b7ea441f");
+transaction.Refund(1000); // Refund $10
+```
+
+###Full Refund Example
+```c#
+var transaction = Transactions.Get("a13acd8fe4294916b79aec87b7ea441f");
+transaction.Refund();
+```
