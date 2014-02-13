@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Xml;
-using Recurly.Extensions;
 
 namespace Recurly
 {
@@ -169,6 +168,10 @@ namespace Recurly
         public DateTime? FirstRenewalDate { get; set; }
 
         internal const string UrlPrefix = "/subscriptions/";
+
+        public string CollectionMethod { get; set; }
+        public int? NetTerms { get; set; }
+        public string PoNumber { get; set; }
 
         internal Subscription()
         {
@@ -401,6 +404,18 @@ namespace Recurly
                         PendingSubscription = new Subscription {IsPendingSubscription = true};
                         PendingSubscription.ReadPendingSubscription(reader);
                         break;
+
+                    case "collection_method":
+                        CollectionMethod = reader.ReadElementContentAsString();
+                        break;
+
+                    case "net_terms":
+                        NetTerms = reader.ReadElementContentAsInt();
+                        break;
+
+                    case "po_number":
+                        PoNumber = reader.ReadElementContentAsString();
+                        break;
                 }
             }
         }
@@ -473,6 +488,13 @@ namespace Recurly
             if (FirstRenewalDate.HasValue)
                 xmlWriter.WriteElementString("first_renewal_date", FirstRenewalDate.Value.ToString("s"));
 
+            if (CollectionMethod.Like("manual"))
+            {
+                xmlWriter.WriteElementString("collection_method", "manual");
+                xmlWriter.WriteElementString("net_terms", NetTerms.Value.AsString());
+                xmlWriter.WriteElementString("po_number", PoNumber);
+            }
+
             Account.WriteXml(xmlWriter);
 
             xmlWriter.WriteEndElement(); // End: subscription
@@ -499,6 +521,13 @@ namespace Recurly
 
             if (UnitAmountInCents.HasValue)
                 xmlWriter.WriteElementString("unit_amount_in_cents", UnitAmountInCents.Value.AsString());
+
+            if (CollectionMethod.Like("manual"))
+            {
+                xmlWriter.WriteElementString("collection_method", "manual");
+                xmlWriter.WriteElementString("net_terms", "manual");
+                xmlWriter.WriteElementString("po_number", "manual");
+            }
 
             xmlWriter.WriteEndElement(); // End: subscription
         }

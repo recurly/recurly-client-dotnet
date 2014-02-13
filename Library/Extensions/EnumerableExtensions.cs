@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Recurly.Extensions
+namespace Recurly
 {
     public static class EnumerableExtensions
     {

@@ -262,5 +262,16 @@ namespace Recurly
 
             return source.Substring(source.Length - chars, chars);
         }
+
+        /// <summary>
+        /// Performs a case insensitive comparison between two strings.
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public static bool Like(this string source, string other)
+        {
+            return string.Equals(source, other, StringComparison.OrdinalIgnoreCase);
+        }
     }
 }
