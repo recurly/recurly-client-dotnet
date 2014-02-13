@@ -455,3 +455,25 @@ subscription.AddOns.Clear();
 subscription.ChangeSubscription(Subscription.ChangeTimeframe.Now);
 ```
 
+#Subscriptions for Manual Invoicing
+
+##Create subscription (Manual Invoice)
+```c#
+var account = Accounts.Get("1");
+var plan = Plans.Get("gold");
+var subscription = new Subscription(account, plan, "USD"); // account, plan, currency
+subscription.CollectionMethod = "manual";
+subscription.NetTerms = 10;
+subscription.PoNumber = "PO1234";
+subscription.Create();
+```
+
+##Update subscription (Manual Invoice)
+```c#
+var subscription = Subscriptions.Get("44f83d7cba354d5b84812419f923ea96");
+subscription.CollectionMethod = "manual";
+subscription.NetTerms = 10;
+subscription.PoNumber = "PO1234";
+subscription.ChangeSubscription(Subscription.ChangeTimeframe.Now);
+```
+
