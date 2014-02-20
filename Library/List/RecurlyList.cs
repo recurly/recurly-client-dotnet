@@ -114,7 +114,7 @@ namespace Recurly
 
         public IEnumerator<T> GetEnumerator()
         {
-            return Items.GetEnumerator();
+            return Items == null ? RecurlyList.Empty<T>().GetEnumerator() : Items.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
