@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using FluentAssertions;
 using Xunit;
 
@@ -13,6 +12,7 @@ namespace Recurly.Test
             var p = new Plan(GetMockPlanCode(), GetMockPlanName()) {Description = "Subscription Test"};
             p.UnitAmountInCents.Add("USD", 200);
             p.Create();
+            PlansToDeactivateOnDispose.Add(p);
 
             for (var x = 0; x < 2; x++)
             {
@@ -24,7 +24,6 @@ namespace Recurly.Test
 
             var subs = Subscriptions.List(Subscription.SubscriptionState.Live);
             subs.Should().NotBeEmpty();
-            p.Deactivate();
         }
 
         [Fact]
@@ -33,6 +32,7 @@ namespace Recurly.Test
             var p = new Plan(GetMockPlanCode(), GetMockPlanName()) { Description = "Subscription Test" };
             p.UnitAmountInCents.Add("USD", 300);
             p.Create();
+            PlansToDeactivateOnDispose.Add(p);
 
             for (var x = 0; x < 2; x++)
             {
@@ -44,7 +44,6 @@ namespace Recurly.Test
 
             var subs = Subscriptions.List(Subscription.SubscriptionState.Active);
             subs.Should().NotBeEmpty();
-            p.Deactivate();
         }
 
         [Fact]
@@ -53,6 +52,7 @@ namespace Recurly.Test
             var p = new Plan(GetMockPlanCode(), GetMockPlanName()) { Description = "Subscription Test" };
             p.UnitAmountInCents.Add("USD", 400);
             p.Create();
+            PlansToDeactivateOnDispose.Add(p);
 
             for (var x = 0; x < 2; x++)
             {
@@ -66,7 +66,6 @@ namespace Recurly.Test
 
             var subs = Subscriptions.List(Subscription.SubscriptionState.Canceled);
             subs.Should().NotBeEmpty();
-            p.Deactivate();
         }
 
         [Fact]
@@ -80,6 +79,7 @@ namespace Recurly.Test
             };
             plan.UnitAmountInCents.Add("USD", 400);
             plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
 
             for (var x = 0; x < 2; x++)
             {
@@ -94,8 +94,6 @@ namespace Recurly.Test
 
             var subs = Subscriptions.List(Subscription.SubscriptionState.Expired);
             subs.Should().NotBeEmpty();
-
-            plan.Deactivate();
         }
 
         [Fact]
@@ -109,6 +107,7 @@ namespace Recurly.Test
             };
             plan.UnitAmountInCents.Add("USD", 400);
             plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
 
             for (var x = 0; x < 2; x++)
             {
@@ -123,8 +122,6 @@ namespace Recurly.Test
 
             var subs = Subscriptions.List(Subscription.SubscriptionState.Future);
             subs.Should().NotBeEmpty();
-
-            plan.Deactivate();
         }
 
         [Fact]
@@ -140,6 +137,7 @@ namespace Recurly.Test
             };
             plan.UnitAmountInCents.Add("USD", 400);
             plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
 
             for (var x = 0; x < 2; x++)
             {
@@ -154,8 +152,6 @@ namespace Recurly.Test
 
             var subs = Subscriptions.List(Subscription.SubscriptionState.InTrial);
             subs.Should().NotBeEmpty();
-
-            plan.Deactivate();
         }
 
         [Fact]
@@ -169,6 +165,7 @@ namespace Recurly.Test
             };
             plan.UnitAmountInCents.Add("USD", 200100);
             plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
 
             for (var x = 0; x < 2; x++)
             {
@@ -179,8 +176,6 @@ namespace Recurly.Test
 
             var list = Subscriptions.List(Subscription.SubscriptionState.PastDue);
             list.Should().NotBeEmpty();
-
-            plan.Deactivate();
         }
 
         [Fact]
@@ -189,10 +184,12 @@ namespace Recurly.Test
             var plan1 = new Plan(GetMockPlanCode(), GetMockPlanName()) {Description = "Subscription Test"};
             plan1.UnitAmountInCents.Add("USD", 400);
             plan1.Create();
+            PlansToDeactivateOnDispose.Add(plan1);
 
             var plan2 = new Plan(GetMockPlanCode(), GetMockPlanName()) {Description = "Subscription Test"};
             plan2.UnitAmountInCents.Add("USD", 500);
             plan2.Create();
+            PlansToDeactivateOnDispose.Add(plan2);
 
             var account = CreateNewAccountWithBillingInfo();
 
@@ -204,10 +201,6 @@ namespace Recurly.Test
 
             var list = account.GetSubscriptions(Subscription.SubscriptionState.All);
             list.Should().NotBeEmpty();
-
-            plan1.Deactivate();
-            plan2.Deactivate();
         }
-
     }
 }

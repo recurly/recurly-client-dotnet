@@ -101,6 +101,7 @@ namespace Recurly.Test
             plan.SetupFeeInCents.Add("USD", 500);
             plan.UnitAmountInCents.Add("USD", 5000);
             plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
 
             var coupon = new Coupon(GetMockCouponCode(), GetMockCouponName(), new Dictionary<string, int>());
             coupon.DiscountInCents.Add("USD", 100);
@@ -109,7 +110,7 @@ namespace Recurly.Test
             Action a = coupon.Create;
             a.ShouldNotThrow();
 
-            plan.Deactivate();
+            //plan.Deactivate(); BaseTest.Dispose() handles this
         }
 
         [Fact]

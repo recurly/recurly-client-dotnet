@@ -12,6 +12,7 @@ namespace Recurly.Test
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName()) {Description = "Test Lookup"};
             plan.UnitAmountInCents.Add("USD", 100);
             plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
 
             plan.CreatedAt.Should().NotBe(default(DateTime));
 
@@ -19,8 +20,6 @@ namespace Recurly.Test
             fromService.PlanCode.Should().Be(plan.PlanCode);
             fromService.UnitAmountInCents.Should().Contain("USD", 100);
             fromService.Description.Should().Be("Test Lookup");
-
-            plan.Deactivate(); // weird cleanup
         }
 
         [Fact]
@@ -29,11 +28,10 @@ namespace Recurly.Test
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName());
             plan.SetupFeeInCents.Add("USD", 100);
             plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
 
             plan.CreatedAt.Should().NotBe(default(DateTime));
             plan.SetupFeeInCents.Should().Contain("USD", 100);
-
-            plan.Deactivate();
         }
 
         [Fact]
@@ -54,6 +52,7 @@ namespace Recurly.Test
             };
             plan.SetupFeeInCents.Add("USD", 500);
             plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
 
             plan.CreatedAt.Should().NotBe(default(DateTime));
             plan.AccountingCode.Should().Be("accountingcode123");
@@ -66,8 +65,6 @@ namespace Recurly.Test
             plan.TrialIntervalLength.Should().Be(1);
             plan.PlanIntervalUnit.Should().Be(Plan.IntervalUnit.Days);
             plan.PlanIntervalLength.Should().Be(180);
-
-            plan.Deactivate();
         }
 
         [Fact]
@@ -76,6 +73,7 @@ namespace Recurly.Test
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName()) {Description = "Test Update"};
             plan.UnitAmountInCents.Add("USD", 100);
             plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
             
             plan.UnitAmountInCents["USD"] = 5000;
             plan.SetupFeeInCents["USD"] = 100;
@@ -85,24 +83,25 @@ namespace Recurly.Test
             plan = Plans.Get(plan.PlanCode);
             plan.UnitAmountInCents.Should().Contain("USD", 5000);
             plan.SetupFeeInCents.Should().Contain("USD", 100);
-
-            plan.Deactivate();
         }
-
 
         [Fact]
         public void DeactivatePlan()
         {
+            // Arrange
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName()) {Description = "Test Delete"};
             plan.UnitAmountInCents.Add("USD", 100);
             plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
             
             plan = Plans.Get(plan.PlanCode);
             plan.CreatedAt.Should().NotBe(default(DateTime));
             plan.UnitAmountInCents.Should().Contain("USD", 100);
 
+            //Act
             plan.Deactivate();
 
+            //Assert
             Action get = () => Plans.Get(plan.PlanCode);
             get.ShouldThrow<NotFoundException>();
         }

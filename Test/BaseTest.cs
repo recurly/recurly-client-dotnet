@@ -1,15 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Recurly.Test
 {
-    public abstract class BaseTest
+    public abstract class BaseTest : IDisposable
     {
         protected const string NullString = null;
         protected const string EmptyString = "";
 
+        protected readonly List<Plan> PlansToDeactivateOnDispose;
+
         protected BaseTest()
         {
             Client.Instance.ApplySettings(SettingsFixture.TestSettings);
+            PlansToDeactivateOnDispose = new List<Plan>();
         }
 
         protected Account CreateNewAccount()
@@ -106,6 +110,29 @@ namespace Recurly.Test
                 CreditCardNumber = TestCreditCardNumbers.Visa1,
                 VerificationValue = "123"
             };
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposing) return;
+            if (!PlansToDeactivateOnDispose.HasAny()) return;
+
+            foreach (var plan in PlansToDeactivateOnDispose)
+            {
+                try
+                {
+                    plan.Deactivate();
+                }
+                catch (Exception)
+                {
+                }
+            }
         }
     }
 }

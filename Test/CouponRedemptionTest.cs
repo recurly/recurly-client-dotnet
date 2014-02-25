@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using FluentAssertions;
 using Xunit;
 
@@ -68,15 +69,28 @@ namespace Recurly.Test
             var coupon = new Coupon(GetMockCouponCode(), GetMockCouponName(), discounts);
             coupon.Create();
 
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanCode())
+            {
+                Description = "Test Lookup Coupon Invoice"
+            };
+            plan.UnitAmountInCents.Add("USD", 1500);
+            plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
+
             var account = CreateNewAccountWithBillingInfo();
 
             var redemption = account.RedeemCoupon(coupon.CouponCode, "USD");
 
-            var transaction = new Transaction(account, 5000, "USD");
-            transaction.Create();
+            var sub = new Subscription(account, plan, "USD", coupon.CouponCode);
+            sub.Create();
 
-            transaction.Invoice.Should().HaveValue();
-            var invoice = Invoices.Get(transaction.Invoice.Value);
+            // TODO complete this test
+
+            var invoices = account.GetInvoices();
+
+            invoices.Should().NotBeEmpty();
+
+            var invoice = Invoices.Get(invoices.First().InvoiceNumber);
             var fromInvoice = invoice.GetCoupon();
 
             redemption.Should().Be(fromInvoice);

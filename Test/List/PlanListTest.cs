@@ -11,14 +11,13 @@ namespace Recurly.Test
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName());
             plan.SetupFeeInCents.Add("USD", 100);
             plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
 
             var plans = Plans.List();
             plans.Should().NotBeEmpty();
-
-            plan.Deactivate();
         }
 
-        [Fact]
+        [Fact(Skip = "utility, for cleaning up test data; may no longer be necessary")]
         public void DeactivateAllPlans()
         {
             var plans = Plans.List();

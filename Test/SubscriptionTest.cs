@@ -12,6 +12,7 @@ namespace Recurly.Test
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName()) {Description = "Lookup Subscription Test"};
             plan.UnitAmountInCents.Add("USD", 1500);
             plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
 
             var account = CreateNewAccountWithBillingInfo();
 
@@ -24,8 +25,6 @@ namespace Recurly.Test
             var fromService = Subscriptions.Get(sub.Uuid);
 
             fromService.Should().Be(sub);
-
-            plan.Deactivate();
         }
 
         [Fact]
@@ -37,6 +36,7 @@ namespace Recurly.Test
             };
             plan.UnitAmountInCents.Add("USD", 1500);
             plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
 
             var account = CreateNewAccountWithBillingInfo();
 
@@ -49,8 +49,6 @@ namespace Recurly.Test
             var newSubscription = Subscriptions.Get(sub.Uuid);
             newSubscription.PendingSubscription.Should().NotBeNull();
             newSubscription.PendingSubscription.UnitAmountInCents.Should().Be(3000);
-
-            plan.Deactivate();
         }
 
         [Fact]
@@ -62,6 +60,7 @@ namespace Recurly.Test
             };
             plan.UnitAmountInCents.Add("USD", 100);
             plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
 
             var account = CreateNewAccountWithBillingInfo();
 
@@ -70,8 +69,6 @@ namespace Recurly.Test
 
             sub.ActivatedAt.Should().HaveValue().And.NotBe(default(DateTime));
             sub.State.Should().Be(Subscription.SubscriptionState.Active);
-
-            plan.Deactivate();
         }
 
         [Fact]
@@ -83,6 +80,7 @@ namespace Recurly.Test
             };
             plan.UnitAmountInCents.Add("USD", 100);
             plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
 
             var coupon = new Coupon(GetMockCouponCode(), "Sub Test " + GetMockCouponName(), 10);
             coupon.Create();
@@ -94,8 +92,6 @@ namespace Recurly.Test
 
             sub.ActivatedAt.Should().HaveValue().And.NotBe(default(DateTime));
             sub.State.Should().Be(Subscription.SubscriptionState.Active);
-
-            plan.Deactivate();
         }
 
         [Fact]
@@ -107,6 +103,7 @@ namespace Recurly.Test
             };
             plan.UnitAmountInCents.Add("USD", 1500);
             plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
 
             var plan2 = new Plan(GetMockPlanCode(), GetMockPlanName())
             {
@@ -114,6 +111,7 @@ namespace Recurly.Test
             };
             plan2.UnitAmountInCents.Add("USD", 750);
             plan2.Create();
+            PlansToDeactivateOnDispose.Add(plan2);
 
             var account = CreateNewAccountWithBillingInfo();
 
@@ -127,9 +125,6 @@ namespace Recurly.Test
 
             newSubscription.PendingSubscription.Should().BeNull();
             newSubscription.Plan.Should().Be(plan2);
-
-            plan.Deactivate();
-            plan2.Deactivate();
         }
 
         [Fact]
@@ -141,6 +136,7 @@ namespace Recurly.Test
             };
             plan.UnitAmountInCents.Add("USD", 100);
             plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
 
             var account = CreateNewAccountWithBillingInfo();
 
@@ -151,8 +147,6 @@ namespace Recurly.Test
 
             sub.CanceledAt.Should().HaveValue().And.NotBe(default(DateTime));
             sub.State.Should().Be(Subscription.SubscriptionState.Canceled);
-
-            plan.Deactivate();
         }
 
         [Fact]
@@ -164,6 +158,7 @@ namespace Recurly.Test
             };
             plan.UnitAmountInCents.Add("USD", 100);
             plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
 
             var account = CreateNewAccountWithBillingInfo();
 
@@ -176,8 +171,6 @@ namespace Recurly.Test
             sub.Reactivate();
 
             sub.State.Should().Be(Subscription.SubscriptionState.Active);
-
-            plan.Deactivate();
         }
 
         [Fact]
@@ -189,6 +182,7 @@ namespace Recurly.Test
             };
             plan.UnitAmountInCents.Add("USD", 200);
             plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
 
             var account = CreateNewAccountWithBillingInfo();
 
@@ -197,8 +191,6 @@ namespace Recurly.Test
 
             sub.Terminate(Subscription.RefundType.None);
             sub.State.Should().Be(Subscription.SubscriptionState.Expired);
-
-            plan.Deactivate();
         }
 
         [Fact]
@@ -210,6 +202,7 @@ namespace Recurly.Test
             };
             plan.UnitAmountInCents.Add("USD", 2000);
             plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
 
             var account = CreateNewAccountWithBillingInfo();
 
@@ -218,8 +211,6 @@ namespace Recurly.Test
 
             sub.Terminate(Subscription.RefundType.Partial);
             sub.State.Should().Be(Subscription.SubscriptionState.Expired);
-
-            plan.Deactivate();
         }
 
         [Fact]
@@ -231,6 +222,7 @@ namespace Recurly.Test
             };
             plan.UnitAmountInCents.Add("USD", 20000);
             plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
 
             var account = CreateNewAccountWithBillingInfo();
 
@@ -240,8 +232,6 @@ namespace Recurly.Test
             sub.Terminate(Subscription.RefundType.Full);
 
             sub.State.Should().Be(Subscription.SubscriptionState.Expired);
-
-            plan.Deactivate();
         }
 
         [Fact]
@@ -253,6 +243,7 @@ namespace Recurly.Test
             };
             plan.UnitAmountInCents.Add("USD", 100);
             plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
 
             var account = CreateNewAccountWithBillingInfo();
 
@@ -264,8 +255,6 @@ namespace Recurly.Test
 
             var diff = renewal.Date.Subtract(sub.CurrentPeriodEndsAt.Value.Date).Days;
             diff.Should().Be(1);
-
-            plan.Deactivate();
         }
     }
 }
