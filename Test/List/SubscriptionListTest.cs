@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using FluentAssertions;
 using Xunit;
 
@@ -144,9 +145,8 @@ namespace Recurly.Test
                 var account = CreateNewAccountWithBillingInfo();
                 var sub = new Subscription(account, plan, "USD")
                 {
-                    StartsAt = DateTime.Now.AddMonths(1)
+                    TrialPeriodEndsAt = DateTime.UtcNow.AddMonths(2)
                 };
-
                 sub.Create();
             }
 
@@ -154,6 +154,10 @@ namespace Recurly.Test
             subs.Should().NotBeEmpty();
         }
 
+        /// <summary>
+        /// This test isn't constructed as expected, as there doesn't appear to be a way to
+        /// programmatically make a subscription past due.
+        /// </summary>
         [Fact]
         public void ListPastDueSubscriptions()
         {
@@ -167,15 +171,17 @@ namespace Recurly.Test
             plan.Create();
             PlansToDeactivateOnDispose.Add(plan);
 
+            var subs = new List<Subscription>();
             for (var x = 0; x < 2; x++)
             {
                 var account = CreateNewAccountWithBillingInfo();
                 var sub = new Subscription(account, plan, "USD");
                 sub.Create();
+                subs.Add(sub);
             }
 
             var list = Subscriptions.List(Subscription.SubscriptionState.PastDue);
-            list.Should().NotBeEmpty();
+            list.Should().NotContain(subs);
         }
 
         [Fact]

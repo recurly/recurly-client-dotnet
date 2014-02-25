@@ -246,7 +246,6 @@ namespace Recurly
         /// Cancel an active subscription.  The subscription will not renew, but will continue to be active
         /// through the remainder of the current term.
         /// </summary>
-        /// <param name="accountCode">Subscriber's Account Code</param>
         public void Cancel()
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
@@ -257,7 +256,6 @@ namespace Recurly
         /// <summary>
         /// Reactivate a canceled subscription.  The subscription will renew at the end of its current term.
         /// </summary>
-        /// <param name="accountCode">Subscriber's Account Code</param>
         public void Reactivate()
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
@@ -265,10 +263,6 @@ namespace Recurly
                 ReadXml);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="nextRenewalDate"></param>
         public void Terminate(RefundType refund)
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
@@ -284,10 +278,6 @@ namespace Recurly
                 ReadXml);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="nextRenewalDate"></param>
         public void Postpone(DateTime nextRenewalDate)
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
