@@ -1,7 +1,4 @@
-﻿using System;
-using System.Text;
-
-namespace Recurly
+﻿namespace Recurly
 {
     public class TemporarilyUnavailableException : ServerException
     {

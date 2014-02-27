@@ -1,305 +1,260 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Recurly;
-using NUnit.Framework;
+using FluentAssertions;
+using Xunit;
 
 namespace Recurly.Test
 {
-    [TestFixture]
-    public class SubscriptionTest
+    public class SubscriptionTest : BaseTest
     {
-
-        [Test]
+        [Fact]
         public void LookupSubscription()
         {
-            String s = Factories.GetMockPlanCode();
-            Plan p = new Plan(s, Factories.GetMockPlanName());
-            p.Description = "Lookup Subscription Test";
-            p.UnitAmountInCents.Add("USD", 1500);
-            p.Create();
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName()) {Description = "Lookup Subscription Test"};
+            plan.UnitAmountInCents.Add("USD", 1500);
+            plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
 
-            String a = Factories.GetMockAccountName();
-            Account acct = new Account(a, "New Txn", "User",
-                "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
+            var account = CreateNewAccountWithBillingInfo();
 
-            Subscription sub = new Subscription(acct, p, "USD");
+            var sub = new Subscription(account, plan, "USD");
             sub.Create();
 
-            Assert.IsNotNull(sub.ActivatedAt);
-            Assert.AreEqual(sub.State, Subscription.SubstriptionState.active);
+            sub.ActivatedAt.Should().HaveValue().And.NotBe(default(DateTime));
+            sub.State.Should().Be(Subscription.SubscriptionState.Active);
 
-            string id = sub.Uuid;
+            var fromService = Subscriptions.Get(sub.Uuid);
 
-            Subscription t = Subscription.Get(id);
-
-            Assert.AreEqual(sub, t);
-
-            p.Deactivate();
-
+            fromService.Should().Be(sub);
         }
 
-        [Test]
+        [Fact]
         public void LookupSubscriptionPendingChanges()
         {
-            String s = Factories.GetMockPlanCode();
-            Plan p = new Plan(s, Factories.GetMockPlanName());
-            p.Description = "Lookup Subscription With Pending Changes Test";
-            p.UnitAmountInCents.Add("USD", 1500);
-            p.Create();
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
+            {
+                Description = "Lookup Subscription With Pending Changes Test"
+            };
+            plan.UnitAmountInCents.Add("USD", 1500);
+            plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
 
-            String a = Factories.GetMockAccountName();
-            Account acct = new Account(a, "New Txn", "User",
-                "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
+            var account = CreateNewAccountWithBillingInfo();
 
-            Subscription sub = new Subscription(acct, p, "USD");
+            var sub = new Subscription(account, plan, "USD");
             sub.Create();
-            String id = sub.Uuid;
             sub.UnitAmountInCents = 3000;
             
-            sub.ChangeSubscription(Subscription.ChangeTimeframe.renewal);
+            sub.ChangeSubscription(Subscription.ChangeTimeframe.Renewal);
 
-
-            Subscription newSubscription = Subscription.Get(id);
-            Assert.IsNotNull(newSubscription.PendingSubscription);
-            Assert.AreEqual(newSubscription.PendingSubscription.UnitAmountInCents, 3000);
-
-            p.Deactivate();
-
-
+            var newSubscription = Subscriptions.Get(sub.Uuid);
+            newSubscription.PendingSubscription.Should().NotBeNull();
+            newSubscription.PendingSubscription.UnitAmountInCents.Should().Be(3000);
         }
 
-        [Test]
+        [Fact]
         public void CreateSubscription()
         {
-            String s = Factories.GetMockPlanCode();
-            Plan p = new Plan(s, Factories.GetMockPlanName());
-            p.Description = "Create Subscription Test";
-            p.UnitAmountInCents.Add("USD", 100);
-            p.Create();
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
+            {
+                Description = "Create Subscription Test"
+            };
+            plan.UnitAmountInCents.Add("USD", 100);
+            plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
 
-            String a = Factories.GetMockAccountName();
-            Account acct = new Account(a, "New Txn", "User",
-                "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
+            var account = CreateNewAccountWithBillingInfo();
 
-            Subscription sub = new Subscription(acct, p, "USD");
+            var sub = new Subscription(account, plan, "USD");
             sub.Create();
 
-            Assert.IsNotNull(sub.ActivatedAt);
-            Assert.AreEqual(sub.State, Subscription.SubstriptionState.active);
-
-            p.Deactivate();
-
+            sub.ActivatedAt.Should().HaveValue().And.NotBe(default(DateTime));
+            sub.State.Should().Be(Subscription.SubscriptionState.Active);
         }
 
-        [Test]
+        [Fact]
         public void CreateSubscriptionWithCoupon()
         {
-            String s = Factories.GetMockPlanCode();
-            Plan p = new Plan(s, Factories.GetMockPlanName());
-            p.Description = "Create Subscription With Coupon Test";
-            p.UnitAmountInCents.Add("USD", 100);
-            p.Create();
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
+            {
+                Description = "Create Subscription With Coupon Test"
+            };
+            plan.UnitAmountInCents.Add("USD", 100);
+            plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
 
-            String code = Factories.GetMockCouponCode();
-            Coupon c = new Coupon(code, "Sub Test " + Factories.GetMockCouponName(), 10);
-            c.Create();
+            var coupon = new Coupon(GetMockCouponCode(), "Sub Test " + GetMockCouponName(), 10);
+            coupon.Create();
 
-            String a = Factories.GetMockAccountName();
-            Account acct = new Account(a, "New Txn", "User",
-                "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
+            var account = CreateNewAccountWithBillingInfo();
 
-            Subscription sub = new Subscription(acct, p, "USD", code);
+            var sub = new Subscription(account, plan, "USD", coupon.CouponCode);
             sub.Create();
 
-            Assert.IsNotNull(sub.ActivatedAt);
-            Assert.AreEqual(sub.State, Subscription.SubstriptionState.active);
-
-            p.Deactivate();
+            sub.ActivatedAt.Should().HaveValue().And.NotBe(default(DateTime));
+            sub.State.Should().Be(Subscription.SubscriptionState.Active);
         }
 
-        [Test]
+        [Fact]
         public void UpdateSubscription()
         {
-            String s = Factories.GetMockPlanCode();
-            Plan p = new Plan(s, Factories.GetMockPlanName());
-            p.Description = "Update Subscription Plan 1";
-            p.UnitAmountInCents.Add("USD", 1500);
-            p.Create();
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
+            {
+                Description = "Update Subscription Plan 1"
+            };
+            plan.UnitAmountInCents.Add("USD", 1500);
+            plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
 
-            String s2 = Factories.GetMockPlanCode();
+            var plan2 = new Plan(GetMockPlanCode(), GetMockPlanName())
+            {
+                Description = "Update Subscription Plan 2"
+            };
+            plan2.UnitAmountInCents.Add("USD", 750);
+            plan2.Create();
+            PlansToDeactivateOnDispose.Add(plan2);
 
-            Plan p2 = new Plan(s2, Factories.GetMockPlanName());
-            p2.Description = "Update Subscription Plan 2";
-            p2.UnitAmountInCents.Add("USD", 750);
-            p2.Create();
+            var account = CreateNewAccountWithBillingInfo();
 
-            String a = Factories.GetMockAccountName();
-            Account acct = new Account(a, "New Txn", "User",
-                "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
-
-            Subscription sub = new Subscription(acct, p, "USD");
+            var sub = new Subscription(account, plan, "USD");
             sub.Create();
-            String id = sub.Uuid;
-            sub.Plan = p2;
+            sub.Plan = plan2;
 
-            sub.ChangeSubscription(Subscription.ChangeTimeframe.now);
+            sub.ChangeSubscription(Subscription.ChangeTimeframe.Now);
 
-            Subscription newSubscription = Subscription.Get(id);
-            Assert.IsNull(newSubscription.PendingSubscription);
-            Assert.AreEqual(newSubscription.Plan, p2);
+            var newSubscription = Subscriptions.Get(sub.Uuid);
 
-            p.Deactivate();
-            p2.Deactivate();
+            newSubscription.PendingSubscription.Should().BeNull();
+            newSubscription.Plan.Should().Be(plan2);
         }
 
-
-        [Test]
+        [Fact]
         public void CancelSubscription()
         {
-            String s = Factories.GetMockPlanCode();
-            Plan p = new Plan(s, Factories.GetMockPlanName());
-            p.Description = "Cancel Subscription Test";
-            p.UnitAmountInCents.Add("USD", 100);
-            p.Create();
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
+            {
+                Description = "Cancel Subscription Test"
+            };
+            plan.UnitAmountInCents.Add("USD", 100);
+            plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
 
-            String a = Factories.GetMockAccountName();
-            Account acct = new Account(a, "New Txn", "User",
-                "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
+            var account = CreateNewAccountWithBillingInfo();
 
-            Subscription sub = new Subscription(acct, p, "USD");
+            var sub = new Subscription(account, plan, "USD");
             sub.Create();
 
             sub.Cancel();
 
-            Assert.IsNotNull(sub.CanceledAt);
-            Assert.AreEqual(sub.State, Subscription.SubstriptionState.canceled);
-            p.Deactivate();
-
+            sub.CanceledAt.Should().HaveValue().And.NotBe(default(DateTime));
+            sub.State.Should().Be(Subscription.SubscriptionState.Canceled);
         }
 
-
-        [Test]
+        [Fact]
         public void ReactivateSubscription()
         {
-            String s = Factories.GetMockPlanCode();
-            Plan p = new Plan(s, Factories.GetMockPlanName());
-            p.Description = "Reactivate Subscription Test";
-            p.UnitAmountInCents.Add("USD", 100);
-            p.Create();
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
+            {
+                Description = "Reactivate Subscription Test"
+            };
+            plan.UnitAmountInCents.Add("USD", 100);
+            plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
 
-            String a = Factories.GetMockAccountName();
-            Account acct = new Account(a, "New Txn", "User",
-                "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
+            var account = CreateNewAccountWithBillingInfo();
 
-            Subscription sub = new Subscription(acct, p, "USD");
+            var sub = new Subscription(account, plan, "USD");
             sub.Create();
 
             sub.Cancel();
-            Assert.AreEqual(sub.State, Subscription.SubstriptionState.canceled);
+            sub.State.Should().Be(Subscription.SubscriptionState.Canceled);
 
             sub.Reactivate();
 
-            Assert.AreEqual(sub.State, Subscription.SubstriptionState.active);
-            p.Deactivate();
-
+            sub.State.Should().Be(Subscription.SubscriptionState.Active);
         }
 
-        [Test]
+        [Fact]
         public void TerminateSubscriptionNoRefund()
         {
-            String s = Factories.GetMockPlanCode();
-            Plan p = new Plan(s, Factories.GetMockPlanName());
-            p.Description = "Terminate No Refund Subscription Test";
-            p.UnitAmountInCents.Add("USD", 200);
-            p.Create();
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
+            {
+                Description = "Terminate No Refund Subscription Test"
+            };
+            plan.UnitAmountInCents.Add("USD", 200);
+            plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
 
-            String a = Factories.GetMockAccountName();
-            Account acct = new Account(a, "New Txn", "User",
-                "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
+            var account = CreateNewAccountWithBillingInfo();
 
-            Subscription sub = new Subscription(acct, p, "USD");
+            var sub = new Subscription(account, plan, "USD");
             sub.Create();
 
-            sub.Terminate(Subscription.RefundType.none);
-
-            Assert.AreEqual(sub.State, Subscription.SubstriptionState.expired);
-            p.Deactivate();
-
+            sub.Terminate(Subscription.RefundType.None);
+            sub.State.Should().Be(Subscription.SubscriptionState.Expired);
         }
 
-        [Test]
+        [Fact]
         public void TerminateSubscriptionPartialRefund()
         {
-            String s = Factories.GetMockPlanCode();
-            Plan p = new Plan(s, Factories.GetMockPlanName());
-            p.Description = "Terminate Partial Refund Subscription Test";
-            p.UnitAmountInCents.Add("USD", 2000);
-            p.Create();
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
+            {
+                Description = "Terminate Partial Refund Subscription Test"
+            };
+            plan.UnitAmountInCents.Add("USD", 2000);
+            plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
 
-            String a = Factories.GetMockAccountName();
-            Account acct = new Account(a, "New Txn", "User",
-                "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
+            var account = CreateNewAccountWithBillingInfo();
 
-            Subscription sub = new Subscription(acct, p, "USD");
+            var sub = new Subscription(account, plan, "USD");
             sub.Create();
 
-            sub.Terminate(Subscription.RefundType.partial);
-
-            Assert.AreEqual(sub.State, Subscription.SubstriptionState.expired);
-            p.Deactivate();
-
+            sub.Terminate(Subscription.RefundType.Partial);
+            sub.State.Should().Be(Subscription.SubscriptionState.Expired);
         }
 
-        [Test]
+        [Fact]
         public void TerminateSubscriptionFullRefund()
         {
-            String s = Factories.GetMockPlanCode();
-            Plan p = new Plan(s, Factories.GetMockPlanName());
-            p.Description = "Terminate Full Refund Subscription Test";
-            p.UnitAmountInCents.Add("USD", 20000);
-            p.Create();
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
+            {
+                Description = "Terminate Full Refund Subscription Test"
+            };
+            plan.UnitAmountInCents.Add("USD", 20000);
+            plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
 
-            String a = Factories.GetMockAccountName();
-            Account acct = new Account(a, "New Txn", "User",
-                "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
+            var account = CreateNewAccountWithBillingInfo();
 
-            Subscription sub = new Subscription(acct, p, "USD");
+            var sub = new Subscription(account, plan, "USD");
             sub.Create();
 
-            sub.Terminate(Subscription.RefundType.full);
+            sub.Terminate(Subscription.RefundType.Full);
 
-            Assert.AreEqual(sub.State, Subscription.SubstriptionState.expired);
-            p.Deactivate();
-
+            sub.State.Should().Be(Subscription.SubscriptionState.Expired);
         }
 
-        [Test]
+        [Fact]
         public void PostponeSubscription()
         {
-            String s = Factories.GetMockPlanCode();
-            Plan p = new Plan(s, Factories.GetMockPlanName());
-            p.Description = "Postpone Subscription Test";
-            p.UnitAmountInCents.Add("USD", 100);
-            p.Create();
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
+            {
+                Description = "Postpone Subscription Test"
+            };
+            plan.UnitAmountInCents.Add("USD", 100);
+            plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
 
-            String a = Factories.GetMockAccountName();
-            Account acct = new Account(a, "New Txn", "User",
-                "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
+            var account = CreateNewAccountWithBillingInfo();
 
-            Subscription sub = new Subscription(acct, p, "USD");
+            var sub = new Subscription(account, plan, "USD");
             sub.Create();
-            DateTime renewal = DateTime.Now.AddMonths(3);
+            var renewal = DateTime.Now.AddMonths(3);
 
             sub.Postpone(renewal);
-            int diff = renewal.Date.Subtract(sub.CurrentPeriodEndsAt.Value.Date).Days;
-            Assert.AreEqual(diff, 1);
-            p.Deactivate();
 
+            var diff = renewal.Date.Subtract(sub.CurrentPeriodEndsAt.Value.Date).Days;
+            diff.Should().Be(1);
         }
-
-
-
-
     }
 }

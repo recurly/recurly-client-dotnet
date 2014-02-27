@@ -1,30 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Recurly;
-using NUnit.Framework;
-using System.Threading;
-
+﻿using FluentAssertions;
+using Xunit;
 
 namespace Recurly.Test
 {
-    [TestFixture]
-    class InvoiceListTest
+    public class InvoiceListTest : BaseTest
     {
-
-        [Test]
+        [Fact]
         public void GetInvoices()
         {
-
-            for (int x = 0; x < 6; x++)
+            for (var x = 0; x < 6; x++)
             {
-                Account acct = new Account(Factories.GetMockAccountName());
-                acct.Create();
+                var acct = CreateNewAccount();
 
-                Adjustment a = acct.CreateAdjustment("Test Charge", 500 + x, "USD");
-                a.Create();
+                var adjustment = acct.CreateAdjustment("Test Charge", 500 + x, "USD");
+                adjustment.Create();
 
-                Invoice i = acct.InvoicePendingCharges();
+                var invoice = acct.InvoicePendingCharges();
 
                 if (x < 2)
                 {
@@ -32,126 +23,96 @@ namespace Recurly.Test
                 }
                 else if (x == 3 || x == 4)
                 {
-                    i.MarkFailed();
+                    invoice.MarkFailed();
                 }
                 else
                 {
-                    i.MarkSuccessful();
+                    invoice.MarkSuccessful();
                 }
-                Thread.Sleep(1000);
             } 
             
-            InvoiceList list = InvoiceList.GetInvoices();
-
-            Assert.IsTrue(list.Count > 0);
-
+            var list = Invoices.List();
+            list.Should().NotBeEmpty();
         }
 
-        [Test]
+        [Fact]
         public void GetOpenInvoices()
         {
-            for (int x = 0; x < 2; x++)
+            for (var x = 0; x < 2; x++)
             {
-                Account acct = new Account(Factories.GetMockAccountName());
-                acct.Create();
-
-                Adjustment a = acct.CreateAdjustment("Test Charge", 500 + x, "USD");
-                a.Create();
-
-                Invoice i = acct.InvoicePendingCharges();
-
-                Thread.Sleep(1000);
+                var account = CreateNewAccount();
+                var adjustment = account.CreateAdjustment("Test Charge", 500 + x, "USD");
+                adjustment.Create();
+                account.InvoicePendingCharges();
             }
-            InvoiceList list = InvoiceList.GetInvoices(Invoice.InvoiceState.open);
 
-            Assert.IsTrue(list.Count > 0);
+            var list = Invoices.List(Invoice.InvoiceState.Open);
+            list.Should().NotBeEmpty();
         }
 
-        [Test]
+        [Fact]
         public void GetCollectedInvoices()
         {
-            for (int x = 0; x < 2; x++)
+            for (var x = 0; x < 2; x++)
             {
-                Account acct = new Account(Factories.GetMockAccountName());
-                acct.Create();
-
-                Adjustment a = acct.CreateAdjustment("Test Charge", 500 + x, "USD");
-                a.Create();
-
-                Invoice i = acct.InvoicePendingCharges();
-
-
-                i.MarkSuccessful();
-                Thread.Sleep(1000);
+                var acct = CreateNewAccount();
+                var adjustment = acct.CreateAdjustment("Test Charge", 500 + x, "USD");
+                adjustment.Create();
+                var invoice = acct.InvoicePendingCharges();
+                invoice.MarkSuccessful();
             }
-            InvoiceList list = InvoiceList.GetInvoices(Invoice.InvoiceState.collected);
 
-            Assert.IsTrue(list.Count > 0);
+            var list = Invoices.List(Invoice.InvoiceState.Collected);
+            list.Should().NotBeEmpty();
         }
 
-        [Test]
+        [Fact]
         public void GetFailedInvoices()
         {
-            for (int x = 0; x < 2; x++)
+            for (var x = 0; x < 2; x++)
             {
-                Account acct = new Account(Factories.GetMockAccountName());
-                acct.Create();
-
-                Adjustment a = acct.CreateAdjustment("Test Charge", 500 + x, "USD");
-                a.Create();
-
-                Invoice i = acct.InvoicePendingCharges();
-
-                i.MarkFailed();
-                Thread.Sleep(1000);
+                var acct = CreateNewAccount();
+                var adjustment = acct.CreateAdjustment("Test Charge", 500 + x, "USD");
+                adjustment.Create();
+                var invoice = acct.InvoicePendingCharges();
+                invoice.MarkFailed();
             }
-            InvoiceList list = InvoiceList.GetInvoices(Invoice.InvoiceState.failed);
 
-            Assert.IsTrue(list.Count > 0);
+            var list = Invoices.List(Invoice.InvoiceState.Failed);
+            list.Should().NotBeEmpty();
         }
 
-        [Test]
+        [Fact]
         public void GetPastDueInvoices()
         {
-            for (int x = 0; x < 2; x++)
+            for (var x = 0; x < 2; x++)
             {
-                Account acct = new Account(Factories.GetMockAccountName());
-                acct.Create();
-
-                Adjustment a = acct.CreateAdjustment("Test Charge", 500 + x, "USD");
-                a.Create();
-
-                Invoice i = acct.InvoicePendingCharges();
-
-                Thread.Sleep(1000);
+                var acct = CreateNewAccount();
+                var adjustment = acct.CreateAdjustment("Test Charge", 500 + x, "USD");
+                adjustment.Create();
+                acct.InvoicePendingCharges();
             }
-            InvoiceList list = InvoiceList.GetInvoices(Invoice.InvoiceState.past_due);
 
-            Assert.IsTrue(list.Count > 0);
+            var list = Invoices.List(Invoice.InvoiceState.PastDue);
+            list.Should().NotBeEmpty();
         }
 
-        [Test]
+        [Fact]
         public void GetInvoicesForAccount()
         {
-            string accountCode = Factories.GetMockAccountName();
-            Account acct = new Account(accountCode);
-            acct.Create();
+            var account = CreateNewAccount();
 
-            Adjustment a = acct.CreateAdjustment("Test Charge #1", 450, "USD");
-            a.Create();
+            var adjustment = account.CreateAdjustment("Test Charge #1", 450, "USD");
+            adjustment.Create();
 
-            Invoice i = acct.InvoicePendingCharges();
-            i.MarkSuccessful();
+            var invoice = account.InvoicePendingCharges();
+            invoice.MarkSuccessful();
 
-            a = acct.CreateAdjustment("Test Charge #2", 350, "USD");
-            a.Create();
+            adjustment = account.CreateAdjustment("Test Charge #2", 350, "USD");
+            adjustment.Create();
 
-            InvoiceList list = InvoiceList.GetInvoices(accountCode);
-
-            Assert.IsTrue(list.Count > 0);
-
+            var list = Invoices.List(account.AccountCode);
+            list.Should().NotBeEmpty();
         }
-
-
     }
 }

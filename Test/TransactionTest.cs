@@ -1,114 +1,84 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Recurly;
-using NUnit.Framework;
+using FluentAssertions;
+using Xunit;
 
 namespace Recurly.Test
 {
-    [TestFixture]
-    public class TransactionTest
+    public class TransactionTest : BaseTest
     {
-
-        [Test]
+        [Fact]
         public void LookupTransaction()
         {
-            String a = Factories.GetMockAccountName();
-            Account acct = new Account(a, "New Txn", "User",
-                "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
+            var acct = CreateNewAccountWithBillingInfo();
+            var transaction = new Transaction(acct, 5000, "USD");
+            transaction.Create();
 
-            Transaction t = new Transaction(acct, 5000, "USD");
+            var fromService = Transactions.Get(transaction.Uuid);
 
-            t.Create();
-
-            Transaction t2 = Transaction.Get(t.Uuid);
-
-            Assert.AreEqual(t, t2);
-
-
+            transaction.Should().Be(fromService);
         }
 
-
-        [Test]
+        [Fact]
         public void CreateTransactionNewAccount()
         {
-            String a = Factories.GetMockAccountName();
-            Account acct = new Account(a, "New Txn", "User",
-                "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
+            var account = NewAccountWithBillingInfo();
+            var transaction = new Transaction(account, 5000, "USD");
 
-            Transaction t = new Transaction(acct, 5000, "USD");
+            transaction.Create();
 
-            t.Create();
-
-            Assert.IsNotNull(t.CreatedAt);
+            transaction.CreatedAt.Should().NotBe(default(DateTime));
         }
 
-
-        [Test]
+        [Fact]
         public void CreateTransactionExistingAccount()
         {
-            String a = Factories.GetMockAccountName();
-            Account acct = new Account(a, "New Txn", "User",
-                "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
-            acct.Create();
+            var acct = CreateNewAccountWithBillingInfo();
+            var transaction = new Transaction(acct.AccountCode, 3000, "USD");
 
+            transaction.Create();
 
-            Transaction t = new Transaction(acct.AccountCode, 3000, "USD");
-
-            t.Create();
-
-            Assert.IsNotNull(t.CreatedAt);
-            
+            transaction.CreatedAt.Should().NotBe(default(DateTime));
         }
 
-        [Test]
+        [Fact]
         public void CreateTransactionExistingAccountNewBillingInfo()
         {
-            String a = Factories.GetMockAccountName();
-            Account acct = new Account(a, "Change Billing Info", "User",
-                "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
-            acct.Create();
+            var account = new Account(GetUniqueAccountCode())
+            {
+                FirstName = "John",
+                LastName = "Smith"
+            };
+            account.Create();
+            account.BillingInfo = NewBillingInfo(account);
+            var transaction = new Transaction(account, 5000, "USD");
 
-            acct.BillingInfo = Factories.NewBillingInfo(acct);
+            transaction.Create();
 
-            Transaction t = new Transaction(acct, 5000, "USD");
-
-            t.Create();
-
-            Assert.IsNotNull(t.CreatedAt);
+            transaction.CreatedAt.Should().NotBe(default(DateTime));
         }
 
-        [Test]
+        [Fact]
         public void RefundTransactionFull()
         {
-            String a = Factories.GetMockAccountName();
-            Account acct = new Account(a, "New Txn", "User",
-                "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
+            var acct = NewAccountWithBillingInfo();
+            var transaction = new Transaction(acct, 5000, "USD");
+            transaction.Create();
 
-            Transaction t = new Transaction(acct, 5000, "USD");
+            transaction.Refund();
 
-            t.Create();
-
-            t.Refund();
-
-            Assert.AreEqual(t.Status, Transaction.TransactionState.voided);
-
+            transaction.Status.Should().Be(Transaction.TransactionState.Voided);
         }
 
-        [Test]
+        [Fact]
         public void RefundTransactionPartial()
         {
-            String a = Factories.GetMockAccountName();
-            Account acct = new Account(a, "New Txn", "User",
-                "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
+            var account = NewAccountWithBillingInfo();
+            var transaction = new Transaction(account, 5000, "USD");
+            transaction.Create();
 
-            Transaction t = new Transaction(acct, 5000, "USD");
+            transaction.Refund(2500);
 
-            t.Create();
-
-            t.Refund(2500);
-
-            Assert.Fail("Need to check for a new refund transaction.");
+            account.GetTransactions().Should().HaveCount(2);
         }
 
     }

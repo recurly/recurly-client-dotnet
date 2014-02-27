@@ -1,31 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Recurly;
-using NUnit.Framework;
+﻿using FluentAssertions;
+using Xunit;
 
 namespace Recurly.Test
 {
-    [TestFixture]
-    class PlanListTest
+    public class PlanListTest : BaseTest
     {
-
-        [Test]
+        [Fact]
         public void ListPlans()
         {
-            Plan p = new Plan(Factories.GetMockPlanCode(), Factories.GetMockPlanName());
-            p.SetupFeeInCents.Add("USD", 100);
-            p.Create();
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName());
+            plan.SetupFeeInCents.Add("USD", 100);
+            plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
 
-            p = new Plan(Factories.GetMockPlanCode(), Factories.GetMockPlanName());
-            p.SetupFeeInCents.Add("USD", 200);
-            p.Create();
-
-            PlanList l = PlanList.GetPlans();
-            Assert.IsTrue(l.Count > 1);
-
-
+            var plans = Plans.List();
+            plans.Should().NotBeEmpty();
         }
 
+        [Fact(Skip = "utility, for cleaning up test data; may no longer be necessary")]
+        public void DeactivateAllPlans()
+        {
+            var plans = Plans.List();
+            foreach (var plan in plans)
+            {
+                plan.Deactivate();
+            }
+        }
     }
 }

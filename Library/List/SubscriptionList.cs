@@ -1,48 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Xml;
-using System.Net;
+﻿using System.Xml;
 
 namespace Recurly
 {
     public class SubscriptionList : RecurlyList<Subscription>
     {
-
-        internal SubscriptionList(string baseUrl)
-            : base(Client.HttpRequestMethod.Get, baseUrl)
+        internal SubscriptionList(string baseUrl) : base(Client.HttpRequestMethod.Get, baseUrl)
         {
+        }
+
+        public override RecurlyList<Subscription> Start
+        {
+            get { return HasStartPage() ? new SubscriptionList(StartUrl) : RecurlyList.Empty<Subscription>(); }
+        }
+
+        public override RecurlyList<Subscription> Next
+        {
+            get { return HasNextPage() ? new SubscriptionList(NextUrl) : RecurlyList.Empty<Subscription>(); }
+        }
+
+        public override RecurlyList<Subscription> Prev
+        {
+            get { return HasPrevPage() ? new SubscriptionList(PrevUrl) : RecurlyList.Empty<Subscription>(); }
         }
 
         internal override void ReadXml(XmlTextReader reader)
         {
             while (reader.Read())
             {
-                if (reader.Name.Equals("subscriptions") &&
-                    reader.NodeType == XmlNodeType.EndElement)
+                if (reader.Name == "subscriptions" && reader.NodeType == XmlNodeType.EndElement)
                     break;
 
-                if (reader.NodeType == XmlNodeType.Element && reader.Name.Equals("subscription"))
+                if (reader.NodeType == XmlNodeType.Element && reader.Name == "subscription")
                 {
-                    this.Add(new Subscription(reader));
+                    Add(new Subscription(reader));
                 }
             }
-
         }
-
-
-        /// <summary>
-        /// Returns a list of recurly subscriptions
-        /// 
-        /// A subscription will belong to more than one state.
-        /// </summary>
-        /// <param name="state">State of subscriptions to return, defaults to "live"</param>
-        /// <returns></returns>
-        public static SubscriptionList GetSubscriptions(Subscription.SubstriptionState state = Subscription.SubstriptionState.live)
-        {
-            return new SubscriptionList(Subscription.UrlPrefix + "?state=" + System.Uri.EscapeUriString(state.ToString()));
-        }
-
     }
-
 }

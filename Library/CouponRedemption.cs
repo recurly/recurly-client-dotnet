@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Xml;
-using System.Net;
-
 
 namespace Recurly
 {
     /// <summary>
     /// Represents an instance where a coupon has been redeemed for a subscription
     /// </summary>
-    public class CouponRedemption
+    public class CouponRedemption : RecurlyEntity
     {
 
         public string AccountCode { get; set; }
@@ -23,9 +19,6 @@ namespace Recurly
         public DateTime CreatedAt { get; private set; }
 
         public string State { get; private set; }
-
-        private const string UrlPrefix = "/accounts/";
-        private const string UrlPostfix = "/redemption";
 
         internal CouponRedemption(XmlTextReader reader)
             : this()
@@ -46,15 +39,12 @@ namespace Recurly
         /// <param name="currency"></param>
         internal static CouponRedemption Redeem(string accountCode, string couponCode, string currency)
         {
-            CouponRedemption cr = new CouponRedemption();
+            var cr = new CouponRedemption {AccountCode = accountCode, Currency = currency};
 
-            cr.AccountCode = accountCode;
-            cr.Currency = currency;
-
-            HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Post,
-               "/coupons/" + System.Uri.EscapeUriString(couponCode) + "/redeem",
-               new Client.WriteXmlDelegate(cr.WriteXml),
-               new Client.ReadXmlDelegate(cr.ReadXml));
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
+               "/coupons/" + Uri.EscapeUriString(couponCode) + "/redeem",
+               cr.WriteXml,
+               cr.ReadXml);
 
             return cr;
 
@@ -65,76 +55,74 @@ namespace Recurly
         /// </summary>
         public void Delete()
         {
-            HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Delete,
-                "/accounts/" + System.Uri.EscapeUriString(this.AccountCode) + "/redemption" );
-            this.AccountCode = null;
-            this.CouponCode = null;
-            this.Currency = null;
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Delete,
+                "/accounts/" + Uri.EscapeUriString(AccountCode) + "/redemption");
+            AccountCode = null;
+            CouponCode = null;
+            Currency = null;
         }
 
 
 
         #region Read and Write XML documents
 
-        internal void ReadXml(XmlTextReader reader)
+        internal override void ReadXml(XmlTextReader reader)
         {
-            string href;
-
             while (reader.Read())
             {
                 // End of coupon element, get out of here
                 if (reader.Name == "coupon" && reader.NodeType == XmlNodeType.EndElement)
                     break;
 
-                if (reader.NodeType == XmlNodeType.Element)
+                if (reader.NodeType != XmlNodeType.Element) continue;
+
+                string href;
+                switch (reader.Name)
                 {
-                    switch (reader.Name)
-                    {
-                        case "account":
-                            href = reader.GetAttribute("href");
-                            this.AccountCode = Uri.UnescapeDataString(href.Substring(href.LastIndexOf("/") + 1));
-                            break;
+                    case "account":
+                        href = reader.GetAttribute("href");
+                        AccountCode = Uri.UnescapeDataString(href.Substring(href.LastIndexOf("/") + 1));
+                        break;
 
-                        case "coupon":
-                            href = reader.GetAttribute("href");
-                            this.CouponCode =Uri.UnescapeDataString( href.Substring(href.LastIndexOf("/") + 1));
-                            break;
+                    case "coupon":
+                        href = reader.GetAttribute("href");
+                        CouponCode =Uri.UnescapeDataString( href.Substring(href.LastIndexOf("/") + 1));
+                        break;
 
-                        case "single_use":
-                            this.SingleUse = reader.ReadElementContentAsBoolean();
-                            break;
+                    case "single_use":
+                        SingleUse = reader.ReadElementContentAsBoolean();
+                        break;
 
-                        case "total_discounted_in_cents":
-                            int discountInCents;
-                            if (Int32.TryParse(reader.ReadElementContentAsString(), out discountInCents))
-                                this.TotalDiscountedInCents = discountInCents;
-                            break;
+                    case "total_discounted_in_cents":
+                        int discountInCents;
+                        if (Int32.TryParse(reader.ReadElementContentAsString(), out discountInCents))
+                            TotalDiscountedInCents = discountInCents;
+                        break;
 
-                        case "currency":
-                            this.Currency = reader.ReadElementContentAsString();
-                            break;
+                    case "currency":
+                        Currency = reader.ReadElementContentAsString();
+                        break;
 
-                        case "state":
-                            this.State = reader.ReadElementContentAsString();
-                            break;
+                    case "state":
+                        State = reader.ReadElementContentAsString();
+                        break;
 
-                        case "created_at":
-                            DateTime date;
-                            if (DateTime.TryParse(reader.ReadElementContentAsString(), out date))
-                                this.CreatedAt = date;
-                            break;
+                    case "created_at":
+                        DateTime date;
+                        if (DateTime.TryParse(reader.ReadElementContentAsString(), out date))
+                            CreatedAt = date;
+                        break;
 
-                    }
                 }
             }
         }
 
-        internal void WriteXml(XmlTextWriter xmlWriter)
+        internal override void WriteXml(XmlTextWriter xmlWriter)
         {
             xmlWriter.WriteStartElement("redemption"); // Start: coupon
 
-            xmlWriter.WriteElementString("account_code", this.AccountCode);
-            xmlWriter.WriteElementString("currency", this.Currency);
+            xmlWriter.WriteElementString("account_code", AccountCode);
+            xmlWriter.WriteElementString("currency", Currency);
 
             xmlWriter.WriteEndElement(); // End: coupon
         }
@@ -145,25 +133,23 @@ namespace Recurly
 
         public override string ToString()
         {
-            return "Recurly Account Coupon Redemption: " + this.CouponCode + " " + this.AccountCode;
+            return "Recurly Account Coupon Redemption: " + CouponCode + " " + AccountCode;
         }
 
         public override bool Equals(object obj)
         {
-            if (obj is CouponRedemption)
-                return Equals((CouponRedemption)obj);
-            else
-                return false;
+            var redemption = obj as CouponRedemption;
+            return redemption != null && Equals(redemption);
         }
 
         public bool Equals(CouponRedemption coupon)
         {
-            return this.AccountCode == coupon.AccountCode && this.CouponCode == coupon.CouponCode;
+            return AccountCode == coupon.AccountCode && CouponCode == coupon.CouponCode;
         }
 
         public override int GetHashCode()
         {
-            return (this.AccountCode + this.CouponCode).GetHashCode();
+            return (AccountCode + CouponCode).GetHashCode();
         }
 
         #endregion

@@ -1,46 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Xml;
-using System.Net;
+﻿using System.Xml;
 
 namespace Recurly
 {
     public class PlanList : RecurlyList<Plan>
     {
-
-        internal PlanList(string baseUrl)
-            : base(Client.HttpRequestMethod.Get, baseUrl)
+        internal PlanList(string baseUrl) : base(Client.HttpRequestMethod.Get, baseUrl)
         {
+        }
+
+        public override RecurlyList<Plan> Start
+        {
+            get { return HasStartPage() ? new PlanList(StartUrl) : RecurlyList.Empty<Plan>(); }
+        }
+
+        public override RecurlyList<Plan> Next
+        {
+            get { return HasNextPage() ? new PlanList(NextUrl) : RecurlyList.Empty<Plan>(); }
+        }
+
+        public override RecurlyList<Plan> Prev
+        {
+            get { return HasPrevPage() ? new PlanList(PrevUrl) : RecurlyList.Empty<Plan>(); }
         }
 
         internal override void ReadXml(XmlTextReader reader)
         {
-
             while (reader.Read())
             {
-                if (reader.Name.Equals("plans") &&
-                    reader.NodeType == XmlNodeType.EndElement)
+                if (reader.Name == "plans" && reader.NodeType == XmlNodeType.EndElement)
                     break;
 
-                if (reader.NodeType == XmlNodeType.Element && reader.Name.Equals("plan"))
+                if (reader.NodeType == XmlNodeType.Element && reader.Name == "plan")
                 {
-                    this.Add(new Plan(reader));
+                    Add(new Plan(reader));
                 }
             }
-
         }
-
-        /// <summary>
-        /// Retrieves a list of all active plans
-        /// </summary>
-        /// <returns></returns>
-        public static PlanList GetPlans()
-        {
-            return new PlanList(Plan.UrlPrefix);
-        }
-
-
     }
-
 }

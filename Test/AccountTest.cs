@@ -1,124 +1,124 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Recurly;
-using NUnit.Framework;
+using FluentAssertions;
+using Xunit;
 
 namespace Recurly.Test
 {
-    [TestFixture]
-    public class AccountTest
+    public class AccountTest : BaseTest
     {
-        
-        [Test]
+        [Fact]
         public void CreateAccount()
         {
-            Account acct = new Account(Factories.GetMockAccountName());
+            var acct = new Account(GetUniqueAccountCode());
             acct.Create();
-            Assert.IsNotNull(acct.CreatedAt);
+            acct.CreatedAt.Should().NotBe(default(DateTime));
         }
 
-
-        [Test]
+        [Fact]
         public void CreateAccountWithParameters()
         {
-            Account acct = new Account(Factories.GetMockAccountName());
-            acct.Username = "testuser1";
-            acct.Email = "testemail@recurly.com";
-            acct.FirstName = "Test";
-            acct.LastName = "User";
-            acct.CompanyName = "Test Company";
-            acct.AcceptLanguage = "en";
+            var acct = new Account(GetUniqueAccountCode())
+            {
+                Username = "testuser1",
+                Email = "testemail@recurly.com",
+                FirstName = "Test",
+                LastName = "User",
+                CompanyName = "Test Company",
+                AcceptLanguage = "en"
+            };
 
             acct.Create();
 
-            Assert.AreEqual(acct.Username, "testuser1");
-            Assert.AreEqual(acct.Email, "testemail@recurly.com");
-            Assert.AreEqual(acct.FirstName, "Test");
-            Assert.AreEqual(acct.LastName, "User");
-            Assert.AreEqual(acct.CompanyName, "Test Company");
-            Assert.AreEqual(acct.AcceptLanguage, "en");
-
+            acct.Username.Should().Be("testuser1");
+            acct.Email.Should().Be("testemail@recurly.com");
+            acct.FirstName.Should().Be("Test");
+            acct.LastName.Should().Be("User");
+            acct.CompanyName.Should().Be("Test Company");
+            acct.AcceptLanguage.Should().Be("en");
         }
 
-        [Test]
+        [Fact]
         public void CreateAccountWithBillingInfo()
         {
-            String a = Factories.GetMockAccountName();
+            var accountCode = GetUniqueAccountCode();
+            var account = new Account(accountCode, NewBillingInfo(accountCode));
 
-            Account acct = new Account(a, "BI", "User",
-                "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
+            Action create = account.Create;
 
-            acct.Create();
-
-            BillingInfo t = BillingInfo.Get(a);
-            Assert.AreEqual(t, acct.BillingInfo);
-
+            create.ShouldNotThrow<ValidationException>();
         }
 
-        [Test]
+        [Fact]
         public void LookupAccount()
         {
-            string a = Factories.GetMockAccountName();
-
-            Account newAcct = new Account(a);
-            newAcct.Email = "testemail@recurly.com";
+            var newAcct = new Account(GetUniqueAccountCode())
+            {
+                Email = "testemail@recurly.com"
+            };
             newAcct.Create();
 
-            Account acct = Account.Get(newAcct.AccountCode);
-            Assert.IsNotNull(acct);
-            Assert.AreEqual(acct.AccountCode, newAcct.AccountCode);
-            Assert.IsNotNullOrEmpty(acct.Email);
+            var account = Accounts.Get(newAcct.AccountCode);
+            
+            account.Should().NotBeNull();
+            account.AccountCode.Should().Be(newAcct.AccountCode);
+            account.Email.Should().Be(newAcct.Email);
         }
 
-        [Test]
-        [ExpectedException(typeof(NotFoundException))]
-        public void FindNonExistantAccount()
+        [Fact]
+        public void FindNonExistentAccount()
         {
-            Account acct = Account.Get("totallynotfound!@#$");
+            Action get = () => Accounts.Get("totallynotfound!@#$");
+            get.ShouldThrow<NotFoundException>();
         }
 
-        [Test]
+        [Fact]
         public void UpdateAccount()
         {
-            Account acct = new Account(Factories.GetMockAccountName());
+            var acct = new Account(GetUniqueAccountCode());
             acct.Create();
 
             acct.LastName = "UpdateTest123";
             acct.Update();
 
-            Account getAcct = Account.Get(acct.AccountCode);
-            Assert.AreEqual(acct.LastName, getAcct.LastName);
+            var getAcct = Accounts.Get(acct.AccountCode);
+            acct.LastName.Should().Be(getAcct.LastName);
         }
 
-        [Test]
+        [Fact]
         public void CloseAccount()
         {
-            string s = Factories.GetMockAccountName();
-            Account acct = new Account(s);
+            var accountCode = GetUniqueAccountCode();
+            var acct = new Account(accountCode);
             acct.Create();
 
             acct.Close();
 
-            Account getAcct = Account.Get(s);
-            Assert.AreEqual(getAcct.State, Recurly.Account.AccountState.closed);
+            var getAcct = Accounts.Get(accountCode);
+            getAcct.State.Should().Be(Account.AccountState.Closed);
         }
 
-        [Test]
+        [Fact]
         public void ReopenAccount()
         {
-            string s = Factories.GetMockAccountName();
-            Account acct = new Account(s);
+            var accountCode = GetUniqueAccountCode();
+            var acct = new Account(accountCode);
             acct.Create();
             acct.Close();
 
             acct.Reopen();
 
-            Account test = Account.Get(s);
-            Assert.AreEqual(acct.State, Recurly.Account.AccountState.active);
-            Assert.AreEqual(test.State, Recurly.Account.AccountState.active);
+            var test = Accounts.Get(accountCode);
+            acct.State.Should().Be(test.State).And.Be(Account.AccountState.Active);
         }
 
-        
+        [Fact]
+        public void GetAccountNotes()
+        {
+            var account = CreateNewAccount();
+
+            var notes = account.GetNotes();
+
+            notes.Should().BeEmpty();
+        }
     }
 }

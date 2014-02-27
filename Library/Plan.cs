@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
-using System.Text;
 using System.Xml;
 
 namespace Recurly
 {
-    public class Plan
+    public class Plan : RecurlyEntity
     {
         public enum IntervalUnit
         {
-            days,
-            months
+            Days,
+            Months
         }
 
         public string PlanCode { get; set; }
@@ -40,7 +39,22 @@ namespace Recurly
 
         public int? TotalBillingCycles { get; set; }
 
-        public AddOnList AddOns { get; private set; }
+        public bool? TaxExempt { get; set; }
+
+        private AddOnList _addOns;
+
+        public RecurlyList<AddOn> AddOns
+        {
+            get
+            {
+                if (_addOns == null)
+                {
+                    var url = UrlPrefix + Uri.EscapeUriString(PlanCode) + "/add_ons/";
+                    _addOns = new AddOnList(url);
+                }
+                return _addOns;
+            }
+        }
 
 
         private Dictionary<string, int> _unitAmountInCents;
@@ -49,14 +63,7 @@ namespace Recurly
         /// </summary>
         public Dictionary<string, int> UnitAmountInCents
         {
-            get
-            {
-                if (null == _unitAmountInCents)
-                {
-                    _unitAmountInCents = new Dictionary<string, int>();
-                }
-                return _unitAmountInCents;
-            }
+            get { return _unitAmountInCents ?? (_unitAmountInCents = new Dictionary<string, int>()); }
         }
 
         private Dictionary<string, int> _setupFeeInCents;
@@ -65,14 +72,7 @@ namespace Recurly
         /// </summary>
         public Dictionary<string, int> SetupFeeInCents
         {
-            get
-            {
-                if (null == _setupFeeInCents)
-                    _setupFeeInCents = new Dictionary<string, int>();
-
-                return _setupFeeInCents;
-            }
-
+            get { return _setupFeeInCents ?? (_setupFeeInCents = new Dictionary<string, int>()); }
         }
 
         internal const string UrlPrefix = "/plans/";
@@ -89,40 +89,21 @@ namespace Recurly
 
         public Plan(string planCode, string name)
         {
-            this.PlanCode = planCode;
-            this.Name = name;
-
+            PlanCode = planCode;
+            Name = name;
         }
 
         #endregion
-
-        /// <summary>
-        /// Retrieves a Plan
-        /// </summary>
-        /// <param name="planCode"></param>
-        /// <returns></returns>
-        public static Plan Get(string planCode)
-        {
-            Plan plan = new Plan();
-
-            HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
-                UrlPrefix + System.Uri.EscapeUriString(planCode),
-                new Client.ReadXmlDelegate(plan.ReadXml));
-
-            if (statusCode == HttpStatusCode.NotFound)
-                return null;
-
-            return plan;
-        }
 
         /// <summary>
         /// Create a new plan in Recurly
         /// </summary>
         public void Create()
         {
-            Client.PerformRequest(Client.HttpRequestMethod.Post,
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 UrlPrefix,
-                new Client.WriteXmlDelegate(this.WriteXml));
+                WriteXml,
+                ReadXml);
         }
 
         /// <summary>
@@ -130,9 +111,9 @@ namespace Recurly
         /// </summary>
         public void Update()
         {
-            Client.PerformRequest(Client.HttpRequestMethod.Put,
-                UrlPrefix + System.Uri.EscapeUriString(this.PlanCode),
-                new Client.WriteXmlDelegate(this.WriteXml));
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
+                UrlPrefix + Uri.EscapeUriString(PlanCode),
+                WriteXml);
         }
 
         /// <summary>
@@ -140,11 +121,8 @@ namespace Recurly
         /// </summary>
         public void Deactivate()
         {
-            Client.PerformRequest(Client.HttpRequestMethod.Delete, UrlPrefix + System.Uri.EscapeUriString(this.PlanCode));
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Delete, UrlPrefix + Uri.EscapeUriString(PlanCode));
         }
-
-
-        
 
         /// <summary>
         /// Returns an new add on associated with this plan.
@@ -154,8 +132,19 @@ namespace Recurly
         /// <returns></returns>
         public AddOn CreateAddOn(string addOnCode, string name)
         {
-            AddOn a = new AddOn(this.PlanCode, addOnCode, name);
+            var a = new AddOn(PlanCode, addOnCode, name);
             return a;
+        }
+
+        public AddOn GetAddOn(string addOnCode)
+        {
+            var addOn = new AddOn();
+
+            var status = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
+                UrlPrefix + Uri.EscapeUriString(PlanCode) + "/add_ons/" + Uri.EscapeUriString(addOnCode),
+                addOn.ReadXml);
+
+            return status == HttpStatusCode.OK ? addOn : null;
         }
 
         #region Read and Write XML documents
@@ -170,7 +159,7 @@ namespace Recurly
 
                 if (reader.NodeType == XmlNodeType.Element)
                 {
-                    this.SetupFeeInCents.Add(reader.Name, reader.ReadElementContentAsInt());
+                    SetupFeeInCents.Add(reader.Name, reader.ReadElementContentAsInt());
                 }
             }
         }
@@ -185,165 +174,154 @@ namespace Recurly
 
                 if (reader.NodeType == XmlNodeType.Element)
                 {
-                    this.UnitAmountInCents.Add(reader.Name, reader.ReadElementContentAsInt());
+                    UnitAmountInCents.Add(reader.Name, reader.ReadElementContentAsInt());
                 }
             }
         }
 
-        internal void ReadXml(XmlTextReader reader)
+        internal override void ReadXml(XmlTextReader reader)
         {
+            UnitAmountInCents.Clear();
+            SetupFeeInCents.Clear();
             while (reader.Read())
             {
                 // End of account element, get out of here
                 if (reader.Name == "plan" && reader.NodeType == XmlNodeType.EndElement)
                     break;
 
-                if (reader.NodeType == XmlNodeType.Element)
+                if (reader.NodeType != XmlNodeType.Element) continue;
+
+                switch (reader.Name)
                 {
-                    switch (reader.Name)
-                    {
 
-                        case "plan_code":
-                            this.PlanCode = reader.ReadElementContentAsString();
-                            break;
+                    case "plan_code":
+                        PlanCode = reader.ReadElementContentAsString();
+                        break;
 
-                        case "name":
-                            this.Name = reader.ReadElementContentAsString();
-                            break;
+                    case "name":
+                        Name = reader.ReadElementContentAsString();
+                        break;
 
-                        case "description":
-                            this.Description = reader.ReadElementContentAsString();
-                            break;
+                    case "description":
+                        Description = reader.ReadElementContentAsString();
+                        break;
 
-                        case "success_url":
-                            this.SuccessUrl = reader.ReadElementContentAsString();
-                            break;
+                    case "success_url":
+                        SuccessUrl = reader.ReadElementContentAsString();
+                        break;
 
-                        case "cancel_url":
-                            this.CancelUrl = reader.ReadElementContentAsString();
-                            break;
+                    case "cancel_url":
+                        CancelUrl = reader.ReadElementContentAsString();
+                        break;
 
-                        case "display_donation_amounts":
-                            this.DisplayDonationAmounts = reader.ReadElementContentAsBoolean();
-                            break;
+                    case "display_donation_amounts":
+                        DisplayDonationAmounts = reader.ReadElementContentAsBoolean();
+                        break;
 
-                        case "display_quantity":
-                            this.DisplayQuantity = reader.ReadElementContentAsBoolean();
-                            break;
+                    case "display_quantity":
+                        DisplayQuantity = reader.ReadElementContentAsBoolean();
+                        break;
 
-                        case "display_phone_number":
-                            this.DisplayPhoneNumber = reader.ReadElementContentAsBoolean();
-                            break;
+                    case "display_phone_number":
+                        DisplayPhoneNumber = reader.ReadElementContentAsBoolean();
+                        break;
 
-                        case "bypass_hosted_confirmation":
-                            this.BypassHostedConfirmation = reader.ReadElementContentAsBoolean();
-                            break;
+                    case "bypass_hosted_confirmation":
+                        BypassHostedConfirmation = reader.ReadElementContentAsBoolean();
+                        break;
 
-                        case "unit_name":
-                            this.UnitName = reader.ReadElementContentAsString();
-                            break;
+                    case "unit_name":
+                        UnitName = reader.ReadElementContentAsString();
+                        break;
 
-                        case "payment_page_tos_link":
-                            this.PaymentPageTOSLink = reader.ReadElementContentAsString();
-                            break;
+                    case "payment_page_tos_link":
+                        PaymentPageTOSLink = reader.ReadElementContentAsString();
+                        break;
 
-                        case "plan_interval_length":
-                            this.PlanIntervalLength = reader.ReadElementContentAsInt();
-                            break;
+                    case "plan_interval_length":
+                        PlanIntervalLength = reader.ReadElementContentAsInt();
+                        break;
 
-                        case "plan_interval_unit":
-                            this.PlanIntervalUnit = (IntervalUnit)Enum.Parse(typeof(IntervalUnit), reader.ReadElementContentAsString(), true);
-                            break;
+                    case "plan_interval_unit":
+                        PlanIntervalUnit = reader.ReadElementContentAsString().ParseAsEnum<IntervalUnit>();
+                        break;
 
-                        case "trial_interval_length":
-                            this.TrialIntervalLength = reader.ReadElementContentAsInt();
-                            break;
+                    case "trial_interval_length":
+                        TrialIntervalLength = reader.ReadElementContentAsInt();
+                        break;
 
-                        case "trial_interval_unit":
-                            this.TrialIntervalUnit = (IntervalUnit)Enum.Parse(typeof(IntervalUnit), reader.ReadElementContentAsString(), true);
-                            break;
+                    case "trial_interval_unit":
+                        TrialIntervalUnit = reader.ReadElementContentAsString().ParseAsEnum<IntervalUnit>();
+                        break;
 
-                        case "accounting_code":
-                            this.AccountingCode = reader.ReadElementContentAsString();
-                            break;
+                    case "accounting_code":
+                        AccountingCode = reader.ReadElementContentAsString();
+                        break;
 
-                        case "created_at":
-                            this.CreatedAt = reader.ReadElementContentAsDateTime();
-                            break;
+                    case "created_at":
+                        CreatedAt = reader.ReadElementContentAsDateTime();
+                        break;
 
-                        case "unit_amount_in_cents":
-                            ReadXmlUnitAmount(reader);
-                            break;
+                    case "tax_exempt":
+                        TaxExempt = reader.ReadElementContentAsBoolean();
+                        break;
 
-                        case "setup_fee_in_cents":
-                            ReadXmlSetupFee(reader);
-                            break;
-                    }
+                    case "unit_amount_in_cents":
+                        ReadXmlUnitAmount(reader);
+                        break;
+
+                    case "setup_fee_in_cents":
+                        ReadXmlSetupFee(reader);
+                        break;
                 }
             }
         }
 
-        internal void WriteXml(XmlTextWriter xmlWriter)
+        internal override void WriteXml(XmlTextWriter xmlWriter)
         {
             xmlWriter.WriteStartElement("plan");
 
-            xmlWriter.WriteElementString("plan_code", this.PlanCode);
-            xmlWriter.WriteElementString("name", this.Name);
-            if (null != this.Description && this.Description.Length > 0)
-                xmlWriter.WriteElementString("description", this.Description);
-            if (null != this.AccountingCode && this.AccountingCode.Length > 0)
-                xmlWriter.WriteElementString("accounting_code", this.AccountingCode);
-            if (this.PlanIntervalLength > 0)
+            xmlWriter.WriteElementString("plan_code", PlanCode);
+            xmlWriter.WriteElementString("name", Name);
+            xmlWriter.WriteStringIfValid("description", Description);
+            xmlWriter.WriteStringIfValid("accounting_code", AccountingCode);
+            if (PlanIntervalLength > 0)
             {
-                xmlWriter.WriteElementString("plan_interval_unit", this.PlanIntervalUnit.ToString());
-                xmlWriter.WriteElementString("plan_interval_length", this.PlanIntervalLength.ToString());
+                xmlWriter.WriteElementString("plan_interval_unit", PlanIntervalUnit.ToString().EnumNameToTransportCase());
+                xmlWriter.WriteElementString("plan_interval_length", PlanIntervalLength.AsString());
             }
-            if (this.TrialIntervalLength > 0)
+            if (TrialIntervalLength > 0)
             {
-                xmlWriter.WriteElementString("trial_interval_unit", this.TrialIntervalUnit.ToString());
-                xmlWriter.WriteElementString("trial_interval_length", this.TrialIntervalLength.ToString());
-            }
-            if (null !=  this.SetupFeeInCents &&  this._setupFeeInCents.Count > 0)
-            {
-                xmlWriter.WriteStartElement("setup_fee_in_cents");
-                foreach (KeyValuePair<string, int> d in this.SetupFeeInCents)
-                {
-                    xmlWriter.WriteElementString(d.Key, d.Value.ToString());
-                }
-                xmlWriter.WriteEndElement();
+                xmlWriter.WriteElementString("trial_interval_unit", TrialIntervalUnit.ToString().EnumNameToTransportCase());
+                xmlWriter.WriteElementString("trial_interval_length", TrialIntervalLength.AsString());
             }
 
-            if (null != this.UnitAmountInCents && this._unitAmountInCents.Count > 0)
-            {
-                xmlWriter.WriteStartElement("unit_amount_in_cents");
-                foreach (KeyValuePair<string, int> d in UnitAmountInCents)
-                {
-                    xmlWriter.WriteElementString(d.Key, d.Value.ToString());
-                }
-                xmlWriter.WriteEndElement();
-            }
+            xmlWriter.WriteIfCollectionHasAny("setup_fee_in_cents", SetupFeeInCents, pair => pair.Key, pair => pair.Value.AsString());
 
-            if (this.TotalBillingCycles > 0)
-                xmlWriter.WriteElementString("total_billing_cycles", this.TotalBillingCycles.ToString());
-            if (null != this.UnitName && this.UnitName.Length > 0)
-                xmlWriter.WriteElementString("unit_name", this.UnitName);
+            xmlWriter.WriteIfCollectionHasAny("unit_amount_in_cents", UnitAmountInCents, pair => pair.Key, pair => pair.Value.AsString());
 
-            if (null != this.DisplayDonationAmounts && this.DisplayDonationAmounts.HasValue)
-                xmlWriter.WriteElementString("display_donation_amounts", this.DisplayDonationAmounts.ToString());
+            if (TotalBillingCycles.HasValue && TotalBillingCycles > 0)
+                xmlWriter.WriteElementString("total_billing_cycles", TotalBillingCycles.Value.AsString());
 
-            if (null != this.DisplayQuantity && this.DisplayQuantity.HasValue)
-                xmlWriter.WriteElementString("display_quantity", this.DisplayQuantity.ToString());
+            xmlWriter.WriteStringIfValid("unit_name", UnitName);
 
-            if (null != this.DisplayPhoneNumber && this.DisplayPhoneNumber.HasValue)
-                xmlWriter.WriteElementString("display_phone_number", this.DisplayPhoneNumber.ToString());
+            if (DisplayDonationAmounts.HasValue)
+                xmlWriter.WriteElementString("display_donation_amounts", DisplayDonationAmounts.Value.AsString());
 
-            if (null != this.BypassHostedConfirmation && this.BypassHostedConfirmation.HasValue)
-                xmlWriter.WriteElementString("bypass_hosted_confirmation", this.BypassHostedConfirmation.ToString());
+            if (DisplayQuantity.HasValue)
+                xmlWriter.WriteElementString("display_quantity", DisplayQuantity.Value.AsString());
 
-            if (null != this.SuccessUrl && this.SuccessUrl.Length > 0)
-                xmlWriter.WriteElementString("success_url", this.SuccessUrl);
-            if (null != this.CancelUrl && this.CancelUrl.Length > 0)
-                xmlWriter.WriteElementString("cancel_url", this.CancelUrl);
+            if (DisplayPhoneNumber.HasValue)
+                xmlWriter.WriteElementString("display_phone_number", DisplayPhoneNumber.Value.AsString());
+
+            if (BypassHostedConfirmation.HasValue)
+                xmlWriter.WriteElementString("bypass_hosted_confirmation", BypassHostedConfirmation.Value.AsString());
+
+            if(TaxExempt.HasValue)
+                xmlWriter.WriteElementString("tax_exempt", TaxExempt.Value.AsString());
+
+            xmlWriter.WriteStringIfValid("success_url", SuccessUrl);
+            xmlWriter.WriteStringIfValid("cancel_url", CancelUrl);
 
             xmlWriter.WriteEndElement();
         }
@@ -355,27 +333,53 @@ namespace Recurly
 
         public override string ToString()
         {
-            return "Recurly Plan: " + this.PlanCode;
+            return "Recurly Plan: " + PlanCode;
         }
 
         public override bool Equals(object obj)
         {
-            if (obj is Plan)
-                return Equals((Plan)obj);
-            else
-                return false;
+            var plan = obj as Plan;
+            return plan != null && Equals(plan);
         }
 
         public bool Equals(Plan plan)
         {
-            return this.PlanCode == plan.PlanCode;
+            return PlanCode == plan.PlanCode;
         }
 
         public override int GetHashCode()
         {
-            return this.PlanCode.GetHashCode();
+            return PlanCode.GetHashCode();
         }
 
         #endregion
+    }
+
+    public sealed class Plans
+    {
+        /// <summary>
+        /// Retrieves a list of all active plans
+        /// </summary>
+        /// <returns></returns>
+        public static RecurlyList<Plan> List()
+        {
+            return new PlanList(Plan.UrlPrefix);
+        }
+
+        /// <summary>
+        /// Retrieves a Plan
+        /// </summary>
+        /// <param name="planCode"></param>
+        /// <returns></returns>
+        public static Plan Get(string planCode)
+        {
+            var plan = new Plan();
+
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
+                Plan.UrlPrefix + Uri.EscapeUriString(planCode),
+                plan.ReadXml);
+
+            return statusCode == HttpStatusCode.NotFound ? null : plan;
+        }
     }
 }

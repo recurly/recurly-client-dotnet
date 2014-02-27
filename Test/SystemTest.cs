@@ -1,20 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Recurly;
-using NUnit.Framework;
+﻿using FluentAssertions;
+using Recurly.Configuration;
+using Xunit;
 
 namespace Recurly.Test
 {
-    [TestFixture]
     public class SystemTest
     {
-        [Test]
-        public void CheckConfigFile()
+        [Fact]
+        public void Config_file_is_present_and_correct()
         {
-            Assert.IsNotEmpty(Configuration.Section.Current.ApiKey);
-            Assert.IsNotEmpty(Configuration.Section.Current.PrivateKey);
-            Assert.IsNotEmpty(Configuration.Section.Current.Subdomain);
+            Section.Current.ApiKey.Should().NotBeNullOrEmpty();
+            Section.Current.PrivateKey.Should().NotBeNullOrEmpty();
+            Section.Current.Subdomain.Should().NotBeNullOrEmpty();
+            Section.Current.PageSize.Should().NotBe(default(int));
         }
     }
 }

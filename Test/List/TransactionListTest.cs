@@ -1,143 +1,81 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Recurly;
-using NUnit.Framework;
+﻿using FluentAssertions;
+using Xunit;
 
 namespace Recurly.Test
 {
-    [TestFixture]
-    public class TransactionListTest
+    public class TransactionListTest : BaseTest
     {
-
-
-        [Test]
+        [Fact]
         public void ListAllTransactions()
         {
-            for (int x = 0; x < 5; x++)
+            for (var x = 0; x < 5; x++)
             {
-                String a = Factories.GetMockAccountName();
-                Account acct = new Account(a, "New Txn", "User",
-                    "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
-                acct.Create();
-
-                Transaction t = new Transaction(acct.AccountCode, 3000 + x, "USD");
-
-                t.Create();
-
+                var account = CreateNewAccountWithBillingInfo();
+                var transaction = new Transaction(account.AccountCode, 3000 + x, "USD");
+                transaction.Create();
             }
 
-            TransactionList list = TransactionList.GetTransactions();
-
-            Assert.IsTrue(list.Count > 0);
+            var transactions = Transactions.List();
+            transactions.Should().NotBeEmpty();
         }
 
-        [Test]
+        [Fact]
         public void ListSuccessfulTransactions()
         {
-
-            for (int x = 0; x < 2; x++)
+            for (var x = 0; x < 2; x++)
             {
-                String a = Factories.GetMockAccountName();
-                Account acct = new Account(a, "New Txn", "User",
-                    "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
-                acct.Create();
-
-                Transaction t = new Transaction(acct.AccountCode, 3000 + x, "USD");
-
-                t.Create();
-
+                var account = CreateNewAccountWithBillingInfo();
+                var transaction = new Transaction(account.AccountCode, 3000 + x, "USD");
+                transaction.Create();
             }
 
-            TransactionList list = TransactionList.GetTransactions(TransactionList.TransactionState.successful);
-
-            Assert.IsTrue(list.Count > 0);
-
+            var transactions = Transactions.List(TransactionList.TransactionState.Successful);
+            transactions.Should().NotBeEmpty();
         }
 
-        [Test]
-        public void ListFailedTransactions()
-        {
-            Assert.Fail("Not written");
-        }
-
-        [Test]
+        [Fact]
         public void ListVoidedTransactions()
         {
-            for (int x = 0; x < 2; x++)
+            for (var x = 0; x < 2; x++)
             {
-                String a = Factories.GetMockAccountName();
-                Account acct = new Account(a, "New Txn", "User",
-                    "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
-                acct.Create();
-
-                Transaction t = new Transaction(acct.AccountCode, 3000 + x, "USD");
-
-                t.Create();
-                t.Refund();
+                var account = CreateNewAccountWithBillingInfo();
+                var transaction = new Transaction(account.AccountCode, 3000 + x, "USD");
+                transaction.Create();
+                transaction.Refund();
             }
 
-            TransactionList list = TransactionList.GetTransactions(TransactionList.TransactionState.successful);
-
-            Assert.IsTrue(list.Count > 0);
+            var list = Transactions.List(TransactionList.TransactionState.Voided);
+            list.Should().NotBeEmpty();
         }
 
-        [Test]
-        public void ListAuthorizationTransactions()
-        {
-            Assert.Fail("Not written");
-        }
-
-        [Test]
+        [Fact]
         public void ListRefundedTransactions()
         {
-            for (int x = 0; x < 2; x++)
+            for (var x = 0; x < 2; x++)
             {
-                String a = Factories.GetMockAccountName();
-                Account acct = new Account(a, "New Txn", "User",
-                    "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
-                acct.Create();
-
-                Transaction t = new Transaction(acct.AccountCode, 3000 + x, "USD");
-
-                t.Create();
-
-                t.Refund(1500);
-
-
+                var account = CreateNewAccountWithBillingInfo();
+                var transaction = new Transaction(account.AccountCode, 3000 + x, "USD");
+                transaction.Create();
+                transaction.Refund(1500);
             }
 
-            TransactionList list = TransactionList.GetTransactions(TransactionList.TransactionState.successful);
-
-            Assert.IsTrue(list.Count > 0);
+            var list = Transactions.List(type:TransactionList.TransactionType.Refund);
+            list.Should().NotBeEmpty();
         }
 
-        [Test]
-        public void ListPurchaseTransactions()
-        {
-            Assert.Fail("Not written");
-        }
-
-        [Test]
+        [Fact]
         public void ListTransactionsForAccount()
         {
+            var account = CreateNewAccountWithBillingInfo();
 
-            String a = Factories.GetMockAccountName();
-            Account acct = new Account(a, "New Txn", "User",
-                "4111111111111111", DateTime.Now.Month, DateTime.Now.Year + 1);
-            acct.Create();
+            var transaction1 = new Transaction(account.AccountCode, 3000, "USD");
+            transaction1.Create();
 
-            Transaction t = new Transaction(acct.AccountCode, 3000, "USD");
-            t.Create();
-
-            Transaction t2 = new Transaction(acct.AccountCode, 200, "USD");
-            t2.Create();
-
-
-            TransactionList list = acct.GetTransactions();
-            Assert.IsTrue(list.Count > 0);
-
+            var transaction2 = new Transaction(account.AccountCode, 200, "USD");
+            transaction2.Create();
+            
+            var list = account.GetTransactions();
+            list.Should().NotBeEmpty();
         }
-
     }
 }

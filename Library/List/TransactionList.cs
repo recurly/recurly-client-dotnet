@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Xml;
-using System.Net;
 
 namespace Recurly
 {
@@ -10,58 +7,55 @@ namespace Recurly
     {
         public enum TransactionState : short
         {
-            all = 0,
-            successful,
-            failed,
-            voided
+            All = 0,
+            Successful,
+            Failed,
+            Voided
         }
 
         public enum TransactionType : short
         {
-            all = 0,
-            authorization,
-            purchase,
-            refund
+            All = 0,
+            Authorization,
+            Purchase,
+            Refund
         }
 
-        internal TransactionList() : base() { }
-
-        internal TransactionList(string baseUrl)
-            : base(Client.HttpRequestMethod.Get, baseUrl)
+        internal TransactionList()
         {
+        }
+
+        internal TransactionList(string baseUrl) : base(Client.HttpRequestMethod.Get, baseUrl)
+        {
+        }
+
+        public override RecurlyList<Transaction> Start
+        {
+            get { return HasStartPage() ? new TransactionList(StartUrl) : RecurlyList.Empty<Transaction>(); }
+        }
+
+        public override RecurlyList<Transaction> Next
+        {
+            get { return HasNextPage() ? new TransactionList(NextUrl) : RecurlyList.Empty<Transaction>(); }
+        }
+
+        public override RecurlyList<Transaction> Prev
+        {
+            get { return HasPrevPage() ? new TransactionList(PrevUrl) : RecurlyList.Empty<Transaction>(); }
         }
 
         internal override void ReadXml(XmlTextReader reader)
         {
             while (reader.Read())
             {
-                if (reader.Name.Equals("transactions") &&
-                    reader.NodeType == XmlNodeType.EndElement)
+                if (reader.Name == "transactions" && reader.NodeType == XmlNodeType.EndElement)
                     break;
 
-                if (reader.NodeType == XmlNodeType.Element && reader.Name.Equals("transaction"))
+                if (reader.NodeType == XmlNodeType.Element && reader.Name == "transaction")
                 {
-                    this.Add(new Transaction(reader));
+                    Add(new Transaction(reader));
                 }
             }
-
-        }
-
-
-
-        /// <summary>
-        /// Lists transactions by state and type. Defaults to all.
-        /// </summary>
-        /// <param name="state"></param>
-        /// <param name="type"></param>
-        /// <returns></returns>
-        public static TransactionList GetTransactions(TransactionState state = TransactionState.all,
-            TransactionType type = TransactionType.all)
-        {
-            return new TransactionList("/transactions/?" +
-                (state != TransactionState.all ? "state=" + System.Uri.EscapeUriString(state.ToString()) : "")
-                + (type != TransactionType.all ? "&type=" + System.Uri.EscapeUriString(type.ToString()) : "")
-            );
         }
     }
 }

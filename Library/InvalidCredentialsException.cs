@@ -1,7 +1,4 @@
-﻿using System;
-using System.Text;
-
-namespace Recurly
+﻿namespace Recurly
 {
     /// <summary>
     /// The API credentials for Recurly are invalid.

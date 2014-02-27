@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net;
-using System.Text;
 using System.Xml;
 
 namespace Recurly
 {
-    public class AddOn
+    public class AddOn : RecurlyEntity
     {
 
-        public string PlanCode {get; private set; }
+        public string PlanCode { get; private set; }
         public string AddOnCode { get; set; }
         public string Name { get; set; }
 
@@ -38,9 +36,9 @@ namespace Recurly
 
         internal AddOn(string planCode, string addOnCode, string name)
         {
-            this.PlanCode = planCode;
-            this.AddOnCode = addOnCode;
-            this.Name = name;
+            PlanCode = planCode;
+            AddOnCode = addOnCode;
+            Name = name;
         }
 
         #endregion
@@ -50,10 +48,10 @@ namespace Recurly
         /// </summary>
         public void Create()
         {
-            Client.PerformRequest(Client.HttpRequestMethod.Post,
-                UrlPrefix + System.Uri.EscapeUriString(this.PlanCode) + UrlPostfix + System.Uri.EscapeUriString(this.AddOnCode),
-                new Client.WriteXmlDelegate(this.WriteXml),
-                new Client.ReadXmlDelegate(this.ReadXml));
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
+                UrlPrefix + Uri.EscapeUriString(PlanCode) + UrlPostfix + Uri.EscapeUriString(AddOnCode),
+                WriteXml,
+                ReadXml);
         }
 
         /// <summary>
@@ -61,10 +59,10 @@ namespace Recurly
         /// </summary>
         public void Update()
         {
-            Client.PerformRequest(Client.HttpRequestMethod.Put,
-                UrlPrefix + System.Uri.EscapeUriString(this.PlanCode) + UrlPostfix + System.Uri.EscapeUriString(this.AddOnCode),
-                new Client.WriteXmlDelegate(this.WriteXml),
-                new Client.ReadXmlDelegate(this.ReadXml));
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
+                UrlPrefix + Uri.EscapeUriString(PlanCode) + UrlPostfix + Uri.EscapeUriString(AddOnCode),
+                WriteXml,
+                ReadXml);
         }
 
         /// <summary>
@@ -72,19 +70,17 @@ namespace Recurly
         /// </summary>
         public void Deactivate()
         {
-            Client.PerformRequest(Client.HttpRequestMethod.Delete, UrlPrefix + System.Uri.EscapeUriString(this.PlanCode) +
-                UrlPostfix + System.Uri.EscapeUriString(this.AddOnCode));
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Delete,
+                UrlPrefix + Uri.EscapeUriString(PlanCode) + UrlPostfix + Uri.EscapeUriString(AddOnCode));
         }
-
-
         
 
         #region Read and Write XML documents
 
         internal void ReadXmlUnitAmount(XmlTextReader reader)
         {
-            if (this.UnitAmountInCents == null)
-                this.UnitAmountInCents = new Dictionary<string, int>();
+            if (UnitAmountInCents == null)
+                UnitAmountInCents = new Dictionary<string, int>();
 
             while (reader.Read())
             {
@@ -93,12 +89,12 @@ namespace Recurly
 
                 if (reader.NodeType == XmlNodeType.Element)
                 {
-                    this.UnitAmountInCents.Add(reader.Name, reader.ReadElementContentAsInt());
+                    UnitAmountInCents.Add(reader.Name, reader.ReadElementContentAsInt());
                 }
             }
         }
 
-        internal void ReadXml(XmlTextReader reader)
+        internal override void ReadXml(XmlTextReader reader)
         {
             while (reader.Read())
             {
@@ -106,56 +102,48 @@ namespace Recurly
                 if (reader.Name == "add_on" && reader.NodeType == XmlNodeType.EndElement)
                     break;
 
-                if (reader.NodeType == XmlNodeType.Element)
+                if (reader.NodeType != XmlNodeType.Element) continue;
+
+                switch (reader.Name)
                 {
-                    switch (reader.Name)
-                    {
 
-                        case "add_on_code":
-                            this.AddOnCode = reader.ReadElementContentAsString();
-                            break;
+                    case "add_on_code":
+                        AddOnCode = reader.ReadElementContentAsString();
+                        break;
 
-                        case "name":
-                            this.Name = reader.ReadElementContentAsString();
-                            break;
+                    case "name":
+                        Name = reader.ReadElementContentAsString();
+                        break;
 
-                        case "display_quantity_on_hosted_page":
-                            this.DisplayQuantityOnHostedPage = reader.ReadElementContentAsBoolean();
-                            break;
+                    case "display_quantity_on_hosted_page":
+                        DisplayQuantityOnHostedPage = reader.ReadElementContentAsBoolean();
+                        break;
 
-                        case "default_quantity":
-                            this.DefaultQuantity = reader.ReadElementContentAsInt();
-                            break;
+                    case "default_quantity":
+                        DefaultQuantity = reader.ReadElementContentAsInt();
+                        break;
 
-                        case "created_at":
-                            this.CreatedAt = reader.ReadElementContentAsDateTime();
-                            break;
+                    case "created_at":
+                        CreatedAt = reader.ReadElementContentAsDateTime();
+                        break;
 
-                        case "unit_amount_in_cents":
-                            ReadXmlUnitAmount(reader);
-                            break;
+                    case "unit_amount_in_cents":
+                        ReadXmlUnitAmount(reader);
+                        break;
 
-                    }
                 }
             }
         }
 
-        internal void WriteXml(XmlTextWriter xmlWriter)
+        internal override void WriteXml(XmlTextWriter xmlWriter)
         {
             xmlWriter.WriteStartElement("add_on");
 
-            xmlWriter.WriteElementString("add_on_code", this.PlanCode);
-            xmlWriter.WriteElementString("name", this.Name);
+            xmlWriter.WriteElementString("add_on_code", PlanCode);
+            xmlWriter.WriteElementString("name", Name);
 
-            if (null != this.UnitAmountInCents)
-            {
-                xmlWriter.WriteStartElement("unit_amount_in_cents");
-                foreach (KeyValuePair<string, int> d in UnitAmountInCents)
-                {
-                    xmlWriter.WriteElementString(d.Key, d.Value.ToString());
-                }
-                xmlWriter.WriteEndElement();
-            }
+            xmlWriter.WriteIfCollectionHasAny("unit_amount_in_cents", UnitAmountInCents, pair => pair.Key,
+                pair => pair.Value.AsString());
 
             xmlWriter.WriteEndElement();
         }
@@ -167,25 +155,23 @@ namespace Recurly
 
         public override string ToString()
         {
-            return "Recurly Plan: " + this.PlanCode;
+            return "Recurly Plan: " + PlanCode;
         }
 
         public override bool Equals(object obj)
         {
-            if (obj is Plan)
-                return Equals((Plan)obj);
-            else
-                return false;
+            var plan = obj as Plan;
+            return plan != null && Equals(plan);
         }
 
         public bool Equals(Plan plan)
         {
-            return this.PlanCode == plan.PlanCode;
+            return PlanCode == plan.PlanCode;
         }
 
         public override int GetHashCode()
         {
-            return this.PlanCode.GetHashCode();
+            return PlanCode.GetHashCode();
         }
 
         #endregion

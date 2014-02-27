@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Net;
-using System.Text;
 using System.Xml;
 
 namespace Recurly
@@ -32,29 +30,27 @@ namespace Recurly
             {
                 try
                 {
-                    this.Field = reader.GetAttribute("field");
+                    Field = reader.GetAttribute("field");
                 }
                 catch (ArgumentOutOfRangeException)
                 { }
                 try
                 {
-                    this.Code = reader.GetAttribute("code");
+                    Code = reader.GetAttribute("code");
                 }
                 catch (ArgumentOutOfRangeException)
                 { }
             }
 
-            this.Message = reader.ReadElementContentAsString();
+            Message = reader.ReadElementContentAsString();
         }
 
         public override string ToString()
         {
-            if (!String.IsNullOrEmpty(this.Field))
-                return String.Format("{0} (Field: {1})", this.Message, this.Field);
-            else if (!String.IsNullOrEmpty(this.Code))
-                return String.Format("{0} (Code: {1})", this.Message, this.Code);
-            else
-                return this.Message;
+            if (!Field.IsNullOrEmpty())
+                return string.Format("{0} (Field: {1})", Message, Field);
+
+            return !Code.IsNullOrEmpty() ? string.Format("{0} (Code: {1})", Message, Code) : Message;
         }
 
         internal static Error[] ReadResponseAndParseErrors(HttpWebResponse response)
@@ -62,13 +58,13 @@ namespace Recurly
             if (response == null)
                 return new Error[0];
 
-            using (Stream responseStream = response.GetResponseStream())
+            using (var responseStream = response.GetResponseStream())
             {
-                List<Error> errors = new List<Error>();
+                var errors = new List<Error>();
 
                 try
                 {
-                    using (XmlTextReader xmlReader = new XmlTextReader(responseStream))
+                    using (var xmlReader = new XmlTextReader(responseStream))
                     {
                         // Parse errors collection
                         while (xmlReader.Read())

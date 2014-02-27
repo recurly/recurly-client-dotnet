@@ -1,46 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Xml;
-using System.Net;
+﻿using System.Xml;
 
 namespace Recurly
 {
     public class AccountList : RecurlyList<Account>
     {
-
-        internal AccountList(string baseUrl)
-            : base(Client.HttpRequestMethod.Get, baseUrl)
+        internal AccountList(string baseUrl) : base(Client.HttpRequestMethod.Get, baseUrl)
         {
         }
 
         internal override void ReadXml(XmlTextReader reader)
         {
-           
             while (reader.Read())
             {
-                if (reader.Name.Equals("accounts") &&
-                    reader.NodeType == XmlNodeType.EndElement)
+                if (reader.Name == "accounts" && reader.NodeType == XmlNodeType.EndElement)
                     break;
 
-                if (reader.NodeType == XmlNodeType.Element && reader.Name.Equals("account"))
+                if (reader.NodeType == XmlNodeType.Element && reader.Name == "account")
                 {
-                    this.Add(new Account(reader));
+                    Add(new Account(reader));
                 }
             }
 
         }
 
-        /// <summary>
-        /// Lists accounts, limited to state
-        /// </summary>
-        /// <param name="state">Account state to retrieve</param>
-        /// <returns></returns>
-        public static AccountList List(Recurly.Account.AccountState state = Recurly.Account.AccountState.active )
+        public override RecurlyList<Account> Start
         {
-            return new AccountList( Account.UrlPrefix + "?state=" + state.ToString() );
+            get { return HasStartPage() ? new AccountList(StartUrl) : RecurlyList.Empty<Account>(); }
         }
 
-    }
+        public override RecurlyList<Account> Next
+        {
+            get { return HasNextPage() ? new AccountList(NextUrl) : RecurlyList.Empty<Account>(); }
+        }
 
+        public override RecurlyList<Account> Prev
+        {
+            get { return HasPrevPage() ? new AccountList(PrevUrl) : RecurlyList.Empty<Account>(); }
+        }
+    }
 }

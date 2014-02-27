@@ -1,37 +1,34 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Xml;
-using System.Text;
-using System.Diagnostics;
 
 namespace Recurly
 {
-    public class Invoice
+    public class Invoice : RecurlyEntity
     {
         // The currently valid Invoice States
         public enum InvoiceState
         {
-            open,
-            collected,
-            failed,
-            past_due
+            Open,
+            Collected,
+            Failed,
+            PastDue
         }
 
         public string AccountCode { get; private set; }
         public string Uuid { get; protected set; }
         public InvoiceState State { get; protected set; }
         public int InvoiceNumber { get; private set; }
-        public string PONumber { get; private set; }
+        public string PoNumber { get; private set; }
         public string VatNumber { get; private set; }
         public int SubtotalInCents { get; private set; }
-        public int TaxInCents {get; protected set; }
+        public int TaxInCents { get; protected set; }
         public int TotalInCents { get; protected set; }
         public string Currency { get; protected set; }
         public DateTime CreatedAt { get; private set; }
-        
-        public AdjustmentList Adjustments { get; private set; }
-        public TransactionList Transactions { get; private set; }
+
+        public RecurlyList<Adjustment> Adjustments { get; private set; }
+        public RecurlyList<Transaction> Transactions { get; private set; }
 
         internal const string UrlPrefix = "/invoices/";
 
@@ -48,48 +45,25 @@ namespace Recurly
         }
 
         /// <summary>
-        /// Look up an Invoice.
-        /// </summary>
-        /// <param name="invoiceNumber">Invoice Number</param>
-        /// <returns></returns>
-        public static Invoice Get(int invoiceNumber)
-        {
-            Invoice invoice = new Invoice();
-
-            HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
-                UrlPrefix + invoiceNumber.ToString(),
-                new Client.ReadXmlDelegate(invoice.ReadXml));
-
-            if (statusCode == HttpStatusCode.NotFound)
-                return null;
-
-            return invoice;
-        }
-
-        /// <summary>
         /// Returns a PDF representation of an invoice
         /// </summary>
         /// <param name="acceptLanguage">Language for invoice, defaults to en-US.</param>
         /// <returns></returns>
-        public byte[] GetPdf( string acceptLanguage="en-US" )
+        public byte[] GetPdf(string acceptLanguage = "en-US")
         {
-             return Client.PerformDownloadRequest(UrlPrefix + InvoiceNumber,
-                "application/pdf", acceptLanguage);
+            return Client.Instance.PerformDownloadRequest(UrlPrefix + InvoiceNumber,
+               "application/pdf", acceptLanguage);
         }
-
-
-        
-
 
         /// <summary>
         /// Marks an invoice as paid successfully
         /// </summary>
         public void MarkSuccessful()
         {
-            Client.PerformRequest(Client.HttpRequestMethod.Put,
-                UrlPrefix + System.Uri.EscapeUriString(InvoiceNumber.ToString()) + "/mark_successful",
-              new Client.ReadXmlDelegate(this.ReadXml) );
-            
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
+                UrlPrefix + InvoiceNumber + "/mark_successful",
+                ReadXml);
+
         }
 
         /// <summary>
@@ -97,10 +71,176 @@ namespace Recurly
         /// </summary>
         public void MarkFailed()
         {
-            Client.PerformRequest(Client.HttpRequestMethod.Put,
-               UrlPrefix + System.Uri.EscapeUriString(InvoiceNumber.ToString()) + "/mark_failed",
-              new Client.ReadXmlDelegate(this.ReadXml) );
-           
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
+               UrlPrefix + InvoiceNumber + "/mark_failed",
+               ReadXml);
+
+        }
+
+        /// <summary>
+        /// Returns the active coupon redemption on this invoice
+        /// </summary>
+        /// <returns></returns>
+        public CouponRedemption GetCoupon()
+        {
+            var cr = new CouponRedemption();
+
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
+                UrlPrefix + InvoiceNumber + "/redemption",
+                cr.ReadXml);
+
+            return statusCode == HttpStatusCode.NotFound ? null : cr;
+        }
+
+        public Invoice Refund(Adjustment adjustment, bool prorate, int quantity = 0)
+        {
+            var refund = new Refund(adjustment, prorate, quantity == 0 ? adjustment.Quantity : quantity);
+
+            var response = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
+                UrlPrefix + InvoiceNumber + "/refund",
+                refund.WriteXml,
+                ReadXml);
+
+            return response == HttpStatusCode.Created ? this : null;
+        }
+
+        #region Read and Write XML documents
+
+        internal override void ReadXml(XmlTextReader reader)
+        {
+            while (reader.Read())
+            {
+                // End of invoice element, get out of here
+                if (reader.Name == "invoice" && reader.NodeType == XmlNodeType.EndElement)
+                    break;
+
+                if (reader.NodeType != XmlNodeType.Element) continue;
+
+                switch (reader.Name)
+                {
+                    case "account":
+                        var href = reader.GetAttribute("href");
+                        AccountCode = Uri.UnescapeDataString(href.Substring(href.LastIndexOf("/") + 1));
+                        break;
+
+                    case "uuid":
+                        Uuid = reader.ReadElementContentAsString();
+                        break;
+
+                    case "state":
+                        State = reader.ReadElementContentAsString().ParseAsEnum<InvoiceState>();
+                        break;
+
+                    case "invoice_number":
+                        int invNumber;
+                        if (Int32.TryParse(reader.ReadElementContentAsString(), out invNumber))
+                            InvoiceNumber = invNumber;
+                        break;
+
+                    case "po_number":
+                        PoNumber = reader.ReadElementContentAsString();
+                        break;
+
+                    case "vat_number":
+                        VatNumber = reader.ReadElementContentAsString();
+                        break;
+
+                    case "subtotal_in_cents":
+                        SubtotalInCents = reader.ReadElementContentAsInt();
+                        break;
+
+                    case "tax_in_cents":
+                        TaxInCents = reader.ReadElementContentAsInt();
+                        break;
+
+                    case "total_in_cents":
+                        TotalInCents = reader.ReadElementContentAsInt();
+                        break;
+
+                    case "currency":
+                        Currency = reader.ReadElementContentAsString();
+                        break;
+
+                    case "created_at":
+                        CreatedAt = reader.ReadElementContentAsDateTime();
+                        break;
+
+                    case "line_items":
+                        Adjustments.ReadXml(reader);
+                        break;
+
+                    case "transactions":
+                        Transactions.ReadXml(reader);
+                        break;
+
+                }
+            }
+        }
+
+        internal override void WriteXml(XmlTextWriter writer)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region Object Overrides
+
+        public override string ToString()
+        {
+            return "Recurly Invoice: " + Uuid;
+        }
+
+        public override bool Equals(object obj)
+        {
+            var invoice = obj as Invoice;
+            return invoice != null && Equals(invoice);
+        }
+
+        public bool Equals(Invoice invoice)
+        {
+            return Uuid == invoice.Uuid;
+        }
+
+        public override int GetHashCode()
+        {
+            return Uuid.GetHashCode();
+        }
+
+        #endregion
+    }
+
+    public sealed class Invoices
+    {
+        public static RecurlyList<Invoice> List(string accountCode)
+        {
+            return new InvoiceList("/accounts/" + Uri.EscapeUriString(accountCode) + "/invoices");
+        }
+
+        public static RecurlyList<Invoice> List()
+        {
+            return new InvoiceList(Invoice.UrlPrefix);
+        }
+
+        public static RecurlyList<Invoice> List(Invoice.InvoiceState state)
+        {
+            return new InvoiceList(Invoice.UrlPrefix + "?state=" + state.ToString().EnumNameToTransportCase());
+        }
+
+        /// <summary>
+        /// Look up an Invoice.
+        /// </summary>
+        /// <param name="invoiceNumber">Invoice Number</param>
+        /// <returns></returns>
+        public static Invoice Get(int invoiceNumber)
+        {
+            var invoice = new Invoice();
+
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
+                Invoice.UrlPrefix + invoiceNumber,
+                invoice.ReadXml);
+
+            return statusCode == HttpStatusCode.NotFound ? null : invoice;
         }
 
         /// <summary>
@@ -110,139 +250,14 @@ namespace Recurly
         /// <param name="accountCode">Account code</param>
         /// <returns></returns>
         public static Invoice Create(string accountCode)
-        {   
-            Invoice invoice = new Invoice();
-
-            HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Post,
-                "/accounts/" + System.Uri.EscapeUriString(accountCode) + UrlPrefix,
-                new Client.ReadXmlDelegate(invoice.ReadXml));
-
-            if ((int)statusCode == ValidationException.HttpStatusCode)
-                return null;
-
-            return invoice;
-        }
-
-        /// <summary>
-        /// Returns the active coupon redemption on this invoice
-        /// </summary>
-        /// <returns></returns>
-        public CouponRedemption GetCoupon()
         {
-            CouponRedemption cr = new CouponRedemption();
+            var invoice = new Invoice();
 
-            HttpStatusCode statusCode = Client.PerformRequest(Client.HttpRequestMethod.Get,
-                UrlPrefix + System.Uri.EscapeUriString(this.InvoiceNumber.ToString()) + "/redemption",
-                new Client.ReadXmlDelegate(cr.ReadXml));
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
+                "/accounts/" + Uri.EscapeUriString(accountCode) + Invoice.UrlPrefix,
+                invoice.ReadXml);
 
-            if (statusCode == HttpStatusCode.NotFound)
-                return null;
-
-            return cr;
+            return (int)statusCode == ValidationException.HttpStatusCode ? null : invoice;
         }
-
-
-        #region Read and Write XML documents
-
-        internal void ReadXml(XmlTextReader reader)
-        {
-            while (reader.Read())
-            {
-                // End of invoice element, get out of here
-                if (reader.Name == "invoice" && reader.NodeType == XmlNodeType.EndElement)
-                    break;
-
-                if (reader.NodeType == XmlNodeType.Element)
-                {
-                    switch (reader.Name)
-                    {
-                        case "account":
-                            string href = reader.GetAttribute("href");
-                            this.AccountCode = Uri.UnescapeDataString(href.Substring(href.LastIndexOf("/") + 1));
-                            break;
-
-                        case "uuid":
-                            this.Uuid = reader.ReadElementContentAsString();
-                            break;
-
-                        case "state":
-                            this.State = (InvoiceState)Enum.Parse(typeof(InvoiceState), reader.ReadElementContentAsString(), true);
-                            break;
-
-                        case "invoice_number":
-                            int invNumber;
-                            if (Int32.TryParse(reader.ReadElementContentAsString(), out invNumber))
-                                this.InvoiceNumber = invNumber;
-                            break;
-
-                        case "po_number":
-                            this.PONumber = reader.ReadElementContentAsString();
-                            break;
-
-                        case "vat_number":
-                            this.VatNumber = reader.ReadElementContentAsString();
-                            break;
-
-                        case "subtotal_in_cents":
-                            this.SubtotalInCents = reader.ReadElementContentAsInt();
-                            break;
-
-                        case "tax_in_cents":
-                            this.TaxInCents = reader.ReadElementContentAsInt();
-                            break;
-
-                        case "total_in_cents":
-                            this.TotalInCents = reader.ReadElementContentAsInt();
-                            break;
-
-                        case "currency":
-                            this.Currency = reader.ReadElementContentAsString();
-                            break;
-
-                        case "created_at":
-                            this.CreatedAt = reader.ReadElementContentAsDateTime();
-                            break;
-
-                        case "line_items":
-                            Adjustments.ReadXml(reader);
-                            break;
-
-                        case "transactions":
-                            Transactions.ReadXml(reader);
-                            break;
-
-                    }
-                }
-            }
-        }
-
-        #endregion
-
-        #region Object Overrides
-
-        public override string ToString()
-        {
-            return "Recurly Invoice: " + this.Uuid;
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (obj is Invoice)
-                return Equals((Invoice)obj);
-            else
-                return false;
-        }
-
-        public bool Equals(Invoice invoice)
-        {
-            return this.Uuid == invoice.Uuid;
-        }
-
-        public override int GetHashCode()
-        {
-            return this.Uuid.GetHashCode();
-        }
-
-        #endregion
     }
 }

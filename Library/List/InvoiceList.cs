@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Xml;
-using System.Net;
+﻿using System.Xml;
 
 namespace Recurly
 {
@@ -14,37 +10,36 @@ namespace Recurly
         {
         }
 
+        public override RecurlyList<Invoice> Start
+        {
+            get { return HasStartPage() ? new InvoiceList(StartUrl) : RecurlyList.Empty<Invoice>(); }
+        }
+
+        public override RecurlyList<Invoice> Next
+        {
+            get { return HasNextPage() ? new InvoiceList(NextUrl) : RecurlyList.Empty<Invoice>(); }
+        }
+
+        public override RecurlyList<Invoice> Prev
+        {
+            get { return HasPrevPage() ? new InvoiceList(PrevUrl) : RecurlyList.Empty<Invoice>(); }
+        }
+
         internal override void ReadXml(XmlTextReader reader)
         {
 
             while (reader.Read())
             {
-                if (reader.Name.Equals("invoices") &&
-                    reader.NodeType == XmlNodeType.EndElement)
+                if (reader.Name == "invoices" && reader.NodeType == XmlNodeType.EndElement)
                     break;
 
                 if (reader.NodeType == XmlNodeType.Element)
                 {
-                    this.Add(new Invoice(reader));
+                    Add(new Invoice(reader));
                     break;
                 }
             }
 
-        }
-
-        public static InvoiceList GetInvoices(string accountCode)
-        {
-            return new InvoiceList("/accounts/" + System.Uri.EscapeUriString(accountCode) + "/invoices");
-        }
-
-        public static InvoiceList GetInvoices()
-        {
-            return new InvoiceList(Invoice.UrlPrefix);
-        }
-
-        public static InvoiceList GetInvoices(Invoice.InvoiceState state)
-        {
-            return new InvoiceList(Invoice.UrlPrefix + "?state=" + state.ToString());
         }
     }
 
