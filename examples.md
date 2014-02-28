@@ -1,31 +1,38 @@
 #Accounts
 
-##List Accounts
+- [List](#list-accounts)
+- [Get](#get-account)
+- [Create](#create-account)
+- [Close](#close-account)
+- [Reopen](#reopen-account)
+- [List Account Notes](#list-account-notes)
+
+###List Accounts
 ```c#
 var accounts = Accounts.List();
-while(accounts.Any())
+while (accounts.Any())
 {
-	foreach(var account in accounts)
+	foreach (var account in accounts)
 		Console.WriteLine(account);
 	accounts = accounts.Next;
 }
 ```
 
-##Get Account
+###Get Account
 ```c#
 try
 {
 	var account = Accounts.Get("1");
 	Console.WriteLine("Account " + account);
 }
-catch(NotFoundException e)
+catch (NotFoundException e)
 {
 	Console.WriteLine("Account not found.");
 }
 ```
 **Please note**: the client library will raise an exception if the account is not found.
 
-##Create Account
+###Create Account
 ```c#
 var account = new Account("1")
 {
@@ -36,76 +43,93 @@ var account = new Account("1")
 account.Create();
 ```
 
-##Close Account
+###Close Account
 ```c#
 var account = Accounts.Get("1");
 account.Close();
 ```
 
-##Reopen Account
+###Reopen Account
 ```c#
 var account = Accounts.Get("1");
 account.Reopen();
 ```
-##List Account Notes
+
+###List Account Notes
 ```c#
 var account = Accounts.Get("1");
 var notes = account.GetNotes();
-while(notes.Any())
+while (notes.Any())
 {
-	foreach(var note in notes)
+	foreach (var note in notes)
 		Console.WriteLine("Note: " + note.Message);
 	notes = notes.Next;
 }
 ```
 
-#Adjustments
-##List and account's adjustments
+#Account Adjustments
+
+- [List](#list-adjustments)
+- [Get](#get-adjustment)
+- [Create](#create-adjustment)
+- [Delete](#delete-adjustment)
+
+###List adjustments
+
 ```c#
 var account = Accounts.Get("1");
 var adjustments = account.GetAdjustments();
-while(adjustments.Any())
+while (adjustments.Any())
 {
-	foreach(var adjustment in adjustments)
+	foreach (var adjustment in adjustments)
 		Console.WriteLine("Adjustment: " + adjustment);
 	adjustments = adjustments.Next;
 }
 ```
 
-##Get an adjustment
+###Get adjustment
 
 ```c#
 var adjustment = Adjustments.Get("123456789");
 Console.WriteLine("Adjustment: " + adjustment);
 ```
 
-##Create a charge or credit
+###Create adjustment
+
 ```c#
 var account = Accounts.Get("1");
 var adjustment = account.CreateAdjustment(
 	"Charge for extra bandwidth", // description
-	5000, // unit_amount_in_cents
-	"USD", // currency
-	1, // quantity
-	"bandwidth", // accounting_code
-	false); // tax_exempt
+	5000,                         // unit_amount_in_cents
+	"USD",                        // currency
+	1,                            // quantity
+	"bandwidth",                  // accounting_code
+	false);                       // tax_exempt
 adjustment.Create();
 ```
 
-##Delete an adjustment
+###Delete adjustment
+
 ```c#
 var adjustment = Adjustments.Get("123456789");
 adjustment.Delete()
 ```
 
 #BillingInfo
-##Lookup an account's billing info
+
+- [Get](#get-billing-info)
+- [Update](#update-billing-info)
+- [Delete](#delete-billing-info)
+
+###Get Billing Info
+
 ```c#
 var account = Accounts.Get("1");
 var info = account.BillingInfo;
 ```
 
-##Update an account's billing info
+###Update billing info
+
 ```c#
 var account = Accounts.Get("1");
 var info = account.BillingInfo;
@@ -118,31 +142,37 @@ info.ExpirationYear = 2015;
 info.Update();
 ```
 
-##Clear an account's billing info
+###Delete billing info
+
 ```c#
 var account = Accounts.Get("1");
-account.ClearBillingInfo();
+account.ClearBillingInfo(); // TODO rename to Delete()
 ```
 
-#Coupon
+#Coupons
 
-##List active coupons
+- [List](#list-active-coupons)
+- [Get](#get-coupon)
+- [Create](#create-coupon)
+- [Deactivate](#deactivate-coupon)
+
+###List active coupons
 ```c#
 var coupons = Coupons.List();
-while(coupons.Any())
+while (coupons.Any())
 {
-	foreach(var coupon in coupons)
+	foreach (var coupon in coupons)
 		Console.WriteLine("Coupon: " + coupon);
 	coupons = coupons.Next;
 }
 ```
 
-##Lookup a coupon
+###Get Coupon
 ```c#
 var coupon = Coupons.Get("special");
 ```
 
-##Create coupon
+###Create coupon
 ```c#
 // $2 off...
 var coupon = new Coupon("special", "Special $2 off coupon", new Dictionary<string, int> {{"USD", 200}});
@@ -162,7 +192,7 @@ coupon.Plans.Add("silver");
 coupon.Create();
 ```
 
-##Deactivate coupon
+###Deactivate coupon
 ```c#
 var coupon = Coupons.Get("special");
 coupon.Deactivate();

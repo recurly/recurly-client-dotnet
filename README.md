@@ -1,20 +1,25 @@
 # Recurly .NET Client
 
-The Recurly .NET Client library is an open source library to interact with Recurly's subscription management from your .NET application. The library interacts with Recurly's [REST API](https://docs.recurly.com/api). This library works with .NET 3.5 and greater and targets v2 of the Recurly API.
+The Official .NET [Recurly API](https://docs.recurly.com/api) client library.
+
+Compatible with .NET >=3.5 and Recurly API v2.
 
 ## Installation
 
-The easiest way to get the source code is to click the **Download Source** button at the top of this page. Alternatively, you can use git.
-With git installed, the easiest way to download the Recurly .NET Client is with the git command:
+Visit the [Releases](https://github.com/recurly/recurly-client-net/releases) page to download the latest version.
 
-    git clone git://github.com/recurly/recurly-client-net.git C:\path\to\recurly
+Alternatively, you can use [git](http://git-scm.com/):
 
-If you do not have git and have some interest in learning about a wonderful source control tool, please check out the
+```sh
+git clone git://github.com/recurly/recurly-client-net.git C:\path\to\recurly
+```
+
+For more information about getting started with git, please check out the
 [Github Guide for Windows](http://github.com/guides/using-git-and-github-for-the-windows-for-newbies).
 
 ## Configuration
 
-Your API Key, site subdomain, private key, and (optionally) page size setting can be specified in your **app.config** or **web.config** file:
+Specify your [API Key, site subdomain, private key](https://app.recurly.com/go/developer/api_access), and (optionally) page size setting in your `app.config` or `web.config` file:
 
 ```xml
 <?xml version="1.0" encoding="utf-8" ?>
@@ -22,18 +27,18 @@ Your API Key, site subdomain, private key, and (optionally) page size setting ca
   <configSections>
     <section name="recurly" type="Recurly.Configuration.RecurlySection,Recurly"/>
   </configSections>
-  
-  <recurly 
+
+  <recurly
     apiKey="123456789012345678901234567890ab"
     privateKey="123456789012345678901234567890cd"
     subdomain="company"
-	pageSize="50" /> <!-- 50 is the default -->
-  
+	pageSize="50" /> <!-- optional. 50 is the default -->
+
 </configuration>
 ```
 
 ## Getting Started
-Add the Recurly project from the Library folder to your solution and reference it in the projects that will make calls to the Recurly service. Add your settings to your config file and you can start interacting with Recurly!
+Add the Recurly project from the Library folder to your solution and reference it in the projects that will make calls to the Recurly service.
 
 ## Example usage
 To create a new Recurly account with account code and name:
@@ -81,12 +86,9 @@ Redeem that coupon on an account that uses US dollars, getting a CouponRedemptio
 var redemption = account.RedeemCoupon("WINTER", "USD");
 ```
 
-All the major sections of the API (Accounts, Invoices, Transactions, etc.) have static references for getting or listing their types, and concrete implementations for manipulating concrete objects.
+Each section of the API (Accounts, Invoices, Transactions, etc.) has static references for getting or listing their types and concrete implementations for manipulating concrete objects.
 
-
-## To Do
-* Final review against API specs
-
+Many more detailed C# examples are [available here](./examples.md).
 
 ## API Documentation
 
