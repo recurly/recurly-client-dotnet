@@ -245,10 +245,10 @@ namespace Recurly
         /// Returns the active coupon redemption on this account
         /// </summary>
         /// <returns></returns>
-        public CouponRedemption GetActiveCoupon()
+        public CouponRedemption GetActiveRedemption()
         {
             var cr = new CouponRedemption();
-            
+
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
                 UrlPrefix + Uri.EscapeUriString(AccountCode) + "/redemption",
                 cr.ReadXml);

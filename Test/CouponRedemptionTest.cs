@@ -37,7 +37,7 @@ namespace Recurly.Test
             var redemption = account.RedeemCoupon(coupon.CouponCode, "USD");
             redemption.Should().NotBeNull();
 
-            redemption = account.GetActiveCoupon();
+            redemption = account.GetActiveRedemption();
             redemption.CouponCode.Should().Be(coupon.CouponCode);
             redemption.AccountCode.Should().Be(account.AccountCode);
             redemption.CreatedAt.Should().NotBe(default(DateTime));
@@ -55,10 +55,10 @@ namespace Recurly.Test
 
             var redemption = account.RedeemCoupon(coupon.CouponCode, "USD");
             redemption.Should().NotBeNull();
-            
+
             redemption.Delete();
 
-            Action getCoupon = () => account.GetActiveCoupon();
+            Action getCoupon = () => account.GetActiveRedemption();
             getCoupon.ShouldThrow<NotFoundException>();
         }
 
