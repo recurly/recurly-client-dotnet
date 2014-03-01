@@ -17,6 +17,10 @@ git clone git://github.com/recurly/recurly-client-net.git C:\path\to\recurly
 For more information about getting started with git, please check out the
 [Github Guide for Windows](http://github.com/guides/using-git-and-github-for-the-windows-for-newbies).
 
+## Getting Started
+
+First [download the latest release](https://github.com/recurly/recurly-client-net/releases). Then either add the `Recurly.dll` or add the Recurly project from the [Library](https://github.com/recurly/recurly-client-net/tree/v2/Library) folder to your solution and reference it in the projects that will make calls to the Recurly service.
+
 ## Configuration
 
 Specify your [API Key, site subdomain, private key](https://app.recurly.com/go/developer/api_access), and (optionally) page size setting in your `app.config` or `web.config` file:
@@ -36,10 +40,6 @@ Specify your [API Key, site subdomain, private key](https://app.recurly.com/go/d
 
 </configuration>
 ```
-
-## Getting Started
-
-First [download the latest release](https://github.com/recurly/recurly-client-net/releases). Then either add the `Recurly.dll` or add the Recurly project from the [Library](https://github.com/recurly/recurly-client-net/tree/v2/Library) folder to your solution and reference it in the projects that will make calls to the Recurly service.
 
 ## Client Documentation
 
