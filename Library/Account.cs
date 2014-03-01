@@ -92,7 +92,7 @@ namespace Recurly
         /// <summary>
         /// Delete an account's billing info.
         /// </summary>
-        public void ClearBillingInfo()
+        public void DeleteBillingInfo()
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Delete,
                 UrlPrefix + Uri.EscapeUriString(AccountCode) + "/billing_info");

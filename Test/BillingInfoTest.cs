@@ -55,11 +55,11 @@ namespace Recurly.Test
 
         [Fact]
         
-        public void ClearBillingInfo()
+        public void DeleteBillingInfo()
         {
             var account = CreateNewAccountWithBillingInfo();
 
-            account.ClearBillingInfo();
+            account.DeleteBillingInfo();
 
             account.BillingInfo.Should().BeNull();
 
