@@ -81,7 +81,7 @@ namespace Recurly
         /// Returns the active coupon redemption on this invoice
         /// </summary>
         /// <returns></returns>
-        public CouponRedemption GetCoupon()
+        public CouponRedemption GetRedemption()
         {
             var cr = new CouponRedemption();
 
