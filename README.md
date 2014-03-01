@@ -41,7 +41,7 @@ Specify your [API Key, site subdomain, private key](https://app.recurly.com/go/d
 Add the Recurly project from the Library folder to your solution and reference it in the projects that will make calls to the Recurly service.
 
 ## Example usage
-To create a new Recurly account with account code and name:
+To create a new Recurly account with `account code` and `name`:
 
 ```c#
 var account = new Account("123")
@@ -52,13 +52,13 @@ var account = new Account("123")
 account.Create();
 ```
 
-To get a Recurly account with account code "123":
+To get a Recurly account with `account code` "123":
 
 ```c#
 var account = Accounts.Get("123");
 ```
 
-List all available accounts and print their account codes:
+List all available accounts and print their `account codes`:
 
 ```c#
 var accounts = Accounts.List();
@@ -80,7 +80,7 @@ var coupon = new Coupon("WINTER", "Winter discount", 10);
 coupon.Create();
 ```
 
-Redeem that coupon on an account that uses US dollars, getting a CouponRedemption object:
+Redeem that coupon on an account that uses US dollars, getting a `CouponRedemption` object:
 
 ```c#
 var redemption = account.RedeemCoupon("WINTER", "USD");
