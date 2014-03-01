@@ -68,12 +68,12 @@ namespace Recurly
         /// <summary>
         /// Deletes this add on, making it inactive
         /// </summary>
-        public void Deactivate()
+        public void Delete()
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Delete,
                 UrlPrefix + Uri.EscapeUriString(PlanCode) + UrlPostfix + Uri.EscapeUriString(AddOnCode));
         }
-        
+
 
         #region Read and Write XML documents
 
