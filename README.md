@@ -8,7 +8,7 @@ Compatible with .NET >=3.5 and Recurly API v2.
 
 Visit the [Releases](https://github.com/recurly/recurly-client-net/releases) page to download the latest version.
 
-Alternatively, you can use [git](http://git-scm.com/):
+Alternatively, you can use use [git](http://git-scm.com/) to work with the latest changes in development.
 
 ```sh
 git clone git://github.com/recurly/recurly-client-net.git C:\path\to\recurly
@@ -38,9 +38,14 @@ Specify your [API Key, site subdomain, private key](https://app.recurly.com/go/d
 ```
 
 ## Getting Started
-Add the Recurly project from the Library folder to your solution and reference it in the projects that will make calls to the Recurly service.
 
-## Example usage
+First [download the latest release](https://github.com/recurly/recurly-client-net/releases). Then either add the `Recurly.dll` or add the Recurly project from the [Library](https://github.com/recurly/recurly-client-net/tree/v2/Library) folder to your solution and reference it in the projects that will make calls to the Recurly service.
+
+## Client Documentation
+
+Full C# API documentation [available here](./examples.md).
+
+### Example usage
 To create an account with `account code` and `name`:
 
 ```c#
@@ -88,8 +93,6 @@ var redemption = account.RedeemCoupon("WINTER", "USD");
 
 Each section of the API (Accounts, Invoices, Transactions, etc.) has static references for getting or listing their types and concrete implementations for manipulating concrete objects.
 
-Many more detailed C# examples are [available here](./examples.md).
-
-## API Documentation
+## Recurly API Documentation
 
 Please see the [Recurly API](https://docs.recurly.com/api) for more information.
