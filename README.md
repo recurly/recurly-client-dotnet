@@ -32,15 +32,16 @@ Your API Key, and site subdomain can be specified in your **web.config** file:
 
 __Please note:__ API credentials changed with version v0.0.4.2. **API Username** and **Environment** are no longer required. **Password** has been renamed to **API Key**.
 
-## To Do
-
-* Write unit tests
-* List/paginate through accounts, transactions, etc
-* Process POST notifications
-* Member variable validation
-* Validate credit card information before submitting request
-
-
 ## API Documentation
 
 Please see the [Recurly API](http://docs.recurly.com/api/basics/) for more information.
+
+## Support
+
+- [https://support.recurly.com](https://support.recurly.com)
+- [stackoverflow](http://stackoverflow.com/questions/tagged/recurly)
+
+## Announcements
+
+- [@recurly](https://twitter.com/recurly)
+- [Google Group Announcements](https://groups.google.com/group/recurly-api)
