@@ -27,6 +27,8 @@
 
 ###List Accounts
 ```c#
+using System.Linq;
+
 var accounts = Accounts.List();
 while (accounts.Any())
 {
@@ -75,6 +77,8 @@ account.Reopen();
 
 ###List Account Notes
 ```c#
+using System.Linq;
+
 var account = Accounts.Get("1");
 var notes = account.GetNotes();
 while (notes.Any())
@@ -97,6 +101,8 @@ while (notes.Any())
 ###List adjustments
 
 ```c#
+using System.Linq;
+
 var account = Accounts.Get("1");
 var adjustments = account.GetAdjustments();
 while (adjustments.Any())
@@ -182,6 +188,8 @@ account.DeleteBillingInfo();
 
 ###List active coupons
 ```c#
+using System.Linq;
+
 var coupons = Coupons.List();
 while (coupons.Any())
 {
@@ -276,6 +284,8 @@ var redemption = invoice.GetRedemption();
 ###List Invoices
 
 ```c#
+using System.Linq;
+
 var invoices = Invoices.List();
 while (invoices.Any())
 {
@@ -287,6 +297,8 @@ while (invoices.Any())
 
 ###List an account's invoices
 ```c#
+using System.Linq;
+
 // Get the list of invoices through the Account
 var account = Accounts.Get("1");
 var invoices = account.GetInvoices();
@@ -350,6 +362,8 @@ invoice = invoice.Refund(adjustment, false, 1); // adjustment, prorate, quantity
 
 ###List plans
 ```c#
+using System.Linq;
+
 var plans = Plans.List();
 while (plans.Any())
 {
@@ -402,6 +416,8 @@ plan.Deactivate();
 
 ###List plan add-ons
 ```c#
+using System.Linq;
+
 var plan = Plans.Get("gold");
 var addons = plan.AddOns;
 while (addons.Any())
@@ -462,6 +478,8 @@ addon.Delete();
 
 ###List Subscriptions
 ```c#
+using System.Linq;
+
 var subscriptions = Subscriptions.List();
 while (subscriptions.Any())
 {
@@ -473,6 +491,8 @@ while (subscriptions.Any())
 
 ###List an account's subscriptions
 ```c#
+using System.Linq;
+
 var account = Accounts.Get("1");
 var subscriptions = account.GetSubscriptions();
 while (subscriptions.Any())
@@ -624,6 +644,8 @@ subscription.ChangeSubscription(Subscription.ChangeTimeframe.Now);
 
 ###List transactions
 ```c#
+using System.Linq;
+
 var transactions = Transactions.List();
 while (transactions.Any())
 {
@@ -641,6 +663,8 @@ var transactions = Transactions.List(TransactionList.TransactionState.Success, T
 
 ###List an account's transactions
 ```c#
+using System.Linq;
+
 var account = Accounts.Get("1");
 var transactions = account.GetTransactions();
 while (transactions.Any())
