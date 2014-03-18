@@ -453,8 +453,7 @@ namespace Recurly
 
             xmlWriter.WriteElementString("plan_code", _planCode);
 
-            // <account> and billing info
-            Account.WriteXml(xmlWriter);
+            xmlWriter.WriteElementString("currency", Currency);
 
             xmlWriter.WriteIfCollectionHasAny("subscription_add_ons", AddOns);
 
@@ -463,7 +462,6 @@ namespace Recurly
             if (UnitAmountInCents.HasValue)
                 xmlWriter.WriteElementString("unit_amount_in_cents", UnitAmountInCents.Value.AsString());
 
-            xmlWriter.WriteElementString("currency", Currency);
             xmlWriter.WriteElementString("quantity", Quantity.AsString());
 
             if (TrialPeriodEndsAt.HasValue)
@@ -484,7 +482,7 @@ namespace Recurly
                 xmlWriter.WriteElementString("net_terms", NetTerms.Value.AsString());
                 xmlWriter.WriteElementString("po_number", PoNumber);
             }
-
+            // <account> and billing info
             Account.WriteXml(xmlWriter);
 
             xmlWriter.WriteEndElement(); // End: subscription
