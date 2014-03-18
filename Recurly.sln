@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2012 for Windows Desktop
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recurly", "Library\Recurly.csproj", "{CA094233-B9A7-4700-A70A-3401E14070B9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recurly.Test", "Test\Recurly.Test.csproj", "{A610420B-4FEB-4590-A4B4-2926B4E52F47}"
