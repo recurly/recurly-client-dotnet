@@ -11,10 +11,16 @@ namespace Recurly
         public string AddOnCode { get; set; }
         public string Name { get; set; }
 
+
+        private Dictionary<string, int> _unitAmountInCents;
         /// <summary>
         /// A dictionary of currencies and values for the add-on amount
         /// </summary>
-        public Dictionary<string, int> UnitAmountInCents { get; set; }
+        public Dictionary<string, int> UnitAmountInCents
+        {
+            get { return _unitAmountInCents ?? (_unitAmountInCents = new Dictionary<string, int>()); }
+        }
+
 
         public int DefaultQuantity { get; set; }
         public bool? DisplayQuantityOnHostedPage { get; set; }
@@ -79,9 +85,6 @@ namespace Recurly
 
         internal void ReadXmlUnitAmount(XmlTextReader reader)
         {
-            if (UnitAmountInCents == null)
-                UnitAmountInCents = new Dictionary<string, int>();
-
             while (reader.Read())
             {
                 if (reader.Name == "unit_amount_in_cents" && reader.NodeType == XmlNodeType.EndElement)
