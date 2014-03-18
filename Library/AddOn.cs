@@ -49,7 +49,7 @@ namespace Recurly
         public void Create()
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
-                UrlPrefix + Uri.EscapeUriString(PlanCode) + UrlPostfix + Uri.EscapeUriString(AddOnCode),
+                UrlPrefix + Uri.EscapeUriString(PlanCode) + UrlPostfix,
                 WriteXml,
                 ReadXml);
         }
