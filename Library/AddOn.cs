@@ -143,7 +143,7 @@ namespace Recurly
         {
             xmlWriter.WriteStartElement("add_on");
 
-            xmlWriter.WriteElementString("add_on_code", PlanCode);
+            xmlWriter.WriteElementString("add_on_code", AddOnCode);
             xmlWriter.WriteElementString("name", Name);
 
             xmlWriter.WriteIfCollectionHasAny("unit_amount_in_cents", UnitAmountInCents, pair => pair.Key,
