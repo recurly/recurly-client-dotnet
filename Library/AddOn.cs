@@ -92,6 +92,7 @@ namespace Recurly
 
                 if (reader.NodeType == XmlNodeType.Element)
                 {
+                    UnitAmountInCents.Remove(reader.Name);
                     UnitAmountInCents.Add(reader.Name, reader.ReadElementContentAsInt());
                 }
             }
