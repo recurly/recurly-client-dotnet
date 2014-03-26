@@ -259,7 +259,7 @@ namespace Recurly.Test
 
         [Fact]
         [Trait("include","y")]
-        public void NewPlanWithAddons()
+        public void CreateSubscriptionPlanWithAddons()
         {
             Plan plan = null;
             Plan plan2 = null;
