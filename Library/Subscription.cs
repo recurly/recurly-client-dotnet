@@ -388,6 +388,8 @@ namespace Recurly
                         break;
 
                     case "subscription_add_ons":
+                        // overwrite existing list with what is in Recurly
+                        AddOns.Clear();
                         var newList = new SubscriptionAddOnList();
                         newList.ReadXml(reader);
                         AddOns.AddRange(newList.All);
@@ -507,8 +509,9 @@ namespace Recurly
 
             xmlWriter.WriteElementString("timeframe", timeframe.ToString().EnumNameToTransportCase());
             xmlWriter.WriteElementString("quantity", Quantity.AsString());
-
             xmlWriter.WriteStringIfValid("plan_code", _planCode);
+            xmlWriter.WriteIfCollectionHasAny("subscription_add_ons", AddOns);
+            xmlWriter.WriteStringIfValid("coupon_code", _couponCode);
 
             if (UnitAmountInCents.HasValue)
                 xmlWriter.WriteElementString("unit_amount_in_cents", UnitAmountInCents.Value.AsString());
@@ -516,8 +519,8 @@ namespace Recurly
             if (CollectionMethod.Like("manual"))
             {
                 xmlWriter.WriteElementString("collection_method", "manual");
-                xmlWriter.WriteElementString("net_terms", "manual");
-                xmlWriter.WriteElementString("po_number", "manual");
+                xmlWriter.WriteElementString("net_terms", NetTerms.Value.AsString());
+                xmlWriter.WriteElementString("po_number", PoNumber);
             }
 
             xmlWriter.WriteEndElement(); // End: subscription
