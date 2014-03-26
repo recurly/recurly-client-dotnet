@@ -50,7 +50,7 @@ namespace Recurly
         }
 
         private Plan _plan;
-        private string _planCode;
+        private string _planCode; // TODO expose publicly, avoid need to hit API for the Plan
 
         public Plan Plan
         {
@@ -184,7 +184,7 @@ namespace Recurly
         }
 
         /// <summary>
-        /// Creates a new subscription
+        /// Creates a new subscription object
         /// </summary>
         /// <param name="account"></param>
         /// <param name="plan"></param>
@@ -199,7 +199,7 @@ namespace Recurly
         }
 
         /// <summary>
-        /// Creates a new subscription, with coupon
+        /// Creates a new subscription object, with coupon
         /// </summary>
         /// <param name="account"></param>
         /// <param name="plan"></param>
@@ -215,6 +215,9 @@ namespace Recurly
             _couponCode = couponCode;
         }
 
+        /// <summary>
+        /// Creates a new subscription on Recurly
+        /// </summary>
         public void Create()
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
