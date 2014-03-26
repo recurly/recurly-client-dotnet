@@ -320,6 +320,8 @@ namespace Recurly
                 if (reader.NodeType != XmlNodeType.Element) continue;
 
                 DateTime dateVal;
+                Int32 billingCycles;
+
                 switch (reader.Name)
                 {
                     case "account":
@@ -410,6 +412,11 @@ namespace Recurly
 
                     case "po_number":
                         PoNumber = reader.ReadElementContentAsString();
+                        break;
+
+                    case "total_billing_cycles":
+                        if (Int32.TryParse(reader.ReadElementContentAsString(), out billingCycles))
+                            TotalBillingCycles = billingCycles;
                         break;
                 }
             }

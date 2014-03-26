@@ -65,10 +65,13 @@ namespace Recurly.Test
             var account = CreateNewAccountWithBillingInfo();
 
             var sub = new Subscription(account, plan, "USD");
+            sub.TotalBillingCycles = 5;
             sub.Create();
 
             sub.ActivatedAt.Should().HaveValue().And.NotBe(default(DateTime));
             sub.State.Should().Be(Subscription.SubscriptionState.Active);
+            Assert.Equal(5, sub.TotalBillingCycles);
+            Assert.Equal(5, Subscriptions.Get(sub.Uuid).TotalBillingCycles);
         }
 
         [Fact]
@@ -310,12 +313,10 @@ namespace Recurly.Test
 
                 sub = new Subscription(account, plan, "USD");
                 sub.AddOns.Add(new SubscriptionAddOn("addon1", 100, 1)); // TODO allow passing just the addon code
-                sub.TotalBillingCycles = 5;
                 sub.Create();
 
                 // confirm that Create() doesn't duplicate the AddOns
                 Assert.Equal(1, sub.AddOns.Count);
-                Assert.Equal(5, sub.TotalBillingCycles);
 
                 sub.ActivatedAt.Should().HaveValue().And.NotBe(default(DateTime));
                 sub.State.Should().Be(Subscription.SubscriptionState.Active);
