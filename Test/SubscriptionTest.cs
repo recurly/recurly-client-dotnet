@@ -285,40 +285,42 @@ namespace Recurly.Test
                 addon1.DefaultQuantity = 1;
                 addon1.Create();
 
-                addon2 = plan.CreateAddOn("addon2", "addon2");
-                addon2.DisplayQuantityOnHostedPage = true;
-                addon2.UnitAmountInCents.Add("USD", 200);
-                addon2.DefaultQuantity = 1;
-                addon2.Create();
-
                 plan = Plans.Get(plan.PlanCode);
 
                 var addon_test_1 = plan.GetAddOn("addon1");
                 Assert.Equal(addon1.UnitAmountInCents["USD"], addon_test_1.UnitAmountInCents["USD"]);
 
-                var addon_test_2 = plan.GetAddOn("addon2");
-                Assert.Equal(addon2.UnitAmountInCents["USD"], addon_test_2.UnitAmountInCents["USD"]);
-
-                account = CreateNewAccountWithBillingInfo();
-
-                sub = new Subscription(account, plan, "USD");
-                sub.AddOns.Add(new SubscriptionAddOn("addon1", 100, 1));
-                sub.AddOns.Add(new SubscriptionAddOn("addon2", 200, 2));
-                sub.Create();
-
-                sub.ActivatedAt.Should().HaveValue().And.NotBe(default(DateTime));
-                sub.State.Should().Be(Subscription.SubscriptionState.Active);
-
-                sub = Subscriptions.Get(sub.Uuid);
-                Assert.Equal(2, sub.AddOns.Count);
-
-                // test changing the plan of a subscription
                 plan2 = new Plan(GetMockPlanCode(), "aarons test plan 2")
                 {
                     Description = "Create Subscription Plan With Addons Test 2"
                 };
                 plan2.UnitAmountInCents.Add("USD", 1900);
                 plan2.Create();
+
+                addon2 = plan2.CreateAddOn("addon1", "addon2");
+                addon2.DisplayQuantityOnHostedPage = true;
+                addon2.UnitAmountInCents.Add("USD", 200);
+                addon2.DefaultQuantity = 1;
+                addon2.Create();
+
+                var addon_test_2 = plan2.GetAddOn("addon1");
+                Assert.Equal(addon2.UnitAmountInCents["USD"], addon_test_2.UnitAmountInCents["USD"]);
+
+                account = CreateNewAccountWithBillingInfo();
+
+                sub = new Subscription(account, plan, "USD");
+                sub.AddOns.Add(new SubscriptionAddOn("addon1", 100, 1)); // TODO allow passing just the addon code
+                sub.TotalBillingCycles = 5;
+                sub.Create();
+
+                // confirm that Create() doesn't duplicate the AddOns
+                Assert.Equal(1, sub.AddOns.Count);
+                Assert.Equal(5, sub.TotalBillingCycles);
+
+                sub.ActivatedAt.Should().HaveValue().And.NotBe(default(DateTime));
+                sub.State.Should().Be(Subscription.SubscriptionState.Active);
+
+                // test changing the plan of a subscription
 
                 sub2 = Subscriptions.Get(sub.Uuid);
                 sub2.UnitAmountInCents = plan2.UnitAmountInCents["USD"];
@@ -328,11 +330,13 @@ namespace Recurly.Test
                 {
                     addOn.UnitAmountInCents = plan2.UnitAmountInCents["USD"];
                 }
+
                 sub2.ChangeSubscription(Subscription.ChangeTimeframe.Now);
 
                 // check if the changes were saved
                 sub3 = Subscriptions.Get(sub2.Uuid);
                 sub3.UnitAmountInCents.Should().Equals(plan2.UnitAmountInCents["USD"]);
+                Assert.Equal(1, sub3.AddOns.Count);
                 foreach (var addOn in sub3.AddOns)
                 {
                     addOn.UnitAmountInCents.Should().Equals(plan2.UnitAmountInCents["USD"]);
