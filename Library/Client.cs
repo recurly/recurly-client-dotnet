@@ -200,6 +200,7 @@ namespace Recurly
                 if ((int)statusCode == ValidationException.HttpStatusCode) // Unprocessable Entity
                 {
                     errors = Error.ReadResponseAndParseErrors(response);
+                    Debug.WriteLine(errors[0].ToString());
                     throw new ValidationException(errors);
                 }
 
