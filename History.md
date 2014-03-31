@@ -1,4 +1,13 @@
 
+1.0.0-beta3 / 2014-03-31
+==================
+
+ * subscription; fix total_billing_cycles retrieval
+ * subscription addons; fixed Create & Update
+ * tests; Subscription w/ Coupons
+ * tests; subscription update improvements
+ * docs; updated intellisense
+
 1.0.0-beta2 / 2014-03-19
 ==================
 
