@@ -217,15 +217,17 @@ namespace Recurly
         /// <summary>
         /// Returns a new adjustment (credit or charge) for this account
         /// </summary>
-        /// <param name="description">Description of the adjustment for the invoice.</param>
-        /// <param name="unitAmountInCents">Positive amount for a charge, negative amount for a credit. Max 10,000,000.</param>
         /// <param name="currency">Currency, 3-letter ISO code.</param>
+        /// <param name="unitAmountInCents">Positive amount for a charge, negative amount for a credit. Max 10,000,000.</param>
+        /// <param name="description">Description of the adjustment for the invoice.</param>
         /// <param name="quantity">Quantity, defaults to 1.</param>
         /// <param name="accountingCode">Accounting code. Max of 20 characters.</param>
         /// <param name="taxExempt"></param>
         /// <returns></returns>
-        public Adjustment CreateAdjustment(string description, int unitAmountInCents, string currency, int quantity=1, string accountingCode = "", bool taxExempt = false)
+        public Adjustment CreateAdjustment(string currency, int unitAmountInCents, string description="", int quantity=1, string accountingCode="", bool taxExempt = false)
         {
+            // TODO All of the properties should be settable
+            // TODO rename the method. Create implies talking to Recurly API
             return new Adjustment(AccountCode, description, currency, unitAmountInCents, quantity, accountingCode, taxExempt);
         }
 

@@ -267,7 +267,6 @@ namespace Recurly.Test
         }
 
         [Fact]
-        [Trait("include","y")]
         public void CreateSubscriptionPlanWithAddons()
         {
             Plan plan = null;
