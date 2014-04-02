@@ -130,6 +130,7 @@ namespace Recurly
         /// <param name="addOnCode"></param>
         /// <param name="name"></param>
         /// <returns></returns>
+        // TODO rename. Create implies talking to Recurly API.
         public AddOn CreateAddOn(string addOnCode, string name)
         {
             var a = new AddOn(PlanCode, addOnCode, name);
