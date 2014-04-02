@@ -29,7 +29,7 @@ Specify your [API Key, site subdomain, private key](https://app.recurly.com/go/d
 <?xml version="1.0" encoding="utf-8" ?>
 <configuration>
   <configSections>
-    <section name="recurly" type="Recurly.Configuration.RecurlySection,Recurly"/>
+    <section name="recurly" type="Recurly.Configuration.Section,Recurly"/>
   </configSections>
 
   <recurly
