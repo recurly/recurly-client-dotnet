@@ -34,7 +34,7 @@ namespace Recurly
         public int TaxInCents { get; protected set; }
         public int TotalInCents { get; protected set; }
         public string Currency { get; protected set; }
-        public bool TaxExempt { get; protected set; }
+        public bool TaxExempt { get; set; }
 
         public AdjustmentState State { get; protected set; }
 
