@@ -12,7 +12,7 @@ namespace Recurly.Test
             {
                 var acct = CreateNewAccount();
 
-                var adjustment = acct.CreateAdjustment("USD", 500 + x, "Test Charge");
+                var adjustment = acct.NewAdjustment("USD", 500 + x, "Test Charge");
                 adjustment.Create();
 
                 var invoice = acct.InvoicePendingCharges();
@@ -41,7 +41,7 @@ namespace Recurly.Test
             for (var x = 0; x < 2; x++)
             {
                 var account = CreateNewAccount();
-                var adjustment = account.CreateAdjustment("USD", 500 + x, "Test Charge");
+                var adjustment = account.NewAdjustment("USD", 500 + x, "Test Charge");
                 adjustment.Create();
                 account.InvoicePendingCharges();
             }
@@ -56,7 +56,7 @@ namespace Recurly.Test
             for (var x = 0; x < 2; x++)
             {
                 var acct = CreateNewAccount();
-                var adjustment = acct.CreateAdjustment("USD", 500 + x, "Test Charge");
+                var adjustment = acct.NewAdjustment("USD", 500 + x, "Test Charge");
                 adjustment.Create();
                 var invoice = acct.InvoicePendingCharges();
                 invoice.MarkSuccessful();
@@ -72,7 +72,7 @@ namespace Recurly.Test
             for (var x = 0; x < 2; x++)
             {
                 var acct = CreateNewAccount();
-                var adjustment = acct.CreateAdjustment("USD", 500 + x, "Test Charge");
+                var adjustment = acct.NewAdjustment("USD", 500 + x, "Test Charge");
                 adjustment.Create();
                 var invoice = acct.InvoicePendingCharges();
                 invoice.MarkFailed();
@@ -88,7 +88,7 @@ namespace Recurly.Test
             for (var x = 0; x < 2; x++)
             {
                 var acct = CreateNewAccount();
-                var adjustment = acct.CreateAdjustment("USD", 500 + x, "Test charge");
+                var adjustment = acct.NewAdjustment("USD", 500 + x, "Test charge");
                 adjustment.Create();
                 acct.InvoicePendingCharges();
             }
@@ -102,13 +102,13 @@ namespace Recurly.Test
         {
             var account = CreateNewAccount();
 
-            var adjustment = account.CreateAdjustment("USD", 450, "Test Charge #1");
+            var adjustment = account.NewAdjustment("USD", 450, "Test Charge #1");
             adjustment.Create();
 
             var invoice = account.InvoicePendingCharges();
             invoice.MarkSuccessful();
 
-            adjustment = account.CreateAdjustment("USD", 350, "Test Charge #2");
+            adjustment = account.NewAdjustment("USD", 350, "Test Charge #2");
             adjustment.Create();
 
             var list = Invoices.List(account.AccountCode);
