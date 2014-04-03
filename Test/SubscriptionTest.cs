@@ -287,7 +287,7 @@ namespace Recurly.Test
                 plan.UnitAmountInCents.Add("USD", 100);
                 plan.Create();
 
-                addon1 = plan.CreateAddOn("addon1", "addon1");
+                addon1 = plan.NewAddOn("addon1", "addon1");
                 addon1.DisplayQuantityOnHostedPage = true;
                 addon1.UnitAmountInCents.Add("USD", 100);
                 addon1.DefaultQuantity = 1;
@@ -305,7 +305,7 @@ namespace Recurly.Test
                 plan2.UnitAmountInCents.Add("USD", 1900);
                 plan2.Create();
 
-                addon2 = plan2.CreateAddOn("addon1", "addon2");
+                addon2 = plan2.NewAddOn("addon1", "addon2");
                 addon2.DisplayQuantityOnHostedPage = true;
                 addon2.UnitAmountInCents.Add("USD", 200);
                 addon2.DefaultQuantity = 1;
