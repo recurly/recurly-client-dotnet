@@ -224,7 +224,7 @@ namespace Recurly
         /// <param name="accountingCode">Accounting code. Max of 20 characters.</param>
         /// <param name="taxExempt"></param>
         /// <returns></returns>
-        public Adjustment CreateAdjustment(string currency, int unitAmountInCents, string description="", int quantity=1, string accountingCode="", bool taxExempt = false)
+        public Adjustment NewAdjustment(string currency, int unitAmountInCents, string description="", int quantity=1, string accountingCode="", bool taxExempt = false)
         {
             // TODO All of the properties should be settable
             // TODO rename the method. Create implies talking to Recurly API

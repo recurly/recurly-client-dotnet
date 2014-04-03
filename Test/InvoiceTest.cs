@@ -10,7 +10,7 @@ namespace Recurly.Test
         {
             var account = CreateNewAccount();
 
-            var adjustment = account.CreateAdjustment("USD", 5000, "Test Charge");
+            var adjustment = account.NewAdjustment("USD", 5000, "Test Charge");
             adjustment.Create();
 
             var invoice = account.InvoicePendingCharges();
@@ -25,7 +25,7 @@ namespace Recurly.Test
         {
             var account = CreateNewAccount();
 
-            var adjustment = account.CreateAdjustment("USD", 5000, "Test Charge");
+            var adjustment = account.NewAdjustment("USD", 5000, "Test Charge");
             adjustment.Create();
 
             var invoice = account.InvoicePendingCharges();
@@ -40,13 +40,13 @@ namespace Recurly.Test
         {
             var account = CreateNewAccount();
 
-            var adjustment = account.CreateAdjustment("USD", 5000, "Test Charge");
+            var adjustment = account.NewAdjustment("USD", 5000, "Test Charge");
             adjustment.Create();
 
-            adjustment = account.CreateAdjustment("USD", 5000, "Test Charge 2");
+            adjustment = account.NewAdjustment("USD", 5000, "Test Charge 2");
             adjustment.Create();
 
-            adjustment = account.CreateAdjustment("USD", -2500, "Test Credit");
+            adjustment = account.NewAdjustment("USD", -2500, "Test Credit");
             adjustment.Create();
 
             var invoice = account.InvoicePendingCharges();
@@ -60,7 +60,7 @@ namespace Recurly.Test
         {
             var account = CreateNewAccount();
 
-            var adjustment = account.CreateAdjustment("USD", 3999, "Test Charge");
+            var adjustment = account.NewAdjustment("USD", 3999, "Test Charge");
             adjustment.Create();
 
             var invoice = account.InvoicePendingCharges();
@@ -75,7 +75,7 @@ namespace Recurly.Test
         {
             var account = CreateNewAccount();
 
-            var adjustment = account.CreateAdjustment("USD", 3999, "Test Charge");
+            var adjustment = account.NewAdjustment("USD", 3999, "Test Charge");
             adjustment.Create();
 
             var invoice = account.InvoicePendingCharges();
