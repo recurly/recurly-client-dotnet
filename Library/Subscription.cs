@@ -178,6 +178,16 @@ namespace Recurly
         /// </summary>
         public int? TaxInCents { get; private set; }
 
+        /// <summary>
+        /// Tax type as "vat" for VAT or "usst" for US Sales Tax.
+        /// </summary>
+        public string TaxType { get; private set; }
+
+        /// <summary>
+        /// Tax rate that will be applied to this subscription.
+        /// </summary>
+        public decimal? TaxRate { get; private set; }
+
         internal Subscription()
         {
             IsPendingSubscription = false;
@@ -426,6 +436,14 @@ namespace Recurly
 
                     case "tax_in_cents":
                         TaxInCents = reader.ReadElementContentAsInt();
+                        break;
+
+                    case "tax_type":
+                        TaxType = reader.ReadElementContentAsString();
+                        break;
+
+                    case "tax_rate":
+                        TaxRate = reader.ReadElementContentAsDecimal();
                         break;
                 }
             }
