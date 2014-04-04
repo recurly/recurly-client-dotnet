@@ -32,9 +32,12 @@ namespace Recurly
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string CompanyName { get; set; }
+        public string VatNumber { get; set; }
+        public bool TaxExempt { get; set; }
         public string AcceptLanguage { get; set; }
         public string HostedLoginToken { get; private set; }
         public DateTime CreatedAt { get; private set; }
+
         public Address Address { get; set; }
 
         private BillingInfo _billingInfo;
@@ -299,6 +302,14 @@ namespace Recurly
                         CompanyName = reader.ReadElementContentAsString();
                         break;
 
+                    case "vat_number":
+                        VatNumber = reader.ReadElementContentAsString();
+                        break;
+
+                    case "tax_exempt":
+                        TaxExempt = reader.ReadElementContentAsBoolean();
+                        break;
+
                     case "accept_language":
                         AcceptLanguage = reader.ReadElementContentAsString();
                         break;
@@ -330,6 +341,8 @@ namespace Recurly
             xmlWriter.WriteStringIfValid("last_name", LastName);
             xmlWriter.WriteStringIfValid("company_name", CompanyName);
             xmlWriter.WriteStringIfValid("accept_language", AcceptLanguage);
+            xmlWriter.WriteStringIfValid("vat_number", VatNumber);
+            xmlWriter.WriteElementString("tax_exempt", TaxExempt.AsString());
 
             if (_billingInfo != null)
                 _billingInfo.WriteXml(xmlWriter);
