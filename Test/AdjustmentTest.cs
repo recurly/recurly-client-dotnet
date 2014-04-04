@@ -25,17 +25,32 @@ namespace Recurly.Test
 
         [Fact]
         [Trait("include", "y")]
-        public void CreateTaxExemptAdjustment()
+        public void CreateAdjustmentWithProperties()
         {
             var account = CreateNewAccount();
+            string desc = "my description";
+            string accountingCode = "accountng code";
+            string currency = "USD";
+            int unitAmountInCents = 5000;
+            int quantity = 2;
 
-            var adjustment = account.NewAdjustment("USD", 5000);
+            var adjustment = account.NewAdjustment("ABC", 1000);
             adjustment.TaxExempt = true;
+            adjustment.Description = desc;
+            adjustment.Currency = currency;
+            adjustment.Quantity = quantity;
+            adjustment.AccountingCode = accountingCode;
+            adjustment.UnitAmountInCents = unitAmountInCents;
+
             adjustment.Create();
 
             adjustment.CreatedAt.Should().NotBe(default(DateTime));
             Assert.True(adjustment.TaxExempt);
-            Assert.Empty(adjustment.Description);
+            Assert.Equal(desc, adjustment.Description);
+            Assert.Equal(currency, adjustment.Currency);
+            Assert.Equal(quantity, adjustment.Quantity);
+            Assert.Equal(accountingCode, adjustment.AccountingCode);
+            Assert.Equal(unitAmountInCents, adjustment.UnitAmountInCents);
         }
 
         [Fact]
