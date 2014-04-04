@@ -36,7 +36,6 @@ namespace Recurly
                 if (reader.NodeType == XmlNodeType.Element)
                 {
                     Add(new Invoice(reader));
-                    break;
                 }
             }
 
