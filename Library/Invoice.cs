@@ -27,6 +27,13 @@ namespace Recurly
         public string Currency { get; protected set; }
         public DateTime CreatedAt { get; private set; }
 
+        /// <summary>
+        /// Tax type as "vat" for VAT or "usst" for US Sales Tax.
+        /// </summary>
+        public string TaxType { get; private set; }
+
+        public decimal? TaxRate { get; private set; }
+
         public RecurlyList<Adjustment> Adjustments { get; private set; }
         public RecurlyList<Transaction> Transactions { get; private set; }
 
@@ -173,6 +180,13 @@ namespace Recurly
                         Transactions.ReadXml(reader);
                         break;
 
+                    case "tax_type":
+                        TaxType = reader.ReadElementContentAsString();
+                        break;
+
+                    case "tax_rate":
+                        TaxRate = reader.ReadElementContentAsDecimal();
+                        break;
                 }
             }
         }
