@@ -188,6 +188,11 @@ namespace Recurly
         /// </summary>
         public decimal? TaxRate { get; private set; }
 
+        /// <summary>
+        /// Determines if this object exists in the Recurly API
+        /// </summary>
+        internal bool _saved;
+
         internal Subscription()
         {
             IsPendingSubscription = false;
@@ -293,14 +298,28 @@ namespace Recurly
         }
 
         /// <summary>
-        /// Returns a preview for a new subscription applied to an account.
+        /// Transforms this object into a preview Subscription applied to the account.
         /// </summary>
-        public void Preview()
+        /// <param name="timeframe">ChangeTimeframe.Now (default) or at Renewal</param>
+        public void Preview(ChangeTimeframe timeframe)
         {
+            if (_saved)
+            {
+                throw new Recurly.Exception("Cannot preview an existing subscription.");
+            }
+
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 UrlPrefix + "preview",
-                WriteXml,
+                WriteSubscriptionXml,
                 ReadXml);
+
+            // this method does not save the object
+            _saved = false;
+        }
+
+        public void Preview()
+        {
+            Preview(ChangeTimeframe.Now);
         }
 
         public void Postpone(DateTime nextRenewalDate)
@@ -332,6 +351,8 @@ namespace Recurly
 
         internal override void ReadXml(XmlTextReader reader)
         {
+            _saved = true;
+
             string href;
 
             while (reader.Read())
