@@ -16,6 +16,7 @@ namespace Recurly
         }
 
         public string AccountCode { get; private set; }
+        public string SubscriptionUuid { get; private set; }
         public string Uuid { get; protected set; }
         public InvoiceState State { get; protected set; }
         public int InvoiceNumber { get; private set; }
@@ -26,6 +27,7 @@ namespace Recurly
         public int TotalInCents { get; protected set; }
         public string Currency { get; protected set; }
         public DateTime CreatedAt { get; private set; }
+        public DateTime? ClosedAt { get; private set; }
 
         /// <summary>
         /// Tax type as "vat" for VAT or "usst" for US Sales Tax.
@@ -34,8 +36,14 @@ namespace Recurly
 
         public decimal? TaxRate { get; private set; }
 
+        public int? NetTerms { get; private set; }
+
+        public string CollectionMethod { get; private set; }
+
+
         public RecurlyList<Adjustment> Adjustments { get; private set; }
         public RecurlyList<Transaction> Transactions { get; private set; }
+
 
         internal const string UrlPrefix = "/invoices/";
 
@@ -126,8 +134,13 @@ namespace Recurly
                 switch (reader.Name)
                 {
                     case "account":
-                        var href = reader.GetAttribute("href");
-                        AccountCode = Uri.UnescapeDataString(href.Substring(href.LastIndexOf("/") + 1));
+                        var accountHref = reader.GetAttribute("href");
+                        AccountCode = Uri.UnescapeDataString(accountHref.Substring(accountHref.LastIndexOf("/") + 1));
+                        break;
+
+                    case "subscription":
+                        var subHref = reader.GetAttribute("href");
+                        SubscriptionUuid = Uri.UnescapeDataString(subHref.Substring(subHref.LastIndexOf("/") + 1));
                         break;
 
                     case "uuid":
@@ -172,12 +185,10 @@ namespace Recurly
                         CreatedAt = reader.ReadElementContentAsDateTime();
                         break;
 
-                    case "line_items":
-                        Adjustments.ReadXml(reader);
-                        break;
-
-                    case "transactions":
-                        Transactions.ReadXml(reader);
+                    case "closed_at":
+                        DateTime closedAt;
+                        if (DateTime.TryParse(reader.ReadElementContentAsString(), out closedAt))
+                            ClosedAt = closedAt;
                         break;
 
                     case "tax_type":
@@ -186,6 +197,22 @@ namespace Recurly
 
                     case "tax_rate":
                         TaxRate = reader.ReadElementContentAsDecimal();
+                        break;
+
+                    case "net_terms":
+                        NetTerms = reader.ReadElementContentAsInt();
+                        break;
+
+                    case "collection_method":
+                        CollectionMethod = reader.ReadElementContentAsString();
+                        break;
+
+                    case "line_items":
+                        Adjustments.ReadXml(reader);
+                        break;
+
+                    case "transactions":
+                        Transactions.ReadXml(reader);
                         break;
                 }
             }
