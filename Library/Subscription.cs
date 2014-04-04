@@ -23,7 +23,8 @@ namespace Recurly
             Future = 8,
             InTrial = 16,
             Live = 32,
-            PastDue = 64
+            PastDue = 64,
+            Pending = 128
         }
 
         public enum ChangeTimeframe : short
