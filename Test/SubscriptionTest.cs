@@ -134,7 +134,7 @@ namespace Recurly.Test
             sub.Create();
             sub.Plan = plan2;
 
-            sub.ChangeSubscription(Subscription.ChangeTimeframe.Now);
+            sub.ChangeSubscription(); // change "Now" is default
 
             var newSubscription = Subscriptions.Get(sub.Uuid);
 

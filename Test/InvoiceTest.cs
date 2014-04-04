@@ -8,7 +8,7 @@ namespace Recurly.Test
         [Fact]
         public void GetInvoice()
         {
-            var account = CreateNewAccount();
+            var account = CreateNewAccountWithBillingInfo();
 
             var adjustment = account.NewAdjustment("USD", 5000, "Test Charge");
             adjustment.Create();

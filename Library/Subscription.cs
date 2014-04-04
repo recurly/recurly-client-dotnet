@@ -249,20 +249,25 @@ namespace Recurly
         /// <summary>
         /// Request that an update to a subscription take place
         /// </summary>
-        /// <param name="timeframe">when the update should occur: now or at renewal</param>
+        /// <param name="timeframe">when the update should occur: now (default) or at renewal</param>
         public void ChangeSubscription(ChangeTimeframe timeframe)
         {
             Client.WriteXmlDelegate writeXmlDelegate;
 
-            if (timeframe == ChangeTimeframe.Now)
-                writeXmlDelegate = WriteChangeSubscriptionNowXml;
-            else
+            if (ChangeTimeframe.Renewal == timeframe)
                 writeXmlDelegate = WriteChangeSubscriptionAtRenewalXml;
+            else
+                writeXmlDelegate = WriteChangeSubscriptionNowXml;
 
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
                 UrlPrefix + Uri.EscapeUriString(Uuid),
                 writeXmlDelegate,
                 ReadXml);
+        }
+
+        public void ChangeSubscription()
+        {
+            ChangeSubscription(ChangeTimeframe.Now);
         }
 
         /// <summary>
