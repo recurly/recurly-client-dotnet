@@ -173,6 +173,11 @@ namespace Recurly
         public int? NetTerms { get; set; }
         public string PoNumber { get; set; }
 
+        /// <summary>
+        /// Amount of tax or VAT within the transaction, in cents.
+        /// </summary>
+        public int? TaxInCents { get; private set; }
+
         internal Subscription()
         {
             IsPendingSubscription = false;
@@ -418,6 +423,10 @@ namespace Recurly
                         if (Int32.TryParse(reader.ReadElementContentAsString(), out billingCycles))
                             TotalBillingCycles = billingCycles;
                         break;
+
+                    case "tax_in_cents":
+                        TaxInCents = reader.ReadElementContentAsInt();
+                        break;
                 }
             }
         }
@@ -494,6 +503,7 @@ namespace Recurly
                 xmlWriter.WriteElementString("net_terms", NetTerms.Value.AsString());
                 xmlWriter.WriteElementString("po_number", PoNumber);
             }
+
             // <account> and billing info
             Account.WriteXml(xmlWriter);
 

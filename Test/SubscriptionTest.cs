@@ -68,12 +68,14 @@ namespace Recurly.Test
             var sub = new Subscription(account, plan, "USD");
             sub.TotalBillingCycles = 5;
             sub.Coupon = coup;
+            Assert.Null(sub.TaxInCents);
             sub.Create();
 
             sub.ActivatedAt.Should().HaveValue().And.NotBe(default(DateTime));
             sub.State.Should().Be(Subscription.SubscriptionState.Active);
             Assert.Equal(5, sub.TotalBillingCycles);
             Assert.Equal(coup.CouponCode, sub.Coupon.CouponCode);
+            Assert.Equal(9, sub.TaxInCents.Value);
 
             var sub1 = Subscriptions.Get(sub.Uuid);
             Assert.Equal(5, sub1.TotalBillingCycles);
