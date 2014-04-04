@@ -12,7 +12,7 @@ namespace Recurly.Test
             var acct = new Account(GetUniqueAccountCode());
             acct.Create();
             acct.CreatedAt.Should().NotBe(default(DateTime));
-            Assert.False(acct.TaxExempt);
+            Assert.False(acct.TaxExempt.Value);
         }
 
         [Fact]
@@ -39,7 +39,7 @@ namespace Recurly.Test
             acct.CompanyName.Should().Be("Test Company");
             acct.AcceptLanguage.Should().Be("en");
             Assert.Equal("my-vat-number", acct.VatNumber);
-            Assert.True(acct.TaxExempt);
+            Assert.True(acct.TaxExempt.Value);
         }
 
         [Fact]
@@ -89,7 +89,7 @@ namespace Recurly.Test
 
             var getAcct = Accounts.Get(acct.AccountCode);
             acct.LastName.Should().Be(getAcct.LastName);
-            Assert.True(acct.TaxExempt);
+            Assert.True(acct.TaxExempt.Value);
             Assert.Equal("woot", acct.VatNumber);
         }
 
