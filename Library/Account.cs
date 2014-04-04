@@ -334,7 +334,6 @@ namespace Recurly
             xmlWriter.WriteStartElement("account"); // Start: account
 
             xmlWriter.WriteElementString("account_code", AccountCode);
-
             xmlWriter.WriteStringIfValid("username", Username);
             xmlWriter.WriteStringIfValid("email", Email);
             xmlWriter.WriteStringIfValid("first_name", FirstName);
