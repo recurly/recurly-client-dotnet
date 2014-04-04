@@ -83,10 +83,14 @@ namespace Recurly.Test
             acct.Create();
 
             acct.LastName = "UpdateTest123";
+            acct.TaxExempt = true;
+            acct.VatNumber = "woot";
             acct.Update();
 
             var getAcct = Accounts.Get(acct.AccountCode);
             acct.LastName.Should().Be(getAcct.LastName);
+            Assert.True(acct.TaxExempt);
+            Assert.Equal("woot", acct.VatNumber);
         }
 
         [Fact]
