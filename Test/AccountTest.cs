@@ -12,6 +12,7 @@ namespace Recurly.Test
             var acct = new Account(GetUniqueAccountCode());
             acct.Create();
             acct.CreatedAt.Should().NotBe(default(DateTime));
+            Assert.False(acct.TaxExempt);
         }
 
         [Fact]
@@ -24,7 +25,9 @@ namespace Recurly.Test
                 FirstName = "Test",
                 LastName = "User",
                 CompanyName = "Test Company",
-                AcceptLanguage = "en"
+                AcceptLanguage = "en",
+                VatNumber = "my-vat-number",
+                TaxExempt = true
             };
 
             acct.Create();
@@ -35,6 +38,8 @@ namespace Recurly.Test
             acct.LastName.Should().Be("User");
             acct.CompanyName.Should().Be("Test Company");
             acct.AcceptLanguage.Should().Be("en");
+            Assert.Equal("my-vat-number", acct.VatNumber);
+            Assert.True(acct.TaxExempt);
         }
 
         [Fact]
