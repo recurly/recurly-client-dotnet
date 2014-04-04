@@ -33,7 +33,7 @@ namespace Recurly
         public string LastName { get; set; }
         public string CompanyName { get; set; }
         public string VatNumber { get; set; }
-        public bool TaxExempt { get; set; }
+        public bool? TaxExempt { get; set; }
         public string AcceptLanguage { get; set; }
         public string HostedLoginToken { get; private set; }
         public DateTime CreatedAt { get; private set; }
@@ -342,7 +342,9 @@ namespace Recurly
             xmlWriter.WriteStringIfValid("company_name", CompanyName);
             xmlWriter.WriteStringIfValid("accept_language", AcceptLanguage);
             xmlWriter.WriteStringIfValid("vat_number", VatNumber);
-            xmlWriter.WriteElementString("tax_exempt", TaxExempt.AsString());
+
+            if (TaxExempt.HasValue)
+                xmlWriter.WriteElementString("tax_exempt", TaxExempt.Value.AsString());
 
             if (_billingInfo != null)
                 _billingInfo.WriteXml(xmlWriter);
