@@ -75,7 +75,6 @@ namespace Recurly
         public string Currency { get; set; }
         public int Quantity { get; set; }
 
-
         /// <summary>
         /// Date the subscription started.
         /// </summary>

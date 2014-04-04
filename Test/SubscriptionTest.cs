@@ -361,5 +361,37 @@ namespace Recurly.Test
                 if (account != null) account.Close();
             }
         }
+
+        [Fact]
+        public void PreviewSubscription()
+        {
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
+            {
+                Description = "Preview Subscription Test"
+            };
+            plan.UnitAmountInCents.Add("USD", 1500);
+            plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
+
+            var account = CreateNewAccountWithBillingInfo();
+
+            var sub = new Subscription(account, plan, "USD");
+            sub.UnitAmountInCents = 100;
+            Assert.Null(sub.TaxType);
+            Assert.DoesNotThrow(delegate { sub.Preview(); });
+            Assert.Equal("usst", sub.TaxType);
+            Assert.Equal(Subscription.SubscriptionState.Pending, sub.State);
+
+            sub.Create();
+            Assert.Throws<Recurly.Exception>(
+                delegate
+                {
+                    sub.Preview();
+                }
+            );
+
+            sub.Terminate(Subscription.RefundType.None);
+            account.Close();
+        }
     }
 }
