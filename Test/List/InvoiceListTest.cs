@@ -100,7 +100,7 @@ namespace Recurly.Test
         [Fact]
         public void GetInvoicesForAccount()
         {
-            var account = CreateNewAccount();
+            var account = CreateNewAccountWithBillingInfo();
 
             var adjustment = account.NewAdjustment("USD", 450, "Test Charge #1");
             adjustment.Create();
@@ -111,8 +111,12 @@ namespace Recurly.Test
             adjustment = account.NewAdjustment("USD", 350, "Test Charge #2");
             adjustment.Create();
 
+            invoice = account.InvoicePendingCharges();
+            invoice.MarkFailed();
+
             var list = Invoices.List(account.AccountCode);
             list.Should().NotBeEmpty();
+            Assert.Equal(2, list.Count);
         }
     }
 }
