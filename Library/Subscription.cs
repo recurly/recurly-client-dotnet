@@ -281,6 +281,10 @@ namespace Recurly
                 ReadXml);
         }
 
+        /// <summary>
+        /// Terminates the subscription immediately.
+        /// </summary>
+        /// <param name="refund"></param>
         public void Terminate(RefundType refund)
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
@@ -288,6 +292,9 @@ namespace Recurly
                 ReadXml);
         }
 
+        /// <summary>
+        /// Returns a preview for a new subscription applied to an account.
+        /// </summary>
         public void Preview()
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
@@ -405,7 +412,7 @@ namespace Recurly
                         break;
 
                     case "subscription_add_ons":
-                        // overwrite existing list with what is in Recurly
+                        // overwrite existing list with what came back from Recurly
                         AddOns.Clear();
                         var newList = new SubscriptionAddOnList();
                         newList.ReadXml(reader);
