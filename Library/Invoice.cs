@@ -26,7 +26,7 @@ namespace Recurly
         public int TaxInCents { get; protected set; }
         public int TotalInCents { get; protected set; }
         public string Currency { get; protected set; }
-        public DateTime CreatedAt { get; private set; }
+        public DateTime? CreatedAt { get; private set; }
         public DateTime? ClosedAt { get; private set; }
 
         /// <summary>
@@ -182,7 +182,9 @@ namespace Recurly
                         break;
 
                     case "created_at":
-                        CreatedAt = reader.ReadElementContentAsDateTime();
+                        DateTime createdAt;
+                        if (DateTime.TryParse(reader.ReadElementContentAsString(), out createdAt))
+                            CreatedAt = createdAt;
                         break;
 
                     case "closed_at":
