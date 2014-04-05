@@ -103,6 +103,7 @@ namespace Recurly.Test
             invoice.State.Should().Be(Invoice.InvoiceState.Collected);
 
             Assert.Equal(1, invoice.Adjustments.Count);
+            Assert.Equal(1, invoice.Adjustments.Capacity);
 
             // refund
             var refundInvoice = invoice.Refund(adjustment, false);
