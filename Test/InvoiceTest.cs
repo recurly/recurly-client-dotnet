@@ -131,6 +131,8 @@ namespace Recurly.Test
             invoice.MarkSuccessful();
 
             Assert.Equal(2, invoice.Adjustments.Count);
+            Assert.Equal(1, invoice.Transactions.Count);
+            Assert.Equal(7, invoice.Transactions[0].AmountInCents);
 
             // refund
             var refundInvoice = invoice.Refund(invoice.Adjustments);
@@ -139,6 +141,8 @@ namespace Recurly.Test
             Assert.Equal(2, refundInvoice.Adjustments.Count);
             Assert.Equal(-1, refundInvoice.Adjustments[0].Quantity);
             Assert.Equal(-2, refundInvoice.Adjustments[1].Quantity);
+            Assert.Equal(1, invoice.Transactions.Count);
+            Assert.Equal(5, invoice.Transactions[0].AmountInCents);
 
             account.Close();
         }
