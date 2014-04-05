@@ -116,17 +116,30 @@ namespace Recurly.Test
         }
 
         [Fact]
-        public void RefundSingleWithProration()
-        {
-
-        }
-
-        [Fact]
         public void RefundMultiple()
-        { }
+        {
+            var account = CreateNewAccountWithBillingInfo();
 
-        [Fact]
-        public void RefundMultipleWithProration()
-        { }
+            var adjustment1 = account.NewAdjustment("USD", 1, "Test Charge 1");
+            adjustment1.Create();
+
+            var adjustment2 = account.NewAdjustment("USD", 2, "Test Charge 2", 2);
+            adjustment2.Create();
+
+            var invoice = account.InvoicePendingCharges();
+            invoice.MarkSuccessful();
+
+            Assert.Equal(2, invoice.Adjustments.Count);
+
+            // refund
+            var refundInvoice = invoice.Refund(invoice.Adjustments);
+            Assert.NotEqual(invoice.Uuid, refundInvoice.Uuid);
+            Assert.Equal(-5, refundInvoice.SubtotalInCents);
+            Assert.Equal(2, refundInvoice.Adjustments.Count);
+            Assert.Equal(-1, refundInvoice.Adjustments[0].Quantity);
+            Assert.Equal(-2, refundInvoice.Adjustments[1].Quantity);
+
+            account.Close();
+        }
     }
 }
