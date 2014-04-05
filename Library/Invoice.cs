@@ -236,6 +236,8 @@ namespace Recurly
                         break;
 
                     case "transactions":
+                        // overrite existing value with the Recurly API response
+                        Transactions = new TransactionList();
                         Transactions.ReadXml(reader);
                         break;
                 }
