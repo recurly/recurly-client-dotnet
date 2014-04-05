@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Xml;
+using System.Collections.Generic;
 
 namespace Recurly
 {
@@ -107,16 +108,35 @@ namespace Recurly
             return statusCode == HttpStatusCode.NotFound ? null : cr;
         }
 
+        /// <summary>
+        /// If enabled, allows specific line items and/or quantities to be refunded.
+        /// </summary>
+        /// <param name="adjustment"></param>
+        /// <param name="prorate"></param>
+        /// <param name="quantity"></param>
+        /// <returns>new Invoice object</returns>
         public Invoice Refund(Adjustment adjustment, bool prorate, int quantity = 0)
         {
-            var refund = new Refund(adjustment, prorate, quantity == 0 ? adjustment.Quantity : quantity);
+            var adjustments = new List<Adjustment>();
+            adjustments.Add(adjustment);
+
+            return Refund(adjustments, prorate, quantity);
+        }
+
+        public Invoice Refund(IEnumerable<Adjustment> adjustments, bool prorate, int quantity = 0)
+        {
+            var refunds = new RefundList(adjustments, prorate, quantity);
+            var invoice = new Invoice();
 
             var response = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 UrlPrefix + InvoiceNumber + "/refund",
-                refund.WriteXml,
-                ReadXml);
+                refunds.WriteXml,
+                invoice.ReadXml);
 
-            return response == HttpStatusCode.Created ? this : null;
+            if (HttpStatusCode.Created == response || HttpStatusCode.OK == response)
+                return invoice;
+            else
+                return null;
         }
 
         #region Read and Write XML documents
@@ -210,6 +230,8 @@ namespace Recurly
                         break;
 
                     case "line_items":
+                        // overrite existing value with the Recurly API response
+                        Adjustments = new AdjustmentList();
                         Adjustments.ReadXml(reader);
                         break;
 
