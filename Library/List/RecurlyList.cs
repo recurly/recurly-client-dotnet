@@ -19,7 +19,11 @@ namespace Recurly
 
         public int Count
         {
-            get { return Items.Count; }
+            get {
+                return null == Items
+                    ? 0
+                    : Items.Count;
+            }
         }
 
         private int _capacity = -1;

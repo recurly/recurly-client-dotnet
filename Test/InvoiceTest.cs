@@ -69,22 +69,64 @@ namespace Recurly.Test
 
             invoice.MarkSuccessful();
 
+            Assert.Equal(1, invoice.Adjustments.Count);
+
             invoice.State.Should().Be(Invoice.InvoiceState.Collected);
         }
 
         [Fact]
         public void FailedCollection()
         {
-            var account = CreateNewAccount();
+            var account = CreateNewAccountWithBillingInfo();
+
+            var adjustment = account.NewAdjustment("USD", 3999, "Test Charge");
+            adjustment.Create();
+
+            var invoice = account.InvoicePendingCharges();
+            invoice.MarkFailed();
+            invoice.State.Should().Be(Invoice.InvoiceState.Failed);
+            Assert.NotNull(invoice.ClosedAt);
+        }
+
+        [Fact]
+        public void RefundSingle()
+        {
+            var account = CreateNewAccountWithBillingInfo();
 
             var adjustment = account.NewAdjustment("USD", 3999, "Test Charge");
             adjustment.Create();
 
             var invoice = account.InvoicePendingCharges();
 
-            invoice.MarkFailed();
+            invoice.MarkSuccessful();
 
-            invoice.State.Should().Be(Invoice.InvoiceState.Failed);
+            invoice.State.Should().Be(Invoice.InvoiceState.Collected);
+
+            Assert.Equal(1, invoice.Adjustments.Count);
+
+            // refund
+            var refundInvoice = invoice.Refund(adjustment, false);
+            Assert.NotEqual(invoice.Uuid, refundInvoice.Uuid);
+            Assert.Equal(-3999, refundInvoice.SubtotalInCents);
+            Assert.Equal(1, refundInvoice.Adjustments.Count);
+            Assert.Equal(-1, refundInvoice.Adjustments[0].Quantity);
+            Assert.Equal(0, refundInvoice.Transactions.Count);
+
+            account.Close();
         }
+
+        [Fact]
+        public void RefundSingleWithProration()
+        {
+
+        }
+
+        [Fact]
+        public void RefundMultiple()
+        { }
+
+        [Fact]
+        public void RefundMultipleWithProration()
+        { }
     }
 }
