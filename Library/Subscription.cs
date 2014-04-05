@@ -510,7 +510,7 @@ namespace Recurly
                         Quantity = reader.ReadElementContentAsInt();
                         break;
 
-                    case "subscription_add_ons":        
+                    case "subscription_add_ons":
                         var newList = new SubscriptionAddOnList();
                         newList.ReadXml(reader);
                         AddOns.AddRange(newList.All);

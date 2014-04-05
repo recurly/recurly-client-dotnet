@@ -222,8 +222,6 @@ namespace Recurly
                     case "details":
                         // API docs say not to load details into objects
                         break;
-
-                        
                 }
             }
         }
