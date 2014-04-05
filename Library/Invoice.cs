@@ -115,7 +115,7 @@ namespace Recurly
         /// <param name="prorate"></param>
         /// <param name="quantity"></param>
         /// <returns>new Invoice object</returns>
-        public Invoice Refund(Adjustment adjustment, bool prorate, int quantity = 0)
+        public Invoice Refund(Adjustment adjustment, bool prorate = false, int quantity = 0)
         {
             var adjustments = new List<Adjustment>();
             adjustments.Add(adjustment);
@@ -123,7 +123,7 @@ namespace Recurly
             return Refund(adjustments, prorate, quantity);
         }
 
-        public Invoice Refund(IEnumerable<Adjustment> adjustments, bool prorate, int quantity = 0)
+        public Invoice Refund(IEnumerable<Adjustment> adjustments, bool prorate = false, int quantity = 0)
         {
             var refunds = new RefundList(adjustments, prorate, quantity);
             var invoice = new Invoice();
