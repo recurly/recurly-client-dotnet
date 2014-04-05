@@ -56,7 +56,6 @@ namespace Recurly
             }
         }
 
-
         private Dictionary<string, int> _unitAmountInCents;
         /// <summary>
         /// A dictionary of currencies and values for the subscription amount
@@ -130,7 +129,6 @@ namespace Recurly
         /// <param name="addOnCode"></param>
         /// <param name="name"></param>
         /// <returns></returns>
-        // TODO rename. Create implies talking to Recurly API.
         public AddOn NewAddOn(string addOnCode, string name)
         {
             var a = new AddOn(PlanCode, addOnCode, name);
@@ -184,6 +182,7 @@ namespace Recurly
         {
             UnitAmountInCents.Clear();
             SetupFeeInCents.Clear();
+
             while (reader.Read())
             {
                 // End of account element, get out of here
@@ -194,7 +193,6 @@ namespace Recurly
 
                 switch (reader.Name)
                 {
-
                     case "plan_code":
                         PlanCode = reader.ReadElementContentAsString();
                         break;
