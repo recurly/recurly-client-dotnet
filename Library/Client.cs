@@ -307,9 +307,15 @@ namespace Recurly
         {
             if (readXmlDelegate == null && readXmlListDelegate == null) return;
 #if (DEBUG)
-            var responseStream = CopyAndClose(response.GetResponseStream());
             Debug.WriteLine("Got Response:");
+            Debug.WriteLine("Status code: " + response.StatusCode);
 
+            foreach (var header in response.Headers)
+            {
+                Debug.WriteLine(header + ": " + response.Headers[header.ToString()]);
+            }
+
+            var responseStream = CopyAndClose(response.GetResponseStream());
             var reader = new StreamReader(responseStream);
 
             string line;
