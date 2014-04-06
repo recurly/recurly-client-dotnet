@@ -141,8 +141,8 @@ namespace Recurly.Test
             Assert.Equal(2, refundInvoice.Adjustments.Count);
             Assert.Equal(-1, refundInvoice.Adjustments[0].Quantity);
             Assert.Equal(-2, refundInvoice.Adjustments[1].Quantity);
-            Assert.Equal(1, invoice.Transactions.Count);
-            Assert.Equal(5, invoice.Transactions[0].AmountInCents);
+            Assert.Equal(1, refundInvoice.Transactions.Count);
+            Assert.Equal(5, refundInvoice.Transactions[0].AmountInCents);
 
             account.Close();
         }
