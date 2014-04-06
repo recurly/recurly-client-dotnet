@@ -130,6 +130,8 @@ namespace Recurly.Test
             var invoice = account.InvoicePendingCharges();
             invoice.MarkSuccessful();
 
+            System.Threading.Thread.Sleep(2000); // hack
+
             Assert.Equal(2, invoice.Adjustments.Count);
             Assert.Equal(1, invoice.Transactions.Count);
             Assert.Equal(7, invoice.Transactions[0].AmountInCents);
