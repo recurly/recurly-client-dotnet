@@ -154,15 +154,15 @@ namespace Recurly
             }
         }
 
-        private List<SubscriptionAddOn> _addOns; 
         /// <summary>
         /// List of add ons for this subscription
         /// </summary>
-        public List<SubscriptionAddOn> AddOns
+        public SubscriptionAddOnList AddOns
         {
-            get { return _addOns ?? (_addOns = new List<SubscriptionAddOn>()); }
+            get { return _addOns ?? (_addOns = new SubscriptionAddOnList()); }
             set { _addOns = value; }
         }
+        private SubscriptionAddOnList _addOns;
 
         public int? TotalBillingCycles { get; set; }
         public DateTime? FirstRenewalDate { get; set; }
@@ -439,15 +439,14 @@ namespace Recurly
 
                     case "subscription_add_ons":
                         // overwrite existing list with what came back from Recurly
-                        AddOns.Clear();
-                        var newList = new SubscriptionAddOnList();
-                        newList.ReadXml(reader);
-                        AddOns.AddRange(newList.All);
+                        AddOns = new SubscriptionAddOnList(this);
+                        AddOns.ReadXml(reader);
                         break;
 
                     case "pending_subscription":
                         PendingSubscription = new Subscription {IsPendingSubscription = true};
                         PendingSubscription.ReadPendingSubscription(reader);
+                        // TODO test all returned properties are read
                         break;
 
                     case "collection_method":
@@ -511,9 +510,8 @@ namespace Recurly
                         break;
 
                     case "subscription_add_ons":
-                        var newList = new SubscriptionAddOnList();
-                        newList.ReadXml(reader);
-                        AddOns.AddRange(newList.All);
+                        AddOns = new SubscriptionAddOnList(this);
+                        AddOns.ReadXml(reader);
                         break;
                 }
             }

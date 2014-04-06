@@ -106,7 +106,7 @@ namespace Recurly
 
         internal abstract void ReadXml(XmlTextReader reader);
 
-        protected void Add(T item)
+        internal virtual void Add(T item)
         {
             if (Items == null)
             {
