@@ -159,7 +159,7 @@ namespace Recurly
         /// </summary>
         public SubscriptionAddOnList AddOns
         {
-            get { return _addOns ?? (_addOns = new SubscriptionAddOnList()); }
+            get { return _addOns ?? (_addOns = new SubscriptionAddOnList(this)); }
             set { _addOns = value; }
         }
         private SubscriptionAddOnList _addOns;

@@ -7,10 +7,6 @@ namespace Recurly
     {
         private Subscription _subscription;
 
-        public SubscriptionAddOnList()
-        {
-        }
-
         public SubscriptionAddOnList(Subscription subscription)
         {
             _subscription = subscription;
