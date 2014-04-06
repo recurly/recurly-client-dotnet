@@ -381,7 +381,7 @@ namespace Recurly.Test
                 plan.UnitAmountInCents.Add("USD", 100);
                 plan.Create();
 
-                int numberOfAddons = 2;
+                int numberOfAddons = 7;
 
                 for (int i = 0; i < numberOfAddons; ++i)
                 {
@@ -400,12 +400,12 @@ namespace Recurly.Test
                 Assert.NotNull(sub.AddOns);
 
                 sub.AddOns.Add(new SubscriptionAddOn("Addon0", 100, 1));
-                sub.AddOns.Add(addons[0]);
-                sub.AddOns.Add(addons[1], 2);
-                sub.AddOns.Add(addons[2], 3, 100);
-                sub.AddOns.Add(addons[3].AddOnCode);
-                sub.AddOns.Add(addons[4].AddOnCode, 4);
-                sub.AddOns.Add(addons[5].AddOnCode, 5, 100);
+                sub.AddOns.Add(addons[1]);
+                sub.AddOns.Add(addons[2], 2);
+                sub.AddOns.Add(addons[3], 3, 100);
+                sub.AddOns.Add(addons[4].AddOnCode);
+                sub.AddOns.Add(addons[5].AddOnCode, 4);
+                sub.AddOns.Add(addons[6].AddOnCode, 5, 100);
 
                 sub.Create();
                 sub.State.Should().Be(Subscription.SubscriptionState.Active);
@@ -425,10 +425,6 @@ namespace Recurly.Test
                     if (sub != null && sub.Uuid != null) sub.Cancel();
                     if (plan != null) plan.Deactivate();
                     if (account != null) account.Close();
-                    foreach (var addon in addons)
-                    {
-                        addon.Delete();
-                    }
                 }
                 catch (Exception e) { }
             }
