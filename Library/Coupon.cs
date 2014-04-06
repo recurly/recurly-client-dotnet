@@ -199,6 +199,8 @@ namespace Recurly
 
         internal void ReadXmlPlanCodes(XmlTextReader reader)
         {
+            Plans.Clear();
+
             while (reader.Read())
             {
                 if (reader.Name == "plan_codes" && reader.NodeType == XmlNodeType.EndElement)
