@@ -1,6 +1,7 @@
 ﻿using System;
 using FluentAssertions;
 using Xunit;
+using System.Linq;
 
 namespace Recurly.Test
 {
@@ -359,6 +360,77 @@ namespace Recurly.Test
                 if (plan2 != null) plan2.Deactivate();
                 if (plan != null) plan.Deactivate();
                 if (account != null) account.Close();
+            }
+        }
+
+        [Fact]
+        [Trait("include", "y")]
+        public void SubscriptionAddOverloads()
+        {
+            Plan plan = null;
+            Account account = null;
+            Subscription sub = null;
+            System.Collections.Generic.List<AddOn> addons = new System.Collections.Generic.List<AddOn>();
+
+            try
+            {
+                plan = new Plan(GetMockPlanCode(), "subscription addon overload plan")
+                {
+                    Description = "Create Subscription Plan With Addons Test"
+                };
+                plan.UnitAmountInCents.Add("USD", 100);
+                plan.Create();
+
+                int numberOfAddons = 2;
+
+                for (int i = 0; i < numberOfAddons; ++i)
+                {
+                    var name = "Addon" + i.AsString();
+                    var addon = plan.NewAddOn(name, name);
+                    addon.DisplayQuantityOnHostedPage = true;
+                    addon.UnitAmountInCents.Add("USD", 1000 + i);
+                    addon.DefaultQuantity = i;
+                    addon.Create();
+                    addons.Add(addon);
+                }
+
+                account = CreateNewAccountWithBillingInfo();
+
+                sub = new Subscription(account, plan, "USD");
+                Assert.NotNull(sub.AddOns);
+
+                sub.AddOns.Add(new SubscriptionAddOn("Addon0", 100, 1));
+                sub.AddOns.Add(addons[0]);
+                sub.AddOns.Add(addons[1], 2);
+                sub.AddOns.Add(addons[2], 3, 100);
+                sub.AddOns.Add(addons[3].AddOnCode);
+                sub.AddOns.Add(addons[4].AddOnCode, 4);
+                sub.AddOns.Add(addons[5].AddOnCode, 5, 100);
+
+                sub.Create();
+                sub.State.Should().Be(Subscription.SubscriptionState.Active);
+
+                for (int i = 0; i < numberOfAddons; ++i)
+                {
+                    var code = "Addon" + i.AsString();
+                    var addon = sub.AddOns.AsQueryable().First(x => x.AddOnCode == code);
+                    Assert.NotNull(addon);
+                }
+
+            }
+            finally
+            {
+                try
+                {
+                    if (sub != null && sub.Uuid != null) sub.Cancel();
+                    if (plan != null) plan.Deactivate();
+                    if (account != null) account.Close();
+                    foreach (var addon in addons)
+                    {
+                        addon.Delete();
+                    }
+                }
+                catch (Exception e) { }
             }
         }
 
