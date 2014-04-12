@@ -574,8 +574,10 @@ subscription.Preview();
 var account = Accounts.Get("1");
 var plan = Plans.Get("gold");
 var subscription = new Subscription(account, plan, "USD"); // account, plan, currency
+
+subscription.AddOns.Add("plan-addon-code");
+subscription.AddOns.Add(plan.GetAddOn("another-addon-code"));
 subscription.AddOns.Add(new SubscriptionAddOn("extra_users", 1000, 2));
-subscription.AddOns.Add(new SubscriptionAddOn("extra_ips", 100, 3));
 subscription.Create();
 ```
 
@@ -584,11 +586,11 @@ subscription.Create();
 var subscription = Subscriptions.Get("44f83d7cba354d5b84812419f923ea96");
 
 // append a new add-on
-var newAddOn = new SubscriptionAddOn("my_new_add_on", 100, 2);
+var newAddOn = plan.GetAddOn("my-add-on");
 subscription.AddOns.Add(newAddOn);
 
 // change a quantity of an existing add-on
-var existingAddOn = subscription.AddOns.First(x => x.AddOnCode == "extra_ips");
+var existingAddOn = subscription.AddOns.AsQueryable().First(x => x.AddOnCode == "extra_ips");
 existingAddOn.Quantity = 6;
 
 // remove an add-on
