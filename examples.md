@@ -124,7 +124,7 @@ Console.WriteLine("Adjustment: " + adjustment);
 
 ```c#
 var account = Accounts.Get("1");
-var adjustment = account.CreateAdjustment(
+var adjustment = account.NewAdjustment(
 	"Charge for extra bandwidth", // description
 	5000,                         // unit_amount_in_cents
 	"USD",                        // currency
@@ -346,8 +346,20 @@ invoice.MarkFailed();
 ###Line item refunds
 ```c#
 var invoice = Invoices.Get(1005);
+
+// refund a single adjustment
 var adjustment = invoice.Adjustments.First(x => x.Uuid == "e1234245132465");
 invoice = invoice.Refund(adjustment, false, 1); // adjustment, prorate, quantity
+
+// refund with proration
+var adjustment = invoice.Adjustments.First(x => x.Uuid == "e1234245132465");
+invoice = invoice.Refund(adjustment, true); // adjustment, prorate
+
+// refund multiple adjustments
+invoice = invoice.Refund(invoice.Adjustments);
+
+// with proration
+invoice = invoice.Refund(invoice.Adjustments, true);
 ```
 
 [back to top](#documentation)
@@ -437,7 +449,7 @@ var addon = plan.GetAddOn("addOnCode");
 ###Create add-on
 ```c#
 var plan = Plans.Get("gold");
-var addon = plan.CreateAddOn("ipaddresses", "Extra IP Addresses"); // add-on code, name
+var addon = plan.NewAddOn("ipaddresses", "Extra IP Addresses"); // add-on code, name
 addon.UnitAmountInCents.Add("USD", 200);
 addon.DefaultQuantity = 1;
 addon.DisplayQuantityOnHostedPage = true;
@@ -522,10 +534,13 @@ var subscription = Subscriptions.Get("44f83d7cba354d5b84812419f923ea96");
 subscription.Plan = Plans.Get("silver");
 subscription.Quantity = 2;
 
-// perform the update operation
+// perform the update operation now
 subscription.ChangeSubscription(Subscription.ChangeTimeframe.Now);
 
-// You might also use Subscription.ChangeTimeframe.Renewal
+// ChangeTimeframe.Now is the default, so we can simply:
+subscription.ChangeSubscription();
+
+// You might also use `Subscription.ChangeTimeframe.Renewal`
 ```
 
 ###Cancel subscription
@@ -560,6 +575,10 @@ var account = Accounts.Get("1");
 var plan = Plans.Get("gold");
 var subscription = new Subscription(account, plan, "USD"); // account, plan, currency
 subscription.Preview();
+
+// preview subscription at renewal
+subscription.Preview(Subscription.ChangeTimeframe.Renewal);
+Debug.WriteLine(subscription.ExpiresAt);
 ```
 
 [back to top](#documentation)
@@ -575,8 +594,8 @@ var account = Accounts.Get("1");
 var plan = Plans.Get("gold");
 var subscription = new Subscription(account, plan, "USD"); // account, plan, currency
 
-subscription.AddOns.Add("plan-addon-code");
-subscription.AddOns.Add(plan.GetAddOn("another-addon-code"));
+subscription.AddOns.Add("plan-addon-code"); // string (plan.AddOnCode)
+subscription.AddOns.Add(plan.GetAddOn("another-addon-code")); // AddOn
 subscription.AddOns.Add(new SubscriptionAddOn("extra_users", 1000, 2));
 subscription.Create();
 ```
