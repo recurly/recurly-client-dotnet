@@ -29,8 +29,8 @@ namespace Recurly.Test
                 {
                     invoice.MarkSuccessful();
                 }
-            } 
-            
+            }
+
             var list = Invoices.List();
             list.Should().NotBeEmpty();
         }
@@ -115,7 +115,6 @@ namespace Recurly.Test
             invoice.MarkFailed();
 
             var list = Invoices.List(account.AccountCode);
-            list.Should().NotBeEmpty();
             Assert.Equal(2, list.Count);
         }
     }
