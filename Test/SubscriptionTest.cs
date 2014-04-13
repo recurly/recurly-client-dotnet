@@ -417,6 +417,43 @@ namespace Recurly.Test
                     Assert.NotNull(addon);
                 }
 
+                sub.AddOns.RemoveAt(0);
+                Assert.Equal(6, sub.AddOns.Count);
+
+                sub.AddOns.Clear();
+                Assert.Equal(0, sub.AddOns.Count);
+
+                var subaddon = new SubscriptionAddOn("a",1);
+                var list = new System.Collections.Generic.List<SubscriptionAddOn>();
+                list.Add(subaddon);
+                sub.AddOns.AddRange(list);
+                Assert.Equal(1, sub.AddOns.Capacity);
+
+                Assert.DoesNotThrow(delegate {
+                    sub.AddOns.AsReadOnly();
+                });
+
+                Assert.True(sub.AddOns.Contains(subaddon));
+
+                Predicate<SubscriptionAddOn> p = x => x.AddOnCode == "a";
+                Assert.True(sub.AddOns.Exists(p));
+                Assert.NotNull(sub.AddOns.Find(p));
+                Assert.Equal(1, sub.AddOns.FindAll(p).Count);
+                Assert.NotNull(sub.AddOns.FindLast(p));
+
+                int count = 0;
+                sub.AddOns.ForEach(delegate(SubscriptionAddOn s)
+                {
+                    count++;
+                });
+                Assert.Equal(1, count);
+
+                Assert.Equal(0, sub.AddOns.IndexOf(subaddon));
+
+                Assert.DoesNotThrow(delegate {
+                    sub.AddOns.Reverse();
+                    sub.AddOns.Sort();
+                });
             }
             finally
             {

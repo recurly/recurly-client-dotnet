@@ -9,7 +9,7 @@ namespace Recurly
 {
     public abstract class RecurlyList<T> : IEnumerable<T> where T : RecurlyEntity
     {
-        protected List<T> Items;
+        protected List<T> Items = new List<T>();
         internal HttpRequestMethod Method;
         protected string BaseUrl;
 
@@ -20,9 +20,7 @@ namespace Recurly
         public int Count
         {
             get {
-                return null == Items
-                    ? 0
-                    : Items.Count;
+                return Items.Count;
             }
         }
 
@@ -93,10 +91,7 @@ namespace Recurly
 
         internal void ReadXmlList(XmlTextReader xmlReader, int records, string start, string next, string prev)
         {
-            if (Items == null)
-            {
-                Items = records > 0 ? new List<T>(records) : new List<T>();
-            }
+            Items = records > 0 ? new List<T>(records) : new List<T>();
             _capacity = records;
             StartUrl = start;
             NextUrl = next;
@@ -106,19 +101,110 @@ namespace Recurly
 
         internal abstract void ReadXml(XmlTextReader reader);
 
+        #region List methods
+
         internal virtual void Add(T item)
         {
-            if (Items == null)
-            {
-                Items = new List<T>();
-            }
-
             Items.Add(item);
         }
+        internal void AddRange(IEnumerable<T> items)
+        {
+            foreach (var item in items) Add(item);
+        }
+        internal void Clear()
+        {
+            Items.Clear();
+        }
+        internal System.Collections.ObjectModel.ReadOnlyCollection<T> AsReadOnly()
+        {
+            return Items.AsReadOnly();
+        }
+        internal bool Contains(T item)
+        {
+            return Items.Contains(item);
+        }
+        internal bool Contains(T value, IEqualityComparer<T> comparer)
+        {
+            return Items.Contains(value, comparer);
+        }
+        internal bool Exists(Predicate <T> match)
+        {
+            return Items.Exists(match);
+        }
+        internal T Find(Predicate<T> match)
+        {
+            return Items.Find(match);
+        }
+        internal List<T> FindAll(Predicate<T> match)
+        {
+            return Items.FindAll(match);
+        }
+        internal T FindLast(Predicate<T> match)
+        {
+            return Items.FindLast(match);
+        }
+        internal void ForEach(Action<T> action)
+        {
+            Items.ForEach(action);
+        }
+        internal int IndexOf(T item)
+        {
+            return Items.IndexOf(item);
+        }
+        internal int IndexOf(T item, int index)
+        {
+            return Items.IndexOf(item, index);
+        }
+        internal int IndexOf(T item, int index, int count)
+        {
+            return Items.IndexOf(item, index, count);
+        }
+        internal void RemoveAt(int i)
+        {
+            Items.RemoveAt(i);
+        }
+        internal bool Remove(T item)
+        {
+            return Items.Remove(item);
+        }
+        internal int RemoveAll(Predicate<T> match)
+        {
+            return Items.RemoveAll(match);
+        }
+        internal void Reverse()
+        {
+            Items.Reverse();
+        }
+        internal void Reverse(int index, int count)
+        {
+            Items.Reverse(index, count);
+        }
+        internal void Sort()
+        {
+            Items.Sort();
+        }
+        internal void Sort(Comparison<T> comparison)
+        {
+            Items.Sort(comparison);
+        }
+        internal void Sort(IComparer<T> comparer)
+        {
+            Items.Sort(comparer);
+        }
+        internal void Sort(int index, int count, IComparer<T> comparer)
+        {
+            Items.Sort(index, count, comparer);
+        }
+        internal T[] ToArray()
+        {
+            return Items.ToArray();
+        }
+
+        #endregion List methods
 
         public IEnumerator<T> GetEnumerator()
         {
-            return Items == null ? RecurlyList.Empty<T>().GetEnumerator() : Items.GetEnumerator();
+            return Items.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
