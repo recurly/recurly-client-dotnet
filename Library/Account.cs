@@ -32,9 +32,12 @@ namespace Recurly
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string CompanyName { get; set; }
+        public string VatNumber { get; set; }
+        public bool? TaxExempt { get; set; }
         public string AcceptLanguage { get; set; }
         public string HostedLoginToken { get; private set; }
         public DateTime CreatedAt { get; private set; }
+
         public Address Address { get; set; }
 
         private BillingInfo _billingInfo;
@@ -217,15 +220,16 @@ namespace Recurly
         /// <summary>
         /// Returns a new adjustment (credit or charge) for this account
         /// </summary>
-        /// <param name="description">Description of the adjustment for the invoice.</param>
-        /// <param name="unitAmountInCents">Positive amount for a charge, negative amount for a credit. Max 10,000,000.</param>
         /// <param name="currency">Currency, 3-letter ISO code.</param>
+        /// <param name="unitAmountInCents">Positive amount for a charge, negative amount for a credit. Max 10,000,000.</param>
+        /// <param name="description">Description of the adjustment for the invoice.</param>
         /// <param name="quantity">Quantity, defaults to 1.</param>
         /// <param name="accountingCode">Accounting code. Max of 20 characters.</param>
         /// <param name="taxExempt"></param>
         /// <returns></returns>
-        public Adjustment CreateAdjustment(string description, int unitAmountInCents, string currency, int quantity=1, string accountingCode = "", bool taxExempt = false)
+        public Adjustment NewAdjustment(string currency, int unitAmountInCents, string description="", int quantity=1, string accountingCode="", bool taxExempt = false)
         {
+            // TODO All of the properties should be settable
             return new Adjustment(AccountCode, description, currency, unitAmountInCents, quantity, accountingCode, taxExempt);
         }
 
@@ -298,6 +302,14 @@ namespace Recurly
                         CompanyName = reader.ReadElementContentAsString();
                         break;
 
+                    case "vat_number":
+                        VatNumber = reader.ReadElementContentAsString();
+                        break;
+
+                    case "tax_exempt":
+                        TaxExempt = reader.ReadElementContentAsBoolean();
+                        break;
+
                     case "accept_language":
                         AcceptLanguage = reader.ReadElementContentAsString();
                         break;
@@ -322,13 +334,16 @@ namespace Recurly
             xmlWriter.WriteStartElement("account"); // Start: account
 
             xmlWriter.WriteElementString("account_code", AccountCode);
-
             xmlWriter.WriteStringIfValid("username", Username);
             xmlWriter.WriteStringIfValid("email", Email);
             xmlWriter.WriteStringIfValid("first_name", FirstName);
             xmlWriter.WriteStringIfValid("last_name", LastName);
             xmlWriter.WriteStringIfValid("company_name", CompanyName);
             xmlWriter.WriteStringIfValid("accept_language", AcceptLanguage);
+            xmlWriter.WriteStringIfValid("vat_number", VatNumber);
+
+            if (TaxExempt.HasValue)
+                xmlWriter.WriteElementString("tax_exempt", TaxExempt.Value.AsString());
 
             if (_billingInfo != null)
                 _billingInfo.WriteXml(xmlWriter);

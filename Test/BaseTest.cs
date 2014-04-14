@@ -129,7 +129,7 @@ namespace Recurly.Test
                 {
                     plan.Deactivate();
                 }
-                catch (Exception)
+                catch (RecurlyException)
                 {
                 }
             }

@@ -25,16 +25,16 @@ namespace Recurly
 
         public string AccountCode { get; private set; }
         public string Uuid { get; protected set; }
-        public string Description { get; protected set; }
-        public string AccountingCode { get; protected set; }
+        public string Description { get; set; }
+        public string AccountingCode { get; set; }
         public string Origin { get; protected set; }
-        public int UnitAmountInCents { get; protected set; }
-        public int Quantity { get; protected set; }
+        public int UnitAmountInCents { get; set; }
+        public int Quantity { get; set; }
         public int DiscountInCents { get; protected set; }
         public int TaxInCents { get; protected set; }
         public int TotalInCents { get; protected set; }
-        public string Currency { get; protected set; }
-        public bool TaxExempt { get; protected set; }
+        public string Currency { get; set; }
+        public bool TaxExempt { get; set; }
 
         public AdjustmentState State { get; protected set; }
 

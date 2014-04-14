@@ -1,6 +1,6 @@
 ﻿namespace Recurly
 {
-    public class PropertyOutOfRangeException : Exception
+    public class PropertyOutOfRangeException : RecurlyException
     {
         public string PropertyName { get; protected set; }
 

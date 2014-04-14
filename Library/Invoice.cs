@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Xml;
+using System.Collections.Generic;
 
 namespace Recurly
 {
@@ -16,6 +17,7 @@ namespace Recurly
         }
 
         public string AccountCode { get; private set; }
+        public string SubscriptionUuid { get; private set; }
         public string Uuid { get; protected set; }
         public InvoiceState State { get; protected set; }
         public int InvoiceNumber { get; private set; }
@@ -25,10 +27,24 @@ namespace Recurly
         public int TaxInCents { get; protected set; }
         public int TotalInCents { get; protected set; }
         public string Currency { get; protected set; }
-        public DateTime CreatedAt { get; private set; }
+        public DateTime? CreatedAt { get; private set; }
+        public DateTime? ClosedAt { get; private set; }
+
+        /// <summary>
+        /// Tax type as "vat" for VAT or "usst" for US Sales Tax.
+        /// </summary>
+        public string TaxType { get; private set; }
+
+        public decimal? TaxRate { get; private set; }
+
+        public int? NetTerms { get; private set; }
+
+        public string CollectionMethod { get; private set; }
+
 
         public RecurlyList<Adjustment> Adjustments { get; private set; }
         public RecurlyList<Transaction> Transactions { get; private set; }
+
 
         internal const string UrlPrefix = "/invoices/";
 
@@ -92,16 +108,35 @@ namespace Recurly
             return statusCode == HttpStatusCode.NotFound ? null : cr;
         }
 
-        public Invoice Refund(Adjustment adjustment, bool prorate, int quantity = 0)
+        /// <summary>
+        /// If enabled, allows specific line items and/or quantities to be refunded.
+        /// </summary>
+        /// <param name="adjustment"></param>
+        /// <param name="prorate"></param>
+        /// <param name="quantity"></param>
+        /// <returns>new Invoice object</returns>
+        public Invoice Refund(Adjustment adjustment, bool prorate = false, int quantity = 0)
         {
-            var refund = new Refund(adjustment, prorate, quantity == 0 ? adjustment.Quantity : quantity);
+            var adjustments = new List<Adjustment>();
+            adjustments.Add(adjustment);
+
+            return Refund(adjustments, prorate, quantity);
+        }
+
+        public Invoice Refund(IEnumerable<Adjustment> adjustments, bool prorate = false, int quantity = 0)
+        {
+            var refunds = new RefundList(adjustments, prorate, quantity);
+            var invoice = new Invoice();
 
             var response = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 UrlPrefix + InvoiceNumber + "/refund",
-                refund.WriteXml,
-                ReadXml);
+                refunds.WriteXml,
+                invoice.ReadXml);
 
-            return response == HttpStatusCode.Created ? this : null;
+            if (HttpStatusCode.Created == response || HttpStatusCode.OK == response)
+                return invoice;
+            else
+                return null;
         }
 
         #region Read and Write XML documents
@@ -119,8 +154,13 @@ namespace Recurly
                 switch (reader.Name)
                 {
                     case "account":
-                        var href = reader.GetAttribute("href");
-                        AccountCode = Uri.UnescapeDataString(href.Substring(href.LastIndexOf("/") + 1));
+                        var accountHref = reader.GetAttribute("href");
+                        AccountCode = Uri.UnescapeDataString(accountHref.Substring(accountHref.LastIndexOf("/") + 1));
+                        break;
+
+                    case "subscription":
+                        var subHref = reader.GetAttribute("href");
+                        SubscriptionUuid = Uri.UnescapeDataString(subHref.Substring(subHref.LastIndexOf("/") + 1));
                         break;
 
                     case "uuid":
@@ -162,17 +202,44 @@ namespace Recurly
                         break;
 
                     case "created_at":
-                        CreatedAt = reader.ReadElementContentAsDateTime();
+                        DateTime createdAt;
+                        if (DateTime.TryParse(reader.ReadElementContentAsString(), out createdAt))
+                            CreatedAt = createdAt;
+                        break;
+
+                    case "closed_at":
+                        DateTime closedAt;
+                        if (DateTime.TryParse(reader.ReadElementContentAsString(), out closedAt))
+                            ClosedAt = closedAt;
+                        break;
+
+                    case "tax_type":
+                        TaxType = reader.ReadElementContentAsString();
+                        break;
+
+                    case "tax_rate":
+                        TaxRate = reader.ReadElementContentAsDecimal();
+                        break;
+
+                    case "net_terms":
+                        NetTerms = reader.ReadElementContentAsInt();
+                        break;
+
+                    case "collection_method":
+                        CollectionMethod = reader.ReadElementContentAsString();
                         break;
 
                     case "line_items":
+                        // overrite existing value with the Recurly API response
+                        Adjustments = new AdjustmentList();
                         Adjustments.ReadXml(reader);
                         break;
 
                     case "transactions":
+                        // overrite existing value with the Recurly API response
+                        Transactions = new TransactionList();
                         Transactions.ReadXml(reader);
                         break;
-
                 }
             }
         }

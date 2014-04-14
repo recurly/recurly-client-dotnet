@@ -168,7 +168,7 @@ namespace Recurly
 
                     case "tax_in_cents":
                         if (Int32.TryParse(reader.ReadElementContentAsString(), out amount))
-                            AmountInCents = amount;
+                            TaxInCents = amount;
                         break;
 
                     case "currency":
@@ -222,8 +222,6 @@ namespace Recurly
                     case "details":
                         // API docs say not to load details into objects
                         break;
-
-                        
                 }
             }
         }

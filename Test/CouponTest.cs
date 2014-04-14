@@ -144,6 +144,7 @@ namespace Recurly.Test
 
             Action a = coupon.Create;
             a.ShouldNotThrow();
+            Assert.Equal(1, coupon.Plans.Count);
 
             //plan.Deactivate(); BaseTest.Dispose() handles this
         }
