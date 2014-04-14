@@ -310,7 +310,7 @@ namespace Recurly
         {
             if (_saved)
             {
-                throw new Recurly.Exception("Cannot preview an existing subscription.");
+                throw new Recurly.RecurlyException("Cannot preview an existing subscription.");
             }
 
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
