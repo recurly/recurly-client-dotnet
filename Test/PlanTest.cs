@@ -11,6 +11,7 @@ namespace Recurly.Test
         {
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName()) {Description = "Test Lookup"};
             plan.UnitAmountInCents.Add("USD", 100);
+            plan.TaxExempt = true;
             plan.Create();
             PlansToDeactivateOnDispose.Add(plan);
 
@@ -20,6 +21,7 @@ namespace Recurly.Test
             fromService.PlanCode.Should().Be(plan.PlanCode);
             fromService.UnitAmountInCents.Should().Contain("USD", 100);
             fromService.Description.Should().Be("Test Lookup");
+            Assert.True(plan.TaxExempt.Value);
         }
 
         [Fact]
@@ -77,12 +79,14 @@ namespace Recurly.Test
             
             plan.UnitAmountInCents["USD"] = 5000;
             plan.SetupFeeInCents["USD"] = 100;
+            plan.TaxExempt = false;
 
             plan.Update();
 
             plan = Plans.Get(plan.PlanCode);
             plan.UnitAmountInCents.Should().Contain("USD", 5000);
             plan.SetupFeeInCents.Should().Contain("USD", 100);
+            Assert.False(plan.TaxExempt.Value);
         }
 
         [Fact]

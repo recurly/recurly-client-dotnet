@@ -22,8 +22,6 @@ namespace Recurly
 
         internal override void WriteXml(XmlTextWriter writer)
         {
-            writer.WriteStartElement("invoice");
-            writer.WriteStartElement("line_items");
             writer.WriteStartElement("adjustment");
 
             writer.WriteElementString("uuid", Uuid);
@@ -31,8 +29,6 @@ namespace Recurly
             writer.WriteElementString("prorate", Prorate.AsString());
 
             writer.WriteEndElement(); // adjustment
-            writer.WriteEndElement(); // line_items
-            writer.WriteEndElement(); // invoice
         }
     }
 }

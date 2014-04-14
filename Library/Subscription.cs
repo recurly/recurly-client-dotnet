@@ -23,7 +23,8 @@ namespace Recurly
             Future = 8,
             InTrial = 16,
             Live = 32,
-            PastDue = 64
+            PastDue = 64,
+            Pending = 128
         }
 
         public enum ChangeTimeframe : short
@@ -73,7 +74,6 @@ namespace Recurly
 
         public string Currency { get; set; }
         public int Quantity { get; set; }
-
 
         /// <summary>
         /// Date the subscription started.
@@ -154,15 +154,15 @@ namespace Recurly
             }
         }
 
-        private List<SubscriptionAddOn> _addOns; 
         /// <summary>
         /// List of add ons for this subscription
         /// </summary>
-        public List<SubscriptionAddOn> AddOns
+        public SubscriptionAddOnList AddOns
         {
-            get { return _addOns ?? (_addOns = new List<SubscriptionAddOn>()); }
+            get { return _addOns ?? (_addOns = new SubscriptionAddOnList(this)); }
             set { _addOns = value; }
         }
+        private SubscriptionAddOnList _addOns;
 
         public int? TotalBillingCycles { get; set; }
         public DateTime? FirstRenewalDate { get; set; }
@@ -172,6 +172,26 @@ namespace Recurly
         public string CollectionMethod { get; set; }
         public int? NetTerms { get; set; }
         public string PoNumber { get; set; }
+
+        /// <summary>
+        /// Amount of tax or VAT within the transaction, in cents.
+        /// </summary>
+        public int? TaxInCents { get; private set; }
+
+        /// <summary>
+        /// Tax type as "vat" for VAT or "usst" for US Sales Tax.
+        /// </summary>
+        public string TaxType { get; private set; }
+
+        /// <summary>
+        /// Tax rate that will be applied to this subscription.
+        /// </summary>
+        public decimal? TaxRate { get; private set; }
+
+        /// <summary>
+        /// Determines if this object exists in the Recurly API
+        /// </summary>
+        internal bool _saved;
 
         internal Subscription()
         {
@@ -229,20 +249,25 @@ namespace Recurly
         /// <summary>
         /// Request that an update to a subscription take place
         /// </summary>
-        /// <param name="timeframe">when the update should occur: now or at renewal</param>
+        /// <param name="timeframe">when the update should occur: now (default) or at renewal</param>
         public void ChangeSubscription(ChangeTimeframe timeframe)
         {
             Client.WriteXmlDelegate writeXmlDelegate;
 
-            if (timeframe == ChangeTimeframe.Now)
-                writeXmlDelegate = WriteChangeSubscriptionNowXml;
-            else
+            if (ChangeTimeframe.Renewal == timeframe)
                 writeXmlDelegate = WriteChangeSubscriptionAtRenewalXml;
+            else
+                writeXmlDelegate = WriteChangeSubscriptionNowXml;
 
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
                 UrlPrefix + Uri.EscapeUriString(Uuid),
                 writeXmlDelegate,
                 ReadXml);
+        }
+
+        public void ChangeSubscription()
+        {
+            ChangeSubscription(ChangeTimeframe.Now);
         }
 
         /// <summary>
@@ -266,6 +291,10 @@ namespace Recurly
                 ReadXml);
         }
 
+        /// <summary>
+        /// Terminates the subscription immediately.
+        /// </summary>
+        /// <param name="refund"></param>
         public void Terminate(RefundType refund)
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
@@ -273,12 +302,29 @@ namespace Recurly
                 ReadXml);
         }
 
-        public void Preview()
+        /// <summary>
+        /// Transforms this object into a preview Subscription applied to the account.
+        /// </summary>
+        /// <param name="timeframe">ChangeTimeframe.Now (default) or at Renewal</param>
+        public void Preview(ChangeTimeframe timeframe)
         {
+            if (_saved)
+            {
+                throw new Recurly.RecurlyException("Cannot preview an existing subscription.");
+            }
+
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 UrlPrefix + "preview",
-                WriteXml,
+                WriteSubscriptionXml,
                 ReadXml);
+
+            // this method does not save the object
+            _saved = false;
+        }
+
+        public void Preview()
+        {
+            Preview(ChangeTimeframe.Now);
         }
 
         public void Postpone(DateTime nextRenewalDate)
@@ -310,6 +356,8 @@ namespace Recurly
 
         internal override void ReadXml(XmlTextReader reader)
         {
+            _saved = true;
+
             string href;
 
             while (reader.Read())
@@ -390,16 +438,15 @@ namespace Recurly
                         break;
 
                     case "subscription_add_ons":
-                        // overwrite existing list with what is in Recurly
-                        AddOns.Clear();
-                        var newList = new SubscriptionAddOnList();
-                        newList.ReadXml(reader);
-                        AddOns.AddRange(newList.All);
+                        // overwrite existing list with what came back from Recurly
+                        AddOns = new SubscriptionAddOnList(this);
+                        AddOns.ReadXml(reader);
                         break;
 
                     case "pending_subscription":
                         PendingSubscription = new Subscription {IsPendingSubscription = true};
                         PendingSubscription.ReadPendingSubscription(reader);
+                        // TODO test all returned properties are read
                         break;
 
                     case "collection_method":
@@ -417,6 +464,18 @@ namespace Recurly
                     case "total_billing_cycles":
                         if (Int32.TryParse(reader.ReadElementContentAsString(), out billingCycles))
                             TotalBillingCycles = billingCycles;
+                        break;
+
+                    case "tax_in_cents":
+                        TaxInCents = reader.ReadElementContentAsInt();
+                        break;
+
+                    case "tax_type":
+                        TaxType = reader.ReadElementContentAsString();
+                        break;
+
+                    case "tax_rate":
+                        TaxRate = reader.ReadElementContentAsDecimal();
                         break;
                 }
             }
@@ -450,10 +509,9 @@ namespace Recurly
                         Quantity = reader.ReadElementContentAsInt();
                         break;
 
-                    case "subscription_add_ons":        
-                        var newList = new SubscriptionAddOnList();
-                        newList.ReadXml(reader);
-                        AddOns.AddRange(newList.All);
+                    case "subscription_add_ons":
+                        AddOns = new SubscriptionAddOnList(this);
+                        AddOns.ReadXml(reader);
                         break;
                 }
             }
@@ -494,6 +552,7 @@ namespace Recurly
                 xmlWriter.WriteElementString("net_terms", NetTerms.Value.AsString());
                 xmlWriter.WriteElementString("po_number", PoNumber);
             }
+
             // <account> and billing info
             Account.WriteXml(xmlWriter);
 

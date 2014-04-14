@@ -85,6 +85,7 @@
     <Compile Include="List\InvoiceList.cs" />
     <Compile Include="List\NoteList.cs" />
     <Compile Include="List\PlanList.cs" />
+    <Compile Include="List\RefundList.cs" />
     <Compile Include="List\SubscriptionAddOnList.cs" />
     <Compile Include="List\SubscriptionList.cs" />
     <Compile Include="Note.cs" />

@@ -4,7 +4,7 @@
     /// Exception when a validation error prevents an object from being created, updated, or deleted.
     /// See the Errors collection for more information.
     /// </summary>
-    public class ValidationException : Exception
+    public class ValidationException : RecurlyException
     {
         /// <summary>
         /// HTTP Status Code 422 is "Unprocessable Entity"

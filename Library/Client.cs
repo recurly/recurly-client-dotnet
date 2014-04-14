@@ -200,7 +200,8 @@ namespace Recurly
                 if ((int)statusCode == ValidationException.HttpStatusCode) // Unprocessable Entity
                 {
                     errors = Error.ReadResponseAndParseErrors(response);
-                    Debug.WriteLine(errors[0].ToString());
+                    if (errors.Length > 0) Debug.WriteLine(errors[0].ToString());
+                    else Debug.WriteLine("Client Error: " + response.ToString());
                     throw new ValidationException(errors);
                 }
 
@@ -306,9 +307,15 @@ namespace Recurly
         {
             if (readXmlDelegate == null && readXmlListDelegate == null) return;
 #if (DEBUG)
-            var responseStream = CopyAndClose(response.GetResponseStream());
             Debug.WriteLine("Got Response:");
+            Debug.WriteLine("Status code: " + response.StatusCode);
 
+            foreach (var header in response.Headers)
+            {
+                Debug.WriteLine(header + ": " + response.Headers[header.ToString()]);
+            }
+
+            var responseStream = CopyAndClose(response.GetResponseStream());
             var reader = new StreamReader(responseStream);
 
             string line;
