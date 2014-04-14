@@ -463,7 +463,7 @@ namespace Recurly.Test
                     if (plan != null) plan.Deactivate();
                     if (account != null) account.Close();
                 }
-                catch (Exception e) { }
+                catch (RecurlyException e) { }
             }
         }
 
@@ -488,7 +488,7 @@ namespace Recurly.Test
             Assert.Equal(Subscription.SubscriptionState.Pending, sub.State);
 
             sub.Create();
-            Assert.Throws<Recurly.Exception>(
+            Assert.Throws<Recurly.RecurlyException>(
                 delegate
                 {
                     sub.Preview();
