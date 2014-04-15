@@ -1,4 +1,42 @@
 
+1.0.0-rc1 / 2014-04-14
+==================
+
+ * removed; account.CreateAdjustment(). use account.NewAdjustment() instead
+ * changed; Recurly.Exception -> Recurly.RecurlyException #21
+ * changed; Invoice#Refund() now returns a new Invoice object
+ * changed; Invoice.CreateAt is now nullable
+ * changed; plan.CreateAddOn() -> plan.NewAddOn()
+ * fixed; duplicate Coupon.Plans triggered by API response
+ * fixed; missing plan error
+ * fixed; Invoice.Transactions duplicates triggered by API response
+ * fixed; RecurlyList.Capacity when no Items exist
+ * fixed; Invoices.List() returning all invoices
+ * added; more List methods to RecurlyList
+ * added; Subscription#Addons.Add now supports more handy overloads
+ * added; support for multiple Refunds
+ * added; more flexible Refund constructors
+ * added; more support for returned properties in Invoice API responses
+ * added; make Now the default timeframe for Subscription#ChangeSubsciption()
+ * added; Subscription.Preview() support
+ * added; Invoice.TaxRate
+ * added; Invoice.TaxType
+ * added; Subscription.TaxType
+ * added; Subscription.TaxRate
+ * added; Subscription.TaxInCents
+ * added; Vat and TaxExempt Account properties
+ * added; permit setting Adjustment properties on the instance
+ * added; account.NewAdjustment()
+ * added; allow users to set Adjustment.TaxExempt
+ * docs; update examples
+ * docs; subscription.AddOns.Add() overloads
+ * docs; fix configSection
+ * tests; remove redundant test
+ * tests; wait for API to respond
+ * tests; added for multiple refunds
+ * tests; added for Subscription#Preview()
+ * tests; updating Account with tax & vat
+
 1.0.0-beta3 / 2014-03-31
 ==================
 
