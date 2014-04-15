@@ -8,7 +8,7 @@ Compatible with .NET >=3.5 and Recurly API v2.
 
 Visit the [Releases](https://github.com/recurly/recurly-client-net/releases) page to download the latest version.
 
-Alternatively, you can use use [git](http://git-scm.com/) to work with the latest changes in development.
+Alternatively, you can use use [git](http://git-scm.com/) to work with the latest changes in **development**.
 
 ```sh
 git clone git://github.com/recurly/recurly-client-net.git C:\path\to\recurly
