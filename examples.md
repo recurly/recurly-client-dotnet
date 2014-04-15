@@ -125,9 +125,9 @@ Console.WriteLine("Adjustment: " + adjustment);
 ```c#
 var account = Accounts.Get("1");
 var adjustment = account.NewAdjustment(
-	"Charge for extra bandwidth", // description
-	5000,                         // unit_amount_in_cents
 	"USD",                        // currency
+	5000,                         // unit_amount_in_cents
+	"Charge for extra bandwidth", // description
 	1,                            // quantity
 	"bandwidth",                  // accounting_code
 	false);                       // tax_exempt
