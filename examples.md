@@ -67,12 +67,18 @@ account.Create();
 ```c#
 var account = Accounts.Get("1");
 account.Close();
+
+// or to avoid an API call
+Accounts.Close("1");
 ```
 
 ###Reopen Account
 ```c#
 var account = Accounts.Get("1");
 account.Reopen();
+
+// or to avoid an API call
+Accounts.Reopen("1");
 ```
 
 ###List Account Notes
