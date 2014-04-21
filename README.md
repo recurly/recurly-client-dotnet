@@ -6,7 +6,13 @@ Compatible with .NET >=3.5 and Recurly API v2.
 
 ## Installation
 
-Visit the [Releases](https://github.com/recurly/recurly-client-net/releases) page to download the latest version.
+If you use [NuGet](http://www.nuget.org/), simply run the following:
+
+```sh
+PM> Install-Package recurly-api-client
+```
+
+You may also visit our [Releases](https://github.com/recurly/recurly-client-net/releases) page to download the latest version.
 
 Alternatively, you can use use [git](http://git-scm.com/) to work with the latest changes in **development**.
 
