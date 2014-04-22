@@ -12,7 +12,7 @@ If you use [NuGet](http://www.nuget.org/), simply run the following:
 PM> Install-Package recurly-api-client
 ```
 
-You may also visit our [Releases](https://github.com/recurly/recurly-client-net/releases) page to download the latest version.
+You may also visit our [Releases](https://github.com/recurly/recurly-client-net/releases) page to download the latest version. Then add the `Recurly.dll` as a [reference](http://msdn.microsoft.com/en-us/library/hh708954.aspx) to your solution.
 
 Alternatively, you can use use [git](http://git-scm.com/) to work with the latest changes in **development**.
 
@@ -22,10 +22,6 @@ git clone git://github.com/recurly/recurly-client-net.git C:\path\to\recurly
 
 For more information about getting started with git, please check out the
 [Github Guide for Windows](http://github.com/guides/using-git-and-github-for-the-windows-for-newbies).
-
-## Getting Started
-
-First [download the latest release](https://github.com/recurly/recurly-client-net/releases). Then either add the `Recurly.dll` or add the Recurly project from the [Library](https://github.com/recurly/recurly-client-net/tree/v2/Library) folder to your solution and reference it in the projects that will make calls to the Recurly service.
 
 ## Configuration
 
@@ -102,3 +98,15 @@ Each section of the API (Accounts, Invoices, Transactions, etc.) has static refe
 ## Recurly API Documentation
 
 Please see the [Recurly API](https://docs.recurly.com/api) for more information.
+
+## Support
+Looking for help? Please contact [support@recurly.com](mailto:support@recurly.com) or visit [support.recurly.com](https://support.recurly.com).
+
+[Stackoverflow](http://stackoverflow.com/questions/tagged/recurly) is also a great place to talk to the community and find answers to common questions.
+
+## Announcements
+
+For the latest API and client library announcements follow Recurly on [Twitter](https://twitter.com/recurly) and join our [Google Group](http://groups.google.com/group/recurly-api):
+
+- [@recurly](https://twitter.com/recurly)
+- [Recurly Google Group](http://groups.google.com/group/recurly-api)
