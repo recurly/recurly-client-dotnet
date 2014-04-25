@@ -29,6 +29,16 @@ namespace Recurly.Test
         }
 
         [Fact]
+        public void UpdateBillingInfoWithToken()
+        {
+            var account = CreateNewAccount();
+            var billingInfo = NewBillingInfo(account);
+
+            billingInfo.TokenId = "abc123";
+            billingInfo.Update();
+        }
+
+        [Fact]
         public void LookupBillingInfo()
         {
             var accountCode = GetUniqueAccountCode();

@@ -98,6 +98,7 @@ namespace Recurly
 
         public string VerificationValue { get; set; }
 
+        public string TokenId { get; set; }
 
         private const string UrlPrefix = "/accounts/";
         private const string UrlPostfix = "/billing_info";
@@ -280,6 +281,8 @@ namespace Recurly
 
                 xmlWriter.WriteStringIfValid("verification_value", VerificationValue);
             }
+
+            xmlWriter.WriteStringIfValid("token_id", TokenId);
 
             xmlWriter.WriteEndElement(); // End: billing_info
         }
