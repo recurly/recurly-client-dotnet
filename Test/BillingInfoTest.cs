@@ -45,7 +45,7 @@ namespace Recurly.Test
             catch (NotFoundException exception)
             {
                 threw = true;
-                // exception.Errors[0].Symbol.Should().Be("token_invalid");
+                exception.Errors[0].Symbol.Should().Be("token_invalid");
             }
 
             threw.Should().Be(true);
