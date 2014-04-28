@@ -32,10 +32,23 @@ namespace Recurly.Test
         public void UpdateBillingInfoWithToken()
         {
             var account = CreateNewAccount();
-            var billingInfo = NewBillingInfo(account);
+            var billingInfo = new BillingInfo(account)
+            {
+                TokenId = "abc123"
+            };
+            var threw = false;
 
-            billingInfo.TokenId = "abc123";
-            billingInfo.Update();
+            try
+            {
+                billingInfo.Update();
+            }
+            catch (NotFoundException exception)
+            {
+                threw = true;
+                // exception.Errors[0].Symbol.Should().Be("token_invalid");
+            }
+
+            threw.Should().Be(true);
         }
 
         [Fact]
