@@ -22,7 +22,7 @@ namespace Recurly.Configuration
         {
             get
             {
-                return "Recurly .NET Client v" + Assembly.GetExecutingAssembly().GetName().Version;
+                return "Recurly C# Client v" + Assembly.GetExecutingAssembly().GetName().Version;
             }
         }
 
