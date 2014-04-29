@@ -17,6 +17,8 @@ namespace Recurly
             ReadXml(reader);
         }
 
+        internal Address() { }
+
         internal override void ReadXml(XmlTextReader reader)
         {
             while (reader.Read())
