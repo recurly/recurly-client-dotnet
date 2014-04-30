@@ -21,7 +21,7 @@ namespace Recurly.Test
             var acct = new Account(GetUniqueAccountCode())
             {
                 Username = "testuser1",
-                Email = "testemail@recurly.com",
+                Email = "testemail@test.com",
                 FirstName = "Test",
                 LastName = "User",
                 CompanyName = "Test Company",
@@ -30,16 +30,20 @@ namespace Recurly.Test
                 TaxExempt = true
             };
 
+            string address = "123 Faux Street";
+            acct.Address.Address1 = address;
+
             acct.Create();
 
             acct.Username.Should().Be("testuser1");
-            acct.Email.Should().Be("testemail@recurly.com");
+            acct.Email.Should().Be("testemail@test.com");
             acct.FirstName.Should().Be("Test");
             acct.LastName.Should().Be("User");
             acct.CompanyName.Should().Be("Test Company");
             acct.AcceptLanguage.Should().Be("en");
             Assert.Equal("my-vat-number", acct.VatNumber);
             Assert.True(acct.TaxExempt.Value);
+            Assert.Equal(address, acct.Address.Address1);
         }
 
         [Fact]

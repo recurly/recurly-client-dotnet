@@ -38,7 +38,11 @@ namespace Recurly
         public string HostedLoginToken { get; private set; }
         public DateTime CreatedAt { get; private set; }
 
-        public Address Address { get; set; }
+        public Address Address {
+            get { return _address ?? (_address = new Address()); }
+            set { _address = value; }
+        }
+        private Address _address;
 
         private BillingInfo _billingInfo;
 
