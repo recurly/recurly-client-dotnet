@@ -174,6 +174,12 @@ info.VerificationValue = "123";
 info.ExpirationMonth = 11;
 info.ExpirationYear = 2015;
 info.Update();
+
+// or update using a TokenId
+var account = Accounts.Get("1");
+var info = account.BillingInfo;
+info.TokenId = "some-token-id";
+info.Update();
 ```
 
 ###Delete billing info
