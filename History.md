@@ -1,4 +1,14 @@
 
+1.1.0 (stable) / 2014-04-30
+==================
+
+ * fixed; creating accounts w/o address
+ * updated; user agent
+ * updated; handle more error details
+ * added; support for BillingInfo tokens
+ * tests; Updates UpdateBillingInfoWithToken test to expect a 404
+ * tests; add missing fixtures
+
 1.0.0 (stable) / 2014-04-22
 ===========================
 
