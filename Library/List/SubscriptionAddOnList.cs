@@ -48,13 +48,13 @@ namespace Recurly
         //sub.AddOns.Add(planAddOn, quantity, unitInCents)
         //sub.AddOns.Add(planAddOn, quantity) // unitInCents=this.Plan.UnitAmountInCents[this.Currency]
         //sub.AddOns.Add(planAddOn) // default quantity=1, unitInCents=this.Plan.UnitAmountInCents[this.Currency]
-        internal void Add(AddOn planAddOn, int quantity=1)
+        public void Add(AddOn planAddOn, int quantity=1)
         {
             var unitAmount = _subscription.Plan.UnitAmountInCents[_subscription.Currency];
             var sub = new SubscriptionAddOn(planAddOn.AddOnCode, unitAmount, quantity);
             base.Add(sub);
         }
-        internal void Add(AddOn planAddOn, int quantity, int unitAmountInCents)
+        public void Add(AddOn planAddOn, int quantity, int unitAmountInCents)
         {
             var sub = new SubscriptionAddOn(planAddOn.AddOnCode, unitAmountInCents, quantity);
             base.Add(sub);
@@ -63,13 +63,13 @@ namespace Recurly
         // sub.AddOns.Add(code, quantity, unitInCents);
         // sub.AddOns.Add(code, quantity); unitInCents=this.Plan.UnitAmountInCents[this.Currency]
         // sub.AddOns.Add(code); 1, unitInCents=this.Plan.UnitAmountInCents[this.Currency]
-        internal void Add(string planAddOnCode, int quantity=1)
+        public void Add(string planAddOnCode, int quantity=1)
         {
             var unitAmount = _subscription.Plan.UnitAmountInCents[_subscription.Currency];
             var sub = new SubscriptionAddOn(planAddOnCode, unitAmount, quantity);
             base.Add(sub);
         }
-        internal void Add(string planAddOnCode, int quantity, int unitAmountInCents)
+        public void Add(string planAddOnCode, int quantity, int unitAmountInCents)
         {
             var sub = new SubscriptionAddOn(planAddOnCode, unitAmountInCents, quantity);
             base.Add(sub);
