@@ -1,4 +1,10 @@
 
+1.1.1 (stable) / 2014-05-01
+==================
+
+ * fixed; SubscriptionAddOnList.Add is now public https://github.com/recurly/recurly-client-net/pull/27
+ * docs; added BillingInfo TokenId example
+
 1.1.0 (stable) / 2014-04-30
 ==================
 
