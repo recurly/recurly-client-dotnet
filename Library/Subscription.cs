@@ -553,6 +553,9 @@ namespace Recurly
                 xmlWriter.WriteElementString("po_number", PoNumber);
             }
 
+            if (CollectionMethod.Like("automatic"))
+                xmlWriter.WriteElementString("collection_method", "automatic");
+
             // <account> and billing info
             Account.WriteXml(xmlWriter);
 
