@@ -552,6 +552,8 @@ namespace Recurly
                 xmlWriter.WriteElementString("net_terms", NetTerms.Value.AsString());
                 xmlWriter.WriteElementString("po_number", PoNumber);
             }
+            else if (CollectionMethod.Like("automatic"))
+                xmlWriter.WriteElementString("collection_method", "automatic");
 
             // <account> and billing info
             Account.WriteXml(xmlWriter);
