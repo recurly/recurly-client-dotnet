@@ -1,3 +1,7 @@
+1.1.2 (stable) / 2014-06-26
+==================
+
+ * fixed; change subscription to Manual if Automatic collecting
 
 1.1.1 (stable) / 2014-05-01
 ==================
