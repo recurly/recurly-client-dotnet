@@ -7,7 +7,7 @@ namespace Recurly
     public class AddOn : RecurlyEntity
     {
 
-        public string PlanCode { get; private set; }
+        public string PlanCode { get; internal set; }
         public string AddOnCode { get; set; }
         public string Name { get; set; }
 
@@ -35,9 +35,8 @@ namespace Recurly
         {
         }
 
-        internal AddOn(string planCode, XmlTextReader xmlReader)
+        internal AddOn(XmlTextReader xmlReader)
         {
-            PlanCode = planCode;
             ReadXml(xmlReader);
         }
 

@@ -13,6 +13,11 @@ namespace Recurly
         public AddOnList(string planCode, string url) : base(Client.HttpRequestMethod.Get, url)
         {
             PlanCode = planCode;
+
+            foreach (var addOn in this)
+            {
+                addOn.PlanCode = planCode;
+            }
         }
 
         internal override void ReadXml(XmlTextReader reader)
@@ -25,7 +30,7 @@ namespace Recurly
 
                 if (reader.NodeType == XmlNodeType.Element && reader.Name == "add_on")
                 {
-                    Add(new AddOn(PlanCode, reader));
+                    Add(new AddOn(reader));
                 }
             }
         }
