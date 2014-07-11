@@ -25,7 +25,7 @@ For more information about getting started with git, please check out the
 
 ## Configuration
 
-Specify your [API Key, site subdomain, private key](https://app.recurly.com/go/developer/api_access), and (optionally) page size setting in your `app.config` or `web.config` file:
+Specify your [API Key, site subdomain](https://app.recurly.com/go/developer/api_access), and (optionally) page size setting in your `app.config` or `web.config` file:
 
 ```xml
 <?xml version="1.0" encoding="utf-8" ?>
@@ -36,7 +36,6 @@ Specify your [API Key, site subdomain, private key](https://app.recurly.com/go/d
 
   <recurly
     apiKey="123456789012345678901234567890ab"
-    privateKey="123456789012345678901234567890cd"
     subdomain="company"
 	pageSize="50" /> <!-- optional. 50 is the default -->
 
