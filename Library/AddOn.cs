@@ -35,8 +35,9 @@ namespace Recurly
         {
         }
 
-        internal AddOn(XmlTextReader xmlReader)
+        internal AddOn(string planCode, XmlTextReader xmlReader)
         {
+            PlanCode = planCode;
             ReadXml(xmlReader);
         }
 

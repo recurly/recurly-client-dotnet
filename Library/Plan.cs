@@ -50,7 +50,7 @@ namespace Recurly
                 if (_addOns == null)
                 {
                     var url = UrlPrefix + Uri.EscapeUriString(PlanCode) + "/add_ons/";
-                    _addOns = new AddOnList(url);
+                    _addOns = new AddOnList(PlanCode, url);
                 }
                 return _addOns;
             }
