@@ -143,6 +143,9 @@ namespace Recurly
                 UrlPrefix + Uri.EscapeUriString(PlanCode) + "/add_ons/" + Uri.EscapeUriString(addOnCode),
                 addOn.ReadXml);
 
+            if (null != addOn)
+                addOn.PlanCode = PlanCode;
+
             return status == HttpStatusCode.OK ? addOn : null;
         }
 
