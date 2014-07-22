@@ -330,7 +330,7 @@ namespace Recurly
         public void Postpone(DateTime nextRenewalDate)
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
-				UrlPrefix + Uri.EscapeUriString(Uuid) + "/postpone?next_renewal_date=" + nextRenewalDate.ToString("yyyy-MM-ddThh:mm:ssZ"),
+                UrlPrefix + Uri.EscapeUriString(Uuid) + "/postpone?next_renewal_date=" + nextRenewalDate.ToString("yyyy-MM-ddThh:mm:ssZ"),
                 ReadXml);
         }
 
@@ -546,7 +546,7 @@ namespace Recurly
             if (FirstRenewalDate.HasValue)
                 xmlWriter.WriteElementString("first_renewal_date", FirstRenewalDate.Value.ToString("s"));
 
-			if (CollectionMethod.Like("manual"))
+            if (CollectionMethod.Like("manual"))
             {
                 xmlWriter.WriteElementString("collection_method", "manual");
                 xmlWriter.WriteElementString("net_terms", NetTerms.Value.AsString());
@@ -590,8 +590,8 @@ namespace Recurly
                 xmlWriter.WriteElementString("net_terms", NetTerms.Value.AsString());
                 xmlWriter.WriteElementString("po_number", PoNumber);
             }
-			else if (CollectionMethod.Like("automatic"))
-				xmlWriter.WriteElementString("collection_method", "automatic");
+            else if (CollectionMethod.Like("automatic"))
+                xmlWriter.WriteElementString("collection_method", "automatic");
 
             xmlWriter.WriteEndElement(); // End: subscription
         }
