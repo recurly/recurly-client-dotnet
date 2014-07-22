@@ -330,7 +330,7 @@ namespace Recurly
         public void Postpone(DateTime nextRenewalDate)
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
-                UrlPrefix + Uri.EscapeUriString(Uuid) + "/postpone?next_renewal_date=" + nextRenewalDate.ToString("yyyy-MM-dd"),
+				UrlPrefix + Uri.EscapeUriString(Uuid) + "/postpone?next_renewal_date=" + nextRenewalDate.ToString("yyyy-MM-ddThh:mm:ssZ"),
                 ReadXml);
         }
 
