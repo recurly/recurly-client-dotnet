@@ -1,3 +1,9 @@
+1.1.3 (stable) / 2014-07-22
+==================
+
+ * fixed; change subscription to Manual if Automatic collecting when posting a Subscription
+ * fixed; Subscription.postpone() now sends the correct date/time format
+
 1.1.2 (stable) / 2014-06-26
 ==================
 
