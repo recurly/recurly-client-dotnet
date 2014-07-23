@@ -1,3 +1,8 @@
+1.1.4 (stable) / 2014-07-23
+==================
+
+ * updated; make the List.Clear() and List.RemoveAt() methods public
+
 1.1.3 (stable) / 2014-07-22
 ==================
 
