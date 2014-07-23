@@ -111,7 +111,7 @@ namespace Recurly
         {
             foreach (var item in items) Add(item);
         }
-        internal void Clear()
+        public void Clear()
         {
             Items.Clear();
         }
@@ -159,7 +159,7 @@ namespace Recurly
         {
             return Items.IndexOf(item, index, count);
         }
-        internal void RemoveAt(int i)
+        public void RemoveAt(int i)
         {
             Items.RemoveAt(i);
         }
