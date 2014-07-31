@@ -1,3 +1,8 @@
+1.1.5 (stable) / 2014-07-30
+==================
+
+ * fixed; keep add on unit amount when adding to a subscription
+
 1.1.4 (stable) / 2014-07-23
 ==================
 
