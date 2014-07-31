@@ -82,6 +82,7 @@
     <Compile Include="FixtureImporterTests.cs" />
     <Compile Include="Fixtures\FixtureImporter.cs" />
     <Compile Include="Fixtures\FixtureResponse.cs" />
+    <Compile Include="List\SubscriptionAddOnListTest.cs" />
     <Compile Include="QueryBuilderTest.cs" />
     <Compile Include="SettingsFixture.cs" />
     <Compile Include="InvoiceTest.cs" />
