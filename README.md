@@ -1,5 +1,7 @@
 # Recurly .NET Client
 
+**This project is currently in Beta, please report any questions or issues via Github.**
+
 The Official .NET [Recurly API](https://docs.recurly.com/api) client library.
 
 Compatible with .NET >=3.5 and Recurly API v2.
