@@ -1,3 +1,8 @@
+Unreleased
+==================
+
+ * added; entity use code on accounts
+
 1.1.5 (stable) / 2014-07-30
 ==================
 
