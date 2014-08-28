@@ -6,7 +6,7 @@ namespace Recurly
 {
     /// <summary>
     /// An account in Recurly.
-    /// 
+    ///
     /// http://docs.recurly.com/api/accounts
     /// </summary>
     public class Account : RecurlyEntity
@@ -34,6 +34,7 @@ namespace Recurly
         public string CompanyName { get; set; }
         public string VatNumber { get; set; }
         public bool? TaxExempt { get; set; }
+        public string EntityUseCode { get; set; }
         public string AcceptLanguage { get; set; }
         public string HostedLoginToken { get; private set; }
         public DateTime CreatedAt { get; private set; }
@@ -74,7 +75,7 @@ namespace Recurly
 
         public Account(string accountCode)
         {
-            AccountCode = accountCode;            
+            AccountCode = accountCode;
         }
 
         /// <summary>
@@ -105,7 +106,7 @@ namespace Recurly
                 UrlPrefix + Uri.EscapeUriString(AccountCode) + "/billing_info");
             _billingInfo = null;
         }
-        
+
         /// <summary>
         /// Create a new account in Recurly
         /// </summary>
@@ -181,7 +182,7 @@ namespace Recurly
 
             return statusCode == HttpStatusCode.NotFound ? null : adjustments;
         }
-        
+
         /// <summary>
         /// Returns a list of invoices for this account
         /// </summary>
@@ -190,7 +191,7 @@ namespace Recurly
         {
             return Invoices.List(AccountCode);
         }
-       
+
         /// <summary>
         /// Returns a list of subscriptions for this account
         /// </summary>
@@ -314,6 +315,10 @@ namespace Recurly
                         TaxExempt = reader.ReadElementContentAsBoolean();
                         break;
 
+                    case "entity_use_code":
+                        EntityUseCode = reader.ReadElementContentAsString();
+                        break;
+
                     case "accept_language":
                         AcceptLanguage = reader.ReadElementContentAsString();
                         break;
@@ -345,6 +350,7 @@ namespace Recurly
             xmlWriter.WriteStringIfValid("company_name", CompanyName);
             xmlWriter.WriteStringIfValid("accept_language", AcceptLanguage);
             xmlWriter.WriteStringIfValid("vat_number", VatNumber);
+            xmlWriter.WriteStringIfValid("entity_use_code", EntityUseCode);
 
             if (TaxExempt.HasValue)
                 xmlWriter.WriteElementString("tax_exempt", TaxExempt.Value.AsString());
