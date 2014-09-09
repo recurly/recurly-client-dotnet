@@ -67,7 +67,12 @@ namespace Recurly
         /// <summary>
         /// Paypal Billing Agreement ID
         /// </summary>
-        public string BillingAgreementId { get; set; }
+        public string PaypalBillingAgreementId { get; set; }
+
+        /// <summary>
+        /// Amazon Billing Agreement ID
+        /// </summary>
+        public string AmazonBillingAgreementId { get; set; }
 
         private string _cardNumber;
 
@@ -246,8 +251,12 @@ namespace Recurly
                         LastFour = reader.ReadElementContentAsString();
                         break;
 
-                    case "billing_agreement_id":
-                        BillingAgreementId = reader.ReadElementContentAsString();
+                    case "paypal_billing_agreement_id":
+                        PaypalBillingAgreementId = reader.ReadElementContentAsString();
+                        break;
+
+                    case "amazon_billing_agreement_id":
+                        AmazonBillingAgreementId = reader.ReadElementContentAsString();
                         break;
                 }
             }
