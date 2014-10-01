@@ -165,6 +165,19 @@ namespace Recurly
         }
 
         /// <summary>
+        /// Previews a new invoice for the pending charges on an account
+        /// </summary>
+        public Invoice PreviewInvoicePendingCharges()
+        {
+            var i = new Invoice();
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
+                UrlPrefix + Uri.EscapeUriString(AccountCode) + "/invoices/preview",
+                i.ReadXml);
+
+            return i;
+        }
+
+        /// <summary>
         /// Gets all adjustments for this account, by type
         /// </summary>
         /// <param name="type">Adjustment type to retrieve. Optional, default: All.</param>
