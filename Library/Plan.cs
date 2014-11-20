@@ -41,6 +41,8 @@ namespace Recurly
 
         public bool? TaxExempt { get; set; }
 
+        public string TaxCode { get; set; }
+
         private AddOnList _addOns;
 
         public RecurlyList<AddOn> AddOns
@@ -263,6 +265,10 @@ namespace Recurly
 
                     case "tax_exempt":
                         TaxExempt = reader.ReadElementContentAsBoolean();
+                        break;
+
+                    case "tax_code":
+                        TaxCode = reader.ReadElementContentAsString();
                         break;
 
                     case "unit_amount_in_cents":

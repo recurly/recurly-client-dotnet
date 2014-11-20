@@ -25,6 +25,7 @@ namespace Recurly
         public int DefaultQuantity { get; set; }
         public bool? DisplayQuantityOnHostedPage { get; set; }
         public DateTime CreatedAt { get; private set; }
+        public string TaxCode { get; set; }
 
 
         private const string UrlPrefix = "/plans/";
@@ -133,6 +134,10 @@ namespace Recurly
 
                     case "unit_amount_in_cents":
                         ReadXmlUnitAmount(reader);
+                        break;
+
+                    case "tax_code":
+                        TaxCode = reader.ReadElementContentAsString();
                         break;
 
                 }

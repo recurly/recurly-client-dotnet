@@ -35,6 +35,7 @@ namespace Recurly
         public int TotalInCents { get; protected set; }
         public string Currency { get; set; }
         public bool TaxExempt { get; set; }
+        public string TaxCode { get; set; }
 
         public AdjustmentState State { get; protected set; }
 
@@ -169,6 +170,10 @@ namespace Recurly
 
                     case "tax_exempt":
                         TaxExempt = reader.ReadElementContentAsBoolean();
+                        break;
+
+                    case "tax_code":
+                        TaxCode = reader.ReadElementContentAsString();
                         break;
 
                     case "start_date":
