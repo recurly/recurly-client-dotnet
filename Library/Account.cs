@@ -38,6 +38,7 @@ namespace Recurly
         public string AcceptLanguage { get; set; }
         public string HostedLoginToken { get; private set; }
         public DateTime CreatedAt { get; private set; }
+        public bool VatLocationValid { get; private set; }
 
         public Address Address {
             get { return _address ?? (_address = new Address()); }
@@ -346,6 +347,10 @@ namespace Recurly
 
                     case "address":
                         Address = new Address(reader);
+                        break;
+
+                    case "vat_location_valid":
+                        VatLocationValid = reader.ReadElementContentAsBoolean();
                         break;
                 }
             }

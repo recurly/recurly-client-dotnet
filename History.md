@@ -3,6 +3,7 @@ Unreleased
 
 * added; invoice address on previews
 * added; `invoice.OriginalInvoiceNumber`
+* added; VatLocationValid to Account
 
 1.1.7 (stable) / 2014-12-19
 ==================

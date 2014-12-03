@@ -46,6 +46,7 @@ namespace Recurly.Test
             Assert.True(acct.TaxExempt.Value);
             Assert.Equal("I", acct.EntityUseCode);
             Assert.Equal(address, acct.Address.Address1);
+            Assert.False(acct.VatLocationValid);
         }
 
         [Fact]
