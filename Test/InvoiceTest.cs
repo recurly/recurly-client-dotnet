@@ -148,5 +148,31 @@ namespace Recurly.Test
 
             account.Close();
         }
+
+
+        [Fact]
+        public void RefundOpenAmount()
+        {
+            var account = CreateNewAccountWithBillingInfo();
+
+            var adjustment = account.NewAdjustment("USD", 3999, "Test Charge");
+            adjustment.Create();
+
+            var invoice = account.InvoicePendingCharges();
+
+            invoice.MarkSuccessful();
+
+            invoice.State.Should().Be(Invoice.InvoiceState.Collected);
+
+            Assert.Equal(1, invoice.Adjustments.Count);
+            Assert.Equal(1, invoice.Adjustments.Capacity);
+
+            // refund
+            var refundInvoice = invoice.RefundAmount(100); // 1 dollar
+            Assert.NotEqual(invoice.Uuid, refundInvoice.Uuid);
+            Assert.Equal(-91, refundInvoice.SubtotalInCents);  // 91 cents
+
+            account.Close();
+        }
     }
 }

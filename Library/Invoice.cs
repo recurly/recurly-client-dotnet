@@ -147,6 +147,21 @@ namespace Recurly
                 return null;
         }
 
+        public Invoice RefundAmount(int amountInCents) {
+            var refundInvoice = new Invoice();
+            var refund = new OpenAmountRefund(amountInCents);
+               
+            var response = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
+                UrlPrefix + InvoiceNumber + "/refund",
+                refund.WriteXml,
+                refundInvoice.ReadXml);
+
+            if (HttpStatusCode.Created == response || HttpStatusCode.OK == response)
+                return refundInvoice;
+            else
+                return null;
+        }
+
         #region Read and Write XML documents
 
         internal override void ReadXml(XmlTextReader reader)
@@ -264,7 +279,7 @@ namespace Recurly
 
         internal override void WriteXml(XmlTextWriter writer)
         {
-            throw new NotImplementedException();
+            throw new System.NotImplementedException();
         }
 
         #endregion
