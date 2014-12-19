@@ -1,6 +1,9 @@
 Unreleased
 ==================
 
+1.1.6 (stable) / 2014-12-19
+==================
+
  * added; entity use code on accounts
  * added; invoice previews
  * added; subscription address on previews
