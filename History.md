@@ -1,12 +1,18 @@
 Unreleased
 ==================
 
-1.1.6 (stable) / 2014-12-19
+1.1.7 (stable) / 2014-12-19
+==================
+
+ * added; invoice previews
+ * added; subscription address on previews
+
+1.1.6 (stable) / 2014-09-18
 ==================
 
  * added; entity use code on accounts
- * added; invoice previews
- * added; subscription address on previews
+ * added; amazon and paypal billing agreement id support
+
 
 1.1.5 (stable) / 2014-07-30
 ==================
