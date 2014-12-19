@@ -3,6 +3,7 @@ Unreleased
 
  * added; entity use code on accounts
  * added; invoice previews
+ * added; subscription address on previews
 
 1.1.5 (stable) / 2014-07-30
 ==================

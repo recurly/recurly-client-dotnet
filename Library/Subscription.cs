@@ -40,6 +40,13 @@ namespace Recurly
             None
         }
 
+        public Address Address
+        {
+            get { return _address ?? (_address = new Address()); }
+            set { _address = value; }
+        }
+        private Address _address;
+
         private string _accountCode;
         private Account _account;
         /// <summary>
@@ -476,6 +483,10 @@ namespace Recurly
 
                     case "tax_rate":
                         TaxRate = reader.ReadElementContentAsDecimal();
+                        break;
+
+                    case "address":
+                        Address = new Address(reader);
                         break;
                 }
             }
