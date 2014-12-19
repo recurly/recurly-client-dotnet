@@ -30,6 +30,13 @@ namespace Recurly
         public DateTime? CreatedAt { get; private set; }
         public DateTime? ClosedAt { get; private set; }
 
+        public Address Address
+        {
+            get { return _address ?? (_address = new Address()); }
+            set { _address = value; }
+        }
+        private Address _address;
+
         /// <summary>
         /// Tax type as "vat" for VAT or "usst" for US Sales Tax.
         /// </summary>
@@ -239,6 +246,10 @@ namespace Recurly
                         // overrite existing value with the Recurly API response
                         Transactions = new TransactionList();
                         Transactions.ReadXml(reader);
+                        break;
+
+                    case "address":
+                        Address = new Address(reader);
                         break;
                 }
             }
