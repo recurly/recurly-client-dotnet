@@ -1,7 +1,11 @@
 Unreleased
 ==================
 
+1.1.8 (stable) / 2014-12-19
+==================
+
 * added; invoice address on previews
+* added; `adjustment.TaxCode`, `plan.TaxCode` and `addOn.TaxCode`
 
 1.1.7 (stable) / 2014-12-19
 ==================
