@@ -1,6 +1,8 @@
 Unreleased
 ==================
 
+* added; invoice address on previews
+
 1.1.7 (stable) / 2014-12-19
 ==================
 
