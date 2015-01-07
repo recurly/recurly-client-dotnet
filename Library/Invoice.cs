@@ -18,6 +18,7 @@ namespace Recurly
 
         public string AccountCode { get; private set; }
         public string SubscriptionUuid { get; private set; }
+        public int OriginalInvoiceNumber { get; private set; }
         public string Uuid { get; protected set; }
         public InvoiceState State { get; protected set; }
         public int InvoiceNumber { get; private set; }
@@ -168,6 +169,12 @@ namespace Recurly
                     case "subscription":
                         var subHref = reader.GetAttribute("href");
                         SubscriptionUuid = Uri.UnescapeDataString(subHref.Substring(subHref.LastIndexOf("/") + 1));
+                        break;
+
+                    case "original_invoice":
+                        var originalInvoiceHref = reader.GetAttribute("href");
+                        var invoiceNumber = Uri.UnescapeDataString(originalInvoiceHref.Substring(originalInvoiceHref.LastIndexOf("/") + 1));
+                        OriginalInvoiceNumber = Convert.ToInt32(invoiceNumber);
                         break;
 
                     case "uuid":

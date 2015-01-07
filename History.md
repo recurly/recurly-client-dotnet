@@ -2,6 +2,7 @@ Unreleased
 ==================
 
 * added; invoice address on previews
+* added; `invoice.OriginalInvoiceNumber`
 
 1.1.7 (stable) / 2014-12-19
 ==================
