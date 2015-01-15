@@ -274,6 +274,30 @@ namespace Recurly.Test
         }
 
         [Fact]
+        public void UpdateNotesSubscription()
+        {
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
+            {
+                Description = "Postpone Subscription Test"
+            };
+            plan.UnitAmountInCents.Add("USD", 100);
+            plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
+
+            var account = CreateNewAccountWithBillingInfo();
+
+            var sub = new Subscription(account, plan, "USD");
+            sub.Create();
+
+            sub.UpdateNotes("New Customer Notes", "New T and C", "New VAT Notes");
+
+            sub.CustomerNotes.Should().Be("New Customer Notes");
+            sub.TermsAndConditions.Should().Be("New T and C");
+            sub.VatReverseChargeNotes.Should().Be("New VAT Notes");
+
+        }
+
+        [Fact]
         public void CreateSubscriptionPlanWithAddons()
         {
             Plan plan = null;
