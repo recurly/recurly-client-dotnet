@@ -1,9 +1,13 @@
 Unreleased
 ==================
 
+1.1.8 (stable) / 2015-01-26
+==================
+
 * added; invoice address on previews
 * added; `invoice.OriginalInvoiceNumber`
 * added; VatLocationValid to Account
+* fixed; clearing subscription addons from subscription
 * added; Open Amount Refunds to Invoice
 
 1.1.7 (stable) / 2014-12-19
