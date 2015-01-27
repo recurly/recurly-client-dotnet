@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Account.cs" />
     <Compile Include="Address.cs" />
+    <Compile Include="OpenAmountRefund.cs" />
     <Compile Include="Configuration\Settings.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
