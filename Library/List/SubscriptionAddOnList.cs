@@ -30,6 +30,11 @@ namespace Recurly
             get { return HasPrevPage() ? new SubscriptionAddOnList(PrevUrl) : RecurlyList.Empty<SubscriptionAddOn>(); }
         }
 
+        public override bool includeEmptyTag()
+        {
+            return true;
+        }
+
         internal override void ReadXml(XmlTextReader reader)
         {
             while (reader.Read())
