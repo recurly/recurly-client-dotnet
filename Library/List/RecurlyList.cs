@@ -64,6 +64,11 @@ namespace Recurly
             return !PrevUrl.IsNullOrEmpty();
         }
 
+        public virtual bool includeEmptyTag()
+        {
+            return false;
+        }
+
         internal RecurlyList()
         {
         }
