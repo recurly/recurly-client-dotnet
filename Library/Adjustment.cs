@@ -187,7 +187,9 @@ namespace Recurly
                         break;
 
                     case "created_at":
-                        CreatedAt = reader.ReadElementContentAsDateTime();
+                        DateTime createdAt;
+                        if (DateTime.TryParse(reader.ReadElementContentAsString(), out createdAt))
+                            CreatedAt = createdAt;                        
                         break;
 
                     case "state":
