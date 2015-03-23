@@ -350,7 +350,10 @@ namespace Recurly
                         break;
 
                     case "vat_location_valid":
-                        VatLocationValid = reader.ReadElementContentAsBoolean();
+                        if (reader.GetAttribute("nil") == null)
+                        {
+                            VatLocationValid = reader.ReadElementContentAsBoolean();
+                        }
                         break;
                 }
             }
