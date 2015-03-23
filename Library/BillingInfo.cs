@@ -18,6 +18,12 @@ namespace Recurly
             JCB
         }
 
+        public enum BankAccountType : short
+        {
+            Checking,
+            Savings
+        }
+
         /// <summary>
         /// Account Code or unique ID for the account in Recurly
         /// </summary>
@@ -60,6 +66,11 @@ namespace Recurly
         public CreditCardType CardType { get; set; }
         public int ExpirationMonth { get; set; }
         public int ExpirationYear { get; set; }
+
+        public string NameOnAccount { get; set; }
+        public string RoutingNumber { get; set; }
+        public string AccountNumber { get; set; }
+        public BankAccountType AccountType { get; set; }
 
 
         public string Company { get; set; }
@@ -187,6 +198,10 @@ namespace Recurly
                         LastName = reader.ReadElementContentAsString();
                         break;
 
+                    case "name_on_account":
+                        NameOnAccount = reader.ReadElementContentAsString();
+                        break;
+
                     case "company":
                         Company = reader.ReadElementContentAsString();
                         break;
@@ -258,6 +273,14 @@ namespace Recurly
                     case "amazon_billing_agreement_id":
                         AmazonBillingAgreementId = reader.ReadElementContentAsString();
                         break;
+
+                    case "routing_number":
+                        RoutingNumber = reader.ReadElementContentAsString();
+                        break;
+
+                    case "account_type":
+                        AccountType = reader.ReadElementContentAsString().ParseAsEnum<BankAccountType>();
+                        break;
                 }
             }
         }
@@ -267,6 +290,7 @@ namespace Recurly
             xmlWriter.WriteStartElement("billing_info"); // Start: billing_info
             xmlWriter.WriteStringIfValid("first_name", FirstName);
             xmlWriter.WriteStringIfValid("last_name", LastName);
+            xmlWriter.WriteStringIfValid("name_on_account", NameOnAccount);
             xmlWriter.WriteStringIfValid("address1", Address1);
             xmlWriter.WriteStringIfValid("address2", Address2);
             xmlWriter.WriteStringIfValid("city", City);
@@ -289,6 +313,13 @@ namespace Recurly
                 xmlWriter.WriteElementString("year", ExpirationYear.AsString());
 
                 xmlWriter.WriteStringIfValid("verification_value", VerificationValue);
+            }
+
+            if (!AccountNumber.IsNullOrEmpty())
+            {
+                xmlWriter.WriteElementString("routing_number", RoutingNumber);
+                xmlWriter.WriteElementString("account_number", AccountNumber);
+                xmlWriter.WriteElementString("account_type", AccountType.ToString().EnumNameToTransportCase());
             }
 
             xmlWriter.WriteStringIfValid("token_id", TokenId);
