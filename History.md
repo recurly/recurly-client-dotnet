@@ -1,6 +1,8 @@
 Unreleased
 ==================
 
+* fixed; nil VatLocationValid on Account would throw a parse error
+
 1.1.8 (stable) / 2015-01-26
 ==================
 
