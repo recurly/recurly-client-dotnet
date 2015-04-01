@@ -2,6 +2,9 @@ Unreleased
 ==================
 
 * fixed; nil VatLocationValid on Account would throw a parse error
+* added; `subscription.UpdateNotes` will update the subscription's notes
+* added; `subscription.CustomerNotes`, `subscription.TermsAndConditions`, `subscription.VatReverseChargeNotes`
+* added; `invoice.CustomerNotes`, `invoice.TermsAndConditions`, `invoice.VatReverseChargeNotes`
 
 1.1.8 (stable) / 2015-01-26
 ==================

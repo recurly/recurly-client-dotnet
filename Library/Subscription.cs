@@ -200,6 +200,10 @@ namespace Recurly
         /// </summary>
         internal bool _saved;
 
+        public string CustomerNotes { get; set; }
+        public string TermsAndConditions { get; set; }
+        public string VatReverseChargeNotes { get; set; }
+
         internal Subscription()
         {
             IsPendingSubscription = false;
@@ -339,6 +343,20 @@ namespace Recurly
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
                 UrlPrefix + Uri.EscapeUriString(Uuid) + "/postpone?next_renewal_date=" + nextRenewalDate.ToString("yyyy-MM-ddThh:mm:ssZ"),
                 ReadXml);
+        }
+
+        public bool UpdateNotes(Dictionary<string, string> notes)
+        {
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
+                UrlPrefix + Uri.EscapeUriString(Uuid) + "/notes",
+                WriteSubscriptionNotesXml(notes),
+                ReadXml);
+
+            CustomerNotes = notes["CustomerNotes"];
+            TermsAndConditions =  notes["TermsAndConditions"];
+            VatReverseChargeNotes = notes["VatReverseChargeNotes"];
+
+            return true;
         }
 
         #region Read and Write XML documents
@@ -485,6 +503,18 @@ namespace Recurly
                         TaxRate = reader.ReadElementContentAsDecimal();
                         break;
 
+                    case "customer_notes":
+                        CustomerNotes = reader.ReadElementContentAsString();
+                        break;
+
+                    case "terms_and_conditions":
+                        TermsAndConditions = reader.ReadElementContentAsString();
+                        break;
+
+                    case "vat_reverse_charge_notes":
+                        VatReverseChargeNotes = reader.ReadElementContentAsString();
+                        break;
+
                     case "address":
                         Address = new Address(reader);
                         break;
@@ -539,6 +569,10 @@ namespace Recurly
             xmlWriter.WriteIfCollectionHasAny("subscription_add_ons", AddOns);
 
             xmlWriter.WriteStringIfValid("coupon_code", _couponCode);
+
+            xmlWriter.WriteElementString("customer_notes", CustomerNotes);
+            xmlWriter.WriteElementString("terms_and_conditions", TermsAndConditions);
+            xmlWriter.WriteElementString("vat_reverse_charge_notes", VatReverseChargeNotes);
 
             if (UnitAmountInCents.HasValue)
                 xmlWriter.WriteElementString("unit_amount_in_cents", UnitAmountInCents.Value.AsString());
@@ -605,6 +639,20 @@ namespace Recurly
                 xmlWriter.WriteElementString("collection_method", "automatic");
 
             xmlWriter.WriteEndElement(); // End: subscription
+        }
+
+        internal Client.WriteXmlDelegate WriteSubscriptionNotesXml(Dictionary<string, string> notes)
+        {
+            return delegate(XmlTextWriter xmlWriter)
+            {
+                xmlWriter.WriteStartElement("subscription"); // Start: subscription
+
+                xmlWriter.WriteElementString("customer_notes", notes["CustomerNotes"]);
+                xmlWriter.WriteElementString("terms_and_conditions", notes["TermsAndConditions"]);
+                xmlWriter.WriteElementString("vat_reverse_charge_notes", notes["VatReverseChargeNotes"]);
+
+                xmlWriter.WriteEndElement(); // End: subscription
+            };
         }
 
         #endregion

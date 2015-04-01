@@ -1,5 +1,6 @@
 ﻿using System;
 using FluentAssertions;
+using System.Collections.Generic;
 using Xunit;
 using System.Linq;
 
@@ -271,6 +272,36 @@ namespace Recurly.Test
 
             var diff = renewal.Date.Subtract(sub.CurrentPeriodEndsAt.Value.Date).Days;
             diff.Should().Be(1);
+        }
+
+        [Fact]
+        public void UpdateNotesSubscription()
+        {
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
+            {
+                Description = "Postpone Subscription Test"
+            };
+            plan.UnitAmountInCents.Add("USD", 100);
+            plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
+
+            var account = CreateNewAccountWithBillingInfo();
+
+            var sub = new Subscription(account, plan, "USD");
+            sub.Create();
+
+            Dictionary<string, string> notes = new Dictionary<string, string>();
+
+            notes.Add("CustomerNotes", "New Customer Notes");
+            notes.Add("TermsAndConditions", "New T and C");
+            notes.Add("VatReverseChargeNotes", "New VAT Notes");
+
+            sub.UpdateNotes(notes);
+
+            sub.CustomerNotes.Should().Be(notes["CustomerNotes"]);
+            sub.TermsAndConditions.Should().Be(notes["TermsAndConditions"]);
+            sub.VatReverseChargeNotes.Should().Be(notes["VatReverseChargeNotes"]);
+
         }
 
         [Fact]

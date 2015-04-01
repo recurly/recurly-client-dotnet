@@ -53,6 +53,9 @@ namespace Recurly
         public RecurlyList<Adjustment> Adjustments { get; private set; }
         public RecurlyList<Transaction> Transactions { get; private set; }
 
+        public string CustomerNotes { get; set; }
+        public string TermsAndConditions { get; set; }
+        public string VatReverseChargeNotes { get; set; }
 
         internal const string UrlPrefix = "/invoices/";
 
@@ -256,6 +259,18 @@ namespace Recurly
 
                     case "collection_method":
                         CollectionMethod = reader.ReadElementContentAsString();
+                        break;
+
+                    case "customer_notes":
+                        CustomerNotes = reader.ReadElementContentAsString();
+                        break;
+
+                    case "terms_and_conditions":
+                        TermsAndConditions = reader.ReadElementContentAsString();
+                        break;
+
+                    case "vat_reverse_charge_notes":
+                        VatReverseChargeNotes = reader.ReadElementContentAsString();
                         break;
 
                     case "line_items":
