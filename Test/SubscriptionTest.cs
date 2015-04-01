@@ -1,5 +1,6 @@
 ﻿using System;
 using FluentAssertions;
+using System.Collections.Generic;
 using Xunit;
 using System.Linq;
 
@@ -289,11 +290,17 @@ namespace Recurly.Test
             var sub = new Subscription(account, plan, "USD");
             sub.Create();
 
-            sub.UpdateNotes("New Customer Notes", "New T and C", "New VAT Notes");
+            Dictionary<string, string> notes = new Dictionary<string, string>();
 
-            sub.CustomerNotes.Should().Be("New Customer Notes");
-            sub.TermsAndConditions.Should().Be("New T and C");
-            sub.VatReverseChargeNotes.Should().Be("New VAT Notes");
+            notes.Add("CustomerNotes", "New Customer Notes");
+            notes.Add("TermsAndConditions", "New T and C");
+            notes.Add("VatReverseChargeNotes", "New VAT Notes");
+
+            sub.UpdateNotes(notes);
+
+            sub.CustomerNotes.Should().Be(notes["CustomerNotes"]);
+            sub.TermsAndConditions.Should().Be(notes["TermsAndConditions"]);
+            sub.VatReverseChargeNotes.Should().Be(notes["VatReverseChargeNotes"]);
 
         }
 

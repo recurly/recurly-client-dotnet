@@ -345,25 +345,16 @@ namespace Recurly
                 ReadXml);
         }
 
-        public bool UpdateNotes(String customerNotes, String termsAndConditions, String vatReverseChargeNotes)
+        public bool UpdateNotes(Dictionary<string, string> notes)
         {
-
-            if (customerNotes != null)
-                CustomerNotes = customerNotes;
-
-            if (termsAndConditions != null)
-                TermsAndConditions = termsAndConditions;
-
-            if (customerNotes != null)
-                VatReverseChargeNotes = vatReverseChargeNotes;
-
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
                 UrlPrefix + Uri.EscapeUriString(Uuid) + "/notes",
-                WriteSubscriptionNotesXml,
+                WriteSubscriptionNotesXml(notes),
                 ReadXml);
 
-            // this method does not save the object
-            _saved = false;
+            CustomerNotes = notes["CustomerNotes"];
+            TermsAndConditions =  notes["TermsAndConditions"];
+            VatReverseChargeNotes = notes["VatReverseChargeNotes"];
 
             return true;
         }
@@ -524,7 +515,6 @@ namespace Recurly
                         VatReverseChargeNotes = reader.ReadElementContentAsString();
                         break;
 
-
                     case "address":
                         Address = new Address(reader);
                         break;
@@ -651,15 +641,18 @@ namespace Recurly
             xmlWriter.WriteEndElement(); // End: subscription
         }
 
-        protected void WriteSubscriptionNotesXml(XmlTextWriter xmlWriter)
+        internal Client.WriteXmlDelegate WriteSubscriptionNotesXml(Dictionary<string, string> notes)
         {
-            xmlWriter.WriteStartElement("subscription"); // Start: subscription
+            return delegate(XmlTextWriter xmlWriter)
+            {
+                xmlWriter.WriteStartElement("subscription"); // Start: subscription
 
-            xmlWriter.WriteElementString("customer_notes", CustomerNotes);
-            xmlWriter.WriteElementString("terms_and_conditions", TermsAndConditions);
-            xmlWriter.WriteElementString("vat_reverse_charge_notes", VatReverseChargeNotes);
+                xmlWriter.WriteElementString("customer_notes", notes["CustomerNotes"]);
+                xmlWriter.WriteElementString("terms_and_conditions", notes["TermsAndConditions"]);
+                xmlWriter.WriteElementString("vat_reverse_charge_notes", notes["VatReverseChargeNotes"]);
 
-            xmlWriter.WriteEndElement(); // End: subscription
+                xmlWriter.WriteEndElement(); // End: subscription
+            };
         }
 
         #endregion
