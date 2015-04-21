@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Xml;
+using System.Text.RegularExpressions;
 
 namespace Recurly
 {
@@ -62,7 +63,12 @@ namespace Recurly
             }
         }
         public int? Invoice { get; private set; }
-       
+        public string InvoicePrefix { get; private set; }
+
+        public string InvoiceNumberWithPrefix()
+        {
+            return InvoicePrefix + Convert.ToString(Invoice);
+        }
 
         internal Transaction()
         { }
@@ -123,6 +129,11 @@ namespace Recurly
                 ReadXml);
         }
 
+        public Invoice GetInvoice()
+        {
+            return Invoices.Get(InvoiceNumberWithPrefix());
+        }
+
 
         #region Read and Write XML documents
 
@@ -150,7 +161,20 @@ namespace Recurly
                     case "invoice":
                         href = reader.GetAttribute("href");
                         if (null != href)
-                            Invoice = int.Parse(href.Substring(href.LastIndexOf("/") + 1));
+                        {
+                            string invoiceNumber = href.Substring(href.LastIndexOf("/") + 1);
+                            MatchCollection matches = Regex.Matches(invoiceNumber, "([^\\d]{2})(\\d+)");
+
+                            if (matches.Count == 1) 
+                            {
+                                InvoicePrefix = matches[0].Groups[1].Value;
+                                Invoice = int.Parse(matches[0].Groups[2].Value);
+                            } 
+                            else
+                            {
+                                Invoice = int.Parse(invoiceNumber);
+                            }
+                        }
                         break;
 
                     case "uuid":
@@ -217,8 +241,7 @@ namespace Recurly
                         if (DateTime.TryParse(reader.ReadElementContentAsString(), out date))
                             CreatedAt = date;
                         break;
-
-                       
+                                               
                     case "details":
                         // API docs say not to load details into objects
                         break;

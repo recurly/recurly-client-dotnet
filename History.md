@@ -7,6 +7,9 @@ Unreleased
  * `AccountNumber`
  * `LastFour`
  * `NameOnAccount`
+* added; `invoice.InvoiceNumberPrefix` and `invoice.InvoiceNumberWithPrefix()`
+* added; `transaction.GetInvoice()`
+* added; `invoice.GetOriginalInvoice()`
 
 1.1.9 (stable) / 2015-04-01
 ==================
