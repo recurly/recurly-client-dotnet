@@ -1,6 +1,13 @@
 Unreleased
 ==================
 
+* added; bank account fields to `BillingInfo`
+ * `AccountType` (`Checking` or `Savings`)
+ * `RoutingNumber`
+ * `AccountNumber`
+ * `LastFour`
+ * `NameOnAccount`
+
 1.1.9 (stable) / 2015-04-01
 ==================
 
