@@ -1,6 +1,9 @@
 Unreleased
 ==================
 
+1.2.0 (stable) / 2015-04-28
+==================
+
 * added; bank account fields to `BillingInfo`
  * `AccountType` (`Checking` or `Savings`)
  * `RoutingNumber`
