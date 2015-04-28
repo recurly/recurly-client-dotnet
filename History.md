@@ -10,6 +10,7 @@ Unreleased
 * added; `invoice.InvoiceNumberPrefix` and `invoice.InvoiceNumberWithPrefix()`
 * added; `transaction.GetInvoice()`
 * added; `invoice.GetOriginalInvoice()`
+* added; `TaxType`, `TaxRate`, `TaxRegion` on Adjustment
 
 1.1.9 (stable) / 2015-04-01
 ==================
@@ -39,7 +40,6 @@ Unreleased
 
  * added; entity use code on accounts
  * added; amazon and paypal billing agreement id support
-
 
 1.1.5 (stable) / 2014-07-30
 ==================

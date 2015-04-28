@@ -37,6 +37,10 @@ namespace Recurly
         public bool TaxExempt { get; set; }
         public string TaxCode { get; set; }
 
+        public string TaxType { get; private set; }
+        public decimal? TaxRate { get; private set; }
+        public string TaxRegion { get; private set; }
+
         public AdjustmentState State { get; protected set; }
 
         public DateTime StartDate { get; protected set; }
@@ -174,6 +178,18 @@ namespace Recurly
 
                     case "tax_code":
                         TaxCode = reader.ReadElementContentAsString();
+                        break;
+
+                    case "tax_type":
+                        TaxType = reader.ReadElementContentAsString();
+                        break;
+
+                    case "tax_rate":
+                        TaxRate = reader.ReadElementContentAsDecimal();
+                        break;
+
+                    case "tax_region":
+                        TaxRegion = reader.ReadElementContentAsString();
                         break;
 
                     case "start_date":
