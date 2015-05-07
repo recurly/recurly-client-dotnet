@@ -1,6 +1,8 @@
 Unreleased
 ==================
 
+* added; `BankAccountAuthorizedAt` to `Subscription`
+
 1.2.0 (stable) / 2015-04-28
 ==================
 

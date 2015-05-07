@@ -106,6 +106,10 @@ namespace Recurly
         /// Date the trial started, if the subscription has a trial.
         /// </summary>
         public DateTime? TrialPeriodStartedAt { get; private set; }
+        /// <summary>
+        /// Date the Bank Account has been authorized for this subscription
+        /// </summary>
+        public DateTime? BankAccountAuthorizedAt { get; set; }
 
         /// <summary>
         /// Date the trial ends, if the subscription has/had a trial.
@@ -462,6 +466,11 @@ namespace Recurly
                             _trialPeriodEndsAt = dateVal;
                         break;
 
+                    case "bank_account_authorized_at":
+                        if (DateTime.TryParse(reader.ReadElementContentAsString(), out dateVal))
+                            BankAccountAuthorizedAt = dateVal;
+                        break;
+
                     case "subscription_add_ons":
                         // overwrite existing list with what came back from Recurly
                         AddOns = new SubscriptionAddOnList(this);
@@ -581,6 +590,9 @@ namespace Recurly
 
             if (TrialPeriodEndsAt.HasValue)
                 xmlWriter.WriteElementString("trial_ends_at", TrialPeriodEndsAt.Value.ToString("s"));
+
+            if (BankAccountAuthorizedAt.HasValue)
+                xmlWriter.WriteElementString("bank_account_authorized_at", BankAccountAuthorizedAt.Value.ToString("s"));
 
             if (StartsAt.HasValue)
                 xmlWriter.WriteElementString("starts_at", StartsAt.Value.ToString("s"));
