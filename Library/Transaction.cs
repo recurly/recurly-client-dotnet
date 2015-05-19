@@ -42,6 +42,8 @@ namespace Recurly
         public bool Voidable { get; private set; }
         public bool Refundable { get; private set; }
 
+        public string IpAddress { get; private set; }
+
         public string CCVResult { get; private set; }
         public string AvsResult { get; private set; }
         public string AvsResultStreet { get; private set; }
@@ -213,11 +215,15 @@ namespace Recurly
                         break;
 
                     case "voidable":
-                        Voidable =  reader.ReadElementContentAsBoolean();
+                        Voidable = reader.ReadElementContentAsBoolean();
                         break;
 
                     case "refundable":
-                        Refundable =  reader.ReadElementContentAsBoolean();
+                        Refundable = reader.ReadElementContentAsBoolean();
+                        break;
+
+                    case "ip_address":
+                        IpAddress = reader.ReadElementContentAsString();
                         break;
 
                     case "ccv_result":

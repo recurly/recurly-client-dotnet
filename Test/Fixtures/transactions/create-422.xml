@@ -21,6 +21,7 @@ Content-Type: application/xml; charset=utf-8
     <test type="boolean">true</test>
     <voidable type="boolean">false</voidable>
     <refundable type="boolean">false</refundable>
+    <ip_address>127.0.0.1</ip_address>
     <transaction_error>
       <error_code>invalid_card_number</error_code>
       <error_category>hard</error_category>
