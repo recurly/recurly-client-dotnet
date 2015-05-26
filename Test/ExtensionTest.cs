@@ -105,7 +105,7 @@ namespace Recurly.Test
         [Theory,
         InlineData("jcb", CreditCardType.JCB),
         InlineData("master_card", CreditCardType.MasterCard),
-        InlineData("Diner's Club", CreditCardType.DinersClub)]
+        InlineData("Diners Club", CreditCardType.DinersClub)]
         public void String_ParseAsEnum_parses_CreditCardType_correctly(string toParse, CreditCardType expected)
         {
             var actual = toParse.ParseAsEnum<CreditCardType>();

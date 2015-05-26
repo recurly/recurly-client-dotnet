@@ -69,7 +69,6 @@ namespace Recurly
             if (source.IsNullOrEmpty()) return source;
 
             source = source.Replace("_", " "); // so we know where the word breaks are
-            source = source.Replace("'", ""); // e.g. Diner's Club (API should really be returning 'Diners Club')
             var words = source.Split(' '); // break into words (note that in this case 'words' means groups of letters separated by '_' or ' ', not real words)
             var newString = new StringBuilder();
 
