@@ -1,6 +1,9 @@
 Unreleased
 ==================
 
+1.2.1 (stable) / 2015-05-26
+==================
+
 * added; `BankAccountAuthorizedAt` to `Subscription`
 * added; `IpAddress` to `Transaction`
 
