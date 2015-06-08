@@ -1,6 +1,8 @@
 Unreleased
 ==================
 
+* added; `TaxRegion` to `Invoice`
+
 1.2.1 (stable) / 2015-05-26
 ==================
 

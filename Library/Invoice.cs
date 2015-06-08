@@ -45,7 +45,7 @@ namespace Recurly
         /// Tax type as "vat" for VAT or "usst" for US Sales Tax.
         /// </summary>
         public string TaxType { get; private set; }
-
+        public string TaxRegion { get; private set; }
         public decimal? TaxRate { get; private set; }
 
         public int? NetTerms { get; private set; }
@@ -278,6 +278,10 @@ namespace Recurly
 
                     case "tax_rate":
                         TaxRate = reader.ReadElementContentAsDecimal();
+                        break;
+
+                    case "tax_region":
+                        TaxRegion = reader.ReadElementContentAsString();
                         break;
 
                     case "net_terms":
