@@ -27,6 +27,7 @@ namespace Recurly
         public string Uuid { get; protected set; }
         public string Description { get; set; }
         public string AccountingCode { get; set; }
+        public string ProductCode { get; private set; }
         public string Origin { get; protected set; }
         public int UnitAmountInCents { get; set; }
         public int Quantity { get; set; }
@@ -142,6 +143,10 @@ namespace Recurly
 
                     case "accounting_code":
                         AccountingCode = reader.ReadElementContentAsString();
+                        break;
+
+                    case "product_code":
+                        ProductCode = reader.ReadElementContentAsString();
                         break;
 
                     case "origin":
