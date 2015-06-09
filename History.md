@@ -1,6 +1,7 @@
 Unreleased
 ==================
 
+* fixed; no content returning from the server will no longer throw "Root element is missing"
 * added; `TaxRegion` to `Invoice`
 * added; `ProductCode` to `Adjustment`
 
