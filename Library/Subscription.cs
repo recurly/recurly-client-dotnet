@@ -203,6 +203,16 @@ namespace Recurly
         /// Determines if this object exists in the Recurly API
         /// </summary>
         internal bool _saved;
+        
+        /// <summary>
+        /// Invoice available with preview subscription
+        /// </summary>        
+        public Invoice Invoice { get; private set; }
+
+        /// <summary>
+        /// Determines if this object is a preview subscription
+        /// </summary>
+        internal bool _preview;
 
         public string CustomerNotes { get; set; }
         public string TermsAndConditions { get; set; }
@@ -342,6 +352,40 @@ namespace Recurly
             Preview(ChangeTimeframe.Now);
         }
 
+        
+        /// <summary>
+        /// Preview the changes associated with the current subscription
+        /// </summary>
+        /// <param name="timeframe">ChangeTimeframe.Now (default) or at Renewal</param>
+        public virtual Subscription PreviewChange(ChangeTimeframe timeframe)
+        {
+            if (!_saved)
+            {
+                throw new Recurly.RecurlyException("Must have an existing subscription to preview changes.");
+            }
+
+            Client.WriteXmlDelegate writeXmlDelegate;
+
+            if (ChangeTimeframe.Renewal == timeframe)
+                writeXmlDelegate = WriteChangeSubscriptionAtRenewalXml;
+            else
+                writeXmlDelegate = WriteChangeSubscriptionNowXml;
+
+            var previewSubscription = new Subscription();
+
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
+                UrlPrefix + Uri.EscapeUriString(Uuid) + "/preview",
+                writeXmlDelegate,
+                previewSubscription.ReadPreviewXml);
+
+            return statusCode == HttpStatusCode.NotFound ? null : previewSubscription;
+        }
+
+        public virtual Subscription PreviewChange()
+        {
+            return PreviewChange(ChangeTimeframe.Now);
+        }
+
         public void Postpone(DateTime nextRenewalDate)
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
@@ -381,6 +425,12 @@ namespace Recurly
                         break;
                 }
             }
+        }
+
+        internal void ReadPreviewXml(XmlTextReader reader)
+        {
+            _preview = true;
+            ReadXml(reader);
         }
 
         internal override void ReadXml(XmlTextReader reader)
@@ -526,6 +576,12 @@ namespace Recurly
 
                     case "address":
                         Address = new Address(reader);
+                        break;
+                    
+                    case "invoice":
+                        // only read invoices when in preview
+                        if (_preview)
+                            Invoice = new Invoice(reader);
                         break;
                 }
             }
