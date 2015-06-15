@@ -87,6 +87,32 @@ namespace Recurly.Test
             Assert.Equal(5, sub1.TotalBillingCycles);
 
         }
+        
+        [Fact]
+        public void CreateBulkSubscriptions()
+        {
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
+            {
+                Description = "Create Bulk Subscription Test"
+            };
+            plan.UnitAmountInCents.Add("USD", 100);
+            plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
+
+            var account = CreateNewAccountWithBillingInfo();
+
+            for (int i = 1; i < 4; i++)
+            {
+              var sub = new Subscription(account, plan, "USD");
+              sub.Bulk = true;
+              sub.Create();
+
+              sub.ActivatedAt.Should().HaveValue().And.NotBe(default(DateTime));
+              sub.State.Should().Be(Subscription.SubscriptionState.Active);
+ 
+            }
+
+        }
 
         [Fact]
         public void CreateSubscriptionWithCoupon()

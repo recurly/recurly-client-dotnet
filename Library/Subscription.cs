@@ -81,6 +81,8 @@ namespace Recurly
 
         public string Currency { get; set; }
         public int Quantity { get; set; }
+        
+        public bool? Bulk { get; set; }
 
         /// <summary>
         /// Date the subscription started.
@@ -602,6 +604,9 @@ namespace Recurly
 
             if (FirstRenewalDate.HasValue)
                 xmlWriter.WriteElementString("first_renewal_date", FirstRenewalDate.Value.ToString("s"));
+            
+            if (Bulk.HasValue)
+                xmlWriter.WriteElementString("bulk", Bulk.ToString().ToLower());
 
             if (CollectionMethod.Like("manual"))
             {
