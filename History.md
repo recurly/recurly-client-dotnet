@@ -6,6 +6,7 @@ Unreleased
 * added; `ProductCode` to `Adjustment`
 * added; ability to specify either credit or transaction priority on refunds
 * added; ability to give a `Transaction` a `Description`
+* added; `TaxExempt`, `TaxCode`, `AccountingCode` to `Transaction`
 
 1.2.1 (stable) / 2015-05-26
 ==================
