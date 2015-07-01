@@ -228,6 +228,7 @@ namespace Recurly
 
                     case "applies_to_non_plan_charges":
                         AppliesToNonPlanCharges = reader.ReadElementContentAsBoolean();
+                        break;
 
                     case "max_redemptions_per_account":
                         if (int.TryParse(reader.ReadElementContentAsString(), out m))
