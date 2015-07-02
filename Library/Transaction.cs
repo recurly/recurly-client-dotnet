@@ -33,6 +33,7 @@ namespace Recurly
         public int AmountInCents { get; set; }
         public int TaxInCents { get; set; }
         public string Currency { get; set; }
+        public string Description { get; set; }
 
         public TransactionState Status { get; private set; }
 
@@ -200,6 +201,10 @@ namespace Recurly
                     case "currency":
                         Currency = reader.ReadElementContentAsString();
                         break;
+                        
+                    case "description":
+                        Description = reader.ReadElementContentAsString();
+                        break;
 
                     case "status":
                         var state = reader.ReadElementContentAsString();
@@ -261,6 +266,7 @@ namespace Recurly
 
             xmlWriter.WriteElementString("amount_in_cents", AmountInCents.AsString());
             xmlWriter.WriteElementString("currency", Currency);
+            xmlWriter.WriteStringIfValid("description", Description);
 
             if (Account != null)
             {
