@@ -115,8 +115,8 @@ namespace Recurly
 
         /// <summary>
         /// Date the trial ends, if the subscription has/had a trial.
-        /// 
-        /// This may optionally be set on new subscriptions to specify an exact time for the 
+        ///
+        /// This may optionally be set on new subscriptions to specify an exact time for the
         /// subscription to commence.  The subscription will be active and in "trial" until
         /// this date.
         /// </summary>
@@ -136,7 +136,7 @@ namespace Recurly
         private DateTime? _trialPeriodEndsAt;
 
         /// <summary>
-        /// If set, the subscription will begin in the future on this date. 
+        /// If set, the subscription will begin in the future on this date.
         /// The subscription will apply the setup fee and trial period, unless the plan has no trial.
         /// </summary>
         public DateTime? StartsAt { get; set; }
@@ -344,10 +344,16 @@ namespace Recurly
             Preview(ChangeTimeframe.Now);
         }
 
-        public void Postpone(DateTime nextRenewalDate)
+        /// <summary>
+        /// For an active subscription, this will pause the subscription until the specified date.
+        /// </summary>
+        /// <param name="nextRenewalDate">The specified time the subscription will be postponed</param>
+        /// <param name="bulk">bulk = false (default) or true to bypass the 60 second wait while postponing</param>
+        public void Postpone(DateTime nextRenewalDate, bool bulk = false)
+
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
-                UrlPrefix + Uri.EscapeUriString(Uuid) + "/postpone?next_renewal_date=" + nextRenewalDate.ToString("yyyy-MM-ddThh:mm:ssZ"),
+                UrlPrefix + Uri.EscapeUriString(Uuid) + "/postpone?next_renewal_date=" + nextRenewalDate.ToString("yyyy-MM-ddThh:mm:ssZ") + "&bulk=" + bulk.ToString().ToLower(),
                 ReadXml);
         }
 
@@ -452,7 +458,7 @@ namespace Recurly
                         if (DateTime.TryParse(reader.ReadElementContentAsString(), out dateVal))
                             CurrentPeriodStartedAt = dateVal;
                         break;
-                        
+
                     case "current_period_ends_at":
                         if (DateTime.TryParse(reader.ReadElementContentAsString(), out dateVal))
                             CurrentPeriodEndsAt = dateVal;
@@ -705,7 +711,7 @@ namespace Recurly
     {
         /// <summary>
         /// Returns a list of recurly subscriptions
-        /// 
+        ///
         /// A subscription will belong to more than one state.
         /// </summary>
         /// <param name="state">State of subscriptions to return, defaults to "live"</param>
