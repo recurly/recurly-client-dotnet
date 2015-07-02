@@ -56,6 +56,10 @@ namespace Recurly
 
         public string AccountCode { get; private set; }
 
+        public Boolean TaxExempt { get; set; }
+        public string TaxCode { get; set; }
+        public string AccountingCode { get; set; }
+
         public Account Account
         {
             get { return _account ?? (_account = Accounts.Get(AccountCode)); }
@@ -267,6 +271,10 @@ namespace Recurly
             xmlWriter.WriteElementString("amount_in_cents", AmountInCents.AsString());
             xmlWriter.WriteElementString("currency", Currency);
             xmlWriter.WriteStringIfValid("description", Description);
+
+            xmlWriter.WriteElementString("tax_exempt", TaxExempt.AsString().ToLower());
+            xmlWriter.WriteStringIfValid("tax_code", TaxCode);
+            xmlWriter.WriteStringIfValid("accounting_code", AccountingCode);   
 
             if (Account != null)
             {
