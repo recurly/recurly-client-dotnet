@@ -1,6 +1,9 @@
 Unreleased
 ==================
 
+1.2.2 (stable) / 2015-07-06
+==================
+
 * added; `bulk` param to `Postpone` call on `Subscription`
 * fixed; no content returning from the server will no longer throw "Root element is missing"
 * added; `TaxRegion` to `Invoice`
