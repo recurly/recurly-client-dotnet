@@ -23,10 +23,18 @@ namespace Recurly.Test
         {
             var account = NewAccountWithBillingInfo();
             var transaction = new Transaction(account, 5000, "USD");
+            transaction.Description = "Description";
 
             transaction.Create();
 
             transaction.CreatedAt.Should().NotBe(default(DateTime));
+            
+            var fromService = Transactions.Get(transaction.Uuid);
+            var invoice = fromService.GetInvoice();
+            var line_items = invoice.Adjustments;
+            
+            line_items[0].Description.Should().Be(transaction.Description);
+            
         }
 
         [Fact]
