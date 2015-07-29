@@ -1,6 +1,8 @@
 Unreleased
 ==================
 
+* added; `applies_to_non_plan_charges` attribute `Coupon`
+
 1.2.2 (stable) / 2015-07-06
 ==================
 

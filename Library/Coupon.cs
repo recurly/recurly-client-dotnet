@@ -51,6 +51,7 @@ namespace Recurly
         public int? TemporalAmount { get; set; }
         public int? MaxRedemptions { get; set; }
         public bool? AppliesToAllPlans { get; set; }
+        public bool? AppliesToNonPlanCharges { get; set; }
 
         public CouponDiscountType DiscountType { get; private set; }
         public CouponState State { get; private set; }
@@ -213,6 +214,10 @@ namespace Recurly
                         AppliesToAllPlans = reader.ReadElementContentAsBoolean();
                         break;
 
+                    case "applies_to_non_plan_charges":
+                        AppliesToNonPlanCharges = reader.ReadElementContentAsBoolean();
+                        break;
+
                     case "created_at":
                         if (DateTime.TryParse(reader.ReadElementContentAsString(), out date))
                             CreatedAt = date;
@@ -292,6 +297,9 @@ namespace Recurly
 
             if (AppliesToAllPlans.HasValue)
                 xmlWriter.WriteElementString("applies_to_all_plans", AppliesToAllPlans.Value.AsString());
+
+            if (AppliesToNonPlanCharges.HasValue)
+                xmlWriter.WriteElementString("applies_to_non_plan_charges", AppliesToNonPlanCharges.Value.AsString());
 
             if(MaxRedemptions.HasValue)
                 xmlWriter.WriteElementString("max_redemptions", MaxRedemptions.Value.AsString());
