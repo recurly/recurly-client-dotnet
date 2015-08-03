@@ -7,13 +7,13 @@ namespace Recurly
     /// <summary>
     /// An account in Recurly.
     ///
-    /// http://docs.recurly.com/api/accounts
+    /// https://dev.recurly.com/docs/get-account
     /// </summary>
     public class Account : RecurlyEntity
     {
 
         // The currently valid account states
-        // Corrected to allow multiple states, per http://docs.recurly.com/api/accounts
+        // Corrected to allow multiple states, per https://dev.recurly.com/docs/get-account
         [Flags]
         public enum AccountState : short
         {
@@ -151,7 +151,7 @@ namespace Recurly
             State |= AccountState.Active;
         }
 
-        // This method appears to not conform to the API given http://docs.recurly.com/api/accounts
+        // This method appears to not conform to the API given https://dev.recurly.com/docs/get-account
         /// <summary>
         /// Posts pending charges on an account
         /// </summary>
@@ -297,7 +297,7 @@ namespace Recurly
                         break;
 
                     case "state":
-                        // TODO investigate in case of incoming data representing multiple states, as http://docs.recurly.com/api/accounts says is possible
+                        // TODO investigate in case of incoming data representing multiple states, as https://dev.recurly.com/docs/get-account says is possible
                         State = reader.ReadElementContentAsString().ParseAsEnum<AccountState>();
                         break;
 

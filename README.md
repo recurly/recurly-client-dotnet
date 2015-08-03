@@ -2,7 +2,7 @@
 
 **This project is currently in Beta. The majority of the Recurly API v2 objects are supported, however there may be a few that are still in progress. Please report any questions or issues via Github.**
 
-The Official .NET [Recurly API](https://docs.recurly.com/api) client library.
+The Official .NET [Recurly API](https://dev.recurly.com/docs/getting-started) client library.
 
 Compatible with .NET >=3.5 and Recurly API v2.
 
@@ -98,7 +98,7 @@ Each section of the API (Accounts, Invoices, Transactions, etc.) has static refe
 
 ## Recurly API Documentation
 
-Please see the [Recurly API](https://docs.recurly.com/api) for more information.
+Please see the [Recurly API](https://dev.recurly.com/docs/getting-started) for more information.
 
 ## Support
 Looking for help? Please contact [support@recurly.com](mailto:support@recurly.com) or visit [support.recurly.com](https://support.recurly.com).
