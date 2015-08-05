@@ -37,6 +37,12 @@ namespace Recurly
             Year
         }
 
+        public enum RedemptionResourceType
+        {
+            Account,
+            Subscription
+        }
+
         public RecurlyList<CouponRedemption> Redemptions { get; private set; }
 
         public string CouponCode { get; set; }
@@ -55,6 +61,7 @@ namespace Recurly
 
         public CouponDiscountType DiscountType { get; private set; }
         public CouponState State { get; private set; }
+        public RedemptionResourceType RedemptionResource { get; set; }
 
         /// <summary>
         /// A dictionary of currencies and discounts
@@ -170,6 +177,10 @@ namespace Recurly
 
                     case "discount_type":
                         DiscountType = reader.ReadElementContentAsString().ParseAsEnum<CouponDiscountType>();
+                        break;
+
+                    case "redemption_resource":
+                        RedemptionResource = reader.ReadElementContentAsString().ParseAsEnum<RedemptionResourceType>();
                         break;
 
                     case "discount_percent":
@@ -305,6 +316,8 @@ namespace Recurly
                 xmlWriter.WriteElementString("max_redemptions", MaxRedemptions.Value.AsString());
 
             xmlWriter.WriteElementString("discount_type", DiscountType.ToString().EnumNameToTransportCase());
+
+            xmlWriter.WriteElementString("redemption_resource", RedemptionResource.ToString().EnumNameToTransportCase());
 
             if (CouponDiscountType.Percent == DiscountType && DiscountPercent.HasValue)
                 xmlWriter.WriteElementString("discount_percent", DiscountPercent.Value.AsString());

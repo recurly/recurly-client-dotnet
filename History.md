@@ -6,6 +6,7 @@ Unreleased
 * added; `uuid` to `CouponRedemption`
 * added; `GetActiveRedemptions` to `Account`
 * added; `X-Api-Version` to `2.1`
+* added; `redemption_resource` to `Coupon`
 
 1.2.2 (stable) / 2015-07-06
 ==================
