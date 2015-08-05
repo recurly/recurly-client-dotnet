@@ -7,7 +7,7 @@ namespace Recurly
 {
     /// <summary>
     /// An individual error message.
-    /// For more information, please visit http://docs.recurly.com/api/errors
+    /// For more information, please visit https://dev.recurly.com/docs/api-validation-errors
     /// </summary>
     public class Error
     {
