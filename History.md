@@ -1,6 +1,10 @@
 Unreleased
 ==================
 
+* added; `Duration` to `Coupon`
+* added; `TemporalUnit` to `Coupon`
+* added; `TemproalAmount` to `Coupon`
+
 1.2.2 (stable) / 2015-07-06
 ==================
 
