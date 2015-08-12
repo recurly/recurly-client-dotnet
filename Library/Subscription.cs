@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Xml;
@@ -154,16 +154,51 @@ namespace Recurly
         private Coupon _coupon;
         private string _couponCode;
 
+        private Coupon[] _coupons;
+        private string[] _couponCodes;
+
         /// <summary>
         /// Optional coupon for the subscription
         /// </summary>
         public Coupon Coupon
         {
-            get { return _coupon ?? (_coupon = Coupons.Get(_couponCode)); }
+            get { return _coupon ?? (_coupon = Recurly.Coupons.Get(_couponCode)); }
             set
             {
                 _coupon = value;
                 _couponCode = value.CouponCode;
+            }
+        }
+
+        /// <summary>
+        /// Optional coupons for the subscription
+        /// </summary>
+        public Coupon[] Coupons
+        {
+            get {
+                if (_coupons == null)
+                {
+                    _coupons = new Coupon[_couponCodes.Length];
+                }
+
+                if ( _coupons.Length == 0)
+                {
+
+                    for (int i = 0; i<_couponCodes.Length; i++)
+                    {
+                        _coupons[i] = Recurly.Coupons.Get(_couponCodes[i]);
+                    }
+                }
+
+                return _coupons;
+            }
+            set {
+                _coupons = value;
+                _couponCodes = new string[_coupons.Length];
+                for (int i = 0; i<_coupons.Length; i++)
+                {
+                    _couponCodes[i] = _coupons[i].CouponCode;
+                }
             }
         }
 
@@ -587,6 +622,15 @@ namespace Recurly
 
             xmlWriter.WriteStringIfValid("coupon_code", _couponCode);
 
+            if (_couponCodes != null && _couponCodes.Length != 0) {
+                xmlWriter.WriteStartElement("coupon_codes");
+                foreach (var _coupon_code in _couponCodes)
+                {
+                    xmlWriter.WriteElementString("coupon_code", _coupon_code);
+                }
+                xmlWriter.WriteEndElement();
+            }
+
             xmlWriter.WriteElementString("customer_notes", CustomerNotes);
             xmlWriter.WriteElementString("terms_and_conditions", TermsAndConditions);
             xmlWriter.WriteElementString("vat_reverse_charge_notes", VatReverseChargeNotes);
@@ -648,6 +692,16 @@ namespace Recurly
             xmlWriter.WriteStringIfValid("plan_code", _planCode);
             xmlWriter.WriteIfCollectionHasAny("subscription_add_ons", AddOns);
             xmlWriter.WriteStringIfValid("coupon_code", _couponCode);
+
+            if (_couponCodes != null && _couponCodes.Length != 0) {
+                xmlWriter.WriteStartElement("coupon_codes");
+                foreach (var _coupon_code in _couponCodes)
+                {
+                    xmlWriter.WriteElementString("coupon_code", _coupon_code);
+                }
+                xmlWriter.WriteEndElement();
+            }
+
 
             if (UnitAmountInCents.HasValue)
                 xmlWriter.WriteElementString("unit_amount_in_cents", UnitAmountInCents.Value.AsString());
