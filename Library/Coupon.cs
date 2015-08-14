@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Xml;
@@ -22,6 +22,21 @@ namespace Recurly
             Dollars
         }
 
+        public enum CouponDuration
+        {
+            Forever,
+            SingleUse,
+            Temporal
+        }
+
+        public enum CouponTemporalUnit
+        {
+            Day,
+            Week,
+            Month,
+            Year
+        }
+
         public RecurlyList<CouponRedemption> Redemptions { get; private set; }
 
         public string CouponCode { get; set; }
@@ -31,6 +46,9 @@ namespace Recurly
         public DateTime? RedeemByDate { get; set; }
         public bool? SingleUse { get; set; }
         public int? AppliesForMonths { get; set; }
+        public CouponDuration? Duration { get; set; }
+        public CouponTemporalUnit? TemporalUnit { get; set; }
+        public int? TemporalAmount { get; set; }
         public int? MaxRedemptions { get; set; }
         public bool? AppliesToAllPlans { get; set; }
 
@@ -171,6 +189,21 @@ namespace Recurly
                             AppliesForMonths = m;
                         break;
 
+                    case "duration":
+                        Duration = reader.ReadElementContentAsString().ParseAsEnum<CouponDuration>();
+                        break;
+
+                    case "temporal_unit":
+                        var element_content = reader.ReadElementContentAsString();
+                        if (element_content != "")
+                          TemporalUnit = element_content.ParseAsEnum<CouponTemporalUnit>();
+                        break;
+
+                    case "temporal_amount":
+                        if (int.TryParse(reader.ReadElementContentAsString(), out m))
+                            TemporalAmount = m;
+                        break;
+
                     case "max_redemptions":
                         if (int.TryParse(reader.ReadElementContentAsString(), out m))
                             MaxRedemptions = m;
@@ -250,6 +283,12 @@ namespace Recurly
 
             if (AppliesForMonths.HasValue)
                 xmlWriter.WriteElementString("applies_for_months", AppliesForMonths.Value.AsString());
+            if (Duration != null)
+              xmlWriter.WriteElementString("duration", Duration.ToString().EnumNameToTransportCase());
+            if (TemporalUnit != null)
+              xmlWriter.WriteElementString("temporal_unit", TemporalUnit.ToString().EnumNameToTransportCase());
+            if (TemporalAmount.HasValue)
+                xmlWriter.WriteElementString("temporal_amount", TemporalAmount.Value.ToString());
 
             if (AppliesToAllPlans.HasValue)
                 xmlWriter.WriteElementString("applies_to_all_plans", AppliesToAllPlans.Value.AsString());

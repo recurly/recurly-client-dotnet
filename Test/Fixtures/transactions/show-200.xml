@@ -19,6 +19,7 @@ Content-Type: application/xml; charset=utf-8
   <test type="boolean">true</test>
   <voidable type="boolean">true</voidable>
   <refundable type="boolean">true</refundable>
+  <ip_address>127.0.0.1</ip_address>
   <cvv_result code="M">Match</cvv_result>
   <avs_result code="D">Street address and postal code match.</avs_result>
   <avs_result_street>Y</avs_result_street>

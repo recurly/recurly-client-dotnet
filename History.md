@@ -1,6 +1,27 @@
 Unreleased
 ==================
 
+* added; `Duration` to `Coupon`
+* added; `TemporalUnit` to `Coupon`
+* added; `TemproalAmount` to `Coupon`
+
+1.2.2 (stable) / 2015-07-06
+==================
+
+* added; `bulk` param to `Postpone` call on `Subscription`
+* fixed; no content returning from the server will no longer throw "Root element is missing"
+* added; `TaxRegion` to `Invoice`
+* added; `ProductCode` to `Adjustment`
+* added; ability to specify either credit or transaction priority on refunds
+* added; ability to give a `Transaction` a `Description`
+* added; `TaxExempt`, `TaxCode`, `AccountingCode` to `Transaction`
+
+1.2.1 (stable) / 2015-05-26
+==================
+
+* added; `BankAccountAuthorizedAt` to `Subscription`
+* added; `IpAddress` to `Transaction`
+
 1.2.0 (stable) / 2015-04-28
 ==================
 

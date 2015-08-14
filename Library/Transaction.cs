@@ -33,6 +33,7 @@ namespace Recurly
         public int AmountInCents { get; set; }
         public int TaxInCents { get; set; }
         public string Currency { get; set; }
+        public string Description { get; set; }
 
         public TransactionState Status { get; private set; }
 
@@ -41,6 +42,8 @@ namespace Recurly
         public bool Test { get; private set; }
         public bool Voidable { get; private set; }
         public bool Refundable { get; private set; }
+
+        public string IpAddress { get; private set; }
 
         public string CCVResult { get; private set; }
         public string AvsResult { get; private set; }
@@ -52,6 +55,10 @@ namespace Recurly
         private Account _account;
 
         public string AccountCode { get; private set; }
+
+        public Boolean TaxExempt { get; set; }
+        public string TaxCode { get; set; }
+        public string AccountingCode { get; set; }
 
         public Account Account
         {
@@ -198,6 +205,10 @@ namespace Recurly
                     case "currency":
                         Currency = reader.ReadElementContentAsString();
                         break;
+                        
+                    case "description":
+                        Description = reader.ReadElementContentAsString();
+                        break;
 
                     case "status":
                         var state = reader.ReadElementContentAsString();
@@ -213,11 +224,15 @@ namespace Recurly
                         break;
 
                     case "voidable":
-                        Voidable =  reader.ReadElementContentAsBoolean();
+                        Voidable = reader.ReadElementContentAsBoolean();
                         break;
 
                     case "refundable":
-                        Refundable =  reader.ReadElementContentAsBoolean();
+                        Refundable = reader.ReadElementContentAsBoolean();
+                        break;
+
+                    case "ip_address":
+                        IpAddress = reader.ReadElementContentAsString();
                         break;
 
                     case "ccv_result":
@@ -255,6 +270,11 @@ namespace Recurly
 
             xmlWriter.WriteElementString("amount_in_cents", AmountInCents.AsString());
             xmlWriter.WriteElementString("currency", Currency);
+            xmlWriter.WriteStringIfValid("description", Description);
+
+            xmlWriter.WriteElementString("tax_exempt", TaxExempt.AsString().ToLower());
+            xmlWriter.WriteStringIfValid("tax_code", TaxCode);
+            xmlWriter.WriteStringIfValid("accounting_code", AccountingCode);   
 
             if (Account != null)
             {

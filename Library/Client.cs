@@ -384,8 +384,11 @@ namespace Recurly
 
                     if (records >= 0)
                         readXmlListDelegate(xmlReader, records, start, next, prev);
-                    else
-                        readXmlDelegate(xmlReader);
+                    else if (response.StatusCode != HttpStatusCode.NoContent)
+                    {
+                       
+                            readXmlDelegate(xmlReader);
+                    }
                 }
             }
 #endif

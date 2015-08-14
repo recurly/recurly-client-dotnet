@@ -17,6 +17,12 @@ namespace Recurly
             PastDue
         }
 
+        public enum RefundOrderPriority
+        {
+            Credit,
+            Transaction
+        }
+
         public string AccountCode { get; private set; }
         public string SubscriptionUuid { get; private set; }
         public int OriginalInvoiceNumber { get; private set; }
@@ -45,7 +51,7 @@ namespace Recurly
         /// Tax type as "vat" for VAT or "usst" for US Sales Tax.
         /// </summary>
         public string TaxType { get; private set; }
-
+        public string TaxRegion { get; private set; }
         public decimal? TaxRate { get; private set; }
 
         public int? NetTerms { get; private set; }
@@ -139,17 +145,17 @@ namespace Recurly
         /// <param name="prorate"></param>
         /// <param name="quantity"></param>
         /// <returns>new Invoice object</returns>
-        public Invoice Refund(Adjustment adjustment, bool prorate = false, int quantity = 0)
+        public Invoice Refund(Adjustment adjustment, bool prorate = false, int quantity = 0, RefundOrderPriority refundPriority = RefundOrderPriority.Credit)
         {
             var adjustments = new List<Adjustment>();
             adjustments.Add(adjustment);
 
-            return Refund(adjustments, prorate, quantity);
+            return Refund(adjustments, prorate, quantity, refundPriority);
         }
 
-        public Invoice Refund(IEnumerable<Adjustment> adjustments, bool prorate = false, int quantity = 0)
+        public Invoice Refund(IEnumerable<Adjustment> adjustments, bool prorate = false, int quantity = 0, RefundOrderPriority refundPriority = RefundOrderPriority.Credit)
         {
-            var refunds = new RefundList(adjustments, prorate, quantity);
+            var refunds = new RefundList(adjustments, prorate, quantity, refundPriority);
             var invoice = new Invoice();
 
             var response = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
@@ -163,9 +169,10 @@ namespace Recurly
                 return null;
         }
 
-        public Invoice RefundAmount(int amountInCents) {
+        public Invoice RefundAmount(int amountInCents, RefundOrderPriority refundPriority = RefundOrderPriority.Credit)
+        {
             var refundInvoice = new Invoice();
-            var refund = new OpenAmountRefund(amountInCents);
+            var refund = new OpenAmountRefund(amountInCents, refundPriority);
                
             var response = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 memberUrl() + "/refund",
@@ -278,6 +285,10 @@ namespace Recurly
 
                     case "tax_rate":
                         TaxRate = reader.ReadElementContentAsDecimal();
+                        break;
+
+                    case "tax_region":
+                        TaxRegion = reader.ReadElementContentAsString();
                         break;
 
                     case "net_terms":
