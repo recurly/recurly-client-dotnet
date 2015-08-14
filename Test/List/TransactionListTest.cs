@@ -1,4 +1,6 @@
-﻿using FluentAssertions;
+﻿using System;
+using System.Linq;
+using FluentAssertions;
 using Xunit;
 
 namespace Recurly.Test
@@ -33,7 +35,7 @@ namespace Recurly.Test
             transactions.Should().NotBeEmpty();
         }
 
-        [Fact]
+        [Fact(Skip = "This feature is deprecated and no longer supported for accounts where line item refunds are turned on.")]
         public void ListVoidedTransactions()
         {
             for (var x = 0; x < 2; x++)
@@ -41,14 +43,17 @@ namespace Recurly.Test
                 var account = CreateNewAccountWithBillingInfo();
                 var transaction = new Transaction(account.AccountCode, 3000 + x, "USD");
                 transaction.Create();
+
                 transaction.Refund();
+
+
             }
 
             var list = Transactions.List(TransactionList.TransactionState.Voided);
             list.Should().NotBeEmpty();
         }
 
-        [Fact]
+        [Fact(Skip = "This feature is deprecated and no longer supported for accounts where line item refunds are turned on.")]
         public void ListRefundedTransactions()
         {
             for (var x = 0; x < 2; x++)
@@ -59,7 +64,7 @@ namespace Recurly.Test
                 transaction.Refund(1500);
             }
 
-            var list = Transactions.List(type:TransactionList.TransactionType.Refund);
+            var list = Transactions.List(type: TransactionList.TransactionType.Refund);
             list.Should().NotBeEmpty();
         }
 
@@ -73,7 +78,7 @@ namespace Recurly.Test
 
             var transaction2 = new Transaction(account.AccountCode, 200, "USD");
             transaction2.Create();
-            
+
             var list = account.GetTransactions();
             list.Should().NotBeEmpty();
         }

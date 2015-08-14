@@ -65,7 +65,7 @@ namespace Recurly.Test
             transaction.CreatedAt.Should().NotBe(default(DateTime));
         }
 
-        [Fact]
+        [Fact(Skip = "This feature is deprecated and no longer supported for accounts where line item refunds are turned on.")]
         public void RefundTransactionFull()
         {
             var acct = NewAccountWithBillingInfo();
@@ -77,7 +77,7 @@ namespace Recurly.Test
             transaction.Status.Should().Be(Transaction.TransactionState.Voided);
         }
 
-        [Fact]
+        [Fact(Skip = "This feature is deprecated and no longer supported for accounts where line item refunds are turned on.")]
         public void RefundTransactionPartial()
         {
             var account = NewAccountWithBillingInfo();
