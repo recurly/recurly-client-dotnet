@@ -177,6 +177,10 @@ namespace Recurly
         }
         private SubscriptionAddOnList _addOns;
 
+        /// <summary>
+        /// The invoice generated when calling the Preview method
+        /// </summary>
+        public Invoice InvoicePreview { get; private set; }
         public int? TotalBillingCycles { get; set; }
         public DateTime? FirstRenewalDate { get; set; }
 
@@ -350,7 +354,6 @@ namespace Recurly
         /// <param name="nextRenewalDate">The specified time the subscription will be postponed</param>
         /// <param name="bulk">bulk = false (default) or true to bypass the 60 second wait while postponing</param>
         public void Postpone(DateTime nextRenewalDate, bool bulk = false)
-
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
                 UrlPrefix + Uri.EscapeUriString(Uuid) + "/postpone?next_renewal_date=" + nextRenewalDate.ToString("yyyy-MM-ddThh:mm:ssZ") + "&bulk=" + bulk.ToString().ToLower(),
@@ -365,7 +368,7 @@ namespace Recurly
                 ReadXml);
 
             CustomerNotes = notes["CustomerNotes"];
-            TermsAndConditions =  notes["TermsAndConditions"];
+            TermsAndConditions = notes["TermsAndConditions"];
             VatReverseChargeNotes = notes["VatReverseChargeNotes"];
 
             return true;
@@ -485,8 +488,16 @@ namespace Recurly
                         AddOns.ReadXml(reader);
                         break;
 
+                    case "invoice":
+                        href = reader.GetAttribute("href");
+                        //only parse the invoice xml if it's not just a link
+                        if (string.IsNullOrEmpty(href))
+                            InvoicePreview = new Invoice(reader);
+
+                        break;
+
                     case "pending_subscription":
-                        PendingSubscription = new Subscription {IsPendingSubscription = true};
+                        PendingSubscription = new Subscription { IsPendingSubscription = true };
                         PendingSubscription.ReadPendingSubscription(reader);
                         // TODO test all returned properties are read
                         break;
