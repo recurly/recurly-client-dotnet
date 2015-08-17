@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Xml;
@@ -58,6 +58,7 @@ namespace Recurly
         public int? MaxRedemptions { get; set; }
         public bool? AppliesToAllPlans { get; set; }
         public bool? AppliesToNonPlanCharges { get; set; }
+        public int? MaxRedemptionsPerAccount { get; set; }
 
         public CouponDiscountType DiscountType { get; private set; }
         public CouponState State { get; private set; }
@@ -227,6 +228,10 @@ namespace Recurly
 
                     case "applies_to_non_plan_charges":
                         AppliesToNonPlanCharges = reader.ReadElementContentAsBoolean();
+
+                    case "max_redemptions_per_account":
+                        if (int.TryParse(reader.ReadElementContentAsString(), out m))
+                            MaxRedemptionsPerAccount = m;
                         break;
 
                     case "created_at":
@@ -314,6 +319,9 @@ namespace Recurly
 
             if(MaxRedemptions.HasValue)
                 xmlWriter.WriteElementString("max_redemptions", MaxRedemptions.Value.AsString());
+
+            if (MaxRedemptionsPerAccount.HasValue)
+                xmlWriter.WriteElementString("max_redemptions_per_account", MaxRedemptionsPerAccount.Value.AsString());
 
             xmlWriter.WriteElementString("discount_type", DiscountType.ToString().EnumNameToTransportCase());
 

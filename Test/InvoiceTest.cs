@@ -116,7 +116,7 @@ namespace Recurly.Test
             account.Close();
         }
 
-        [Fact]
+        [Fact(Skip = "This feature is deprecated and no longer supported for accounts where line item refunds are turned on.")]
         public void RefundMultiple()
         {
             var account = CreateNewAccountWithBillingInfo();
@@ -150,7 +150,7 @@ namespace Recurly.Test
         }
 
 
-        [Fact]
+        [Fact(Skip = "This feature is deprecated and no longer supported for accounts where line item refunds are turned on.")]
         public void RefundOpenAmount()
         {
             var account = CreateNewAccountWithBillingInfo();

@@ -8,6 +8,14 @@ Unreleased
 * added; `X-Api-Version` to `2.1`
 * added; `redemption_resource` to `Coupon`
 
+1.2.3 (stable) / 2015-08-14
+==================
+
+* added; `Duration` to `Coupon`
+* added; `TemporalUnit` to `Coupon`
+* added; `TemporalAmount` to `Coupon`
+* fixed; Parse embedded invoice on subscription/preview
+
 1.2.2 (stable) / 2015-07-06
 ==================
 
