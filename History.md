@@ -1,12 +1,14 @@
 Unreleased
 ==================
 
-* added; `applies_to_non_plan_charges` attribute `Coupon`
+* added; `AppliesToNonPlanCharges` attribute `Coupon`
 * added; `Coupons` to `Subscription`
 * added; `uuid` to `CouponRedemption`
 * added; `GetActiveRedemptions` to `Account`
 * added; `X-Api-Version` to `2.1`
-* added; `redemption_resource` to `Coupon`
+* added; `RedemptionResource` to `Coupon`
+* added; `MaxRedemptionsPerAccount` to `Coupon`
+
 
 1.2.3 (stable) / 2015-08-14
 ==================
