@@ -42,6 +42,7 @@ namespace Recurly.Test
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
             {
                 AccountingCode = "accountingcode123",
+                SetupFeeAccountingCode = "Setup Fee AC",
                 Description = "a test plan",
                 DisplayDonationAmounts = true,
                 DisplayPhoneNumber = false,
@@ -58,6 +59,7 @@ namespace Recurly.Test
 
             plan.CreatedAt.Should().NotBe(default(DateTime));
             plan.AccountingCode.Should().Be("accountingcode123");
+            plan.SetupFeeAccountingCode.Should().Be("Setup Fee AC");
             plan.Description.Should().Be("a test plan");
             plan.DisplayDonationAmounts.Should().HaveValue().And.Be(true);
             plan.DisplayPhoneNumber.Should().HaveValue().And.Be(false);
@@ -76,7 +78,7 @@ namespace Recurly.Test
             plan.UnitAmountInCents.Add("USD", 100);
             plan.Create();
             PlansToDeactivateOnDispose.Add(plan);
-            
+
             plan.UnitAmountInCents["USD"] = 5000;
             plan.SetupFeeInCents["USD"] = 100;
             plan.TaxExempt = false;
@@ -97,7 +99,7 @@ namespace Recurly.Test
             plan.UnitAmountInCents.Add("USD", 100);
             plan.Create();
             PlansToDeactivateOnDispose.Add(plan);
-            
+
             plan = Plans.Get(plan.PlanCode);
             plan.CreatedAt.Should().NotBe(default(DateTime));
             plan.UnitAmountInCents.Should().Contain("USD", 100);

@@ -1,6 +1,7 @@
 # Recurly .NET Client
 
-**This project is currently in Beta. The majority of the Recurly API v2 objects are supported, however there may be a few that are still in progress. Please report any questions or issues via Github.**
+**This project is currently in Beta. The majority of the Recurly API v2 objects are supported, however there may be a
+few that are still in progress. Please report any questions or issues via Github.**
 
 The Official .NET [Recurly API](https://dev.recurly.com/docs/getting-started) client library.
 
@@ -14,7 +15,9 @@ If you use [NuGet](http://www.nuget.org/), simply run the following:
 PM> Install-Package recurly-api-client
 ```
 
-You may also visit our [Releases](https://github.com/recurly/recurly-client-net/releases) page to download the latest version. Then add the `Recurly.dll` as a [reference](http://msdn.microsoft.com/en-us/library/hh708954.aspx) to your solution.
+You may also visit our [Releases](https://github.com/recurly/recurly-client-net/releases) page to
+download the latest version. Then add the `Recurly.dll` as a
+[reference](http://msdn.microsoft.com/en-us/library/hh708954.aspx) to your solution.
 
 Alternatively, you can use use [git](http://git-scm.com/) to work with the latest changes in **development**.
 
@@ -27,7 +30,8 @@ For more information about getting started with git, please check out the
 
 ## Configuration
 
-Specify your [API Key, site subdomain](https://app.recurly.com/go/developer/api_access), and (optionally) page size setting in your `app.config` or `web.config` file:
+Specify your [API Key, site subdomain](https://app.recurly.com/go/developer/api_access), and (optionally) page size
+setting in your `app.config` or `web.config` file:
 
 ```xml
 <?xml version="1.0" encoding="utf-8" ?>
@@ -46,7 +50,8 @@ Specify your [API Key, site subdomain](https://app.recurly.com/go/developer/api_
 
 ## Client Documentation
 
-Full C# API documentation [available here](./examples.md).
+Full C# API documentation is on our [developer docs site](https://dev.recurly.com/docs/getting-started)
+and in [examples.md](./examples.md).
 
 ### Example usage
 To create an account with `account code` and `name`:
@@ -94,20 +99,24 @@ Redeem that coupon on an account that uses US dollars, getting a `CouponRedempti
 var redemption = account.RedeemCoupon("WINTER", "USD");
 ```
 
-Each section of the API (Accounts, Invoices, Transactions, etc.) has static references for getting or listing their types and concrete implementations for manipulating concrete objects.
+Each section of the API (Accounts, Invoices, Transactions, etc.) has static references for getting or listing their
+types and concrete implementations for manipulating concrete objects.
 
 ## Recurly API Documentation
 
 Please see the [Recurly API](https://dev.recurly.com/docs/getting-started) for more information.
 
 ## Support
-Looking for help? Please contact [support@recurly.com](mailto:support@recurly.com) or visit [support.recurly.com](https://support.recurly.com).
+Looking for help? Please contact [support@recurly.com](mailto:support@recurly.com) or visit
+[support.recurly.com](https://support.recurly.com).
 
-[Stackoverflow](http://stackoverflow.com/questions/tagged/recurly) is also a great place to talk to the community and find answers to common questions.
+[Stackoverflow](http://stackoverflow.com/questions/tagged/recurly) is also a great place to talk to the community
+and find answers to common questions.
 
 ## Announcements
 
-For the latest API and client library announcements follow Recurly on [Twitter](https://twitter.com/recurly) and join our [Google Group](http://groups.google.com/group/recurly-api):
+For the latest API and client library announcements follow Recurly on [Twitter](https://twitter.com/recurly)
+and join our [Google Group](http://groups.google.com/group/recurly-api):
 
 - [@recurly](https://twitter.com/recurly)
 - [Recurly Google Group](http://groups.google.com/group/recurly-api)

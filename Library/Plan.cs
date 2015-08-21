@@ -34,6 +34,7 @@ namespace Recurly
         public IntervalUnit TrialIntervalUnit { get; set; }
 
         public string AccountingCode { get; set; }
+        public string SetupFeeAccountingCode { get; set; }
 
         public DateTime CreatedAt { get; private set; }
 
@@ -259,6 +260,10 @@ namespace Recurly
                         AccountingCode = reader.ReadElementContentAsString();
                         break;
 
+                    case "setup_fee_accounting_code":
+                        SetupFeeAccountingCode = reader.ReadElementContentAsString();
+                        break;
+
                     case "created_at":
                         CreatedAt = reader.ReadElementContentAsDateTime();
                         break;
@@ -290,6 +295,7 @@ namespace Recurly
             xmlWriter.WriteElementString("name", Name);
             xmlWriter.WriteStringIfValid("description", Description);
             xmlWriter.WriteStringIfValid("accounting_code", AccountingCode);
+            xmlWriter.WriteStringIfValid("setup_fee_accounting_code", AccountingCode);
             if (PlanIntervalLength > 0)
             {
                 xmlWriter.WriteElementString("plan_interval_unit", PlanIntervalUnit.ToString().EnumNameToTransportCase());
