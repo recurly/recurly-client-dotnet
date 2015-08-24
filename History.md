@@ -1,5 +1,6 @@
 Unreleased
 ==================
+* added; `SetupFeeAccountingCode` to `Plan`
 
 1.2.3 (stable) / 2015-08-14
 ==================
