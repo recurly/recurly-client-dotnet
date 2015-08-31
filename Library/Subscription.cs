@@ -374,6 +374,16 @@ namespace Recurly
             return true;
         }
 
+        public RecurlyList<CouponRedemption> GetRedemptions()
+        {
+            var coupons = new CouponRedemptionList();
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
+                UrlPrefix + Uri.EscapeUriString(Uuid) + "/redemptions/",
+                coupons.ReadXmlList);
+
+            return statusCode == HttpStatusCode.NotFound ? null : coupons;
+        }
+
         #region Read and Write XML documents
 
         internal void ReadPlanXml(XmlTextReader reader)
