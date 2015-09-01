@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Xml;
 
 namespace Recurly
@@ -9,6 +9,7 @@ namespace Recurly
     public class CouponRedemption : RecurlyEntity
     {
 
+        public string Uuid { get; private set; }
         public string AccountCode { get; set; }
         public string CouponCode { get; private set; }
         public string Currency { get; set; }
@@ -56,7 +57,8 @@ namespace Recurly
         public void Delete()
         {
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Delete,
-                "/accounts/" + Uri.EscapeUriString(AccountCode) + "/redemption");
+                "/accounts/" + Uri.EscapeUriString(AccountCode) +
+                "/redemptions/" + Uri.EscapeUriString(Uuid));
             AccountCode = null;
             CouponCode = null;
             Currency = null;
@@ -79,6 +81,10 @@ namespace Recurly
                 string href;
                 switch (reader.Name)
                 {
+                    case "uuid":
+                        Uuid = reader.ReadElementContentAsString();
+                        break;
+
                     case "account":
                         href = reader.GetAttribute("href");
                         AccountCode = Uri.UnescapeDataString(href.Substring(href.LastIndexOf("/") + 1));

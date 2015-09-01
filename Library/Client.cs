@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
@@ -124,6 +124,7 @@ namespace Recurly
             request.SendChunked = false;             // Send it all as one request
             request.UserAgent = Settings.UserAgent;
             request.Headers.Add(HttpRequestHeader.Authorization, Settings.AuthorizationHeaderValue);
+            request.Headers.Add("X-Api-Version", Settings.RecurlyApiVersion);
             request.Method = method.ToString().ToUpper();
 
             Debug.WriteLine(String.Format("Recurly: Requesting {0} {1}", request.Method, request.RequestUri));
