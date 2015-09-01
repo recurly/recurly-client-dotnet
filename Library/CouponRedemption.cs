@@ -9,7 +9,7 @@ namespace Recurly
     public class CouponRedemption : RecurlyEntity
     {
 
-        public string UUID { get; private set; }
+        public string Uuid { get; private set; }
         public string AccountCode { get; set; }
         public string CouponCode { get; private set; }
         public string Currency { get; set; }
@@ -58,7 +58,7 @@ namespace Recurly
         {
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Delete,
                 "/accounts/" + Uri.EscapeUriString(AccountCode) +
-                "/redemptions/" + Uri.EscapeUriString(UUID));
+                "/redemptions/" + Uri.EscapeUriString(Uuid));
             AccountCode = null;
             CouponCode = null;
             Currency = null;
@@ -82,7 +82,7 @@ namespace Recurly
                 switch (reader.Name)
                 {
                     case "uuid":
-                        UUID = reader.ReadElementContentAsString();
+                        Uuid = reader.ReadElementContentAsString();
                         break;
 
                     case "account":
