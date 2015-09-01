@@ -1,7 +1,8 @@
 Unreleased
 ==================
-* added; `SetupFeeAccountingCode` to `Plan`
 
+* added; `SetupFeeAccountingCode` to `Plan`
+* added; `SubscriptionUuid` to `CouponRedemption`
 * added; `AppliesToNonPlanCharges` attribute `Coupon`
 * added; `Coupons` to `Subscription`
 * added; `uuid` to `CouponRedemption`
