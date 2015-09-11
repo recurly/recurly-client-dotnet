@@ -258,9 +258,9 @@ namespace Recurly
         /// <param name="couponCode"></param>
         /// <param name="currency"></param>
         /// <returns></returns>
-        public CouponRedemption RedeemCoupon(string couponCode, string currency)
+        public CouponRedemption RedeemCoupon(string couponCode, string currency, string subscriptionUuid=null)
         {
-            return CouponRedemption.Redeem(AccountCode, couponCode, currency);
+            return CouponRedemption.Redeem(AccountCode, couponCode, currency, subscriptionUuid);
         }
 
         /// <summary>
