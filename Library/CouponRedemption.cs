@@ -75,7 +75,7 @@ namespace Recurly
             while (reader.Read())
             {
                 // End of coupon element, get out of here
-                if (reader.Name == "coupon" && reader.NodeType == XmlNodeType.EndElement)
+                if ((reader.Name == "coupon" || reader.Name == "redemption") && reader.NodeType == XmlNodeType.EndElement)
                     break;
 
                 if (reader.NodeType != XmlNodeType.Element) continue;
