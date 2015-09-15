@@ -1,6 +1,9 @@
 Unreleased
 ==================
 
+1.2.4 (stable) / 2015-09-15
+==================
+
 * added; `SetupFeeAccountingCode` to `Plan`
 * added; `SubscriptionUuid` to `CouponRedemption`
 * added; `AppliesToNonPlanCharges` attribute `Coupon`
@@ -10,6 +13,8 @@ Unreleased
 * added; `X-Api-Version` to `2.1`
 * added; `RedemptionResource` to `Coupon`
 * added; `MaxRedemptionsPerAccount` to `Coupon`
+* fixed; `AddOn.GetHashCode()` exception
+* fixed; Don't send billing info when token present
 
 
 1.2.3 (stable) / 2015-08-14
