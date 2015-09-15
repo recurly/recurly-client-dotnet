@@ -295,7 +295,7 @@ namespace Recurly
             xmlWriter.WriteElementString("name", Name);
             xmlWriter.WriteStringIfValid("description", Description);
             xmlWriter.WriteStringIfValid("accounting_code", AccountingCode);
-            xmlWriter.WriteStringIfValid("setup_fee_accounting_code", AccountingCode);
+            xmlWriter.WriteStringIfValid("setup_fee_accounting_code", SetupFeeAccountingCode);
             if (PlanIntervalLength > 0)
             {
                 xmlWriter.WriteElementString("plan_interval_unit", PlanIntervalUnit.ToString().EnumNameToTransportCase());
