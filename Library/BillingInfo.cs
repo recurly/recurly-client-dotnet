@@ -288,38 +288,43 @@ namespace Recurly
         internal override void WriteXml(XmlTextWriter xmlWriter)
         {
             xmlWriter.WriteStartElement("billing_info"); // Start: billing_info
-            xmlWriter.WriteStringIfValid("first_name", FirstName);
-            xmlWriter.WriteStringIfValid("last_name", LastName);
-            xmlWriter.WriteStringIfValid("name_on_account", NameOnAccount);
-            xmlWriter.WriteStringIfValid("address1", Address1);
-            xmlWriter.WriteStringIfValid("address2", Address2);
-            xmlWriter.WriteStringIfValid("city", City);
-            xmlWriter.WriteStringIfValid("state", State);
-            xmlWriter.WriteStringIfValid("zip", PostalCode);
-            xmlWriter.WriteStringIfValid("country", Country);
-            xmlWriter.WriteStringIfValid("phone", PhoneNumber);
 
-            xmlWriter.WriteStringIfValid("vat_number", VatNumber);
-
-            if (!IpAddress.IsNullOrEmpty())
-                xmlWriter.WriteElementString("ip_address", IpAddress);
-            else
-                Debug.WriteLine("Recurly Client Library: Recording IP Address is strongly recommended.");
-
-            if (!CreditCardNumber.IsNullOrEmpty())
+            //if a recurly js token is supplied we don't want to send billing info here
+            if (string.IsNullOrEmpty(TokenId))
             {
-                xmlWriter.WriteElementString("number", CreditCardNumber);
-                xmlWriter.WriteElementString("month", ExpirationMonth.AsString());
-                xmlWriter.WriteElementString("year", ExpirationYear.AsString());
+                xmlWriter.WriteStringIfValid("first_name", FirstName);
+                xmlWriter.WriteStringIfValid("last_name", LastName);
+                xmlWriter.WriteStringIfValid("name_on_account", NameOnAccount);
+                xmlWriter.WriteStringIfValid("address1", Address1);
+                xmlWriter.WriteStringIfValid("address2", Address2);
+                xmlWriter.WriteStringIfValid("city", City);
+                xmlWriter.WriteStringIfValid("state", State);
+                xmlWriter.WriteStringIfValid("zip", PostalCode);
+                xmlWriter.WriteStringIfValid("country", Country);
+                xmlWriter.WriteStringIfValid("phone", PhoneNumber);
 
-                xmlWriter.WriteStringIfValid("verification_value", VerificationValue);
-            }
+                xmlWriter.WriteStringIfValid("vat_number", VatNumber);
 
-            if (!AccountNumber.IsNullOrEmpty())
-            {
-                xmlWriter.WriteElementString("routing_number", RoutingNumber);
-                xmlWriter.WriteElementString("account_number", AccountNumber);
-                xmlWriter.WriteElementString("account_type", AccountType.ToString().EnumNameToTransportCase());
+                if (!IpAddress.IsNullOrEmpty())
+                    xmlWriter.WriteElementString("ip_address", IpAddress);
+                else
+                    Debug.WriteLine("Recurly Client Library: Recording IP Address is strongly recommended.");
+
+                if (!CreditCardNumber.IsNullOrEmpty())
+                {
+                    xmlWriter.WriteElementString("number", CreditCardNumber);
+                    xmlWriter.WriteElementString("month", ExpirationMonth.AsString());
+                    xmlWriter.WriteElementString("year", ExpirationYear.AsString());
+
+                    xmlWriter.WriteStringIfValid("verification_value", VerificationValue);
+                }
+
+                if (!AccountNumber.IsNullOrEmpty())
+                {
+                    xmlWriter.WriteElementString("routing_number", RoutingNumber);
+                    xmlWriter.WriteElementString("account_number", AccountNumber);
+                    xmlWriter.WriteElementString("account_type", AccountType.ToString().EnumNameToTransportCase());
+                }
             }
 
             xmlWriter.WriteStringIfValid("token_id", TokenId);
