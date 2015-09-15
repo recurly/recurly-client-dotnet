@@ -111,7 +111,6 @@ namespace Recurly
 
                 switch (reader.Name)
                 {
-
                     case "add_on_code":
                         AddOnCode = reader.ReadElementContentAsString();
                         break;
@@ -139,7 +138,6 @@ namespace Recurly
                     case "tax_code":
                         TaxCode = reader.ReadElementContentAsString();
                         break;
-
                 }
             }
         }
@@ -156,7 +154,6 @@ namespace Recurly
 
             xmlWriter.WriteEndElement();
         }
-
 
         #endregion
 
@@ -177,12 +174,6 @@ namespace Recurly
         {
             return PlanCode == plan.PlanCode;
         }
-
-        public override int GetHashCode()
-        {
-            return PlanCode.GetHashCode();
-        }
-
         #endregion
     }
 }

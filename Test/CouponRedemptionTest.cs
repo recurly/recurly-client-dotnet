@@ -58,14 +58,14 @@ namespace Recurly.Test
 
             redemption.Delete();
 
-            Action getCoupon = () => account.GetActiveRedemption();
-            getCoupon.ShouldThrow<NotFoundException>();
+            var activeRedemption = account.GetActiveRedemption();
+            activeRedemption.Should().Be(null);
         }
 
         [Fact]
         public void LookupCouponInvoice()
         {
-            var discounts = new Dictionary<string,int> {{"USD", 1000}};
+            var discounts = new Dictionary<string, int> { { "USD", 1000 } };
             var coupon = new Coupon(GetMockCouponCode(), GetMockCouponName(), discounts);
             coupon.Create();
 
