@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Xml;
 
 namespace Recurly
@@ -9,6 +9,7 @@ namespace Recurly
     public class CouponRedemption : RecurlyEntity
     {
 
+        public string Uuid { get; private set; }
         public string AccountCode { get; set; }
         public string CouponCode { get; private set; }
         public string Currency { get; set; }
@@ -19,6 +20,8 @@ namespace Recurly
         public DateTime CreatedAt { get; private set; }
 
         public string State { get; private set; }
+
+        public string SubscriptionUuid {get; set; }
 
         internal CouponRedemption(XmlTextReader reader)
             : this()
@@ -37,9 +40,9 @@ namespace Recurly
         /// </summary>
         /// <param name="accountCode"></param>
         /// <param name="currency"></param>
-        internal static CouponRedemption Redeem(string accountCode, string couponCode, string currency)
+        internal static CouponRedemption Redeem(string accountCode, string couponCode, string currency, string subscriptionUuid=null)
         {
-            var cr = new CouponRedemption {AccountCode = accountCode, Currency = currency};
+            var cr = new CouponRedemption {AccountCode = accountCode, Currency = currency, SubscriptionUuid = subscriptionUuid};
 
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                "/coupons/" + Uri.EscapeUriString(couponCode) + "/redeem",
@@ -56,7 +59,8 @@ namespace Recurly
         public void Delete()
         {
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Delete,
-                "/accounts/" + Uri.EscapeUriString(AccountCode) + "/redemption");
+                "/accounts/" + Uri.EscapeUriString(AccountCode) +
+                "/redemptions/" + Uri.EscapeUriString(Uuid));
             AccountCode = null;
             CouponCode = null;
             Currency = null;
@@ -71,7 +75,7 @@ namespace Recurly
             while (reader.Read())
             {
                 // End of coupon element, get out of here
-                if (reader.Name == "coupon" && reader.NodeType == XmlNodeType.EndElement)
+                if ((reader.Name == "coupon" || reader.Name == "redemption") && reader.NodeType == XmlNodeType.EndElement)
                     break;
 
                 if (reader.NodeType != XmlNodeType.Element) continue;
@@ -79,6 +83,10 @@ namespace Recurly
                 string href;
                 switch (reader.Name)
                 {
+                    case "uuid":
+                        Uuid = reader.ReadElementContentAsString();
+                        break;
+
                     case "account":
                         href = reader.GetAttribute("href");
                         AccountCode = Uri.UnescapeDataString(href.Substring(href.LastIndexOf("/") + 1));
@@ -107,6 +115,10 @@ namespace Recurly
                         State = reader.ReadElementContentAsString();
                         break;
 
+                    case "subscription_uuid":
+                        SubscriptionUuid = reader.ReadElementContentAsString();
+                        break;
+
                     case "created_at":
                         DateTime date;
                         if (DateTime.TryParse(reader.ReadElementContentAsString(), out date))
@@ -123,6 +135,8 @@ namespace Recurly
 
             xmlWriter.WriteElementString("account_code", AccountCode);
             xmlWriter.WriteElementString("currency", Currency);
+
+            xmlWriter.WriteElementString("subscription_uuid", SubscriptionUuid);
 
             xmlWriter.WriteEndElement(); // End: coupon
         }

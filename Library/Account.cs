@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Net;
 using System.Xml;
 
@@ -258,25 +258,40 @@ namespace Recurly
         /// <param name="couponCode"></param>
         /// <param name="currency"></param>
         /// <returns></returns>
-        public CouponRedemption RedeemCoupon(string couponCode, string currency)
+        public CouponRedemption RedeemCoupon(string couponCode, string currency, string subscriptionUuid=null)
         {
-            return CouponRedemption.Redeem(AccountCode, couponCode, currency);
+            return CouponRedemption.Redeem(AccountCode, couponCode, currency, subscriptionUuid);
         }
 
+        /// <summary>
+        /// Returns all active coupon redemptions on this account
+        /// </summary>
+        /// <returns></returns>
+        public RecurlyList<CouponRedemption> GetActiveRedemptions()
+        {
+            var redemptions = new CouponRedemptionList();
+
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
+                UrlPrefix + Uri.EscapeUriString(AccountCode) + "/redemptions",
+                redemptions.ReadXmlList);
+
+            return statusCode == HttpStatusCode.NotFound ? null : redemptions;
+        }
 
         /// <summary>
-        /// Returns the active coupon redemption on this account
+        /// Returns the first active coupon redemptions on this account
         /// </summary>
         /// <returns></returns>
         public CouponRedemption GetActiveRedemption()
         {
-            var cr = new CouponRedemption();
+            var activeRedemptions = GetActiveRedemptions();
 
-            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
-                UrlPrefix + Uri.EscapeUriString(AccountCode) + "/redemption",
-                cr.ReadXml);
+            if (activeRedemptions == null || activeRedemptions.Count <= 0)
+            {
+              return null;
+            }
 
-            return statusCode == HttpStatusCode.NotFound ? null : cr;
+            return activeRedemptions.ToArray()[0];
         }
 
         #region Read and Write XML documents

@@ -4,19 +4,28 @@ namespace Recurly
 {
     public class CouponRedemptionList : RecurlyList<CouponRedemption>
     {
+
+        internal CouponRedemptionList()
+        {
+        }
+
+        internal CouponRedemptionList(string baseUrl) : base(Client.HttpRequestMethod.Get, baseUrl)
+        {
+        }
+
         public override RecurlyList<CouponRedemption> Start
         {
-            get { throw new System.NotImplementedException(); }
+            get { return HasStartPage() ? new CouponRedemptionList(StartUrl) : RecurlyList.Empty<CouponRedemption>(); }
         }
 
         public override RecurlyList<CouponRedemption> Next
         {
-            get { throw new System.NotImplementedException(); }
+            get { return HasNextPage() ? new CouponRedemptionList(NextUrl) : RecurlyList.Empty<CouponRedemption>(); }
         }
 
         public override RecurlyList<CouponRedemption> Prev
         {
-            get { throw new System.NotImplementedException(); }
+            get { return HasPrevPage() ? new CouponRedemptionList(PrevUrl) : RecurlyList.Empty<CouponRedemption>(); }
         }
 
         internal override void ReadXml(XmlTextReader reader)

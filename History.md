@@ -1,9 +1,24 @@
 Unreleased
 ==================
 
+* added; `SetupFeeAccountingCode` to `Plan`
+* added; `SubscriptionUuid` to `CouponRedemption`
+* added; `AppliesToNonPlanCharges` attribute `Coupon`
+* added; `Coupons` to `Subscription`
+* added; `uuid` to `CouponRedemption`
+* added; `GetActiveRedemptions` to `Account`
+* added; `X-Api-Version` to `2.1`
+* added; `RedemptionResource` to `Coupon`
+* added; `MaxRedemptionsPerAccount` to `Coupon`
+
+
+1.2.3 (stable) / 2015-08-14
+==================
+
 * added; `Duration` to `Coupon`
 * added; `TemporalUnit` to `Coupon`
-* added; `TemproalAmount` to `Coupon`
+* added; `TemporalAmount` to `Coupon`
+* fixed; Parse embedded invoice on subscription/preview
 
 1.2.2 (stable) / 2015-07-06
 ==================
