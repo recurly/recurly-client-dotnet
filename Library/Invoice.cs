@@ -127,10 +127,18 @@ namespace Recurly
         /// <returns></returns>
         public CouponRedemption GetRedemption()
         {
-            var cr = new CouponRedemption();
-            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get, memberUrl() + "/redemption", cr.ReadXml);
+            var redemptionList = GetRedemptions();
+            return redemptionList.HasAny() ? redemptionList[0] : null;
+        }
 
-            return statusCode == HttpStatusCode.NotFound ? null : cr;
+        public RecurlyList<CouponRedemption> GetRedemptions()
+        {
+            var coupons = new CouponRedemptionList();
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
+                memberUrl() + "/redemptions/",
+                coupons.ReadXmlList);
+
+            return statusCode == HttpStatusCode.NotFound ? null : coupons;
         }
 
         public Invoice GetOriginalInvoice()

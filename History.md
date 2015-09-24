@@ -1,6 +1,8 @@
 Unreleased
 ==================
 
+* added; multiple redemption support `GetRedemptions` for `Invoice`
+
 1.2.4 (stable) / 2015-09-15
 ==================
 
