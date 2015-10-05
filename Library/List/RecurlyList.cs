@@ -16,6 +16,7 @@ namespace Recurly
         protected string StartUrl { get; set; }
         protected string NextUrl { get; set; }
         protected string PrevUrl { get; set; }
+        protected int PerPage { get; set; }
 
         public int Count
         {
@@ -71,17 +72,19 @@ namespace Recurly
 
         internal RecurlyList()
         {
+            PerPage = Client.Instance.Settings.PageSize;
         }
 
         internal RecurlyList(HttpRequestMethod method, string url)
         {
+            PerPage = Client.Instance.Settings.PageSize;
             Method = method;
             BaseUrl = url;
 
             GetItems();
         }
 
-        protected void GetItems()
+        public void GetItems()
         {
             Client.Instance.PerformRequest(Method,
                 ApplyPaging(BaseUrl),
@@ -91,7 +94,7 @@ namespace Recurly
         protected string ApplyPaging(string baseUrl)
         {
             var divider = baseUrl.Contains("?") ? "&" : "?";
-            return baseUrl + divider + "per_page=" + Client.Instance.Settings.PageSize;
+            return baseUrl + divider + "per_page=" + PerPage;
         }
 
         internal void ReadXmlList(XmlTextReader xmlReader, int records, string start, string next, string prev)

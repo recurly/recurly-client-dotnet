@@ -43,6 +43,13 @@ namespace Recurly
             Subscription
         }
 
+        public enum CouponType
+        {
+            Bulk,
+            SingleCode,
+            UniqueCode
+        }
+
         public RecurlyList<CouponRedemption> Redemptions { get; private set; }
 
         public string CouponCode { get; set; }
@@ -59,16 +66,25 @@ namespace Recurly
         public bool? AppliesToAllPlans { get; set; }
         public bool? AppliesToNonPlanCharges { get; set; }
         public int? MaxRedemptionsPerAccount { get; set; }
+        public string UniqueCodeTemplate { get; set; }
 
         public CouponDiscountType DiscountType { get; private set; }
         public CouponState State { get; private set; }
         public RedemptionResourceType RedemptionResource { get; set; }
+        public CouponType Type { get; set; }
 
         /// <summary>
         /// A dictionary of currencies and discounts
         /// </summary>
         public Dictionary<string, int> DiscountInCents { get; private set; }
         public int? DiscountPercent { get; private set; }
+
+        private int? NumberOfUniqueCodes { get; set; } 
+
+        private string memberUrl()
+        {
+            return UrlPrefix + CouponCode;
+        }
 
         /// <summary>
         /// A list of plans to limit the coupon
@@ -145,6 +161,30 @@ namespace Recurly
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Delete,
                 UrlPrefix + Uri.EscapeUriString(CouponCode));
+        }
+
+        public RecurlyList<Coupon> GetUniqueCouponCodes()
+        {
+            var coupons = new CouponList();
+
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
+                memberUrl() + "/unique_coupon_codes/",
+                coupons.ReadXmlList);
+
+            return statusCode == HttpStatusCode.NotFound ? null : coupons;
+        }
+
+        public RecurlyList<Coupon> Generate(int amount)
+        {
+            NumberOfUniqueCodes = amount;
+            var coupons = new CouponList();
+
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
+                memberUrl() + "/generate/",
+                this.WriteGenerateXml,
+                coupons.ReadFromLocation);
+
+            return statusCode == HttpStatusCode.NotFound ? null : coupons;
         }
 
 
@@ -243,6 +283,16 @@ namespace Recurly
                         InvoiceDescription = reader.ReadElementContentAsString();
                         break;
 
+                    case "unique_code_template":
+                        UniqueCodeTemplate = reader.ReadElementContentAsString();
+                        break;
+
+                    case "coupon_type":
+                        var type_content = reader.ReadElementContentAsString();
+                        if (type_content != "")
+                          Type = type_content.ParseAsEnum<CouponType>();
+                        break;
+
                     case "created_at":
                         if (DateTime.TryParse(reader.ReadElementContentAsString(), out date))
                             CreatedAt = date;
@@ -336,6 +386,10 @@ namespace Recurly
 
             xmlWriter.WriteElementString("redemption_resource", RedemptionResource.ToString().EnumNameToTransportCase());
 
+            xmlWriter.WriteElementString("coupon_type", Type.ToString().EnumNameToTransportCase());
+
+            xmlWriter.WriteElementString("unique_code_template", UniqueCodeTemplate);   
+
             if (CouponDiscountType.Percent == DiscountType && DiscountPercent.HasValue)
                 xmlWriter.WriteElementString("discount_percent", DiscountPercent.Value.AsString());
 
@@ -349,6 +403,15 @@ namespace Recurly
 
             xmlWriter.WriteEndElement(); // End: coupon
         }
+
+
+        public void WriteGenerateXml(XmlTextWriter xmlWriter)
+        {
+            xmlWriter.WriteStartElement("coupon"); // Start: coupon
+            xmlWriter.WriteElementString("number_of_unique_codes", NumberOfUniqueCodes.Value.AsString());
+            xmlWriter.WriteEndElement(); // End: coupon
+        }
+
 
         #endregion
 
