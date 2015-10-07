@@ -7,7 +7,7 @@ namespace Recurly.Test
 {
     public class SubscriptionListTest : BaseTest
     {
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void ListLiveSubscriptions()
         {
             var p = new Plan(GetMockPlanCode(), GetMockPlanName()) {Description = "Subscription Test"};
@@ -27,7 +27,7 @@ namespace Recurly.Test
             subs.Should().NotBeEmpty();
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void ListActiveSubscriptions()
         {
             var p = new Plan(GetMockPlanCode(), GetMockPlanName()) { Description = "Subscription Test" };
@@ -47,7 +47,7 @@ namespace Recurly.Test
             subs.Should().NotBeEmpty();
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void ListCanceledSubscriptions()
         {
             var p = new Plan(GetMockPlanCode(), GetMockPlanName()) { Description = "Subscription Test" };
@@ -69,7 +69,7 @@ namespace Recurly.Test
             subs.Should().NotBeEmpty();
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void ListExpiredSubscriptions()
         {
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
@@ -97,7 +97,7 @@ namespace Recurly.Test
             subs.Should().NotBeEmpty();
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void ListFutureSubscriptions()
         {
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
@@ -125,7 +125,7 @@ namespace Recurly.Test
             subs.Should().NotBeEmpty();
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void ListInTrialSubscriptions()
         {
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
@@ -158,7 +158,7 @@ namespace Recurly.Test
         /// This test isn't constructed as expected, as there doesn't appear to be a way to
         /// programmatically make a subscription past due.
         /// </summary>
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void ListPastDueSubscriptions()
         {
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
@@ -184,7 +184,7 @@ namespace Recurly.Test
             list.Should().NotContain(subs);
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void ListForAccount()
         {
             var plan1 = new Plan(GetMockPlanCode(), GetMockPlanName()) {Description = "Subscription Test"};

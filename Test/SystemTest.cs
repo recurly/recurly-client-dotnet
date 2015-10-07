@@ -6,7 +6,7 @@ namespace Recurly.Test
 {
     public class SystemTest
     {
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void Config_file_is_present_and_correct()
         {
             Section.Current.ApiKey.Should().NotBeNullOrEmpty();

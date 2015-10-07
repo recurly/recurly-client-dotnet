@@ -7,7 +7,7 @@ namespace Recurly.Test
 {
     public class CouponTest : BaseTest
     {
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void ListCoupons()
         {
             CreateNewCoupon(1);
@@ -18,7 +18,7 @@ namespace Recurly.Test
 
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void ListCouponsRedeemable()
         {
             var coupon1 = CreateNewCoupon(1);
@@ -29,7 +29,7 @@ namespace Recurly.Test
             coupons.Should().NotBeEmpty();
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void CouponsCanBeCreated()
         {
             var discounts = new Dictionary<string, int> {{"USD", 100}};
@@ -48,7 +48,7 @@ namespace Recurly.Test
         /// This test isn't constructed as expected, because the service apparently marks expired or maxed
         /// out coupons as "Inactive" rather than "MaxedOut" or "Expired".
         /// </summary>
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void ListCouponsExpired()
         {
             var coupon = new Coupon(GetMockCouponCode(), GetMockCouponName("Expired test"), 10)
@@ -75,7 +75,7 @@ namespace Recurly.Test
         /// This test isn't constructed as expected, because the service apparently marks expired or maxed
         /// out coupons as "Inactive" rather than "MaxedOut" or "Expired".
         /// </summary>
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void ListCouponsMaxedOut()
         {
             var coupon = new Coupon(GetMockCouponCode(), GetMockCouponName("Maxed Out test"), 10)
@@ -98,7 +98,7 @@ namespace Recurly.Test
                     "the Recurly service marks this expired coupon as \"Inactive\", which cannot be searched for.");
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void CreateCouponPercent()
         {
             var coupon = new Coupon(GetMockCouponCode(), GetMockCouponName(), 10);
@@ -113,7 +113,7 @@ namespace Recurly.Test
             coupon.DiscountType.Should().Be(Coupon.CouponDiscountType.Percent);
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void CreateCouponDollars()
         {
             var discounts = new Dictionary<string, int> {{"USD", 100}, {"EUR", 50}};
@@ -129,7 +129,7 @@ namespace Recurly.Test
             coupon.DiscountType.Should().Be(Coupon.CouponDiscountType.Dollars);
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void CreateCouponPlan()
         {
             var plan = new Plan(GetMockPlanCode("coupon plan"), "Coupon Test");
@@ -149,7 +149,7 @@ namespace Recurly.Test
             //plan.Deactivate(); BaseTest.Dispose() handles this
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void Coupon_plan_must_exist()
         {
             var coupon = new Coupon(GetMockCouponCode(), GetMockCouponName(), 10);
@@ -159,7 +159,7 @@ namespace Recurly.Test
             create.ShouldThrow<ValidationException>();
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void DeactivateCoupon()
         {
             var discounts = new Dictionary<string, int> { { "USD", 100 }, { "EUR", 50 } };

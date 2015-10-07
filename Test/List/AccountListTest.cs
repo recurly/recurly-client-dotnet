@@ -7,14 +7,14 @@ namespace Recurly.Test
 {
     public class AccountListTest : BaseTest
     {
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void List()
         {
             var accounts = Accounts.List();
             accounts.Should().NotBeEmpty();
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void ListActive()
         {
             CreateNewAccount();
@@ -24,7 +24,7 @@ namespace Recurly.Test
             accounts.Should().HaveCount(x => x >= 2);
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void ListClosed()
         {
             CreateNewAccount().Close();
@@ -34,7 +34,7 @@ namespace Recurly.Test
             accounts.Should().HaveCount(x => x >= 2);
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void ListPastDue()
         {
             var acct = CreateNewAccount();
@@ -48,7 +48,7 @@ namespace Recurly.Test
             accounts.Should().NotBeEmpty();
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void AccountList_supports_paging()
         {
             var testSettings = SettingsFixture.TestSettings;

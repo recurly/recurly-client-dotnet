@@ -5,7 +5,7 @@ namespace Recurly.Test
 {
     public class InvoiceListTest : BaseTest
     {
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void GetInvoices()
         {
             for (var x = 0; x < 6; x++)
@@ -35,7 +35,7 @@ namespace Recurly.Test
             list.Should().NotBeEmpty();
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void GetOpenInvoices()
         {
             for (var x = 0; x < 2; x++)
@@ -50,7 +50,7 @@ namespace Recurly.Test
             list.Should().NotBeEmpty();
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void GetCollectedInvoices()
         {
             for (var x = 0; x < 2; x++)
@@ -66,7 +66,7 @@ namespace Recurly.Test
             list.Should().NotBeEmpty();
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void GetFailedInvoices()
         {
             for (var x = 0; x < 2; x++)
@@ -82,7 +82,7 @@ namespace Recurly.Test
             list.Should().NotBeEmpty();
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void GetPastDueInvoices()
         {
             for (var x = 0; x < 2; x++)
@@ -97,7 +97,7 @@ namespace Recurly.Test
             list.Should().NotBeEmpty();
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void GetInvoicesForAccount()
         {
             var account = CreateNewAccountWithBillingInfo();

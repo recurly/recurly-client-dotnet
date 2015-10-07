@@ -5,7 +5,7 @@ namespace Recurly.Test
 {
     public class InvoiceTest : BaseTest
     {
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void GetInvoice()
         {
             var account = CreateNewAccountWithBillingInfo();
@@ -22,7 +22,7 @@ namespace Recurly.Test
             invoice.Should().Be(fromService);
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void GetInvoicePdf()
         {
             var account = CreateNewAccount();
@@ -37,7 +37,7 @@ namespace Recurly.Test
             pdf.Should().NotBeEmpty();
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void AdjustmentAggregationInAnInvoice()
         {
             var account = CreateNewAccount();
@@ -57,7 +57,7 @@ namespace Recurly.Test
             invoice.TotalInCents.Should().Be(7500);
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void MarkSuccessful()
         {
             var account = CreateNewAccount();
@@ -74,7 +74,7 @@ namespace Recurly.Test
             invoice.State.Should().Be(Invoice.InvoiceState.Collected);
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void FailedCollection()
         {
             var account = CreateNewAccountWithBillingInfo();
@@ -88,7 +88,7 @@ namespace Recurly.Test
             Assert.NotNull(invoice.ClosedAt);
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void RefundSingle()
         {
             var account = CreateNewAccountWithBillingInfo();

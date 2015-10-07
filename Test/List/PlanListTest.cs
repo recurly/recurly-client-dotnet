@@ -5,7 +5,7 @@ namespace Recurly.Test
 {
     public class PlanListTest : BaseTest
     {
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void ListPlans()
         {
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName());

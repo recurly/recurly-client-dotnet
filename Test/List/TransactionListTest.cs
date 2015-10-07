@@ -7,7 +7,7 @@ namespace Recurly.Test
 {
     public class TransactionListTest : BaseTest
     {
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void ListAllTransactions()
         {
             for (var x = 0; x < 5; x++)
@@ -21,7 +21,7 @@ namespace Recurly.Test
             transactions.Should().NotBeEmpty();
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void ListSuccessfulTransactions()
         {
             for (var x = 0; x < 2; x++)
@@ -68,7 +68,7 @@ namespace Recurly.Test
             list.Should().NotBeEmpty();
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void ListTransactionsForAccount()
         {
             var account = CreateNewAccountWithBillingInfo();
