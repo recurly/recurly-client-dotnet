@@ -2,6 +2,7 @@ Unreleased
 ==================
 
 * added; multiple redemption support `GetRedemptions` for `Invoice`
+* added; description readers to `Coupon` ReadXml
 
 1.2.4 (stable) / 2015-09-15
 ==================
