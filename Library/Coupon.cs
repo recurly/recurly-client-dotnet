@@ -235,6 +235,14 @@ namespace Recurly
                             MaxRedemptionsPerAccount = m;
                         break;
 
+                    case "description":
+                        HostedDescription = reader.ReadElementContentAsString();
+                        break;
+
+                    case "invoice_description":
+                        InvoiceDescription = reader.ReadElementContentAsString();
+                        break;
+
                     case "created_at":
                         if (DateTime.TryParse(reader.ReadElementContentAsString(), out date))
                             CreatedAt = date;
