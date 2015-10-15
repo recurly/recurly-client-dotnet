@@ -63,6 +63,11 @@ namespace Recurly
         }
 
         /// <summary>
+        /// Delegate to read a raw HTTP response from the server.
+        /// </summary>
+        public delegate void ReadResponseDelegate(HttpWebResponse response);
+
+        /// <summary>
         /// Delegate to read the XML response from the server.
         /// </summary>
         /// <param name="xmlReader"></param>
@@ -84,35 +89,41 @@ namespace Recurly
 
         public HttpStatusCode PerformRequest(HttpRequestMethod method, string urlPath)
         {
-            return PerformRequest(method, urlPath, null, null, null);
+            return PerformRequest(method, urlPath, null, null, null, null);
         }
 
         public HttpStatusCode PerformRequest(HttpRequestMethod method, string urlPath,
             ReadXmlDelegate readXmlDelegate)
         {
-            return PerformRequest(method, urlPath, null, readXmlDelegate, null);
+            return PerformRequest(method, urlPath, null, readXmlDelegate, null, null);
         }
 
         public HttpStatusCode PerformRequest(HttpRequestMethod method, string urlPath,
             WriteXmlDelegate writeXmlDelegate)
         {
-            return PerformRequest(method, urlPath, writeXmlDelegate, null, null);
+            return PerformRequest(method, urlPath, writeXmlDelegate, null, null, null);
         }
 
         public HttpStatusCode PerformRequest(HttpRequestMethod method, string urlPath,
             WriteXmlDelegate writeXmlDelegate, ReadXmlDelegate readXmlDelegate)
         {
-            return PerformRequest(method, urlPath, writeXmlDelegate, readXmlDelegate, null);
+            return PerformRequest(method, urlPath, writeXmlDelegate, readXmlDelegate, null, null);
         }
 
         public HttpStatusCode PerformRequest(HttpRequestMethod method, string urlPath,
             ReadXmlListDelegate readXmlListDelegate)
         {
-            return PerformRequest(method, urlPath, null, null, readXmlListDelegate);
+            return PerformRequest(method, urlPath, null, null, readXmlListDelegate, null);
+        }
+
+        public HttpStatusCode PerformRequest(HttpRequestMethod method, string urlPath,
+            WriteXmlDelegate writeXmlDelegate, ReadResponseDelegate responseDelegate)
+        {
+            return PerformRequest(method, urlPath, writeXmlDelegate, null, null, responseDelegate);
         }
 
         protected virtual HttpStatusCode PerformRequest(HttpRequestMethod method, string urlPath,
-            WriteXmlDelegate writeXmlDelegate, ReadXmlDelegate readXmlDelegate, ReadXmlListDelegate readXmlListDelegate)
+            WriteXmlDelegate writeXmlDelegate, ReadXmlDelegate readXmlDelegate, ReadXmlListDelegate readXmlListDelegate, ReadResponseDelegate reseponseDelegate)
         {
             var url = Settings.GetServerUri(urlPath);
 #if (DEBUG)
@@ -150,7 +161,7 @@ namespace Recurly
                 using (var response = (HttpWebResponse)request.GetResponse())
                 {
 
-                    ReadWebResponse(response, readXmlDelegate, readXmlListDelegate);
+                    ReadWebResponse(response, readXmlDelegate, readXmlListDelegate, reseponseDelegate);
                     return response.StatusCode;
 
                 }
@@ -171,7 +182,7 @@ namespace Recurly
                     case HttpStatusCode.Accepted:
                     case HttpStatusCode.Created:
                     case HttpStatusCode.NoContent:
-                        ReadWebResponse(response, readXmlDelegate, readXmlListDelegate);
+                        ReadWebResponse(response, readXmlDelegate, readXmlListDelegate, reseponseDelegate);
 
                         return HttpStatusCode.NoContent;
 
@@ -304,9 +315,9 @@ namespace Recurly
             }
         }
 
-        protected virtual void ReadWebResponse(HttpWebResponse response, ReadXmlDelegate readXmlDelegate, ReadXmlListDelegate readXmlListDelegate)
+        protected virtual void ReadWebResponse(HttpWebResponse response, ReadXmlDelegate readXmlDelegate, ReadXmlListDelegate readXmlListDelegate, ReadResponseDelegate responseDelegate)
         {
-            if (readXmlDelegate == null && readXmlListDelegate == null) return;
+            if (readXmlDelegate == null && readXmlListDelegate == null && responseDelegate == null) return;
 #if (DEBUG)
             Debug.WriteLine("Got Response:");
             Debug.WriteLine("Status code: " + response.StatusCode);
@@ -315,14 +326,21 @@ namespace Recurly
             {
                 Debug.WriteLine(header + ": " + response.Headers[header.ToString()]);
             }
-
+#endif
             var responseStream = CopyAndClose(response.GetResponseStream());
             var reader = new StreamReader(responseStream);
 
+#if (DEBUG)
             string line;
             while ((line = reader.ReadLine()) != null)
             {
                 Debug.WriteLine(line);
+            }
+#endif
+            if (responseDelegate != null)
+            {
+                responseDelegate(response);
+                return;
             }
 
             responseStream.Position = 0;
@@ -349,50 +367,16 @@ namespace Recurly
                     prev = link.GetUrlFromLinkHeader("prev");
                 }
 
-                if (records >= 0)
+                if (records >= 0) {
                     readXmlListDelegate(xmlReader, records, start, next, prev);
-                else
-                    readXmlDelegate(xmlReader);
-            }
-
-#else
-
-            using(var responseStream = response.GetResponseStream())
-            {
-
-                using(var xmlReader = new XmlTextReader(responseStream))
-                {
-                    // Check for pagination
-                    var records = -1;
-                    var cursor = string.Empty;
-                    string start = null;
-                    string next = null;
-                    string prev = null;
-
-                    if (null != response.Headers["X-Records"])
-                    {
-                        Int32.TryParse(response.Headers["X-Records"], out records);
-                    }
-
-                    var link = response.Headers["Link"];
-
-                    if (!link.IsNullOrEmpty())
-                    {
-                        start = link.GetUrlFromLinkHeader("start");
-                        next = link.GetUrlFromLinkHeader("next");
-                        prev = link.GetUrlFromLinkHeader("prev");
-                    }
-
-                    if (records >= 0)
-                        readXmlListDelegate(xmlReader, records, start, next, prev);
-                    else if (response.StatusCode != HttpStatusCode.NoContent)
-                    {
-                       
-                            readXmlDelegate(xmlReader);
-                    }
                 }
+                else if (response.StatusCode != HttpStatusCode.NoContent)
+                {
+                    readXmlDelegate(xmlReader);
+                }
+                    
             }
-#endif
+
         }
 
         protected virtual void WritePostParameters(Stream outputStream, WriteXmlDelegate writeXmlDelegate)
