@@ -71,7 +71,7 @@ namespace Recurly
         public CouponDiscountType DiscountType { get; private set; }
         public CouponState State { get; private set; }
         public RedemptionResourceType RedemptionResource { get; set; }
-        public CouponType Type { get; set; }
+        public CouponType Type { get; set; } = CouponType.SingleCode;
 
         /// <summary>
         /// A dictionary of currencies and discounts
@@ -388,7 +388,8 @@ namespace Recurly
 
             xmlWriter.WriteElementString("coupon_type", Type.ToString().EnumNameToTransportCase());
 
-            xmlWriter.WriteElementString("unique_code_template", UniqueCodeTemplate);   
+            if (Type == CouponType.Bulk)
+                xmlWriter.WriteElementString("unique_code_template", UniqueCodeTemplate);   
 
             if (CouponDiscountType.Percent == DiscountType && DiscountPercent.HasValue)
                 xmlWriter.WriteElementString("discount_percent", DiscountPercent.Value.AsString());
