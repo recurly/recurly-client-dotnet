@@ -245,6 +245,8 @@ namespace Recurly
         /// </summary>
         internal bool _saved;
 
+        internal bool _preview;
+
         public string CustomerNotes { get; set; }
         public string TermsAndConditions { get; set; }
         public string VatReverseChargeNotes { get; set; }
@@ -384,6 +386,40 @@ namespace Recurly
         }
 
         /// <summary>
+        /// Preview the changes associated with the current subscription
+        /// </summary>
+        /// <param name="timeframe">ChangeTimeframe.Now (default) or at Renewal</param>
+        public virtual Subscription PreviewChange(ChangeTimeframe timeframe)
+        {
+            if (!_saved)
+            {
+                throw new Recurly.RecurlyException("Must have an existing subscription to preview changes.");
+            }
+
+            Client.WriteXmlDelegate writeXmlDelegate;
+
+            if (ChangeTimeframe.Renewal == timeframe)
+                writeXmlDelegate = WriteChangeSubscriptionAtRenewalXml;
+            else
+                writeXmlDelegate = WriteChangeSubscriptionNowXml;
+
+            var previewSubscription = new Subscription();
+
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
+                UrlPrefix + Uri.EscapeUriString(Uuid) + "/preview",
+                writeXmlDelegate,
+                previewSubscription.ReadPreviewXml);
+
+            return statusCode == HttpStatusCode.NotFound ? null : previewSubscription;
+        }
+
+        public virtual Subscription PreviewChange()
+        {
+            return PreviewChange(ChangeTimeframe.Now);
+        }
+
+
+        /// <summary>
         /// For an active subscription, this will pause the subscription until the specified date.
         /// </summary>
         /// <param name="nextRenewalDate">The specified time the subscription will be postponed</param>
@@ -437,6 +473,12 @@ namespace Recurly
                         break;
                 }
             }
+        }
+
+        internal void ReadPreviewXml(XmlTextReader reader)
+        {
+            _preview = true;
+            ReadXml(reader);
         }
 
         internal override void ReadXml(XmlTextReader reader)
