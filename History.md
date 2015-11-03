@@ -1,10 +1,16 @@
 Unreleased
 ==================
 
+1.2.5 (stable) / 2015-11-03
+==================
+
 * added; multiple redemption support `GetRedemptions` for `Invoice`
 * added; description readers to `Coupon` ReadXml
 * added; `PreviewChange` method for `Subscription`
 * added; `Update()` and `Restore()` paths to `Coupon`
+* added; Bulk and Unique Coupons support
+* added; Coupon default to SingleCode
+
 
 1.2.4 (stable) / 2015-09-15
 ==================
