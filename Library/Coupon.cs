@@ -154,6 +154,20 @@ namespace Recurly
                 ReadXml);
         }
 
+        public void Update()
+        {
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
+                UrlPrefix + Uri.EscapeUriString(CouponCode),
+                WriteXmlUpdate);
+        }
+
+        public void Restore()
+        {
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
+                UrlPrefix + Uri.EscapeUriString(CouponCode) + "/restore",
+                WriteXmlUpdate);
+        }
+
         /// <summary>
         /// Deactivates this coupon.
         /// </summary>
@@ -412,6 +426,30 @@ namespace Recurly
             xmlWriter.WriteEndElement(); // End: coupon
         }
 
+        internal void WriteXmlUpdate(XmlTextWriter xmlWriter)
+        {
+            xmlWriter.WriteStartElement("coupon"); // Start: coupon
+
+            if (!Name.IsNullOrEmpty())
+                xmlWriter.WriteElementString("name", Name);
+
+            if (!HostedDescription.IsNullOrEmpty())
+                xmlWriter.WriteElementString("hosted_description", HostedDescription);
+
+            if (!InvoiceDescription.IsNullOrEmpty())
+                xmlWriter.WriteElementString("invoice_description", InvoiceDescription);
+
+            if (RedeemByDate.HasValue)
+                xmlWriter.WriteElementString("redeem_by_date", RedeemByDate.Value.ToString("s"));
+
+            if (MaxRedemptions.HasValue)
+                xmlWriter.WriteElementString("max_redemptions", MaxRedemptions.Value.AsString());
+
+            if (MaxRedemptionsPerAccount.HasValue)
+                xmlWriter.WriteElementString("max_redemptions_per_account", MaxRedemptionsPerAccount.Value.AsString());
+
+            xmlWriter.WriteEndElement(); // End: coupon
+        }
 
         #endregion
 
