@@ -8,7 +8,7 @@ namespace Recurly.Test
 {
     public class CouponRedemptionTest : BaseTest
     {
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void RedeemCoupon()
         {
             var coupon = new Coupon(GetMockCouponCode(), GetMockCouponName(), 10);
@@ -25,7 +25,7 @@ namespace Recurly.Test
             redemption.CreatedAt.Should().NotBe(default(DateTime));
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void LookupRedemption()
         {
             var coupon = new Coupon(GetMockCouponCode(), GetMockCouponName(), 10);
@@ -44,7 +44,7 @@ namespace Recurly.Test
 
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void RemoveCoupon()
         {
             var coupon = new Coupon(GetMockCouponCode(), GetMockCouponName(), 10);
@@ -62,7 +62,7 @@ namespace Recurly.Test
             activeRedemption.Should().Be(null);
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void LookupCouponInvoice()
         {
             var discounts = new Dictionary<string, int> { { "USD", 1000 } };

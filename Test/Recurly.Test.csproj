@@ -84,6 +84,7 @@
     <Compile Include="Fixtures\FixtureResponse.cs" />
     <Compile Include="List\SubscriptionAddOnListTest.cs" />
     <Compile Include="QueryBuilderTest.cs" />
+    <Compile Include="RecurlyFact.cs" />
     <Compile Include="SettingsFixture.cs" />
     <Compile Include="InvoiceTest.cs" />
     <Compile Include="List\AccountListTest.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="SubscriptionTest.cs" />
     <Compile Include="SystemTest.cs" />
     <Compile Include="TestCreditCardNumbers.cs" />
+    <Compile Include="TestEnvironment.cs" />
     <Compile Include="TransactionTest.cs" />
   </ItemGroup>
   <ItemGroup>

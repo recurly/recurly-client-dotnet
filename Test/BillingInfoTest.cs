@@ -8,7 +8,7 @@ namespace Recurly.Test
 {
     public class BillingInfoTest : BaseTest
     {
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void UpdateBillingInfo()
         {
             var account = CreateNewAccount();
@@ -28,7 +28,7 @@ namespace Recurly.Test
             get.BillingInfo.ExpirationYear.Should().Be(DateTime.Now.AddYears(3).Year);
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void UpdateBillingInfoWithToken()
         {
             var account = CreateNewAccount();
@@ -51,7 +51,7 @@ namespace Recurly.Test
             threw.Should().Be(true);
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void LookupBillingInfo()
         {
             var accountCode = GetUniqueAccountCode();
@@ -67,7 +67,7 @@ namespace Recurly.Test
             get.BillingInfo.ExpirationYear.Should().Be(info.ExpirationYear);
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void LookupMissingInfo()
         {
             var newAcct = CreateNewAccount();
@@ -76,8 +76,7 @@ namespace Recurly.Test
             getInfo.ShouldThrow<NotFoundException>();
         }
 
-        [Fact]
-        
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void DeleteBillingInfo()
         {
             var account = CreateNewAccountWithBillingInfo();

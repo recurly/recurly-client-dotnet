@@ -6,7 +6,7 @@ namespace Recurly.Test
 {
     public class PlanTest : BaseTest
     {
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void LookupPlan()
         {
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName()) {Description = "Test Lookup"};
@@ -24,7 +24,7 @@ namespace Recurly.Test
             Assert.True(plan.TaxExempt.Value);
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void CreatePlanSmall()
         {
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName());
@@ -36,7 +36,7 @@ namespace Recurly.Test
             plan.SetupFeeInCents.Should().Contain("USD", 100);
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void CreatePlan()
         {
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
@@ -71,7 +71,7 @@ namespace Recurly.Test
             plan.PlanIntervalLength.Should().Be(180);
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void UpdatePlan()
         {
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName()) {Description = "Test Update"};
@@ -91,7 +91,7 @@ namespace Recurly.Test
             Assert.False(plan.TaxExempt.Value);
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void DeactivatePlan()
         {
             // Arrange

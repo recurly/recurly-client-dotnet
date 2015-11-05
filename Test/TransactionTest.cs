@@ -6,7 +6,7 @@ namespace Recurly.Test
 {
     public class TransactionTest : BaseTest
     {
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void LookupTransaction()
         {
             var acct = CreateNewAccountWithBillingInfo();
@@ -18,7 +18,7 @@ namespace Recurly.Test
             transaction.Should().Be(fromService);
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void CreateTransactionNewAccount()
         {
             var account = NewAccountWithBillingInfo();
@@ -37,7 +37,7 @@ namespace Recurly.Test
             
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void CreateTransactionExistingAccount()
         {
             var acct = CreateNewAccountWithBillingInfo();
@@ -48,7 +48,7 @@ namespace Recurly.Test
             transaction.CreatedAt.Should().NotBe(default(DateTime));
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void CreateTransactionExistingAccountNewBillingInfo()
         {
             var account = new Account(GetUniqueAccountCode())

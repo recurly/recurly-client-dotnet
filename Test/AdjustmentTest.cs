@@ -7,7 +7,7 @@ namespace Recurly.Test
     public class AdjustmentTest : BaseTest
     {
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void CreateAdjustment()
         {
             var account = CreateNewAccount();
@@ -22,7 +22,7 @@ namespace Recurly.Test
             Assert.Equal(desc, adjustment.Description);
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void CreateAdjustmentWithProperties()
         {
             var account = CreateNewAccount();
@@ -51,7 +51,7 @@ namespace Recurly.Test
             Assert.Equal(unitAmountInCents, adjustment.UnitAmountInCents);
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void ListAdjustments()
         {
             var account = CreateNewAccount();
@@ -72,7 +72,7 @@ namespace Recurly.Test
         /// This test will return two adjustments: one to negate the charge, the 
         /// other for the balance
         /// </summary>
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void ListAdjustmentsOverCredit()
         {
             var account = CreateNewAccount();
@@ -93,7 +93,7 @@ namespace Recurly.Test
         }
 
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void ListAdjustmentsCredits()
         {
             var account = CreateNewAccount();
@@ -109,7 +109,7 @@ namespace Recurly.Test
             adjustments.Should().Contain(x => x.UnitAmountInCents == -3456);
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void ListAdjustmentsCharges()
         {
             var account = CreateNewAccount();
@@ -127,7 +127,7 @@ namespace Recurly.Test
             adjustments.Should().Contain(x => x.UnitAmountInCents == 1234);
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void ListAdjustmentsPendingToInvoiced()
         {
             var account = CreateNewAccount();
@@ -149,7 +149,7 @@ namespace Recurly.Test
             adjustments.Should().OnlyContain(x => x.State == Adjustment.AdjustmentState.Invoiced);
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void AdjustmentGet()
         {
             var account = CreateNewAccountWithBillingInfo();
@@ -164,7 +164,7 @@ namespace Recurly.Test
             fromService.Should().NotBeNull();
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void AdjustmentDelete()
         {
             var account = CreateNewAccountWithBillingInfo();

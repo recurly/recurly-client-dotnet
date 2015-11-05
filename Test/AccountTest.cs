@@ -6,7 +6,7 @@ namespace Recurly.Test
 {
     public class AccountTest : BaseTest
     {
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void CreateAccount()
         {
             var acct = new Account(GetUniqueAccountCode());
@@ -15,7 +15,7 @@ namespace Recurly.Test
             Assert.False(acct.TaxExempt.Value);
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void CreateAccountWithParameters()
         {
             var acct = new Account(GetUniqueAccountCode())
@@ -60,7 +60,7 @@ namespace Recurly.Test
             create.ShouldNotThrow<ValidationException>();
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void LookupAccount()
         {
             var newAcct = new Account(GetUniqueAccountCode())
@@ -76,14 +76,14 @@ namespace Recurly.Test
             account.Email.Should().Be(newAcct.Email);
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void FindNonExistentAccount()
         {
             Action get = () => Accounts.Get("totallynotfound!@#$");
             get.ShouldThrow<NotFoundException>();
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void UpdateAccount()
         {
             var acct = new Account(GetUniqueAccountCode());
@@ -100,7 +100,7 @@ namespace Recurly.Test
             Assert.Equal("woot", acct.VatNumber);
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void CloseAccount()
         {
             var accountCode = GetUniqueAccountCode();
@@ -113,7 +113,7 @@ namespace Recurly.Test
             getAcct.State.Should().Be(Account.AccountState.Closed);
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void ReopenAccount()
         {
             var accountCode = GetUniqueAccountCode();
@@ -127,7 +127,7 @@ namespace Recurly.Test
             acct.State.Should().Be(test.State).And.Be(Account.AccountState.Active);
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void GetAccountNotes()
         {
             var account = CreateNewAccount();

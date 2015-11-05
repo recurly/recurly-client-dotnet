@@ -42,21 +42,21 @@ namespace Recurly.Test
             a.ShouldThrow<FileNotFoundException>();
         }
 
-        [Fact]
-        public void Get_does_not_throw_FileNotFoundException_when_a_fixture_exists()
-        {
-            Action a = () => FixtureImporter.Get(ValidFixtureType, ValidFixtureName);
-            a.ShouldNotThrow<FileNotFoundException>();
-        }
+        //[Fact]
+        //public void Get_does_not_throw_FileNotFoundException_when_a_fixture_exists()
+        //{
+        //    Action a = () => FixtureImporter.Get(ValidFixtureType, ValidFixtureName);
+        //    a.ShouldNotThrow<FileNotFoundException>();
+        //}
 
-        [Fact]
-        public void Get_can_parse_a_valid_fixture()
-        {
-            var response = FixtureImporter.Get(FixtureType.Accounts, ValidFixtureName);
+        //[Fact]
+        //public void Get_can_parse_a_valid_fixture()
+        //{
+        //    var response = FixtureImporter.Get(FixtureType.Accounts, ValidFixtureName);
 
-            response.StatusCode.Should().Be(HttpStatusCode.Created);
-            response.Headers.Should().ContainKeys("Content-Type", "Location");
-            response.Xml.Should().NotBeNullOrWhiteSpace();
-        }
+        //    response.StatusCode.Should().Be(HttpStatusCode.Created);
+        //    response.Headers.Should().ContainKeys("Content-Type", "Location");
+        //    response.Xml.Should().NotBeNullOrWhiteSpace();
+        //}
     }
 }

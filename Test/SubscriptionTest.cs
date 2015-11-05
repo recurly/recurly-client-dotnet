@@ -8,7 +8,7 @@ namespace Recurly.Test
 {
     public class SubscriptionTest : BaseTest
     {
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void LookupSubscription()
         {
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName()) {Description = "Lookup Subscription Test"};
@@ -29,7 +29,7 @@ namespace Recurly.Test
             fromService.Should().Be(sub);
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void LookupSubscriptionPendingChanges()
         {
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
@@ -53,7 +53,7 @@ namespace Recurly.Test
             newSubscription.PendingSubscription.UnitAmountInCents.Should().Be(3000);
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void CreateSubscription()
         {
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
@@ -87,8 +87,8 @@ namespace Recurly.Test
             Assert.Equal(5, sub1.TotalBillingCycles);
 
         }
-        
-        [Fact]
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void CreateBulkSubscriptions()
         {
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
@@ -114,7 +114,7 @@ namespace Recurly.Test
 
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void CreateSubscriptionWithCoupon()
         {
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
@@ -137,7 +137,7 @@ namespace Recurly.Test
             sub.State.Should().Be(Subscription.SubscriptionState.Active);
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void UpdateSubscription()
         {
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
@@ -170,7 +170,7 @@ namespace Recurly.Test
             newSubscription.Plan.Should().Be(plan2);
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void CancelSubscription()
         {
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
@@ -192,7 +192,7 @@ namespace Recurly.Test
             sub.State.Should().Be(Subscription.SubscriptionState.Canceled);
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void ReactivateSubscription()
         {
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
@@ -216,7 +216,7 @@ namespace Recurly.Test
             sub.State.Should().Be(Subscription.SubscriptionState.Active);
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void TerminateSubscriptionNoRefund()
         {
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
@@ -236,7 +236,7 @@ namespace Recurly.Test
             sub.State.Should().Be(Subscription.SubscriptionState.Expired);
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void TerminateSubscriptionPartialRefund()
         {
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
@@ -256,7 +256,7 @@ namespace Recurly.Test
             sub.State.Should().Be(Subscription.SubscriptionState.Expired);
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void TerminateSubscriptionFullRefund()
         {
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
@@ -277,7 +277,7 @@ namespace Recurly.Test
             sub.State.Should().Be(Subscription.SubscriptionState.Expired);
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void PostponeSubscription()
         {
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
@@ -300,7 +300,7 @@ namespace Recurly.Test
             diff.Should().Be(1);
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void UpdateNotesSubscription()
         {
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
@@ -330,7 +330,7 @@ namespace Recurly.Test
 
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void CreateSubscriptionPlanWithAddons()
         {
             Plan plan = null;
@@ -420,7 +420,7 @@ namespace Recurly.Test
             }
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         [Trait("include", "y")]
         public void SubscriptionAddOverloads()
         {
@@ -524,7 +524,7 @@ namespace Recurly.Test
             }
         }
 
-        [Fact]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void PreviewSubscription()
         {
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
