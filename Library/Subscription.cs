@@ -57,6 +57,16 @@ namespace Recurly
             get { return _account ?? (_account = Accounts.Get(_accountCode)); }
         }
 
+        private string _invoiceNumber;
+        private Invoice _invoice;
+        /// <summary>
+        /// Invoice in Recurly
+        /// </summary>
+        public Invoice Invoice
+        {
+            get { return _invoice ?? (_invoice = Invoices.Get(_invoiceNumber)); }
+        }
+
         private Plan _plan;
         private string _planCode; // TODO expose publicly, avoid need to hit API for the Plan
 
@@ -577,10 +587,8 @@ namespace Recurly
 
                     case "invoice":
                         href = reader.GetAttribute("href");
-                        //only parse the invoice xml if it's not just a link
-                        if (string.IsNullOrEmpty(href))
-                            InvoicePreview = new Invoice(reader);
-
+                        if (null != href)
+                            _invoiceNumber = Uri.UnescapeDataString(href.Substring(href.LastIndexOf("/") + 1));
                         break;
 
                     case "pending_subscription":

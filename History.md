@@ -1,6 +1,8 @@
 Unreleased
 ==================
 
+* fixed; referencing an `Invoice` from a `Subscription` returns the invoice
+
 1.2.6 (stable) / 2015-11-04
 ==================
 
