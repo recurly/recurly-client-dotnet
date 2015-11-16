@@ -227,6 +227,7 @@ namespace Recurly
         /// </summary>
         public Invoice InvoicePreview { get; private set; }
         public int? TotalBillingCycles { get; set; }
+        public int? RemainingBillingCycles { get; private set; }
         public DateTime? FirstRenewalDate { get; set; }
 
         internal const string UrlPrefix = "/subscriptions/";
@@ -612,6 +613,11 @@ namespace Recurly
                     case "total_billing_cycles":
                         if (Int32.TryParse(reader.ReadElementContentAsString(), out billingCycles))
                             TotalBillingCycles = billingCycles;
+                        break;
+                        
+                    case "remaining_billing_cycles":
+                        if (Int32.TryParse(reader.ReadElementContentAsString(), out billingCycles))
+                            RemainingBillingCycles = billingCycles;
                         break;
 
                     case "tax_in_cents":
