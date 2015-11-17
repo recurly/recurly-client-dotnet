@@ -129,9 +129,9 @@ namespace Recurly.Test
         InlineData(3, TestEnum.Three),
         InlineData(200, HttpStatusCode.OK),
         InlineData(304, HttpStatusCode.NotModified)]
-        public void Int_ParseAsEnum_parses_enums_correctly(int toParse, TestEnum expected)
+        public void Int_ParseAsEnum_parses_enums_correctly<T>(int toParse, T expected)
         {
-            var actual = toParse.ParseAsEnum<TestEnum>();
+            var actual = toParse.ParseAsEnum<T>();
             actual.Should().Be(expected);
         }
 

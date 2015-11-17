@@ -1,4 +1,4 @@
-Unreleased
+1.2.7 (stable) / 2015-11-17
 ==================
 
 * added; `Open` state to `Subscription`
