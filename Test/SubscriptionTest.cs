@@ -542,7 +542,7 @@ namespace Recurly.Test
             Assert.Null(sub.TaxType);
             Assert.DoesNotThrow(delegate { sub.Preview(); });
             Assert.Equal("usst", sub.TaxType);
-            Assert.Equal(Subscription.SubscriptionState.Active, sub.State);
+            Assert.Equal(Subscription.SubscriptionState.Pending, sub.State);
             
             sub.Create();
             Assert.Throws<Recurly.RecurlyException>(
