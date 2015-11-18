@@ -1,3 +1,9 @@
+Unreleased
+=================
+
+* Retargeting to .NET version 4.5 for TLS headers
+* added; explicit TLS 1.2 and 1.1 settings
+
 1.2.7 (stable) / 2015-11-17
 ==================
 
