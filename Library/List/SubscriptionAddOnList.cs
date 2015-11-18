@@ -98,7 +98,7 @@ namespace Recurly
         // sub.AddOns.Add(code); 1, unitInCents=this.Plan.UnitAmountInCents[this.Currency]
         public void Add(string planAddOnCode, int quantity=1)
         {
-            var unitAmount = _subscription.Plan.UnitAmountInCents[_subscription.Currency];
+            var unitAmount = _subscription.Plan.AddOns.Find(ao => ao.AddOnCode == planAddOnCode).UnitAmountInCents[_subscription.Currency];
             var sub = new SubscriptionAddOn(planAddOnCode, unitAmount, quantity);
             base.Add(sub);
         }
