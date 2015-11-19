@@ -1,8 +1,9 @@
-Unreleased
-=================
+1.3.0 (stable) / 2015-11-18
+==================
 
 * Retargeting to .NET version 4.5 for TLS headers
 * added; explicit TLS 1.2 and 1.1 settings
+* fixed; `Add(planAddOnCode, quantity)` method of `SubscriptionAddOnList`
 
 1.2.7 (stable) / 2015-11-17
 ==================
