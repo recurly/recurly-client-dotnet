@@ -589,8 +589,10 @@ namespace Recurly
 
                     case "invoice":
                         href = reader.GetAttribute("href");
-                        if (null != href)
+                        if (!href.IsNullOrEmpty())
                             _invoiceNumber = Uri.UnescapeDataString(href.Substring(href.LastIndexOf("/") + 1));
+                        else
+                            InvoicePreview = new Invoice(reader);
                         break;
 
                     case "pending_subscription":
