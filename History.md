@@ -1,3 +1,8 @@
+Unreleased
+==================
+
+* fixed; invoice reader on `Subscription`
+
 1.3.0 (stable) / 2015-11-18
 ==================
 
