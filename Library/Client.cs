@@ -30,6 +30,12 @@ namespace Recurly
         protected Client(Settings settings)
         {
             Settings = settings;
+           
+            // Don't include this on Travis build
+            // .NET 4.0 does not have these constants
+#if NOT_RUNNING_ON_4_0
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11;
+#endif
         }
 
         internal static void ChangeInstance(Client client)
