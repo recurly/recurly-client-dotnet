@@ -57,6 +57,11 @@ namespace Recurly
 
         #region Constructors
 
+        internal Adjustment(string uuid)
+        {
+            this.Uuid = uuid;
+        }
+
         internal Adjustment()
         {
             
@@ -241,7 +246,7 @@ namespace Recurly
     {
         public static Adjustment Get(string uuid)
         {
-            var adjustment = new Adjustment();
+            var adjustment = new Adjustment(uuid);
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
                 "/adjustments/" + Uri.EscapeUriString(uuid),
                 adjustment.WriteXml);

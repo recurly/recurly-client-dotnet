@@ -4,12 +4,20 @@ namespace Recurly
 {
     public class AddOnList : RecurlyList<AddOn>
     {
+        public string PlanCode { get; private set; }
+
         public AddOnList()
         {
         }
 
-        public AddOnList(string url) : base(Client.HttpRequestMethod.Get, url)
+        public AddOnList(string planCode, string url) : base(Client.HttpRequestMethod.Get, url)
         {
+            PlanCode = planCode;
+
+            foreach (var addOn in this)
+            {
+                addOn.PlanCode = planCode;
+            }
         }
 
         internal override void ReadXml(XmlTextReader reader)
@@ -29,17 +37,17 @@ namespace Recurly
 
         public override RecurlyList<AddOn> Start
         {
-            get { return HasStartPage() ? new AddOnList(StartUrl) : RecurlyList.Empty<AddOn>(); }
+            get { return HasStartPage() ? new AddOnList(PlanCode, StartUrl) : RecurlyList.Empty<AddOn>(); }
         }
 
         public override RecurlyList<AddOn> Next
         {
-            get { return HasNextPage() ? new AddOnList(NextUrl) : RecurlyList.Empty<AddOn>(); }
+            get { return HasNextPage() ? new AddOnList(PlanCode, NextUrl) : RecurlyList.Empty<AddOn>(); }
         }
 
         public override RecurlyList<AddOn> Prev
         {
-            get { return HasPrevPage() ? new AddOnList(PrevUrl) : RecurlyList.Empty<AddOn>(); }
+            get { return HasPrevPage() ? new AddOnList(PlanCode, PrevUrl) : RecurlyList.Empty<AddOn>(); }
         }
     }
 }

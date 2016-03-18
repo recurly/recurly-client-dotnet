@@ -53,7 +53,7 @@ namespace Recurly
                 if (_addOns == null)
                 {
                     var url = UrlPrefix + Uri.EscapeUriString(PlanCode) + "/add_ons/";
-                    _addOns = new AddOnList(url);
+                    _addOns = new AddOnList(PlanCode, url);
                 }
                 return _addOns;
             }
@@ -145,6 +145,9 @@ namespace Recurly
             var status = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
                 UrlPrefix + Uri.EscapeUriString(PlanCode) + "/add_ons/" + Uri.EscapeUriString(addOnCode),
                 addOn.ReadXml);
+
+            if (null != addOn)
+                addOn.PlanCode = PlanCode;
 
             return status == HttpStatusCode.OK ? addOn : null;
         }
