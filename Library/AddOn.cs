@@ -7,7 +7,7 @@ namespace Recurly
     public class AddOn : RecurlyEntity
     {
 
-        public string PlanCode { get; private set; }
+        public string PlanCode { get; set; }
         public string AddOnCode { get; set; }
         public string Name { get; set; }
 
