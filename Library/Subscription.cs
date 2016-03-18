@@ -69,17 +69,18 @@ namespace Recurly
         }
 
         private Plan _plan;
-        private string _planCode; // TODO expose publicly, avoid need to hit API for the Plan
-
+     
         public Plan Plan
         {
-            get { return _plan ?? (_plan = Plans.Get(_planCode)); }
+            get { return _plan ?? (_plan = Plans.Get(PlanCode)); }
             set
             {
                 _plan = value;
-                _planCode = value.PlanCode;
+                PlanCode = value.PlanCode;
             }
         }
+
+        public string PlanCode { get; private set; }
 
         public string Uuid { get; private set; }
 
@@ -481,7 +482,7 @@ namespace Recurly
                 switch (reader.Name)
                 {
                     case "plan_code":
-                        _planCode = reader.ReadElementContentAsString();
+                        PlanCode = reader.ReadElementContentAsString();
                         break;
                 }
             }
@@ -694,7 +695,7 @@ namespace Recurly
         {
             xmlWriter.WriteStartElement("subscription"); // Start: subscription
 
-            xmlWriter.WriteElementString("plan_code", _planCode);
+            xmlWriter.WriteElementString("plan_code", PlanCode);
 
             xmlWriter.WriteElementString("currency", Currency);
 
@@ -769,7 +770,7 @@ namespace Recurly
 
             xmlWriter.WriteElementString("timeframe", timeframe.ToString().EnumNameToTransportCase());
             xmlWriter.WriteElementString("quantity", Quantity.AsString());
-            xmlWriter.WriteStringIfValid("plan_code", _planCode);
+            xmlWriter.WriteStringIfValid("plan_code", PlanCode);
             xmlWriter.WriteIfCollectionHasAny("subscription_add_ons", AddOns);
             xmlWriter.WriteStringIfValid("coupon_code", _couponCode);
 
