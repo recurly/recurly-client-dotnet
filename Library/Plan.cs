@@ -146,7 +146,14 @@ namespace Recurly
                 UrlPrefix + Uri.EscapeUriString(PlanCode) + "/add_ons/" + Uri.EscapeUriString(addOnCode),
                 addOn.ReadXml);
 
-            return status == HttpStatusCode.OK ? addOn : null;
+            if (status != HttpStatusCode.OK) return null;
+
+            // PlanCode is needed to update the AddOn
+            // TODO: need a cleaner way of getting the plan code from xml
+            //       should be using the hrefs of the resources
+            addOn.PlanCode = PlanCode;
+
+            return addOn;
         }
 
         #region Read and Write XML documents
