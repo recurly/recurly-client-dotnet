@@ -28,7 +28,8 @@ namespace Recurly.Test
                 AcceptLanguage = "en",
                 VatNumber = "my-vat-number",
                 TaxExempt = true,
-                EntityUseCode = "I"
+                EntityUseCode = "I",
+                CcEmails = "cc1@test.com,cc2@test.com"
             };
 
             string address = "123 Faux Street";
@@ -42,6 +43,7 @@ namespace Recurly.Test
             acct.LastName.Should().Be("User");
             acct.CompanyName.Should().Be("Test Company");
             acct.AcceptLanguage.Should().Be("en");
+            acct.CcEmails.Should().Be("cc1@test.com,cc2@test.com");
             Assert.Equal("my-vat-number", acct.VatNumber);
             Assert.True(acct.TaxExempt.Value);
             Assert.Equal("I", acct.EntityUseCode);

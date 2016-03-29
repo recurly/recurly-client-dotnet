@@ -36,6 +36,7 @@ namespace Recurly
         public bool? TaxExempt { get; set; }
         public string EntityUseCode { get; set; }
         public string AcceptLanguage { get; set; }
+        public string CcEmails { get; set; }
         public string HostedLoginToken { get; private set; }
         public DateTime CreatedAt { get; private set; }
         public bool VatLocationValid { get; private set; }
@@ -352,6 +353,10 @@ namespace Recurly
                         AcceptLanguage = reader.ReadElementContentAsString();
                         break;
 
+                    case "cc_emails":
+                        CcEmails = reader.ReadElementContentAsString();
+                        break;
+
                     case "hosted_login_token":
                         HostedLoginToken = reader.ReadElementContentAsString();
                         break;
@@ -387,6 +392,7 @@ namespace Recurly
             xmlWriter.WriteStringIfValid("accept_language", AcceptLanguage);
             xmlWriter.WriteStringIfValid("vat_number", VatNumber);
             xmlWriter.WriteStringIfValid("entity_use_code", EntityUseCode);
+            xmlWriter.WriteStringIfValid("cc_emails", CcEmails);
 
             if (TaxExempt.HasValue)
                 xmlWriter.WriteElementString("tax_exempt", TaxExempt.Value.AsString());
