@@ -1,4 +1,6 @@
 language: csharp
+mono:
+  - weekly
 solution: Recurly.sln
 
 install:
