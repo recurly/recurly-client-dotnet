@@ -1,8 +1,8 @@
 language: csharp
+dist: trusty
 mono:
-  - weekly
+  - 4.0.5
 solution: Recurly.sln
-
 install:
   - nuget restore Recurly.sln
   - nuget install xunit.runners -Version 1.9.2 -OutputDirectory testrunner
