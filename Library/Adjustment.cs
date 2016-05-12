@@ -244,7 +244,7 @@ namespace Recurly
             var adjustment = new Adjustment();
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
                 "/adjustments/" + Uri.EscapeUriString(uuid),
-                adjustment.WriteXml);
+                adjustment.ReadXml);
             return adjustment;
         }
     }
