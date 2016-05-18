@@ -30,12 +30,12 @@ namespace Recurly
         protected Client(Settings settings)
         {
             Settings = settings;
-           
-            // Don't include this on Travis build
-            // .NET 4.0 does not have these constants
-#if NOT_RUNNING_ON_4_0
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11;
-#endif
+
+            // SecurityProtocolType values below not available in Mono < 4.3
+            const int SecurityProtocolTypeTls11 = 768;
+            const int SecurityProtocolTypeTls12 = 3072;
+
+            ServicePointManager.SecurityProtocol |= (SecurityProtocolType)(SecurityProtocolTypeTls12 | SecurityProtocolTypeTls11); 
         }
 
         internal static void ChangeInstance(Client client)
