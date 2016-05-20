@@ -71,7 +71,7 @@ namespace Recurly
         public CouponDiscountType DiscountType { get; private set; }
         public CouponState State { get; private set; }
         public RedemptionResourceType RedemptionResource { get; set; }
-        public CouponType Type { get; set; }
+        public CouponType Type { get; set; } = CouponType.SingleCode;
 
         /// <summary>
         /// A dictionary of currencies and discounts
