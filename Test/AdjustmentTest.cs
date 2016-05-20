@@ -161,7 +161,7 @@ namespace Recurly.Test
 
             var fromService = Adjustments.Get(adjustment.Uuid);
 
-            fromService.Should().NotBeNull();
+            fromService.Uuid.Should().NotBeNull();
         }
 
         [RecurlyFact(TestEnvironment.Type.Integration)]
