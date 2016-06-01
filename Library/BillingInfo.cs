@@ -53,6 +53,13 @@ namespace Recurly
         public string IpAddress { get; set; }
         public string IpAddressCountry { get; private set; }
 
+
+        /// <summary>
+        /// Used to override default currency
+        /// setting this to a known value may save you a verification
+        /// </summary>
+        public string Currency { get; set; }
+
         /// <summary>
         /// Credit Card Number, first six digits
         /// </summary>
@@ -302,8 +309,8 @@ namespace Recurly
                 xmlWriter.WriteStringIfValid("zip", PostalCode);
                 xmlWriter.WriteStringIfValid("country", Country);
                 xmlWriter.WriteStringIfValid("phone", PhoneNumber);
-
                 xmlWriter.WriteStringIfValid("vat_number", VatNumber);
+                xmlWriter.WriteStringIfValid("currency", Currency);
 
                 if (!IpAddress.IsNullOrEmpty())
                     xmlWriter.WriteElementString("ip_address", IpAddress);

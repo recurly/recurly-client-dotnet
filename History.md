@@ -1,3 +1,9 @@
+Unreleased
+===============
+
+* added; `Currency` attribute on `BillingInfo`
+
+
 1.3.1 (stable) / 2015-11-19
 ==================
 
