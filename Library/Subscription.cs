@@ -97,6 +97,10 @@ namespace Recurly
         public bool? Bulk { get; set; }
 
         /// <summary>
+        /// Date the subscription was last updated.
+        /// </summary>
+        public DateTime? UpdatedAt { get; private set; }
+        /// <summary>
         /// Date the subscription started.
         /// </summary>
         public DateTime? ActivatedAt { get; private set; }
@@ -555,6 +559,11 @@ namespace Recurly
                     case "expires_at":
                         if (DateTime.TryParse(reader.ReadElementContentAsString(), out dateVal))
                             ExpiresAt = dateVal;
+                        break;
+
+                    case "updated_at":
+                        if (DateTime.TryParse(reader.ReadElementContentAsString(), out dateVal))
+                            UpdatedAt = dateVal; ;
                         break;
 
                     case "current_period_started_at":

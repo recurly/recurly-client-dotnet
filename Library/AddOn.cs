@@ -6,11 +6,16 @@ namespace Recurly
 {
     public class AddOn : RecurlyEntity
     {
-
         public string PlanCode { get; set; }
         public string AddOnCode { get; set; }
         public string Name { get; set; }
-
+        public int DefaultQuantity { get; set; }
+        public bool? DisplayQuantityOnHostedPage { get; set; }
+        public string TaxCode { get; set; }
+        public bool? Optional { get; set; }
+        public string AccountingCode { get; set; }
+        public DateTime CreatedAt { get; private set; }
+        public DateTime UpdatedAt { get; private set; }
 
         private Dictionary<string, int> _unitAmountInCents;
         /// <summary>
@@ -20,13 +25,6 @@ namespace Recurly
         {
             get { return _unitAmountInCents ?? (_unitAmountInCents = new Dictionary<string, int>()); }
         }
-
-
-        public int DefaultQuantity { get; set; }
-        public bool? DisplayQuantityOnHostedPage { get; set; }
-        public DateTime CreatedAt { get; private set; }
-        public string TaxCode { get; set; }
-
 
         private const string UrlPrefix = "/plans/";
         private const string UrlPostfix = "/add_ons/";
@@ -115,6 +113,10 @@ namespace Recurly
                         AddOnCode = reader.ReadElementContentAsString();
                         break;
 
+                    case "accounting_code":
+                        AccountingCode = reader.ReadElementContentAsString();
+                        break;
+
                     case "name":
                         Name = reader.ReadElementContentAsString();
                         break;
@@ -127,8 +129,16 @@ namespace Recurly
                         DefaultQuantity = reader.ReadElementContentAsInt();
                         break;
 
+                    case "optional":
+                        Optional = reader.ReadElementContentAsBoolean();
+                        break;
+
                     case "created_at":
                         CreatedAt = reader.ReadElementContentAsDateTime();
+                        break;
+
+                    case "updated_at":
+                        UpdatedAt = reader.ReadElementContentAsDateTime();
                         break;
 
                     case "unit_amount_in_cents":
@@ -148,6 +158,14 @@ namespace Recurly
 
             xmlWriter.WriteElementString("add_on_code", AddOnCode);
             xmlWriter.WriteElementString("name", Name);
+            xmlWriter.WriteElementString("default_quantity", DefaultQuantity.AsString());
+            xmlWriter.WriteElementString("accounting_code", AccountingCode);
+
+            if (DisplayQuantityOnHostedPage.HasValue)
+                xmlWriter.WriteElementString("display_quantity_on_hosted_page", DisplayQuantityOnHostedPage.Value.AsString());
+
+            if (Optional.HasValue)
+                xmlWriter.WriteElementString("optional", Optional.Value.AsString());
 
             xmlWriter.WriteIfCollectionHasAny("unit_amount_in_cents", UnitAmountInCents, pair => pair.Key,
                 pair => pair.Value.AsString());

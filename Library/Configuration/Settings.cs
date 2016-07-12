@@ -16,7 +16,7 @@ namespace Recurly.Configuration
         public int PageSize { get; private set; }
 
         protected const string RecurlyServerUri = "https://{0}.recurly.com/v2{1}";
-        public const string RecurlyApiVersion = "2.1";
+        public const string RecurlyApiVersion = "2.2";
 
         // static, unlikely to change
         public string UserAgent

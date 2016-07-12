@@ -37,6 +37,7 @@ namespace Recurly
         public string SetupFeeAccountingCode { get; set; }
 
         public DateTime CreatedAt { get; private set; }
+        public DateTime UpdatedAt { get; private set; }
 
         public int? TotalBillingCycles { get; set; }
 
@@ -273,6 +274,10 @@ namespace Recurly
 
                     case "created_at":
                         CreatedAt = reader.ReadElementContentAsDateTime();
+                        break;
+
+                    case "updated_at":
+                        UpdatedAt = reader.ReadElementContentAsDateTime();
                         break;
 
                     case "tax_exempt":

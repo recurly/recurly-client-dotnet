@@ -48,6 +48,7 @@ namespace Recurly
         public DateTime? EndDate { get; protected set; }
 
         public DateTime? CreatedAt { get ; protected set; }
+        public DateTime UpdatedAt { get; private set; }
 
         private const string UrlPrefix = "/accounts/";
         private const string UrlPostfix = "/adjustments/";
@@ -211,6 +212,10 @@ namespace Recurly
                         DateTime createdAt;
                         if (DateTime.TryParse(reader.ReadElementContentAsString(), out createdAt))
                             CreatedAt = createdAt;
+                        break;
+
+                    case "updated_at":
+                        UpdatedAt = reader.ReadElementContentAsDateTime();
                         break;
 
                     case "state":

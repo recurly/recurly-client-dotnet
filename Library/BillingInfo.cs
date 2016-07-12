@@ -72,7 +72,6 @@ namespace Recurly
         public string AccountNumber { get; set; }
         public BankAccountType AccountType { get; set; }
 
-
         public string Company { get; set; }
 
         /// <summary>
