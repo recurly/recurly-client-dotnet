@@ -39,6 +39,7 @@ namespace Recurly
         public string CcEmails { get; set; }
         public string HostedLoginToken { get; private set; }
         public DateTime CreatedAt { get; private set; }
+        public DateTime UpdatedAt { get; private set; }
         public bool VatLocationValid { get; private set; }
 
         public Address Address {
@@ -363,6 +364,10 @@ namespace Recurly
 
                     case "created_at":
                         CreatedAt = reader.ReadElementContentAsDateTime();
+                        break;
+
+                    case "updated_at":
+                        UpdatedAt = reader.ReadElementContentAsDateTime();
                         break;
 
                     case "address":

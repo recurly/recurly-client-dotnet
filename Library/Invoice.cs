@@ -38,6 +38,7 @@ namespace Recurly
         public int TotalInCents { get; protected set; }
         public string Currency { get; protected set; }
         public DateTime? CreatedAt { get; private set; }
+        public DateTime? UpdatedAt { get; private set; }
         public DateTime? ClosedAt { get; private set; }
 
         public Address Address
@@ -279,6 +280,10 @@ namespace Recurly
                         DateTime createdAt;
                         if (DateTime.TryParse(reader.ReadElementContentAsString(), out createdAt))
                             CreatedAt = createdAt;
+                        break;
+
+                    case "updated_at":
+                        UpdatedAt = reader.ReadElementContentAsDateTime();
                         break;
 
                     case "closed_at":

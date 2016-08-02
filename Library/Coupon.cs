@@ -79,7 +79,10 @@ namespace Recurly
         public Dictionary<string, int> DiscountInCents { get; private set; }
         public int? DiscountPercent { get; private set; }
 
-        private int? NumberOfUniqueCodes { get; set; } 
+        private int? NumberOfUniqueCodes { get; set; }
+
+        public DateTime CreatedAt { get; private set; }
+        public DateTime UpdatedAt { get; private set; }
 
         private string memberUrl()
         {
@@ -96,9 +99,6 @@ namespace Recurly
         {
             get { return _plans ?? (_plans = new List<string>()); }
         }
-
-        public DateTime CreatedAt { get; private set; }
-
 
         #region Constructors
 
@@ -308,8 +308,11 @@ namespace Recurly
                         break;
 
                     case "created_at":
-                        if (DateTime.TryParse(reader.ReadElementContentAsString(), out date))
-                            CreatedAt = date;
+                        CreatedAt = reader.ReadElementContentAsDateTime();
+                        break;
+
+                    case "updated_at":
+                        UpdatedAt = reader.ReadElementContentAsDateTime();
                         break;
 
                     case "plan_codes":

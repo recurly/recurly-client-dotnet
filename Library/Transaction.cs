@@ -51,6 +51,7 @@ namespace Recurly
         public string AvsResultPostal { get; private set; }
 
         public DateTime CreatedAt { get; private set; }
+        public DateTime UpdatedAt { get; private set; }
 
         private Account _account;
 
@@ -252,11 +253,13 @@ namespace Recurly
                         break;
 
                     case "created_at":
-                        DateTime date;
-                        if (DateTime.TryParse(reader.ReadElementContentAsString(), out date))
-                            CreatedAt = date;
+                        CreatedAt = reader.ReadElementContentAsDateTime();
                         break;
-                                               
+
+                    case "updated_at":
+                        UpdatedAt = reader.ReadElementContentAsDateTime();
+                        break;
+
                     case "details":
                         // API docs say not to load details into objects
                         break;
