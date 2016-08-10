@@ -15,7 +15,8 @@ namespace Recurly
             MasterCard,
             AmericanExpress,
             Discover,
-            JCB
+            JCB,
+            DinersClub,
         }
 
         public enum BankAccountType : short

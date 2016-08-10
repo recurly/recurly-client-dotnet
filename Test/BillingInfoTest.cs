@@ -104,6 +104,8 @@ namespace Recurly.Test
          InlineData(TestCreditCardNumbers.MasterCard2, true, CreditCardType.MasterCard),
          InlineData(TestCreditCardNumbers.JCB1, true, CreditCardType.JCB),
          InlineData(TestCreditCardNumbers.JCB2, true, CreditCardType.JCB),
+         InlineData(TestCreditCardNumbers.DinersClub1, true, CreditCardType.DinersClub),
+         InlineData(TestCreditCardNumbers.DinersClub2, true, CreditCardType.DinersClub),
          InlineData("not a card number", false, CreditCardType.Invalid),
          InlineData("1801 1234 1234 1234", false, CreditCardType.Invalid),
          InlineData("too short", false, CreditCardType.Invalid),
@@ -129,6 +131,8 @@ namespace Recurly.Test
          InlineData("1800 1234 1234 123", true),
          InlineData("3566 0020 2036 0505", true),
          InlineData("3530 1113 3330 0000", true),
+         InlineData("3056 930902 5904", true),
+         InlineData("3852 000002 3237", true),
          InlineData("not a card number", false)]
         public void LuhnsTest_behaves_correctly(string toTest, bool expected)
         {

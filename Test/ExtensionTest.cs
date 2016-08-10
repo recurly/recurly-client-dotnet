@@ -104,7 +104,8 @@ namespace Recurly.Test
 
         [Theory,
         InlineData("jcb", CreditCardType.JCB),
-        InlineData("master_card", CreditCardType.MasterCard)]
+        InlineData("master_card", CreditCardType.MasterCard),
+        InlineData("Diner's Club", CreditCardType.DinersClub)]
         public void String_ParseAsEnum_parses_CreditCardType_correctly(string toParse, CreditCardType expected)
         {
             var actual = toParse.ParseAsEnum<CreditCardType>();
@@ -156,7 +157,8 @@ namespace Recurly.Test
         InlineData("MaxedOut", "maxed_out"),
         InlineData("Active", "active"),
         InlineData("Closed, PastDue", "closed,past_due"),
-        InlineData("JCB", "jcb")]
+        InlineData("JCB", "jcb"),
+        InlineData("DinersClub", "diners_club")]
         public void EnumNameToTransportCase_should_remove_uppercase_and_add_underscores_at_words(string toConvert, string expected)
         {
             var actual = toConvert.EnumNameToTransportCase();
