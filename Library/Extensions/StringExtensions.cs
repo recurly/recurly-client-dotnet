@@ -184,6 +184,15 @@ namespace Recurly
 
             var firstFour = Int32.Parse(card.Substring(0, 4));
             var firstThree = Int32.Parse(card.Substring(0, 3));
+
+            if ((firstThree >= 300 && firstThree <= 305) || (firstThree == 309)
+               || (firstTwo == 36) || (firstTwo == 38) || (firstTwo == 39) || (firstTwo == 54) || (firstTwo == 55)
+               || (firstFour == 2014) || (firstFour == 2149))
+            {
+              type = BillingInfo.CreditCardType.DinersClub;
+              return card.Length == 14 && card.PassesLuhnsTest();
+            }
+
             switch (firstFour)
             {
                 case 1800:
