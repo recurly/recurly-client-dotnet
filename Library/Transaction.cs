@@ -34,6 +34,7 @@ namespace Recurly
         public int TaxInCents { get; set; }
         public string Currency { get; set; }
         public string Description { get; set; }
+        public string PaymentMethod { get; set; }
 
         public TransactionState Status { get; private set; }
 
@@ -127,7 +128,7 @@ namespace Recurly
 
         /// <summary>
         /// Refunds a transaction
-        /// 
+        ///
         /// </summary>
         /// <param name="refund">If present, the amount to refund. Otherwise it is a full refund.</param>
         public void Refund(int? refund = null)
@@ -173,11 +174,11 @@ namespace Recurly
                             string invoiceNumber = href.Substring(href.LastIndexOf("/") + 1);
                             MatchCollection matches = Regex.Matches(invoiceNumber, "([^\\d]{2})(\\d+)");
 
-                            if (matches.Count == 1) 
+                            if (matches.Count == 1)
                             {
                                 InvoicePrefix = matches[0].Groups[1].Value;
                                 Invoice = int.Parse(matches[0].Groups[2].Value);
-                            } 
+                            }
                             else
                             {
                                 Invoice = int.Parse(invoiceNumber);
@@ -206,9 +207,13 @@ namespace Recurly
                     case "currency":
                         Currency = reader.ReadElementContentAsString();
                         break;
-                        
+
                     case "description":
                         Description = reader.ReadElementContentAsString();
+                        break;
+
+                    case "payment_method":
+                        PaymentMethod = reader.ReadElementContentAsString();
                         break;
 
                     case "status":
@@ -274,17 +279,18 @@ namespace Recurly
             xmlWriter.WriteElementString("amount_in_cents", AmountInCents.AsString());
             xmlWriter.WriteElementString("currency", Currency);
             xmlWriter.WriteStringIfValid("description", Description);
+            xmlWriter.WriteStringIfValid("payment_method", PaymentMethod);
 
             xmlWriter.WriteElementString("tax_exempt", TaxExempt.AsString().ToLower());
             xmlWriter.WriteStringIfValid("tax_code", TaxCode);
-            xmlWriter.WriteStringIfValid("accounting_code", AccountingCode);   
+            xmlWriter.WriteStringIfValid("accounting_code", AccountingCode);
 
             if (Account != null)
             {
                 Account.WriteXml(xmlWriter);
             }
 
-            xmlWriter.WriteEndElement(); 
+            xmlWriter.WriteEndElement();
         }
 
         #endregion
