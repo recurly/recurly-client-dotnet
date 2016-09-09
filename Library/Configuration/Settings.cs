@@ -52,6 +52,7 @@ namespace Recurly.Configuration
             get { return _instance ?? (_instance = new Settings()); }
         }
 
+
         public void InitializeFromConfig()
         {
             ApiKey = Section.Current.ApiKey;
@@ -68,13 +69,5 @@ namespace Recurly.Configuration
             PageSize = pageSize;
         }
 
-
-        //private Settings()
-        //{
-        //}
-
-        //internal Settings(string apiKey, string subdomain, string privateKey, int pageSize)
-        //{
-        //}
     }
 }
