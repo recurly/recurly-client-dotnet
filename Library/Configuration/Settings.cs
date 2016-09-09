@@ -52,7 +52,7 @@ namespace Recurly.Configuration
             get { return _instance ?? (_instance = new Settings()); }
         }
 
-        private Settings()
+        public void InitializeFromConfig()
         {
             ApiKey = Section.Current.ApiKey;
             Subdomain = Section.Current.Subdomain;
@@ -60,12 +60,21 @@ namespace Recurly.Configuration
             PageSize = Section.Current.PageSize;
         }
 
-        internal Settings(string apiKey, string subdomain, string privateKey, int pageSize)
+        public void Initialize(string apiKey, string subdomain, string privateKey = "", int pageSize = 200)
         {
             ApiKey = apiKey;
             Subdomain = subdomain;
             PrivateKey = privateKey;
             PageSize = pageSize;
         }
+
+
+        //private Settings()
+        //{
+        //}
+
+        //internal Settings(string apiKey, string subdomain, string privateKey, int pageSize)
+        //{
+        //}
     }
 }
