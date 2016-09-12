@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2012 for Windows Desktop
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recurly", "Library\Recurly.csproj", "{CA094233-B9A7-4700-A70A-3401E14070B9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recurly.Test", "Test\Recurly.Test.csproj", "{A610420B-4FEB-4590-A4B4-2926B4E52F47}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecurlyAPIClientCaller", "RecurlyAPIClientCaller\RecurlyAPIClientCaller.csproj", "{B2312349-01A6-45D0-A9AE-273ABE0CB7B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,6 +23,10 @@ Global
 		{A610420B-4FEB-4590-A4B4-2926B4E52F47}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A610420B-4FEB-4590-A4B4-2926B4E52F47}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A610420B-4FEB-4590-A4B4-2926B4E52F47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2312349-01A6-45D0-A9AE-273ABE0CB7B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2312349-01A6-45D0-A9AE-273ABE0CB7B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2312349-01A6-45D0-A9AE-273ABE0CB7B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2312349-01A6-45D0-A9AE-273ABE0CB7B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

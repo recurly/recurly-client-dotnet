@@ -107,6 +107,7 @@
     <Compile Include="TemporarilyUnavailableException.cs" />
     <Compile Include="Transaction.cs" />
     <Compile Include="List\TransactionList.cs" />
+    <Compile Include="UsageRecord.cs" />
     <Compile Include="ValidationException.cs" />
     <Compile Include="Extensions\XmlWriterExtensions.cs" />
   </ItemGroup>
@@ -126,6 +127,9 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Ve.Recurly.Client.nuspec" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
