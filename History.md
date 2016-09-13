@@ -2,6 +2,7 @@ Unreleased
 ===============
 
 * added; `Currency` attribute on `BillingInfo`
+* added; `PaymentMethod` attribute on `Transaction`
 
 
 1.3.1 (stable) / 2015-11-19
@@ -228,4 +229,3 @@ Unreleased
 
   * complete rewrite
   * added; API v2 support
-
