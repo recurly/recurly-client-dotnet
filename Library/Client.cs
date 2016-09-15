@@ -203,6 +203,7 @@ namespace Recurly
                         errors = Error.ReadResponseAndParseErrors(response);
                         throw new InvalidCredentialsException(errors);
 
+                    case HttpStatusCode.BadRequest:
                     case HttpStatusCode.PreconditionFailed:
                         errors = Error.ReadResponseAndParseErrors(response);
                         throw new ValidationException(errors);
