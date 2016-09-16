@@ -6,6 +6,12 @@ namespace Recurly
 {
     public class AddOn : RecurlyEntity
     {
+        public enum AddOnType
+        {
+            Fixed,
+            Usage,
+        }
+
         public string PlanCode { get; set; }
         public string AddOnCode { get; set; }
         public string Name { get; set; }
@@ -16,6 +22,9 @@ namespace Recurly
         public string AccountingCode { get; set; }
         public DateTime CreatedAt { get; private set; }
         public DateTime UpdatedAt { get; private set; }
+        public AddOnType Type { get; set; }
+        public UsageRecord.UsageType AddOnUsageType { get; set; }
+        public string UsagePercentage { get; set; }
 
         private Dictionary<string, int> _unitAmountInCents;
         /// <summary>
@@ -147,6 +156,18 @@ namespace Recurly
 
                     case "tax_code":
                         TaxCode = reader.ReadElementContentAsString();
+                        break;
+
+                    case "add_on_type":
+                        Type = reader.ReadElementContentAsString().ParseAsEnum<AddOnType>();
+                        break;
+
+                    case "usage_type":
+                        AddOnUsageType = reader.ReadElementContentAsString().ParseAsEnum<UsageRecord.UsageType>();
+                        break;
+
+                    case "usage_percentage":
+                        UsagePercentage = reader.ReadElementContentAsString();
                         break;
                 }
             }

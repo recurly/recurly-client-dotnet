@@ -381,7 +381,7 @@ namespace Recurly.Test
                 account = CreateNewAccountWithBillingInfo();
 
                 sub = new Subscription(account, plan, "USD");
-                sub.AddOns.Add(new SubscriptionAddOn("addon1", 100, 1)); // TODO allow passing just the addon code
+                sub.AddOns.Add(new SubscriptionAddOn("addon1", AddOn.AddOnType.Fixed, 100, 1)); // TODO allow passing just the addon code
                 sub.Create();
 
                 // confirm that Create() doesn't duplicate the AddOns
@@ -445,6 +445,7 @@ namespace Recurly.Test
                     var name = "Addon" + i.AsString();
                     var addon = plan.NewAddOn(name, name);
                     addon.DisplayQuantityOnHostedPage = true;
+                    addon.Type = AddOn.AddOnType.Fixed;
                     addon.UnitAmountInCents.Add("USD", 1000 + i);
                     addon.DefaultQuantity = i;
                     addon.Create();
@@ -456,13 +457,13 @@ namespace Recurly.Test
                 sub = new Subscription(account, plan, "USD");
                 Assert.NotNull(sub.AddOns);
 
-                sub.AddOns.Add(new SubscriptionAddOn("Addon0", 100, 1));
+                sub.AddOns.Add(new SubscriptionAddOn("Addon0", AddOn.AddOnType.Fixed, 100, 1));
                 sub.AddOns.Add(addons[1]);
                 sub.AddOns.Add(addons[2], 2);
                 sub.AddOns.Add(addons[3], 3, 100);
-                sub.AddOns.Add(addons[4].AddOnCode);
-                sub.AddOns.Add(addons[5].AddOnCode, 4);
-                sub.AddOns.Add(addons[6].AddOnCode, 5, 100);
+                sub.AddOns.Add(addons[4].AddOnCode, addons[4].Type);
+                sub.AddOns.Add(addons[5].AddOnCode, addons[5].Type, 4);
+                sub.AddOns.Add(addons[6].AddOnCode, addons[6].Type, 5, 100);
 
                 sub.Create();
                 sub.State.Should().Be(Subscription.SubscriptionState.Active);
@@ -480,7 +481,7 @@ namespace Recurly.Test
                 sub.AddOns.Clear();
                 Assert.Equal(0, sub.AddOns.Count);
 
-                var subaddon = new SubscriptionAddOn("a",1);
+                var subaddon = new SubscriptionAddOn("a", AddOn.AddOnType.Fixed, 1);
                 var list = new System.Collections.Generic.List<SubscriptionAddOn>();
                 list.Add(subaddon);
                 sub.AddOns.AddRange(list);
