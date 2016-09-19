@@ -1,9 +1,22 @@
 Unreleased
 ===============
 
-* added; `Currency` attribute on `BillingInfo`
-* added; `PaymentMethod` attribute on `Transaction`
+1.4.0 (stable) / 2016-09-19
+==================
 
+This release brings us to API version 2.3
+
+* added; `PlanCode` public reader on Subscription
+* fixed; bug with updating an AddOn
+* fixed; TLS preferences missing constants
+* added; `cc_emails` to `Account`
+* fixed; `Adjustment#Get` and related tests
+* added; `Currency` attribute on `BillingInfo`
+* added; Changes for API v2.2
+* added; `PaymentMethod` attribute on `Transaction`
+* added; new optional config loading with `SettingsManager`
+* added; error case for http status code 400
+* added; Usage based billing support
 
 1.3.1 (stable) / 2015-11-19
 ==================
