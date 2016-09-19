@@ -6,6 +6,12 @@ namespace Recurly
 {
     public class AddOn : RecurlyEntity
     {
+        public enum Type
+        {
+            Fixed,
+            Usage
+        }
+
         public string PlanCode { get; set; }
         public string AddOnCode { get; set; }
         public string Name { get; set; }
@@ -14,6 +20,9 @@ namespace Recurly
         public string TaxCode { get; set; }
         public bool? Optional { get; set; }
         public string AccountingCode { get; set; }
+        public long? MeasuredUnitId { get; set; }
+        public Type? AddOnType { get; set; }
+        public Usage.Type? UsageType { get; set; }
         public DateTime CreatedAt { get; private set; }
         public DateTime UpdatedAt { get; private set; }
 
@@ -148,6 +157,14 @@ namespace Recurly
                     case "tax_code":
                         TaxCode = reader.ReadElementContentAsString();
                         break;
+
+                    case "add_on_type":
+                        AddOnType = reader.ReadElementContentAsString().ParseAsEnum<Type>();
+                        break;
+
+                    case "usage_type":
+                        UsageType = reader.ReadElementContentAsString().ParseAsEnum<Usage.Type>();
+                        break;
                 }
             }
         }
@@ -160,6 +177,15 @@ namespace Recurly
             xmlWriter.WriteElementString("name", Name);
             xmlWriter.WriteElementString("default_quantity", DefaultQuantity.AsString());
             xmlWriter.WriteElementString("accounting_code", AccountingCode);
+
+            if (AddOnType.HasValue)
+                xmlWriter.WriteElementString("add_on_type", AddOnType.Value.ToString().EnumNameToTransportCase());
+
+            if (UsageType.HasValue)
+                xmlWriter.WriteElementString("usage_type", UsageType.Value.ToString().EnumNameToTransportCase());
+
+            if (MeasuredUnitId.HasValue)
+                xmlWriter.WriteElementString("measured_unit_id", MeasuredUnitId.ToString());
 
             if (DisplayQuantityOnHostedPage.HasValue)
                 xmlWriter.WriteElementString("display_quantity_on_hosted_page", DisplayQuantityOnHostedPage.Value.AsString());
