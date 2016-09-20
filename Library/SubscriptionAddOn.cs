@@ -60,12 +60,9 @@ namespace Recurly
             writer.WriteStartElement("subscription_add_on");
 
             writer.WriteElementString("add_on_code", AddOnCode);
-            //writer.WriteElementString("add_on_type", Type.ToString().EnumNameToTransportCase());
             writer.WriteElementString("quantity", Quantity.AsString());
             if (AddOnType == AddOn.Type.Fixed)
                 writer.WriteElementString("unit_amount_in_cents", UnitAmountInCents.AsString());
-            else
-                writer.WriteElementString("unit_amount_in_cents", string.Empty);
 
             writer.WriteEndElement();
         }

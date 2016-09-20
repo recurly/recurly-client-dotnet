@@ -11,12 +11,12 @@ namespace RecurlyAPIClientCaller
     {
         static void Main(string[] args)
         {
-            Usage usageRecord = new Usage("3849d9c3bf6fefdd9ed16d4224b0e8a9", "TransactionAmountAddOn");
+            Usage usageRecord = new Usage("38b61e18e80c29d561d7004f85a22810", "TransactionAmountAddOn");
 
             usageRecord.Amount = 1000;
             usageRecord.MerchantTag = "OrderID: 111-222-333-444";
-            usageRecord.RecordingTimestamp = DateTime.Now.AddHours(-3);
-            usageRecord.UsageTimestamp = DateTime.Now;
+            usageRecord.RecordingTimestamp = DateTime.UtcNow;
+            usageRecord.UsageTimestamp = DateTime.UtcNow.AddSeconds(-10);
 
             usageRecord.Create();
         }

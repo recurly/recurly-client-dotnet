@@ -94,6 +94,7 @@ namespace Recurly
 
                 if (reader.NodeType != XmlNodeType.Element) continue;
 
+                int unitAmountInCents;
                 DateTime dateVal;
 
                 switch (reader.Name)
@@ -103,7 +104,8 @@ namespace Recurly
                         break;
 
                     case "unit_amount_in_cents":
-                        UnitAmountInCents = reader.ReadElementContentAsInt();
+                        if (Int32.TryParse(reader.ReadElementContentAsString(), out unitAmountInCents))
+                            UnitAmountInCents = unitAmountInCents;
                         break;
 
                     case "merchant_tag":
