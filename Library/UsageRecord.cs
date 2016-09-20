@@ -26,7 +26,7 @@ namespace Recurly
         public DateTime? BilledAt { get; set; }
         public UsageType Type { get; set; }
         public int UnitAmountInCents { get; set; }
-        public int? UsagePercentage { get; set; }
+        public float? UsagePercentage { get; set; }
 
         public string SubscriptionUuid { get; set; }
         public string AddOnCode { get; set; }
@@ -110,11 +110,13 @@ namespace Recurly
                         break;
 
                     case "unit_amount_in_cents":
-                        UnitAmountInCents = reader.ReadElementContentAsInt();
+                        int unitAmountInCents;
+                        if (Int32.TryParse(reader.ReadElementContentAsString(), out unitAmountInCents))
+                            UnitAmountInCents = unitAmountInCents;
                         break;
 
                     case "usage_percentage":
-                        UsagePercentage = reader.ReadElementContentAsInt();
+                        UsagePercentage = reader.ReadElementContentAsFloat();
                         break;
                 }
             }
