@@ -6,10 +6,10 @@ namespace Recurly
 {
     public class AddOn : RecurlyEntity
     {
-        public enum AddOnType
+        public enum Type
         {
             Fixed,
-            Usage,
+            Usage
         }
 
         public string PlanCode { get; set; }
@@ -20,11 +20,11 @@ namespace Recurly
         public string TaxCode { get; set; }
         public bool? Optional { get; set; }
         public string AccountingCode { get; set; }
+        public long? MeasuredUnitId { get; set; }
+        public Type? AddOnType { get; set; }
+        public Usage.Type? UsageType { get; set; }
         public DateTime CreatedAt { get; private set; }
         public DateTime UpdatedAt { get; private set; }
-        public AddOnType Type { get; set; }
-        public UsageRecord.UsageType AddOnUsageType { get; set; }
-        public string UsagePercentage { get; set; }
 
         private Dictionary<string, int> _unitAmountInCents;
         /// <summary>
@@ -159,15 +159,11 @@ namespace Recurly
                         break;
 
                     case "add_on_type":
-                        Type = reader.ReadElementContentAsString().ParseAsEnum<AddOnType>();
+                        AddOnType = reader.ReadElementContentAsString().ParseAsEnum<Type>();
                         break;
 
                     case "usage_type":
-                        AddOnUsageType = reader.ReadElementContentAsString().ParseAsEnum<UsageRecord.UsageType>();
-                        break;
-
-                    case "usage_percentage":
-                        UsagePercentage = reader.ReadElementContentAsString();
+                        UsageType = reader.ReadElementContentAsString().ParseAsEnum<Usage.Type>();
                         break;
                 }
             }
@@ -181,6 +177,15 @@ namespace Recurly
             xmlWriter.WriteElementString("name", Name);
             xmlWriter.WriteElementString("default_quantity", DefaultQuantity.AsString());
             xmlWriter.WriteElementString("accounting_code", AccountingCode);
+
+            if (AddOnType.HasValue)
+                xmlWriter.WriteElementString("add_on_type", AddOnType.Value.ToString().EnumNameToTransportCase());
+
+            if (UsageType.HasValue)
+                xmlWriter.WriteElementString("usage_type", UsageType.Value.ToString().EnumNameToTransportCase());
+
+            if (MeasuredUnitId.HasValue)
+                xmlWriter.WriteElementString("measured_unit_id", MeasuredUnitId.ToString());
 
             if (DisplayQuantityOnHostedPage.HasValue)
                 xmlWriter.WriteElementString("display_quantity_on_hosted_page", DisplayQuantityOnHostedPage.Value.AsString());

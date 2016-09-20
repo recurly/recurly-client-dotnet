@@ -93,7 +93,7 @@ namespace Recurly
 
             using (var responseStream = response.GetResponseStream())
             {
-                var errors = new List<Error>();
+                var errors = new List<Error>();              
 
                 try
                 {

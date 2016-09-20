@@ -6,7 +6,7 @@ namespace Recurly
     public class SubscriptionAddOn : RecurlyEntity
     {
         public string AddOnCode { get; set; }
-        public AddOn.AddOnType Type { get; set; }
+        public AddOn.Type AddOnType { get; set; }
         public int UnitAmountInCents { get; set; }
         public int Quantity { get; set; }
 
@@ -15,10 +15,10 @@ namespace Recurly
             ReadXml(reader);
         }
 
-        public SubscriptionAddOn(string addOnCode, AddOn.AddOnType addOnType, int unitAmountInCents, int quantity = 1)
+        public SubscriptionAddOn(string addOnCode, AddOn.Type addOnType, int unitAmountInCents, int quantity = 1)
         {
             AddOnCode = addOnCode;
-            Type = addOnType;
+            AddOnType = addOnType;
             UnitAmountInCents = unitAmountInCents;
             Quantity = quantity;
         }
@@ -39,7 +39,7 @@ namespace Recurly
                         break;
 
                     case "add_on_type":
-                        Type = reader.ReadElementContentAsString().ParseAsEnum<AddOn.AddOnType>();
+                        AddOnType = reader.ReadElementContentAsString().ParseAsEnum<AddOn.Type>();
                         break;
 
                     case "quantity":
@@ -62,7 +62,7 @@ namespace Recurly
             writer.WriteElementString("add_on_code", AddOnCode);
             //writer.WriteElementString("add_on_type", Type.ToString().EnumNameToTransportCase());
             writer.WriteElementString("quantity", Quantity.AsString());
-            if (Type == AddOn.AddOnType.Fixed)
+            if (AddOnType == AddOn.Type.Fixed)
                 writer.WriteElementString("unit_amount_in_cents", UnitAmountInCents.AsString());
             else
                 writer.WriteElementString("unit_amount_in_cents", string.Empty);

@@ -237,8 +237,8 @@ namespace Recurly.Test
         {
             var list = new List<SubscriptionAddOn>
             {
-                new SubscriptionAddOn("addon1", AddOn.AddOnType.Fixed, 100),
-                new SubscriptionAddOn("addon2", AddOn.AddOnType.Fixed, 200, 2)
+                new SubscriptionAddOn("addon1", AddOn.Type.Fixed, 100),
+                new SubscriptionAddOn("addon2", AddOn.Type.Fixed, 200, 2)
             };
 
             var stringWriter = new StringWriter();

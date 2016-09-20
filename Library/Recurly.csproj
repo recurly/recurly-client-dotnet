@@ -64,6 +64,10 @@
   <ItemGroup>
     <Compile Include="Account.cs" />
     <Compile Include="Address.cs" />
+    <Compile Include="Configuration\SettingsManager.cs" />
+    <Compile Include="List\MeasuredUnitList.cs" />
+    <Compile Include="Usage.cs" />
+    <Compile Include="MeasuredUnit.cs" />
     <Compile Include="OpenAmountRefund.cs" />
     <Compile Include="Configuration\Settings.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
@@ -107,7 +111,6 @@
     <Compile Include="TemporarilyUnavailableException.cs" />
     <Compile Include="Transaction.cs" />
     <Compile Include="List\TransactionList.cs" />
-    <Compile Include="UsageRecord.cs" />
     <Compile Include="ValidationException.cs" />
     <Compile Include="Extensions\XmlWriterExtensions.cs" />
   </ItemGroup>

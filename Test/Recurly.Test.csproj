@@ -99,6 +99,7 @@
     <Compile Include="List\TransactionListTest.cs" />
     <Compile Include="PlanTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SettingsManagerTest.cs" />
     <Compile Include="SubscriptionTest.cs" />
     <Compile Include="SystemTest.cs" />
     <Compile Include="TestCreditCardNumbers.cs" />

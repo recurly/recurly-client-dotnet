@@ -64,15 +64,15 @@ namespace Recurly
         public void Add(AddOn planAddOn, int quantity = 1)
         {
             int amount = 0;
-            if ((planAddOn.Type == AddOn.AddOnType.Fixed) || 
-                ((planAddOn.Type == AddOn.AddOnType.Usage) && (planAddOn.AddOnUsageType == UsageRecord.UsageType.Price)) &&
+            if ((planAddOn.AddOnType == AddOn.Type.Fixed) || 
+                ((planAddOn.AddOnType == AddOn.Type.Usage) && (planAddOn.UsageType == Usage.Type.Price)) &&
                 !planAddOn.UnitAmountInCents.TryGetValue(_subscription.Currency, out amount))
             {
                 throw new ValidationException(
                     "The given AddOn does not have UnitAmountInCents for the currency of the subscription (" + _subscription.Currency + ")."
                     , null);
             }
-            var sub = new SubscriptionAddOn(planAddOn.AddOnCode, planAddOn.Type, amount, quantity);
+            var sub = new SubscriptionAddOn(planAddOn.AddOnCode, planAddOn.AddOnType.Value, amount, quantity);
             base.Add(sub);
         }
 
@@ -91,20 +91,20 @@ namespace Recurly
         /// <param name="unitAmountInCents">Overrides the UnitAmountInCents of the add-on.</param>
         public void Add(AddOn planAddOn, int quantity, int unitAmountInCents)
         {
-            var sub = new SubscriptionAddOn(planAddOn.AddOnCode, planAddOn.Type, unitAmountInCents, quantity);
+            var sub = new SubscriptionAddOn(planAddOn.AddOnCode, planAddOn.AddOnType.Value, unitAmountInCents, quantity);
             base.Add(sub);
         }
 
         // sub.AddOns.Add(code, quantity, unitInCents);
         // sub.AddOns.Add(code, quantity); unitInCents=this.Plan.UnitAmountInCents[this.Currency]
         // sub.AddOns.Add(code); 1, unitInCents=this.Plan.UnitAmountInCents[this.Currency]
-        public void Add(string planAddOnCode, AddOn.AddOnType addOnType, int quantity=1)
+        public void Add(string planAddOnCode, AddOn.Type addOnType, int quantity=1)
         {
             var unitAmount = _subscription.Plan.AddOns.Find(ao => ao.AddOnCode == planAddOnCode).UnitAmountInCents[_subscription.Currency];
             var sub = new SubscriptionAddOn(planAddOnCode, addOnType, unitAmount, quantity);
             base.Add(sub);
         }
-        public void Add(string planAddOnCode, AddOn.AddOnType addOnType, int quantity, int unitAmountInCents)
+        public void Add(string planAddOnCode, AddOn.Type addOnType, int quantity, int unitAmountInCents)
         {
             var sub = new SubscriptionAddOn(planAddOnCode, addOnType, unitAmountInCents, quantity);
             base.Add(sub);
