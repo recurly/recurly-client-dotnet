@@ -1,6 +1,12 @@
 Unreleased
 ===============
 
+1.4.1 (stable) / 2016-09-21
+==================
+
+* fixed; nil parsing error on usage creation
+
+
 1.4.0 (stable) / 2016-09-19
 ==================
 
