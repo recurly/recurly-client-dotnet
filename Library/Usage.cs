@@ -22,7 +22,7 @@ namespace Recurly
         public int Amount{ get; set; }
         public String MerchantTag { get; set; }
         public Type UsageType { get; set; }
-        public DateTime UsageTimestamp { get; set; }
+        public DateTime? UsageTimestamp { get; set; }
         public DateTime? RecordingTimestamp { get; set; }
         public DateTime? BilledAt { get; set; }
         public DateTime? CreatedAt { get; private set; }
@@ -161,7 +161,8 @@ namespace Recurly
             if (RecordingTimestamp.HasValue)
                 xmlWriter.WriteElementString("recording_timestamp", RecordingTimestamp.Value.ToString("s"));
 
-            xmlWriter.WriteElementString("usage_timestamp", UsageTimestamp.ToString("s"));
+            if (UsageTimestamp.HasValue)
+                xmlWriter.WriteElementString("usage_timestamp", UsageTimestamp.Value.ToString("s"));
 
             if (BilledAt.HasValue)
                 xmlWriter.WriteElementString("billed_at", BilledAt.Value.ToString("s"));
