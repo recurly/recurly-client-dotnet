@@ -74,6 +74,16 @@ namespace Recurly
             }
         }
 
+        /// <summary>
+        /// List of shipping addresses
+        /// </summary>
+        public ShippingAddressList ShippingAddresses
+        {
+            get { return _shippingAddresses ?? (_shippingAddresses = new ShippingAddressList(this)); }
+            set { _shippingAddresses = value; }
+        }
+        private ShippingAddressList _shippingAddresses;
+
         internal const string UrlPrefix = "/accounts/";
 
         public Account(string accountCode)
@@ -398,6 +408,8 @@ namespace Recurly
             xmlWriter.WriteStringIfValid("vat_number", VatNumber);
             xmlWriter.WriteStringIfValid("entity_use_code", EntityUseCode);
             xmlWriter.WriteStringIfValid("cc_emails", CcEmails);
+
+            xmlWriter.WriteIfCollectionHasAny("shipping_addresses", ShippingAddresses);
 
             if (TaxExempt.HasValue)
                 xmlWriter.WriteElementString("tax_exempt", TaxExempt.Value.AsString());
