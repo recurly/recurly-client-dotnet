@@ -51,12 +51,14 @@ namespace Recurly
         /// <summary>
         /// Log a usage record in Recurly
         /// </summary>
-        public void Create()
+        public Usage Create()
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 UrlPrefix(),
                 WriteXml,
                 ReadXml);
+
+            return this;
         }
 
         /// <summary>
@@ -95,10 +97,17 @@ namespace Recurly
                 if (reader.NodeType != XmlNodeType.Element) continue;
 
                 int unitAmountInCents;
+                long usageId;
                 DateTime dateVal;
 
                 switch (reader.Name)
                 {
+                    case "usage":
+                        Uri usageUri = new Uri(reader.GetAttribute("href"));
+                        if (Int64.TryParse(usageUri.Segments.Last(), out usageId))
+                            Id = usageId;
+                        break;
+
                     case "amount":
                         Amount = reader.ReadElementContentAsInt();
                         break;
