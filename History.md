@@ -1,6 +1,12 @@
 Unreleased
 ===============
 
+1.4.2 (stable) / 2016-10-03
+==================
+
+* added; Allow `UsageTimestamp` to be null (defaults to server time)
+
+
 1.4.1 (stable) / 2016-09-21
 ==================
 
