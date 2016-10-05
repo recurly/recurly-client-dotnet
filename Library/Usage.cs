@@ -51,14 +51,12 @@ namespace Recurly
         /// <summary>
         /// Log a usage record in Recurly
         /// </summary>
-        public Usage Create()
+        public void Create()
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 UrlPrefix(),
                 WriteXml,
                 ReadXml);
-
-            return this;
         }
 
         /// <summary>
