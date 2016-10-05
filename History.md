@@ -2,6 +2,7 @@ Unreleased
 ===============
 
 * fixed; NetTerms null exception for manual subscriptions
+* added; Subscription.SubscriptionState.Failed
 
 1.4.2 (stable) / 2016-10-03
 ==================
