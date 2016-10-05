@@ -751,8 +751,10 @@ namespace Recurly
             if (CollectionMethod.Like("manual"))
             {
                 xmlWriter.WriteElementString("collection_method", "manual");
-                xmlWriter.WriteElementString("net_terms", NetTerms.Value.AsString());
                 xmlWriter.WriteElementString("po_number", PoNumber);
+
+                if (NetTerms.HasValue)
+                    xmlWriter.WriteElementString("net_terms", NetTerms.Value.AsString());
             }
             else if (CollectionMethod.Like("automatic"))
                 xmlWriter.WriteElementString("collection_method", "automatic");

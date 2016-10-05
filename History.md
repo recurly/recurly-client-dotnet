@@ -1,6 +1,8 @@
 Unreleased
 ===============
 
+* fixed; NetTerms null exception for manual subscriptions
+
 1.4.2 (stable) / 2016-10-03
 ==================
 
