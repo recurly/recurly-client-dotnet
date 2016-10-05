@@ -1,6 +1,18 @@
 Unreleased
 ===============
 
+1.4.2 (stable) / 2016-10-03
+==================
+
+* added; Allow `UsageTimestamp` to be null (defaults to server time)
+
+
+1.4.1 (stable) / 2016-09-21
+==================
+
+* fixed; nil parsing error on usage creation
+
+
 1.4.0 (stable) / 2016-09-19
 ==================
 
