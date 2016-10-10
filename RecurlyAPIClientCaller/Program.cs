@@ -11,6 +11,7 @@ namespace RecurlyAPIClientCaller
     {
         static void Main(string[] args)
         {
+            /*
             Usage usageRecord = new Usage("38e5273512fc3b75d5a25c41d19b7f42", "TransactionAmountAddOn");
 
             usageRecord.Amount = 1000;
@@ -20,6 +21,9 @@ namespace RecurlyAPIClientCaller
             usageRecord.UsageTimestamp = dateTime.AddSeconds(-10);
 
             usageRecord.Create();
+            */
+
+            BillingInfo billingInfo = BillingInfo.Get("537945-1");
         }
     }
 }
