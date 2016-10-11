@@ -9,6 +9,7 @@ namespace Recurly
 {
     public class ShippingAddress : RecurlyEntity
     {
+        public long? Id { get; private set; }
         public string Address1 { get; set; }
         public string Address2 { get; set; }
         public string City { get; set; }
@@ -91,6 +92,10 @@ namespace Recurly
 
                     case "vat_number":
                         VatNumber = reader.ReadElementContentAsString();
+                        break;
+
+                    case "id":
+                        Id = reader.ReadElementContentAsLong();
                         break;
                 }
             }

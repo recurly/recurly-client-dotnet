@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Xml;
 
@@ -77,12 +78,12 @@ namespace Recurly
         /// <summary>
         /// List of shipping addresses
         /// </summary>
-        public ShippingAddressList ShippingAddresses
+        public List<ShippingAddress> ShippingAddresses
         {
-            get { return _shippingAddresses ?? (_shippingAddresses = new ShippingAddressList(this)); }
+            get { return _shippingAddresses ?? (_shippingAddresses = new List<ShippingAddress>()); }
             set { _shippingAddresses = value; }
         }
-        private ShippingAddressList _shippingAddresses;
+        private List<ShippingAddress> _shippingAddresses;
 
         internal const string UrlPrefix = "/accounts/";
 
@@ -207,6 +208,20 @@ namespace Recurly
                 , adjustments.ReadXmlList);
 
             return statusCode == HttpStatusCode.NotFound ? null : adjustments;
+        }
+
+        /// <summary>
+        /// Gets all shipping addresses
+        /// </summary>
+        /// <returns></returns>
+        public RecurlyList<ShippingAddress> GetShippingAddresses()
+        {
+            var shippingAddresses = new ShippingAddressList(this);
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
+                UrlPrefix + Uri.EscapeUriString(AccountCode) + "/shipping_addresses/",
+                shippingAddresses.ReadXmlList);
+
+            return statusCode == HttpStatusCode.NotFound ? null : shippingAddresses;
         }
 
         /// <summary>
