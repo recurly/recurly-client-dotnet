@@ -83,6 +83,23 @@ namespace Recurly
 
         public string PlanCode { get; private set; }
 
+        private ShippingAddress _shippingAddress;
+
+        public ShippingAddress ShippingAddress
+        {
+            get { return _shippingAddress; }
+            set
+            {
+                if (value.Id.HasValue)
+                {
+                    ShippingAddressId = value.Id.Value;
+                }
+                _shippingAddress = value;
+            }
+        }
+
+        public long? ShippingAddressId { get; set; }
+
         public string Uuid { get; private set; }
 
         public SubscriptionState State { get; private set; }
@@ -660,7 +677,7 @@ namespace Recurly
 
                     case "address":
                         Address = new Address(reader);
-                        break;
+                        break;              
                 }
             }
         }
@@ -759,6 +776,11 @@ namespace Recurly
             }
             else if (CollectionMethod.Like("automatic"))
                 xmlWriter.WriteElementString("collection_method", "automatic");
+
+            if (ShippingAddressId.HasValue)
+            {
+                xmlWriter.WriteElementString("shipping_address_id", ShippingAddressId.Value.ToString());
+            }
 
             // <account> and billing info
             Account.WriteXml(xmlWriter);

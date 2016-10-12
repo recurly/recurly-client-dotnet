@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Xml;
 
@@ -73,6 +74,16 @@ namespace Recurly
                 _billingInfo = value;
             }
         }
+
+        /// <summary>
+        /// List of shipping addresses
+        /// </summary>
+        public List<ShippingAddress> ShippingAddresses
+        {
+            get { return _shippingAddresses ?? (_shippingAddresses = new List<ShippingAddress>()); }
+            set { _shippingAddresses = value; }
+        }
+        private List<ShippingAddress> _shippingAddresses;
 
         internal const string UrlPrefix = "/accounts/";
 
@@ -197,6 +208,20 @@ namespace Recurly
                 , adjustments.ReadXmlList);
 
             return statusCode == HttpStatusCode.NotFound ? null : adjustments;
+        }
+
+        /// <summary>
+        /// Gets all shipping addresses
+        /// </summary>
+        /// <returns></returns>
+        public RecurlyList<ShippingAddress> GetShippingAddresses()
+        {
+            var shippingAddresses = new ShippingAddressList(this);
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
+                UrlPrefix + Uri.EscapeUriString(AccountCode) + "/shipping_addresses/",
+                shippingAddresses.ReadXmlList);
+
+            return statusCode == HttpStatusCode.NotFound ? null : shippingAddresses;
         }
 
         /// <summary>
@@ -398,6 +423,8 @@ namespace Recurly
             xmlWriter.WriteStringIfValid("vat_number", VatNumber);
             xmlWriter.WriteStringIfValid("entity_use_code", EntityUseCode);
             xmlWriter.WriteStringIfValid("cc_emails", CcEmails);
+
+            xmlWriter.WriteIfCollectionHasAny("shipping_addresses", ShippingAddresses);
 
             if (TaxExempt.HasValue)
                 xmlWriter.WriteElementString("tax_exempt", TaxExempt.Value.AsString());
