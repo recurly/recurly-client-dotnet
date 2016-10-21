@@ -1,8 +1,12 @@
 Unreleased
 ===============
 
+1.4.3 (stable) / 2016-10-21
+===============
+
 * fixed; NetTerms null exception for manual subscriptions
 * added; Subscription.SubscriptionState.Failed
+* added; Support for free trial coupons
 
 1.4.2 (stable) / 2016-10-03
 ==================
