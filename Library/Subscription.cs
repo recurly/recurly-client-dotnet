@@ -161,8 +161,6 @@ namespace Recurly
             {
                 if (ActivatedAt.HasValue)
                     throw new InvalidOperationException("Cannot set TrialPeriodEndsAt on existing subscriptions.");
-                if (value.HasValue && (value < DateTime.UtcNow))
-                    throw new ArgumentException("TrialPeriodEndsAt must occur in the future.");
 
                 _trialPeriodEndsAt = value;
             }
