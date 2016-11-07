@@ -66,6 +66,7 @@
     <Compile Include="Address.cs" />
     <Compile Include="Configuration\SettingsManager.cs" />
     <Compile Include="List\MeasuredUnitList.cs" />
+    <Compile Include="List\UsageList.cs" />
     <Compile Include="Usage.cs" />
     <Compile Include="MeasuredUnit.cs" />
     <Compile Include="OpenAmountRefund.cs" />
