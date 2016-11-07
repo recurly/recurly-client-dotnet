@@ -1,5 +1,6 @@
 Unreleased
 ===============
+* fixed; Account no longer lazy-creates its own Address object
 
 1.4.3 (stable) / 2016-10-21
 ===============

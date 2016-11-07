@@ -44,7 +44,7 @@ namespace Recurly
         public bool VatLocationValid { get; private set; }
 
         public Address Address {
-            get { return _address ?? (_address = new Address()); }
+			get { return _address; }
             set { _address = value; }
         }
         private Address _address;
