@@ -64,6 +64,7 @@
   <ItemGroup>
     <Compile Include="Account.cs" />
     <Compile Include="Address.cs" />
+    <Compile Include="List\UsageList.cs" />
     <Compile Include="List\ShippingAddressList.cs" />
     <Compile Include="ShippingAddress.cs" />
     <Compile Include="Configuration\SettingsManager.cs" />
