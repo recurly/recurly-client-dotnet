@@ -42,12 +42,7 @@ namespace Recurly
         public DateTime CreatedAt { get; private set; }
         public DateTime UpdatedAt { get; private set; }
         public bool VatLocationValid { get; private set; }
-
-        public Address Address {
-			get { return _address; }
-            set { _address = value; }
-        }
-        private Address _address;
+        public Address Address { get; set; }
 
         private BillingInfo _billingInfo;
 
@@ -241,7 +236,7 @@ namespace Recurly
         public RecurlyList<Subscription> GetSubscriptions(Subscription.SubscriptionState state = Subscription.SubscriptionState.All)
         {
             return new SubscriptionList(UrlPrefix + Uri.EscapeUriString(AccountCode) + "/subscriptions/"
-                + Build.QueryStringWith(state.Equals(Subscription.SubscriptionState.All) ? "" :  "state=" + state.ToString().EnumNameToTransportCase()));
+                + Build.QueryStringWith(state.Equals(Subscription.SubscriptionState.All) ? "" : "state=" + state.ToString().EnumNameToTransportCase()));
         }
 
         /// <summary>
@@ -273,7 +268,7 @@ namespace Recurly
         /// <param name="accountingCode">Accounting code. Max of 20 characters.</param>
         /// <param name="taxExempt"></param>
         /// <returns></returns>
-        public Adjustment NewAdjustment(string currency, int unitAmountInCents, string description="", int quantity=1, string accountingCode="", bool taxExempt = false)
+        public Adjustment NewAdjustment(string currency, int unitAmountInCents, string description = "", int quantity = 1, string accountingCode = "", bool taxExempt = false)
         {
             // TODO All of the properties should be settable
             return new Adjustment(AccountCode, description, currency, unitAmountInCents, quantity, accountingCode, taxExempt);
@@ -285,7 +280,7 @@ namespace Recurly
         /// <param name="couponCode"></param>
         /// <param name="currency"></param>
         /// <returns></returns>
-        public CouponRedemption RedeemCoupon(string couponCode, string currency, string subscriptionUuid=null)
+        public CouponRedemption RedeemCoupon(string couponCode, string currency, string subscriptionUuid = null)
         {
             return CouponRedemption.Redeem(AccountCode, couponCode, currency, subscriptionUuid);
         }
@@ -315,7 +310,7 @@ namespace Recurly
 
             if (activeRedemptions == null || activeRedemptions.Count <= 0)
             {
-              return null;
+                return null;
             }
 
             return activeRedemptions.ToArray()[0];

@@ -18,19 +18,19 @@ namespace Recurly.Test
         [RecurlyFact(TestEnvironment.Type.Integration)]
         public void CreateAccountWithParameters()
         {
-			var acct = new Account(GetUniqueAccountCode())
-			{
-				Username = "testuser1",
-				Email = "testemail@test.com",
-				FirstName = "Test",
-				LastName = "User",
-				CompanyName = "Test Company",
-				AcceptLanguage = "en",
-				VatNumber = "my-vat-number",
-				TaxExempt = true,
-				EntityUseCode = "I",
-				CcEmails = "cc1@test.com,cc2@test.com",
-				Address = new Address()
+            var acct = new Account(GetUniqueAccountCode())
+            {
+                Username = "testuser1",
+                Email = "testemail@test.com",
+                FirstName = "Test",
+                LastName = "User",
+                CompanyName = "Test Company",
+                AcceptLanguage = "en",
+                VatNumber = "my-vat-number",
+                TaxExempt = true,
+                EntityUseCode = "I",
+                CcEmails = "cc1@test.com,cc2@test.com",
+                Address = new Address()
             };
 
             string address = "123 Faux Street";
@@ -53,11 +53,10 @@ namespace Recurly.Test
         }
 
         [Fact]
-        public void DontSerializeNullAddress() 
+        public void DontSerializeNullAddress()
         {
             var account = new Account("testAcct");
             account.Address.Should().BeNull();
-            
         }
 
         [Fact]
