@@ -79,6 +79,10 @@ namespace Recurly
 
         private String UrlPrefix()
         {
+            return Usage.UrlPrefix(SubscriptionUuid, SubscriptionAddOnCode);
+        }
+
+        private static String UrlPrefix(String SubscriptionUuid, String SubscriptionAddOnCode) {
             return "/subscriptions/" + SubscriptionUuid + "/add_ons/" + SubscriptionAddOnCode + "/usage";
         }
 
@@ -171,5 +175,10 @@ namespace Recurly
         }
 
         #endregion
+
+        public static RecurlyList<Usage> List(String subscriptionUuid, String subscriptionAddOnCode)
+        {
+            return new UsageList(UrlPrefix(subscriptionUuid, subscriptionAddOnCode));
+        }
     }
 }

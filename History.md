@@ -1,6 +1,8 @@
 Unreleased
 ===============
 
+* added; UsageList class
+
 1.4.3 (stable) / 2016-10-21
 ===============
 
