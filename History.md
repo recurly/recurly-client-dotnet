@@ -1,6 +1,11 @@
 Unreleased
 ===============
 
+1.4.4 (stable) / 2016-11-17
+===============
+
+* fixed; Allow skip trial period by setting date in the past
+* added; Add .vscode to gitignore
 * added; UsageList class
 
 1.4.3 (stable) / 2016-10-21
