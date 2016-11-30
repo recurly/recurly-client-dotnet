@@ -1,10 +1,6 @@
-﻿using Recurly.List;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace Recurly
@@ -96,15 +92,12 @@ namespace Recurly
                 if (reader.NodeType != XmlNodeType.Element) continue;
 
                 int unitAmountInCents;
-                long usageId;
                 DateTime dateVal;
 
                 switch (reader.Name)
                 {
-                    case "usage":
-                        Uri usageUri = new Uri(reader.GetAttribute("href"));
-                        if (Int64.TryParse(usageUri.Segments.Last(), out usageId))
-                            Id = usageId;
+                    case "id":
+                        Id = reader.ReadElementContentAsLong();
                         break;
 
                     case "amount":
@@ -206,11 +199,6 @@ namespace Recurly
         }
 
         #endregion
-
-        public static RecurlyList<Usage> List(String subscriptionUuid, String subscriptionAddOnCode)
-        {
-            return new UsageList(UrlPrefix(subscriptionUuid, subscriptionAddOnCode));
-        }
     }
 
     public sealed class Usages
