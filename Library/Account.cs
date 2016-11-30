@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Xml;
 
@@ -41,12 +42,7 @@ namespace Recurly
         public DateTime CreatedAt { get; private set; }
         public DateTime UpdatedAt { get; private set; }
         public bool VatLocationValid { get; private set; }
-
-        public Address Address {
-            get { return _address ?? (_address = new Address()); }
-            set { _address = value; }
-        }
-        private Address _address;
+        public Address Address { get; set; }
 
         private BillingInfo _billingInfo;
 
@@ -73,6 +69,16 @@ namespace Recurly
                 _billingInfo = value;
             }
         }
+
+        /// <summary>
+        /// List of shipping addresses
+        /// </summary>
+        public List<ShippingAddress> ShippingAddresses
+        {
+            get { return _shippingAddresses ?? (_shippingAddresses = new List<ShippingAddress>()); }
+            set { _shippingAddresses = value; }
+        }
+        private List<ShippingAddress> _shippingAddresses;
 
         internal const string UrlPrefix = "/accounts/";
 
@@ -200,6 +206,20 @@ namespace Recurly
         }
 
         /// <summary>
+        /// Gets all shipping addresses
+        /// </summary>
+        /// <returns></returns>
+        public RecurlyList<ShippingAddress> GetShippingAddresses()
+        {
+            var shippingAddresses = new ShippingAddressList(this);
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
+                UrlPrefix + Uri.EscapeUriString(AccountCode) + "/shipping_addresses/",
+                shippingAddresses.ReadXmlList);
+
+            return statusCode == HttpStatusCode.NotFound ? null : shippingAddresses;
+        }
+
+        /// <summary>
         /// Returns a list of invoices for this account
         /// </summary>
         /// <returns></returns>
@@ -216,7 +236,7 @@ namespace Recurly
         public RecurlyList<Subscription> GetSubscriptions(Subscription.SubscriptionState state = Subscription.SubscriptionState.All)
         {
             return new SubscriptionList(UrlPrefix + Uri.EscapeUriString(AccountCode) + "/subscriptions/"
-                + Build.QueryStringWith(state.Equals(Subscription.SubscriptionState.All) ? "" :  "state=" + state.ToString().EnumNameToTransportCase()));
+                + Build.QueryStringWith(state.Equals(Subscription.SubscriptionState.All) ? "" : "state=" + state.ToString().EnumNameToTransportCase()));
         }
 
         /// <summary>
@@ -248,7 +268,7 @@ namespace Recurly
         /// <param name="accountingCode">Accounting code. Max of 20 characters.</param>
         /// <param name="taxExempt"></param>
         /// <returns></returns>
-        public Adjustment NewAdjustment(string currency, int unitAmountInCents, string description="", int quantity=1, string accountingCode="", bool taxExempt = false)
+        public Adjustment NewAdjustment(string currency, int unitAmountInCents, string description = "", int quantity = 1, string accountingCode = "", bool taxExempt = false)
         {
             // TODO All of the properties should be settable
             return new Adjustment(AccountCode, description, currency, unitAmountInCents, quantity, accountingCode, taxExempt);
@@ -260,7 +280,7 @@ namespace Recurly
         /// <param name="couponCode"></param>
         /// <param name="currency"></param>
         /// <returns></returns>
-        public CouponRedemption RedeemCoupon(string couponCode, string currency, string subscriptionUuid=null)
+        public CouponRedemption RedeemCoupon(string couponCode, string currency, string subscriptionUuid = null)
         {
             return CouponRedemption.Redeem(AccountCode, couponCode, currency, subscriptionUuid);
         }
@@ -290,7 +310,7 @@ namespace Recurly
 
             if (activeRedemptions == null || activeRedemptions.Count <= 0)
             {
-              return null;
+                return null;
             }
 
             return activeRedemptions.ToArray()[0];
@@ -398,6 +418,8 @@ namespace Recurly
             xmlWriter.WriteStringIfValid("vat_number", VatNumber);
             xmlWriter.WriteStringIfValid("entity_use_code", EntityUseCode);
             xmlWriter.WriteStringIfValid("cc_emails", CcEmails);
+
+            xmlWriter.WriteIfCollectionHasAny("shipping_addresses", ShippingAddresses);
 
             if (TaxExempt.HasValue)
                 xmlWriter.WriteElementString("tax_exempt", TaxExempt.Value.AsString());

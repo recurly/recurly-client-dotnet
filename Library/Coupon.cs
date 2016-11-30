@@ -19,7 +19,8 @@ namespace Recurly
         public enum CouponDiscountType
         {
             Percent,
-            Dollars
+            Dollars,
+            FreeTrial
         }
 
         public enum CouponDuration
@@ -67,6 +68,8 @@ namespace Recurly
         public bool? AppliesToNonPlanCharges { get; set; }
         public int? MaxRedemptionsPerAccount { get; set; }
         public string UniqueCodeTemplate { get; set; }
+        public int? FreeTrialAmount { get; set; }
+        public CouponTemporalUnit? FreeTrialUnit { get; set; }
 
         public CouponDiscountType DiscountType { get; private set; }
         public CouponState State { get; private set; }
@@ -109,6 +112,19 @@ namespace Recurly
         internal Coupon(XmlTextReader xmlReader)
         {
             ReadXml(xmlReader);
+        }
+
+        /// <summary>
+        /// Creates a coupon given a code, name, and discount type
+        /// </summary>
+        /// <param name="couponCode"></param>
+        /// <param name="name"></param>
+        /// <param name="discountType"></param>
+        public Coupon(string couponCode, string name, CouponDiscountType discountType)
+        {
+            CouponCode = couponCode;
+            Name = name;
+            DiscountType = discountType;
         }
 
         /// <summary>
@@ -239,7 +255,8 @@ namespace Recurly
                         break;
 
                     case "discount_percent":
-                        DiscountPercent = reader.ReadElementContentAsInt();
+                        if (int.TryParse(reader.ReadElementContentAsString(), out m))
+                            DiscountPercent = m;
                         break;
 
                     case "redeem_by_date":
@@ -322,7 +339,17 @@ namespace Recurly
                     case "discount_in_cents":
                         ReadXmlDiscounts(reader);
                         break;
-                        
+
+                    case "free_trial_unit":
+                        var trial_unit_content = reader.ReadElementContentAsString();
+                        if (trial_unit_content != "")
+                            FreeTrialUnit = trial_unit_content.ParseAsEnum<CouponTemporalUnit>();
+                        break;
+
+                    case "free_trial_amount":
+                        if (int.TryParse(reader.ReadElementContentAsString(), out m))
+                            FreeTrialAmount = m;
+                        break;
                 }
             }
         }
@@ -418,6 +445,12 @@ namespace Recurly
             }
 
             xmlWriter.WriteIfCollectionHasAny("plan_codes", Plans, s => "plan_code", s => s);
+
+            if (FreeTrialAmount.HasValue)
+                xmlWriter.WriteElementString("free_trial_amount", FreeTrialAmount.Value.AsString());
+
+            if (FreeTrialUnit.HasValue)
+                xmlWriter.WriteElementString("free_trial_unit", FreeTrialUnit.Value.ToString().EnumNameToTransportCase());
 
             xmlWriter.WriteEndElement(); // End: coupon
         }

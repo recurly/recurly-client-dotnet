@@ -1,5 +1,20 @@
 Unreleased
 ===============
+* fixed; Account no longer lazy-creates its own Address object
+
+1.4.4 (stable) / 2016-11-17
+===============
+
+* fixed; Allow skip trial period by setting date in the past
+* added; Add .vscode to gitignore
+* added; UsageList class
+
+1.4.3 (stable) / 2016-10-21
+===============
+
+* fixed; NetTerms null exception for manual subscriptions
+* added; Subscription.SubscriptionState.Failed
+* added; Support for free trial coupons
 
 1.4.2 (stable) / 2016-10-03
 ==================

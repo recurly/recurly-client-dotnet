@@ -206,6 +206,11 @@ namespace Recurly
         }
 
         #endregion
+
+        public static RecurlyList<Usage> List(String subscriptionUuid, String subscriptionAddOnCode)
+        {
+            return new UsageList(UrlPrefix(subscriptionUuid, subscriptionAddOnCode));
+        }
     }
 
     public sealed class Usages
