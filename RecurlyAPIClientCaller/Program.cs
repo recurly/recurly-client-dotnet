@@ -37,8 +37,8 @@ namespace RecurlyAPIClientCaller
             }
 
             var usages = Usages.List("390a1cd3ff15493d7683ad4525876178", "EmailRemarketingAddOn",
-            Recurly.List.UsageList.UsageBillingState.Billed,
-            Recurly.List.UsageList.UsageDateTimeType.Usage,
+            UsageList.UsageBillingState.Billed,
+            UsageList.UsageDateTimeType.Usage,
             startDate,
             endDate);
 
