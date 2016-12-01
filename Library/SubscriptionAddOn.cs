@@ -6,7 +6,7 @@ namespace Recurly
     public class SubscriptionAddOn : RecurlyEntity
     {
         public string AddOnCode { get; set; }
-        public AddOn.Type AddOnType { get; set; }
+        public AddOn.Type? AddOnType { get; set; }
         public int UnitAmountInCents { get; set; }
         public int Quantity { get; set; }
 
@@ -15,7 +15,7 @@ namespace Recurly
             ReadXml(reader);
         }
 
-        public SubscriptionAddOn(string addOnCode, AddOn.Type addOnType, int unitAmountInCents, int quantity = 1)
+        public SubscriptionAddOn(string addOnCode, AddOn.Type? addOnType, int unitAmountInCents, int quantity = 1)
         {
             AddOnCode = addOnCode;
             AddOnType = addOnType;
@@ -61,7 +61,7 @@ namespace Recurly
 
             writer.WriteElementString("add_on_code", AddOnCode);
             writer.WriteElementString("quantity", Quantity.AsString());
-            if (AddOnType == AddOn.Type.Fixed)
+            if (AddOnType.HasValue && AddOnType == AddOn.Type.Fixed)
                 writer.WriteElementString("unit_amount_in_cents", UnitAmountInCents.AsString());
 
             writer.WriteEndElement();

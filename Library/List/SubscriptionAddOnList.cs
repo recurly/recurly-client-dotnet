@@ -64,15 +64,14 @@ namespace Recurly
         public void Add(AddOn planAddOn, int quantity = 1)
         {
             int amount = 0;
-            if ((planAddOn.AddOnType == AddOn.Type.Fixed) || 
-                ((planAddOn.AddOnType == AddOn.Type.Usage) && (planAddOn.UsageType == Usage.Type.Price)) &&
+            if ((planAddOn.AddOnType != AddOn.Type.Usage || planAddOn.UsageType != Usage.Type.Percentage) &&
                 !planAddOn.UnitAmountInCents.TryGetValue(_subscription.Currency, out amount))
             {
                 throw new ValidationException(
                     "The given AddOn does not have UnitAmountInCents for the currency of the subscription (" + _subscription.Currency + ")."
                     , null);
             }
-            var sub = new SubscriptionAddOn(planAddOn.AddOnCode, planAddOn.AddOnType.Value, amount, quantity);
+            var sub = new SubscriptionAddOn(planAddOn.AddOnCode, planAddOn.AddOnType, amount, quantity);
             base.Add(sub);
         }
 
