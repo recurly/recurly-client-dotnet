@@ -740,6 +740,7 @@ namespace Recurly
             xmlWriter.WriteElementString("customer_notes", CustomerNotes);
             xmlWriter.WriteElementString("terms_and_conditions", TermsAndConditions);
             xmlWriter.WriteElementString("vat_reverse_charge_notes", VatReverseChargeNotes);
+            xmlWriter.WriteElementString("po_number", PoNumber);
 
             if (UnitAmountInCents.HasValue)
                 xmlWriter.WriteElementString("unit_amount_in_cents", UnitAmountInCents.Value.AsString());
@@ -767,7 +768,6 @@ namespace Recurly
             if (CollectionMethod.Like("manual"))
             {
                 xmlWriter.WriteElementString("collection_method", "manual");
-                xmlWriter.WriteElementString("po_number", PoNumber);
 
                 if (NetTerms.HasValue)
                     xmlWriter.WriteElementString("net_terms", NetTerms.Value.AsString());
