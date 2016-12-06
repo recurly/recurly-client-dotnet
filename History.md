@@ -1,6 +1,13 @@
 Unreleased
 ===============
-* fixed; Account no longer lazy-creates its own Address object
+
+1.4.5 (stable) / 2016-12-06
+===============
+
+* allow addresses to be null, and don't force-create one when fetching #186
+* Update BillingInfo.cs (Adding PayPal) #191
+* Add Invoice Create and Preview data #193
+* Make PoNumber always available to write on Subscription #194
 
 1.4.4 (stable) / 2016-11-17
 ===============
