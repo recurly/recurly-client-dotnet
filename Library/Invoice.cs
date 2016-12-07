@@ -3,6 +3,7 @@ using System.Net;
 using System.Xml;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace Recurly
 {
@@ -103,7 +104,12 @@ namespace Recurly
         /// <returns></returns>
         public byte[] GetPdf(string acceptLanguage = "en-US")
         {
-            return Client.Instance.PerformDownloadRequest(memberUrl(), "application/pdf", acceptLanguage);
+            return GetPdfAsync(acceptLanguage).Result;
+        }
+
+        public async Task<byte[]> GetPdfAsync(string acceptLanguage = "en-US")
+        {
+            return await Client.Instance.PerformDownloadRequestAsync(memberUrl(), "application/pdf", acceptLanguage);
         }
 
         /// <summary>
@@ -182,7 +188,7 @@ namespace Recurly
         {
             var refundInvoice = new Invoice();
             var refund = new OpenAmountRefund(amountInCents, refundPriority);
-               
+
             var response = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 memberUrl() + "/refund",
                 refund.WriteXml,
@@ -222,12 +228,12 @@ namespace Recurly
                         var originalInvoiceHref = reader.GetAttribute("href");
                         var invoiceNumber = Uri.UnescapeDataString(originalInvoiceHref.Substring(originalInvoiceHref.LastIndexOf("/") + 1));
                         MatchCollection matches = Regex.Matches(invoiceNumber, "([^\\d]{2})(\\d+)");
-                        
-                        if (matches.Count == 1) 
+
+                        if (matches.Count == 1)
                         {
                             OriginalInvoiceNumberPrefix = matches[0].Groups[1].Value;
                             OriginalInvoiceNumber = int.Parse(matches[0].Groups[2].Value);
-                        } 
+                        }
                         else
                         {
                             OriginalInvoiceNumber = int.Parse(invoiceNumber);
@@ -283,7 +289,9 @@ namespace Recurly
                         break;
 
                     case "updated_at":
-                        UpdatedAt = reader.ReadElementContentAsDateTime();
+                        DateTime updatedAt;
+                        if (DateTime.TryParse(reader.ReadElementContentAsString(), out updatedAt))
+                            UpdatedAt = updatedAt;
                         break;
 
                     case "closed_at":
@@ -411,7 +419,7 @@ namespace Recurly
         public static Invoice Get(string invoiceNumberWithPrefix)
         {
             var invoice = new Invoice();
-            
+
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
                 Invoice.UrlPrefix + invoiceNumberWithPrefix,
                 invoice.ReadXml);
