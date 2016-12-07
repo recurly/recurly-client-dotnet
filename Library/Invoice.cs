@@ -3,7 +3,6 @@ using System.Net;
 using System.Xml;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Recurly
 {
@@ -32,12 +31,14 @@ namespace Recurly
         public InvoiceState State { get; protected set; }
         public int InvoiceNumber { get; private set; }
         public string InvoiceNumberPrefix { get; private set; }
-        public string PoNumber { get; private set; }
+        public string PoNumber { get; set; }
         public string VatNumber { get; private set; }
         public int SubtotalInCents { get; private set; }
         public int TaxInCents { get; protected set; }
         public int TotalInCents { get; protected set; }
         public string Currency { get; protected set; }
+        public int? NetTerms { get; set; }
+        public string CollectionMethod { get; set; }
         public DateTime? CreatedAt { get; private set; }
         public DateTime? UpdatedAt { get; private set; }
         public DateTime? ClosedAt { get; private set; }
@@ -56,11 +57,6 @@ namespace Recurly
         public string TaxRegion { get; private set; }
         public decimal? TaxRate { get; private set; }
 
-        public int? NetTerms { get; private set; }
-
-        public string CollectionMethod { get; private set; }
-
-
         public RecurlyList<Adjustment> Adjustments { get; private set; }
         public RecurlyList<Transaction> Transactions { get; private set; }
 
@@ -70,7 +66,7 @@ namespace Recurly
 
         internal const string UrlPrefix = "/invoices/";
 
-        internal Invoice()
+        public Invoice()
         {
             Adjustments = new AdjustmentList();
             Transactions = new TransactionList();
@@ -104,12 +100,29 @@ namespace Recurly
         /// <returns></returns>
         public byte[] GetPdf(string acceptLanguage = "en-US")
         {
-            return GetPdfAsync(acceptLanguage).Result;
+            return Client.Instance.PerformDownloadRequest(memberUrl(), "application/pdf", acceptLanguage);
         }
 
-        public async Task<byte[]> GetPdfAsync(string acceptLanguage = "en-US")
+        /// <summary>
+        /// Post an invoice on an account using it's pending charges
+        /// </summary>
+        public void Create(string accountCode)
         {
-            return await Client.Instance.PerformDownloadRequestAsync(memberUrl(), "application/pdf", acceptLanguage);
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
+                "/accounts/" + Uri.EscapeUriString(accountCode) + Invoice.UrlPrefix,
+                WriteXml,
+                ReadXml);
+        }
+
+        /// <summary>
+        /// Preview an invoice on an account using it's pending charges
+        /// </summary>
+        public void Preview(string accountCode)
+        {
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
+                "/accounts/" + Uri.EscapeUriString(accountCode) + Invoice.UrlPrefix + "preview",
+                WriteXml,
+                ReadXml);
         }
 
         /// <summary>
@@ -188,7 +201,7 @@ namespace Recurly
         {
             var refundInvoice = new Invoice();
             var refund = new OpenAmountRefund(amountInCents, refundPriority);
-
+               
             var response = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 memberUrl() + "/refund",
                 refund.WriteXml,
@@ -228,12 +241,12 @@ namespace Recurly
                         var originalInvoiceHref = reader.GetAttribute("href");
                         var invoiceNumber = Uri.UnescapeDataString(originalInvoiceHref.Substring(originalInvoiceHref.LastIndexOf("/") + 1));
                         MatchCollection matches = Regex.Matches(invoiceNumber, "([^\\d]{2})(\\d+)");
-
-                        if (matches.Count == 1)
+                        
+                        if (matches.Count == 1) 
                         {
                             OriginalInvoiceNumberPrefix = matches[0].Groups[1].Value;
                             OriginalInvoiceNumber = int.Parse(matches[0].Groups[2].Value);
-                        }
+                        } 
                         else
                         {
                             OriginalInvoiceNumber = int.Parse(invoiceNumber);
@@ -292,7 +305,7 @@ namespace Recurly
                         DateTime updatedAt;
                         if (DateTime.TryParse(reader.ReadElementContentAsString(), out updatedAt))
                             UpdatedAt = updatedAt;
-                        break;
+                        break;                    
 
                     case "closed_at":
                         DateTime closedAt;
@@ -351,9 +364,26 @@ namespace Recurly
             }
         }
 
-        internal override void WriteXml(XmlTextWriter writer)
+        internal override void WriteXml(XmlTextWriter xmlWriter)
         {
-            throw new System.NotImplementedException();
+            xmlWriter.WriteStartElement("invoice"); // Start: invoice
+
+            xmlWriter.WriteElementString("customer_notes", CustomerNotes);
+            xmlWriter.WriteElementString("terms_and_conditions", TermsAndConditions);
+            xmlWriter.WriteElementString("vat_reverse_charge_notes", VatReverseChargeNotes);
+            xmlWriter.WriteElementString("po_number", PoNumber);
+
+            if (CollectionMethod.Like("manual"))
+            {
+                xmlWriter.WriteElementString("collection_method", "manual");
+
+                if (NetTerms.HasValue)
+                    xmlWriter.WriteElementString("net_terms", NetTerms.Value.AsString());
+            }
+            else if (CollectionMethod.Like("automatic"))
+                xmlWriter.WriteElementString("collection_method", "automatic");
+
+            xmlWriter.WriteEndElement(); // End: invoice
         }
 
         #endregion
@@ -419,7 +449,7 @@ namespace Recurly
         public static Invoice Get(string invoiceNumberWithPrefix)
         {
             var invoice = new Invoice();
-
+            
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
                 Invoice.UrlPrefix + invoiceNumberWithPrefix,
                 invoice.ReadXml);
@@ -433,6 +463,7 @@ namespace Recurly
         /// </summary>
         /// <param name="accountCode">Account code</param>
         /// <returns></returns>
+        [Obsolete("Deprecated, please use the Create instance method on the Invoice object")] 
         public static Invoice Create(string accountCode)
         {
             var invoice = new Invoice();

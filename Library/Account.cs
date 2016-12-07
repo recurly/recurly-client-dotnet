@@ -159,7 +159,6 @@ namespace Recurly
             State |= AccountState.Active;
         }
 
-        // This method appears to not conform to the API given https://dev.recurly.com/docs/get-account
         /// <summary>
         /// Posts pending charges on an account
         /// </summary>
