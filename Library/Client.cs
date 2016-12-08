@@ -455,6 +455,93 @@ namespace Recurly
             }
         }
 
+        public virtual byte[] PerformDownloadRequest(string urlPath, string acceptType, string acceptLanguage)
+        {
+            var url = Settings.GetServerUri(urlPath);
+
+            var request = WebRequest.CreateHttp(url);
+            request.Accept = acceptType;
+            request.ContentType = "application/xml; charset=utf-8"; // The request is an XML document
+            request.SendChunked = false;             // Send it all as one request
+            request.UserAgent = Settings.UserAgent;
+            request.Headers.Add(HttpRequestHeader.Authorization, Settings.AuthorizationHeaderValue);
+            request.Method = "GET";
+            request.Headers.Add("Accept-Language", acceptLanguage);
+
+            Debug.WriteLine(String.Format("Recurly: Requesting {0} {1}", request.Method, request.RequestUri));
+
+            try
+            {
+                var r = (HttpWebResponse) request.GetResponse();
+                byte[] pdf;
+                var buffer = new byte[2048];
+                if (!request.HaveResponse || r.StatusCode != HttpStatusCode.OK) return null;
+                using (var ms = new MemoryStream())
+                {
+                    using (var reader = new BinaryReader(r.GetResponseStream(), Encoding.Default))
+                    {
+                        int bytesRead;
+                        while ((bytesRead = reader.Read(buffer, 0, 2048)) > 0)
+                        {
+                            ms.Write(buffer, 0, bytesRead);
+                        }
+                    }
+                    pdf = ms.ToArray();
+                }
+                return pdf;
+
+            }
+            catch (WebException ex)
+            {
+                if (ex.Response == null) throw;
+                var response = (HttpWebResponse)ex.Response;
+                var statusCode = response.StatusCode;
+                Error[] errors;
+
+                Debug.WriteLine(String.Format("Recurly Library Received: {0} - {1}", (int)statusCode, statusCode));
+
+                switch (response.StatusCode)
+                {
+                    case HttpStatusCode.OK:
+                    case HttpStatusCode.Accepted:
+                    case HttpStatusCode.Created:
+                    case HttpStatusCode.NoContent:
+
+                        return null;
+
+                    case HttpStatusCode.NotFound:
+                        errors = Error.ReadResponseAndParseErrors(response);
+                        if (errors.Length > 0)
+                            throw new NotFoundException(errors[0].Message, errors);
+                        throw new NotFoundException("The requested object was not found.", errors);
+
+                    case HttpStatusCode.Unauthorized:
+                    case HttpStatusCode.Forbidden:
+                        errors = Error.ReadResponseAndParseErrors(response);
+                        throw new InvalidCredentialsException(errors);
+
+                    case HttpStatusCode.PreconditionFailed:
+                        errors = Error.ReadResponseAndParseErrors(response);
+                        throw new ValidationException(errors);
+
+                    case HttpStatusCode.ServiceUnavailable:
+                        throw new TemporarilyUnavailableException();
+
+                    case HttpStatusCode.InternalServerError:
+                        errors = Error.ReadResponseAndParseErrors(response);
+                        throw new ServerException(errors);
+                }
+
+                if ((int)statusCode == ValidationException.HttpStatusCode) // Unprocessable Entity
+                {
+                    errors = Error.ReadResponseAndParseErrors(response);
+                    throw new ValidationException(errors);
+                }
+
+                throw;
+            }
+        }
+
         protected virtual void ReadWebResponse(HttpWebResponse response, ReadXmlDelegate readXmlDelegate, ReadXmlListDelegate readXmlListDelegate, ReadResponseDelegate responseDelegate)
         {
             if (readXmlDelegate == null && readXmlListDelegate == null && responseDelegate == null) return;
