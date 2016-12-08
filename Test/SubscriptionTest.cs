@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using FluentAssertions;
 using System.Collections.Generic;
 using Xunit;
@@ -11,7 +12,7 @@ namespace Recurly.Test
         [RecurlyFact(TestEnvironment.Type.Integration)]
         public void LookupSubscription()
         {
-            var plan = new Plan(GetMockPlanCode(), GetMockPlanName()) {Description = "Lookup Subscription Test"};
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName()) { Description = "Lookup Subscription Test" };
             plan.UnitAmountInCents.Add("USD", 1500);
             plan.Create();
             PlansToDeactivateOnDispose.Add(plan);
@@ -25,6 +26,27 @@ namespace Recurly.Test
             sub.State.Should().Be(Subscription.SubscriptionState.Active);
 
             var fromService = Subscriptions.Get(sub.Uuid);
+
+            fromService.Should().Be(sub);
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public async Task LookupSubscriptionAsync()
+        {
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName()) { Description = "Lookup Subscription Test" };
+            plan.UnitAmountInCents.Add("USD", 1500);
+            plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
+
+            var account = CreateNewAccountWithBillingInfo();
+
+            var sub = new Subscription(account, plan, "USD");
+            await sub.CreateAsync();
+
+            sub.ActivatedAt.Should().HaveValue().And.NotBe(default(DateTime));
+            sub.State.Should().Be(Subscription.SubscriptionState.Active);
+
+            var fromService = await Subscriptions.GetAsync(sub.Uuid);
 
             fromService.Should().Be(sub);
         }
@@ -45,7 +67,7 @@ namespace Recurly.Test
             var sub = new Subscription(account, plan, "USD");
             sub.Create();
             sub.UnitAmountInCents = 3000;
-            
+
             sub.ChangeSubscription(Subscription.ChangeTimeframe.Renewal);
 
             var newSubscription = Subscriptions.Get(sub.Uuid);
@@ -85,7 +107,40 @@ namespace Recurly.Test
 
             var sub1 = Subscriptions.Get(sub.Uuid);
             Assert.Equal(5, sub1.TotalBillingCycles);
+        }
 
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public async Task CreateSubscriptionAsync()
+        {
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
+            {
+                Description = "Create Subscription Test"
+            };
+            plan.UnitAmountInCents.Add("USD", 100);
+            plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
+
+            var account = CreateNewAccountWithBillingInfo();
+
+            var coup = CreateNewCoupon(3);
+            var sub = new Subscription(account, plan, "USD");
+            sub.TotalBillingCycles = 5;
+            sub.Coupon = coup;
+            Assert.Null(sub.TaxInCents);
+            Assert.Null(sub.TaxType);
+            Assert.Null(sub.TaxRate);
+            await sub.CreateAsync();
+
+            sub.ActivatedAt.Should().HaveValue().And.NotBe(default(DateTime));
+            sub.State.Should().Be(Subscription.SubscriptionState.Active);
+            Assert.Equal(5, sub.TotalBillingCycles);
+            Assert.Equal(coup.CouponCode, sub.Coupon.CouponCode);
+            Assert.Equal(9, sub.TaxInCents.Value);
+            Assert.Equal("usst", sub.TaxType);
+            Assert.Equal(0.0875M, sub.TaxRate.Value);
+
+            var sub1 = await Subscriptions.GetAsync(sub.Uuid);
+            Assert.Equal(5, sub1.TotalBillingCycles);
         }
 
         [RecurlyFact(TestEnvironment.Type.Integration)]
@@ -103,13 +158,13 @@ namespace Recurly.Test
 
             for (int i = 1; i < 4; i++)
             {
-              var sub = new Subscription(account, plan, "USD");
-              sub.Bulk = true;
-              sub.Create();
+                var sub = new Subscription(account, plan, "USD");
+                sub.Bulk = true;
+                sub.Create();
 
-              sub.ActivatedAt.Should().HaveValue().And.NotBe(default(DateTime));
-              sub.State.Should().Be(Subscription.SubscriptionState.Active);
- 
+                sub.ActivatedAt.Should().HaveValue().And.NotBe(default(DateTime));
+                sub.State.Should().Be(Subscription.SubscriptionState.Active);
+
             }
 
         }
@@ -171,6 +226,39 @@ namespace Recurly.Test
         }
 
         [RecurlyFact(TestEnvironment.Type.Integration)]
+        public async Task UpdateSubscriptionAsync()
+        {
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
+            {
+                Description = "Update Subscription Plan 1"
+            };
+            plan.UnitAmountInCents.Add("USD", 1500);
+            plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
+
+            var plan2 = new Plan(GetMockPlanCode(), GetMockPlanName())
+            {
+                Description = "Update Subscription Plan 2"
+            };
+            plan2.UnitAmountInCents.Add("USD", 750);
+            plan2.Create();
+            PlansToDeactivateOnDispose.Add(plan2);
+
+            var account = CreateNewAccountWithBillingInfo();
+
+            var sub = new Subscription(account, plan, "USD");
+            await sub.CreateAsync();
+            sub.Plan = plan2;
+
+            await sub.ChangeSubscriptionAsync(); // change "Now" is default
+
+            var newSubscription = Subscriptions.Get(sub.Uuid);
+
+            newSubscription.PendingSubscription.Should().BeNull();
+            newSubscription.Plan.Should().Be(plan2);
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void CancelSubscription()
         {
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
@@ -187,6 +275,28 @@ namespace Recurly.Test
             sub.Create();
 
             sub.Cancel();
+
+            sub.CanceledAt.Should().HaveValue().And.NotBe(default(DateTime));
+            sub.State.Should().Be(Subscription.SubscriptionState.Canceled);
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public async Task CancelSubscriptionAsync()
+        {
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
+            {
+                Description = "Cancel Subscription Test"
+            };
+            plan.UnitAmountInCents.Add("USD", 100);
+            plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
+
+            var account = CreateNewAccountWithBillingInfo();
+
+            var sub = new Subscription(account, plan, "USD");
+            await sub.CreateAsync();
+
+            await sub.CancelAsync();
 
             sub.CanceledAt.Should().HaveValue().And.NotBe(default(DateTime));
             sub.State.Should().Be(Subscription.SubscriptionState.Canceled);
@@ -212,6 +322,30 @@ namespace Recurly.Test
             sub.State.Should().Be(Subscription.SubscriptionState.Canceled);
 
             sub.Reactivate();
+
+            sub.State.Should().Be(Subscription.SubscriptionState.Active);
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public async Task ReactivateSubscriptionAsync()
+        {
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
+            {
+                Description = "Reactivate Subscription Test"
+            };
+            plan.UnitAmountInCents.Add("USD", 100);
+            plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
+
+            var account = CreateNewAccountWithBillingInfo();
+
+            var sub = new Subscription(account, plan, "USD");
+            await sub.CreateAsync();
+
+            await sub.CancelAsync();
+            sub.State.Should().Be(Subscription.SubscriptionState.Canceled);
+
+            await sub.ReactivateAsync();
 
             sub.State.Should().Be(Subscription.SubscriptionState.Active);
         }
@@ -412,7 +546,9 @@ namespace Recurly.Test
                     addOn.UnitAmountInCents.Should().Equals(plan2.UnitAmountInCents["USD"]);
                 }
 
-            } finally {
+            }
+            finally
+            {
                 if (sub != null) sub.Cancel();
                 if (plan2 != null) plan2.Deactivate();
                 if (plan != null) plan.Deactivate();
@@ -446,7 +582,7 @@ namespace Recurly.Test
                     var addon = plan.NewAddOn(name, name);
                     addon.DisplayQuantityOnHostedPage = true;
                     addon.UnitAmountInCents.Add("USD", 1000 + i);
-                    addon.DefaultQuantity = i;
+                    addon.DefaultQuantity = 1;
                     addon.Create();
                     addons.Add(addon);
                 }
@@ -480,15 +616,13 @@ namespace Recurly.Test
                 sub.AddOns.Clear();
                 Assert.Equal(0, sub.AddOns.Count);
 
-                var subaddon = new SubscriptionAddOn("a",1);
+                var subaddon = new SubscriptionAddOn("a", 1);
                 var list = new System.Collections.Generic.List<SubscriptionAddOn>();
                 list.Add(subaddon);
                 sub.AddOns.AddRange(list);
                 Assert.Equal(1, sub.AddOns.Capacity);
 
-                Assert.DoesNotThrow(delegate {
-                    sub.AddOns.AsReadOnly();
-                });
+                sub.AddOns.AsReadOnly();
 
                 Assert.True(sub.AddOns.Contains(subaddon));
 
@@ -499,7 +633,7 @@ namespace Recurly.Test
                 Assert.NotNull(sub.AddOns.FindLast(p));
 
                 int count = 0;
-                sub.AddOns.ForEach(delegate(SubscriptionAddOn s)
+                sub.AddOns.ForEach(delegate (SubscriptionAddOn s)
                 {
                     count++;
                 });
@@ -507,10 +641,8 @@ namespace Recurly.Test
 
                 Assert.Equal(0, sub.AddOns.IndexOf(subaddon));
 
-                Assert.DoesNotThrow(delegate {
-                    sub.AddOns.Reverse();
-                    sub.AddOns.Sort();
-                });
+                sub.AddOns.Reverse();
+                sub.AddOns.Sort();
             }
             finally
             {
@@ -540,10 +672,10 @@ namespace Recurly.Test
             var sub = new Subscription(account, plan, "USD");
             sub.UnitAmountInCents = 100;
             Assert.Null(sub.TaxType);
-            Assert.DoesNotThrow(delegate { sub.Preview(); });
+            sub.Preview();
             Assert.Equal("usst", sub.TaxType);
-            Assert.Equal(Subscription.SubscriptionState.Pending, sub.State);
-            
+            Assert.Equal(Subscription.SubscriptionState.Active, sub.State);
+
             sub.Create();
             Assert.Throws<Recurly.RecurlyException>(
                 delegate
@@ -553,6 +685,33 @@ namespace Recurly.Test
             );
 
             sub.Terminate(Subscription.RefundType.None);
+            account.Close();
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public async Task PreviewSubscriptionAsync()
+        {
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
+            {
+                Description = "Preview Subscription Test"
+            };
+            plan.UnitAmountInCents.Add("USD", 1500);
+            plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
+
+            var account = CreateNewAccountWithBillingInfo();
+
+            var sub = new Subscription(account, plan, "USD");
+            sub.UnitAmountInCents = 100;
+            Assert.Null(sub.TaxType);
+            await sub.PreviewAsync();
+            Assert.Equal("usst", sub.TaxType);
+            Assert.Equal(Subscription.SubscriptionState.Active, sub.State);
+
+            sub.Create();
+
+            await Assert.ThrowsAsync<RecurlyException>(() => sub.PreviewAsync());
+            await sub.TerminateAsync(Subscription.RefundType.None);
             account.Close();
         }
     }

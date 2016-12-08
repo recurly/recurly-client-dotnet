@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
+using Xunit;
 using Xunit.Extensions;
 using AccountState = Recurly.Account.AccountState;
 using AdjustmentState = Recurly.Adjustment.AdjustmentState;
