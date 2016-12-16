@@ -199,7 +199,9 @@ namespace Recurly
                         break;
 
                     case "start_date":
-                        StartDate = reader.ReadElementContentAsDateTime();
+                        DateTime startDate;
+                        if (DateTime.TryParse(reader.ReadElementContentAsString(), out startDate))
+                            StartDate = startDate;                        
                         break;
 
                     case "end_date":
@@ -215,7 +217,9 @@ namespace Recurly
                         break;
 
                     case "updated_at":
-                        UpdatedAt = reader.ReadElementContentAsDateTime();
+                        DateTime updatedAt;
+                        if(DateTime.TryParse(reader.ReadElementContentAsString(), out updatedAt))
+                            UpdatedAt = updatedAt;
                         break;
 
                     case "state":
