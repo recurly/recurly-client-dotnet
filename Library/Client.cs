@@ -4,9 +4,7 @@ using System.IO;
 using System.Net;
 using System.Runtime.CompilerServices;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Xml;
-using System.Web;
 using Recurly.Configuration;
 
 [assembly: InternalsVisibleTo("Recurly.Test")]
@@ -178,7 +176,7 @@ namespace Recurly
 
                 var response = (HttpWebResponse)ex.Response;
                 var statusCode = response.StatusCode;
-                Error[] errors;
+                Errors errors;
 
                 Debug.WriteLine(String.Format("Recurly Library Received: {0} - {1}", (int)statusCode, statusCode));
 
@@ -193,33 +191,33 @@ namespace Recurly
                         return HttpStatusCode.NoContent;
 
                     case HttpStatusCode.NotFound:
-                        errors = Error.ReadResponseAndParseErrors(response);
-                        if (errors.Length > 0)
-                            throw new NotFoundException(errors[0].Message, errors);
+                        errors = Errors.ReadResponseAndParseErrors(response);
+                        if (errors.ValidationErrors.HasAny())
+                            throw new NotFoundException(errors.ValidationErrors[0].Message, errors);
                         throw new NotFoundException("The requested object was not found.", errors);
 
                     case HttpStatusCode.Unauthorized:
                     case HttpStatusCode.Forbidden:
-                        errors = Error.ReadResponseAndParseErrors(response);
+                        errors = Errors.ReadResponseAndParseErrors(response);
                         throw new InvalidCredentialsException(errors);
 
                     case HttpStatusCode.BadRequest:
                     case HttpStatusCode.PreconditionFailed:
-                        errors = Error.ReadResponseAndParseErrors(response);
+                        errors = Errors.ReadResponseAndParseErrors(response);
                         throw new ValidationException(errors);
 
                     case HttpStatusCode.ServiceUnavailable:
                         throw new TemporarilyUnavailableException();
 
                     case HttpStatusCode.InternalServerError:
-                        errors = Error.ReadResponseAndParseErrors(response);
+                        errors = Errors.ReadResponseAndParseErrors(response);
                         throw new ServerException(errors);
                 }
 
                 if ((int)statusCode == ValidationException.HttpStatusCode) // Unprocessable Entity
                 {
-                    errors = Error.ReadResponseAndParseErrors(response);
-                    if (errors.Length > 0) Debug.WriteLine(errors[0].ToString());
+                    errors = Errors.ReadResponseAndParseErrors(response);
+                    if (errors.ValidationErrors.HasAny()) Debug.WriteLine(errors.ValidationErrors[0].ToString());
                     else Debug.WriteLine("Client Error: " + response.ToString());
                     throw new ValidationException(errors);
                 }
@@ -276,7 +274,7 @@ namespace Recurly
                 if (ex.Response == null) throw;
                 var response = (HttpWebResponse)ex.Response;
                 var statusCode = response.StatusCode;
-                Error[] errors;
+                Errors errors;
 
                 Debug.WriteLine(String.Format("Recurly Library Received: {0} - {1}", (int)statusCode, statusCode));
 
@@ -290,31 +288,32 @@ namespace Recurly
                         return null;
 
                     case HttpStatusCode.NotFound:
-                        errors = Error.ReadResponseAndParseErrors(response);
-                        if (errors.Length > 0)
-                            throw new NotFoundException(errors[0].Message, errors);
+                        errors = Errors.ReadResponseAndParseErrors(response);
+
+                        if (errors.ValidationErrors.HasAny())
+                            throw new NotFoundException(errors.ValidationErrors[0].Message, errors);
                         throw new NotFoundException("The requested object was not found.", errors);
 
                     case HttpStatusCode.Unauthorized:
                     case HttpStatusCode.Forbidden:
-                        errors = Error.ReadResponseAndParseErrors(response);
+                        errors = Errors.ReadResponseAndParseErrors(response);
                         throw new InvalidCredentialsException(errors);
 
                     case HttpStatusCode.PreconditionFailed:
-                        errors = Error.ReadResponseAndParseErrors(response);
+                        errors = Errors.ReadResponseAndParseErrors(response);
                         throw new ValidationException(errors);
 
                     case HttpStatusCode.ServiceUnavailable:
                         throw new TemporarilyUnavailableException();
 
                     case HttpStatusCode.InternalServerError:
-                        errors = Error.ReadResponseAndParseErrors(response);
+                        errors = Errors.ReadResponseAndParseErrors(response);
                         throw new ServerException(errors);
                 }
 
                 if ((int)statusCode == ValidationException.HttpStatusCode) // Unprocessable Entity
                 {
-                    errors = Error.ReadResponseAndParseErrors(response);
+                    errors = Errors.ReadResponseAndParseErrors(response);
                     throw new ValidationException(errors);
                 }
 

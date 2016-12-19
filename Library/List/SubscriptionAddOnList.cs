@@ -68,7 +68,7 @@ namespace Recurly
             {
                 throw new ValidationException(
                     "The given AddOn does not have UnitAmountInCents for the currency of the subscription (" + _subscription.Currency + ")."
-                    , null);
+                    , new Errors());
             }
             var sub = new SubscriptionAddOn(planAddOn.AddOnCode, amount, quantity);
             base.Add(sub);

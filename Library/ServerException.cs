@@ -5,7 +5,7 @@
     /// </summary>
     public class ServerException : RecurlyException
     {
-        internal ServerException(Error[] errors)
+        internal ServerException(Errors errors)
             : base("Recurly experienced an internal server error.", errors)
         { }
 
