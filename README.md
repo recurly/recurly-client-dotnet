@@ -105,6 +105,11 @@ var redemption = account.RedeemCoupon("WINTER", "USD");
 Each section of the API (Accounts, Invoices, Transactions, etc.) has static references for getting or listing their
 types and concrete implementations for manipulating concrete objects.
 
+### async/await
+Partial support for async overloads is supported. By convention async enabled method names have the "Async" suffix: `GetSubscriptionAsync(string uuid)`.
+ 
+Note: All async methods deal with IO bound work such as responses to HTTP requests therefore none of the implementations wrap synchronous methods in a background thread via `Task.Run` or other. This will improve responsiveness of desktop applications and scalability of web servers.       
+
 ## Recurly API Documentation
 
 Please see the [Recurly API](https://dev.recurly.com/docs/getting-started) for more information.

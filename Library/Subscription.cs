@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Threading.Tasks;
 using System.Xml;
 
 namespace Recurly
@@ -25,8 +26,8 @@ namespace Recurly
             Live = 32,
             PastDue = 64,
             Pending = 128,
-            Open    = 256,
-            Failed  = 512,
+            Open = 256,
+            Failed = 512,
         }
 
         public enum ChangeTimeframe : short
@@ -70,7 +71,7 @@ namespace Recurly
         }
 
         private Plan _plan;
-     
+
         public Plan Plan
         {
             get { return _plan ?? (_plan = Plans.Get(PlanCode)); }
@@ -207,16 +208,17 @@ namespace Recurly
         /// </summary>
         public Coupon[] Coupons
         {
-            get {
+            get
+            {
                 if (_coupons == null)
                 {
                     _coupons = new Coupon[_couponCodes.Length];
                 }
 
-                if ( _coupons.Length == 0)
+                if (_coupons.Length == 0)
                 {
 
-                    for (int i = 0; i<_couponCodes.Length; i++)
+                    for (int i = 0; i < _couponCodes.Length; i++)
                     {
                         _coupons[i] = Recurly.Coupons.Get(_couponCodes[i]);
                     }
@@ -224,10 +226,11 @@ namespace Recurly
 
                 return _coupons;
             }
-            set {
+            set
+            {
                 _coupons = value;
                 _couponCodes = new string[_coupons.Length];
-                for (int i = 0; i<_coupons.Length; i++)
+                for (int i = 0; i < _coupons.Length; i++)
                 {
                     _couponCodes[i] = _coupons[i].CouponCode;
                 }
@@ -337,6 +340,14 @@ namespace Recurly
                 ReadXml);
         }
 
+        public async Task CreateAsync()
+        {
+            await Client.Instance.PerformRequestAsync(Client.HttpRequestMethod.Post,
+                UrlPrefix,
+                 WriteSubscriptionXml,
+                 ReadXml);
+        }
+
         /// <summary>
         /// Request that an update to a subscription take place
         /// </summary>
@@ -356,9 +367,28 @@ namespace Recurly
                 ReadXml);
         }
 
+        public async Task ChangeSubscriptionAsync(ChangeTimeframe timeframe)
+        {
+            Client.WriteXmlDelegate writeXmlDelegate;
+            if (ChangeTimeframe.Renewal == timeframe)
+                writeXmlDelegate = WriteChangeSubscriptionAtRenewalXml;
+            else
+                writeXmlDelegate = WriteChangeSubscriptionNowXml;
+
+            await Client.Instance.PerformRequestAsync(Client.HttpRequestMethod.Put,
+                  UrlPrefix + Uri.EscapeUriString(Uuid),
+                  writeXmlDelegate,
+                 ReadXml);
+        }
+
         public void ChangeSubscription()
         {
             ChangeSubscription(ChangeTimeframe.Now);
+        }
+
+        public async Task ChangeSubscriptionAsync()
+        {
+            await ChangeSubscriptionAsync(ChangeTimeframe.Now);
         }
 
         /// <summary>
@@ -368,6 +398,13 @@ namespace Recurly
         public void Cancel()
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
+                UrlPrefix + Uri.EscapeUriString(Uuid) + "/cancel",
+                ReadXml);
+        }
+
+        public async Task CancelAsync()
+        {
+            await Client.Instance.PerformRequestAsync(Client.HttpRequestMethod.Put,
                 UrlPrefix + Uri.EscapeUriString(Uuid) + "/cancel",
                 ReadXml);
         }
@@ -382,6 +419,13 @@ namespace Recurly
                 ReadXml);
         }
 
+        public async Task ReactivateAsync()
+        {
+            await Client.Instance.PerformRequestAsync(Client.HttpRequestMethod.Put,
+                UrlPrefix + Uri.EscapeUriString(Uuid) + "/reactivate",
+                ReadXml);
+        }
+
         /// <summary>
         /// Terminates the subscription immediately.
         /// </summary>
@@ -391,6 +435,13 @@ namespace Recurly
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
                 UrlPrefix + Uri.EscapeUriString(Uuid) + "/terminate?refund=" + refund.ToString().EnumNameToTransportCase(),
                 ReadXml);
+        }
+
+        public async Task TerminateAsync(RefundType refund)
+        {
+            await Client.Instance.PerformRequestAsync(Client.HttpRequestMethod.Put,
+                 UrlPrefix + Uri.EscapeUriString(Uuid) + "/terminate?refund=" + refund.ToString().EnumNameToTransportCase(),
+                 ReadXml);
         }
 
         /// <summary>
@@ -413,9 +464,30 @@ namespace Recurly
             _saved = false;
         }
 
+        public async Task PreviewAsync(ChangeTimeframe timeframe)
+        {
+            if (_saved)
+            {
+                throw new Recurly.RecurlyException("Cannot preview an existing subscription.");
+            }
+
+            await Client.Instance.PerformRequestAsync(Client.HttpRequestMethod.Post,
+                UrlPrefix + "preview",
+                WriteSubscriptionXml,
+                ReadXml);
+
+            // this method does not save the object
+            _saved = false;
+        }
+
         public void Preview()
         {
             Preview(ChangeTimeframe.Now);
+        }
+
+        public async Task PreviewAsync()
+        {
+            await PreviewAsync(ChangeTimeframe.Now);
         }
 
         /// <summary>
@@ -446,9 +518,38 @@ namespace Recurly
             return statusCode == HttpStatusCode.NotFound ? null : previewSubscription;
         }
 
+        public virtual async Task<Subscription> PreviewChangeAsync(ChangeTimeframe timeframe)
+        {
+            if (!_saved)
+            {
+                throw new Recurly.RecurlyException("Must have an existing subscription to preview changes.");
+            }
+
+            Client.WriteXmlDelegate writeXmlDelegate;
+
+            if (ChangeTimeframe.Renewal == timeframe)
+                writeXmlDelegate = WriteChangeSubscriptionAtRenewalXml;
+            else
+                writeXmlDelegate = WriteChangeSubscriptionNowXml;
+
+            var previewSubscription = new Subscription();
+
+            var statusCode = await Client.Instance.PerformRequestAsync(Client.HttpRequestMethod.Post,
+                UrlPrefix + Uri.EscapeUriString(Uuid) + "/preview",
+                writeXmlDelegate,
+                previewSubscription.ReadPreviewXml);
+
+            return statusCode == HttpStatusCode.NotFound ? null : previewSubscription;
+        }
+
         public virtual Subscription PreviewChange()
         {
             return PreviewChange(ChangeTimeframe.Now);
+        }
+
+        public virtual async Task<Subscription> PreviewChangeAsync()
+        {
+            return await PreviewChangeAsync(ChangeTimeframe.Now);
         }
 
 
@@ -464,9 +565,31 @@ namespace Recurly
                 ReadXml);
         }
 
+        public async Task PostponeAsync(DateTime nextRenewalDate, bool bulk = false)
+        {
+            await Client.Instance.PerformRequestAsync(Client.HttpRequestMethod.Put,
+                 UrlPrefix + Uri.EscapeUriString(Uuid) + "/postpone?next_renewal_date=" + nextRenewalDate.ToString("yyyy-MM-ddThh:mm:ssZ") + "&bulk=" + bulk.ToString().ToLower(),
+                 ReadXml);
+        }
+
+
         public bool UpdateNotes(Dictionary<string, string> notes)
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
+                UrlPrefix + Uri.EscapeUriString(Uuid) + "/notes",
+                WriteSubscriptionNotesXml(notes),
+                ReadXml);
+
+            CustomerNotes = notes["CustomerNotes"];
+            TermsAndConditions = notes["TermsAndConditions"];
+            VatReverseChargeNotes = notes["VatReverseChargeNotes"];
+
+            return true;
+        }
+
+        public async Task<bool> UpdateNotesAsync(Dictionary<string, string> notes)
+        {
+            await Client.Instance.PerformRequestAsync(Client.HttpRequestMethod.Put,
                 UrlPrefix + Uri.EscapeUriString(Uuid) + "/notes",
                 WriteSubscriptionNotesXml(notes),
                 ReadXml);
@@ -482,6 +605,16 @@ namespace Recurly
         {
             var coupons = new CouponRedemptionList();
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
+                UrlPrefix + Uri.EscapeUriString(Uuid) + "/redemptions/",
+                coupons.ReadXmlList);
+
+            return statusCode == HttpStatusCode.NotFound ? null : coupons;
+        }
+
+        public async Task<RecurlyList<CouponRedemption>> GetRedemptionsAsync()
+        {
+            var coupons = new CouponRedemptionList();
+            var statusCode = await Client.Instance.PerformRequestAsync(Client.HttpRequestMethod.Get,
                 UrlPrefix + Uri.EscapeUriString(Uuid) + "/redemptions/",
                 coupons.ReadXmlList);
 
@@ -643,7 +776,7 @@ namespace Recurly
                         if (Int32.TryParse(reader.ReadElementContentAsString(), out billingCycles))
                             TotalBillingCycles = billingCycles;
                         break;
-                        
+
                     case "remaining_billing_cycles":
                         if (Int32.TryParse(reader.ReadElementContentAsString(), out billingCycles))
                             RemainingBillingCycles = billingCycles;
@@ -675,7 +808,7 @@ namespace Recurly
 
                     case "address":
                         Address = new Address(reader);
-                        break;              
+                        break;
                 }
             }
         }
@@ -728,7 +861,8 @@ namespace Recurly
 
             xmlWriter.WriteStringIfValid("coupon_code", _couponCode);
 
-            if (_couponCodes != null && _couponCodes.Length != 0) {
+            if (_couponCodes != null && _couponCodes.Length != 0)
+            {
                 xmlWriter.WriteStartElement("coupon_codes");
                 foreach (var _coupon_code in _couponCodes)
                 {
@@ -806,7 +940,8 @@ namespace Recurly
             xmlWriter.WriteIfCollectionHasAny("subscription_add_ons", AddOns);
             xmlWriter.WriteStringIfValid("coupon_code", _couponCode);
 
-            if (_couponCodes != null && _couponCodes.Length != 0) {
+            if (_couponCodes != null && _couponCodes.Length != 0)
+            {
                 xmlWriter.WriteStartElement("coupon_codes");
                 foreach (var _coupon_code in _couponCodes)
                 {
@@ -833,7 +968,7 @@ namespace Recurly
 
         internal Client.WriteXmlDelegate WriteSubscriptionNotesXml(Dictionary<string, string> notes)
         {
-            return delegate(XmlTextWriter xmlWriter)
+            return delegate (XmlTextWriter xmlWriter)
             {
                 xmlWriter.WriteStartElement("subscription"); // Start: subscription
 
@@ -892,6 +1027,16 @@ namespace Recurly
         {
             var s = new Subscription();
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
+                Subscription.UrlPrefix + Uri.EscapeUriString(uuid),
+                s.ReadXml);
+
+            return statusCode == HttpStatusCode.NotFound ? null : s;
+        }
+
+        public static async Task<Subscription> GetAsync(string uuid)
+        {
+            var s = new Subscription();
+            var statusCode = await Client.Instance.PerformRequestAsync(Client.HttpRequestMethod.Get,
                 Subscription.UrlPrefix + Uri.EscapeUriString(uuid),
                 s.ReadXml);
 
