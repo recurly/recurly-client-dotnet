@@ -3,9 +3,14 @@ dist: trusty
 mono:
   - 4.0.5
 solution: Recurly.sln
+before_install:
+  - sudo bash -c "echo deb http://badgerports.org precise main >> /etc/apt/sources.list"
+  - sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 0E1FAD0C
+  - sudo apt-get update
+  - sudo apt-get install mono-devel
 install:
   - nuget restore Recurly.sln
-  - nuget install xunit.runners -Version 1.9.2 -OutputDirectory testrunner
+  - nuget install xunit.runner.console -Version 2.1.0 -OutputDirectory testrunner
 script:
   - xbuild /p:Configuration=Release Recurly.sln
-  - mono ./testrunner/xunit.runners.1.9.2/tools/xunit.console.clr4.exe ./Test/bin/Release/Recurly.Test.dll
+  - mono ./testrunner/xunit.runner.console.2.1.0/tools/xunit.console.exe ./Test/bin/Release/Recurly.Test.dll
