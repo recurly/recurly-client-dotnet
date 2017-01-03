@@ -16,6 +16,7 @@ namespace Recurly.Test
             PlansToDeactivateOnDispose.Add(plan);
 
             plan.CreatedAt.Should().NotBe(default(DateTime));
+            plan.TotalBillingCycles.Value.Should().Be(6);
 
             var fromService = Plans.Get(plan.PlanCode);
             fromService.PlanCode.Should().Be(plan.PlanCode);

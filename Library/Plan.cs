@@ -295,6 +295,10 @@ namespace Recurly
                     case "setup_fee_in_cents":
                         ReadXmlSetupFee(reader);
                         break;
+
+                    case "total_billing_cycles":
+                        TotalBillingCycles = reader.ReadElementContentAsInt();
+                        break;
                 }
             }
         }
