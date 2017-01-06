@@ -86,41 +86,25 @@ namespace Recurly
                 , Message, Field, Code, Symbol, Details);
         }
 
-        internal static Error[] ReadResponseAndParseErrors(HttpWebResponse response)
+        internal static Error[] ParseErrors(XmlTextReader xmlReader)
         {
-            if (response == null)
-                return new Error[0];
+ 
+            var errors = new List<Error>();                  
+            bool list = false;
 
-            using (var responseStream = response.GetResponseStream())
+            while (xmlReader.Read())
             {
-                var errors = new List<Error>();              
+                if (xmlReader.Name == "errors" && xmlReader.NodeType == XmlNodeType.EndElement)
+                    break;
 
-                try
-                {
-                    using (var xmlReader = new XmlTextReader(responseStream))
-                    {
-                        bool list = false;
+                if (xmlReader.Name == "errors" && xmlReader.NodeType == XmlNodeType.Element)
+                    list = true;
 
-                        while (xmlReader.Read())
-                        {
-                            if (xmlReader.Name == "errors" && xmlReader.NodeType == XmlNodeType.EndElement)
-                                break;
-
-                            if (xmlReader.Name == "errors" && xmlReader.NodeType == XmlNodeType.Element)
-                                list = true;
-
-                            if (xmlReader.Name == "error" && xmlReader.NodeType == XmlNodeType.Element)
-                                errors.Add(new Error(xmlReader, list));
-                        }
-                    }
-                }
-                catch (XmlException)
-                {
-                    // Do nothing
-                }
-
-                return errors.ToArray();
+                if (xmlReader.Name == "error" && xmlReader.NodeType == XmlNodeType.Element)
+                    errors.Add(new Error(xmlReader, list));
             }
+
+            return errors.ToArray();          
         }
 
         /// <summary>

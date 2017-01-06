@@ -64,6 +64,8 @@
   <ItemGroup>
     <Compile Include="Account.cs" />
     <Compile Include="Address.cs" />
+    <Compile Include="Errors.cs" />
+    <Compile Include="TransactionError.cs" />
     <Compile Include="List\UsageList.cs" />
     <Compile Include="List\ShippingAddressList.cs" />
     <Compile Include="ShippingAddress.cs" />
