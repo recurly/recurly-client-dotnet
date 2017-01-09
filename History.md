@@ -1,6 +1,15 @@
 Unreleased
 ===============
 
+1.4.6 (stable) / 2017-01-09
+===============
+
+* Fix null Datetime Xml reading for Adjustment StartDate and UpdatedAt #199 
+* Parse transaction_error #200 
+* Updated test project to use latest version of Xunit #202
+* Add total_billing_cycles reader #203
+
+
 1.4.5 (stable) / 2016-12-06
 ===============
 
