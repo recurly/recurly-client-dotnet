@@ -1,6 +1,10 @@
 Unreleased
 ===============
 
+Fixes a bug in 1.4.6. Please prefer this release.
+
+* Fix TotalBillingCycles nil value #206
+
 1.4.6 (stable) / 2017-01-09
 ===============
 
