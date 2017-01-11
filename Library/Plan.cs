@@ -297,7 +297,9 @@ namespace Recurly
                         break;
 
                     case "total_billing_cycles":
-                        TotalBillingCycles = reader.ReadElementContentAsInt();
+                        int totalBillingCycles;
+                        if (int.TryParse(reader.ReadElementContentAsString(), out totalBillingCycles))
+                            TotalBillingCycles = totalBillingCycles;
                         break;
                 }
             }
