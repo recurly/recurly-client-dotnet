@@ -14,7 +14,8 @@ namespace Recurly
             Open,
             Collected,
             Failed,
-            PastDue
+            PastDue,
+            Processing
         }
 
         public enum RefundOrderPriority
