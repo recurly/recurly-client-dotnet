@@ -1,6 +1,12 @@
 Unreleased
 ===============
 
+1.4.8 (stable) / 2017-01-20
+===============
+
+* Write amazon_billing_agreement_id #209
+* Added support for new invoice and transactions states for ACH billing #212
+
 1.4.7 (stable) / 2017-01-11
 ===============
 
