@@ -15,7 +15,8 @@ namespace Recurly
             Success,
             Failed,
             Voided,
-            Declined
+            Declined,
+            Scheduled
         }
 
         public enum TransactionType : short

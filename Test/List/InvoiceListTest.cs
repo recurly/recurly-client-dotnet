@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System.Diagnostics;
+using FluentAssertions;
 using Xunit;
 
 namespace Recurly.Test
@@ -95,6 +96,24 @@ namespace Recurly.Test
 
             var list = Invoices.List(Invoice.InvoiceState.PastDue);
             list.Should().NotBeEmpty();
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void GetProcessingInvoices()
+        {
+            var account = CreateNewAccountWithACHBillingInfo();
+            var adjustment = account.NewAdjustment("USD", 510, "ACH invoice test");
+            adjustment.Create();
+            account.InvoicePendingCharges();
+
+            //The invoice starts out as open and then changes to processing 
+            //so we need to wait shortly to experience that
+            System.Threading.Thread.Sleep(1500);
+
+            var list = Invoices.List(account.AccountCode);
+            list.Should().NotBeEmpty();
+            Assert.Equal(1, list.Count);
+            Assert.True(list[0].State == Invoice.InvoiceState.Processing);
         }
 
         [RecurlyFact(TestEnvironment.Type.Integration)]
