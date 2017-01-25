@@ -331,6 +331,16 @@ namespace Recurly
                     xmlWriter.WriteElementString("account_number", AccountNumber);
                     xmlWriter.WriteElementString("account_type", AccountType.ToString().EnumNameToTransportCase());
                 }
+                
+                if (!PaypalBillingAgreementId.IsNullOrEmpty())
+                {
+                    xmlWriter.WriteElementString("paypal_billing_agreement_id", PaypalBillingAgreementId);
+                }
+
+                if (!AmazonBillingAgreementId.IsNullOrEmpty())
+                {
+                    xmlWriter.WriteElementString("amazon_billing_agreement_id", AmazonBillingAgreementId);
+                }
             }
 
             xmlWriter.WriteStringIfValid("token_id", TokenId);

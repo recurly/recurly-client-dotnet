@@ -17,7 +17,7 @@ namespace Recurly
             ReadXml(reader);
         }
 
-        internal Address() { }
+        public Address() { }
 
         internal override void ReadXml(XmlTextReader reader)
         {

@@ -31,11 +31,39 @@ namespace Recurly.Test
             return account;
         }
 
+        protected Account CreateNewAccountWithACHBillingInfo()
+        {
+            var code = GetUniqueAccountCode();
+            var account = new Account(code, NewACHBillingInfo(code));
+            account.Create();
+            return account;
+        }
+
         protected Account NewAccountWithBillingInfo()
         {
             var code = GetUniqueAccountCode();
             var account = new Account(code, NewBillingInfo(code));
             return account;
+        }
+
+        protected BillingInfo NewACHBillingInfo(string accountCode)
+        {
+            //test account #'s at https://docs.recurly.com/docs/test
+            var info = new BillingInfo(accountCode)
+            {
+                NameOnAccount = "Acme, Inc.",
+                RoutingNumber = "123456780",
+                //Transaction was cancelled by the bank.
+                //An invoice will immediately be open then switch to processing state
+                AccountNumber = "111111113",
+                AccountType = BillingInfo.BankAccountType.Checking,
+                Address1 = "123 Main St.",
+                City = "San Francisco",
+                State = "CA",
+                Country = "US",
+                PostalCode = "94105"
+            };
+            return info;
         }
 
         protected Coupon CreateNewCoupon(int discountPercent)

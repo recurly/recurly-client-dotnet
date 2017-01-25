@@ -1,6 +1,50 @@
 Unreleased
 ===============
 
+1.4.8 (stable) / 2017-01-20
+===============
+
+* Write amazon_billing_agreement_id #209
+* Added support for new invoice and transactions states for ACH billing #212
+
+1.4.7 (stable) / 2017-01-11
+===============
+
+Fixes a bug in 1.4.6. Please prefer this release.
+
+* Fix TotalBillingCycles nil value #206
+
+1.4.6 (stable) / 2017-01-09
+===============
+
+* Fix null Datetime Xml reading for Adjustment StartDate and UpdatedAt #199 
+* Parse transaction_error #200 
+* Updated test project to use latest version of Xunit #202
+* Add total_billing_cycles reader #203
+
+
+1.4.5 (stable) / 2016-12-06
+===============
+
+* allow addresses to be null, and don't force-create one when fetching #186
+* Update BillingInfo.cs (Adding PayPal) #191
+* Add Invoice Create and Preview data #193
+* Make PoNumber always available to write on Subscription #194
+
+1.4.4 (stable) / 2016-11-17
+===============
+
+* fixed; Allow skip trial period by setting date in the past
+* added; Add .vscode to gitignore
+* added; UsageList class
+
+1.4.3 (stable) / 2016-10-21
+===============
+
+* fixed; NetTerms null exception for manual subscriptions
+* added; Subscription.SubscriptionState.Failed
+* added; Support for free trial coupons
+
 1.4.2 (stable) / 2016-10-03
 ==================
 

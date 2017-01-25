@@ -25,7 +25,8 @@ namespace Recurly
             Live = 32,
             PastDue = 64,
             Pending = 128,
-            Open    = 256
+            Open    = 256,
+            Failed  = 512,
         }
 
         public enum ChangeTimeframe : short
@@ -81,6 +82,23 @@ namespace Recurly
         }
 
         public string PlanCode { get; private set; }
+
+        private ShippingAddress _shippingAddress;
+
+        public ShippingAddress ShippingAddress
+        {
+            get { return _shippingAddress; }
+            set
+            {
+                if (value.Id.HasValue)
+                {
+                    ShippingAddressId = value.Id.Value;
+                }
+                _shippingAddress = value;
+            }
+        }
+
+        public long? ShippingAddressId { get; set; }
 
         public string Uuid { get; private set; }
 
@@ -143,8 +161,6 @@ namespace Recurly
             {
                 if (ActivatedAt.HasValue)
                     throw new InvalidOperationException("Cannot set TrialPeriodEndsAt on existing subscriptions.");
-                if (value.HasValue && (value < DateTime.UtcNow))
-                    throw new ArgumentException("TrialPeriodEndsAt must occur in the future.");
 
                 _trialPeriodEndsAt = value;
             }
@@ -659,7 +675,7 @@ namespace Recurly
 
                     case "address":
                         Address = new Address(reader);
-                        break;
+                        break;              
                 }
             }
         }
@@ -724,6 +740,7 @@ namespace Recurly
             xmlWriter.WriteElementString("customer_notes", CustomerNotes);
             xmlWriter.WriteElementString("terms_and_conditions", TermsAndConditions);
             xmlWriter.WriteElementString("vat_reverse_charge_notes", VatReverseChargeNotes);
+            xmlWriter.WriteElementString("po_number", PoNumber);
 
             if (UnitAmountInCents.HasValue)
                 xmlWriter.WriteElementString("unit_amount_in_cents", UnitAmountInCents.Value.AsString());
@@ -751,11 +768,17 @@ namespace Recurly
             if (CollectionMethod.Like("manual"))
             {
                 xmlWriter.WriteElementString("collection_method", "manual");
-                xmlWriter.WriteElementString("net_terms", NetTerms.Value.AsString());
-                xmlWriter.WriteElementString("po_number", PoNumber);
+
+                if (NetTerms.HasValue)
+                    xmlWriter.WriteElementString("net_terms", NetTerms.Value.AsString());
             }
             else if (CollectionMethod.Like("automatic"))
                 xmlWriter.WriteElementString("collection_method", "automatic");
+
+            if (ShippingAddressId.HasValue)
+            {
+                xmlWriter.WriteElementString("shipping_address_id", ShippingAddressId.Value.ToString());
+            }
 
             // <account> and billing info
             Account.WriteXml(xmlWriter);

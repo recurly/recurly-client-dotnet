@@ -11,11 +11,11 @@
         /// </summary>
         internal const int HttpStatusCode = 422;
 
-        internal ValidationException(Error[] errors)
+        internal ValidationException(Errors errors)
             : base("The information being saved is not valid.", errors)
         { }
 
-        internal ValidationException(string message, Error[] errors)
+        internal ValidationException(string message, Errors errors)
             : base(message, errors)
         { }
     }
