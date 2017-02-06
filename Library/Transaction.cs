@@ -16,7 +16,11 @@ namespace Recurly
             Failed,
             Voided,
             Declined,
-            Scheduled
+            Scheduled,
+            Pending,
+            Processing,
+            Error,
+            Chargeback
         }
 
         public enum TransactionType : short
@@ -26,7 +30,8 @@ namespace Recurly
             Authorization,
             Purchase,
             Refund,
-            Verify
+            Verify,
+            Capture
         }
 
         public string Uuid { get; private set; }
