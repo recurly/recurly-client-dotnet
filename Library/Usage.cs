@@ -1,10 +1,7 @@
 ﻿using Recurly.List;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace Recurly
@@ -206,10 +203,48 @@ namespace Recurly
         }
 
         #endregion
+    }
 
-        public static RecurlyList<Usage> List(String subscriptionUuid, String subscriptionAddOnCode)
+    public sealed class Usages
+    {
+        private static readonly QueryStringBuilder Build = new QueryStringBuilder();
+
+        /// <summary>
+        /// Lists usages by status and/or time. Defaults to all.
+        /// </summary>
+        /// <param name="billingState"></param>
+        /// <param name="dateTimeType"></param>
+        /// <param name="startDateTime"></param>
+        /// <param name="endDateTime"></param>
+        /// <returns></returns>
+        public static RecurlyList<Usage> List(string subscriptionUuid,
+            string subscriptionAddOnCode,
+            UsageList.UsageBillingState billingState = UsageList.UsageBillingState.All,
+            UsageList.UsageDateTimeType dateTimeType = UsageList.UsageDateTimeType.All,
+            DateTime? startDateTime = null,
+            DateTime? endDateTime = null)
         {
-            return new UsageList(UrlPrefix(subscriptionUuid, subscriptionAddOnCode));
+            return new UsageList("/subscriptions/" + Uri.EscapeUriString(subscriptionUuid) +
+                "/add_ons/" + Uri.EscapeUriString(subscriptionAddOnCode) + 
+                "/usage" +
+                Build.QueryStringWith("billing_status=" + billingState.ToString().EnumNameToTransportCase())
+                .AndWith(dateTimeType != UsageList.UsageDateTimeType.All ? "datetime_type=" + dateTimeType.ToString().EnumNameToTransportCase() : "")
+                .AndWith(startDateTime != null ? "start_datetime=" + Uri.EscapeUriString(startDateTime.Value.ToString("s")) : "")
+                .AndWith(endDateTime != null ? "end_datetime=" + Uri.EscapeUriString(endDateTime.Value.ToString("s")) : "")
+            );
+        }
+
+        public static Usage Get(string subscriptionUuid, string subscriptionAddOnCode, long usageId)
+        {
+            var usage = new Usage();
+
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
+                "/subscriptions/" + Uri.EscapeUriString(subscriptionUuid) +
+                "/add_ons/" + Uri.EscapeUriString(subscriptionAddOnCode) +
+                "/usage/" + usageId.ToString(),
+                usage.ReadXml);
+
+            return statusCode == HttpStatusCode.NotFound ? null : usage;
         }
     }
 
