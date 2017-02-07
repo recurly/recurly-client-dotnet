@@ -392,7 +392,19 @@ namespace Recurly
         /// <returns></returns>
         public static RecurlyList<Plan> List()
         {
-            return new PlanList(Plan.UrlPrefix);
+            return List(null);
+        }
+
+        /// <summary>
+        /// Lists accounts, limited to state
+        /// </summary>
+        /// <param name="state">Account state to retrieve</param>
+        /// <param name="filter">FilterCriteria used to apply server side sorting and filtering</param>
+        /// <returns></returns>
+        public static RecurlyList<Plan> List(FilterCriteria filter)
+        {
+            filter = filter.Equals(null) ? FilterCriteria.Instance : filter;
+            return new PlanList(Plan.UrlPrefix + "?" + filter.ToNamedValueCollection().ToString());
         }
 
         /// <summary>

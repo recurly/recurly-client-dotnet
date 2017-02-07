@@ -176,9 +176,28 @@ namespace Recurly
 
         #endregion
 
+        /// <summary>
+        /// Lists usages
+        /// </summary>
+        /// <param name="subscriptionUuid">uuid of the Subscription</param>
+        /// <param name="subscriptionAddOnCode">add on code of the Subscription</param>
+        /// <returns></returns>
         public static RecurlyList<Usage> List(String subscriptionUuid, String subscriptionAddOnCode)
         {
             return new UsageList(UrlPrefix(subscriptionUuid, subscriptionAddOnCode));
+        }
+
+        /// <summary>
+        /// Lists usages
+        /// </summary>
+        /// <param name="subscriptionUuid">uuid of the Subscription</param>
+        /// <param name="subscriptionAddOnCode">add on code of the Subscription</param>
+        /// <param name="filter">FilterCriteria used to apply server side sorting and filtering</param>
+        /// <returns></returns>
+        public static RecurlyList<Usage> List(String subscriptionUuid, String subscriptionAddOnCode, FilterCriteria filter)
+        {
+            filter = filter.Equals(null) ? FilterCriteria.Instance : filter;
+            return new UsageList(UrlPrefix(subscriptionUuid, subscriptionAddOnCode) + "?" + filter.ToNamedValueCollection().ToString());
         }
     }
 }
