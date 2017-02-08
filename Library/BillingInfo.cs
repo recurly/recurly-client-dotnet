@@ -17,6 +17,11 @@ namespace Recurly
             Discover,
             JCB,
             DinersClub
+            Danokrt,
+            Maestro,
+            Forbrugsforeningen,
+            Laser,
+            Unknown
         }
 
         public enum BankAccountType : short

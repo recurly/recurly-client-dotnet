@@ -10,7 +10,8 @@ namespace Recurly
             All = 0,
             Successful,
             Failed,
-            Voided
+            Voided,
+            Chargeback
         }
 
         public enum TransactionType : short

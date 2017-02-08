@@ -1,7 +1,12 @@
 Unreleased
 ===============
 
-1.4.8 (stable) / 2017-01-20
+1.4.10 (stable) / 2017-02-06
+===============
+
+* Add missing enum values #215
+
+1.4.9 (stable) / 2017-01-20
 ===============
 
 * Write amazon_billing_agreement_id #209
