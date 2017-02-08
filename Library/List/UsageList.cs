@@ -1,6 +1,6 @@
 ﻿using System.Xml;
 
-namespace Recurly.List
+namespace Recurly
 {
     public class UsageList : RecurlyList<Usage>
     {
