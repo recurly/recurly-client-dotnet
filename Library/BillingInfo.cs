@@ -16,7 +16,6 @@ namespace Recurly
             AmericanExpress,
             Discover,
             JCB,
-            DinersClub
             Danokrt,
             Maestro,
             Forbrugsforeningen,
