@@ -478,6 +478,17 @@ namespace Recurly
             return true;
         }
 
+        /// <summary>
+        /// Generates a fresh subscription object which you can set changes on
+        /// </summary>
+        public Subscription GenerateChangeSubscription()
+        {
+            var sub = new Subscription();
+            sub.Uuid = Uuid;
+            sub._saved = true;
+            return sub;
+        }
+
         public RecurlyList<CouponRedemption> GetRedemptions()
         {
             var coupons = new CouponRedemptionList();
