@@ -454,7 +454,7 @@ namespace Recurly
 
         public override int GetHashCode()
         {
-            return AccountCode.GetHashCode();
+            return AccountCode?.GetHashCode() ?? 0;
         }
 
         #endregion

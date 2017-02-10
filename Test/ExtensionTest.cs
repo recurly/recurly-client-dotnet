@@ -18,6 +18,13 @@ namespace Recurly.Test
         private const string WhiteSpaceString = "  \n  ";
 
         [Fact]
+        public void HashCode_works_on_null_uuid()
+        {
+            var s = new Subscription();
+            s.GetHashCode();
+        }
+
+        [Fact]
         public void Enum_Is_detects_overlap()
         {
             const AccountState state = AccountState.Active | AccountState.PastDue;
