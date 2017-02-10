@@ -346,7 +346,7 @@ namespace Recurly
             if (BypassHostedConfirmation.HasValue)
                 xmlWriter.WriteElementString("bypass_hosted_confirmation", BypassHostedConfirmation.Value.AsString());
 
-            if (TaxExempt.HasValue)
+            if(TaxExempt.HasValue)
                 xmlWriter.WriteElementString("tax_exempt", TaxExempt.Value.AsString());
 
             xmlWriter.WriteStringIfValid("success_url", SuccessUrl);
@@ -378,7 +378,7 @@ namespace Recurly
 
         public override int GetHashCode()
         {
-            return PlanCode?.GetHashCode() ?? 0;
+            return PlanCode.GetHashCode();
         }
 
         #endregion

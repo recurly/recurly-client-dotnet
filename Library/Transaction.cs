@@ -321,7 +321,7 @@ namespace Recurly
 
         public override int GetHashCode()
         {
-            return Uuid?.GetHashCode() ?? 0;
+            return Uuid.GetHashCode();
         }
 
         #endregion

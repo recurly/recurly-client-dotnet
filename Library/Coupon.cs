@@ -510,7 +510,7 @@ namespace Recurly
 
         public override int GetHashCode()
         {
-            return CouponCode?.GetHashCode() ?? 0;
+            return CouponCode.GetHashCode();
         }
 
         #endregion
