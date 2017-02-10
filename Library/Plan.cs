@@ -378,7 +378,7 @@ namespace Recurly
 
         public override int GetHashCode()
         {
-            return PlanCode.GetHashCode();
+            return PlanCode?.GetHashCode() ?? 0;
         }
 
         #endregion
