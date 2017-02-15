@@ -9,7 +9,7 @@ namespace Recurly.Test
             get
             {
                 var returnSettings = new Settings();
-                returnSettings.Initialize("8f1359864cfa4f378542d639e655229c", "client-lib-test",
+                returnSettings.Initialize("a14307396dde4ecc86cd5c75b844151e", "bhelx",
                     "382c053318a04154905c4d27a48f74a6", 50);
                 return returnSettings;
             }
