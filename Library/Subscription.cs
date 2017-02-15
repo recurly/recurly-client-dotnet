@@ -481,7 +481,7 @@ namespace Recurly
         /// <summary>
         /// Generates a fresh subscription object which you can set changes on
         /// </summary>
-        public Subscription GenerateChangeSubscription()
+        public Subscription GenerateChange()
         {
             var sub = new Subscription();
             sub.Uuid = Uuid;
@@ -756,7 +756,10 @@ namespace Recurly
             if (UnitAmountInCents.HasValue)
                 xmlWriter.WriteElementString("unit_amount_in_cents", UnitAmountInCents.Value.AsString());
 
-            xmlWriter.WriteElementString("quantity", Quantity.AsString());
+            // TODO change Quantity to int? in next version
+            if (Quantity > 0) {
+                xmlWriter.WriteElementString("quantity", Quantity.AsString());
+            }
 
             if (TrialPeriodEndsAt.HasValue)
                 xmlWriter.WriteElementString("trial_ends_at", TrialPeriodEndsAt.Value.ToString("s"));
@@ -812,10 +815,15 @@ namespace Recurly
             xmlWriter.WriteStartElement("subscription"); // Start: subscription
 
             xmlWriter.WriteElementString("timeframe", timeframe.ToString().EnumNameToTransportCase());
-            xmlWriter.WriteElementString("quantity", Quantity.AsString());
             xmlWriter.WriteStringIfValid("plan_code", PlanCode);
             xmlWriter.WriteIfCollectionHasAny("subscription_add_ons", AddOns);
             xmlWriter.WriteStringIfValid("coupon_code", _couponCode);
+
+            // TODO change Quantity to int? in next version
+            if (Quantity > 0)
+            {
+                xmlWriter.WriteElementString("quantity", Quantity.AsString());
+            }
 
             if (_couponCodes != null && _couponCodes.Length != 0) {
                 xmlWriter.WriteStartElement("coupon_codes");
