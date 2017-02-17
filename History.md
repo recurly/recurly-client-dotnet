@@ -1,6 +1,12 @@
 Unreleased
 ===============
 
+1.4.11 (stable) / 2017-02-16
+===============
+
+* Automated export feature #221
+* Modified overridden gethashcode to work on null references #220
+
 1.4.10 (stable) / 2017-02-06
 ===============
 
