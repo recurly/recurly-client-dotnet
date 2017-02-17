@@ -65,6 +65,9 @@
     <Compile Include="Account.cs" />
     <Compile Include="Address.cs" />
     <Compile Include="Errors.cs" />
+    <Compile Include="Export.cs" />
+    <Compile Include="List\ExportDateList.cs" />
+    <Compile Include="List\ExportFileList.cs" />
     <Compile Include="TransactionError.cs" />
     <Compile Include="List\UsageList.cs" />
     <Compile Include="List\ShippingAddressList.cs" />
