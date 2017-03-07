@@ -58,6 +58,110 @@ namespace Recurly.Test
         }
 
         [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void InvoicePendingChargesWithNotes()
+        {
+            var account = CreateNewAccount();
+
+            var adjustment = account.NewAdjustment("USD", 5000, "Test Charge");
+            adjustment.Create();
+
+            adjustment = account.NewAdjustment("USD", 5000, "Test Charge 2");
+            adjustment.Create();
+
+            adjustment = account.NewAdjustment("USD", -2500, "Test Credit");
+            adjustment.Create();
+
+            var invoice = account.InvoicePendingCharges(new Invoice
+            {
+                CustomerNotes = "Some customer notes",
+                TermsAndConditions = "Some terms and conditions",
+                VatReverseChargeNotes = "Some vat reverse charge notes",
+                CollectionMethod = "manual",
+                NetTerms = 5,
+                PoNumber = "Some po number"
+            });
+
+            Assert.NotNull(invoice);
+            Assert.Equal(invoice.CustomerNotes, "Some customer notes");
+            Assert.Equal(invoice.TermsAndConditions, "Some terms and conditions");
+            Assert.Equal(invoice.VatReverseChargeNotes, "Some vat reverse charge notes");
+            Assert.Equal(invoice.CollectionMethod, "manual");
+            Assert.Equal(invoice.NetTerms, 5);
+            Assert.Equal(invoice.PoNumber, "Some po number");
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void InvoicePendingCharges()
+        {
+            var account = CreateNewAccount();
+
+            var adjustment = account.NewAdjustment("USD", 5000, "Test Charge");
+            adjustment.Create();
+
+            adjustment = account.NewAdjustment("USD", 5000, "Test Charge 2");
+            adjustment.Create();
+
+            adjustment = account.NewAdjustment("USD", -2500, "Test Credit");
+            adjustment.Create();
+
+            var invoice = account.InvoicePendingCharges();
+
+            Assert.NotNull(invoice);
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void PreviewInvoicePendingChargesWithNotes()
+        {
+            var account = CreateNewAccount();
+
+            var adjustment = account.NewAdjustment("USD", 5000, "Test Charge");
+            adjustment.Create();
+
+            adjustment = account.NewAdjustment("USD", 5000, "Test Charge 2");
+            adjustment.Create();
+
+            adjustment = account.NewAdjustment("USD", -2500, "Test Credit");
+            adjustment.Create();
+
+            var invoice = account.PreviewInvoicePendingCharges(new Invoice
+            {
+                CustomerNotes = "Some customer notes",
+                TermsAndConditions = "Some terms and conditions",
+                VatReverseChargeNotes = "Some vat reverse charge notes",
+                CollectionMethod = "manual",
+                NetTerms = 5,
+                PoNumber = "Some po number"
+            });
+
+            Assert.NotNull(invoice);
+            Assert.Equal(invoice.CustomerNotes, "Some customer notes");
+            Assert.Equal(invoice.TermsAndConditions, "Some terms and conditions");
+            Assert.Equal(invoice.VatReverseChargeNotes, "Some vat reverse charge notes");
+            Assert.Equal(invoice.CollectionMethod, "manual");
+            Assert.Equal(invoice.NetTerms, 5);
+            Assert.Equal(invoice.PoNumber, "Some po number");
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void PreviewInvoicePendingCharges()
+        {
+            var account = CreateNewAccount();
+
+            var adjustment = account.NewAdjustment("USD", 5000, "Test Charge");
+            adjustment.Create();
+
+            adjustment = account.NewAdjustment("USD", 5000, "Test Charge 2");
+            adjustment.Create();
+
+            adjustment = account.NewAdjustment("USD", -2500, "Test Credit");
+            adjustment.Create();
+
+            var invoice = account.PreviewInvoicePendingCharges();
+
+            Assert.NotNull(invoice);
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void MarkSuccessful()
         {
             var account = CreateNewAccount();

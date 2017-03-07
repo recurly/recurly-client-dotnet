@@ -162,11 +162,12 @@ namespace Recurly
         /// <summary>
         /// Posts pending charges on an account
         /// </summary>
-        public Invoice InvoicePendingCharges()
+        public Invoice InvoicePendingCharges(Invoice invoice = null)
         {
-            var i = new Invoice();
+            var i = invoice ?? new Invoice();
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 UrlPrefix + Uri.EscapeUriString(AccountCode) + "/invoices",
+                i.WriteXml,
                 i.ReadXml);
 
             return i;
@@ -175,11 +176,12 @@ namespace Recurly
         /// <summary>
         /// Previews a new invoice for the pending charges on an account
         /// </summary>
-        public Invoice PreviewInvoicePendingCharges()
+        public Invoice PreviewInvoicePendingCharges(Invoice invoice = null)
         {
-            var i = new Invoice();
+            var i = invoice ?? new Invoice();
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 UrlPrefix + Uri.EscapeUriString(AccountCode) + "/invoices/preview",
+                i.WriteXml,
                 i.ReadXml);
 
             return i;
