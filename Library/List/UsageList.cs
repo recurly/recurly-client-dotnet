@@ -4,22 +4,26 @@ namespace Recurly
 {
     public class UsageList : RecurlyList<Usage>
     {
-        public UsageList(string url) : base(Client.HttpRequestMethod.Get, url)
+        public enum UsageBillingState : short
+        {
+            All = 0,
+            Unbilled,
+            Billed
+        }
+
+        public enum UsageDateTimeType : short
+        {
+            All = 0,
+            Usage,
+            Recording
+        }
+
+        internal UsageList()
         {
         }
 
-        internal override void ReadXml(XmlTextReader reader)
+        internal UsageList(string baseUrl) : base(Client.HttpRequestMethod.Get, baseUrl)
         {
-            while (reader.Read())
-            {
-                if ((reader.Name == "usages") && reader.NodeType == XmlNodeType.EndElement)
-                    break;
-
-                if (reader.NodeType == XmlNodeType.Element && reader.Name == "usage")
-                {
-                    Add(new Usage(reader));
-                }
-            }
         }
 
         public override RecurlyList<Usage> Start
@@ -35,6 +39,20 @@ namespace Recurly
         public override RecurlyList<Usage> Prev
         {
             get { return HasPrevPage() ? new UsageList(PrevUrl) : RecurlyList.Empty<Usage>(); }
+        }
+
+        internal override void ReadXml(XmlTextReader reader)
+        {
+            while (reader.Read())
+            {
+                if (reader.Name == "usages" && reader.NodeType == XmlNodeType.EndElement)
+                    break;
+
+                if (reader.NodeType == XmlNodeType.Element && reader.Name == "usage")
+                {
+                    Add(new Usage(reader));
+                }
+            }
         }
     }
 }
