@@ -512,7 +512,21 @@ namespace Recurly
         /// <returns></returns>
         public static RecurlyList<Account> List(Account.AccountState state = Account.AccountState.Active)
         {
-            return new AccountList(Account.UrlPrefix + "?state=" + state.ToString().EnumNameToTransportCase());
+            return List(state, null);
+        }
+
+        /// <summary>
+        /// Lists accounts, limited to state
+        /// </summary>
+        /// <param name="state">Account state to retrieve</param>
+        /// <param name="filter">FilterCriteria used to apply server side sorting and filtering</param>
+        /// <returns></returns>
+        public static RecurlyList<Account> List(Account.AccountState state, FilterCriteria filter)
+        {
+            filter = filter.Equals(null) ? FilterCriteria.Instance : filter;
+            var parameters = filter.ToNamedValueCollection();
+            parameters["state"] = state.ToString().EnumNameToTransportCase();
+            return new AccountList(Account.UrlPrefix + "?" + parameters.ToString());
         }
     }
 }

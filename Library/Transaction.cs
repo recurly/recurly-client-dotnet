@@ -339,10 +339,32 @@ namespace Recurly
         public static RecurlyList<Transaction> List(TransactionList.TransactionState state = TransactionList.TransactionState.All,
             TransactionList.TransactionType type = TransactionList.TransactionType.All)
         {
-            return new TransactionList("/transactions/" +
-                Build.QueryStringWith(state != TransactionList.TransactionState.All ? "state=" +state.ToString().EnumNameToTransportCase() : "")
-                .AndWith(type != TransactionList.TransactionType.All ? "type=" +type.ToString().EnumNameToTransportCase() : "")
-            );
+            return List(state, type, null);
+        }
+
+        /// <summary>
+        /// Lists transactions by state and type. Defaults to all.
+        /// </summary>
+        /// <param name="state"></param>
+        /// <param name="type"></param>
+        /// <param name="filter">FilterCriteria used to apply server side sorting and filtering</param>
+        /// <returns></returns>
+        public static RecurlyList<Transaction> List(TransactionList.TransactionState state,
+            TransactionList.TransactionType type,
+            FilterCriteria filter)
+        {
+            filter = filter.Equals(null) ? FilterCriteria.Instance : filter;
+            var parameters = filter.ToNamedValueCollection();
+            if (state != TransactionList.TransactionState.All)
+            {
+                parameters["state"] = state.ToString().EnumNameToTransportCase();
+            }
+            if (type != TransactionList.TransactionType.All)
+            {
+                parameters["type"] = type.ToString().EnumNameToTransportCase();
+            }
+
+            return new TransactionList(Transaction.UrlPrefix + "?" + parameters.ToString());
         }
 
         public static Transaction Get(string transactionId)

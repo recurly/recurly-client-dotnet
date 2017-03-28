@@ -64,6 +64,7 @@
   <ItemGroup>
     <Compile Include="Account.cs" />
     <Compile Include="Address.cs" />
+    <Compile Include="FilterCriteria.cs" />
     <Compile Include="Errors.cs" />
     <Compile Include="Export.cs" />
     <Compile Include="List\ExportDateList.cs" />
