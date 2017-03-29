@@ -80,6 +80,7 @@ namespace Recurly
         public int? Invoice { get; private set; }
         public string InvoicePrefix { get; private set; }
 
+
         public string InvoiceNumberWithPrefix()
         {
             return InvoicePrefix + Convert.ToString(Invoice);

@@ -65,6 +65,10 @@ namespace Recurly
         public string CustomerNotes { get; set; }
         public string TermsAndConditions { get; set; }
         public string VatReverseChargeNotes { get; set; }
+        public int SubtotalAfterDiscountInCents { get; set; }
+        public DateTime? AttemptNextCollectionAt { get; set; }
+        public string RecoveryReason { get; set; }
+        public string AllLineItemsLink { get; set; }
 
         internal const string UrlPrefix = "/invoices/";
 
@@ -362,6 +366,27 @@ namespace Recurly
                     case "address":
                         Address = new Address(reader);
                         break;
+
+                    case "subtotal_after_discount_in_cents":
+                        int s;
+                        if (int.TryParse(reader.ReadElementContentAsString(), out s))
+                            SubtotalAfterDiscountInCents = s;
+                        break;
+
+                    case "attempt_next_collection_at":
+                        DateTime d;
+                        if (DateTime.TryParse(reader.ReadElementContentAsString(), out d))
+                            AttemptNextCollectionAt = d;
+                        break;
+
+                    case "recovery_reason":
+                        RecoveryReason = reader.ReadElementContentAsString();
+                        break;
+
+                    case "all_line_items":
+                        AllLineItemsLink = reader.ReadElementContentAsString();
+                        break;
+
                 }
             }
         }
