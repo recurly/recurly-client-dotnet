@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Xml;
 using HttpRequestMethod = Recurly.Client.HttpRequestMethod;
@@ -229,6 +230,18 @@ namespace Recurly
 
     public class RecurlyList
     {
+        public enum Sort
+        {
+            CreatedAt,
+            UpdatedAt
+        }
+
+        public enum Order
+        {
+            Asc,
+            Desc
+        }
+
         public static RecurlyList<T> Empty<T>() where T : RecurlyEntity
         {
             return EmptyRecurlyList<T>.Instance;

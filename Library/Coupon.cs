@@ -548,7 +548,24 @@ namespace Recurly
         /// <returns></returns>
         public static RecurlyList<Coupon> List(Coupon.CouponState state = Coupon.CouponState.All)
         {
-            return new CouponList(Coupon.UrlPrefix + (state != Coupon.CouponState.All ? "?state=" + state.ToString().EnumNameToTransportCase() : ""));
+            return List(state, null);
+        }
+
+        /// <summary>
+        /// Lists coupons, limited to state and filtered by given criteria
+        /// </summary>
+        /// <param name="state">Coupon state to retrieve</param>
+        /// <param name="filter">FilterCriteria used to apply server side sorting and filtering</param>
+        /// <returns></returns>
+        public static RecurlyList<Coupon> List(Coupon.CouponState state, FilterCriteria filter)
+        {
+            filter = filter.Equals(null) ? FilterCriteria.Instance : filter;
+            var parameters = filter.ToNamedValueCollection();
+            if (state != Coupon.CouponState.All)
+            {
+                parameters["state"] = state.ToString().EnumNameToTransportCase();
+            }
+            return new CouponList(Coupon.UrlPrefix + "?" + parameters.ToString());
         }
     }
 }

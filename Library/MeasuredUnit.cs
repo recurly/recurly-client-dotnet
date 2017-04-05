@@ -143,6 +143,9 @@ namespace Recurly
 
     public sealed class MeasuredUnits
     {
+        /// <summary>
+        /// Lists measured units
+        /// </summary>
         public static RecurlyList<MeasuredUnit> List()
         {
             return new MeasuredUnitList("/measured_units/");

@@ -459,7 +459,6 @@ namespace Recurly
             return PreviewChange(ChangeTimeframe.Now);
         }
 
-
         /// <summary>
         /// For an active subscription, this will pause the subscription until the specified date.
         /// </summary>
@@ -903,7 +902,23 @@ namespace Recurly
         /// <returns></returns>
         public static RecurlyList<Subscription> List(Subscription.SubscriptionState state = Subscription.SubscriptionState.Live)
         {
-            return new SubscriptionList(Subscription.UrlPrefix + "?state=" + state.ToString().EnumNameToTransportCase());
+            return List(state, null);
+        }
+
+        /// <summary>
+        /// Returns a list of recurly subscriptions
+        ///
+        /// A subscription will belong to more than one state.
+        /// </summary>
+        /// <param name="state">State of subscriptions to return, defaults to "live"</param>
+        /// <param name="filter">FilterCriteria used to apply server side sorting and filtering</param>
+        /// <returns></returns>
+        public static RecurlyList<Subscription> List(Subscription.SubscriptionState state, FilterCriteria filter)
+        {
+            filter = filter.Equals(null) ? FilterCriteria.Instance : filter;
+            var parameters = filter.ToNamedValueCollection();
+            parameters["state"] = state.ToString().EnumNameToTransportCase();
+            return new SubscriptionList(Subscription.UrlPrefix + "?" + parameters.ToString());
         }
 
         public static Subscription Get(string uuid)
