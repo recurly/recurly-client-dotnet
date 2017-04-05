@@ -127,6 +127,11 @@ namespace Recurly
 
         public string TokenId { get; set; }
 
+        /// <summary>
+        /// Timestamp representing the last update of this billing info
+        /// </summary>
+        public DateTime UpdatedAt { get; set; }
+
         private const string UrlPrefix = "/accounts/";
         private const string UrlPostfix = "/billing_info";
 
@@ -264,7 +269,7 @@ namespace Recurly
                     case "year":
                         ExpirationYear = reader.ReadElementContentAsInt();
                         break;
-                            
+
                     case "month":
                         ExpirationMonth = reader.ReadElementContentAsInt();
                         break;
@@ -291,6 +296,13 @@ namespace Recurly
 
                     case "account_type":
                         AccountType = reader.ReadElementContentAsString().ParseAsEnum<BankAccountType>();
+                        break;
+                    case "updated_at":
+                        DateTime d;
+                        if (DateTime.TryParse(reader.ReadElementContentAsString(), out d))
+                        {
+                            UpdatedAt = d;
+                        }
                         break;
                 }
             }
@@ -336,7 +348,7 @@ namespace Recurly
                     xmlWriter.WriteElementString("account_number", AccountNumber);
                     xmlWriter.WriteElementString("account_type", AccountType.ToString().EnumNameToTransportCase());
                 }
-                
+
                 if (!PaypalBillingAgreementId.IsNullOrEmpty())
                 {
                     xmlWriter.WriteElementString("paypal_billing_agreement_id", PaypalBillingAgreementId);

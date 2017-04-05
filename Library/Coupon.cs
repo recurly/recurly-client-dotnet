@@ -51,6 +51,8 @@ namespace Recurly
             UniqueCode
         }
 
+        public int Id { get; set; }
+
         public RecurlyList<CouponRedemption> Redemptions { get; private set; }
 
         public string CouponCode { get; set; }
@@ -165,7 +167,7 @@ namespace Recurly
         public void Create()
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
-                UrlPrefix, 
+                UrlPrefix,
                 WriteXml,
                 ReadXml);
         }
@@ -234,10 +236,15 @@ namespace Recurly
                 int m;
                 switch (reader.Name)
                 {
+                    case "id":
+                        int id;
+                        if (int.TryParse(reader.ReadElementContentAsString(), out id))
+                            Id = id;
+                        break;
                     case "coupon_code":
                         CouponCode = reader.ReadElementContentAsString();
                         break;
-                     
+
                     case "name":
                         Name = reader.ReadElementContentAsString();
                         break;
@@ -280,7 +287,7 @@ namespace Recurly
                     case "temporal_unit":
                         var element_content = reader.ReadElementContentAsString();
                         if (element_content != "")
-                          TemporalUnit = element_content.ParseAsEnum<CouponTemporalUnit>();
+                            TemporalUnit = element_content.ParseAsEnum<CouponTemporalUnit>();
                         break;
 
                     case "temporal_amount":
@@ -321,7 +328,7 @@ namespace Recurly
                     case "coupon_type":
                         var type_content = reader.ReadElementContentAsString();
                         if (type_content != "")
-                          Type = type_content.ParseAsEnum<CouponType>();
+                            Type = type_content.ParseAsEnum<CouponType>();
                         break;
 
                     case "created_at":
@@ -375,7 +382,7 @@ namespace Recurly
         }
 
         internal void ReadXmlDiscounts(XmlTextReader reader)
-        {            
+        {
             DiscountInCents = new Dictionary<string, int>();
 
             while (reader.Read())
@@ -408,9 +415,9 @@ namespace Recurly
             if (AppliesForMonths.HasValue)
                 xmlWriter.WriteElementString("applies_for_months", AppliesForMonths.Value.AsString());
             if (Duration != null)
-              xmlWriter.WriteElementString("duration", Duration.ToString().EnumNameToTransportCase());
+                xmlWriter.WriteElementString("duration", Duration.ToString().EnumNameToTransportCase());
             if (TemporalUnit != null)
-              xmlWriter.WriteElementString("temporal_unit", TemporalUnit.ToString().EnumNameToTransportCase());
+                xmlWriter.WriteElementString("temporal_unit", TemporalUnit.ToString().EnumNameToTransportCase());
             if (TemporalAmount.HasValue)
                 xmlWriter.WriteElementString("temporal_amount", TemporalAmount.Value.ToString());
 
@@ -420,7 +427,7 @@ namespace Recurly
             if (AppliesToNonPlanCharges.HasValue)
                 xmlWriter.WriteElementString("applies_to_non_plan_charges", AppliesToNonPlanCharges.Value.AsString());
 
-            if(MaxRedemptions.HasValue)
+            if (MaxRedemptions.HasValue)
                 xmlWriter.WriteElementString("max_redemptions", MaxRedemptions.Value.AsString());
 
             if (MaxRedemptionsPerAccount.HasValue)
@@ -433,7 +440,7 @@ namespace Recurly
             xmlWriter.WriteElementString("coupon_type", Type.ToString().EnumNameToTransportCase());
 
             if (Type == CouponType.Bulk)
-                xmlWriter.WriteElementString("unique_code_template", UniqueCodeTemplate);   
+                xmlWriter.WriteElementString("unique_code_template", UniqueCodeTemplate);
 
             if (CouponDiscountType.Percent == DiscountType && DiscountPercent.HasValue)
                 xmlWriter.WriteElementString("discount_percent", DiscountPercent.Value.AsString());

@@ -43,6 +43,11 @@ namespace Recurly
         public DateTime UpdatedAt { get; private set; }
         public bool VatLocationValid { get; private set; }
         public Address Address { get; set; }
+        public bool HasLiveSubscription { get; private set; }
+        public bool HasActiveSubscription { get; private set; }
+        public bool HasFutureSubscription { get; private set; }
+        public bool HasCanceledSubscription { get; private set; }
+        public bool HasPastDueInvoice { get; private set; }
 
         private BillingInfo _billingInfo;
 
@@ -143,7 +148,7 @@ namespace Recurly
         public void Close()
         {
             Accounts.Close(AccountCode);
-            if(State.Is(AccountState.Active))
+            if (State.Is(AccountState.Active))
                 State ^= AccountState.Active;
             State |= AccountState.Closed;
         }
@@ -154,7 +159,7 @@ namespace Recurly
         public void Reopen()
         {
             Accounts.Reopen(AccountCode);
-            if(State.Is(AccountState.Closed))
+            if (State.Is(AccountState.Closed))
                 State ^= AccountState.Closed;
             State |= AccountState.Active;
         }
@@ -400,6 +405,36 @@ namespace Recurly
                         {
                             VatLocationValid = reader.ReadElementContentAsBoolean();
                         }
+                        break;
+
+                    case "has_live_subscription":
+                        bool a;
+                        if (bool.TryParse(reader.ReadElementContentAsString(), out a))
+                            HasLiveSubscription = a;
+                        break;
+
+                    case "has_active_subscription":
+                        bool b;
+                        if (bool.TryParse(reader.ReadElementContentAsString(), out b))
+                            HasActiveSubscription = b;
+                        break;
+
+                    case "has_future_subscription":
+                        bool c;
+                        if (bool.TryParse(reader.ReadElementContentAsString(), out c))
+                            HasFutureSubscription = c;
+                        break;
+
+                    case "has_canceled_subscription":
+                        bool d;
+                        if (bool.TryParse(reader.ReadElementContentAsString(), out d))
+                            HasCanceledSubscription = d;
+                        break;
+
+                    case "has_past_due_invoice":
+                        bool e;
+                        if (bool.TryParse(reader.ReadElementContentAsString(), out e))
+                            HasPastDueInvoice = e;
                         break;
                 }
             }

@@ -283,6 +283,14 @@ namespace Recurly
         public string CustomerNotes { get; set; }
         public string TermsAndConditions { get; set; }
         public string VatReverseChargeNotes { get; set; }
+        /// <summary>
+        /// True if the subscription started from a gift card.
+        /// </summary>
+        public bool StartedWithGiftCard { get; private set; }
+        /// <summary>
+        /// The timestamp representing when the subscription was converted from a gift card.
+        /// </summary>
+        public DateTime? ConvertedAt { get; private set; }
 
         internal Subscription()
         {
@@ -674,7 +682,17 @@ namespace Recurly
 
                     case "address":
                         Address = new Address(reader);
-                        break;              
+                        break;
+                    case "started_with_gift":
+                        StartedWithGiftCard = reader.ReadElementContentAsBoolean();
+                        break;
+                    case "converted_at":
+                        DateTime date;
+                        if (DateTime.TryParse(reader.ReadElementContentAsString(), out date))
+                        {
+                            ConvertedAt = date;
+                        }
+                        break;
                 }
             }
         }

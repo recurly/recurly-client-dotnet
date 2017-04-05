@@ -67,6 +67,11 @@ namespace Recurly
         public Boolean TaxExempt { get; set; }
         public string TaxCode { get; set; }
         public string AccountingCode { get; set; }
+        public string GatewayType { get; set; }
+        public string Origin { get; set; }
+        public string Message { get; set; }
+        public string ApprovalCode { get; set; }
+        public DateTime CollectedAt { get; set; }
 
         public Account Account
         {
@@ -79,6 +84,7 @@ namespace Recurly
         }
         public int? Invoice { get; private set; }
         public string InvoicePrefix { get; private set; }
+
 
         public string InvoiceNumberWithPrefix()
         {
@@ -126,10 +132,10 @@ namespace Recurly
         /// </summary>
         public void Create()
         {
-             Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
-                UrlPrefix,
-                WriteXml,
-                ReadXml);
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
+               UrlPrefix,
+               WriteXml,
+               ReadXml);
         }
 
         /// <summary>
@@ -273,6 +279,27 @@ namespace Recurly
 
                     case "details":
                         // API docs say not to load details into objects
+                        break;
+
+                    case "gateway_type":
+                        GatewayType = reader.ReadElementContentAsString();
+                        break;
+
+                    case "origin":
+                        Origin = reader.ReadElementContentAsString();
+                        break;
+                    case "message":
+                        Message = reader.ReadElementContentAsString();
+                        break;
+                    case "approval_code":
+                        ApprovalCode = reader.ReadElementContentAsString();
+                        break;
+                    case "collected_at":
+                        DateTime d;
+                        if (DateTime.TryParse(reader.ReadElementContentAsString(), out d))
+                        {
+                            CollectedAt = d;
+                        }
                         break;
                 }
             }
