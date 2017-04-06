@@ -1,6 +1,13 @@
 Unreleased
 ===============
 
+1.4.12 (stable) / 2017-04-06
+===============
+
+* API 2.5 additions
+* Sorting and Filtering parameters
+* Refactored Invoice/PreviewPendingCharges to be able to specify notes 
+
 1.4.11 (stable) / 2017-02-16
 ===============
 
