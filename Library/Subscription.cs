@@ -68,6 +68,16 @@ namespace Recurly
         {
             get { return _invoice ?? (_invoice = Invoices.Get(_invoiceNumber)); }
         }
+        
+        private string _invoiceNumber;
+        private Invoice _invoice;
+        /// <summary>
+        /// Invoice in Recurly
+        /// </summary>
+        public Invoice Invoice
+        {
+            get { return _invoice ?? (_invoice = Invoices.Get(_invoiceNumber)); }
+        }
 
         private Plan _plan;
      
@@ -543,6 +553,12 @@ namespace Recurly
                         href = reader.GetAttribute("href");
                         if (null != href)
                             _accountCode = Uri.UnescapeDataString(href.Substring(href.LastIndexOf("/") + 1));
+                        break;
+                        
+                    case "invoice":
+                        href = reader.GetAttribute("href");
+                        if (null != href)
+                            _invoiceNumber = Uri.UnescapeDataString(href.Substring(href.LastIndexOf("/") + 1));
                         break;
 
                     case "plan":
