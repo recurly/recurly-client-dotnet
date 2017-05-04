@@ -1,6 +1,11 @@
 Unreleased
 ===============
 
+1.4.13 (stable) / 2017-05-04
+===============
+
+* Removing `trial_requires_billing_info` from Plan (which is in api 2.6)
+
 1.4.12 (stable) / 2017-04-06
 ===============
 
