@@ -403,7 +403,7 @@ namespace Recurly
         /// <returns></returns>
         public static RecurlyList<Plan> List(FilterCriteria filter)
         {
-            filter = filter.Equals(null) ? FilterCriteria.Instance : filter;
+            filter = filter == null ? FilterCriteria.Instance : filter;
             return new PlanList(Plan.UrlPrefix + "?" + filter.ToNamedValueCollection().ToString());
         }
 
