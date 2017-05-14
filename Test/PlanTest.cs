@@ -12,6 +12,8 @@ namespace Recurly.Test
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName()) {Description = "Test Lookup"};
             plan.UnitAmountInCents.Add("USD", 100);
             plan.TaxExempt = true;
+            plan.TotalBillingCycles = 6;
+
             plan.Create();
             PlansToDeactivateOnDispose.Add(plan);
 
