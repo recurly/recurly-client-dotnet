@@ -559,7 +559,7 @@ namespace Recurly
         /// <returns></returns>
         public static RecurlyList<Coupon> List(Coupon.CouponState state, FilterCriteria filter)
         {
-            filter = filter.Equals(null) ? FilterCriteria.Instance : filter;
+            filter = filter ?? FilterCriteria.Instance;
             var parameters = filter.ToNamedValueCollection();
             if (state != Coupon.CouponState.All)
             {
