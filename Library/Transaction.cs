@@ -380,7 +380,7 @@ namespace Recurly
             TransactionList.TransactionType type,
             FilterCriteria filter)
         {
-            filter = filter.Equals(null) ? FilterCriteria.Instance : filter;
+            filter = filter ?? FilterCriteria.Instance;
             var parameters = filter.ToNamedValueCollection();
             if (state != TransactionList.TransactionState.All)
             {

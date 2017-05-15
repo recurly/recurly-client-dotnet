@@ -62,7 +62,6 @@ namespace Recurly
         private string _invoiceNumber;
         private Invoice _invoice;
         /// <summary>
-        /// Invoice in Recurly
         /// </summary>
         public Invoice Invoice
         {
@@ -915,7 +914,7 @@ namespace Recurly
         /// <returns></returns>
         public static RecurlyList<Subscription> List(Subscription.SubscriptionState state, FilterCriteria filter)
         {
-            filter = filter.Equals(null) ? FilterCriteria.Instance : filter;
+            filter = filter ?? FilterCriteria.Instance;
             var parameters = filter.ToNamedValueCollection();
             parameters["state"] = state.ToString().EnumNameToTransportCase();
             return new SubscriptionList(Subscription.UrlPrefix + "?" + parameters.ToString());
