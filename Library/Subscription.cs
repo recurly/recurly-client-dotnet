@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Net;
 using System.Xml;
 
@@ -25,8 +27,8 @@ namespace Recurly
             Live = 32,
             PastDue = 64,
             Pending = 128,
-            Open    = 256,
-            Failed  = 512,
+            Open = 256,
+            Failed = 512,
         }
 
         public enum ChangeTimeframe : short
@@ -70,7 +72,7 @@ namespace Recurly
         }
 
         private Plan _plan;
-     
+
         public Plan Plan
         {
             get { return _plan ?? (_plan = Plans.Get(PlanCode)); }
@@ -207,16 +209,17 @@ namespace Recurly
         /// </summary>
         public Coupon[] Coupons
         {
-            get {
+            get
+            {
                 if (_coupons == null)
                 {
                     _coupons = new Coupon[_couponCodes.Length];
                 }
 
-                if ( _coupons.Length == 0)
+                if (_coupons.Length == 0)
                 {
 
-                    for (int i = 0; i<_couponCodes.Length; i++)
+                    for (int i = 0; i < _couponCodes.Length; i++)
                     {
                         _coupons[i] = Recurly.Coupons.Get(_couponCodes[i]);
                     }
@@ -224,10 +227,11 @@ namespace Recurly
 
                 return _coupons;
             }
-            set {
+            set
+            {
                 _coupons = value;
                 _couponCodes = new string[_coupons.Length];
-                for (int i = 0; i<_coupons.Length; i++)
+                for (int i = 0; i < _coupons.Length; i++)
                 {
                     _couponCodes[i] = _coupons[i].CouponCode;
                 }
@@ -341,18 +345,13 @@ namespace Recurly
         /// Request that an update to a subscription take place
         /// </summary>
         /// <param name="timeframe">when the update should occur: now (default) or at renewal</param>
-        public void ChangeSubscription(ChangeTimeframe timeframe)
+        /// <param name="preds">specify the fields that are changed and should be sent to the server, 
+        /// null sends all fields for backwards compatibility.</param>
+        public void ChangeSubscription(ChangeTimeframe timeframe, params Expression<Func<Subscription, object>>[] preds)
         {
-            Client.WriteXmlDelegate writeXmlDelegate;
-
-            if (ChangeTimeframe.Renewal == timeframe)
-                writeXmlDelegate = WriteChangeSubscriptionAtRenewalXml;
-            else
-                writeXmlDelegate = WriteChangeSubscriptionNowXml;
-
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
                 UrlPrefix + Uri.EscapeUriString(Uuid),
-                writeXmlDelegate,
+                WriteChangeSubscriptionXml(timeframe, preds),
                 ReadXml);
         }
 
@@ -422,25 +421,20 @@ namespace Recurly
         /// Preview the changes associated with the current subscription
         /// </summary>
         /// <param name="timeframe">ChangeTimeframe.Now (default) or at Renewal</param>
-        public virtual Subscription PreviewChange(ChangeTimeframe timeframe)
+        /// <param name="preds">specify the fields that are changed and should be sent to the server, 
+        /// null sends all fields for backwards compatibility.</param>
+        public virtual Subscription PreviewChange(ChangeTimeframe timeframe, params Expression<Func<Subscription, object>>[] preds)
         {
             if (!_saved)
             {
                 throw new Recurly.RecurlyException("Must have an existing subscription to preview changes.");
             }
 
-            Client.WriteXmlDelegate writeXmlDelegate;
-
-            if (ChangeTimeframe.Renewal == timeframe)
-                writeXmlDelegate = WriteChangeSubscriptionAtRenewalXml;
-            else
-                writeXmlDelegate = WriteChangeSubscriptionNowXml;
-
             var previewSubscription = new Subscription();
 
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 UrlPrefix + Uri.EscapeUriString(Uuid) + "/preview",
-                writeXmlDelegate,
+                WriteChangeSubscriptionXml(timeframe, preds),
                 previewSubscription.ReadPreviewXml);
 
             return statusCode == HttpStatusCode.NotFound ? null : previewSubscription;
@@ -448,7 +442,7 @@ namespace Recurly
 
         public virtual Subscription PreviewChange()
         {
-            return PreviewChange(ChangeTimeframe.Now);
+            return PreviewChange(ChangeTimeframe.Now, null);
         }
 
 
@@ -654,7 +648,7 @@ namespace Recurly
                         if (Int32.TryParse(reader.ReadElementContentAsString(), out billingCycles))
                             TotalBillingCycles = billingCycles;
                         break;
-                        
+
                     case "remaining_billing_cycles":
                         if (Int32.TryParse(reader.ReadElementContentAsString(), out billingCycles))
                             RemainingBillingCycles = billingCycles;
@@ -686,7 +680,7 @@ namespace Recurly
 
                     case "address":
                         Address = new Address(reader);
-                        break;              
+                        break;
                 }
             }
         }
@@ -739,7 +733,8 @@ namespace Recurly
 
             xmlWriter.WriteStringIfValid("coupon_code", _couponCode);
 
-            if (_couponCodes != null && _couponCodes.Length != 0) {
+            if (_couponCodes != null && _couponCodes.Length != 0)
+            {
                 xmlWriter.WriteStartElement("coupon_codes");
                 foreach (var _coupon_code in _couponCodes)
                 {
@@ -757,7 +752,8 @@ namespace Recurly
                 xmlWriter.WriteElementString("unit_amount_in_cents", UnitAmountInCents.Value.AsString());
 
             // TODO change Quantity to int? in next version
-            if (Quantity > 0) {
+            if (Quantity > 0)
+            {
                 xmlWriter.WriteElementString("quantity", Quantity.AsString());
             }
 
@@ -800,59 +796,69 @@ namespace Recurly
             xmlWriter.WriteEndElement(); // End: subscription
         }
 
-        protected void WriteChangeSubscriptionNowXml(XmlTextWriter xmlWriter)
+        internal Client.WriteXmlDelegate WriteChangeSubscriptionXml(ChangeTimeframe timeframe, params Expression<Func<Subscription, object>>[] fields)
         {
-            WriteChangeSubscriptionXml(xmlWriter, ChangeTimeframe.Now);
-        }
-
-        protected void WriteChangeSubscriptionAtRenewalXml(XmlTextWriter xmlWriter)
-        {
-            WriteChangeSubscriptionXml(xmlWriter, ChangeTimeframe.Renewal);
-        }
-
-        protected void WriteChangeSubscriptionXml(XmlTextWriter xmlWriter, ChangeTimeframe timeframe)
-        {
-            xmlWriter.WriteStartElement("subscription"); // Start: subscription
-
-            xmlWriter.WriteElementString("timeframe", timeframe.ToString().EnumNameToTransportCase());
-            xmlWriter.WriteStringIfValid("plan_code", PlanCode);
-            xmlWriter.WriteIfCollectionHasAny("subscription_add_ons", AddOns);
-            xmlWriter.WriteStringIfValid("coupon_code", _couponCode);
-
-            // TODO change Quantity to int? in next version
-            if (Quantity > 0)
+            return delegate (XmlTextWriter xmlWriter)
             {
-                xmlWriter.WriteElementString("quantity", Quantity.AsString());
-            }
+                if (fields != null && !fields.Any())
+                    fields = null;
 
-            if (_couponCodes != null && _couponCodes.Length != 0) {
-                xmlWriter.WriteStartElement("coupon_codes");
-                foreach (var _coupon_code in _couponCodes)
+                xmlWriter.WriteStartElement("subscription"); // Start: subscription
+
+
+                xmlWriter.WriteElementString("timeframe", timeframe.ToString().EnumNameToTransportCase());
+
+                if (fields == null || fields.Contains(x => x.PlanCode) || fields.Contains(x => x.Plan))
+                    xmlWriter.WriteStringIfValid("plan_code", PlanCode);
+
+                if (fields == null || fields.Contains(x => x.AddOns))
+                    xmlWriter.WriteIfCollectionHasAny("subscription_add_ons", AddOns);
+
+                if (fields == null || fields.Contains(x => x._couponCode))
+                    xmlWriter.WriteStringIfValid("coupon_code", _couponCode);
+
+                // TODO change Quantity to int? in next version
+                if (Quantity > 0)
                 {
-                    xmlWriter.WriteElementString("coupon_code", _coupon_code);
+                    if (fields == null || fields.Contains(x => x.Quantity))
+                        xmlWriter.WriteElementString("quantity", Quantity.AsString());
                 }
-                xmlWriter.WriteEndElement();
-            }
 
+                if (_couponCodes != null && _couponCodes.Length > 0)
+                {
+                    if (fields == null || fields.Contains(x => x.Coupon))
+                    {
+                        xmlWriter.WriteStartElement("coupon_codes");
+                        foreach (var _coupon_code in _couponCodes)
+                        {
+                            xmlWriter.WriteElementString("coupon_code", _coupon_code);
+                        }
+                        xmlWriter.WriteEndElement();
+                    }
+                }
 
-            if (UnitAmountInCents.HasValue)
-                xmlWriter.WriteElementString("unit_amount_in_cents", UnitAmountInCents.Value.AsString());
+                if ((UnitAmountInCents.HasValue && fields == null) || (fields != null && fields.Contains(x => x.UnitAmountInCents)))
+                    xmlWriter.WriteElementString("unit_amount_in_cents", UnitAmountInCents.Value.AsString());
 
-            if (CollectionMethod.Like("manual"))
-            {
-                xmlWriter.WriteElementString("collection_method", "manual");
-                xmlWriter.WriteElementString("net_terms", NetTerms.Value.AsString());
-                xmlWriter.WriteElementString("po_number", PoNumber);
-            }
-            else if (CollectionMethod.Like("automatic"))
-                xmlWriter.WriteElementString("collection_method", "automatic");
+                if (fields == null || fields.Contains(x => x.CollectionMethod))
+                {
+                    if (CollectionMethod.Like("manual"))
+                    {
+                        xmlWriter.WriteElementString("collection_method", "manual");
+                        xmlWriter.WriteElementString("net_terms", NetTerms.Value.AsString());
+                        xmlWriter.WriteElementString("po_number", PoNumber);
+                    }
+                    else if (CollectionMethod.Like("automatic"))
+                        xmlWriter.WriteElementString("collection_method", "automatic");
+                }
 
-            xmlWriter.WriteEndElement(); // End: subscription
+                xmlWriter.WriteEndElement(); // End: subscription
+            };
         }
 
         internal Client.WriteXmlDelegate WriteSubscriptionNotesXml(Dictionary<string, string> notes)
         {
-            return delegate(XmlTextWriter xmlWriter)
+            return delegate (XmlTextWriter xmlWriter)
             {
                 xmlWriter.WriteStartElement("subscription"); // Start: subscription
 
