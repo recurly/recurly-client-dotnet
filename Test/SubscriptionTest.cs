@@ -89,6 +89,46 @@ namespace Recurly.Test
         }
 
         [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void CreateSubscription_TrialRequiresBillingInfo()
+        {
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
+            {
+                Description = "Create Subscription Test"
+            };
+            plan.UnitAmountInCents.Add("USD", 100);
+            plan.TrialRequiresBillingInfo = true;
+            plan.TrialIntervalLength = 10;
+            plan.TrialIntervalUnit = Plan.IntervalUnit.Days;
+            plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
+
+            var account = CreateNewAccount();
+
+            var coup = CreateNewCoupon(3);
+            var sub = new Subscription(account, plan, "USD");
+            sub.TotalBillingCycles = 5;
+            sub.Coupon = coup;
+            sub.TrialPeriodEndsAt = DateTime.UtcNow.AddDays(2);
+
+            Assert.Null(sub.TaxInCents);
+            Assert.Null(sub.TaxType);
+            Assert.Null(sub.TaxRate);
+
+            try
+            {
+                sub.Create();
+            }
+            catch (RecurlyException e)
+            {
+                Assert.True(e.Errors.Any());
+                Assert.True(e.Errors[0].Symbol == "billing_info_required");
+                return;
+            }
+
+            throw new Exception("test failed");
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void CreateBulkSubscriptions()
         {
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
