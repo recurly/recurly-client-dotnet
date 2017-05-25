@@ -176,6 +176,7 @@ namespace Recurly
         /// Represents pending changes to the subscription
         /// </summary>
         public Subscription PendingSubscription { get; private set; }
+        public string NoBillingInfoReason { get; private set; }
 
         /// <summary>
         /// If true, this is a "pending subscription" object and no changes are allowed
@@ -691,6 +692,9 @@ namespace Recurly
                         {
                             ConvertedAt = date;
                         }
+                        break;
+                    case "no_billing_info_reason":
+                        NoBillingInfoReason = reader.ReadElementContentAsString();
                         break;
                 }
             }
