@@ -1,6 +1,14 @@
 Unreleased
 ===============
 
+1.5.0 (stable) / 2017-06-02
+===============
+
+* Added account balance endpoint
+* Added plan and subscription changes
+* Fixing NullReferenceException in List() functions
+* Fixed a probable NRE in Plans.List()
+
 1.4.13 (stable) / 2017-05-04
 ===============
 
