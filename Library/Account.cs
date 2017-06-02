@@ -75,6 +75,29 @@ namespace Recurly
             }
         }
 
+        private AccountBalance _balance;
+
+        public AccountBalance Balance
+        {
+            get
+            {
+                if (_balance != null)
+                    return _balance;
+
+                try
+                {
+                    _balance = AccountBalance.Get(AccountCode);
+                }
+                catch (NotFoundException)
+                {
+                    _balance = null;
+                }
+
+                return _balance;
+            }
+            set { _balance = value; }
+        }
+
         /// <summary>
         /// List of shipping addresses
         /// </summary>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using FluentAssertions;
 using Xunit;
 
@@ -145,6 +146,20 @@ namespace Recurly.Test
             var notes = account.GetNotes();
 
             notes.Should().BeEmpty();
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void Balance()
+        {
+            var acct = CreateNewAccountWithBillingInfo();
+            var adjustment = acct.NewAdjustment("USD", 5000, "Past Due", 1);
+            adjustment.Create();
+
+            acct.InvoicePendingCharges();
+            var balance = acct.Balance;
+
+            balance.Should().NotBeNull();
+            balance.BalanceInCents.First().Value.Should().BeGreaterThan(0);
         }
     }
 }
