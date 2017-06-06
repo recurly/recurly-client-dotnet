@@ -98,10 +98,9 @@ namespace Recurly
             return baseUrl + divider + "per_page=" + PerPage;
         }
 
-        internal void ReadXmlList(XmlTextReader xmlReader, int records, string start, string next, string prev)
+        internal void ReadXmlList(XmlTextReader xmlReader, string start, string next, string prev)
         {
-            Items = records > 0 ? new List<T>(records) : new List<T>();
-            _capacity = records;
+            Items = new List<T>();
             StartUrl = start;
             NextUrl = next;
             PrevUrl = prev;

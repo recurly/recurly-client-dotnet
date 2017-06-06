@@ -82,7 +82,7 @@ namespace Recurly
         /// </summary>
         /// <param name="xmlReader"></param>
         /// <param name="records"></param>
-        public delegate void ReadXmlListDelegate(XmlTextReader xmlReader, int records, string start, string next, string prev);
+        public delegate void ReadXmlListDelegate(XmlTextReader xmlReader, string start, string next, string prev);
 
         /// <summary>
         /// Delegate to write the XML request to the server.
@@ -353,16 +353,10 @@ namespace Recurly
             using (var xmlReader = new XmlTextReader(responseStream))
             {
                 // Check for pagination
-                var records = -1;
                 var cursor = string.Empty;
                 string start = null;
                 string next = null;
                 string prev = null;
-
-                if (null != response.Headers["X-Records"])
-                {
-                    Int32.TryParse(response.Headers["X-Records"], out records);
-                }
 
                 var link = response.Headers["Link"];
 
@@ -371,16 +365,12 @@ namespace Recurly
                     start = link.GetUrlFromLinkHeader("start");
                     next = link.GetUrlFromLinkHeader("next");
                     prev = link.GetUrlFromLinkHeader("prev");
-                }
-
-                if (records >= 0) {
-                    readXmlListDelegate(xmlReader, records, start, next, prev);
+                    readXmlListDelegate(xmlReader, start, next, prev);
                 }
                 else if (response.StatusCode != HttpStatusCode.NoContent)
                 {
                     readXmlDelegate(xmlReader);
                 }
-                    
             }
 
         }
