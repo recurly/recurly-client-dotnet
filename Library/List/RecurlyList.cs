@@ -26,12 +26,6 @@ namespace Recurly
             }
         }
 
-        private int _capacity = -1;
-        public int Capacity
-        {
-            get { return _capacity < 0 ? Count : _capacity; }
-        }
-
         public abstract RecurlyList<T> Start { get; }
         public abstract RecurlyList<T> Next { get; }
         public abstract RecurlyList<T> Prev { get; }
