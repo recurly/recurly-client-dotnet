@@ -556,8 +556,7 @@ namespace Recurly.Test
                 var list = new System.Collections.Generic.List<SubscriptionAddOn>();
                 list.Add(subaddon);
                 sub.AddOns.AddRange(list);
-                Assert.Equal(1, sub.AddOns.Capacity);
-
+                Assert.Equal(1, sub.AddOns.Count);
 
                 sub.AddOns.AsReadOnly();
 
