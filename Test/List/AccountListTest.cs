@@ -61,7 +61,6 @@ namespace Recurly.Test
 
             var accounts = Accounts.List();
             accounts.Should().HaveCount(5);
-            accounts.Capacity.Should().BeGreaterOrEqualTo(5);
 
             accounts.Next.Should().NotBeEmpty();
         }

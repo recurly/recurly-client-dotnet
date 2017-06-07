@@ -26,12 +26,6 @@ namespace Recurly
             }
         }
 
-        private int _capacity = -1;
-        public int Capacity
-        {
-            get { return _capacity < 0 ? Count : _capacity; }
-        }
-
         public abstract RecurlyList<T> Start { get; }
         public abstract RecurlyList<T> Next { get; }
         public abstract RecurlyList<T> Prev { get; }
@@ -98,10 +92,9 @@ namespace Recurly
             return baseUrl + divider + "per_page=" + PerPage;
         }
 
-        internal void ReadXmlList(XmlTextReader xmlReader, int records, string start, string next, string prev)
+        internal void ReadXmlList(XmlTextReader xmlReader, string start, string next, string prev)
         {
-            Items = records > 0 ? new List<T>(records) : new List<T>();
-            _capacity = records;
+            Items = new List<T>();
             StartUrl = start;
             NextUrl = next;
             PrevUrl = prev;
