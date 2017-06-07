@@ -1,13 +1,24 @@
 Unreleased
 ===============
 
-1.5.0 (stable) / 2017-06-02
+1.5.0 (stable) / 2017-06-07
 ===============
 
 * Added account balance endpoint
 * Added plan and subscription changes
 * Fixing NullReferenceException in List() functions
 * Fixed a probable NRE in Plans.List()
+* Remove X-Records Header and RecurlyList #Capacity method
+
+### Upgrade Notes
+
+This release will upgrade us to API version 2.6. There are two breaking changes:
+
+1. To speed up your listing requests we’re no longer automatically computing the record counts for each requests. For our larger sites this could halve the response time. So in this release, we are removing the `RecurlyList#Capacity` method.
+to be cached for you. For more info see [PR #324](https://github.com/recurly/recurly-client-ruby/pull/324).
+2. For `POST /v2/subscriptions` Sending `null` for `total_billing_cycles` attribute will now override plan `total_billing_cycles` setting and will make subscription renew forever.
+Omitting the attribute will cause the setting to default to the value of plan `total_billing_cycles`.
+
 
 1.4.13 (stable) / 2017-05-04
 ===============
