@@ -64,7 +64,7 @@ var account = new Account("123")
 {
 	FirstName = "John",
 	LastName = "Smith"
-}
+};
 account.Create();
 ```
 
