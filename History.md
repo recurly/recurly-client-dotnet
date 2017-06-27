@@ -1,6 +1,11 @@
 Unreleased
 ===============
 
+1.5.1 (stable) / 2017-06-27
+===============
+
+* Fixed NullReference error on List() when page size = 1
+
 1.5.0 (stable) / 2017-06-07
 ===============
 
