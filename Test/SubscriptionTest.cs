@@ -171,6 +171,39 @@ namespace Recurly.Test
         }
 
         [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void ChangeSubscription()
+        {
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
+            {
+                Description = "Update Subscription Plan 1"
+            };
+            plan.UnitAmountInCents.Add("USD", 1500);
+            plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
+
+            var plan2 = new Plan(GetMockPlanCode(), GetMockPlanName())
+            {
+                Description = "Update Subscription Plan 2"
+            };
+            plan2.UnitAmountInCents.Add("USD", 750);
+            plan2.Create();
+            PlansToDeactivateOnDispose.Add(plan2);
+
+            var account = CreateNewAccountWithBillingInfo();
+
+            var sub = new Subscription(account, plan, "USD");
+            sub.Create();
+            sub.Plan = plan2;
+
+            sub.ChangeSubscription(Subscription.ChangeTimeframe.Now, x => x.PlanCode); // change "Now" is default
+
+            var newSubscription = Subscriptions.Get(sub.Uuid);
+
+            newSubscription.PendingSubscription.Should().BeNull();
+            newSubscription.Plan.Should().Be(plan2);
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void CancelSubscription()
         {
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName())

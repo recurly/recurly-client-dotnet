@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Net;
+using System.Reflection;
 using System.Xml;
 
 namespace Recurly
@@ -796,6 +797,21 @@ namespace Recurly
             xmlWriter.WriteEndElement(); // End: subscription
         }
 
+        private static MemberInfo getMemberInfo<Subscription, TProperty>(Expression<Func<Subscription, TProperty>> expression)
+        {
+            var member = expression.Body as MemberExpression;
+            if (member != null)
+            {
+                return member.Member;
+            }
+            throw new ArgumentException("Member does not exist.");
+        }
+
+        private static string GetMemberName(Expression<Func<Subscription, object>> expression)
+        {
+            return getMemberInfo(expression).Name;
+        }
+
         internal Client.WriteXmlDelegate WriteChangeSubscriptionXml(ChangeTimeframe timeframe, params Expression<Func<Subscription, object>>[] fields)
         {
             return delegate (XmlTextWriter xmlWriter)
@@ -804,29 +820,29 @@ namespace Recurly
                     fields = null;
 
                 xmlWriter.WriteStartElement("subscription"); // Start: subscription
-
-
+                
                 xmlWriter.WriteElementString("timeframe", timeframe.ToString().EnumNameToTransportCase());
 
-                if (fields == null || fields.Contains(x => x.PlanCode) || fields.Contains(x => x.Plan))
+                var fieldMembers = fields?.Select(x => getMemberInfo(x).Name).ToList();
+                if (fields == null || fieldMembers.Contains(GetMemberName(x => x.PlanCode)) || fieldMembers.Contains(GetMemberName(x => x.Plan)))
                     xmlWriter.WriteStringIfValid("plan_code", PlanCode);
-
-                if (fields == null || fields.Contains(x => x.AddOns))
+                
+                if (fields == null || fieldMembers.Contains(GetMemberName(x=> x.AddOns)))
                     xmlWriter.WriteIfCollectionHasAny("subscription_add_ons", AddOns);
 
-                if (fields == null || fields.Contains(x => x._couponCode))
+                if (fields == null || fieldMembers.Contains(GetMemberName(x => x.Coupon)))
                     xmlWriter.WriteStringIfValid("coupon_code", _couponCode);
 
                 // TODO change Quantity to int? in next version
                 if (Quantity > 0)
                 {
-                    if (fields == null || fields.Contains(x => x.Quantity))
+                    if (fields == null || fieldMembers.Contains(GetMemberName(x => x.Quantity)))
                         xmlWriter.WriteElementString("quantity", Quantity.AsString());
                 }
 
                 if (_couponCodes != null && _couponCodes.Length > 0)
                 {
-                    if (fields == null || fields.Contains(x => x.Coupon))
+                    if (fields == null || fieldMembers.Contains(GetMemberName(x => x.Coupon)))
                     {
                         xmlWriter.WriteStartElement("coupon_codes");
                         foreach (var _coupon_code in _couponCodes)
@@ -837,10 +853,10 @@ namespace Recurly
                     }
                 }
 
-                if ((UnitAmountInCents.HasValue && fields == null) || (fields != null && fields.Contains(x => x.UnitAmountInCents)))
+                if ((UnitAmountInCents.HasValue && fields == null) || (fields != null && fieldMembers.Contains(GetMemberName(x => x.UnitAmountInCents))))
                     xmlWriter.WriteElementString("unit_amount_in_cents", UnitAmountInCents.Value.AsString());
 
-                if (fields == null || fields.Contains(x => x.CollectionMethod))
+                if (fields == null || fieldMembers.Contains(GetMemberName(x => x.CollectionMethod)))
                 {
                     if (CollectionMethod.Like("manual"))
                     {
