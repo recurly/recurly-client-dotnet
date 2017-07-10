@@ -115,11 +115,3 @@ Looking for help? Please contact [support@recurly.com](mailto:support@recurly.co
 
 [Stackoverflow](http://stackoverflow.com/questions/tagged/recurly) is also a great place to talk to the community
 and find answers to common questions.
-
-## Announcements
-
-For the latest API and client library announcements follow Recurly on [Twitter](https://twitter.com/recurly)
-and join our [Google Group](http://groups.google.com/group/recurly-api):
-
-- [@recurly](https://twitter.com/recurly)
-- [Recurly Google Group](http://groups.google.com/group/recurly-api)
