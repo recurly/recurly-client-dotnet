@@ -25,6 +25,12 @@ namespace Recurly
             Transaction
         }
 
+        public enum Collection
+        {
+            Automatic,
+            Manual
+        }
+
         public string AccountCode { get; private set; }
         public string SubscriptionUuid { get; private set; }
         public int OriginalInvoiceNumber { get; private set; }
@@ -40,7 +46,7 @@ namespace Recurly
         public int TotalInCents { get; protected set; }
         public string Currency { get; protected set; }
         public int? NetTerms { get; set; }
-        public string CollectionMethod { get; set; }
+        public Collection CollectionMethod { get; set; }
         public DateTime? CreatedAt { get; private set; }
         public DateTime? UpdatedAt { get; private set; }
         public DateTime? ClosedAt { get; private set; }
@@ -336,7 +342,7 @@ namespace Recurly
                         break;
 
                     case "collection_method":
-                        CollectionMethod = reader.ReadElementContentAsString();
+                        CollectionMethod = reader.ReadElementContentAsString().ParseAsEnum<Collection>();
                         break;
 
                     case "customer_notes":
@@ -400,16 +406,18 @@ namespace Recurly
             xmlWriter.WriteElementString("vat_reverse_charge_notes", VatReverseChargeNotes);
             xmlWriter.WriteElementString("po_number", PoNumber);
 
-            if (CollectionMethod.Like("manual"))
+            if (CollectionMethod == Collection.Manual)
             {
                 xmlWriter.WriteElementString("collection_method", "manual");
 
                 if (NetTerms.HasValue)
                     xmlWriter.WriteElementString("net_terms", NetTerms.Value.AsString());
             }
-            else if (CollectionMethod.Like("automatic"))
+            else if (CollectionMethod == Collection.Automatic)
+            {
                 xmlWriter.WriteElementString("collection_method", "automatic");
-
+            }
+           
             xmlWriter.WriteEndElement(); // End: invoice
         }
 

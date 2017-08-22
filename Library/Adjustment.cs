@@ -58,6 +58,14 @@ namespace Recurly
 
         #region Constructors
 
+
+        public Adjustment(int unitAmountInCents, string description, int quantity = 1)
+        {
+            UnitAmountInCents = unitAmountInCents;
+            Description = description;
+            Quantity = quantity;
+        }
+
         internal Adjustment()
         {
             
@@ -236,7 +244,7 @@ namespace Recurly
             xmlWriter.WriteStartElement("adjustment"); 
             xmlWriter.WriteElementString("description", Description);
             xmlWriter.WriteElementString("unit_amount_in_cents", UnitAmountInCents.AsString());
-            xmlWriter.WriteElementString("currency", Currency);
+            //if (!Currency.IsNullOrEmpty()) xmlWriter.WriteElementString("currency", Currency);
             xmlWriter.WriteElementString("quantity", Quantity.AsString());
             xmlWriter.WriteElementString("accounting_code", AccountingCode);
             xmlWriter.WriteElementString("tax_exempt", TaxExempt.AsString());

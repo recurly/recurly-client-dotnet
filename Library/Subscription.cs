@@ -334,6 +334,12 @@ namespace Recurly
             _couponCode = couponCode;
         }
 
+        public Subscription(string planCode)
+        {
+            PlanCode = planCode;
+            Quantity = 1;
+        }
+
         /// <summary>
         /// Creates a new subscription on Recurly
         /// </summary>
@@ -736,13 +742,33 @@ namespace Recurly
             }
         }
 
-        protected void WriteSubscriptionXml(XmlTextWriter xmlWriter)
+        internal void WriteSubscriptionXml(XmlTextWriter xmlWriter)
+        {
+            WriteSubscriptionXml(xmlWriter, false);
+        }
+
+        internal void WriteEmbeddedSubscriptionXml(XmlTextWriter xmlWriter)
+        {
+            WriteSubscriptionXml(xmlWriter, true);
+        }
+
+
+        internal void WriteSubscriptionXml(XmlTextWriter xmlWriter, bool embedded)
         {
             xmlWriter.WriteStartElement("subscription"); // Start: subscription
 
             xmlWriter.WriteElementString("plan_code", PlanCode);
 
-            xmlWriter.WriteElementString("currency", Currency);
+            if (!embedded)
+            {
+                // <account> and billing info
+                Account.WriteXml(xmlWriter);
+                xmlWriter.WriteElementString("currency", Currency);
+                xmlWriter.WriteElementString("customer_notes", CustomerNotes);
+                xmlWriter.WriteElementString("terms_and_conditions", TermsAndConditions);
+                xmlWriter.WriteElementString("vat_reverse_charge_notes", VatReverseChargeNotes);
+                xmlWriter.WriteElementString("po_number", PoNumber);
+            }
 
             xmlWriter.WriteIfCollectionHasAny("subscription_add_ons", AddOns);
 
@@ -756,11 +782,6 @@ namespace Recurly
                 }
                 xmlWriter.WriteEndElement();
             }
-
-            xmlWriter.WriteElementString("customer_notes", CustomerNotes);
-            xmlWriter.WriteElementString("terms_and_conditions", TermsAndConditions);
-            xmlWriter.WriteElementString("vat_reverse_charge_notes", VatReverseChargeNotes);
-            xmlWriter.WriteElementString("po_number", PoNumber);
 
             if (UnitAmountInCents.HasValue)
                 xmlWriter.WriteElementString("unit_amount_in_cents", UnitAmountInCents.Value.AsString());
@@ -799,9 +820,6 @@ namespace Recurly
             {
                 xmlWriter.WriteElementString("shipping_address_id", ShippingAddressId.Value.ToString());
             }
-
-            // <account> and billing info
-            Account.WriteXml(xmlWriter);
 
             xmlWriter.WriteEndElement(); // End: subscription
         }
