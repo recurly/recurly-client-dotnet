@@ -131,6 +131,11 @@ namespace Recurly
             ReadXml(xmlReader);
         }
 
+        internal Account(XmlTextReader xmlReader, string xmlName)
+        {
+            ReadXml(xmlReader, xmlName);
+        }
+
         internal Account()
         { }
 
@@ -349,9 +354,14 @@ namespace Recurly
 
         internal override void ReadXml(XmlTextReader reader)
         {
+            ReadXml(reader, "account");
+        }
+
+        internal void ReadXml(XmlTextReader reader, string xmlName)
+        {
             while (reader.Read())
             {
-                if (reader.Name == "account" && reader.NodeType == XmlNodeType.EndElement)
+                if (reader.Name == xmlName && reader.NodeType == XmlNodeType.EndElement)
                     break;
 
                 if (reader.NodeType != XmlNodeType.Element) continue;
@@ -465,7 +475,12 @@ namespace Recurly
 
         internal override void WriteXml(XmlTextWriter xmlWriter)
         {
-            xmlWriter.WriteStartElement("account"); // Start: account
+            WriteXml(xmlWriter, "account");
+        }
+
+        internal void WriteXml(XmlTextWriter xmlWriter, string xmlName)
+        {
+            xmlWriter.WriteStartElement(xmlName); // Start: account
 
             xmlWriter.WriteElementString("account_code", AccountCode);
             xmlWriter.WriteStringIfValid("username", Username);

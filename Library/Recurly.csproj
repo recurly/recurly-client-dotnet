@@ -62,12 +62,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Delivery.cs" />
+    <Compile Include="GiftCard.cs" />
     <Compile Include="Account.cs" />
     <Compile Include="AccountBalance.cs" />
     <Compile Include="Address.cs" />
     <Compile Include="FilterCriteria.cs" />
     <Compile Include="Errors.cs" />
     <Compile Include="Export.cs" />
+    <Compile Include="List\GiftCardList.cs" />
     <Compile Include="List\ExportDateList.cs" />
     <Compile Include="List\ExportFileList.cs" />
     <Compile Include="TransactionError.cs" />
