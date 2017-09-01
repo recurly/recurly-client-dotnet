@@ -55,7 +55,7 @@ namespace Recurly
         /// Used by the recipient_account to create a credit in the amount
         /// of the unit_amount_in_cents on their account.
         /// </summary>
-        public string RedemptionCode { get; private set; }
+        public string RedemptionCode { get; set; }
 
         /// <summary>
         /// The remaining credit on the recipient_account associated
@@ -112,6 +112,11 @@ namespace Recurly
             UnitAmountInCents = unitAmountInCents;
             Currency = currency;
             Delivery = delivery;
+        }
+
+        internal GiftCard(string redemptionCode)
+        {
+            RedemptionCode = redemptionCode;
         }
 
         internal GiftCard() {}
@@ -251,6 +256,17 @@ namespace Recurly
             if (Delivery != null)
                 Delivery.WriteXml(xmlWriter);
 
+            xmlWriter.WriteEndElement(); // End: gift_card
+        }
+
+        /// <summary>
+        /// Redemption serializer
+        /// </summary>
+        /// <param name="xmlWriter"></param>
+        internal void WriteRedemptionXml(XmlTextWriter xmlWriter)
+        {
+            xmlWriter.WriteStartElement("gift_card"); // Start: gift_card
+            xmlWriter.WriteElementString("redemption_code", RedemptionCode);
             xmlWriter.WriteEndElement(); // End: gift_card
         }
 

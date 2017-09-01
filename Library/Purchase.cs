@@ -7,11 +7,35 @@ namespace Recurly
 {
     public class Purchase : RecurlyEntity
     {
+        /// <summary>
+        /// The collection method for the invoice (Automatic or Manual)
+        /// </summary>
         public Invoice.Collection CollectionMethod { get; set; }
+
+        /// <summary>
+        /// An account object. This can be an existing account or a new account.
+        /// </summary>
         public Account Account { get; set; }
+
+        /// <summary>
+        /// The 3 letter currency code for the invoice transactions.
+        /// </summary>
         public string Currency { get; set; }
+
+        /// <summary>
+        /// A po number for the resulting invoice.
+        /// </summary>
         public string PoNumber { get; set; }
+
+        /// <summary>
+        /// The net terms for the invoice.
+        /// </summary>
         public int? NetTerms { get; set; }
+
+        /// <summary>
+        /// A gift card redemption code to apply to this purchase.
+        /// </summary>
+        public string GiftCardRedemptionCode { get; set; }
 
         /// <summary>
         /// List of subscriptions to apply to this purchase
@@ -57,8 +81,8 @@ namespace Recurly
         /// <summary>
         /// Creates a purchase instance
         /// </summary>
-        /// <param name="accountCode"></param>
-        /// <param name="currency"></param>
+        /// <param name="accountCode">An account code of an existing account</param>
+        /// <param name="currency">The 3 letter currency code for the invoice transactions</param>
         public Purchase(string accountCode, string currency)
         {
             Account = new Account(accountCode);
@@ -68,8 +92,8 @@ namespace Recurly
         /// <summary>
         /// Creates a purchase instance
         /// </summary>
-        /// <param name="account"></param>
-        /// <param name="currency"></param>
+        /// <param name="account">An account object. This can be an existing account or a new account</param>
+        /// <param name="currency">The 3 letter currency code for the invoice transactions</param>
         public Purchase(Account account, string currency)
         {
             Account = account;
@@ -152,6 +176,12 @@ namespace Recurly
                     xmlWriter.WriteElementString("coupon_code", code);
                 }
                 xmlWriter.WriteEndElement(); // End: coupon_codes
+            }
+
+            if (GiftCardRedemptionCode != null)
+            {
+                var gc = new GiftCard(GiftCardRedemptionCode);
+                gc.WriteRedemptionXml(xmlWriter);
             }
 
             xmlWriter.WriteEndElement(); // End: purchase
