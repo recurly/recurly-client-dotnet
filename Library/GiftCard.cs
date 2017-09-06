@@ -55,7 +55,7 @@ namespace Recurly
         /// Used by the recipient_account to create a credit in the amount
         /// of the unit_amount_in_cents on their account.
         /// </summary>
-        public string RedemptionCode { get; set; }
+        public string RedemptionCode { get; private set; }
 
         /// <summary>
         /// The remaining credit on the recipient_account associated

@@ -153,7 +153,7 @@ namespace Recurly
                 xmlWriter.WriteStartElement("adjustments"); // Start: adjustments
                 foreach (var adjustment in Adjustments)
                 {
-                    adjustment.WriteXml(xmlWriter);
+                    adjustment.WriteEmbeddedXml(xmlWriter);
                 }
                 xmlWriter.WriteEndElement(); // End: adjustments
             }
