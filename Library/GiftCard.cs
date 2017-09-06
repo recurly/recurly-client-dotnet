@@ -114,6 +114,11 @@ namespace Recurly
             Delivery = delivery;
         }
 
+        internal GiftCard(string redemptionCode)
+        {
+            RedemptionCode = redemptionCode;
+        }
+
         internal GiftCard() {}
 
         internal GiftCard(XmlTextReader xmlReader)
@@ -251,6 +256,17 @@ namespace Recurly
             if (Delivery != null)
                 Delivery.WriteXml(xmlWriter);
 
+            xmlWriter.WriteEndElement(); // End: gift_card
+        }
+
+        /// <summary>
+        /// Redemption serializer
+        /// </summary>
+        /// <param name="xmlWriter"></param>
+        internal void WriteRedemptionXml(XmlTextWriter xmlWriter)
+        {
+            xmlWriter.WriteStartElement("gift_card"); // Start: gift_card
+            xmlWriter.WriteElementString("redemption_code", RedemptionCode);
             xmlWriter.WriteEndElement(); // End: gift_card
         }
 

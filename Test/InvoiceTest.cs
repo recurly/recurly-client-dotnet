@@ -76,7 +76,7 @@ namespace Recurly.Test
                 CustomerNotes = "Some customer notes",
                 TermsAndConditions = "Some terms and conditions",
                 VatReverseChargeNotes = "Some vat reverse charge notes",
-                CollectionMethod = "manual",
+                CollectionMethod = Invoice.Collection.Manual,
                 NetTerms = 5,
                 PoNumber = "Some po number"
             });
@@ -85,7 +85,7 @@ namespace Recurly.Test
             Assert.Equal(invoice.CustomerNotes, "Some customer notes");
             Assert.Equal(invoice.TermsAndConditions, "Some terms and conditions");
             Assert.Equal(invoice.VatReverseChargeNotes, "Some vat reverse charge notes");
-            Assert.Equal(invoice.CollectionMethod, "manual");
+            Assert.Equal(invoice.CollectionMethod, Invoice.Collection.Manual);
             Assert.Equal(invoice.NetTerms, 5);
             Assert.Equal(invoice.PoNumber, "Some po number");
         }
@@ -128,7 +128,7 @@ namespace Recurly.Test
                 CustomerNotes = "Some customer notes",
                 TermsAndConditions = "Some terms and conditions",
                 VatReverseChargeNotes = "Some vat reverse charge notes",
-                CollectionMethod = "manual",
+                CollectionMethod = Invoice.Collection.Manual,
                 NetTerms = 5,
                 PoNumber = "Some po number"
             });
@@ -137,7 +137,7 @@ namespace Recurly.Test
             Assert.Equal(invoice.CustomerNotes, "Some customer notes");
             Assert.Equal(invoice.TermsAndConditions, "Some terms and conditions");
             Assert.Equal(invoice.VatReverseChargeNotes, "Some vat reverse charge notes");
-            Assert.Equal(invoice.CollectionMethod, "manual");
+            Assert.Equal(invoice.CollectionMethod, Invoice.Collection.Manual);
             Assert.Equal(invoice.NetTerms, 5);
             Assert.Equal(invoice.PoNumber, "Some po number");
         }

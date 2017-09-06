@@ -58,6 +58,14 @@ namespace Recurly
 
         #region Constructors
 
+
+        public Adjustment(int unitAmountInCents, string description, int quantity = 1)
+        {
+            UnitAmountInCents = unitAmountInCents;
+            Description = description;
+            Quantity = quantity;
+        }
+
         internal Adjustment()
         {
             
@@ -230,17 +238,27 @@ namespace Recurly
             }
         }
 
-        
         internal override void WriteXml(XmlTextWriter xmlWriter)
         {
-            xmlWriter.WriteStartElement("adjustment"); 
+            WriteXml(xmlWriter, false);
+        }
+
+        internal void WriteEmbeddedXml(XmlTextWriter xmlWriter)
+        {
+            WriteXml(xmlWriter, true);
+        }
+
+        internal void WriteXml(XmlTextWriter xmlWriter, bool embedded = false)
+        {
+            xmlWriter.WriteStartElement("adjustment"); // Start: adjustment
             xmlWriter.WriteElementString("description", Description);
             xmlWriter.WriteElementString("unit_amount_in_cents", UnitAmountInCents.AsString());
-            xmlWriter.WriteElementString("currency", Currency);
             xmlWriter.WriteElementString("quantity", Quantity.AsString());
             xmlWriter.WriteElementString("accounting_code", AccountingCode);
             xmlWriter.WriteElementString("tax_exempt", TaxExempt.AsString());
-            xmlWriter.WriteEndElement(); 
+            if (!embedded)
+                xmlWriter.WriteElementString("currency", Currency);
+            xmlWriter.WriteEndElement(); // End: adjustment
         }
 
         #endregion
