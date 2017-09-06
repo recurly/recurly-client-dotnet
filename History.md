@@ -1,6 +1,27 @@
 Unreleased
 ===============
 
+1.6.0 (stable) / 2017-09-06
+===============
+
+* Gift Card Support
+* Purchases Endpoint Support
+
+This release will upgrade us to API version 2.7. There is only 1 breaking change in this library.
+
+`Invoice` will now use an enum for the `CollectionMethod` property instead of a string. The enum has 2 values (Automatic and Manual). Example:
+
+```csharp
+// Setting
+invoice.CollectionMethod = Invoice.Collection.Manual;
+
+// Getting
+if (invoice.CollectionMethod == Invoice.Collection.Automatic)
+{
+  // do something
+}
+```
+
 1.5.1 (stable) / 2017-06-27
 ===============
 
