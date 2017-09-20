@@ -69,7 +69,7 @@ namespace Recurly
         }
 
         private Plan _plan;
-     
+
         public Plan Plan
         {
             get { return _plan ?? (_plan = Plans.Get(PlanCode)); }
@@ -473,7 +473,7 @@ namespace Recurly
         public void Postpone(DateTime nextRenewalDate, bool bulk = false)
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
-                UrlPrefix + Uri.EscapeUriString(Uuid) + "/postpone?next_renewal_date=" + nextRenewalDate.ToString("yyyy-MM-ddThh:mm:ssZ") + "&bulk=" + bulk.ToString().ToLower(),
+                UrlPrefix + Uri.EscapeUriString(Uuid) + "/postpone?next_renewal_date=" + nextRenewalDate.ToString("s") + "&bulk=" + bulk.ToString().ToLower(),
                 ReadXml);
         }
 
@@ -656,7 +656,7 @@ namespace Recurly
                         if (Int32.TryParse(reader.ReadElementContentAsString(), out billingCycles))
                             TotalBillingCycles = billingCycles;
                         break;
-                        
+
                     case "remaining_billing_cycles":
                         if (Int32.TryParse(reader.ReadElementContentAsString(), out billingCycles))
                             RemainingBillingCycles = billingCycles;
