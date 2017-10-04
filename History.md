@@ -1,6 +1,12 @@
 Unreleased
 ===============
 
+1.6.1 (stable) / 2017-10-04
+===============
+
+* Fix Subscription#Postpone datetime format bug
+
+
 1.6.0 (stable) / 2017-09-06
 ===============
 
