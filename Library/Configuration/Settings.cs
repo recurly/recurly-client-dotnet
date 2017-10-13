@@ -63,7 +63,7 @@ namespace Recurly.Configuration
         }
 
         protected const string RecurlyServerUri = "https://{0}.recurly.com/v2{1}";
-        public const string RecurlyApiVersion = "2.7";
+        public const string RecurlyApiVersion = "2.8";
 
         // static, unlikely to change
         public string UserAgent
