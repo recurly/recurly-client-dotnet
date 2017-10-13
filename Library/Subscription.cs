@@ -292,6 +292,11 @@ namespace Recurly
         /// </summary>
         public DateTime? ConvertedAt { get; private set; }
 
+        /// <summary>
+        /// Optionally set true to denote that this subscription was imported from a trial.
+        /// </summary>
+        public bool? ImportedTrial { get; set; }
+
         internal Subscription()
         {
             IsPendingSubscription = false;
@@ -702,6 +707,9 @@ namespace Recurly
                     case "no_billing_info_reason":
                         NoBillingInfoReason = reader.ReadElementContentAsString();
                         break;
+                    case "imported_trial":
+                        ImportedTrial = reader.ReadElementContentAsBoolean();
+                        break;
                 }
             }
         }
@@ -819,6 +827,11 @@ namespace Recurly
             if (ShippingAddressId.HasValue)
             {
                 xmlWriter.WriteElementString("shipping_address_id", ShippingAddressId.Value.ToString());
+            }
+
+            if (ImportedTrial.HasValue)
+            {
+                xmlWriter.WriteElementString("imported_trial", ImportedTrial.Value.ToString().ToLower());
             }
 
             xmlWriter.WriteEndElement(); // End: subscription
