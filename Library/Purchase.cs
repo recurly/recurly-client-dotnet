@@ -67,6 +67,33 @@ namespace Recurly
         }
         private List<string> _couponCodes;
 
+        /// <summary>
+        /// Optional notes field. This will default to the Customer Notes 
+        /// text specified on the Invoice Settings page in your Recurly admin.
+        /// Custom notes made on an invoice for a one time charge will
+        /// not carry over to subsequent invoices.
+        /// </summary>
+        public string CustomerNotes { get; set; }
+
+        /// <summary>
+        /// Optional Terms and Conditions field. This will default to the
+        /// Terms and Conditions text specified on the Invoice Settings page
+        /// in your Recurly admin. Custom notes will stay with a subscription
+        /// on all renewals.
+        /// </summary>
+        public string TermsAndConditions { get; set; }
+
+        /// <summary>
+        /// Optional VAT Reverse Charge Notes only appear if you have EU VAT
+        /// enabled or are using your own Avalara AvaTax account and the customer
+        /// is in the EU, has a VAT number, and is in a different country than
+        /// your own. This will default to the VAT Reverse Charge Notes text
+        /// specified on the Tax Settings page in your Recurly admin, unless
+        /// custom notes were created with the original subscription. Custom
+        /// notes will stay with a subscription on all renewals.
+        /// </summary>
+        public string VatReverseChargeNotes { get; set; }
+
         #region Constructors
 
         internal Purchase()
@@ -183,6 +210,15 @@ namespace Recurly
                 var gc = new GiftCard(GiftCardRedemptionCode);
                 gc.WriteRedemptionXml(xmlWriter);
             }
+
+            if (CustomerNotes != null)
+                xmlWriter.WriteElementString("customer_notes", CustomerNotes);
+
+            if (TermsAndConditions != null)
+                xmlWriter.WriteElementString("terms_and_conditions", TermsAndConditions);
+
+            if (VatReverseChargeNotes != null)
+                xmlWriter.WriteElementString("vat_reverse_charge_notes", VatReverseChargeNotes);
 
             xmlWriter.WriteEndElement(); // End: purchase
         }

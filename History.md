@@ -1,6 +1,20 @@
 Unreleased
 ===============
 
+1.7.0 (stable) / 2017-10-17
+===============
+
+* ImportedTrial flag on Subscription
+* Purchases Notes Changes
+
+### Upgrade Notes
+
+This release will upgrade us to API version 2.8.
+
+There is one breaking change in this API version you must consider. All `country` fields must now contain valid [2 letter ISO 3166 country codes](https://www.iso.org/iso-3166-country-codes.html). If your code fails
+validation, you will receive a validation error. This affects anywhere and address is collected.
+
+
 1.6.1 (stable) / 2017-10-04
 ===============
 
@@ -12,6 +26,8 @@ Unreleased
 
 * Gift Card Support
 * Purchases Endpoint Support
+
+### Upgrade Notes
 
 This release will upgrade us to API version 2.7. There is only 1 breaking change in this library.
 
