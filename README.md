@@ -53,65 +53,87 @@ setting in your `app.config` or `web.config` file:
 
 ## Client Documentation
 
-Full C# API documentation is on our [developer docs site](https://dev.recurly.com/docs/getting-started)
-and in [examples.md](./examples.md).
+The API documentation is available on our [developer docs site](https://dev.recurly.com/docs/getting-started)
+You can find .NET examples there but we have some examples in [examples.md](./examples.md).
 
-### Example usage
-To create an account with `account code` and `name`:
+## Overview Usage
+
+### Creating Resources
+
+To create a resource, initialize it, set the desired parameters, then call `Create()`.
+The instance will be auto-updated with the new details from the server. Here is an
+example of creating an [Account](https://dev.recurly.com/docs/create-an-account):
 
 ```c#
 var account = new Account("123")
 {
-	FirstName = "John",
-	LastName = "Smith"
+  FirstName = "John",
+  LastName = "Smith"
 };
 account.Create();
+Console.WriteLine(account.CreatedAt);
 ```
 
-Get the account with `account code` 123:
+### Fetching Resources
+
+All resources have some kind of identifier. The API docs site should help you understand how to reference
+the resource you want. In the case of the `Account`, we can reference it by `AccountCode`. Call `Get` on a
+resource class to fetch the resource with the given identifier.
 
 ```c#
 var account = Accounts.Get("123");
 ```
 
-List all available `Accounts` and print their `account codes`:
+### Pagination
+
+Sometimes, if you wish to enumerate many resources on the server, you will need to make multiple HTTP calls to the server.
+This is called pagination. Pagination in this library is handled by the `RecurlyList` class. An instance of this class can be
+created by calling `List()` on the plural-named resource class (e.g. `Account` -> `Accounts`). For example, suppose we wish to
+iterate over every account on our site:
 
 ```c#
+// returns a RecurlyList instance
 var accounts = Accounts.List();
+
+// while the server still has accounts to give
+while (accounts.Any())
+{
+  // iterate through each account in this "page"
+  foreach (var account in accounts)
+    Console.WriteLine(account);
+
+  // fetch the next "page" of accounts
+  accounts = accounts.Next;
+}
+```
+
+It's also possible to sort and/or filter this stream of resources by passing in parameters to the `List()` method and
+using the `FilterCriteria` class. Here is an example of sorting and filtering accounts:
+
+```c#
+var filter = FilterCriteria.Instance               // create the instance
+        .WithOrder(FilterCriteria.Order.Desc)      // order the results in "descending" order
+        .WithSort(FilterCriteria.Sort.UpdatedAt)   // sort by the `UpdatedAt` property
+        .WithBeginTime(new DateTime(2017, 1, 1))   // filter out any accounts updated before January 1st, 2017
+        .WithEndTime(DateTime.UtcNow);             // filter accounts updated to this moment (could be any date after `BeginTime`)
+
+// The first parameter of Accounts.List allows you to filter by the `State` of the account.
+// In this case, let's only look at `Active` accounts.
+var accounts = Accounts.List(Account.AccountState.Active, filter);
 foreach (var account in accounts)
-	Console.WriteLine(account.AccountCode);
+{
+    Console.Write(account.AccountCode + ": ");
+    Console.WriteLine(account.UpdatedAt);
+}
 ```
 
-Get an account's billing information:
-
-```c#
-var account = Accounts.Get("123");
-var info = account.BillingInfo;
-```
-
-Create a coupon with code **WINTER**, name, and with a 10% discount:
-
-```c#
-var coupon = new Coupon("WINTER", "Winter discount", 10);
-coupon.Create();
-```
-
-Redeem that coupon on an account that uses US dollars, getting a `CouponRedemption` object:
-
-```c#
-var redemption = account.RedeemCoupon("WINTER", "USD");
-```
-
-Each section of the API (Accounts, Invoices, Transactions, etc.) has static references for getting or listing their
-types and concrete implementations for manipulating concrete objects.
-
-## Recurly API Documentation
-
-Please see the [Recurly API](https://dev.recurly.com/docs/getting-started) for more information.
+Every `List()` method takes a `FilterCriteria` as the final parameter, but differs in the endpoint specific filters.
+The best way to learn about this is by looking at the source code or the code docs.
 
 ## Support
+
 Looking for help? Please contact [support@recurly.com](mailto:support@recurly.com) or visit
 [support.recurly.com](https://support.recurly.com).
 
-[Stackoverflow](http://stackoverflow.com/questions/tagged/recurly) is also a great place to talk to the community
-and find answers to common questions.
+It's also acceptable to post a question, problem, or request as a GitHub issue on this repository and the developers
+will try to get back to you in a timely manner.
