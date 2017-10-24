@@ -114,7 +114,7 @@ namespace Recurly
             Delivery = delivery;
         }
 
-        internal GiftCard(string redemptionCode)
+        public GiftCard(string redemptionCode)
         {
             RedemptionCode = redemptionCode;
         }
