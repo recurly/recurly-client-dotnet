@@ -114,7 +114,7 @@ namespace Recurly
             Delivery = delivery;
         }
 
-        internal GiftCard(string redemptionCode)
+        public GiftCard(string redemptionCode)
         {
             RedemptionCode = redemptionCode;
         }
@@ -147,6 +147,18 @@ namespace Recurly
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 UrlPrefix + "preview", WriteXml, ReadXml);
+        }
+
+        /// <summary>
+        /// Redeem this gift card on the account
+        /// with the given account code.
+        /// </summary>
+        /// <param name="accountCode">The account code to redeem the card against</param>
+        public void Redeem(string accountCode)
+        {
+            var account = new Account(accountCode);
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
+                UrlPrefix + "/" + RedemptionCode + "/redeem", account.WriteGiftCardRedeemXml, ReadXml);
         }
 
         /// <summary>
