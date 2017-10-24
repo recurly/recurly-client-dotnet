@@ -506,6 +506,17 @@ namespace Recurly
 
             xmlWriter.WriteEndElement(); // End: account
         }
+        /// <summary>
+        /// This serializer is used for redeeming a gift card on
+        /// this account.
+        /// </summary>
+        /// <param name="xmlWriter"></param>
+        internal void WriteGiftCardRedeemXml(XmlTextWriter xmlWriter)
+        {
+            xmlWriter.WriteStartElement("recipient_account"); // Start: recipient_account
+            xmlWriter.WriteElementString("account_code", AccountCode);
+            xmlWriter.WriteEndElement(); // End: recipient_account
+        }
 
         #endregion
 
