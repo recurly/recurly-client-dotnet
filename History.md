@@ -1,6 +1,19 @@
 Unreleased
 ===============
 
+1.8.0 (stable) / 2017-10-26
+===============
+
+* Adds giftcard redeem endpoint
+* Update the README with `Overview` section
+* Make TrialRequiresBillingInfo an optional
+* Implements missing `revenue_schedule_type`
+
+### Upgrade Notes
+
+There is one small breaking change in this API version. `TrialRequiresBillingInfo` is now an optional so you will have to unwrap it to use it.
+
+
 1.7.0 (stable) / 2017-10-17
 ===============
 
