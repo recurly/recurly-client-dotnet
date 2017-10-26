@@ -45,7 +45,7 @@ namespace Recurly
 
         public string TaxCode { get; set; }
 
-        public bool TrialRequiresBillingInfo { get; set; }
+        public bool? TrialRequiresBillingInfo { get; set; }
 
         private AddOnList _addOns;
 
@@ -357,7 +357,8 @@ namespace Recurly
             if (TaxExempt.HasValue)
                 xmlWriter.WriteElementString("tax_exempt", TaxExempt.Value.AsString());
 
-            xmlWriter.WriteElementString("trial_requires_billing_info", TrialRequiresBillingInfo.AsString());
+            if (TrialRequiresBillingInfo.HasValue)
+                xmlWriter.WriteElementString("trial_requires_billing_info", TrialRequiresBillingInfo.Value.AsString());
 
             xmlWriter.WriteStringIfValid("success_url", SuccessUrl);
             xmlWriter.WriteStringIfValid("cancel_url", CancelUrl);
