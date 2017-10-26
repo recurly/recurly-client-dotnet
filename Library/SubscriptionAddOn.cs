@@ -7,6 +7,7 @@ namespace Recurly
         public string AddOnCode { get; set; }
         public int UnitAmountInCents { get; set; }
         public int Quantity { get; set; }
+        public Adjustment.RevenueSchedule? RevenueScheduleType { get; set; }
 
         public SubscriptionAddOn(XmlTextReader reader)
         {
@@ -42,6 +43,10 @@ namespace Recurly
                     case "unit_amount_in_cents":
                         UnitAmountInCents = reader.ReadElementContentAsInt();
                         break;
+
+                    case "revenue_schedule_type":
+                        RevenueScheduleType = reader.ReadContentAsString().ParseAsEnum<Adjustment.RevenueSchedule>();
+                        break;
                 }
             }
         }
@@ -53,6 +58,9 @@ namespace Recurly
             writer.WriteElementString("add_on_code", AddOnCode);
             writer.WriteElementString("quantity", Quantity.AsString());
             writer.WriteElementString("unit_amount_in_cents", UnitAmountInCents.AsString());
+
+            if (RevenueScheduleType.HasValue)
+                writer.WriteElementString("revenue_schedule_type", RevenueScheduleType.Value.ToString().EnumNameToTransportCase());
 
             writer.WriteEndElement();
         }

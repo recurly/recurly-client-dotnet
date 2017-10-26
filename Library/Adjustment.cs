@@ -23,6 +23,14 @@ namespace Recurly
             Invoiced
         }
 
+        public enum RevenueSchedule : short
+        {
+            Evenly = 0,
+            Never,
+            AtRangeStart,
+            AtRangeEnd
+        }
+
         public string AccountCode { get; private set; }
         public string Uuid { get; protected set; }
         public string Description { get; set; }
@@ -37,6 +45,7 @@ namespace Recurly
         public string Currency { get; set; }
         public bool TaxExempt { get; set; }
         public string TaxCode { get; set; }
+        public RevenueSchedule? RevenueScheduleType { get; set; }
 
         public string TaxType { get; private set; }
         public decimal? TaxRate { get; private set; }
@@ -234,6 +243,9 @@ namespace Recurly
                         State = reader.ReadElementContentAsString().ParseAsEnum<AdjustmentState>();
                         break;
 
+                    case "revenue_schedule_type":
+                        RevenueScheduleType = reader.ReadContentAsString().ParseAsEnum<Adjustment.RevenueSchedule>();
+                        break;
                 }
             }
         }
@@ -258,6 +270,8 @@ namespace Recurly
             xmlWriter.WriteElementString("tax_exempt", TaxExempt.AsString());
             if (!embedded)
                 xmlWriter.WriteElementString("currency", Currency);
+            if (RevenueScheduleType.HasValue)
+                xmlWriter.WriteElementString("revenue_schedule_type", RevenueScheduleType.Value.ToString().EnumNameToTransportCase());
             xmlWriter.WriteEndElement(); // End: adjustment
         }
 

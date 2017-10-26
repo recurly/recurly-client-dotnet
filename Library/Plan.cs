@@ -47,6 +47,9 @@ namespace Recurly
 
         public bool? TrialRequiresBillingInfo { get; set; }
 
+        public Adjustment.RevenueSchedule? RevenueScheduleType { get; set; }
+        public Adjustment.RevenueSchedule? SetupFeeRevenueScheduleType { get; set; }
+
         private AddOnList _addOns;
 
         public RecurlyList<AddOn> AddOns
@@ -309,6 +312,14 @@ namespace Recurly
                         if (bool.TryParse(reader.ReadElementContentAsString(), out b))
                             TrialRequiresBillingInfo = b;
                         break;
+
+                    case "revenue_schedule_type":
+                        RevenueScheduleType = reader.ReadContentAsString().ParseAsEnum<Adjustment.RevenueSchedule>();
+                        break;
+
+                    case "setup_fee_revenue_schedule_type":
+                        SetupFeeRevenueScheduleType = reader.ReadContentAsString().ParseAsEnum<Adjustment.RevenueSchedule>();
+                        break;
                 }
             }
         }
@@ -362,6 +373,12 @@ namespace Recurly
 
             xmlWriter.WriteStringIfValid("success_url", SuccessUrl);
             xmlWriter.WriteStringIfValid("cancel_url", CancelUrl);
+
+            if (RevenueScheduleType.HasValue)
+                xmlWriter.WriteElementString("revenue_schedule_type", RevenueScheduleType.Value.ToString().EnumNameToTransportCase());
+
+            if (SetupFeeRevenueScheduleType.HasValue)
+                xmlWriter.WriteElementString("setup_fee_revenue_schedule_type", SetupFeeRevenueScheduleType.Value.ToString().EnumNameToTransportCase());
 
             xmlWriter.WriteEndElement();
         }

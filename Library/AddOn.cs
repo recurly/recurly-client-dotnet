@@ -25,6 +25,7 @@ namespace Recurly
         public Usage.Type? UsageType { get; set; }
         public DateTime CreatedAt { get; private set; }
         public DateTime UpdatedAt { get; private set; }
+        public Adjustment.RevenueSchedule? RevenueScheduleType { get; set; }
 
         private Dictionary<string, int> _unitAmountInCents;
         /// <summary>
@@ -165,6 +166,10 @@ namespace Recurly
                     case "usage_type":
                         UsageType = reader.ReadElementContentAsString().ParseAsEnum<Usage.Type>();
                         break;
+
+                    case "revenue_schedule_type":
+                        RevenueScheduleType = reader.ReadContentAsString().ParseAsEnum<Adjustment.RevenueSchedule>();
+                        break;
                 }
             }
         }
@@ -195,6 +200,9 @@ namespace Recurly
 
             xmlWriter.WriteIfCollectionHasAny("unit_amount_in_cents", UnitAmountInCents, pair => pair.Key,
                 pair => pair.Value.AsString());
+
+            if (RevenueScheduleType.HasValue)
+                xmlWriter.WriteElementString("revenue_schedule_type", RevenueScheduleType.Value.ToString().EnumNameToTransportCase());
 
             xmlWriter.WriteEndElement();
         }

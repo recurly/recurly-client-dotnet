@@ -297,6 +297,8 @@ namespace Recurly
         /// </summary>
         public bool? ImportedTrial { get; set; }
 
+        public Adjustment.RevenueSchedule? RevenueScheduleType { get; set; }
+
         internal Subscription()
         {
             IsPendingSubscription = false;
@@ -710,6 +712,10 @@ namespace Recurly
                     case "imported_trial":
                         ImportedTrial = reader.ReadElementContentAsBoolean();
                         break;
+
+                    case "revenue_schedule_type":
+                        RevenueScheduleType = reader.ReadContentAsString().ParseAsEnum<Adjustment.RevenueSchedule>();
+                        break;
                 }
             }
         }
@@ -833,6 +839,9 @@ namespace Recurly
             {
                 xmlWriter.WriteElementString("imported_trial", ImportedTrial.Value.ToString().ToLower());
             }
+
+            if (RevenueScheduleType.HasValue)
+                xmlWriter.WriteElementString("revenue_schedule_type", RevenueScheduleType.Value.ToString().EnumNameToTransportCase());
 
             xmlWriter.WriteEndElement(); // End: subscription
         }
