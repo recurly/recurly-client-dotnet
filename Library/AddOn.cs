@@ -167,8 +167,8 @@ namespace Recurly
                         UsageType = reader.ReadElementContentAsString().ParseAsEnum<Usage.Type>();
                         break;
 
-                    case "revenue_schedule_type":
-                        RevenueScheduleType = reader.ReadContentAsString().ParseAsEnum<Adjustment.RevenueSchedule>();
+                    case "revenue_schedule_tye":
+                        RevenueScheduleType = reader.ReadElementContentAsString().ParseAsEnum<Adjustment.RevenueSchedule>();
                         break;
                 }
             }
