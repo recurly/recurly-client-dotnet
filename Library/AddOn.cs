@@ -56,7 +56,7 @@ namespace Recurly
         public void Create()
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
-                UrlPrefix + Uri.EscapeUriString(PlanCode) + UrlPostfix,
+                UrlPrefix + Uri.EscapeDataString(PlanCode) + UrlPostfix,
                 WriteXml,
                 ReadXml);
         }
@@ -67,7 +67,7 @@ namespace Recurly
         public void Update()
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
-                UrlPrefix + Uri.EscapeUriString(PlanCode) + UrlPostfix + Uri.EscapeUriString(AddOnCode),
+                UrlPrefix + Uri.EscapeDataString(PlanCode) + UrlPostfix + Uri.EscapeDataString(AddOnCode),
                 WriteXml,
                 ReadXml);
         }
@@ -78,7 +78,7 @@ namespace Recurly
         public void Delete()
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Delete,
-                UrlPrefix + Uri.EscapeUriString(PlanCode) + UrlPostfix + Uri.EscapeUriString(AddOnCode));
+                UrlPrefix + Uri.EscapeDataString(PlanCode) + UrlPostfix + Uri.EscapeDataString(AddOnCode));
         }
 
 
