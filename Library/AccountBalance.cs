@@ -19,7 +19,7 @@ namespace Recurly
             var accountBalance = new AccountBalance();
 
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
-                UrlPrefix + Uri.EscapeUriString(accountCode) + "/balance", accountBalance.ReadXml);
+                UrlPrefix + Uri.EscapeDataString(accountCode) + "/balance", accountBalance.ReadXml);
 
             return statusCode == HttpStatusCode.NotFound ? null : accountBalance;
         }
