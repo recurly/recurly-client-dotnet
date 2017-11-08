@@ -132,7 +132,7 @@ namespace Recurly
         public void Refund(int? refund = null)
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Delete,
-                UrlPrefix + Uri.EscapeUriString(Uuid) + (refund.HasValue ? "?amount_in_cents=" + refund.Value : ""),
+                UrlPrefix + Uri.EscapeDataString(Uuid) + (refund.HasValue ? "?amount_in_cents=" + refund.Value : ""),
                 ReadXml);
         }
 
@@ -335,7 +335,7 @@ namespace Recurly
             var transaction = new Transaction();
 
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
-                Transaction.UrlPrefix + Uri.EscapeUriString(transactionId),
+                Transaction.UrlPrefix + Uri.EscapeDataString(transactionId),
                 transaction.ReadXml);
 
             return statusCode == HttpStatusCode.NotFound ? null : transaction;
