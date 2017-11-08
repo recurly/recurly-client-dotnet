@@ -58,7 +58,7 @@ namespace Recurly
             {
                 if (_addOns == null)
                 {
-                    var url = UrlPrefix + Uri.EscapeUriString(PlanCode) + "/add_ons/";
+                    var url = UrlPrefix + Uri.EscapeDataString(PlanCode) + "/add_ons/";
                     _addOns = new AddOnList(url);
                 }
                 return _addOns;
@@ -120,7 +120,7 @@ namespace Recurly
         public void Update()
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
-                UrlPrefix + Uri.EscapeUriString(PlanCode),
+                UrlPrefix + Uri.EscapeDataString(PlanCode),
                 WriteXml);
         }
 
@@ -129,7 +129,7 @@ namespace Recurly
         /// </summary>
         public void Deactivate()
         {
-            Client.Instance.PerformRequest(Client.HttpRequestMethod.Delete, UrlPrefix + Uri.EscapeUriString(PlanCode));
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Delete, UrlPrefix + Uri.EscapeDataString(PlanCode));
         }
 
         /// <summary>
@@ -149,7 +149,7 @@ namespace Recurly
             var addOn = new AddOn();
 
             var status = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
-                UrlPrefix + Uri.EscapeUriString(PlanCode) + "/add_ons/" + Uri.EscapeUriString(addOnCode),
+                UrlPrefix + Uri.EscapeDataString(PlanCode) + "/add_ons/" + Uri.EscapeDataString(addOnCode),
                 addOn.ReadXml);
 
             if (status != HttpStatusCode.OK) return null;
@@ -445,7 +445,7 @@ namespace Recurly
             var plan = new Plan();
 
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
-                Plan.UrlPrefix + Uri.EscapeUriString(planCode),
+                Plan.UrlPrefix + Uri.EscapeDataString(planCode),
                 plan.ReadXml);
 
             return statusCode == HttpStatusCode.NotFound ? null : plan;

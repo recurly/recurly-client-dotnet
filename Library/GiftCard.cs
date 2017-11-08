@@ -324,7 +324,7 @@ namespace Recurly
             var giftCard = new GiftCard();
             // GET /gift_cards/<id>
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
-                UrlPrefix + Uri.EscapeUriString(id.ToString()),
+                UrlPrefix + Uri.EscapeDataString(id.ToString()),
                 giftCard.ReadXml);
 
             return statusCode == HttpStatusCode.NotFound ? null : giftCard;

@@ -372,7 +372,7 @@ namespace Recurly
                 writeXmlDelegate = WriteChangeSubscriptionNowXml;
 
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
-                UrlPrefix + Uri.EscapeUriString(Uuid),
+                UrlPrefix + Uri.EscapeDataString(Uuid),
                 writeXmlDelegate,
                 ReadXml);
         }
@@ -389,7 +389,7 @@ namespace Recurly
         public void Cancel()
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
-                UrlPrefix + Uri.EscapeUriString(Uuid) + "/cancel",
+                UrlPrefix + Uri.EscapeDataString(Uuid) + "/cancel",
                 ReadXml);
         }
 
@@ -399,7 +399,7 @@ namespace Recurly
         public void Reactivate()
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
-                UrlPrefix + Uri.EscapeUriString(Uuid) + "/reactivate",
+                UrlPrefix + Uri.EscapeDataString(Uuid) + "/reactivate",
                 ReadXml);
         }
 
@@ -410,7 +410,7 @@ namespace Recurly
         public void Terminate(RefundType refund)
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
-                UrlPrefix + Uri.EscapeUriString(Uuid) + "/terminate?refund=" + refund.ToString().EnumNameToTransportCase(),
+                UrlPrefix + Uri.EscapeDataString(Uuid) + "/terminate?refund=" + refund.ToString().EnumNameToTransportCase(),
                 ReadXml);
         }
 
@@ -460,7 +460,7 @@ namespace Recurly
             var previewSubscription = new Subscription();
 
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
-                UrlPrefix + Uri.EscapeUriString(Uuid) + "/preview",
+                UrlPrefix + Uri.EscapeDataString(Uuid) + "/preview",
                 writeXmlDelegate,
                 previewSubscription.ReadPreviewXml);
 
@@ -480,14 +480,14 @@ namespace Recurly
         public void Postpone(DateTime nextRenewalDate, bool bulk = false)
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
-                UrlPrefix + Uri.EscapeUriString(Uuid) + "/postpone?next_renewal_date=" + nextRenewalDate.ToString("s") + "&bulk=" + bulk.ToString().ToLower(),
+                UrlPrefix + Uri.EscapeDataString(Uuid) + "/postpone?next_renewal_date=" + nextRenewalDate.ToString("s") + "&bulk=" + bulk.ToString().ToLower(),
                 ReadXml);
         }
 
         public bool UpdateNotes(Dictionary<string, string> notes)
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
-                UrlPrefix + Uri.EscapeUriString(Uuid) + "/notes",
+                UrlPrefix + Uri.EscapeDataString(Uuid) + "/notes",
                 WriteSubscriptionNotesXml(notes),
                 ReadXml);
 
@@ -502,7 +502,7 @@ namespace Recurly
         {
             var coupons = new CouponRedemptionList();
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
-                UrlPrefix + Uri.EscapeUriString(Uuid) + "/redemptions/",
+                UrlPrefix + Uri.EscapeDataString(Uuid) + "/redemptions/",
                 coupons.ReadXmlList);
 
             return statusCode == HttpStatusCode.NotFound ? null : coupons;
@@ -968,7 +968,7 @@ namespace Recurly
         {
             var s = new Subscription();
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
-                Subscription.UrlPrefix + Uri.EscapeUriString(uuid),
+                Subscription.UrlPrefix + Uri.EscapeDataString(uuid),
                 s.ReadXml);
 
             return statusCode == HttpStatusCode.NotFound ? null : s;
