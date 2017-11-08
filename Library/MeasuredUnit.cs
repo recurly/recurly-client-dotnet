@@ -56,7 +56,7 @@ namespace Recurly
         public void Update()
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
-                UrlPrefix + Uri.EscapeUriString(Id.ToString()),
+                UrlPrefix + Uri.EscapeDataString(Id.ToString()),
                 WriteXml);
         }
 
@@ -66,7 +66,7 @@ namespace Recurly
         public void Delete()
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Delete,
-                UrlPrefix + Uri.EscapeUriString(Id.ToString()));
+                UrlPrefix + Uri.EscapeDataString(Id.ToString()));
         }
 
         #region Read and Write XML documents
