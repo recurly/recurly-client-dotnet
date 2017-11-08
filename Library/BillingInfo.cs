@@ -159,7 +159,7 @@ namespace Recurly
 
         private static string BillingInfoUrl(string accountCode)
         {
-            return UrlPrefix + Uri.EscapeUriString(accountCode) + UrlPostfix;
+            return UrlPrefix + Uri.EscapeDataString(accountCode) + UrlPostfix;
         }
 
         internal override void ReadXml(XmlTextReader reader)

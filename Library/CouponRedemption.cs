@@ -42,7 +42,7 @@ namespace Recurly
             var cr = new CouponRedemption {AccountCode = accountCode, Currency = currency};
 
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
-               "/coupons/" + Uri.EscapeUriString(couponCode) + "/redeem",
+               "/coupons/" + Uri.EscapeDataString(couponCode) + "/redeem",
                cr.WriteXml,
                cr.ReadXml);
 
@@ -56,7 +56,7 @@ namespace Recurly
         public void Delete()
         {
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Delete,
-                "/accounts/" + Uri.EscapeUriString(AccountCode) + "/redemption");
+                "/accounts/" + Uri.EscapeDataString(AccountCode) + "/redemption");
             AccountCode = null;
             CouponCode = null;
             Currency = null;
