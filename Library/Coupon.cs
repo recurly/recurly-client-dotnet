@@ -117,7 +117,7 @@ namespace Recurly
         public void Deactivate()
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Delete,
-                UrlPrefix + Uri.EscapeUriString(CouponCode));
+                UrlPrefix + Uri.EscapeDataString(CouponCode));
         }
 
 
@@ -313,7 +313,7 @@ namespace Recurly
             var coupon = new Coupon();
 
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
-                Coupon.UrlPrefix + Uri.EscapeUriString(couponCode),
+                Coupon.UrlPrefix + Uri.EscapeDataString(couponCode),
                 coupon.ReadXml);
 
             return statusCode == HttpStatusCode.NotFound ? null : coupon;

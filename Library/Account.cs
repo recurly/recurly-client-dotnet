@@ -98,7 +98,7 @@ namespace Recurly
         public void DeleteBillingInfo()
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Delete,
-                UrlPrefix + Uri.EscapeUriString(AccountCode) + "/billing_info");
+                UrlPrefix + Uri.EscapeDataString(AccountCode) + "/billing_info");
             _billingInfo = null;
         }
         
@@ -118,7 +118,7 @@ namespace Recurly
         {
             // PUT /accounts/<account code>
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
-                UrlPrefix + Uri.EscapeUriString(AccountCode),
+                UrlPrefix + Uri.EscapeDataString(AccountCode),
                 WriteXml);
         }
 
@@ -153,7 +153,7 @@ namespace Recurly
         {
             var i = new Invoice();
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
-                UrlPrefix + Uri.EscapeUriString(AccountCode) + "/invoices",
+                UrlPrefix + Uri.EscapeDataString(AccountCode) + "/invoices",
                 i.ReadXml);
 
             return i;
@@ -170,7 +170,7 @@ namespace Recurly
         {
             var adjustments = new AdjustmentList();
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
-                UrlPrefix + Uri.EscapeUriString(AccountCode) + "/adjustments/"
+                UrlPrefix + Uri.EscapeDataString(AccountCode) + "/adjustments/"
                 + Build.QueryStringWith(Adjustment.AdjustmentState.Any == state ? "" : "state=" + state.ToString().EnumNameToTransportCase())
                 .AndWith(Adjustment.AdjustmentType.All == type ? "" : "type=" + type.ToString().EnumNameToTransportCase())
                 , adjustments.ReadXmlList);
@@ -194,7 +194,7 @@ namespace Recurly
         /// <returns></returns>
         public RecurlyList<Subscription> GetSubscriptions(Subscription.SubscriptionState state = Subscription.SubscriptionState.All)
         {
-            return new SubscriptionList(UrlPrefix + Uri.EscapeUriString(AccountCode) + "/subscriptions/"
+            return new SubscriptionList(UrlPrefix + Uri.EscapeDataString(AccountCode) + "/subscriptions/"
                 + Build.QueryStringWith(state.Equals(Subscription.SubscriptionState.All) ? "" :  "state=" + state.ToString().EnumNameToTransportCase()));
         }
 
@@ -207,14 +207,14 @@ namespace Recurly
         public RecurlyList<Transaction> GetTransactions(TransactionList.TransactionState state = TransactionList.TransactionState.All,
             TransactionList.TransactionType type = TransactionList.TransactionType.All)
         {
-            return new TransactionList(UrlPrefix + Uri.EscapeUriString(AccountCode) + "/transactions/"
+            return new TransactionList(UrlPrefix + Uri.EscapeDataString(AccountCode) + "/transactions/"
                  + Build.QueryStringWith(state != TransactionList.TransactionState.All ? "state=" + state.ToString().EnumNameToTransportCase() : "")
                    .AndWith(type != TransactionList.TransactionType.All ? "type=" + type.ToString().EnumNameToTransportCase() : ""));
         }
 
         public RecurlyList<Note> GetNotes()
         {
-            return new NoteList(UrlPrefix + Uri.EscapeUriString(AccountCode) + "/notes/");
+            return new NoteList(UrlPrefix + Uri.EscapeDataString(AccountCode) + "/notes/");
         }
 
         /// <summary>
@@ -254,7 +254,7 @@ namespace Recurly
             var cr = new CouponRedemption();
 
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
-                UrlPrefix + Uri.EscapeUriString(AccountCode) + "/redemption",
+                UrlPrefix + Uri.EscapeDataString(AccountCode) + "/redemption",
                 cr.ReadXml);
 
             return statusCode == HttpStatusCode.NotFound ? null : cr;
@@ -396,7 +396,7 @@ namespace Recurly
             var account = new Account();
             // GET /accounts/<account code>
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
-                UrlPrefix + Uri.EscapeUriString(accountCode),
+                UrlPrefix + Uri.EscapeDataString(accountCode),
                 account.ReadXml);
 
             return statusCode == HttpStatusCode.NotFound ? null : account;
@@ -411,7 +411,7 @@ namespace Recurly
         {
             // DELETE /accounts/<account code>
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Delete,
-                Account.UrlPrefix + Uri.EscapeUriString(accountCode));
+                Account.UrlPrefix + Uri.EscapeDataString(accountCode));
         }
 
         /// <summary>
@@ -422,7 +422,7 @@ namespace Recurly
         {
             // PUT /accounts/<account code>/reopen
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
-                Account.UrlPrefix + Uri.EscapeUriString(accountCode) + "/reopen");
+                Account.UrlPrefix + Uri.EscapeDataString(accountCode) + "/reopen");
         }
 
         /// <summary>
