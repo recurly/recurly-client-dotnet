@@ -98,7 +98,7 @@ namespace Recurly
         {
             // POST /accounts/<account code>/adjustments
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
-                UrlPrefix + Uri.EscapeUriString(AccountCode) + UrlPostfix,
+                UrlPrefix + Uri.EscapeDataString(AccountCode) + UrlPostfix,
                 WriteXml,
                 ReadXml);
         }
@@ -112,7 +112,7 @@ namespace Recurly
         {
             // DELETE /adjustments/<uuid>
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Delete,
-                UrlPostfix + Uri.EscapeUriString(Uuid));
+                UrlPostfix + Uri.EscapeDataString(Uuid));
         }
 
 
@@ -252,7 +252,7 @@ namespace Recurly
         {
             var adjustment = new Adjustment();
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
-                "/adjustments/" + Uri.EscapeUriString(uuid),
+                "/adjustments/" + Uri.EscapeDataString(uuid),
                 adjustment.ReadXml);
             return adjustment;
         }

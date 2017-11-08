@@ -115,7 +115,7 @@ namespace Recurly
         public void Create(string accountCode)
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
-                "/accounts/" + Uri.EscapeUriString(accountCode) + Invoice.UrlPrefix,
+                "/accounts/" + Uri.EscapeDataString(accountCode) + Invoice.UrlPrefix,
                 WriteXml,
                 ReadXml);
         }
@@ -126,7 +126,7 @@ namespace Recurly
         public void Preview(string accountCode)
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
-                "/accounts/" + Uri.EscapeUriString(accountCode) + Invoice.UrlPrefix + "preview",
+                "/accounts/" + Uri.EscapeDataString(accountCode) + Invoice.UrlPrefix + "preview",
                 WriteXml,
                 ReadXml);
         }
@@ -445,7 +445,7 @@ namespace Recurly
     {
         public static RecurlyList<Invoice> List(string accountCode)
         {
-            return new InvoiceList("/accounts/" + Uri.EscapeUriString(accountCode) + "/invoices");
+            return new InvoiceList("/accounts/" + Uri.EscapeDataString(accountCode) + "/invoices");
         }
 
         public static RecurlyList<Invoice> List()
@@ -496,7 +496,7 @@ namespace Recurly
             var invoice = new Invoice();
 
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
-                "/accounts/" + Uri.EscapeUriString(accountCode) + Invoice.UrlPrefix,
+                "/accounts/" + Uri.EscapeDataString(accountCode) + Invoice.UrlPrefix,
                 invoice.ReadXml);
 
             return (int)statusCode == ValidationException.HttpStatusCode ? null : invoice;

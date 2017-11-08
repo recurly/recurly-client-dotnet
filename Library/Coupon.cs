@@ -175,14 +175,14 @@ namespace Recurly
         public void Update()
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
-                UrlPrefix + Uri.EscapeUriString(CouponCode),
+                UrlPrefix + Uri.EscapeDataString(CouponCode),
                 WriteXmlUpdate);
         }
 
         public void Restore()
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
-                UrlPrefix + Uri.EscapeUriString(CouponCode) + "/restore",
+                UrlPrefix + Uri.EscapeDataString(CouponCode) + "/restore",
                 WriteXmlUpdate);
         }
 
@@ -192,7 +192,7 @@ namespace Recurly
         public void Deactivate()
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Delete,
-                UrlPrefix + Uri.EscapeUriString(CouponCode));
+                UrlPrefix + Uri.EscapeDataString(CouponCode));
         }
 
         public RecurlyList<Coupon> GetUniqueCouponCodes()
@@ -535,7 +535,7 @@ namespace Recurly
             var coupon = new Coupon();
 
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
-                Coupon.UrlPrefix + Uri.EscapeUriString(couponCode),
+                Coupon.UrlPrefix + Uri.EscapeDataString(couponCode),
                 coupon.ReadXml);
 
             return statusCode == HttpStatusCode.NotFound ? null : coupon;
