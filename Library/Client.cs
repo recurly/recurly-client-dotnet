@@ -367,6 +367,10 @@ namespace Recurly
                     prev = link.GetUrlFromLinkHeader("prev");
                     readXmlListDelegate(xmlReader, start, next, prev);
                 }
+                else if (readXmlListDelegate != null)
+                {
+                    readXmlListDelegate(xmlReader, start, next, prev);
+                }
                 else if (response.StatusCode != HttpStatusCode.NoContent)
                 {
                     readXmlDelegate(xmlReader);
