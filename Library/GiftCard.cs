@@ -63,7 +63,7 @@ namespace Recurly
         /// has been redeemed. Can be used to create gift card balance
         /// displays for your customers.
         /// </summary>
-        public int BalanceInCents { get; set; }
+        public int? BalanceInCents { get; set; }
 
         /// <summary>
         /// Block of delivery information.

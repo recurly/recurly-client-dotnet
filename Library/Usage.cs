@@ -19,7 +19,7 @@ namespace Recurly
         public long? Id { get; private set; }
         public int? UnitAmountInCents { get; set; }
         public float? UsagePercentage { get; set; }
-        public int Amount{ get; set; }
+        public int Amount { get; set; }
         public String MerchantTag { get; set; }
         public Type UsageType { get; set; }
         public DateTime? UsageTimestamp { get; set; }
