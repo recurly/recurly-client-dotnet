@@ -32,7 +32,6 @@ namespace Recurly
         }
 
         public string AccountCode { get; private set; }
-        public string SubscriptionUuid { get; private set; }
         public int OriginalInvoiceNumber { get; private set; }
         public string OriginalInvoiceNumberPrefix { get; private set; }
         public string Uuid { get; protected set; }
@@ -113,6 +112,12 @@ namespace Recurly
         public byte[] GetPdf(string acceptLanguage = "en-US")
         {
             return Client.Instance.PerformDownloadRequest(memberUrl(), "application/pdf", acceptLanguage);
+        }
+
+        public SubscriptionList GetSubscriptions()
+        {
+            var url = this.memberUrl() + "/subscriptions";
+            return new SubscriptionList(url);
         }
 
         /// <summary>
@@ -242,11 +247,6 @@ namespace Recurly
                     case "account":
                         var accountHref = reader.GetAttribute("href");
                         AccountCode = Uri.UnescapeDataString(accountHref.Substring(accountHref.LastIndexOf("/") + 1));
-                        break;
-
-                    case "subscription":
-                        var subHref = reader.GetAttribute("href");
-                        SubscriptionUuid = Uri.UnescapeDataString(subHref.Substring(subHref.LastIndexOf("/") + 1));
                         break;
 
                     case "original_invoice":

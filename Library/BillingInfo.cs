@@ -23,6 +23,11 @@ namespace Recurly
             Unknown
         }
 
+        public enum HppType : short
+        {
+            Adyen
+        }
+
         public enum BankAccountType : short
         {
             Checking,
@@ -131,6 +136,12 @@ namespace Recurly
         /// Timestamp representing the last update of this billing info
         /// </summary>
         public DateTime UpdatedAt { get; set; }
+
+        /// <summary>
+        /// Can be used if the payments are to be collected by external
+        /// HPP (e.g. Adyen Hosted Payments).
+        /// </summary>
+        public HppType? ExternalHppType { get; set; }
 
         private const string UrlPrefix = "/accounts/";
         private const string UrlPostfix = "/billing_info";
@@ -297,6 +308,11 @@ namespace Recurly
                     case "account_type":
                         AccountType = reader.ReadElementContentAsString().ParseAsEnum<BankAccountType>();
                         break;
+
+                    case "external_hpp_type":
+                        ExternalHppType = reader.ReadElementContentAsString().ParseAsEnum<HppType>();
+                        break;
+
                     case "updated_at":
                         DateTime d;
                         if (DateTime.TryParse(reader.ReadElementContentAsString(), out d))
@@ -357,6 +373,12 @@ namespace Recurly
                 if (!AmazonBillingAgreementId.IsNullOrEmpty())
                 {
                     xmlWriter.WriteElementString("amazon_billing_agreement_id", AmazonBillingAgreementId);
+                }
+
+                if (ExternalHppType.HasValue)
+                {
+                    xmlWriter.WriteElementString("external_hpp_type", ExternalHppType.Value.ToString().EnumNameToTransportCase());
+
                 }
             }
 
