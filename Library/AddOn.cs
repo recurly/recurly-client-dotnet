@@ -15,7 +15,7 @@ namespace Recurly
         public string PlanCode { get; set; }
         public string AddOnCode { get; set; }
         public string Name { get; set; }
-        public int DefaultQuantity { get; set; }
+        public int? DefaultQuantity { get; set; }
         public bool? DisplayQuantityOnHostedPage { get; set; }
         public string TaxCode { get; set; }
         public bool? Optional { get; set; }
@@ -180,8 +180,10 @@ namespace Recurly
 
             xmlWriter.WriteElementString("add_on_code", AddOnCode);
             xmlWriter.WriteElementString("name", Name);
-            xmlWriter.WriteElementString("default_quantity", DefaultQuantity.AsString());
             xmlWriter.WriteElementString("accounting_code", AccountingCode);
+
+            if (DefaultQuantity.HasValue)
+                xmlWriter.WriteElementString("default_quantity", DefaultQuantity.Value.AsString());
 
             if (AddOnType.HasValue)
                 xmlWriter.WriteElementString("add_on_type", AddOnType.Value.ToString().EnumNameToTransportCase());
