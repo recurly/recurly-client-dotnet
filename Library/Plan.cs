@@ -313,11 +313,11 @@ namespace Recurly
                             TrialRequiresBillingInfo = b;
                         break;
 
-                    case "revenue_schedule_tye":
+                    case "revenue_schedule_type":
                         RevenueScheduleType = reader.ReadElementContentAsString().ParseAsEnum<Adjustment.RevenueSchedule>();
                         break;
 
-                    case "setup_fee_revenue_schedule_tye":
+                    case "setup_fee_revenue_schedule_type":
                         SetupFeeRevenueScheduleType = reader.ReadElementContentAsString().ParseAsEnum<Adjustment.RevenueSchedule>();
                         break;
                 }

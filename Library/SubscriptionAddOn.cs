@@ -44,7 +44,7 @@ namespace Recurly
                         UnitAmountInCents = reader.ReadElementContentAsInt();
                         break;
 
-                    case "revenue_schedule_tye":
+                    case "revenue_schedule_type":
                         RevenueScheduleType = reader.ReadElementContentAsString().ParseAsEnum<Adjustment.RevenueSchedule>();
                         break;
                 }
