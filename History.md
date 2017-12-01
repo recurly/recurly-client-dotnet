@@ -8,6 +8,17 @@ Unreleased
 - Fix creation of an empty invoice when InvoiceList is empty
 - Make optional ints nullable
 - API v2.9 changes
+- Fix revenue_schedule_type spelling
+
+Upgrade Notes
+
+This version brings us up to API version 2.9. There is a small set of breaking changes coming from PR #263. These properties have been converted to nullable so you may have to unwrap them to use them:
+
+- AddOn#DefaultQuantity
+- Plan#PlanIntervalLength
+- Plan#TrialIntervalLength
+- GiftCard#BalanceInCents
+
 
 
 1.8.0 (stable) / 2017-10-26
