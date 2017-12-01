@@ -20,7 +20,8 @@ namespace Recurly
             Maestro,
             Forbrugsforeningen,
             Laser,
-            Unknown
+            Unknown,
+            DinersClub
         }
 
         public enum BankAccountType : short
