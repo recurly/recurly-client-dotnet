@@ -161,6 +161,25 @@ namespace Recurly
             return invoice;
         }
 
+        /// <summary>
+        /// Generate an authorized invoice for the purchase. Runs validations
+        /// but does not run any transactions. This endpoint will create a
+        /// pending purchase that can be activated at a later time once payment
+        /// has been completed on an external source (e.g. Adyen's Hosted
+        /// Payment Pages).
+        /// </summary>
+        public static Invoice Authorize(Purchase purchase)
+        {
+            var invoice = new Invoice();
+
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
+                UrlPrefix + "authorize/",
+                purchase.WriteXml,
+                invoice.ReadXml);
+
+            return invoice;
+        }
+
         #region Read and Write XML documents
 
         internal override void WriteXml(XmlTextWriter xmlWriter)
