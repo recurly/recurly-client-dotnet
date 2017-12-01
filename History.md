@@ -1,6 +1,15 @@
 Unreleased
 ===============
 
+1.9.0 (stable) / 2017-10-26
+===============
+
+- Add missing 'DinersClub' credit card type
+- Fix creation of an empty invoice when InvoiceList is empty
+- Make optional ints nullable
+- API v2.9 changes
+
+
 1.8.0 (stable) / 2017-10-26
 ===============
 
