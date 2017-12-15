@@ -45,7 +45,9 @@ namespace Recurly
                         break;
 
                     case "revenue_schedule_type":
-                        RevenueScheduleType = reader.ReadElementContentAsString().ParseAsEnum<Adjustment.RevenueSchedule>();
+                        var revenueScheduleType = reader.ReadElementContentAsString();
+                        if (!revenueScheduleType.IsNullOrEmpty())
+                            RevenueScheduleType = revenueScheduleType.ParseAsEnum<Adjustment.RevenueSchedule>();
                         break;
                 }
             }
