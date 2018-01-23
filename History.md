@@ -1,6 +1,12 @@
 Unreleased
 ===============
 
+1.9.1 (stable) / 2018-01-22
+===============
+
+- Set errors variable to a default instance of the Errors class
+- Handle empty revenue_schedule_type
+
 1.9.0 (stable) / 2017-10-26
 ===============
 
