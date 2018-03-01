@@ -51,7 +51,7 @@ namespace Recurly
             UniqueCode
         }
 
-        public int Id { get; set; }
+        public long Id { get; private set; }
 
         public RecurlyList<CouponRedemption> Redemptions { get; private set; }
 
@@ -234,12 +234,12 @@ namespace Recurly
 
                 DateTime date;
                 int m;
+                long l;
                 switch (reader.Name)
                 {
                     case "id":
-                        int id;
-                        if (int.TryParse(reader.ReadElementContentAsString(), out id))
-                            Id = id;
+                        if (long.TryParse(reader.ReadElementContentAsString(), out l))
+                            Id = l;
                         break;
                     case "coupon_code":
                         CouponCode = reader.ReadElementContentAsString();
