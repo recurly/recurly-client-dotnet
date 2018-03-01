@@ -466,6 +466,21 @@ namespace Recurly
             return new InvoiceList(Invoice.UrlPrefix + "?state=" + state.ToString().EnumNameToTransportCase());
         }
 
+        public static RecurlyList<Invoice> List(Invoice.InvoiceState state, FilterCriteria filter)
+        {
+            filter = filter ?? FilterCriteria.Instance;
+            var parameters = filter.ToNamedValueCollection();
+            parameters["state"] = state.ToString().EnumNameToTransportCase();
+            return new InvoiceList(Invoice.UrlPrefix + "?" + parameters.ToString());
+        }
+
+        public static RecurlyList<Invoice> List(FilterCriteria filter)
+        {
+            filter = filter ?? FilterCriteria.Instance;
+            var parameters = filter.ToNamedValueCollection();
+            return new InvoiceList(Invoice.UrlPrefix + "?" + parameters.ToString());
+        }
+
         /// <summary>
         /// Look up an Invoice.
         /// </summary>
