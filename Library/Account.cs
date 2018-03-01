@@ -240,6 +240,37 @@ namespace Recurly
         }
 
         /// <summary>
+        /// Gets all adjustments for this account
+        /// </summary>
+        /// <param name="type">Adjustment type to retrieve. Optional, default: All.</param>
+        /// <param name="state">State of the Adjustments to retrieve. Optional, default: Any.</param>
+        /// <param name="filter">Optional filter criteria</param>
+        /// <returns></returns>
+        public RecurlyList<Adjustment> GetAdjustments(Adjustment.AdjustmentType type = Adjustment.AdjustmentType.All,
+            Adjustment.AdjustmentState state = Adjustment.AdjustmentState.Any, FilterCriteria filter)
+        {
+            var adjustments = new AdjustmentList();
+            filter = filter ?? FilterCriteria.Instance;
+            var parameters = filter.ToNamedValueCollection();
+            if (type != Adjustment.AdjustmentType.All) {
+                parameters["type"] = type.ToString().EnumNameToTransportCase();
+            }
+            if (state != Adjustment.AdjustmentState.Any)
+            {
+                parameters["state"] = state.ToString().EnumNameToTransportCase();
+            }
+
+
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
+                UrlPrefix + Uri.EscapeDataString(AccountCode) + "/adjustments/"
+                + "?" + parameters.ToString()
+                , adjustments.ReadXmlList);
+
+            return statusCode == HttpStatusCode.NotFound ? null : adjustments;
+        }
+
+
+        /// <summary>
         /// Gets all shipping addresses
         /// </summary>
         /// <returns></returns>

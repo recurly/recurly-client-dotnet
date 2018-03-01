@@ -125,7 +125,7 @@ namespace Recurly
                         break;
 
                     case "updated_at":
-                        CreatedAt = reader.ReadElementContentAsDateTime();
+                        UpdatedAt = reader.ReadElementContentAsDateTime();
                         break;
                 }
             }
