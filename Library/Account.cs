@@ -242,12 +242,12 @@ namespace Recurly
         /// <summary>
         /// Gets all adjustments for this account
         /// </summary>
+        /// <param name="filter">Optional filter criteria</param>
         /// <param name="type">Adjustment type to retrieve. Optional, default: All.</param>
         /// <param name="state">State of the Adjustments to retrieve. Optional, default: Any.</param>
-        /// <param name="filter">Optional filter criteria</param>
         /// <returns></returns>
-        public RecurlyList<Adjustment> GetAdjustments(Adjustment.AdjustmentType type = Adjustment.AdjustmentType.All,
-            Adjustment.AdjustmentState state = Adjustment.AdjustmentState.Any, FilterCriteria filter)
+        public RecurlyList<Adjustment> GetAdjustments(FilterCriteria filter, Adjustment.AdjustmentType type = Adjustment.AdjustmentType.All,
+            Adjustment.AdjustmentState state = Adjustment.AdjustmentState.Any)
         {
             var adjustments = new AdjustmentList();
             filter = filter ?? FilterCriteria.Instance;
