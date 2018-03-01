@@ -20,6 +20,7 @@ namespace Recurly.Test.List
             
             var addOn = plan.NewAddOn("1", "test");
             addOn.UnitAmountInCents.Add(USD, 200);
+            addOn.AddOnType = AddOn.Type.Fixed;
             
             var sub = new Subscription(account, plan, GBP);
 
@@ -40,6 +41,7 @@ namespace Recurly.Test.List
 
             var addOn = plan.NewAddOn("1", "test");
             addOn.UnitAmountInCents.Add(USD, 200);
+            addOn.AddOnType = AddOn.Type.Fixed;
 
             var sub = new Subscription(account, plan, USD);
 
@@ -59,6 +61,7 @@ namespace Recurly.Test.List
 
             var addOn = plan.NewAddOn(addOnCode, "test");
             addOn.UnitAmountInCents.Add(USD, 200);
+            addOn.AddOnType = AddOn.Type.Fixed;
 
             var sub = new Subscription(account, plan, USD);
 
