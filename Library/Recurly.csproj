@@ -64,6 +64,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountAcquisition.cs" />
     <Compile Include="Delivery.cs" />
     <Compile Include="GiftCard.cs" />
     <Compile Include="Account.cs" />
