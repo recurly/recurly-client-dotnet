@@ -87,10 +87,7 @@ namespace Recurly.Test
             var account = new Account(accountCode);
             account.Create();
 
-            var acquisition = new AccountAcquisition(accountCode)
-            {
-                Currency = "USD",
-            };
+            var acquisition = new AccountAcquisition(accountCode);
             acquisition.Create();
 
             acquisition = AccountAcquisition.Get(account.AccountCode);
