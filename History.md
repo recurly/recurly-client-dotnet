@@ -1,6 +1,18 @@
 Unreleased
 ===============
 
+1.10.0 (stable) / 2018-03-06
+===============
+
+- Fix unit amounts exceptions when using percentage addons
+- Add filter to InvoiceList, redemption updated_at
+- Changed Coupon.Id from int to long
+- Implement Account Acquisition
+
+Upgrade Notes
+
+There is one very small breaking change. Coupon.Id changed from an `int` to a `long`. Your code will require a change if you explicitly reference it as an int.
+
 1.9.1 (stable) / 2018-01-22
 ===============
 
