@@ -49,6 +49,31 @@ namespace Recurly
         public bool HasCanceledSubscription { get; private set; }
         public bool HasPastDueInvoice { get; private set; }
 
+        private AccountAcquisition _accountAcquisition;
+
+        public AccountAcquisition AccountAcquisition
+        {
+            get
+            {
+                if (_accountAcquisition != null)
+                    return _accountAcquisition;
+
+                try
+                {
+                    _accountAcquisition = AccountAcquisition.Get(AccountCode);
+                }
+                catch (NotFoundException)
+                {
+                    _accountAcquisition = null;
+                }
+                return _accountAcquisition;
+            }
+            set
+            {
+                _accountAcquisition = value;
+            }
+        }
+
         private BillingInfo _billingInfo;
 
         public BillingInfo BillingInfo
@@ -138,6 +163,16 @@ namespace Recurly
 
         internal Account()
         { }
+
+        /// <summary>
+        /// Remove an account's acquisition data.
+        /// </summary>
+        public void DeleteAccountAcquisition()
+        {
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Delete,
+                UrlPrefix + Uri.EscapeDataString(AccountCode) + "/acquisition");
+            _accountAcquisition = null;
+        }
 
         /// <summary>
         /// Delete an account's billing info.
@@ -528,6 +563,9 @@ namespace Recurly
 
             if (TaxExempt.HasValue)
                 xmlWriter.WriteElementString("tax_exempt", TaxExempt.Value.AsString());
+
+            if(_accountAcquisition != null)
+                _accountAcquisition.WriteXml(xmlWriter);
 
             if (_billingInfo != null)
                 _billingInfo.WriteXml(xmlWriter);
