@@ -68,6 +68,8 @@ namespace Recurly
             get { return _invoice ?? (_invoice = Invoices.Get(_invoiceNumber)); }
         }
 
+        public InvoiceCollection InvoiceCollection { get; private set; }
+
         private Plan _plan;
 
         public Plan Plan
@@ -639,6 +641,10 @@ namespace Recurly
                             _invoiceNumber = Uri.UnescapeDataString(href.Substring(href.LastIndexOf("/") + 1));
                         else
                             InvoicePreview = new Invoice(reader);
+                        break;
+
+                    case "invoice_collection":
+                        InvoiceCollection = new InvoiceCollection(reader);
                         break;
 
                     case "pending_subscription":
