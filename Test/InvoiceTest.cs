@@ -13,7 +13,7 @@ namespace Recurly.Test
             var adjustment = account.NewAdjustment("USD", 5000, "Test Charge");
             adjustment.Create();
 
-            var invoice = account.InvoicePendingCharges();
+            var invoice = account.InvoicePendingCharges().ChargeInvoice;
             Assert.Equal("usst", invoice.TaxType);
             Assert.Equal(0.0875M, invoice.TaxRate.Value);
 
@@ -30,7 +30,8 @@ namespace Recurly.Test
             var adjustment = account.NewAdjustment("USD", 5000, "Test Charge");
             adjustment.Create();
 
-            var invoice = account.InvoicePendingCharges();
+            var collection = account.InvoicePendingCharges();
+            var invoice = collection.ChargeInvoice;
 
             var pdf = invoice.GetPdf();
 
@@ -51,9 +52,9 @@ namespace Recurly.Test
             adjustment = account.NewAdjustment("USD", -2500, "Test Credit");
             adjustment.Create();
 
-            var invoice = account.InvoicePendingCharges();
+            var invoice = account.InvoicePendingCharges().ChargeInvoice;
 
-            invoice.State.Should().Be(Invoice.InvoiceState.Open);
+            invoice.State.Should().Be(Invoice.InvoiceState.Pending);
             invoice.TotalInCents.Should().Be(7500);
         }
 
@@ -71,7 +72,7 @@ namespace Recurly.Test
             adjustment = account.NewAdjustment("USD", -2500, "Test Credit");
             adjustment.Create();
 
-            var invoice = account.InvoicePendingCharges(new Invoice
+            var collection = account.InvoicePendingCharges(new Invoice
             {
                 CustomerNotes = "Some customer notes",
                 TermsAndConditions = "Some terms and conditions",
@@ -80,6 +81,8 @@ namespace Recurly.Test
                 NetTerms = 5,
                 PoNumber = "Some po number"
             });
+
+            var invoice = collection.ChargeInvoice;
 
             Assert.NotNull(invoice);
             Assert.Equal(invoice.CustomerNotes, "Some customer notes");
@@ -123,7 +126,7 @@ namespace Recurly.Test
             adjustment = account.NewAdjustment("USD", -2500, "Test Credit");
             adjustment.Create();
 
-            var invoice = account.PreviewInvoicePendingCharges(new Invoice
+            var collection = account.PreviewInvoicePendingCharges(new Invoice
             {
                 CustomerNotes = "Some customer notes",
                 TermsAndConditions = "Some terms and conditions",
@@ -132,6 +135,8 @@ namespace Recurly.Test
                 NetTerms = 5,
                 PoNumber = "Some po number"
             });
+
+            var invoice = collection.ChargeInvoice;
 
             Assert.NotNull(invoice);
             Assert.Equal(invoice.CustomerNotes, "Some customer notes");
@@ -169,13 +174,14 @@ namespace Recurly.Test
             var adjustment = account.NewAdjustment("USD", 3999, "Test Charge");
             adjustment.Create();
 
-            var invoice = account.InvoicePendingCharges();
+            var collection = account.InvoicePendingCharges();
+            var invoice = collection.ChargeInvoice;
 
             invoice.MarkSuccessful();
 
             Assert.Equal(1, invoice.Adjustments.Count);
 
-            invoice.State.Should().Be(Invoice.InvoiceState.Collected);
+            invoice.State.Should().Be(Invoice.InvoiceState.Paid);
         }
 
         [RecurlyFact(TestEnvironment.Type.Integration)]
@@ -186,7 +192,9 @@ namespace Recurly.Test
             var adjustment = account.NewAdjustment("USD", 3999, "Test Charge");
             adjustment.Create();
 
-            var invoice = account.InvoicePendingCharges();
+            var collection = account.InvoicePendingCharges();
+            var invoice = collection.ChargeInvoice;
+
             invoice.MarkFailed();
             invoice.State.Should().Be(Invoice.InvoiceState.Failed);
             Assert.NotNull(invoice.ClosedAt);
@@ -200,11 +208,12 @@ namespace Recurly.Test
             var adjustment = account.NewAdjustment("USD", 3999, "Test Charge");
             adjustment.Create();
 
-            var invoice = account.InvoicePendingCharges();
+            var collection = account.InvoicePendingCharges();
+            var invoice = collection.ChargeInvoice;
 
             invoice.MarkSuccessful();
 
-            invoice.State.Should().Be(Invoice.InvoiceState.Collected);
+            invoice.State.Should().Be(Invoice.InvoiceState.Paid);
 
             Assert.Equal(1, invoice.Adjustments.Count);
 
@@ -230,7 +239,8 @@ namespace Recurly.Test
             var adjustment2 = account.NewAdjustment("USD", 2, "Test Charge 2", 2);
             adjustment2.Create();
 
-            var invoice = account.InvoicePendingCharges();
+            var collection = account.InvoicePendingCharges();
+            var invoice = collection.ChargeInvoice;
             invoice.MarkSuccessful();
 
             System.Threading.Thread.Sleep(2000); // hack
@@ -261,11 +271,12 @@ namespace Recurly.Test
             var adjustment = account.NewAdjustment("USD", 3999, "Test Charge");
             adjustment.Create();
 
-            var invoice = account.InvoicePendingCharges();
+            var collection = account.InvoicePendingCharges();
+            var invoice = collection.ChargeInvoice;
 
             invoice.MarkSuccessful();
 
-            invoice.State.Should().Be(Invoice.InvoiceState.Collected);
+            invoice.State.Should().Be(Invoice.InvoiceState.Paid);
 
             Assert.Equal(1, invoice.Adjustments.Count);
 

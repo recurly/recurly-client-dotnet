@@ -53,6 +53,9 @@ namespace Recurly
 
         public AdjustmentState State { get; protected set; }
 
+        public string CreditReasonCode { get; set; }
+        public string OriginalAjustmentUuid { get; set; }
+
         public DateTime StartDate { get; protected set; }
         public DateTime? EndDate { get; protected set; }
 
@@ -213,6 +216,14 @@ namespace Recurly
 
                     case "tax_region":
                         TaxRegion = reader.ReadElementContentAsString();
+                        break;
+
+                    case "credit_reason_code":
+                        CreditReasonCode = reader.ReadElementContentAsString();
+                        break;
+
+                    case "original_adjustment_uuid":
+                        OriginalAjustmentUuid = reader.ReadElementContentAsString();
                         break;
 
                     case "start_date":
