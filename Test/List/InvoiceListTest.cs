@@ -16,7 +16,8 @@ namespace Recurly.Test
                 var adjustment = acct.NewAdjustment("USD", 500 + x, "Test Charge");
                 adjustment.Create();
 
-                var invoice = acct.InvoicePendingCharges();
+                var collection = acct.InvoicePendingCharges();
+                var invoice = collection.ChargeInvoice;
 
                 if (x < 2)
                 {
@@ -47,7 +48,7 @@ namespace Recurly.Test
                 account.InvoicePendingCharges();
             }
 
-            var list = Invoices.List(Invoice.InvoiceState.Open);
+            var list = Invoices.List(Invoice.InvoiceState.Pending);
             list.Should().NotBeEmpty();
         }
 
@@ -59,11 +60,12 @@ namespace Recurly.Test
                 var acct = CreateNewAccount();
                 var adjustment = acct.NewAdjustment("USD", 500 + x, "Test Charge");
                 adjustment.Create();
-                var invoice = acct.InvoicePendingCharges();
+                var collection = acct.InvoicePendingCharges();
+                var invoice = collection.ChargeInvoice;
                 invoice.MarkSuccessful();
             }
 
-            var list = Invoices.List(Invoice.InvoiceState.Collected);
+            var list = Invoices.List(Invoice.InvoiceState.Paid);
             list.Should().NotBeEmpty();
         }
 
@@ -75,7 +77,8 @@ namespace Recurly.Test
                 var acct = CreateNewAccount();
                 var adjustment = acct.NewAdjustment("USD", 500 + x, "Test Charge");
                 adjustment.Create();
-                var invoice = acct.InvoicePendingCharges();
+                var collection = acct.InvoicePendingCharges();
+                var invoice = collection.ChargeInvoice;
                 invoice.MarkFailed();
             }
 
@@ -124,13 +127,15 @@ namespace Recurly.Test
             var adjustment = account.NewAdjustment("USD", 450, "Test Charge #1");
             adjustment.Create();
 
-            var invoice = account.InvoicePendingCharges();
+            var collection = account.InvoicePendingCharges();
+            var invoice = collection.ChargeInvoice;
             invoice.MarkSuccessful();
 
             adjustment = account.NewAdjustment("USD", 350, "Test Charge #2");
             adjustment.Create();
 
-            invoice = account.InvoicePendingCharges();
+            collection = account.InvoicePendingCharges();
+            invoice = collection.ChargeInvoice;
             invoice.MarkFailed();
 
             var list = Invoices.List(account.AccountCode);

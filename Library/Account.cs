@@ -230,29 +230,31 @@ namespace Recurly
         /// <summary>
         /// Posts pending charges on an account
         /// </summary>
-        public Invoice InvoicePendingCharges(Invoice invoice = null)
+        public InvoiceCollection InvoicePendingCharges(Invoice invoice = null)
         {
-            var i = invoice ?? new Invoice();
+            invoice = invoice ?? new Invoice();
+            var collection = new InvoiceCollection();
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 UrlPrefix + Uri.EscapeDataString(AccountCode) + "/invoices",
-                i.WriteXml,
-                i.ReadXml);
+                invoice.WriteXml,
+                collection.ReadXml);
 
-            return i;
+            return collection;
         }
 
         /// <summary>
         /// Previews a new invoice for the pending charges on an account
         /// </summary>
-        public Invoice PreviewInvoicePendingCharges(Invoice invoice = null)
+        public InvoiceCollection PreviewInvoicePendingCharges(Invoice invoice = null)
         {
-            var i = invoice ?? new Invoice();
+            invoice = invoice ?? new Invoice(); 
+            var collection = new InvoiceCollection();
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 UrlPrefix + Uri.EscapeDataString(AccountCode) + "/invoices/preview",
-                i.WriteXml,
-                i.ReadXml);
+                invoice.WriteXml,
+                collection.ReadXml);
 
-            return i;
+            return collection;
         }
 
         /// <summary>

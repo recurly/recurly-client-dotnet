@@ -7,9 +7,9 @@ namespace Recurly
     internal class RefundList : IEnumerable<Refund>
     {
         private List<Refund> Refunds = new List<Refund>();
-        private Invoice.RefundOrderPriority RefundPriority;
+        private Invoice.RefundMethod RefundMethod;
 
-        internal RefundList(IEnumerable<Adjustment> adjustments, bool prorate, int quantity = 0, Invoice.RefundOrderPriority refundPriority = Invoice.RefundOrderPriority.Credit)
+        internal RefundList(IEnumerable<Adjustment> adjustments, bool prorate, int quantity = 0, Invoice.RefundMethod method = Invoice.RefundMethod.CreditFirst)
         {
             foreach (var adjustment in adjustments)
             {
@@ -21,13 +21,13 @@ namespace Recurly
                 Refunds.Add(refund);
             }
 
-            RefundPriority = refundPriority;
+            RefundMethod = method;
         }
 
         internal void WriteXml(XmlTextWriter writer) 
         {
             writer.WriteStartElement("invoice");
-            writer.WriteElementString("refund_apply_order", RefundPriority.ToString().ToLower());
+            writer.WriteElementString("refund_method", RefundMethod.ToString().ToLower());
             writer.WriteStartElement("line_items");
 
             foreach (var refund in Refunds)

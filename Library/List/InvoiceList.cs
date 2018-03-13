@@ -5,6 +5,11 @@ namespace Recurly
     public class InvoiceList : RecurlyList<Invoice>
     {
 
+        internal InvoiceList()
+        {
+
+        }
+
         internal InvoiceList(string baseUrl)
             : base(Client.HttpRequestMethod.Get, baseUrl)
         {

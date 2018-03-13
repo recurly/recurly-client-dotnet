@@ -65,12 +65,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountAcquisition.cs" />
+    <Compile Include="CreditPayment.cs" />
     <Compile Include="Delivery.cs" />
     <Compile Include="GiftCard.cs" />
     <Compile Include="Account.cs" />
     <Compile Include="AccountBalance.cs" />
     <Compile Include="Address.cs" />
     <Compile Include="FilterCriteria.cs" />
+    <Compile Include="InvoiceCollection.cs" />
+    <Compile Include="List\CreditPaymentList.cs" />
     <Compile Include="Purchase.cs" />
     <Compile Include="Errors.cs" />
     <Compile Include="Export.cs" />
