@@ -1,6 +1,75 @@
 Unreleased
 ===============
 
+1.11.0 (stable) / 2018-03-11
+===============
+
+- API v2.10 changes
+
+### Upgrade Notes
+
+This version brings us up to API version 2.10. There are quite a few breaking changes:
+
+#### 1. InvoiceCollection
+
+When creating or failing invoices, we now return an InvoiceCollection object rather than an Invoice. If you wish to upgrade your application without changing functionality, we recommend that you use the `ChargeInvoice` property on the InvoiceCollection to get the charge Invoice. Example:
+
+```csharp
+// Change this:
+var invoice = account.InvoicePendingCharges();
+
+// To this
+var invoiceCollection = account.InvoicePendingCharges();
+var invoice = invoiceCollection.ChargeInvoice;
+
+// Invoice.MarkFailed now returns a new collection
+// Change this
+invoice.MarkFailed();
+
+// To this
+var invoiceCollection = invoice.MarkFailed();
+var failedInvoice = invoiceCollection.ChargeInvoice;
+```
+
+#### 2. Invoice `Subtotal*` changes
+
+If you want to preserve functionality, change any use of `Invoice#SubtotalAfterDiscountInCents` to `Invoice#SubtotalInCents`. If you were previously using `Invoice#SubtotalInCents`, this has been changed to `Invoice#SubtotalBeforeDiscountInCents`.
+
+#### 3. Invoice Refund -- `refund_apply_order` changed to `refund_method`
+
+The `RefundOrderPriority` enum was changed to `RefundMethod`. Change use of `RefundOrderPriority.Credit` to `RefundMethod.CreditFirst` and `RefundOrderPriority.Transaction` to `RefundMethod.TransactionFirst`.
+
+
+#### 4. Invoice States
+
+If you are checking `Invoice#State` anywhere, you will want to check that you have the new correct values. `collected` has changed to `paid` and `open` has changed to `pending`. Example:
+
+```csharp
+// Change this
+if (invoice.State == Invoice.InvoiceState.Collected) {
+// To this
+if (invoice.State == Invoice.InvoiceState.Paid) {
+
+// Change this
+if (invoice.State == Invoice.InvoiceState.Open) {
+// To this
+if (invoice.State == Invoice.InvoiceState.Pending) {
+```
+
+#### 5. Invoices on Subscription Previews
+
+If you are using `Subscription#Invoice` on subscription previews, you will need to change this to use `Subscription#InvoiceCollection`. To keep functionality the same:
+
+```csharp
+// Change this
+subscription.Preview();
+var invoice = subscription.Invoice;
+
+// To this
+subscription.Preview();
+var invoice = subscription.InvoiceCollection.ChargeInvoice;
+```
+
 1.10.0 (stable) / 2018-03-06
 ===============
 
@@ -9,7 +78,7 @@ Unreleased
 - Changed Coupon.Id from int to long
 - Implement Account Acquisition
 
-Upgrade Notes
+### Upgrade Notes
 
 There is one very small breaking change. Coupon.Id changed from an `int` to a `long`. Your code will require a change if you explicitly reference it as an int.
 
@@ -28,7 +97,7 @@ There is one very small breaking change. Coupon.Id changed from an `int` to a `l
 - API v2.9 changes
 - Fix revenue_schedule_type spelling
 
-Upgrade Notes
+### Upgrade Notes
 
 This version brings us up to API version 2.9. There is a small set of breaking changes coming from PR #263. These properties have been converted to nullable so you may have to unwrap them to use them:
 
