@@ -32,13 +32,18 @@ namespace Recurly
 
         internal override void ReadXml(XmlTextReader reader)
         {
+            ReadXml(reader, "invoices", "invoice");
+        }
+
+        internal void ReadXml(XmlTextReader reader, string listName, string elementName)
+        {
 
             while (reader.Read())
             {
-                if (reader.Name == "invoices" && reader.NodeType == XmlNodeType.EndElement)
+                if (reader.Name == listName && reader.NodeType == XmlNodeType.EndElement)
                     break;
 
-                if (reader.NodeType == XmlNodeType.Element && reader.Name == "invoice")
+                if (reader.NodeType == XmlNodeType.Element && reader.Name == elementName)
                 {
                     Add(new Invoice(reader));
                 }

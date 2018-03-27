@@ -52,7 +52,7 @@ namespace Recurly
                         break;                    
                     case "credit_invoices":
                         var invoices = new InvoiceList();
-                        invoices.ReadXml(reader);
+                        invoices.ReadXml(reader, "credit_invoices", "credit_invoice");
                         CreditInvoices = invoices;
                         break;
                 }
