@@ -101,15 +101,6 @@ namespace Recurly
         /// </summary>
         public long? ShippingAddressId { get; set; }
 
-        /// <summary>
-        /// </summary>
-        public List<ShippingAddress> ShippingAddresses
-        {
-            get { return _shippingAddresses ?? (_shippingAddresses = new List<ShippingAddress>()); }
-            set { _shippingAddresses = value; }
-        }
-        private List<ShippingAddress> _shippingAddresses;
-
         #region Constructors
 
         internal Purchase()
@@ -210,16 +201,6 @@ namespace Recurly
 
             if (ShippingAddressId.HasValue)
                 xmlWriter.WriteElementString("shipping_address_id", ShippingAddressId.Value.ToString());
-
-            if (ShippingAddresses.HasAny())
-            {
-                xmlWriter.WriteStartElement("shipping_addresses");
-                foreach(ShippingAddress addr in ShippingAddresses)
-                {
-                    addr.WriteXml(xmlWriter);
-                }
-                xmlWriter.WriteEndElement(); // shipping_addresses
-            }
 
             Account.WriteXml(xmlWriter);
 

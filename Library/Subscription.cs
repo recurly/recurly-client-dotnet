@@ -486,6 +486,22 @@ namespace Recurly
                 ReadXml);
         }
 
+        public void Pause(int remainingBillingCycles)
+        {
+            RemainingBillingCycles = remainingBillingCycles;
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
+                UrlPrefix + Uri.EscapeDataString(Uuid) + "/pause",
+                WritePauseXml,
+                ReadXml);
+        }
+
+        public void Resume()
+        {
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
+                UrlPrefix + Uri.EscapeDataString(Uuid) + "/resume",
+                ReadXml);
+        }
+
         public bool UpdateNotes(Dictionary<string, string> notes)
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
@@ -764,6 +780,13 @@ namespace Recurly
             }
         }
 
+        internal void WritePauseXml(XmlTextWriter xmlWriter)
+        {
+            xmlWriter.WriteStartElement("subscription"); // Start: subscription
+            xmlWriter.WriteElementString("remaining_billing_cycles", RemainingBillingCycles.Value.AsString());
+            xmlWriter.WriteEndElement();
+        }
+
         internal void WriteSubscriptionXml(XmlTextWriter xmlWriter)
         {
             WriteSubscriptionXml(xmlWriter, false);
@@ -773,7 +796,6 @@ namespace Recurly
         {
             WriteSubscriptionXml(xmlWriter, true);
         }
-
 
         internal void WriteSubscriptionXml(XmlTextWriter xmlWriter, bool embedded)
         {
