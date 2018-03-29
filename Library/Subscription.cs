@@ -16,17 +16,18 @@ namespace Recurly
         // The currently valid Subscription States
         public enum SubscriptionState : short
         {
-            All = 0,
-            Active = 1,
+            All      = 0,
+            Active   = 1,
             Canceled = 2,
-            Expired = 4,
-            Future = 8,
-            InTrial = 16,
-            Live = 32,
-            PastDue = 64,
-            Pending = 128,
-            Open    = 256,
-            Failed  = 512,
+            Expired  = 4,
+            Future   = 8,
+            InTrial  = 16,
+            Live     = 32,
+            PastDue  = 64,
+            Pending  = 128,
+            Open     = 256,
+            Failed   = 512,
+            Paused   = 1024
         }
 
         public enum ChangeTimeframe : short
