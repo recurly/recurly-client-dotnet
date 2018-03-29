@@ -15,7 +15,7 @@ namespace Recurly.Test
 
             var invoice = account.InvoicePendingCharges().ChargeInvoice;
             Assert.Equal("usst", invoice.TaxType);
-            Assert.Equal(0.0875M, invoice.TaxRate.Value);
+            Assert.Equal(0.085M, invoice.TaxRate.Value);
 
             var fromService = Invoices.Get(invoice.InvoiceNumber);
 
@@ -196,7 +196,7 @@ namespace Recurly.Test
             var invoice = collection.ChargeInvoice;
 
             invoice.MarkFailed();
-            invoice.State.Should().Be(Invoice.InvoiceState.Failed);
+            invoice.State.Should().Be(Invoice.InvoiceState.Pending);
             Assert.NotNull(invoice.ClosedAt);
         }
 

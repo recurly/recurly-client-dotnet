@@ -28,7 +28,9 @@ namespace Recurly
             Evenly = 0,
             Never,
             AtRangeStart,
-            AtRangeEnd
+            AtRangeEnd,
+            AtInvoice,
+            EndDate
         }
 
         public string AccountCode { get; private set; }

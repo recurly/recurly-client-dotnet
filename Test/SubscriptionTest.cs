@@ -81,7 +81,7 @@ namespace Recurly.Test
             Assert.Equal(coup.CouponCode, sub.Coupon.CouponCode);
             Assert.Equal(9, sub.TaxInCents.Value);
             Assert.Equal("usst", sub.TaxType);
-            Assert.Equal(0.0875M, sub.TaxRate.Value);
+            Assert.Equal(0.085M, sub.TaxRate.Value);
 
             var sub1 = Subscriptions.Get(sub.Uuid);
             Assert.Equal(5, sub1.TotalBillingCycles);
