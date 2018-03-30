@@ -48,6 +48,7 @@ namespace Recurly
         public bool HasFutureSubscription { get; private set; }
         public bool HasCanceledSubscription { get; private set; }
         public bool HasPastDueInvoice { get; private set; }
+        public string PreferredLocale { get; set; }
 
         private AccountAcquisition _accountAcquisition;
 
@@ -537,6 +538,10 @@ namespace Recurly
                         if (bool.TryParse(reader.ReadElementContentAsString(), out e))
                             HasPastDueInvoice = e;
                         break;
+
+                    case "preferred_locale":
+                        PreferredLocale = reader.ReadElementContentAsString();
+                        break;
                 }
             }
         }
@@ -560,6 +565,7 @@ namespace Recurly
             xmlWriter.WriteStringIfValid("vat_number", VatNumber);
             xmlWriter.WriteStringIfValid("entity_use_code", EntityUseCode);
             xmlWriter.WriteStringIfValid("cc_emails", CcEmails);
+            xmlWriter.WriteStringIfValid("preferred_locale", PreferredLocale);
 
             xmlWriter.WriteIfCollectionHasAny("shipping_addresses", ShippingAddresses);
 

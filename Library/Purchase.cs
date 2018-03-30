@@ -94,6 +94,13 @@ namespace Recurly
         /// </summary>
         public string VatReverseChargeNotes { get; set; }
 
+        /// <summary>
+        /// Setting this property sets the shipping address for all
+        /// items in the Purchase. It can't be used if you are embedding
+        /// a new shipping address in the Account object.
+        /// </summary>
+        public long? ShippingAddressId { get; set; }
+
         #region Constructors
 
         internal Purchase()
@@ -191,6 +198,9 @@ namespace Recurly
                 xmlWriter.WriteElementString("net_terms", NetTerms.Value.ToString());
 
             xmlWriter.WriteElementString("currency", Currency);
+
+            if (ShippingAddressId.HasValue)
+                xmlWriter.WriteElementString("shipping_address_id", ShippingAddressId.Value.ToString());
 
             Account.WriteXml(xmlWriter);
 

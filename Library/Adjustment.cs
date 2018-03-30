@@ -58,6 +58,8 @@ namespace Recurly
         public string CreditReasonCode { get; set; }
         public string OriginalAjustmentUuid { get; set; }
 
+        public ShippingAddress ShippingAddress { get; private set; }
+
         public DateTime StartDate { get; protected set; }
         public DateTime? EndDate { get; protected set; }
 
@@ -260,6 +262,11 @@ namespace Recurly
                         var revenueScheduleType = reader.ReadElementContentAsString();
                         if (!revenueScheduleType.IsNullOrEmpty())
                             RevenueScheduleType = revenueScheduleType.ParseAsEnum<Adjustment.RevenueSchedule>();
+                        break;
+
+                    case "shipping_address":
+                        ShippingAddress = new ShippingAddress();
+                        ShippingAddress.ReadXml(reader);
                         break;
                 }
             }
