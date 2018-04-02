@@ -1,6 +1,14 @@
 Unreleased
 ===============
 
+1.11.1 (stable) / 2018-04-02
+===============
+
+* Add missing RevenueScheduleType values
+* API v2.11 Changes
+* Fix InvoiceCollection#credit_invoices parsing
+
+
 1.11.0 (stable) / 2018-03-11
 ===============
 
