@@ -253,6 +253,7 @@ namespace Recurly
         public Invoice InvoicePreview { get; private set; }
         public int? TotalBillingCycles { get; set; }
         public int? RemainingBillingCycles { get; private set; }
+        public int? RemainingPauseCycles { get; private set; }
         public DateTime? FirstRenewalDate { get; set; }
 
         internal const string UrlPrefix = "/subscriptions/";
@@ -487,9 +488,9 @@ namespace Recurly
                 ReadXml);
         }
 
-        public void Pause(int remainingBillingCycles)
+        public void Pause(int remainingPauseCycles)
         {
-            RemainingBillingCycles = remainingBillingCycles;
+            RemainingPauseCycles = remainingPauseCycles;
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
                 UrlPrefix + Uri.EscapeDataString(Uuid) + "/pause",
                 WritePauseXml,
@@ -568,6 +569,7 @@ namespace Recurly
 
                 DateTime dateVal;
                 Int32 billingCycles;
+                Int32 pauseCycles;
 
                 switch (reader.Name)
                 {
@@ -692,6 +694,11 @@ namespace Recurly
                             RemainingBillingCycles = billingCycles;
                         break;
 
+                    case "remaining_pause_cycles":
+                        if (Int32.TryParse(reader.ReadElementContentAsString(), out pauseCycles))
+                            RemainingPauseCycles = pauseCycles;
+                        break;
+
                     case "tax_in_cents":
                         TaxInCents = reader.ReadElementContentAsInt();
                         break;
@@ -784,7 +791,7 @@ namespace Recurly
         internal void WritePauseXml(XmlTextWriter xmlWriter)
         {
             xmlWriter.WriteStartElement("subscription"); // Start: subscription
-            xmlWriter.WriteElementString("remaining_billing_cycles", RemainingBillingCycles.Value.AsString());
+            xmlWriter.WriteElementString("remaining_pause_cycles", RemainingPauseCycles.Value.AsString());
             xmlWriter.WriteEndElement();
         }
 
