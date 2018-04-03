@@ -1,6 +1,11 @@
 Unreleased
 ===============
 
+1.11.2 (stable) / 2018-04-03
+===============
+
+* Fix typo in Subscription#Pause
+
 1.11.1 (stable) / 2018-04-02
 ===============
 
