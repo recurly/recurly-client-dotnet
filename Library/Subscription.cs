@@ -569,6 +569,7 @@ namespace Recurly
 
                 DateTime dateVal;
                 Int32 billingCycles;
+                Int32 pauseCycles;
 
                 switch (reader.Name)
                 {
@@ -694,7 +695,7 @@ namespace Recurly
                         break;
 
                     case "remaining_pause_cycles":
-                        if (Int32.TryParse(reader.ReadElementContentAsString(), out int pauseCycles))
+                        if (Int32.TryParse(reader.ReadElementContentAsString(), out pauseCycles))
                             RemainingPauseCycles = pauseCycles;
                         break;
 
