@@ -137,16 +137,30 @@ There is one small breaking change in this API version. `TrialRequiresBillingInf
 1.7.0 (stable) / 2017-10-17
 ===============
 
+This release will upgrade us to API version 2.8.
+
 * ImportedTrial flag on Subscription
 * Purchases Notes Changes
 
 ### Upgrade Notes
 
-This release will upgrade us to API version 2.8.
+There are two breaking changes in this API version you must consider. 
 
-There is one breaking change in this API version you must consider. All `country` fields must now contain valid [2 letter ISO 3166 country codes](https://www.iso.org/iso-3166-country-codes.html). If your code fails
-validation, you will receive a validation error. This affects anywhere and address is collected.
+#### Country Codes
+All `Country` fields must now contain valid [2 letter ISO 3166 country codes](https://www.iso.org/iso-3166-country-codes.html). If your country code fails validation, you will receive a validation error. This affects any endpoint where an address is collected.
 
+#### Purchase Currency
+The purchases endpoint can create and invoice multiple adjustments at once but our invoices can only contain items in one currency. To make this explicit the currency can no longer be provided on an adjustment, it must be set once for the entire purchase:
+
+```csharp
+// You must set the currency here
+var purchase = new Purchase(accountCode, currency);
+
+var adj = new Adjustment(4000, "HD Camera", 5);
+// You can no longer set the currency on the adjustment level
+adj.Currency = currency;
+purchase.Adjustments.Add(adj);
+```
 
 1.6.1 (stable) / 2017-10-04
 ===============
