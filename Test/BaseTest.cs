@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace Recurly.Test
@@ -109,15 +109,21 @@ namespace Recurly.Test
             {
                 FirstName = account.FirstName,
                 LastName = account.LastName,
+                Company = "Acme Software",
+                PhoneNumber = "916-555-0101",
+                VatNumber = "12345",
                 Address1 = "123 Test St",
+                Address2 = "The Test Cut",
                 City = "San Francisco",
+                PostalCode = "94105",
                 State = "CA",
                 Country = "US",
-                PostalCode = "94105",
-                ExpirationMonth = DateTime.Now.Month,
-                ExpirationYear = DateTime.Now.Year + 1,
+                Currency = "USD",   // Should really be a different currency for testing but test environment doesn't seem set up for multi-currency
+                IpAddress = "93.184.216.34",    // Address currently hosting example.com domain
                 CreditCardNumber = TestCreditCardNumbers.Visa1,
-                VerificationValue = "123"
+                VerificationValue = "123",
+                ExpirationMonth = DateTime.Now.Month,
+                ExpirationYear = DateTime.Now.Year + 1
             };
             return billingInfo;
         }
@@ -128,15 +134,21 @@ namespace Recurly.Test
             {
                 FirstName = "John",
                 LastName = "Smith",
+                Company = "Acme Software",
+                PhoneNumber = "916-555-0101",
+                VatNumber = "12345",
                 Address1 = "123 Test St",
+                Address2 = "The Test Cut",
                 City = "San Francisco",
+                PostalCode = "94105",
                 State = "CA",
                 Country = "US",
-                PostalCode = "94105",
-                ExpirationMonth = DateTime.Now.Month,
-                ExpirationYear = DateTime.Now.Year + 1,
+                Currency = "USD",   // Should really be a different currency for testing but test environment doesn't seem set up for multi-currency
+                IpAddress = "93.184.216.34",    // Address currently hosting example.com domain
                 CreditCardNumber = TestCreditCardNumbers.Visa1,
-                VerificationValue = "123"
+                VerificationValue = "123",
+                ExpirationMonth = DateTime.Now.Month,
+                ExpirationYear = DateTime.Now.Year + 1
             };
         }
 
