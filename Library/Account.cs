@@ -41,6 +41,7 @@ namespace Recurly
         public string HostedLoginToken { get; private set; }
         public DateTime CreatedAt { get; private set; }
         public DateTime UpdatedAt { get; private set; }
+        public DateTime? ClosedAt { get; private set; }
         public bool VatLocationValid { get; private set; }
         public Address Address { get; set; }
         public bool HasLiveSubscription { get; private set; }
@@ -435,6 +436,8 @@ namespace Recurly
 
                 if (reader.NodeType != XmlNodeType.Element) continue;
 
+                DateTime dt;
+
                 switch (reader.Name)
                 {
                     case "account_code":
@@ -488,6 +491,11 @@ namespace Recurly
 
                     case "hosted_login_token":
                         HostedLoginToken = reader.ReadElementContentAsString();
+                        break;
+
+                    case "closed_at":
+                        if (DateTime.TryParse(reader.ReadElementContentAsString(), out dt))
+                            ClosedAt = dt;
                         break;
 
                     case "created_at":
