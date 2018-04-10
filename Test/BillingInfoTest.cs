@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using FluentAssertions;
 using Xunit;
 using Xunit.Extensions;
@@ -15,7 +15,20 @@ namespace Recurly.Test
 
             var info = NewBillingInfo(account);
             info.FirstName = "Jane";
-            info.LastName = "Smith";
+            info.LastName = "Jones";
+            info.Company = "St Agatha's Home for the Bewildered";
+            info.PhoneNumber = "020	7946 0001";
+            info.VatNumber = "GB123456789";
+            info.Address1 = "Parliament Square";
+            info.Address2 = "Testminster";
+            info.City = "London";
+            info.PostalCode = "SW1A 0PW";
+            info.State = "";
+            info.Country = "GB";
+            info.Currency = "USD";   // Should really be a different currency for testing but test environment doesn't seem set up for multi-currency
+            info.IpAddress = "192.0.2.1";    // Reserved address for "TEST-NET-1" (so no country)
+            info.CreditCardNumber = TestCreditCardNumbers.MasterCard1;
+            info.VerificationValue = "321";
             info.ExpirationMonth = DateTime.Now.AddMonths(3).Month;
             info.ExpirationYear = DateTime.Now.AddYears(3).Year;
             info.Update();
@@ -26,6 +39,29 @@ namespace Recurly.Test
             get.BillingInfo.LastName.Should().Be("Smith");
             get.BillingInfo.ExpirationMonth.Should().Be(DateTime.Now.AddMonths(3).Month);
             get.BillingInfo.ExpirationYear.Should().Be(DateTime.Now.AddYears(3).Year);
+            get.BillingInfo.AccountCode.Should().Be(info.AccountCode);
+            get.BillingInfo.FirstName.Should().Be(info.FirstName);
+            get.BillingInfo.LastName.Should().Be(info.LastName);
+            get.BillingInfo.Company.Should().Be(info.Company);
+            get.BillingInfo.PhoneNumber.Should().Be(info.PhoneNumber);
+            get.BillingInfo.VatNumber.Should().Be(info.VatNumber);
+            get.BillingInfo.Address1.Should().Be(info.Address1);
+            get.BillingInfo.Address2.Should().Be(info.Address2);
+            get.BillingInfo.City.Should().Be(info.City);
+            get.BillingInfo.PostalCode.Should().Be(info.PostalCode);
+            get.BillingInfo.State.Should().Be(info.State);
+            get.BillingInfo.Country.Should().Be(info.Country);
+            get.BillingInfo.Currency.Should().BeNull();   // Currency not returned unless not set to the default (and test environment doesn't seem set up for multi-currency)
+            (DateTime.Now - get.BillingInfo.UpdatedAt).TotalMinutes.Should().BeLessThan(1.0);
+            get.BillingInfo.IpAddress.Should().Be(info.IpAddress);
+            get.BillingInfo.IpAddressCountry.Should().Be(string.Empty);
+            get.BillingInfo.CreditCardNumber.Should().BeNull();
+            get.BillingInfo.VerificationValue.Should().BeNull();
+            get.BillingInfo.ExpirationMonth.Should().Be(info.ExpirationMonth);
+            get.BillingInfo.ExpirationYear.Should().Be(info.ExpirationYear);
+            get.BillingInfo.CardType.Should().Be(info.CardType);
+            get.BillingInfo.FirstSix.Should().Be(info.CreditCardNumber.Substring(0, 6));
+            get.BillingInfo.LastFour.Should().Be(info.CreditCardNumber.Last(4));
         }
 
         [RecurlyFact(TestEnvironment.Type.Integration)]
@@ -61,10 +97,29 @@ namespace Recurly.Test
 
             var get = Accounts.Get(accountCode);
 
+            get.BillingInfo.AccountCode.Should().Be(info.AccountCode);
             get.BillingInfo.FirstName.Should().Be(info.FirstName);
             get.BillingInfo.LastName.Should().Be(info.LastName);
+            get.BillingInfo.Company.Should().Be(info.Company);
+            get.BillingInfo.PhoneNumber.Should().Be(info.PhoneNumber);
+            get.BillingInfo.VatNumber.Should().Be(info.VatNumber);
+            get.BillingInfo.Address1.Should().Be(info.Address1);
+            get.BillingInfo.Address2.Should().Be(info.Address2);
+            get.BillingInfo.City.Should().Be(info.City);
+            get.BillingInfo.PostalCode.Should().Be(info.PostalCode);
+            get.BillingInfo.State.Should().Be(info.State);
+            get.BillingInfo.Country.Should().Be(info.Country);
+            get.BillingInfo.Currency.Should().BeNull();   // Currency not returned unless not set to the default (and test environment doesn't seem set up for multi-currency)
+            (DateTime.Now - get.BillingInfo.UpdatedAt).TotalMinutes.Should().BeLessThan(1.0);
+            get.BillingInfo.IpAddress.Should().Be(info.IpAddress);
+            get.BillingInfo.IpAddressCountry.Should().Be("US");
+            get.BillingInfo.CreditCardNumber.Should().BeNull();
+            get.BillingInfo.VerificationValue.Should().BeNull();
             get.BillingInfo.ExpirationMonth.Should().Be(info.ExpirationMonth);
             get.BillingInfo.ExpirationYear.Should().Be(info.ExpirationYear);
+            get.BillingInfo.CardType.Should().Be(info.CardType);
+            get.BillingInfo.FirstSix.Should().Be(info.CreditCardNumber.Substring(0, 6));
+            get.BillingInfo.LastFour.Should().Be(info.CreditCardNumber.Last(4));
         }
 
         [RecurlyFact(TestEnvironment.Type.Integration)]
