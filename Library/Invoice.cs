@@ -15,7 +15,10 @@ namespace Recurly
             Failed,
             PastDue,
             Processing,
-            Pending
+            Pending,
+            Closed,
+            Open,
+            Voided
         }
 
         public enum RefundMethod
@@ -55,6 +58,8 @@ namespace Recurly
             set { _address = value; }
         }
         private Address _address;
+
+        public ShippingAddress ShippingAddress { get; private set; }
 
         /// <summary>
         /// Tax type as "vat" for VAT or "usst" for US Sales Tax.
@@ -270,6 +275,7 @@ namespace Recurly
 
                 DateTime dt;
                 int m;
+
                 switch (reader.Name)
                 {
                     case "account":
@@ -298,7 +304,9 @@ namespace Recurly
                         break;
 
                     case "state":
-                        State = reader.ReadElementContentAsString().ParseAsEnum<InvoiceState>();
+                        var state = reader.ReadElementContentAsString();
+                        if (!state.IsNullOrEmpty()) 
+                            State = state.ParseAsEnum<InvoiceState>();
                         break;
 
                     case "invoice_number":
@@ -362,11 +370,14 @@ namespace Recurly
                         break;
 
                     case "net_terms":
-                        NetTerms = reader.ReadElementContentAsInt();
+                        if (int.TryParse(reader.ReadElementContentAsString(), out m))
+                            NetTerms = m;
                         break;
 
                     case "collection_method":
-                        CollectionMethod = reader.ReadElementContentAsString().ParseAsEnum<Collection>();
+                        var method = reader.ReadElementContentAsString();
+                        if (!method.IsNullOrEmpty())
+                            CollectionMethod = method.ParseAsEnum<Collection>();
                         break;
 
                     case "customer_notes":
@@ -395,6 +406,10 @@ namespace Recurly
 
                     case "address":
                         Address = new Address(reader);
+                        break;
+
+                    case "shipping_address":
+                        ShippingAddress = new ShippingAddress(reader);
                         break;
 
                     case "subtotal_before_discount_in_cents":

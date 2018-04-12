@@ -37,7 +37,7 @@ namespace Recurly
         public string Uuid { get; protected set; }
         public string Description { get; set; }
         public string AccountingCode { get; set; }
-        public string ProductCode { get; private set; }
+        public string ProductCode { get; set; }
         public string Origin { get; protected set; }
         public int UnitAmountInCents { get; set; }
         public int Quantity { get; set; }
@@ -290,6 +290,7 @@ namespace Recurly
             xmlWriter.WriteElementString("quantity", Quantity.AsString());
             xmlWriter.WriteElementString("accounting_code", AccountingCode);
             xmlWriter.WriteElementString("tax_exempt", TaxExempt.AsString());
+            xmlWriter.WriteElementString("product_code", ProductCode);
             if (!embedded)
                 xmlWriter.WriteElementString("currency", Currency);
             if (RevenueScheduleType.HasValue)
