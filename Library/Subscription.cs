@@ -51,6 +51,8 @@ namespace Recurly
         private Address _address;
 
         private string _accountCode;
+        public string AccountCode => _accountCode;
+
         private Account _account;
         /// <summary>
         /// Account in Recurly
