@@ -145,6 +145,10 @@ namespace Recurly
 #endif
             var request = (HttpWebRequest)WebRequest.Create(url);
 
+            if (!request.RequestUri.Host.EndsWith(Settings.ValidDomain)) {
+                throw new RecurlyException("Domain " + request.RequestUri.Host + " is not a valid Recurly domain");
+            }
+
             request.Accept = "application/xml";      // Tells the server to return XML instead of HTML
             request.ContentType = "application/xml; charset=utf-8"; // The request is an XML document
             request.SendChunked = false;             // Send it all as one request
