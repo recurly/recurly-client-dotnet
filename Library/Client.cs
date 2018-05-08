@@ -43,6 +43,16 @@ namespace Recurly
             _instance = client;
         }
 
+        internal static XmlTextReader BuildXmlTextReader(Stream stream)
+        {
+            var reader = new XmlTextReader(stream);
+            // TODO: ProhibitDtd is for backwards compatibility
+            // but is deprecated. Use DtdProcessing property in next release:
+            // reader.DtdProcessing = DtdProcessing.Prohibit;
+            reader.ProhibitDtd = true;
+            return reader;
+        }
+
         internal void ApplySettings(Settings settings)
         {
             Settings = settings;
@@ -136,6 +146,7 @@ namespace Recurly
             Console.WriteLine("Requesting " + method + " " + url);
 #endif
             var request = (HttpWebRequest)WebRequest.Create(url);
+
             request.Accept = "application/xml";      // Tells the server to return XML instead of HTML
             request.ContentType = "application/xml; charset=utf-8"; // The request is an XML document
             request.SendChunked = false;             // Send it all as one request
@@ -350,8 +361,9 @@ namespace Recurly
             }
 
             responseStream.Position = 0;
-            using (var xmlReader = new XmlTextReader(responseStream))
+            using (var xmlReader = Client.BuildXmlTextReader(responseStream))
             {
+
                 // Check for pagination
                 var records = -1;
                 var cursor = string.Empty;
