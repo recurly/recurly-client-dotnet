@@ -64,7 +64,7 @@ namespace Recurly
 
                 try
                 {
-                    using (var xmlReader = new XmlTextReader(responseStream))
+                    using (var xmlReader = Client.BuildXmlTextReader(responseStream))
                     {
                         // Parse errors collection
                         while (xmlReader.Read())
