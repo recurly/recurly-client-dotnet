@@ -28,14 +28,16 @@ namespace Recurly
             Evenly = 0,
             Never,
             AtRangeStart,
-            AtRangeEnd
+            AtRangeEnd,
+            AtInvoice,
+            EndDate
         }
 
         public string AccountCode { get; private set; }
         public string Uuid { get; protected set; }
         public string Description { get; set; }
         public string AccountingCode { get; set; }
-        public string ProductCode { get; private set; }
+        public string ProductCode { get; set; }
         public string Origin { get; protected set; }
         public int UnitAmountInCents { get; set; }
         public int Quantity { get; set; }
@@ -52,6 +54,11 @@ namespace Recurly
         public string TaxRegion { get; private set; }
 
         public AdjustmentState State { get; protected set; }
+
+        public string CreditReasonCode { get; set; }
+        public string OriginalAjustmentUuid { get; set; }
+
+        public ShippingAddress ShippingAddress { get; private set; }
 
         public DateTime StartDate { get; protected set; }
         public DateTime? EndDate { get; protected set; }
@@ -215,6 +222,14 @@ namespace Recurly
                         TaxRegion = reader.ReadElementContentAsString();
                         break;
 
+                    case "credit_reason_code":
+                        CreditReasonCode = reader.ReadElementContentAsString();
+                        break;
+
+                    case "original_adjustment_uuid":
+                        OriginalAjustmentUuid = reader.ReadElementContentAsString();
+                        break;
+
                     case "start_date":
                         DateTime startDate;
                         if (DateTime.TryParse(reader.ReadElementContentAsString(), out startDate))
@@ -244,7 +259,14 @@ namespace Recurly
                         break;
 
                     case "revenue_schedule_type":
-                        RevenueScheduleType = reader.ReadElementContentAsString().ParseAsEnum<Adjustment.RevenueSchedule>();
+                        var revenueScheduleType = reader.ReadElementContentAsString();
+                        if (!revenueScheduleType.IsNullOrEmpty())
+                            RevenueScheduleType = revenueScheduleType.ParseAsEnum<Adjustment.RevenueSchedule>();
+                        break;
+
+                    case "shipping_address":
+                        ShippingAddress = new ShippingAddress();
+                        ShippingAddress.ReadXml(reader);
                         break;
                 }
             }
@@ -268,6 +290,7 @@ namespace Recurly
             xmlWriter.WriteElementString("quantity", Quantity.AsString());
             xmlWriter.WriteElementString("accounting_code", AccountingCode);
             xmlWriter.WriteElementString("tax_exempt", TaxExempt.AsString());
+            xmlWriter.WriteElementString("product_code", ProductCode);
             if (!embedded)
                 xmlWriter.WriteElementString("currency", Currency);
             if (RevenueScheduleType.HasValue)

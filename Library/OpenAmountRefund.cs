@@ -5,12 +5,12 @@ namespace Recurly
     class OpenAmountRefund : RecurlyEntity
     {
         public int AmountInCents { get; protected set; }
-        private Invoice.RefundOrderPriority RefundPriority;
+        private Invoice.RefundMethod RefundMethod;
 
-        internal OpenAmountRefund(int amountInCents, Invoice.RefundOrderPriority refundPriority = Invoice.RefundOrderPriority.Credit)
+        internal OpenAmountRefund(int amountInCents, Invoice.RefundMethod method = Invoice.RefundMethod.CreditFirst)
         {
             AmountInCents = amountInCents;
-            RefundPriority = refundPriority;
+            RefundMethod = method;
         }
 
         internal override void ReadXml(XmlTextReader reader)
@@ -21,7 +21,7 @@ namespace Recurly
         internal override void WriteXml(XmlTextWriter writer)
         {
             writer.WriteStartElement("invoice");
-            writer.WriteElementString("refund_apply_order", RefundPriority.ToString().ToLower());
+            writer.WriteElementString("refund_method", RefundMethod.ToString().ToLower());
             writer.WriteElementString("amount_in_cents", AmountInCents.AsString());
             writer.WriteEndElement();
         }

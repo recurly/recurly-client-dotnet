@@ -94,6 +94,13 @@ namespace Recurly
         /// </summary>
         public string VatReverseChargeNotes { get; set; }
 
+        /// <summary>
+        /// Setting this property sets the shipping address for all
+        /// items in the Purchase. It can't be used if you are embedding
+        /// a new shipping address in the Account object.
+        /// </summary>
+        public long? ShippingAddressId { get; set; }
+
         #region Constructors
 
         internal Purchase()
@@ -134,31 +141,31 @@ namespace Recurly
         /// <summary>
         /// Creates and invoices this purchase.
         /// </summary>
-        public static Invoice Invoice(Purchase purchase)
+        public static InvoiceCollection Invoice(Purchase purchase)
         {
-            var invoice = new Invoice();
+            var collection = new InvoiceCollection();
 
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 UrlPrefix, 
                 purchase.WriteXml,
-                invoice.ReadXml);
+                collection.ReadXml);
 
-            return invoice;
+            return collection;
         }
 
         /// <summary>
         /// Previews the invoice for this purchase. Runs validations but not transactions.
         /// </summary>
-        public static Invoice Preview(Purchase purchase)
+        public static InvoiceCollection Preview(Purchase purchase)
         {
-            var invoice = new Invoice();
+            var collection = new InvoiceCollection();
 
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 UrlPrefix + "preview/",
                 purchase.WriteXml,
-                invoice.ReadXml);
+                collection.ReadXml);
 
-            return invoice;
+            return collection;
         }
 
         /// <summary>
@@ -168,16 +175,16 @@ namespace Recurly
         /// has been completed on an external source (e.g. Adyen's Hosted
         /// Payment Pages).
         /// </summary>
-        public static Invoice Authorize(Purchase purchase)
+        public static InvoiceCollection Authorize(Purchase purchase)
         {
-            var invoice = new Invoice();
+            var collection = new InvoiceCollection();
 
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 UrlPrefix + "authorize/",
                 purchase.WriteXml,
-                invoice.ReadXml);
+                collection.ReadXml);
 
-            return invoice;
+            return collection;
         }
 
         #region Read and Write XML documents
@@ -191,6 +198,9 @@ namespace Recurly
                 xmlWriter.WriteElementString("net_terms", NetTerms.Value.ToString());
 
             xmlWriter.WriteElementString("currency", Currency);
+
+            if (ShippingAddressId.HasValue)
+                xmlWriter.WriteElementString("shipping_address_id", ShippingAddressId.Value.ToString());
 
             Account.WriteXml(xmlWriter);
 

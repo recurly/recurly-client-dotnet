@@ -1,6 +1,106 @@
 Unreleased
 ===============
 
+1.11.2 (stable) / 2018-04-03
+===============
+
+* Fix typo in Subscription#Pause
+
+1.11.1 (stable) / 2018-04-02
+===============
+
+* Add missing RevenueScheduleType values
+* API v2.11 Changes
+* Fix InvoiceCollection#credit_invoices parsing
+
+
+1.11.0 (stable) / 2018-03-11
+===============
+
+- API v2.10 changes
+
+### Upgrade Notes
+
+This version brings us up to API version 2.10. There are quite a few breaking changes:
+
+#### 1. InvoiceCollection
+
+When creating or failing invoices, we now return an InvoiceCollection object rather than an Invoice. If you wish to upgrade your application without changing functionality, we recommend that you use the `ChargeInvoice` property on the InvoiceCollection to get the charge Invoice. Example:
+
+```csharp
+// Change this:
+var invoice = account.InvoicePendingCharges();
+
+// To this
+var invoiceCollection = account.InvoicePendingCharges();
+var invoice = invoiceCollection.ChargeInvoice;
+
+// Invoice.MarkFailed now returns a new collection
+// Change this
+invoice.MarkFailed();
+
+// To this
+var invoiceCollection = invoice.MarkFailed();
+var failedInvoice = invoiceCollection.ChargeInvoice;
+```
+
+#### 2. Invoice `Subtotal*` changes
+
+If you want to preserve functionality, change any use of `Invoice#SubtotalAfterDiscountInCents` to `Invoice#SubtotalInCents`. If you were previously using `Invoice#SubtotalInCents`, this has been changed to `Invoice#SubtotalBeforeDiscountInCents`.
+
+#### 3. Invoice Refund -- `refund_apply_order` changed to `refund_method`
+
+The `RefundOrderPriority` enum was changed to `RefundMethod`. Change use of `RefundOrderPriority.Credit` to `RefundMethod.CreditFirst` and `RefundOrderPriority.Transaction` to `RefundMethod.TransactionFirst`.
+
+
+#### 4. Invoice States
+
+If you are checking `Invoice#State` anywhere, you will want to check that you have the new correct values. `collected` has changed to `paid` and `open` has changed to `pending`. Example:
+
+```csharp
+// Change this
+if (invoice.State == Invoice.InvoiceState.Collected) {
+// To this
+if (invoice.State == Invoice.InvoiceState.Paid) {
+
+// Change this
+if (invoice.State == Invoice.InvoiceState.Open) {
+// To this
+if (invoice.State == Invoice.InvoiceState.Pending) {
+```
+
+#### 5. Invoices on Subscription Previews
+
+If you are using `Subscription#Invoice` on subscription previews, you will need to change this to use `Subscription#InvoiceCollection`. To keep functionality the same:
+
+```csharp
+// Change this
+subscription.Preview();
+var invoice = subscription.Invoice;
+
+// To this
+subscription.Preview();
+var invoice = subscription.InvoiceCollection.ChargeInvoice;
+```
+
+1.10.0 (stable) / 2018-03-06
+===============
+
+- Fix unit amounts exceptions when using percentage addons
+- Add filter to InvoiceList, redemption updated_at
+- Changed Coupon.Id from int to long
+- Implement Account Acquisition
+
+### Upgrade Notes
+
+There is one very small breaking change. Coupon.Id changed from an `int` to a `long`. Your code will require a change if you explicitly reference it as an int.
+
+1.9.1 (stable) / 2018-01-22
+===============
+
+- Set errors variable to a default instance of the Errors class
+- Handle empty revenue_schedule_type
+
 1.9.0 (stable) / 2017-10-26
 ===============
 
@@ -10,7 +110,7 @@ Unreleased
 - API v2.9 changes
 - Fix revenue_schedule_type spelling
 
-Upgrade Notes
+### Upgrade Notes
 
 This version brings us up to API version 2.9. There is a small set of breaking changes coming from PR #263. These properties have been converted to nullable so you may have to unwrap them to use them:
 
@@ -37,16 +137,30 @@ There is one small breaking change in this API version. `TrialRequiresBillingInf
 1.7.0 (stable) / 2017-10-17
 ===============
 
+This release will upgrade us to API version 2.8.
+
 * ImportedTrial flag on Subscription
 * Purchases Notes Changes
 
 ### Upgrade Notes
 
-This release will upgrade us to API version 2.8.
+There are two breaking changes in this API version you must consider. 
 
-There is one breaking change in this API version you must consider. All `country` fields must now contain valid [2 letter ISO 3166 country codes](https://www.iso.org/iso-3166-country-codes.html). If your code fails
-validation, you will receive a validation error. This affects anywhere and address is collected.
+#### Country Codes
+All `Country` fields must now contain valid [2 letter ISO 3166 country codes](https://www.iso.org/iso-3166-country-codes.html). If your country code fails validation, you will receive a validation error. This affects any endpoint where an address is collected.
 
+#### Purchase Currency
+The purchases endpoint can create and invoice multiple adjustments at once but our invoices can only contain items in one currency. To make this explicit the currency can no longer be provided on an adjustment, it must be set once for the entire purchase:
+
+```csharp
+// You must set the currency here
+var purchase = new Purchase(accountCode, currency);
+
+var adj = new Adjustment(4000, "HD Camera", 5);
+// You can no longer set the currency on the adjustment level
+adj.Currency = currency;
+purchase.Adjustments.Add(adj);
+```
 
 1.6.1 (stable) / 2017-10-04
 ===============

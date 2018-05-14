@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
@@ -213,6 +213,10 @@ namespace Recurly
 
                 switch (reader.Name)
                 {
+                    case "billing_info":
+                        // The element's opening tag - nothing to do
+                        break;
+
                     case "account":
                         var href = reader.GetAttribute("href");
                         AccountCode = Uri.UnescapeDataString(href.Substring(href.LastIndexOf("/") + 1));
@@ -321,6 +325,10 @@ namespace Recurly
                             UpdatedAt = d;
                         }
                         break;
+
+                    default:
+                        Debug.WriteLine("Recurly Client Library: Unexpected XML field in response - " + reader.Name);
+                        break;
                 }
             }
         }
@@ -334,6 +342,7 @@ namespace Recurly
             {
                 xmlWriter.WriteStringIfValid("first_name", FirstName);
                 xmlWriter.WriteStringIfValid("last_name", LastName);
+                xmlWriter.WriteStringIfValid("company", Company);
                 xmlWriter.WriteStringIfValid("name_on_account", NameOnAccount);
                 xmlWriter.WriteStringIfValid("address1", Address1);
                 xmlWriter.WriteStringIfValid("address2", Address2);

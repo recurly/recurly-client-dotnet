@@ -52,7 +52,7 @@ namespace Recurly
             if (response == null)
                 return null;
 
-            Errors errors = null;
+            Errors errors = new Errors();
 
             using (var responseStream = response.GetResponseStream())
             {

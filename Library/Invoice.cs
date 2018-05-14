@@ -11,18 +11,20 @@ namespace Recurly
         // The currently valid Invoice States
         public enum InvoiceState
         {
-            Open,
-            Collected,
+            Paid,
             Failed,
             PastDue,
             Processing,
-            Pending
+            Pending,
+            Closed,
+            Open,
+            Voided
         }
 
-        public enum RefundOrderPriority
+        public enum RefundMethod
         {
-            Credit,
-            Transaction
+            CreditFirst,
+            TransactionFirst
         }
 
         public enum Collection
@@ -57,6 +59,8 @@ namespace Recurly
         }
         private Address _address;
 
+        public ShippingAddress ShippingAddress { get; private set; }
+
         /// <summary>
         /// Tax type as "vat" for VAT or "usst" for US Sales Tax.
         /// </summary>
@@ -70,10 +74,16 @@ namespace Recurly
         public string CustomerNotes { get; set; }
         public string TermsAndConditions { get; set; }
         public string VatReverseChargeNotes { get; set; }
-        public int SubtotalAfterDiscountInCents { get; set; }
         public DateTime? AttemptNextCollectionAt { get; set; }
         public string RecoveryReason { get; set; }
         public string AllLineItemsLink { get; set; }
+
+        public int SubtotalBeforeDiscountInCents { get; set; }
+        public int? DiscountInCents { get; set; }
+        public int? BalanceInCents { get; set; }
+        public DateTime? DueOn { get; set; }
+        public string Type { get; set; }
+        public string Origin { get; set; }
 
         internal const string UrlPrefix = "/invoices/";
 
@@ -151,11 +161,27 @@ namespace Recurly
         }
 
         /// <summary>
-        /// Marks an invoice as failed collection
+        /// Voids an invoice
         /// </summary>
-        public void MarkFailed()
+        public void Void()
         {
-            Client.Instance.PerformRequest(Client.HttpRequestMethod.Put, memberUrl() + "/mark_failed", ReadXml);
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Put, memberUrl() + "/void", ReadXml);
+        }
+
+        /// <summary>
+        /// Marks an invoice as failed. This returns a
+        /// new invoice collection and does not update the
+        /// this invoice object.
+        /// </summary>
+        /// <returns>New Invoice Collection</returns>
+        public InvoiceCollection MarkFailed()
+        {
+            var collection = new InvoiceCollection();
+            Client.Instance.PerformRequest(
+                Client.HttpRequestMethod.Put,
+                memberUrl() + "/mark_failed",
+                collection.ReadXml);
+            return collection;
         }
 
         /// <summary>
@@ -190,17 +216,17 @@ namespace Recurly
         /// <param name="prorate"></param>
         /// <param name="quantity"></param>
         /// <returns>new Invoice object</returns>
-        public Invoice Refund(Adjustment adjustment, bool prorate = false, int quantity = 0, RefundOrderPriority refundPriority = RefundOrderPriority.Credit)
+        public Invoice Refund(Adjustment adjustment, bool prorate = false, int quantity = 0, RefundMethod method = RefundMethod.CreditFirst)
         {
             var adjustments = new List<Adjustment>();
             adjustments.Add(adjustment);
 
-            return Refund(adjustments, prorate, quantity, refundPriority);
+            return Refund(adjustments, prorate, quantity, method);
         }
 
-        public Invoice Refund(IEnumerable<Adjustment> adjustments, bool prorate = false, int quantity = 0, RefundOrderPriority refundPriority = RefundOrderPriority.Credit)
+        public Invoice Refund(IEnumerable<Adjustment> adjustments, bool prorate = false, int quantity = 0, RefundMethod method = RefundMethod.CreditFirst)
         {
-            var refunds = new RefundList(adjustments, prorate, quantity, refundPriority);
+            var refunds = new RefundList(adjustments, prorate, quantity, method);
             var invoice = new Invoice();
 
             var response = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
@@ -214,10 +240,10 @@ namespace Recurly
                 return null;
         }
 
-        public Invoice RefundAmount(int amountInCents, RefundOrderPriority refundPriority = RefundOrderPriority.Credit)
+        public Invoice RefundAmount(int amountInCents, RefundMethod method = RefundMethod.CreditFirst)
         {
             var refundInvoice = new Invoice();
-            var refund = new OpenAmountRefund(amountInCents, refundPriority);
+            var refund = new OpenAmountRefund(amountInCents, method);
                
             var response = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 memberUrl() + "/refund",
@@ -234,13 +260,21 @@ namespace Recurly
 
         internal override void ReadXml(XmlTextReader reader)
         {
+            ReadXml(reader, "invoice");
+        }
+
+        internal void ReadXml(XmlTextReader reader, string nodeName)
+        {
             while (reader.Read())
             {
                 // End of invoice element, get out of here
-                if (reader.Name == "invoice" && reader.NodeType == XmlNodeType.EndElement)
+                if (reader.Name == nodeName && reader.NodeType == XmlNodeType.EndElement)
                     break;
 
                 if (reader.NodeType != XmlNodeType.Element) continue;
+
+                DateTime dt;
+                int m;
 
                 switch (reader.Name)
                 {
@@ -270,13 +304,14 @@ namespace Recurly
                         break;
 
                     case "state":
-                        State = reader.ReadElementContentAsString().ParseAsEnum<InvoiceState>();
+                        var state = reader.ReadElementContentAsString();
+                        if (!state.IsNullOrEmpty()) 
+                            State = state.ParseAsEnum<InvoiceState>();
                         break;
 
                     case "invoice_number":
-                        int invNumber;
-                        if (Int32.TryParse(reader.ReadElementContentAsString(), out invNumber))
-                            InvoiceNumber = invNumber;
+                        if (Int32.TryParse(reader.ReadElementContentAsString(), out m))
+                            InvoiceNumber = m;
                         break;
 
                     case "invoice_number_prefix":
@@ -308,21 +343,18 @@ namespace Recurly
                         break;
 
                     case "created_at":
-                        DateTime createdAt;
-                        if (DateTime.TryParse(reader.ReadElementContentAsString(), out createdAt))
-                            CreatedAt = createdAt;
+                        if (DateTime.TryParse(reader.ReadElementContentAsString(), out dt))
+                            CreatedAt = dt;
                         break;
 
                     case "updated_at":
-                        DateTime updatedAt;
-                        if (DateTime.TryParse(reader.ReadElementContentAsString(), out updatedAt))
-                            UpdatedAt = updatedAt;
+                        if (DateTime.TryParse(reader.ReadElementContentAsString(), out dt))
+                            UpdatedAt = dt;
                         break;                    
 
                     case "closed_at":
-                        DateTime closedAt;
-                        if (DateTime.TryParse(reader.ReadElementContentAsString(), out closedAt))
-                            ClosedAt = closedAt;
+                        if (DateTime.TryParse(reader.ReadElementContentAsString(), out dt))
+                            ClosedAt = dt;
                         break;
 
                     case "tax_type":
@@ -338,11 +370,14 @@ namespace Recurly
                         break;
 
                     case "net_terms":
-                        NetTerms = reader.ReadElementContentAsInt();
+                        if (int.TryParse(reader.ReadElementContentAsString(), out m))
+                            NetTerms = m;
                         break;
 
                     case "collection_method":
-                        CollectionMethod = reader.ReadElementContentAsString().ParseAsEnum<Collection>();
+                        var method = reader.ReadElementContentAsString();
+                        if (!method.IsNullOrEmpty())
+                            CollectionMethod = method.ParseAsEnum<Collection>();
                         break;
 
                     case "customer_notes":
@@ -373,16 +408,41 @@ namespace Recurly
                         Address = new Address(reader);
                         break;
 
-                    case "subtotal_after_discount_in_cents":
-                        int s;
-                        if (int.TryParse(reader.ReadElementContentAsString(), out s))
-                            SubtotalAfterDiscountInCents = s;
+                    case "shipping_address":
+                        ShippingAddress = new ShippingAddress(reader);
+                        break;
+
+                    case "subtotal_before_discount_in_cents":
+                        if (int.TryParse(reader.ReadElementContentAsString(), out m))
+                            SubtotalBeforeDiscountInCents = m;
+                        break;
+
+                    case "discount_in_cents":
+                        if (int.TryParse(reader.ReadElementContentAsString(), out m))
+                            DiscountInCents = m;
+                        break;
+
+                    case "balance_in_cents":
+                        if (int.TryParse(reader.ReadElementContentAsString(), out m))
+                            BalanceInCents = m;
+                        break;
+
+                    case "due_on":
+                        if (DateTime.TryParse(reader.ReadElementContentAsString(), out dt))
+                            DueOn = dt;
+                        break;
+
+                    case "type":
+                        Type = reader.ReadElementContentAsString();
+                        break;
+
+                    case "origin":
+                        Origin = reader.ReadElementContentAsString();
                         break;
 
                     case "attempt_next_collection_at":
-                        DateTime d;
-                        if (DateTime.TryParse(reader.ReadElementContentAsString(), out d))
-                            AttemptNextCollectionAt = d;
+                        if (DateTime.TryParse(reader.ReadElementContentAsString(), out dt))
+                            AttemptNextCollectionAt = dt;
                         break;
 
                     case "recovery_reason":
@@ -464,6 +524,21 @@ namespace Recurly
         public static RecurlyList<Invoice> List(Invoice.InvoiceState state)
         {
             return new InvoiceList(Invoice.UrlPrefix + "?state=" + state.ToString().EnumNameToTransportCase());
+        }
+
+        public static RecurlyList<Invoice> List(Invoice.InvoiceState state, FilterCriteria filter)
+        {
+            filter = filter ?? FilterCriteria.Instance;
+            var parameters = filter.ToNamedValueCollection();
+            parameters["state"] = state.ToString().EnumNameToTransportCase();
+            return new InvoiceList(Invoice.UrlPrefix + "?" + parameters.ToString());
+        }
+
+        public static RecurlyList<Invoice> List(FilterCriteria filter)
+        {
+            filter = filter ?? FilterCriteria.Instance;
+            var parameters = filter.ToNamedValueCollection();
+            return new InvoiceList(Invoice.UrlPrefix + "?" + parameters.ToString());
         }
 
         /// <summary>

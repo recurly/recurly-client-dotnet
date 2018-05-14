@@ -314,11 +314,15 @@ namespace Recurly
                         break;
 
                     case "revenue_schedule_type":
-                        RevenueScheduleType = reader.ReadElementContentAsString().ParseAsEnum<Adjustment.RevenueSchedule>();
+                        var revenueScheduleType = reader.ReadElementContentAsString();
+                        if (!revenueScheduleType.IsNullOrEmpty())
+                            RevenueScheduleType = revenueScheduleType.ParseAsEnum<Adjustment.RevenueSchedule>();
                         break;
 
                     case "setup_fee_revenue_schedule_type":
-                        SetupFeeRevenueScheduleType = reader.ReadElementContentAsString().ParseAsEnum<Adjustment.RevenueSchedule>();
+                        var setupFeeRevenueScheduleType = reader.ReadElementContentAsString();
+                        if (!setupFeeRevenueScheduleType.IsNullOrEmpty())
+                            SetupFeeRevenueScheduleType = setupFeeRevenueScheduleType.ParseAsEnum<Adjustment.RevenueSchedule>();
                         break;
                 }
             }
