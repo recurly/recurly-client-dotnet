@@ -70,7 +70,9 @@ namespace Recurly
                     "The given AddOn does not have UnitAmountInCents for the currency of the subscription (" + _subscription.Currency + ")."
                     , new Errors());
             }
-            var sub = new SubscriptionAddOn(planAddOn.AddOnCode, planAddOn.AddOnType, amount, quantity);
+            int? unitAmountInCents = planAddOn.AddOnType.HasValue && (planAddOn.AddOnType.Value == AddOn.Type.Usage) ? (int?)null : amount;
+
+            var sub = new SubscriptionAddOn(planAddOn.AddOnCode, planAddOn.AddOnType, unitAmountInCents, quantity);
             base.Add(sub);
         }
 
