@@ -187,6 +187,22 @@ namespace Recurly
             return collection;
         }
 
+        /// <summary>
+        /// Use for Adyen HPP transaction requests. Runs validations
+        /// but does not run any transactions.
+        /// </summary>
+        public static InvoiceCollection Pending(Purchase purchase)
+        {
+            var collection = new InvoiceCollection();
+
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
+                UrlPrefix + "pending/",
+                purchase.WriteXml,
+                collection.ReadXml);
+
+            return collection;
+        }
+
         #region Read and Write XML documents
 
         internal override void WriteXml(XmlTextWriter xmlWriter)
