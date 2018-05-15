@@ -94,6 +94,46 @@ namespace Recurly
         /// </summary>
         public DateTime DeliveredAt { get; private set; }
 
+        
+        private String _purchaseInvoiceId;
+        private Invoice _purchaseInvoice;
+
+        private String _redemptionInvoiceId;
+        private Invoice _redemptionInvoice;
+
+
+        /// <summary>
+        /// The charge invoice for the gift card purchase.
+        /// </summary>
+        public Invoice PurchaseInvoice
+        {
+            get
+            {
+                if (_purchaseInvoice == null && !_purchaseInvoiceId.IsNullOrEmpty())
+                {
+                    _purchaseInvoice = Invoices.Get(_purchaseInvoiceId);
+                }
+                return _purchaseInvoice;
+            }
+            set { _purchaseInvoice = value; }
+        }
+
+        /// <summary>
+        /// The credit invoice for the gift card redemption.
+        /// </summary>
+        public Invoice RedemptionInvoice
+        {
+            get
+            {
+                if (_redemptionInvoice == null && !_redemptionInvoiceId.IsNullOrEmpty())
+                {
+                    _redemptionInvoice = Invoices.Get(_redemptionInvoiceId);
+                }
+                return _redemptionInvoice;
+            }
+            set { _redemptionInvoice = value; }
+        }
+
         internal const string UrlPrefix = "/gift_cards/";
 
         public GiftCard(string accountCode, Delivery delivery, string productCode, int unitAmountInCents, string currency)
@@ -213,6 +253,22 @@ namespace Recurly
                         int balance;
                         if (Int32.TryParse(reader.ReadElementContentAsString(), out balance))
                             BalanceInCents = balance;
+                        break;
+
+                    case "redemption_invoice":
+                        string redemptionUrl = reader.GetAttribute("href");
+                        if (redemptionUrl != null)
+                        {
+                            _redemptionInvoiceId = Uri.UnescapeDataString(redemptionUrl.Substring(redemptionUrl.LastIndexOf("/") + 1));
+                        }
+                        break;
+
+                    case "purchase_invoice":
+                        string purchaseUrl = reader.GetAttribute("href");
+                        if (purchaseUrl != null)
+                        {
+                            _purchaseInvoiceId = Uri.UnescapeDataString(purchaseUrl.Substring(purchaseUrl.LastIndexOf("/") + 1));
+                        }
                         break;
 
                     case "gifter_account":
