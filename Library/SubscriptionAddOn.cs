@@ -7,7 +7,7 @@ namespace Recurly
     {
         public string AddOnCode { get; set; }
         public AddOn.Type? AddOnType { get; set; }
-        public int UnitAmountInCents { get; set; }
+        public int? UnitAmountInCents { get; set; }
         public int Quantity { get; set; }
         public Adjustment.RevenueSchedule? RevenueScheduleType { get; set; }
 
@@ -17,7 +17,7 @@ namespace Recurly
         }
 
         // keep old constructor
-        public SubscriptionAddOn(string addOnCode, int unitAmountInCents, int quantity = 1)
+        public SubscriptionAddOn(string addOnCode, int? unitAmountInCents, int quantity = 1)
         {
             AddOnCode = addOnCode;
             UnitAmountInCents = unitAmountInCents;
@@ -25,7 +25,7 @@ namespace Recurly
         }
 
         // new constructor including addOnType (recommended)
-        public SubscriptionAddOn(string addOnCode, AddOn.Type? addOnType, int unitAmountInCents, int quantity = 1)
+        public SubscriptionAddOn(string addOnCode, AddOn.Type? addOnType, int? unitAmountInCents, int quantity = 1)
         {
             AddOnCode = addOnCode;
             AddOnType = addOnType;
@@ -77,7 +77,9 @@ namespace Recurly
 
             writer.WriteElementString("add_on_code", AddOnCode);
             writer.WriteElementString("quantity", Quantity.AsString());			
-            writer.WriteElementString("unit_amount_in_cents", UnitAmountInCents.AsString());
+
+            if(UnitAmountInCents.HasValue)
+                writer.WriteElementString("unit_amount_in_cents", UnitAmountInCents.Value.AsString());
 
             if (RevenueScheduleType.HasValue)
                 writer.WriteElementString("revenue_schedule_type", RevenueScheduleType.Value.ToString().EnumNameToTransportCase());
