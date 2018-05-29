@@ -1,6 +1,17 @@
 Unreleased
 ===============
 
+1.12.0 (stable) / 2018-05-29
+===============
+
+* Fix unit amount in cents for usage add ons
+* Expose subs accountcode to avoid unnecessary api requests
+
+###Upgrade Notes
+
+SubscriptionAddOn#UnitAmountInCents was changed to nullable type. If you do not read this value, no change is needed.
+
+
 1.11.4 (stable) / 2018-05-16
 ===============
 
