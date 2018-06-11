@@ -209,6 +209,16 @@ namespace Recurly
             return Invoices.Get(OriginalInvoiceNumberWithPrefix());
         }
 
+        public TransactionList GetTransactions()
+        {
+            var transactions = new TransactionList();
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
+                memberUrl() + "/transactions/",
+                transactions.ReadXmlList);
+
+            return statusCode == HttpStatusCode.NotFound ? null : transactions;
+        }
+
         /// <summary>
         /// If enabled, allows specific line items and/or quantities to be refunded.
         /// </summary>
