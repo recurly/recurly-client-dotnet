@@ -32,13 +32,16 @@ namespace Recurly
         public string SubscriptionUuid { get; private set; }
         public string SubscriptionAddOnCode { get; private set; }
 
+        private String _href;
+
         internal Usage()
         {
         }
 
-        internal Usage(XmlTextReader reader)
+        internal Usage(XmlTextReader reader, string href)
             : this()
         {
+            _href = href;
             ReadXml(reader);
         }
 
@@ -64,9 +67,9 @@ namespace Recurly
         /// </summary>
         public void Update()
         {
+            var url = _href != null ? _href : UrlPrefix() + "/" + Id.ToString();
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
-                UrlPrefix() + "/" + Id.ToString(),
-                WriteXml);
+                url, WriteUpdateXml);
         }
 
         /// <summary>
@@ -106,8 +109,11 @@ namespace Recurly
                 switch (reader.Name)
                 {
                     case "usage":
-                        Uri usageUri = new Uri(reader.GetAttribute("href"));
-                        if (Int64.TryParse(usageUri.Segments.Last(), out usageId))
+                        _href = reader.GetAttribute("href");
+                        break;
+
+                    case "id":
+                        if (long.TryParse(reader.ReadElementContentAsString(), out usageId))
                             Id = usageId;
                         break;
 
@@ -159,14 +165,24 @@ namespace Recurly
             }
         }
 
-        internal override void WriteXml(XmlTextWriter xmlWriter)
+        internal override void WriteXml(XmlTextWriter writer)
+        {
+            WriteXml(writer, false);
+        }
+
+        internal void WriteUpdateXml(XmlTextWriter writer)
+        {
+            WriteXml(writer, true);
+        }
+
+        internal void WriteXml(XmlTextWriter xmlWriter, bool update)
         {
             xmlWriter.WriteStartElement("usage");
 
             if (UsagePercentage.HasValue)
                 xmlWriter.WriteElementString("usage_percentage", UsagePercentage.Value.ToString());
 
-            if (UnitAmountInCents.HasValue)
+            if (!update && UnitAmountInCents.HasValue)
                 xmlWriter.WriteElementString("unit_amount_in_cents", UnitAmountInCents.Value.AsString());
 
             xmlWriter.WriteElementString("amount", Amount.AsString());
