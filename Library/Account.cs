@@ -444,9 +444,13 @@ namespace Recurly
                         AccountCode = reader.ReadElementContentAsString();
                         break;
 
+                    case "billing_info":
+                        BillingInfo = new BillingInfo(reader);
+                        break;
+
                     case "state":
                         // TODO investigate in case of incoming data representing multiple states, as https://dev.recurly.com/docs/get-account says is possible
-                        State = reader.ReadElementContentAsString().ParseAsEnum<AccountState>();
+                         State = reader.ReadElementContentAsString().ParseAsEnum<AccountState>();
                         break;
 
                     case "username":

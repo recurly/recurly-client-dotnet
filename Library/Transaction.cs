@@ -176,7 +176,13 @@ namespace Recurly
                     case "account":
                         href = reader.GetAttribute("href");
                         if (null != href)
+                        {
                             AccountCode = Uri.UnescapeDataString(href.Substring(href.LastIndexOf("/") + 1));
+                        } 
+                        else
+                        {
+                            Account = new Account(reader);
+                        }
                         break;
 
                     case "invoice":

@@ -157,6 +157,11 @@ namespace Recurly
             AccountCode = account.AccountCode;
         }
 
+        internal BillingInfo(XmlTextReader reader)
+        {
+            ReadXml(reader);
+        }
+
         private BillingInfo()
         {
         }
