@@ -254,7 +254,7 @@ namespace Recurly
         /// </summary>
         public Invoice InvoicePreview { get; private set; }
         public int? TotalBillingCycles { get; set; }
-        public int? RemainingBillingCycles { get; private set; }
+        public int? RemainingBillingCycles { get; set; }
         public int? RemainingPauseCycles { get; private set; }
         public DateTime? FirstRenewalDate { get; set; }
 
@@ -882,6 +882,9 @@ namespace Recurly
 
             if (RevenueScheduleType.HasValue)
                 xmlWriter.WriteElementString("revenue_schedule_type", RevenueScheduleType.Value.ToString().EnumNameToTransportCase());
+
+            if (RemainingBillingCycles.HasValue)
+                xmlWriter.WriteElementString("remaining_billing_cycles", RemainingBillingCycles.Value.AsString());
 
             xmlWriter.WriteEndElement(); // End: subscription
         }
