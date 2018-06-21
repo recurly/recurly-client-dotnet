@@ -50,7 +50,8 @@ namespace Recurly
 
                 if (reader.NodeType == XmlNodeType.Element && reader.Name == "usage")
                 {
-                    Add(new Usage(reader));
+                    var href = reader.GetAttribute("href");
+                    Add(new Usage(reader, href));
                 }
             }
         }
