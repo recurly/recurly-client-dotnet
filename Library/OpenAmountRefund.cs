@@ -21,7 +21,7 @@ namespace Recurly
         internal override void WriteXml(XmlTextWriter writer)
         {
             writer.WriteStartElement("invoice");
-            writer.WriteElementString("refund_method", RefundMethod.ToString().ToLower());
+            writer.WriteElementString("refund_method", RefundMethod.ToString().EnumNameToTransportCase());
             writer.WriteElementString("amount_in_cents", AmountInCents.AsString());
             writer.WriteEndElement();
         }

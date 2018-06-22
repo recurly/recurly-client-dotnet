@@ -27,7 +27,7 @@ namespace Recurly
         internal void WriteXml(XmlTextWriter writer) 
         {
             writer.WriteStartElement("invoice");
-            writer.WriteElementString("refund_method", RefundMethod.ToString().ToLower());
+            writer.WriteElementString("refund_method", RefundMethod.ToString().EnumNameToTransportCase());
             writer.WriteStartElement("line_items");
 
             foreach (var refund in Refunds)
