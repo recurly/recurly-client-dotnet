@@ -1,6 +1,14 @@
 Unreleased
 ===============
 
+1.12.1 (stable) / 2018-06-22
+===============
+
+* Fix Usages Id parsing bug
+* Transaction should parse embedded account
+* Make Subscription#RemainingBillingCycles writeable
+* Use EnumTransportCase for RefundMethod
+
 1.12.0 (stable) / 2018-05-29
 ===============
 
