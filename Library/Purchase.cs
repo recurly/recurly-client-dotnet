@@ -101,6 +101,11 @@ namespace Recurly
         /// </summary>
         public long? ShippingAddressId { get; set; }
 
+        /// <summary>
+        /// Optional gateway identifier for this purchase.
+        /// </summary>
+        public string GatewayCode { get; set; }
+
         #region Constructors
 
         internal Purchase()
@@ -264,6 +269,9 @@ namespace Recurly
 
             if (VatReverseChargeNotes != null)
                 xmlWriter.WriteElementString("vat_reverse_charge_notes", VatReverseChargeNotes);
+
+            if (GatewayCode != null)
+                xmlWriter.WriteElementString("gateway_code", GatewayCode);
 
             xmlWriter.WriteEndElement(); // End: purchase
         }

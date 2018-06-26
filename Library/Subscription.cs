@@ -303,6 +303,45 @@ namespace Recurly
         /// </summary>
         public bool? ImportedTrial { get; set; }
 
+        /// <summary>
+        /// Determines whether subscriptions to this plan should auto-renew term at the end of the current term or expire.
+        /// Defaults to true.
+        /// </summary>
+        public bool? AutoRenew { get; set; }
+
+        /// <summary>
+        /// Determines the renewal subscription term.
+        /// Defaults to plan’s total billing cycles value unless
+        /// overwritten when creating the subscription or editing subscription. 
+        /// </summary>
+        public int? RenewalBillingCycles { get; set; }
+
+        /// <summary>
+        /// Previously named first_renewal_date. Forces the subscription’s next billing period start date.
+        /// Subsequent billing period start dates will be offset from this date.
+        /// The first invoice will be prorated appropriately so that the customer pays
+        /// for the portion of the first billing period for which the subscription applies. 
+        /// </summary>
+        public DateTime FirstBillDate { get; private set; }
+
+        /// <summary>
+        /// Previously named next_renewal_date. Specifies a future date that 
+        /// the subscription’s next billing period should be billed.
+        /// </summary>
+        public DateTime NextBillDate { get; private set; }
+
+        /// <summary>
+        /// Start date of the subscription’s current term. Will equal the future start
+        /// date if subscription was created in the future state.
+        /// </summary>
+        public DateTime CurrentTermStartedAt { get; private set; }
+
+        /// <summary>
+        /// End date of the subscription’s current term. Will be nil
+        /// if subscription has future start date.
+        /// </summary>
+        public DateTime CurrentTermEndsAt { get; private set; }
+
         public Adjustment.RevenueSchedule? RevenueScheduleType { get; set; }
 
         internal Subscription()
@@ -728,9 +767,11 @@ namespace Recurly
                     case "address":
                         Address = new Address(reader);
                         break;
+
                     case "started_with_gift":
                         StartedWithGiftCard = reader.ReadElementContentAsBoolean();
                         break;
+
                     case "converted_at":
                         DateTime date;
                         if (DateTime.TryParse(reader.ReadElementContentAsString(), out date))
@@ -738,9 +779,11 @@ namespace Recurly
                             ConvertedAt = date;
                         }
                         break;
+
                     case "no_billing_info_reason":
                         NoBillingInfoReason = reader.ReadElementContentAsString();
                         break;
+
                     case "imported_trial":
                         ImportedTrial = reader.ReadElementContentAsBoolean();
                         break;
@@ -749,6 +792,38 @@ namespace Recurly
                         var revenueScheduleType = reader.ReadElementContentAsString();
                         if (!revenueScheduleType.IsNullOrEmpty())
                             RevenueScheduleType = revenueScheduleType.ParseAsEnum<Adjustment.RevenueSchedule>();
+                        break;
+
+                    case "auto_renew":
+                        bool b;
+                        if (bool.TryParse(reader.ReadElementContentAsString(), out b))
+                            AutoRenew = b;
+                        break;
+
+                    case "renewal_billing_cycles":
+                        int i;
+                        if (int.TryParse(reader.ReadElementContentAsString(), out i))
+                            RenewalBillingCycles = i;
+                        break;
+
+                    case "current_term_started_at":
+                        if (DateTime.TryParse(reader.ReadElementContentAsString(), out dateVal))
+                            CurrentTermStartedAt = dateVal;
+                        break;
+
+                    case "current_term_ends_at":
+                        if (DateTime.TryParse(reader.ReadElementContentAsString(), out dateVal))
+                            CurrentTermEndsAt = dateVal;
+                        break;
+
+                    case "first_bill_date":
+                        if (DateTime.TryParse(reader.ReadElementContentAsString(), out dateVal))
+                            FirstBillDate = dateVal;
+                        break;
+
+                    case "next_bill_date":
+                        if (DateTime.TryParse(reader.ReadElementContentAsString(), out dateVal))
+                            NextBillDate = dateVal;
                         break;
                 }
             }
@@ -885,6 +960,12 @@ namespace Recurly
 
             if (RemainingBillingCycles.HasValue)
                 xmlWriter.WriteElementString("remaining_billing_cycles", RemainingBillingCycles.Value.AsString());
+
+            if (AutoRenew.HasValue)
+                xmlWriter.WriteElementString("auto_renew", AutoRenew.Value.AsString());
+
+            if (RenewalBillingCycles.HasValue)
+                xmlWriter.WriteElementString("renewal_billing_cycles", RenewalBillingCycles.Value.AsString());
 
             xmlWriter.WriteEndElement(); // End: subscription
         }
