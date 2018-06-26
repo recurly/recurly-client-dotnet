@@ -532,6 +532,11 @@ namespace Recurly
         /// <returns></returns>
         public static Coupon Get(string couponCode)
         {
+            if (string.IsNullOrWhiteSpace(couponCode))
+            {
+                return null;
+            }
+
             var coupon = new Coupon();
 
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,

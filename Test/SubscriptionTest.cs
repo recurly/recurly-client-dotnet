@@ -9,7 +9,7 @@ namespace Recurly.Test
     public class SubscriptionTest : BaseTest
     {
         [RecurlyFact(TestEnvironment.Type.Integration)]
-        public void LookupSubscription()
+        public Subscription LookupSubscription()
         {
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName()) { Description = "Lookup Subscription Test" };
             plan.UnitAmountInCents.Add("USD", 1500);
@@ -27,6 +27,14 @@ namespace Recurly.Test
             var fromService = Subscriptions.Get(sub.Uuid);
 
             fromService.Should().Be(sub);
+            return sub;
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void LookupSubscriptionWithNullCouponCode()
+        {
+            var sub = LookupSubscription();
+            Assert.Equal(null, sub.Coupon);
         }
 
         [RecurlyFact(TestEnvironment.Type.Integration)]

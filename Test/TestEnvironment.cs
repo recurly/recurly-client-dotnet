@@ -17,7 +17,8 @@ namespace Recurly.Test
         public Type[] Supports;
         public enum Type
         {
-            Integration
+            Integration,
+            Unit
         };
 
         private bool IsTravis;
