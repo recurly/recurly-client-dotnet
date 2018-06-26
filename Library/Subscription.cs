@@ -199,7 +199,15 @@ namespace Recurly
         /// </summary>
         public Coupon Coupon
         {
-            get { return _coupon ?? (_coupon = Recurly.Coupons.Get(_couponCode)); }
+            get
+            {
+                if (string.IsNullOrWhiteSpace(_couponCode))
+                {
+                    return null;
+                }
+
+                return _coupon ?? (_coupon = Recurly.Coupons.Get(_couponCode));
+            }
             set
             {
                 _coupon = value;

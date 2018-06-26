@@ -173,5 +173,26 @@ namespace Recurly.Test
             coupon.Should().NotBeNull();
             coupon.State.Should().Be(Coupon.CouponState.Inactive);
         }
+
+        [RecurlyFact(TestEnvironment.Type.Unit)]
+        public void GetCouponWithNullCouponCodeIsNull()
+        {
+            var nullCoupon = Coupons.Get(null);
+            Assert.Equal(null, nullCoupon);
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Unit)]
+        public void GetCouponWithEmptyCouponCodeIsNull()
+        {
+            var emptyCoupon = Coupons.Get("");
+            Assert.Equal(null, emptyCoupon);
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Unit)]
+        public void GetCouponWithWhitespaceCouponCodeIsNull()
+        {
+            var whitespaceCoupon = Coupons.Get("  ");
+            Assert.Equal(null, whitespaceCoupon);
+        }
     }
 }

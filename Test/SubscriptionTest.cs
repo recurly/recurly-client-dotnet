@@ -30,6 +30,29 @@ namespace Recurly.Test
         }
 
         [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void LookupSubscriptionWithNullCouponCode()
+        {
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName()) { Description = "Lookup Subscription Test" };
+            plan.UnitAmountInCents.Add("USD", 1500);
+            plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
+
+            var account = CreateNewAccountWithBillingInfo();
+
+            var sub = new Subscription(account, plan, "USD");
+            sub.Create();
+
+            sub.ActivatedAt.Should().HaveValue().And.NotBe(default(DateTime));
+            sub.State.Should().Be(Subscription.SubscriptionState.Active);
+
+            Assert.Equal(null, sub.Coupon);
+
+            var fromService = Subscriptions.Get(sub.Uuid);
+
+            fromService.Should().Be(sub);
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void LookupSubscriptionPendingChanges()
         {
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
