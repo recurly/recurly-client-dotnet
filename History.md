@@ -1,6 +1,16 @@
 Unreleased
 ===============
 
+1.12.2 (stable) / 2018-06-26
+===============
+
+This release brings us to API version 2.13 but does not have any breaking changes.
+
+* Allow programmer to set gateway code per purchase
+* Add link to all_transactions on Invoice
+* Subscription Terms
+* Subscription.Coupon throws an ArgumentNullException if couponCode is null. Now returns null.
+
 1.12.1 (stable) / 2018-06-22
 ===============
 
