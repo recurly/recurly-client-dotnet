@@ -440,13 +440,18 @@ namespace Recurly
 
                 switch (reader.Name)
                 {
+                   
                     case "account_code":
                         AccountCode = reader.ReadElementContentAsString();
                         break;
 
                     case "billing_info":
-                        BillingInfo = new BillingInfo(reader);
-                        break;
+                       var href = reader.GetAttribute("href");
+                       if (null == href)
+                       {
+                           BillingInfo = new BillingInfo(reader);
+                       }    
+                       break;
 
                     case "state":
                         // TODO investigate in case of incoming data representing multiple states, as https://dev.recurly.com/docs/get-account says is possible
