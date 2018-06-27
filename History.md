@@ -1,6 +1,13 @@
 Unreleased
 ===============
 
+1.12.3 (stable) / 2018-06-26
+===============
+
+Fixes a regression issue introduced in 1.12.1
+
+* Issue parsing Account#billing_info
+
 1.12.2 (stable) / 2018-06-26
 ===============
 
