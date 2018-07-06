@@ -1,7 +1,7 @@
 language: csharp
 dist: trusty
 mono:
-  - 4.6.2
+  - 4.8.1
 solution: Recurly.sln
 install:
   - nuget restore Recurly.sln
