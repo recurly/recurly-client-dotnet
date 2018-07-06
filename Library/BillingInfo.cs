@@ -284,17 +284,23 @@ namespace Recurly
                         break;
 
                     case "card_type":
-                        CardType = reader.ReadElementContentAsString().ParseAsEnum<CreditCardType>();
+                        var type = reader.ReadElementContentAsString();
+                        if (!type.IsNullOrEmpty())
+                            CardType = type.ParseAsEnum<CreditCardType>();
                         break;
 
                     case "year":
-                        ExpirationYear = reader.ReadElementContentAsInt();
+                        int y;
+                        if (int.TryParse(reader.ReadElementContentAsString(), out y))
+                            ExpirationYear = y;
                         break;
 
                     case "month":
-                        ExpirationMonth = reader.ReadElementContentAsInt();
+                        int m;
+                        if (int.TryParse(reader.ReadElementContentAsString(), out m))
+                            ExpirationMonth = m;
                         break;
-
+                        
                     case "first_six":
                         FirstSix = reader.ReadElementContentAsString();
                         break;
