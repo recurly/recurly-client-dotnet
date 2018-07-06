@@ -1,6 +1,11 @@
 Unreleased
 ===============
 
+1.12.4 (stable) / 2018-07-06
+===============
+
+* Allow nulls in BillingInfo
+
 1.12.3 (stable) / 2018-06-26
 ===============
 
