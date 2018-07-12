@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <RestoreSources>$(RestoreSources);../Recurly/bin/Debug;https://api.nuget.org/v3/index.json</RestoreSources>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Recurly" Version="1.0.0" />
+    <PackageReference Include="restsharp" Version="106.3.1" />
+  </ItemGroup>
+
+</Project>
