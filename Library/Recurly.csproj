@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="AccountAcquisition.cs" />
     <Compile Include="CreditPayment.cs" />
+    <Compile Include="CustomField.cs" />
     <Compile Include="Delivery.cs" />
     <Compile Include="GiftCard.cs" />
     <Compile Include="Account.cs" />

@@ -72,10 +72,10 @@ namespace Recurly.Test
             plan.Create();
             PlansToDeactivateOnDispose.Add(plan);
 
-            var account = CreateNewAccountWithBillingInfo();
-
+            var account = CreateNewAccountWithBillingInfo();            
             var coup = CreateNewCoupon(3);
             var sub = new Subscription(account, plan, "USD");
+            sub.CustomFields.Add(new CustomField("food", "taco"));
             sub.TotalBillingCycles = 5;
             sub.Coupon = coup;
             Assert.Null(sub.TaxInCents);
@@ -93,7 +93,8 @@ namespace Recurly.Test
 
             var sub1 = Subscriptions.Get(sub.Uuid);
             Assert.Equal(5, sub1.TotalBillingCycles);
-
+            Assert.Equal(sub1.CustomFields.First().Name, "food");
+            Assert.Equal(sub1.CustomFields.First().Value, "taco");
         }
 
         [RecurlyFact(TestEnvironment.Type.Integration)]
