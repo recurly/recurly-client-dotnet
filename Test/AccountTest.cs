@@ -2,6 +2,7 @@
 using System.Linq;
 using FluentAssertions;
 using Xunit;
+using System.Collections.Generic;
 
 namespace Recurly.Test
 {
@@ -19,6 +20,9 @@ namespace Recurly.Test
         [RecurlyFact(TestEnvironment.Type.Integration)]
         public void CreateAccountWithParameters()
         {
+            var customFields = new List<CustomField>();
+            customFields.Add(new CustomField("food", "taco"));
+
             var acct = new Account(GetUniqueAccountCode())
             {
                 Username = "testuser1",
@@ -31,7 +35,8 @@ namespace Recurly.Test
                 TaxExempt = true,
                 EntityUseCode = "I",
                 CcEmails = "cc1@test.com,cc2@test.com",
-                Address = new Address()
+                Address = new Address(),
+                CustomFields = customFields
             };
 
             string address = "123 Faux Street";
@@ -51,6 +56,8 @@ namespace Recurly.Test
             Assert.Equal("I", acct.EntityUseCode);
             Assert.Equal(address, acct.Address.Address1);
             Assert.False(acct.VatLocationValid);
+            Assert.Equal(acct.CustomFields.First().Name, "food");
+            Assert.Equal(acct.CustomFields.First().Value, "taco");
         }
 
         [Fact]

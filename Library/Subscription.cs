@@ -104,6 +104,16 @@ namespace Recurly
 
         public long? ShippingAddressId { get; set; }
 
+        /// <summary>
+        /// List of custom fields
+        /// </summary>
+        public List<CustomField> CustomFields
+        {
+            get { return _customFields ?? (_customFields = new List<CustomField>()); }
+            set { _customFields = value; }
+        }
+        private List<CustomField> _customFields;
+
         public string Uuid { get; private set; }
 
         public SubscriptionState State { get; private set; }
@@ -703,6 +713,20 @@ namespace Recurly
                         AddOns.ReadXml(reader);
                         break;
 
+                    case "custom_fields":
+                        CustomFields = new List<CustomField>();
+                        while (reader.Read())
+                        {
+                            if (reader.Name == "custom_fields" && reader.NodeType == XmlNodeType.EndElement)
+                                break;
+
+                            if (reader.NodeType == XmlNodeType.Element && reader.Name == "custom_field")
+                            {
+                                CustomFields.Add(new CustomField(reader));
+                            }
+                        }
+                        break;
+
                     case "invoice":
                         href = reader.GetAttribute("href");
                         if (!href.IsNullOrEmpty())
@@ -974,6 +998,8 @@ namespace Recurly
 
             if (RenewalBillingCycles.HasValue)
                 xmlWriter.WriteElementString("renewal_billing_cycles", RenewalBillingCycles.Value.AsString());
+
+            xmlWriter.WriteIfCollectionHasAny("custom_fields", CustomFields);
 
             xmlWriter.WriteEndElement(); // End: subscription
         }

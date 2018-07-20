@@ -135,6 +135,16 @@ namespace Recurly
         }
         private List<ShippingAddress> _shippingAddresses;
 
+        /// <summary>
+        /// List of custom fields
+        /// </summary>
+        public List<CustomField> CustomFields
+        {
+            get { return _customFields ?? (_customFields = new List<CustomField>()); }
+            set { _customFields = value; }
+        }
+        private List<CustomField> _customFields;
+
         internal const string UrlPrefix = "/accounts/";
 
         public Account(string accountCode)
@@ -559,6 +569,20 @@ namespace Recurly
                     case "preferred_locale":
                         PreferredLocale = reader.ReadElementContentAsString();
                         break;
+
+                    case "custom_fields":
+                        CustomFields = new List<CustomField>();
+                        while (reader.Read())
+                        {
+                            if (reader.Name == "custom_fields" && reader.NodeType == XmlNodeType.EndElement)
+                                break;
+
+                            if (reader.NodeType == XmlNodeType.Element && reader.Name == "custom_field")
+                            {
+                                CustomFields.Add(new CustomField(reader));
+                            }
+                        }
+                        break;
                 }
             }
         }
@@ -585,6 +609,7 @@ namespace Recurly
             xmlWriter.WriteStringIfValid("preferred_locale", PreferredLocale);
 
             xmlWriter.WriteIfCollectionHasAny("shipping_addresses", ShippingAddresses);
+            xmlWriter.WriteIfCollectionHasAny("custom_fields", CustomFields);
 
             if (TaxExempt.HasValue)
                 xmlWriter.WriteElementString("tax_exempt", TaxExempt.Value.AsString());
