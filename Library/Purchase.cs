@@ -218,6 +218,7 @@ namespace Recurly
             if (NetTerms.HasValue)
                 xmlWriter.WriteElementString("net_terms", NetTerms.Value.ToString());
 
+            xmlWriter.WriteElementString("po_number", PoNumber);
             xmlWriter.WriteElementString("currency", Currency);
 
             if (ShippingAddressId.HasValue)
