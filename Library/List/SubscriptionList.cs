@@ -8,6 +8,11 @@ namespace Recurly
         {
         }
 
+        public static SubscriptionList Continue(string continuationToken)
+        {
+            return new SubscriptionList(continuationToken);
+        }
+
         public override RecurlyList<Subscription> Start
         {
             get { return HasStartPage() ? new SubscriptionList(StartUrl) : RecurlyList.Empty<Subscription>(); }

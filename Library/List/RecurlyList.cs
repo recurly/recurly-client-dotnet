@@ -18,6 +18,7 @@ namespace Recurly
         protected string NextUrl { get; set; }
         protected string PrevUrl { get; set; }
         protected int PerPage { get; set; }
+        public string ContinuationToken { get { return NextUrl; } }
 
         public int Count
         {

@@ -23,6 +23,11 @@ namespace Recurly
 
         }
 
+        public static AccountList Continue(string continuationToken)
+        {
+            return new AccountList(continuationToken);
+        }
+
         public override RecurlyList<Account> Start
         {
             get { return HasStartPage() ? new AccountList(StartUrl) : RecurlyList.Empty<Account>(); }
