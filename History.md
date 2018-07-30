@@ -1,6 +1,13 @@
 Unreleased
 ===============
 
+1.12.5 (stable) / 2018-07-30
+===============
+
+* Upgrade mono to fix TLS issue 
+* 2.13 Custom Fields Support
+* Add PoNumber to Purchases Serializer
+
 1.12.4 (stable) / 2018-07-06
 ===============
 
