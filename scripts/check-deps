@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set -e
+
+function check_for_command {
+  if ! hash eval "$1" 2>/dev/null; then
+    echo "✖ Could not find '$1'" 
+    exit 1
+  fi
+  echo "✓ Found $1"
+}
+
+check_for_command "mono"
+check_for_command "msbuild"
+check_for_command "dotnet"
+check_for_command "nuget"
+
+MONO_VERSION=$(mono --version | head -1 | cut -d' ' -f5)
+MONO_MAJOR=$(echo $MONO_VERSION | cut -d'.' -f1)
+MONO_MINOR=$(echo $MONO_VERSION | cut -d'.' -f2)
+
+if [ "$MONO_MAJOR" != "5" ] || [ "$MONO_MINOR" != "10" ]; then
+  echo "✖ Unsupported ruby version is ${MONO_VERSION}."
+  exit 1
+else
+  echo "✓ Version ${MONO_VERSION} is compatible"
+fi

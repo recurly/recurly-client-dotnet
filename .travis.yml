@@ -1,11 +1,10 @@
 language: csharp
 dist: trusty
-mono:
-  - 4.8.1
+mono: 5.10.1
 solution: Recurly.sln
 install:
   - nuget restore Recurly.sln
-  - nuget install xunit.runner.console -Version 2.1.0 -OutputDirectory testrunner
+  - nuget install xunit.runner.console -Version 2.4.0 -OutputDirectory testrunner
 script:
   - xbuild /p:Configuration=Release Recurly.sln
-  - mono ./testrunner/xunit.runner.console.2.1.0/tools/xunit.console.exe ./Test/bin/Release/Recurly.Test.dll
+  - ./scripts/test Release
