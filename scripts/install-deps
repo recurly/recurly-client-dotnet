@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+set -e
+
+if ! hash brew 2>/dev/null; then
+  echo "✖ Homebrew not found. Please install: https://brew.sh/"
+  exit 1
+else
+  echo "✓ Found homebrew"
+fi
+
+if ! hash mono 2>/dev/null; then
+  read -p "✖ 'mono' not found. Would you like to install it? [Y/n] " -n 1 -r
+  echo
+  if [[ $REPLY =~ ^[Yy]$ ]]
+  then
+    curl -o /tmp/mono.pkg https://download.mono-project.com/archive/5.10.1/macos-10-universal/MonoFramework-MDK-5.10.1.47.macos10.xamarin.universal.pkg
+    echo "Installing mono requires sudo..."
+    sudo installer -pkg /tmp/mono.pkg -target /
+    echo "✓ Installed mono"
+  else
+    exit 1
+  fi
+else
+  echo "✓ Found mono"
+fi
+
+if ! hash nuget 2>/dev/null; then
+  read -p "✖ 'nuget' not found. Would you like to install it? [Y/n] " -n 1 -r
+  echo
+  if [[ $REPLY =~ ^[Yy]$ ]]
+  then
+    echo "Installing nuget requires sudo..."
+    sudo curl -o /usr/local/bin/nuget.exe https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
+    echo
+    echo "Please follow the instructions below before continuing:"
+    echo "nuget installed, add this alias to your bash_profile or equivalent location"
+    echo "alias nuget=\"mono /usr/local/bin/nuget.exe\""
+    read -p "Press enter to continue"
+    # Set this for the session
+    alias nuget="mono /usr/local/bin/nuget.exe"
+    echo "✓ Installed nuget"
+  else
+    exit 1
+  fi
+else
+  echo "✓ Found nuget"
+fi
+
+if ! hash dotnet 2>/dev/null; then
+  read -p "✖ 'dotnet' not found. Would you like to install it? [Y/n] " -n 1 -r
+  echo
+  if [[ $REPLY =~ ^[Yy]$ ]]
+  then
+    curl -o /tmp/dotnet.pkg https://download.microsoft.com/download/E/8/A/E8AF2EE0-5DDA-4420-A395-D1A50EEFD83E/dotnet-sdk-2.1.401-osx-gs-x64.pkg
+    echo "Installing dotnet requires sudo..."
+    sudo installer -pkg /tmp/dotnet.pkg -target /
+    echo "✓ Installed dotnet"
+  else
+    exit 1
+  fi
+else
+  echo "✓ Found dotnet"
+fi

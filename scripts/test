@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -e
+
+CONFIGURATION=${1:-Debug}
+
+mono ./testrunner/xunit.runner.console.2.4.0/tools/net472/xunit.console.exe ./Test/bin/$CONFIGURATION/Recurly.Test.dll

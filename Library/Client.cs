@@ -28,12 +28,6 @@ namespace Recurly
         protected Client(Settings settings)
         {
             Settings = settings;
-
-            // SecurityProtocolType values below not available in Mono < 4.3
-            const int SecurityProtocolTypeTls11 = 768;
-            const int SecurityProtocolTypeTls12 = 3072;
-
-            ServicePointManager.SecurityProtocol |= (SecurityProtocolType)(SecurityProtocolTypeTls12 | SecurityProtocolTypeTls11); 
         }
 
         internal static void ChangeInstance(Client client)
