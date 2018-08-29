@@ -228,6 +228,34 @@ namespace Recurly.Test
             account.Close();
         }
 
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void UpdateInvoice()
+        {
+            var account = CreateNewAccount();
+
+            var adjustment = account.NewAdjustment("USD", 5000, "Test Charge");
+            adjustment.Create();
+
+            var invoice = account.InvoicePendingCharges().ChargeInvoice;
+
+            var address = new Address();
+            address.FirstName = "Doc";
+            address.LastName = "Brown";
+            address.NameOnAccount = "Doc Brown";
+            address.Company = "Flux Capacitors, LLC.";
+            address.Phone = "916-555-4385";
+            invoice.Address = address;
+
+            invoice.PoNumber = "1234";
+            invoice.CustomerNotes = "Some Customer Notes";
+            invoice.TermsAndConditions = "Some Terms and Conditions";
+            invoice.Update();
+
+            Assert.Equal(invoice.PoNumber, "1234");
+            Assert.Equal(invoice.CustomerNotes, "Some Customer Notes");
+            Assert.Equal(invoice.TermsAndConditions, "Some Terms and Conditions");
+        }
+
         [Fact(Skip = "This feature is deprecated and no longer supported for accounts where line item refunds are turned on.")]
         public void RefundMultiple()
         {

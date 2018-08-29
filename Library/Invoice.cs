@@ -46,7 +46,15 @@ namespace Recurly
         public int TaxInCents { get; protected set; }
         public int TotalInCents { get; protected set; }
         public string Currency { get; protected set; }
-        public int? NetTerms { get; set; }
+        public int? NetTerms
+        {
+            get{ return _netTerms; }
+            set { _netTerms = value; _netTermsChanged = true; }
+        }
+
+        private int? _netTerms;
+        private bool _netTermsChanged = false;
+
         public Collection CollectionMethod { get; set; }
         public DateTime? CreatedAt { get; private set; }
         public DateTime? UpdatedAt { get; private set; }
@@ -139,6 +147,17 @@ namespace Recurly
                 "/accounts/" + Uri.EscapeDataString(accountCode) + Invoice.UrlPrefix,
                 WriteXml,
                 ReadXml);
+        }
+
+        /// <summary>
+        /// Update an existing invoice
+        /// </summary>
+        public void Update()
+        {
+            // PUT /invoices/<invoice id>
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
+                UrlPrefix + InvoiceNumber,
+                WriteUpdateXml);
         }
 
         /// <summary>
@@ -381,7 +400,9 @@ namespace Recurly
 
                     case "net_terms":
                         if (int.TryParse(reader.ReadElementContentAsString(), out m))
-                            NetTerms = m;
+                        {
+                            _netTerms = m;
+                        }
                         break;
 
                     case "collection_method":
@@ -488,6 +509,24 @@ namespace Recurly
                 xmlWriter.WriteElementString("collection_method", "automatic");
             }
            
+            xmlWriter.WriteEndElement(); // End: invoice
+        }
+
+        internal void WriteUpdateXml(XmlTextWriter xmlWriter)
+        {
+            xmlWriter.WriteStartElement("invoice"); // Start: invoice
+
+            Address.WriteXml(xmlWriter);
+            xmlWriter.WriteElementString("customer_notes", CustomerNotes);
+            xmlWriter.WriteElementString("terms_and_conditions", TermsAndConditions);
+            xmlWriter.WriteElementString("vat_reverse_charge_notes", VatReverseChargeNotes);
+            xmlWriter.WriteElementString("po_number", PoNumber);
+
+            if (NetTerms.HasValue && _netTermsChanged)
+            {
+                xmlWriter.WriteElementString("net_terms", NetTerms.Value.AsString());
+            }
+
             xmlWriter.WriteEndElement(); // End: invoice
         }
 
