@@ -3,4 +3,17 @@ set -e
 
 CONFIGURATION=${1:-Debug}
 
-mono ./testrunner/xunit.runner.console.2.4.0/tools/net472/xunit.console.exe ./Test/bin/$CONFIGURATION/Recurly.Test.dll
+[[ -z "$2" ]] && METHOD="" || METHOD="-method Recurly.Test.$2"
+
+if [ "$CONFIGURATION" != "Debug" ] && [ "$CONFIGURATION" != "Release" ]; then
+    # Assume the user wanted Debug
+    CONFIGURATION="Debug"
+    # If they passed in anything, assume it was the method they want to run
+    METHOD="-method Recurly.Test.$1"
+fi
+
+if [[ -z "${TRAVIS}" ]]; then
+  ./scripts/build $CONFIGURATION
+fi
+
+mono ./testrunner/xunit.runner.console.2.4.0/tools/net472/xunit.console.exe ./Test/bin/$CONFIGURATION/Recurly.Test.dll $METHOD
