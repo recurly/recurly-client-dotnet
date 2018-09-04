@@ -569,9 +569,11 @@ namespace Recurly
         public static Invoice Get(string invoiceNumberWithPrefix)
         {
             var invoice = new Invoice();
+
+            var escapedInvoiceNumber = Uri.EscapeDataString(invoiceNumberWithPrefix);
             
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
-                Invoice.UrlPrefix + invoiceNumberWithPrefix,
+                Invoice.UrlPrefix + escapedInvoiceNumber,
                 invoice.ReadXml);
 
             return statusCode == HttpStatusCode.NotFound ? null : invoice;
