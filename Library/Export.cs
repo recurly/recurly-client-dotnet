@@ -109,6 +109,11 @@ namespace Recurly
 
         public static ExportFile DownloadExportFile(DateTime date, string fileName)
         {
+            if (string.IsNullOrWhiteSpace(fileName))
+            {
+                return null;
+            }
+
             var exportFile = new ExportFile();
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
                 string.Format(ExportFile.FileUrlPrefix, date.ToString("yyyy-MM-dd"), Uri.EscapeDataString(fileName)),

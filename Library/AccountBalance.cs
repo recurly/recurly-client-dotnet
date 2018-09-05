@@ -16,6 +16,11 @@ namespace Recurly
 
         public static AccountBalance Get(string accountCode)
         {
+            if (string.IsNullOrWhiteSpace(accountCode))
+            {
+                return null;
+            }
+
             var accountBalance = new AccountBalance();
 
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,

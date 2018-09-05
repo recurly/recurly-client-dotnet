@@ -305,6 +305,11 @@ namespace Recurly
     {
         public static Adjustment Get(string uuid)
         {
+            if (string.IsNullOrWhiteSpace(uuid))
+            {
+                return null;
+            }
+
             var adjustment = new Adjustment();
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
                 "/adjustments/" + Uri.EscapeDataString(uuid),

@@ -102,6 +102,11 @@ namespace Recurly
         /// <returns>CreditPayment</returns>
         public static CreditPayment Get(string uuid)
         {
+            if (string.IsNullOrWhiteSpace(uuid))
+            {
+                return null;
+            }
+
             var creditPayment = new CreditPayment();
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
                 "/credit_payment/" + Uri.EscapeDataString(uuid),
