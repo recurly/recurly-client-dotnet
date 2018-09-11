@@ -376,7 +376,7 @@ namespace Recurly.Test
             sub.Postpone(renewal);
 
             var diff = renewal.Date.Subtract(sub.CurrentPeriodEndsAt.Value.Date).Days;
-            diff.Should().Be(1);
+            diff.Should().Be(0);
         }
 
         [RecurlyFact(TestEnvironment.Type.Integration)]

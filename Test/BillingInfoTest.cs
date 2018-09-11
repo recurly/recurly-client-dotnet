@@ -15,7 +15,7 @@ namespace Recurly.Test
 
             var info = NewBillingInfo(account);
             info.FirstName = "Jane";
-            info.LastName = "Jones";
+            info.LastName = "Smith";
             info.Company = "St Agatha's Home for the Bewildered";
             info.PhoneNumber = "020	7946 0001";
             info.VatNumber = "GB123456789";

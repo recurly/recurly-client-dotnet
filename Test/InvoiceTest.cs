@@ -87,7 +87,6 @@ namespace Recurly.Test
             Assert.NotNull(invoice);
             Assert.Equal(invoice.CustomerNotes, "Some customer notes");
             Assert.Equal(invoice.TermsAndConditions, "Some terms and conditions");
-            Assert.Equal(invoice.VatReverseChargeNotes, "Some vat reverse charge notes");
             Assert.Equal(invoice.CollectionMethod, Invoice.Collection.Manual);
             Assert.Equal(invoice.NetTerms, 5);
             Assert.Equal(invoice.PoNumber, "Some po number");
@@ -141,7 +140,6 @@ namespace Recurly.Test
             Assert.NotNull(invoice);
             Assert.Equal(invoice.CustomerNotes, "Some customer notes");
             Assert.Equal(invoice.TermsAndConditions, "Some terms and conditions");
-            Assert.Equal(invoice.VatReverseChargeNotes, "Some vat reverse charge notes");
             Assert.Equal(invoice.CollectionMethod, Invoice.Collection.Manual);
             Assert.Equal(invoice.NetTerms, 5);
             Assert.Equal(invoice.PoNumber, "Some po number");
@@ -192,11 +190,16 @@ namespace Recurly.Test
             var adjustment = account.NewAdjustment("USD", 3999, "Test Charge");
             adjustment.Create();
 
-            var collection = account.InvoicePendingCharges();
+            var invoiceData = new Invoice()
+            {
+                CollectionMethod = Invoice.Collection.Manual
+            };
+
+            var collection = account.InvoicePendingCharges(invoiceData);
             var invoice = collection.ChargeInvoice;
 
-            invoice.MarkFailed();
-            invoice.State.Should().Be(Invoice.InvoiceState.Pending);
+            invoice = invoice.MarkFailed().ChargeInvoice;
+            invoice.State.Should().Be(Invoice.InvoiceState.Failed);
             Assert.NotNull(invoice.ClosedAt);
         }
 

@@ -134,7 +134,12 @@ namespace Recurly.Test
             adjustment = account.NewAdjustment("USD", 350, "Test Charge #2");
             adjustment.Create();
 
-            collection = account.InvoicePendingCharges();
+            var invoiceData = new Invoice()
+            {
+                CollectionMethod = Invoice.Collection.Manual
+            };
+
+            collection = account.InvoicePendingCharges(invoiceData);
             invoice = collection.ChargeInvoice;
             invoice.MarkFailed();
 

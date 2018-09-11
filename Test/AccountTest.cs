@@ -162,7 +162,12 @@ namespace Recurly.Test
             var adjustment = acct.NewAdjustment("USD", 5000, "Past Due", 1);
             adjustment.Create();
 
-            acct.InvoicePendingCharges();
+            var invoiceData = new Invoice()
+            {
+                CollectionMethod = Invoice.Collection.Manual
+            };
+
+            acct.InvoicePendingCharges(invoiceData);
             var balance = acct.Balance;
 
             balance.Should().NotBeNull();
