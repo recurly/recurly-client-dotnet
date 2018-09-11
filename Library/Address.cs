@@ -4,6 +4,10 @@ namespace Recurly
 {
     public class Address : RecurlyEntity
     {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string NameOnAccount { get; set; }
+        public string Company { get; set; }
         public string Address1 { get; set; }
         public string Address2 { get; set; }
         public string City { get; set; }
@@ -30,6 +34,22 @@ namespace Recurly
 
                 switch (reader.Name)
                 {
+                    case "first_name":
+                        FirstName = reader.ReadElementContentAsString();
+                        break;
+
+                    case "last_name":
+                        LastName = reader.ReadElementContentAsString();
+                        break;
+
+                    case "name_on_account":
+                        NameOnAccount = reader.ReadElementContentAsString();
+                        break;
+
+                    case "company":
+                        Company = reader.ReadElementContentAsString();
+                        break;
+
                     case "address1":
                         Address1 = reader.ReadElementContentAsString();
                         break;
@@ -65,6 +85,10 @@ namespace Recurly
         {
             xmlWriter.WriteStartElement("address");
 
+            xmlWriter.WriteElementString("first_name", FirstName);
+            xmlWriter.WriteElementString("last_name", LastName);
+            xmlWriter.WriteElementString("name_on_account", NameOnAccount);
+            xmlWriter.WriteElementString("company", Company);
             xmlWriter.WriteElementString("address1", Address1);
             xmlWriter.WriteElementString("address2", Address2);
             xmlWriter.WriteElementString("city", City);
