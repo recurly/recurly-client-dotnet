@@ -16,7 +16,7 @@ namespace Recurly
             AmericanExpress,
             Discover,
             JCB,
-            Danokrt,
+            Dankort,
             Maestro,
             Forbrugsforeningen,
             Laser,
@@ -132,6 +132,10 @@ namespace Recurly
         public string VerificationValue { get; set; }
 
         public string TokenId { get; set; }
+
+        public string GatewayToken { get; set; }
+
+        public string GatewayCode { get; set; }
 
         /// <summary>
         /// Timestamp representing the last update of this billing info
@@ -400,6 +404,20 @@ namespace Recurly
                 {
                     xmlWriter.WriteElementString("external_hpp_type", ExternalHppType.Value.ToString().EnumNameToTransportCase());
 
+                }
+
+                if (!GatewayCode.IsNullOrEmpty())
+                {
+                    xmlWriter.WriteElementString("gateway_code", GatewayCode);
+                    xmlWriter.WriteElementString("gateway_token", GatewayToken);
+
+                    // EnumNameToTransportCase() turns MasterCard into "master_card",
+                    // but it needs to be "master" for the server to accept it.
+                    // Check for this edge case before writing the card_type tag.
+                    var card = CardType.ToString().EnumNameToTransportCase();
+                    if (card == "master_card") card = "master";
+
+                    xmlWriter.WriteElementString("card_type", card);
                 }
             }
 
