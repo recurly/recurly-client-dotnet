@@ -187,3 +187,6 @@ Desktop.ini
 $RECYCLE.BIN/
 
 .DS_Store
+
+dist/*.nupkg
+dist/lib/net*

@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -e
+
+rm -f ./Library/bin/Debug/*
+rm -f ./Library/bin/Release/*
+rm -f ./dist/lib/net47/*
+rm -f ./dist/*.nupkg
