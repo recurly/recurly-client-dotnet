@@ -7,7 +7,7 @@ The Official .NET [Recurly API](https://dev.recurly.com/docs/getting-started) cl
 
 Compatible with Recurly API v2.
 
-Versions >= 1.3.0 of this library are targeted against .NET v4.5.
+Versions >= 1.3.0 of this library are targeted against .NET v4.7.
 Versions < 1.3.0 are targeted against .NET v3.5.
 
 ## Installation
@@ -33,28 +33,48 @@ For more information about getting started with git, please check out the
 
 ## Configuration
 
-Specify your [API Key, site subdomain](https://app.recurly.com/go/developer/api_access), and (optionally) page size
-setting in your `app.config` or `web.config` file:
+To configure the library, you will need your [API Key and site subdomain](https://app.recurly.com/go/developer/api_access).
+The recommended way to configure the library is to statically initialize it:
 
-```xml
-<?xml version="1.0" encoding="utf-8" ?>
-<configuration>
-  <configSections>
-    <section name="recurly" type="Recurly.Configuration.Section,Recurly"/>
-  </configSections>
-
-  <recurly
-    apiKey="123456789012345678901234567890ab"
-    subdomain="company"
-	pageSize="50" /> <!-- optional. 50 is the default -->
-
-</configuration>
+```csharp
+// pageSize is optional and defaults to 200
+Recurly.Configuration.SettingsManager.Initialize(apiKey, subdomain, pageSize);
 ```
+
+We recommend doing this for compatibility with newer .NET frameworks as well as security. We also recommend you encrypt
+your api key at rest or use a secrets service. *You should not store your api key in plain text on your system.*
+
+#### Configuration Security Note
+
+If you are using the legacy method of configuring with `app.config` or `web.config`, we strongly recommend updating your
+updating your application to use the above method.
 
 ## Client Documentation
 
 The API documentation is available on our [developer docs site](https://dev.recurly.com/docs/getting-started)
 You can find .NET examples there but we have some examples in [examples.md](./examples.md).
+
+## .NET core and standard support
+
+Although we do not officially support .NET core or standard at this moment, it is possible to use this library
+from those applications. One method is to vendor the source code, build the dll, and link directly to it from
+your project.
+
+To build the library you can now use msbuild:
+
+```bash
+msbuild /p:Configuration=Release Recurly.sln
+```
+
+To use the dll, you can reference it in your `.csproj` file:
+
+```xml
+<ItemGroup>
+  <Reference Include="Recurly">
+    <HintPath>{pathToRecurlyLibrary}/Library/bin/Release/Recurly.dll</HintPath>
+  </Reference>
+</ItemGroup>
+```
 
 ## Overview Usage
 
