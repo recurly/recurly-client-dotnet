@@ -1,6 +1,21 @@
 Unreleased
 ===============
 
+1.13.0 (stable) / 2018-09-11
+===============
+
+* Allow updating custom fields through /notes endpoint
+* Add ability to update an invoice
+* Remove reference to unused ruleset
+* Upgrade .NET 4.7 and scripts folder
+* Allow test script to run a single method
+* Fix integration tests so they all pass
+
+### Upgrade Notes
+
+This release brings us up to API version 2.14. The build now targets .NET v4.7.
+Please make sure that you update your application appropriately.
+
 1.12.5 (stable) / 2018-07-30
 ===============
 
