@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>recurly-api-client</id>
+    <version>1.13.0</version>
+    <authors>recurly</authors>
+    <owners>recurly</owners>
+    <licenseUrl>https://github.com/recurly/recurly-client-net/blob/master/LICENSE.txt</licenseUrl>
+    <projectUrl>https://github.com/recurly/recurly-client-net</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>An API Client for Recurly - Subscription billing automation.</description>
+    <copyright>Copyright 2018</copyright>
+    <tags>billing api client subscription recurly</tags>
+  </metadata>
+</package>
