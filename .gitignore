@@ -190,3 +190,5 @@ $RECYCLE.BIN/
 
 dist/*.nupkg
 dist/lib/net*
+
+testrunner/
