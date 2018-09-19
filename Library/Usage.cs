@@ -274,6 +274,11 @@ namespace Recurly
 
         public static Usage Get(string subscriptionUuid, string subscriptionAddOnCode, long usageId)
         {
+            if (string.IsNullOrWhiteSpace(subscriptionUuid) || string.IsNullOrWhiteSpace(subscriptionAddOnCode))
+            {
+                return null;
+            }
+
             var usage = new Usage();
 
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,

@@ -402,6 +402,11 @@ namespace Recurly
 
         public static Transaction Get(string transactionId)
         {
+            if (string.IsNullOrWhiteSpace(transactionId))
+            {
+                return null;
+            }
+
             var transaction = new Transaction();
 
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,

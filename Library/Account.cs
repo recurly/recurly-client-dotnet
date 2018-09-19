@@ -676,6 +676,11 @@ namespace Recurly
         /// <returns></returns>
         public static Account Get(string accountCode)
         {
+            if (string.IsNullOrWhiteSpace(accountCode))
+            {
+                return null;
+            }
+
             var account = new Account();
             // GET /accounts/<account code>
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,

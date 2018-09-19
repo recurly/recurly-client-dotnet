@@ -329,13 +329,13 @@ namespace Recurly
 
         /// <summary>
         /// Determines the renewal subscription term.
-        /// Defaults to plan’s total billing cycles value unless
+        /// Defaults to plans total billing cycles value unless
         /// overwritten when creating the subscription or editing subscription. 
         /// </summary>
         public int? RenewalBillingCycles { get; set; }
 
         /// <summary>
-        /// Previously named first_renewal_date. Forces the subscription’s next billing period start date.
+        /// Previously named first_renewal_date. Forces the subscriptions next billing period start date.
         /// Subsequent billing period start dates will be offset from this date.
         /// The first invoice will be prorated appropriately so that the customer pays
         /// for the portion of the first billing period for which the subscription applies. 
@@ -344,18 +344,18 @@ namespace Recurly
 
         /// <summary>
         /// Previously named next_renewal_date. Specifies a future date that 
-        /// the subscription’s next billing period should be billed.
+        /// the subscriptions next billing period should be billed.
         /// </summary>
         public DateTime NextBillDate { get; private set; }
 
         /// <summary>
-        /// Start date of the subscription’s current term. Will equal the future start
+        /// Start date of the subscriptions current term. Will equal the future start
         /// date if subscription was created in the future state.
         /// </summary>
         public DateTime CurrentTermStartedAt { get; private set; }
 
         /// <summary>
-        /// End date of the subscription’s current term. Will be nil
+        /// End date of the subscriptions current term. Will be nil
         /// if subscription has future start date.
         /// </summary>
         public DateTime CurrentTermEndsAt { get; private set; }
@@ -1124,6 +1124,11 @@ namespace Recurly
 
         public static Subscription Get(string uuid)
         {
+            if (string.IsNullOrWhiteSpace(uuid))
+            {
+                return null;
+            }
+
             var s = new Subscription();
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
                 Subscription.UrlPrefix + Uri.EscapeDataString(uuid),

@@ -152,6 +152,11 @@ namespace Recurly
 
         public AddOn GetAddOn(string addOnCode)
         {
+            if (string.IsNullOrWhiteSpace(addOnCode))
+            {
+                return null;
+            }
+
             var addOn = new AddOn();
 
             var status = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
@@ -461,6 +466,11 @@ namespace Recurly
         /// <returns></returns>
         public static Plan Get(string planCode)
         {
+            if (string.IsNullOrWhiteSpace(planCode))
+            {
+                return null;
+            }
+
             var plan = new Plan();
 
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
