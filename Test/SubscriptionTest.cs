@@ -604,7 +604,7 @@ namespace Recurly.Test
                     if (plan != null) plan.Deactivate();
                     if (account != null) account.Close();
                 }
-                catch (RecurlyException e) { }
+                catch (RecurlyException) { }
             }
         }
 
