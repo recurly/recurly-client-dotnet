@@ -38,10 +38,7 @@ namespace Recurly
         internal static XmlTextReader BuildXmlTextReader(Stream stream)
         {
             var reader = new XmlTextReader(stream);
-            // TODO: ProhibitDtd is for backwards compatibility
-            // but is deprecated. Use DtdProcessing property in next release:
-            // reader.DtdProcessing = DtdProcessing.Prohibit;
-            reader.ProhibitDtd = true;
+            reader.DtdProcessing = DtdProcessing.Prohibit;
             return reader;
         }
 
