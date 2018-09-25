@@ -1125,6 +1125,11 @@ namespace Recurly
 
         public static Subscription Get(string uuid)
         {
+            if (string.IsNullOrWhiteSpace(uuid))
+            {
+                return null;
+            }
+
             var s = new Subscription();
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
                 Subscription.UrlPrefix + Uri.EscapeDataString(uuid),

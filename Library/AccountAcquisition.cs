@@ -49,6 +49,11 @@ namespace Recurly
 
         public static AccountAcquisition Get(string accountCode)
         {
+            if (string.IsNullOrWhiteSpace(accountCode))
+            {
+                return null;
+            }
+
             var accountAcquisition = new AccountAcquisition();
 
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,

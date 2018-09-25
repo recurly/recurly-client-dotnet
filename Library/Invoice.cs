@@ -607,10 +607,17 @@ namespace Recurly
         /// <returns></returns>
         public static Invoice Get(string invoiceNumberWithPrefix)
         {
+            if (string.IsNullOrWhiteSpace(invoiceNumberWithPrefix))
+            {
+                return null;
+            }
+
             var invoice = new Invoice();
+
+            var escapedInvoiceNumber = Uri.EscapeDataString(invoiceNumberWithPrefix);
             
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
-                Invoice.UrlPrefix + invoiceNumberWithPrefix,
+                Invoice.UrlPrefix + escapedInvoiceNumber,
                 invoice.ReadXml);
 
             return statusCode == HttpStatusCode.NotFound ? null : invoice;
@@ -625,6 +632,11 @@ namespace Recurly
         [Obsolete("Deprecated, please use the Create instance method on the Invoice object")] 
         public static Invoice Create(string accountCode)
         {
+            if (string.IsNullOrWhiteSpace(accountCode))
+            {
+                return null;
+            }
+
             var invoice = new Invoice();
 
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
