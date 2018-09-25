@@ -1,6 +1,16 @@
 Unreleased
 ===============
 
+1.13.1 (stable) / 2018-09-25
+===============
+
+* Added clean and release scripts [PR](https://github.com/recurly/recurly-client-net/pull/336)
+* Updated README with config and .Net target instructions [PR](https://github.com/recurly/recurly-client-net/pull/337)
+* Fixed release script [PR](https://github.com/recurly/recurly-client-net/pull/339)
+* Escape user supplied input [commit](https://github.com/recurly/recurly-client-net/commit/7a516e77c43f6993bc8b4d62a21336eed6e6bd6c)
+* Check for empty and null strings [commit](https://github.com/recurly/recurly-client-net/commit/3823d7a0b0d68e6f7877eaca7bc87f784fc105ce)
+* Fix compiler warnings [PR](https://github.com/recurly/recurly-client-net/pull/341)
+
 1.13.0 (stable) / 2018-09-11
 ===============
 
