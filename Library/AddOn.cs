@@ -217,19 +217,27 @@ namespace Recurly
 
         public override string ToString()
         {
-            return "Recurly Plan: " + PlanCode;
+            return "Recurly Plan AddOn: " + AddOnCode;
         }
 
         public override bool Equals(object obj)
         {
-            var plan = obj as Plan;
-            return plan != null && Equals(plan);
+            var addon = obj as AddOn;
+            return addon != null && Equals(addon);
         }
 
-        public bool Equals(Plan plan)
+        public bool Equals(AddOn addon)
         {
-            return PlanCode == plan.PlanCode;
+            return PlanCode == addon.PlanCode && AddOnCode == addon.AddOnCode;
         }
+
+        public override int GetHashCode()
+        {
+            var planCodeHash = PlanCode?.GetHashCode() ?? 0;
+            var addOnCodeHash = AddOnCode?.GetHashCode() ?? 0;
+            return planCodeHash + addOnCodeHash;
+        }
+
         #endregion
     }
 }

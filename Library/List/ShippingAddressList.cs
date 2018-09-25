@@ -49,7 +49,7 @@ namespace Recurly
             }
         }
 
-        public void Add(ShippingAddress address)
+        public new void Add(ShippingAddress address)
         {
             base.Add(address);
         }
