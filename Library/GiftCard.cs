@@ -84,7 +84,12 @@ namespace Recurly
         /// <summary>
         /// When the gift card was redeemed by the recipient.
         /// </summary>
-        public DateTime RedeemedAt { get; private set; }
+        public DateTime? RedeemedAt { get; private set; }
+
+        /// <summary>
+        /// When the gift card was canceled.
+        /// </summary>
+        public DateTime? CanceledAt { get; private set; }
 
         /// <summary>
         /// When the gift card was sent to the recipient by Recurly via email,
@@ -92,7 +97,7 @@ namespace Recurly
         /// This will be empty for post delivery or email delivery 
         /// where the email template was disabled.
         /// </summary>
-        public DateTime DeliveredAt { get; private set; }
+        public DateTime? DeliveredAt { get; private set; }
 
         
         private String _purchaseInvoiceId;
@@ -300,6 +305,11 @@ namespace Recurly
                     case "redeemed_at":
                         if (DateTime.TryParse(reader.ReadElementContentAsString(), out dateVal))
                             RedeemedAt = dateVal;
+                        break;
+
+                    case "canceled_at":
+                        if (DateTime.TryParse(reader.ReadElementContentAsString(), out dateVal))
+                            CanceledAt = dateVal;
                         break;
 
                     case "delivered_at":
