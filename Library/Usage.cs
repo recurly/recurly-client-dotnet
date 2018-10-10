@@ -189,13 +189,13 @@ namespace Recurly
             xmlWriter.WriteElementString("merchant_tag", MerchantTag);
             
             if (RecordingTimestamp.HasValue)
-                xmlWriter.WriteElementString("recording_timestamp", RecordingTimestamp.Value.ToString("s"));
+                xmlWriter.WriteElementString("recording_timestamp", RecordingTimestamp.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ"));
 
             if (UsageTimestamp.HasValue)
-                xmlWriter.WriteElementString("usage_timestamp", UsageTimestamp.Value.ToString("s"));
+                xmlWriter.WriteElementString("usage_timestamp", UsageTimestamp.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ"));
 
             if (BilledAt.HasValue)
-                xmlWriter.WriteElementString("billed_at", BilledAt.Value.ToString("s"));
+                xmlWriter.WriteElementString("billed_at", BilledAt.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ"));
 
             xmlWriter.WriteEndElement();
         }
