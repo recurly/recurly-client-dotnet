@@ -8,6 +8,9 @@ namespace Recurly.Resources {
     [DeserializeAs(Name = "code")]
     public string Code { get; set; }
   
+    [DeserializeAs(Name = "id")]
+    public string Id { get; set; }
+  
     [DeserializeAs(Name = "quantity")]
     public int? Quantity { get; set; }
   

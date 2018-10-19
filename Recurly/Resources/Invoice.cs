@@ -11,7 +11,7 @@ namespace Recurly.Resources {
   
     
     [DeserializeAs(Name = "address")]
-    public Address Address { get; set; }
+    public InvoiceAddress Address { get; set; }
   
     /// <value>The outstanding balance remaining on this invoice.</value>
     [DeserializeAs(Name = "balance")]

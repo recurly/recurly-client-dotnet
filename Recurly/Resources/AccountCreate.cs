@@ -35,6 +35,12 @@ namespace Recurly.Resources {
     [DeserializeAs(Name = "last_name")]
     public string LastName { get; set; }
   
+    [DeserializeAs(Name = "parent_account_code")]
+    public string ParentAccountCode { get; set; }
+  
+    [DeserializeAs(Name = "parent_account_id")]
+    public string ParentAccountId { get; set; }
+  
     [DeserializeAs(Name = "preferred_locale")]
     public string PreferredLocale { get; set; }
   

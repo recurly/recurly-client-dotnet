@@ -4,7 +4,7 @@ using RestSharp;
 
 namespace Recurly {
   public class Client : BaseClient {
-    public new string ApiVersion() { return "v2018-06-06"; }
+    public new string ApiVersion() { return "v2018-10-04"; }
 
     public Client(string siteId, string apiKey) : base(siteId, apiKey) {}
   
@@ -405,6 +405,18 @@ namespace Recurly {
     }
   
     /// <summary>
+    /// List an account's child accounts
+    /// </summary>
+    /// <returns>
+    /// A list of an account's child accounts.
+    /// </returns>
+    /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</excption>
+    public Pager<Account> ListChildAccounts(string site_id, string account_id) {
+      var url = $"/sites/{site_id}/accounts/{account_id}/accounts";
+      return MakeRequest<Pager<Account>>(Method.GET, url).Data;
+    }
+  
+    /// <summary>
     /// List a site's account acquisition data
     /// </summary>
     /// <returns>
@@ -546,6 +558,18 @@ namespace Recurly {
     public Invoice GetInvoice(string site_id, string invoice_id) {
       var url = $"/sites/{site_id}/invoices/{invoice_id}";
       return MakeRequest<Invoice>(Method.GET, url).Data;
+    }
+  
+    /// <summary>
+    /// Update an invoice
+    /// </summary>
+    /// <returns>
+    /// An invoice.
+    /// </returns>
+    /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</excption>
+    public Invoice PutInvoice(string site_id, string invoice_id, InvoiceUpdatable body) {
+      var url = $"/sites/{site_id}/invoices/{invoice_id}";
+      return MakeRequest<Invoice>(Method.PUT, url).Data;
     }
   
     /// <summary>
@@ -1026,6 +1050,30 @@ namespace Recurly {
     public UniqueCouponCode ReactivateUniqueCouponCode(string site_id, string unique_coupon_code_id) {
       var url = $"/sites/{site_id}/unique_coupon_codes/{unique_coupon_code_id}/restore";
       return MakeRequest<UniqueCouponCode>(Method.PUT, url).Data;
+    }
+  
+    /// <summary>
+    /// Create a new purchase
+    /// </summary>
+    /// <returns>
+    /// Returns the new invoices
+    /// </returns>
+    /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</excption>
+    public InvoiceCollection CreatePurchase(string site_id, PurchaseCreate body) {
+      var url = $"/sites/{site_id}/purchases";
+      return MakeRequest<InvoiceCollection>(Method.POST, url).Data;
+    }
+  
+    /// <summary>
+    /// Preview a new purchase
+    /// </summary>
+    /// <returns>
+    /// Returns preview of the new invoices
+    /// </returns>
+    /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</excption>
+    public InvoiceCollection PreviewPurchase(string site_id, PurchaseCreate body) {
+      var url = $"/sites/{site_id}/purchases/preview";
+      return MakeRequest<InvoiceCollection>(Method.POST, url).Data;
     }
     }
 }
