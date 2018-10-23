@@ -39,7 +39,7 @@ namespace Recurly
           /// <summary>
           /// If credit line items exist on the invoice, this parameter
           /// specifies which refund method to use first. Most relevant
-          /// in a partial refunds, you can chose to refund credit back
+          /// in partial refunds, you can chose to refund credit back
           /// to the account first or a transaction giving money back to
           /// the customer first.
           /// </summary>
@@ -280,6 +280,41 @@ namespace Recurly
         }
 
         /// <summary>
+        /// Allows specific line items / adjutsments to be refunded.
+        /// </summary>
+        /// <param name="adjustments">The list of adjustments to refund.</param>
+        /// <param name="options">The options for the refund invoice.</param>
+        /// <returns>new Invoice object</returns>
+        public Invoice Refund(IEnumerable<Adjustment> adjustments, RefundOptions options)
+        {
+            var refunds = new RefundList(adjustments, options);
+            var invoice = new Invoice();
+
+            var response = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
+                memberUrl() + "/refund",
+                refunds.WriteXml,
+                invoice.ReadXml);
+
+            if (HttpStatusCode.Created == response || HttpStatusCode.OK == response)
+                return invoice;
+            else
+                return null;
+        }
+
+        /// <summary>
+        /// Allows a single line-item / adjutsment to be refunded.
+        /// </summary>
+        /// <param name="adjustment">The adjustment to be refunded.</param>
+        /// <param name="options">The options for the refund invoice.</param>
+        /// <returns>new Invoice object</returns>
+        public Invoice Refund(Adjustment adjustment, RefundOptions options)
+        {
+            var adjustments = new List<Adjustment>();
+            adjustments.Add(adjustment);
+            return Refund(adjustments, options);
+        }
+
+        /// <summary>
         /// Allows a specific line item and/or quantities to be refunded.
         /// </summary>
         /// <param name="adjustment"></param>
@@ -322,32 +357,25 @@ namespace Recurly
         }
 
         /// <summary>
-        /// Allows specific line items / adjutsments to be refunded.
+        /// Allows you to refund a specific amount from an invoice.
         /// </summary>
-        /// <param name="adjustments">The list of adjustments to refund.</param>
+        /// <param name="amountIncents">The amount in cents to refund from the invoice.</param>
         /// <param name="options">The options for the refund invoice.</param>
         /// <returns>new Invoice object</returns>
-        public Invoice Refund(IEnumerable<Adjustment> adjustments, RefundOptions options)
+        public Invoice RefundAmount(int amountInCents, RefundOptions options)
         {
-            var refunds = new RefundList(adjustments, options);
-            var invoice = new Invoice();
+            var refundInvoice = new Invoice();
+            var refund = new OpenAmountRefund(amountInCents, options);
 
             var response = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 memberUrl() + "/refund",
-                refunds.WriteXml,
-                invoice.ReadXml);
+                refund.WriteXml,
+                refundInvoice.ReadXml);
 
             if (HttpStatusCode.Created == response || HttpStatusCode.OK == response)
-                return invoice;
+                return refundInvoice;
             else
                 return null;
-        }
-
-        public Invoice Refund(Adjustment adjustment, RefundOptions options)
-        {
-            var adjustments = new List<Adjustment>();
-            adjustments.Add(adjustment);
-            return Refund(adjustments, options);
         }
 
         [Obsolete("This method is deprecated, please use RefundAmount(int, Invoice.RefundOptions).")]
@@ -366,23 +394,6 @@ namespace Recurly
             else
                 return null;
         }
-
-        public Invoice RefundAmount(int amountInCents, RefundOptions options)
-        {
-            var refundInvoice = new Invoice();
-            var refund = new OpenAmountRefund(amountInCents, options);
-
-            var response = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
-                memberUrl() + "/refund",
-                refund.WriteXml,
-                refundInvoice.ReadXml);
-
-            if (HttpStatusCode.Created == response || HttpStatusCode.OK == response)
-                return refundInvoice;
-            else
-                return null;
-        }
-
 
         #region Read and Write XML documents
 

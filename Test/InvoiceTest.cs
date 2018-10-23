@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System;
+using FluentAssertions;
 using Xunit;
 
 namespace Recurly.Test
@@ -293,28 +294,58 @@ namespace Recurly.Test
             account.Close();
         }
 
-
-        [Fact(Skip = "This feature is deprecated and no longer supported for accounts where line item refunds are turned on.")]
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void RefundOpenAmount()
         {
             var account = CreateNewAccountWithBillingInfo();
-
             var adjustment = account.NewAdjustment("USD", 3999, "Test Charge");
             adjustment.Create();
-
             var collection = account.InvoicePendingCharges();
             var invoice = collection.ChargeInvoice;
-
             invoice.MarkSuccessful();
-
             invoice.State.Should().Be(Invoice.InvoiceState.Paid);
-
             Assert.Equal(1, invoice.Adjustments.Count);
 
-            // refund
-            var refundInvoice = invoice.RefundAmount(100); // 1 dollar
+            var refundOptions = new Invoice.RefundOptions() {
+              ExternalRefund = true,
+              Description = "External Refund Description",
+              CreditCustomerNotes = "Credit Customer Notes",
+              PaymentMethod = "credit_card",
+              Method = Invoice.RefundMethod.AllTransaction
+            };
+
+            var refundInvoice = invoice.RefundAmount(100, refundOptions); // 1 dollar
             Assert.NotEqual(invoice.Uuid, refundInvoice.Uuid);
-            Assert.Equal(-91, refundInvoice.SubtotalInCents);  // 91 cents
+
+            account.Close();
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void RefundLineItems()
+        {
+            var account = CreateNewAccountWithBillingInfo();
+            var adjustment = account.NewAdjustment("USD", 3999, "Test Charge 1");
+            adjustment.Create();
+            adjustment = account.NewAdjustment("USD", 4999, "Test Charge 2");
+            adjustment.Create();
+            var collection = account.InvoicePendingCharges();
+            var invoice = collection.ChargeInvoice;
+            invoice.MarkSuccessful();
+            invoice.State.Should().Be(Invoice.InvoiceState.Paid);
+            Assert.Equal(2, invoice.Adjustments.Count);
+
+            var refundOptions = new Invoice.RefundOptions() {
+              ExternalRefund = true,
+              Description = "External Refund Description",
+              CreditCustomerNotes = "Credit Customer Notes",
+              PaymentMethod = "credit_card",
+              Method = Invoice.RefundMethod.AllTransaction
+            };
+
+            adjustment = invoice.Adjustments[0];
+            var refundInvoice = invoice.Refund(adjustment, refundOptions);
+            Assert.NotEqual(invoice.Uuid, refundInvoice.Uuid);
+            Assert.Equal(1, refundInvoice.Adjustments.Count);
 
             account.Close();
         }
