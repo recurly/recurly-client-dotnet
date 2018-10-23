@@ -60,6 +60,8 @@ namespace Recurly
 
         public ShippingAddress ShippingAddress { get; private set; }
 
+        public bool? Prorate { internal get; set; }
+
         public DateTime StartDate { get; protected set; }
         public DateTime? EndDate { get; protected set; }
 
