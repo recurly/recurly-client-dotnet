@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using System;
+using System.Xml;
 
 namespace Recurly
 {
@@ -7,6 +8,7 @@ namespace Recurly
         public int AmountInCents { get; protected set; }
         private Invoice.RefundOptions RefundOptions;
 
+        [Obsolete("This constructor is deprecated, please use OpenAmountRefund(int, Invoice.RefundOptions).")]
         internal OpenAmountRefund(int amountInCents, Invoice.RefundMethod method = Invoice.RefundMethod.CreditFirst)
         {
             AmountInCents = amountInCents;
