@@ -24,13 +24,54 @@ namespace Recurly
         public enum RefundMethod
         {
             CreditFirst,
-            TransactionFirst
+            TransactionFirst,
+            AllCredit,
+            AllTransaction
         }
 
         public enum Collection
         {
             Automatic,
             Manual
+        }
+
+        public class RefundOptions {
+          /// <summary>
+          /// If credit line items exist on the invoice, this parameter
+          /// specifies which refund method to use first. Most relevant
+          /// in partial refunds, you can chose to refund credit back
+          /// to the account first or a transaction giving money back to
+          /// the customer first.
+          /// </summary>
+          public RefundMethod Method { get; set; }
+
+          /// <summary>
+          /// Designates that the refund transactions created are manual.
+          /// </summary>
+          public bool? ExternalRefund { get; set; }
+
+          /// <summary>
+          /// Customer notes to be applied to the refund credit invoice.
+          /// </summary>
+          public string CreditCustomerNotes { get; set; }
+
+          /// <summary>
+          /// Creates the manual transactions with this payment method.
+          /// Allowed if *external_refund* is true.
+          /// </summary>
+          public string PaymentMethod { get; set; }
+
+          /// <summary>
+          /// Sets this value as the *transaction_note* on the manual transactions
+          /// created. Allowed if *external_refund* is true.
+          /// </summary>
+          public string Description { get; set; }
+
+          /// <summary>
+          /// Sets this value as the *collected_at* on the manual transactions
+          /// created. Allowed if *external_refund* is true.
+          /// </summary>
+          public DateTime? RefundedAt { get; set; }
         }
 
         public string AccountCode { get; private set; }
@@ -239,12 +280,49 @@ namespace Recurly
         }
 
         /// <summary>
-        /// If enabled, allows specific line items and/or quantities to be refunded.
+        /// Allows specific line items / adjutsments to be refunded.
+        /// </summary>
+        /// <param name="adjustments">The list of adjustments to refund.</param>
+        /// <param name="options">The options for the refund invoice.</param>
+        /// <returns>new Invoice object</returns>
+        public Invoice Refund(IEnumerable<Adjustment> adjustments, RefundOptions options)
+        {
+            var refunds = new RefundList(adjustments, options);
+            var invoice = new Invoice();
+
+            var response = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
+                memberUrl() + "/refund",
+                refunds.WriteXml,
+                invoice.ReadXml);
+
+            if (HttpStatusCode.Created == response || HttpStatusCode.OK == response)
+                return invoice;
+            else
+                return null;
+        }
+
+        /// <summary>
+        /// Allows a single line-item / adjutsment to be refunded.
+        /// </summary>
+        /// <param name="adjustment">The adjustment to be refunded.</param>
+        /// <param name="options">The options for the refund invoice.</param>
+        /// <returns>new Invoice object</returns>
+        public Invoice Refund(Adjustment adjustment, RefundOptions options)
+        {
+            var adjustments = new List<Adjustment>();
+            adjustments.Add(adjustment);
+            return Refund(adjustments, options);
+        }
+
+        /// <summary>
+        /// Allows a specific line item and/or quantities to be refunded.
         /// </summary>
         /// <param name="adjustment"></param>
         /// <param name="prorate"></param>
         /// <param name="quantity"></param>
+        /// <param name="method"></param>
         /// <returns>new Invoice object</returns>
+        [Obsolete("This method is deprecated, please use Refund(Adjustment, Invoice.RefundOptions).")]
         public Invoice Refund(Adjustment adjustment, bool prorate = false, int quantity = 0, RefundMethod method = RefundMethod.CreditFirst)
         {
             var adjustments = new List<Adjustment>();
@@ -253,6 +331,15 @@ namespace Recurly
             return Refund(adjustments, prorate, quantity, method);
         }
 
+        /// <summary>
+        /// Allows specific line items and/or quantities to be refunded.
+        /// </summary>
+        /// <param name="adjustment"></param>
+        /// <param name="prorate"></param>
+        /// <param name="quantity"></param>
+        /// <param name="method"></param>
+        /// <returns>new Invoice object</returns>
+        [Obsolete("This method is deprecated, please use Refund(IEnumerable<Adjustment>, Invoice.RefundOptions).")]
         public Invoice Refund(IEnumerable<Adjustment> adjustments, bool prorate = false, int quantity = 0, RefundMethod method = RefundMethod.CreditFirst)
         {
             var refunds = new RefundList(adjustments, prorate, quantity, method);
@@ -269,11 +356,34 @@ namespace Recurly
                 return null;
         }
 
+        /// <summary>
+        /// Allows you to refund a specific amount from an invoice.
+        /// </summary>
+        /// <param name="amountIncents">The amount in cents to refund from the invoice.</param>
+        /// <param name="options">The options for the refund invoice.</param>
+        /// <returns>new Invoice object</returns>
+        public Invoice RefundAmount(int amountInCents, RefundOptions options)
+        {
+            var refundInvoice = new Invoice();
+            var refund = new OpenAmountRefund(amountInCents, options);
+
+            var response = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
+                memberUrl() + "/refund",
+                refund.WriteXml,
+                refundInvoice.ReadXml);
+
+            if (HttpStatusCode.Created == response || HttpStatusCode.OK == response)
+                return refundInvoice;
+            else
+                return null;
+        }
+
+        [Obsolete("This method is deprecated, please use RefundAmount(int, Invoice.RefundOptions).")]
         public Invoice RefundAmount(int amountInCents, RefundMethod method = RefundMethod.CreditFirst)
         {
             var refundInvoice = new Invoice();
             var refund = new OpenAmountRefund(amountInCents, method);
-               
+
             var response = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 memberUrl() + "/refund",
                 refund.WriteXml,
