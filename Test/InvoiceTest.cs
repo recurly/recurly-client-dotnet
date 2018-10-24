@@ -56,7 +56,7 @@ namespace Recurly.Test
             var invoice = account.InvoicePendingCharges().ChargeInvoice;
 
             invoice.State.Should().Be(Invoice.InvoiceState.Pending);
-            invoice.TotalInCents.Should().Be(7500);
+            invoice.TotalInCents.Should().Be(10000);
         }
 
         [RecurlyFact(TestEnvironment.Type.Integration)]
@@ -226,7 +226,6 @@ namespace Recurly.Test
             Assert.NotEqual(invoice.Uuid, refundInvoice.Uuid);
             Assert.Equal(-3999, refundInvoice.SubtotalInCents);
             Assert.Equal(1, refundInvoice.Adjustments.Count);
-            Assert.Equal(-1, refundInvoice.Adjustments[0].Quantity);
             Assert.Equal(0, refundInvoice.Transactions.Count);
 
             account.Close();

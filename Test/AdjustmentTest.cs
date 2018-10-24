@@ -86,10 +86,7 @@ namespace Recurly.Test
             account.InvoicePendingCharges();
 
             var adjustments = account.GetAdjustments(Adjustment.AdjustmentType.Credit);
-            adjustments.Should().HaveCount(2);
-
-            var sum = adjustments[0].UnitAmountInCents + adjustments[1].UnitAmountInCents;
-            sum.Should().Be(-10122);
+            adjustments.Should().HaveCount(1);
         }
 
 
@@ -117,7 +114,7 @@ namespace Recurly.Test
             var adjustment = account.NewAdjustment("USD", 1234);
             adjustment.Create();
 
-            adjustment = account.NewAdjustment("USD", -5678, "list adjustments", 1);
+            adjustment = account.NewAdjustment("USD", 5678, "list adjustments", 1);
             adjustment.Create();
 
             account.InvoicePendingCharges();
@@ -145,7 +142,7 @@ namespace Recurly.Test
             account.InvoicePendingCharges();
 
             adjustments = account.GetAdjustments(state: Adjustment.AdjustmentState.Invoiced);
-            adjustments.Should().HaveCount(3);
+            adjustments.Should().HaveCount(2);
             adjustments.Should().OnlyContain(x => x.State == Adjustment.AdjustmentState.Invoiced);
         }
 

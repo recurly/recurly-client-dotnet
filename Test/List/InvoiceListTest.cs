@@ -144,7 +144,7 @@ namespace Recurly.Test
             invoice.MarkFailed();
 
             var list = Invoices.List(account.AccountCode);
-            Assert.Equal(2, list.Count);
+            Assert.Equal(3, list.Count);
         }
     }
 }
