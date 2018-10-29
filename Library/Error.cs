@@ -36,6 +36,8 @@ namespace Recurly
         /// </summary>
         public string Details { get; internal set; }
 
+        public Error() { }
+
         internal Error(XmlTextReader reader, bool fromList)
         {
             if (fromList)

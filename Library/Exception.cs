@@ -17,6 +17,8 @@ namespace Recurly
         /// </summary>
         public TransactionError TransactionError { get; private set; }
 
+        public RecurlyException() { }
+
         internal RecurlyException(Errors errors)
         {
             Errors = errors.ValidationErrors;
@@ -28,7 +30,7 @@ namespace Recurly
             Errors = errors;
         }
 
-        internal RecurlyException(string message)
+        public RecurlyException(string message)
             : base(message)
         { }
 

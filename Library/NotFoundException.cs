@@ -5,6 +5,8 @@
     /// </summary>
     public class NotFoundException : RecurlyException
     {
+        public NotFoundException() { }
+
         internal NotFoundException(string message, Errors errors)
             : base(message, errors)
         { }
