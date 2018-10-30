@@ -1,6 +1,20 @@
 Unreleased
 ===============
 
+1.14.0 (stable) / 2018-10-30
+===============
+
+* Made Gift Card RedeemedAt, DeliveredAt and CanceledAt nullable [PR](https://github.com/recurly/recurly-client-net/pull/343)
+* Change Usage dates to UTC [PR](https://github.com/recurly/recurly-client-net/pull/345)
+* Standardize line endings [PR](https://github.com/recurly/recurly-client-net/pull/346)
+* Changed Invoice Refunds for Credit Memo API changes [PR](https://github.com/recurly/recurly-client-net/pull/347)
+* Fixed tests based on credit memo changes [PR](https://github.com/recurly/recurly-client-net/pull/349)
+
+### Upgrade Notes
+
+This release brings us up to API version 2.16.
+Refunding multiple adjustments requires use of the new Invoice#RefundOptions class.
+
 1.13.1 (stable) / 2018-09-25
 ===============
 
