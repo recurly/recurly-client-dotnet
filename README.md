@@ -7,8 +7,8 @@ The Official .NET [Recurly API](https://dev.recurly.com/docs/getting-started) cl
 
 Compatible with Recurly API v2.
 
-Versions >= 1.3.0 of this library are targeted against .NET v4.7.
-Versions < 1.3.0 are targeted against .NET v3.5.
+Versions >= 1.13.0 of this library are targeted against .NET v4.7.
+Versions < 1.13.0 are targeted against .NET v3.5.
 
 ## Installation
 
