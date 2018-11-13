@@ -8,14 +8,17 @@ namespace RecurlyTestRig
     {
         static void Main(string[] args)
         {
-            var client = new Recurly.Client("subdomain-client-lib-test", "382c053318a04154905c4d27a48f74a6");
-            var site = client.GetSite("subdomain-client-lib-test");
+          try {
+            var subdomain = Environment.GetEnvironmentVariable("RECURLY_SUBDOMAIN");
+            var apiKey = Environment.GetEnvironmentVariable("RECURLY_API_KEY");
+            var client = new Recurly.Client(subdomain, apiKey);
+            var site = client.GetSite(subdomain);
             Console.WriteLine(site.Id);
 
-            var account = client.GetAccount("subdomain-client-lib-test", "code-benjamin-du-monde");
+            var account = client.GetAccount(subdomain, "code-benjamin-du-monde");
             Console.WriteLine(account.CreatedAt);
 
-            var createAccount = new AccountCreate() {
+            var createAccount = new CreateAccount() {
                 Code = "abcsdaskdljsda",
                 Username = "myuser",
                 Address = new Address() {
@@ -27,15 +30,17 @@ namespace RecurlyTestRig
                 }
             };
 
-            var createdAccount = client.CreateAccount("subdomain-client-lib-test", createAccount);
+            var createdAccount = client.CreateAccount(subdomain, createAccount);
             Console.WriteLine(createdAccount.CreatedAt);
 
             try {
-                var nonexistentAccount = client.GetAccount("subdomain-client-lib-test", "idontexist");
+                var nonexistentAccount = client.GetAccount(subdomain, "idontexist");
             } catch (Recurly.ApiError err) {
                 Console.WriteLine(err);
             }
-            
+          } catch (Recurly.ApiError err) {
+                Console.WriteLine(err);
+          }
         }
     }
 }
