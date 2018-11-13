@@ -89,6 +89,10 @@ namespace Recurly.Resources {
     [DeserializeAs(Name = "refundable_amount")]
     public float? RefundableAmount { get; set; }
   
+    
+    [DeserializeAs(Name = "shipping_address")]
+    public ShippingAddress ShippingAddress { get; set; }
+  
     /// <value>Invoice state</value>
     [DeserializeAs(Name = "state")]
     public string State { get; set; }
