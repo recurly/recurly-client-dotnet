@@ -61,6 +61,10 @@ namespace Recurly.Resources {
     [DeserializeAs(Name = "object")]
     public string Object { get; set; }
   
+    /// <value>The UUID of the parent account associated with this account.</value>
+    [DeserializeAs(Name = "parent_account_id")]
+    public string ParentAccountId { get; set; }
+  
     /// <value>Used to determine the language and locale of emails sent on behalf of the merchant to the customer.</value>
     [DeserializeAs(Name = "preferred_locale")]
     public string PreferredLocale { get; set; }

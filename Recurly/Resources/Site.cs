@@ -33,6 +33,10 @@ namespace Recurly.Resources {
     [DeserializeAs(Name = "object")]
     public string Object { get; set; }
   
+    /// <value>This value is used to configure RecurlyJS to submit tokenized billing information.</value>
+    [DeserializeAs(Name = "public_api_key")]
+    public string PublicApiKey { get; set; }
+  
     
     [DeserializeAs(Name = "settings")]
     public Settings Settings { get; set; }

@@ -11,7 +11,7 @@ namespace Recurly.Resources {
   
     
     [DeserializeAs(Name = "address")]
-    public Address Address { get; set; }
+    public InvoiceAddress Address { get; set; }
   
     /// <value>The outstanding balance remaining on this invoice.</value>
     [DeserializeAs(Name = "balance")]
@@ -88,6 +88,10 @@ namespace Recurly.Resources {
     /// <value>The refundable amount on a charge invoice. It will be null for all other invoices.</value>
     [DeserializeAs(Name = "refundable_amount")]
     public float? RefundableAmount { get; set; }
+  
+    
+    [DeserializeAs(Name = "shipping_address")]
+    public ShippingAddress ShippingAddress { get; set; }
   
     /// <value>Invoice state</value>
     [DeserializeAs(Name = "state")]

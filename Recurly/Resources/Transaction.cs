@@ -25,6 +25,10 @@ namespace Recurly.Resources {
     [DeserializeAs(Name = "collected_at")]
     public DateTime? CollectedAt { get; set; }
   
+    /// <value>The method by which the payment was collected.</value>
+    [DeserializeAs(Name = "collection_method")]
+    public string CollectionMethod { get; set; }
+  
     /// <value>Created at</value>
     [DeserializeAs(Name = "created_at")]
     public DateTime? CreatedAt { get; set; }
@@ -107,7 +111,7 @@ namespace Recurly.Resources {
     [DeserializeAs(Name = "payment_gateway")]
     public Dictionary<string, string> PaymentGateway { get; set; }
   
-    /// <value>Payment method (TODO: this overlaps with BillinInfo’s payment_method but only documents credit cards)</value>
+    /// <value>Payment method (TODO: this overlaps with BillingInfo’s payment_method but only documents credit cards)</value>
     [DeserializeAs(Name = "payment_method")]
     public Dictionary<string, string> PaymentMethod { get; set; }
   

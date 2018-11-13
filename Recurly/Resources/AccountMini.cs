@@ -9,6 +9,10 @@ namespace Recurly.Resources {
     [DeserializeAs(Name = "code")]
     public string Code { get; set; }
   
+    
+    [DeserializeAs(Name = "company")]
+    public string Company { get; set; }
+  
     /// <value>The email address used for communicating with this customer.</value>
     [DeserializeAs(Name = "email")]
     public string Email { get; set; }

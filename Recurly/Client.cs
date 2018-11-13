@@ -4,7 +4,7 @@ using RestSharp;
 
 namespace Recurly {
   public class Client : BaseClient {
-    public new string ApiVersion() { return "v2018-06-06"; }
+    public new string ApiVersion() { return "v2018-10-04"; }
 
     public Client(string siteId, string apiKey) : base(siteId, apiKey) {}
   
@@ -53,7 +53,7 @@ namespace Recurly {
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</excption>
     public Account CreateAccount(string site_id, AccountCreate body) {
       var url = $"/sites/{site_id}/accounts";
-      return MakeRequest<Account>(Method.POST, url).Data;
+      return MakeRequest<Account>(Method.POST, url, body).Data;
     }
   
     /// <summary>
@@ -77,7 +77,7 @@ namespace Recurly {
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</excption>
     public Account UpdateAccount(string site_id, string account_id, AccountUpdate body) {
       var url = $"/sites/{site_id}/accounts/{account_id}";
-      return MakeRequest<Account>(Method.PUT, url).Data;
+      return MakeRequest<Account>(Method.PUT, url, body).Data;
     }
   
     /// <summary>
@@ -113,7 +113,7 @@ namespace Recurly {
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</excption>
     public AccountAcquisition UpdateAccountAcquisition(string site_id, string account_id, AccountAcquisitionUpdatable body) {
       var url = $"/sites/{site_id}/accounts/{account_id}/acquisition";
-      return MakeRequest<AccountAcquisition>(Method.PUT, url).Data;
+      return MakeRequest<AccountAcquisition>(Method.PUT, url, body).Data;
     }
   
     /// <summary>
@@ -173,7 +173,7 @@ namespace Recurly {
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</excption>
     public BillingInfo UpdateBillingInfo(string site_id, string account_id, BillingInfoCreate body) {
       var url = $"/sites/{site_id}/accounts/{account_id}/billing_info";
-      return MakeRequest<BillingInfo>(Method.PUT, url).Data;
+      return MakeRequest<BillingInfo>(Method.PUT, url, body).Data;
     }
   
     /// <summary>
@@ -257,7 +257,7 @@ namespace Recurly {
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</excption>
     public InvoiceCollection CreateInvoice(string site_id, string account_id, InvoiceCreate body) {
       var url = $"/sites/{site_id}/accounts/{account_id}/invoices";
-      return MakeRequest<InvoiceCollection>(Method.POST, url).Data;
+      return MakeRequest<InvoiceCollection>(Method.POST, url, body).Data;
     }
   
     /// <summary>
@@ -269,7 +269,7 @@ namespace Recurly {
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</excption>
     public InvoiceCollection PreviewInvoice(string site_id, string account_id, InvoiceCreate body) {
       var url = $"/sites/{site_id}/accounts/{account_id}/invoices/preview";
-      return MakeRequest<InvoiceCollection>(Method.POST, url).Data;
+      return MakeRequest<InvoiceCollection>(Method.POST, url, body).Data;
     }
   
     /// <summary>
@@ -293,7 +293,7 @@ namespace Recurly {
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</excption>
     public LineItem CreateLineItem(string site_id, string account_id, LineItemCreate body) {
       var url = $"/sites/{site_id}/accounts/{account_id}/line_items";
-      return MakeRequest<LineItem>(Method.POST, url).Data;
+      return MakeRequest<LineItem>(Method.POST, url, body).Data;
     }
   
     /// <summary>
@@ -341,7 +341,7 @@ namespace Recurly {
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</excption>
     public ShippingAddress CreateShippingAddress(string site_id, string account_id, ShippingAddressCreate body) {
       var url = $"/sites/{site_id}/accounts/{account_id}/shipping_addresses";
-      return MakeRequest<ShippingAddress>(Method.POST, url).Data;
+      return MakeRequest<ShippingAddress>(Method.POST, url, body).Data;
     }
   
     /// <summary>
@@ -365,7 +365,7 @@ namespace Recurly {
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</excption>
     public ShippingAddress UpdateShippingAddress(string site_id, string account_id, string shipping_address_id, ShippingAddressUpdate body) {
       var url = $"/sites/{site_id}/accounts/{account_id}/shipping_addresses/{shipping_address_id}";
-      return MakeRequest<ShippingAddress>(Method.PUT, url).Data;
+      return MakeRequest<ShippingAddress>(Method.PUT, url, body).Data;
     }
   
     /// <summary>
@@ -405,6 +405,18 @@ namespace Recurly {
     }
   
     /// <summary>
+    /// List an account's child accounts
+    /// </summary>
+    /// <returns>
+    /// A list of an account's child accounts.
+    /// </returns>
+    /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</excption>
+    public Pager<Account> ListChildAccounts(string site_id, string account_id) {
+      var url = $"/sites/{site_id}/accounts/{account_id}/accounts";
+      return MakeRequest<Pager<Account>>(Method.GET, url).Data;
+    }
+  
+    /// <summary>
     /// List a site's account acquisition data
     /// </summary>
     /// <returns>
@@ -437,7 +449,7 @@ namespace Recurly {
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</excption>
     public Coupon CreateCoupon(string site_id, CouponCreate body) {
       var url = $"/sites/{site_id}/coupons";
-      return MakeRequest<Coupon>(Method.POST, url).Data;
+      return MakeRequest<Coupon>(Method.POST, url, body).Data;
     }
   
     /// <summary>
@@ -461,7 +473,7 @@ namespace Recurly {
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</excption>
     public Coupon UpdateCoupon(string site_id, string coupon_id, CouponUpdate body) {
       var url = $"/sites/{site_id}/coupons/{coupon_id}";
-      return MakeRequest<Coupon>(Method.PUT, url).Data;
+      return MakeRequest<Coupon>(Method.PUT, url, body).Data;
     }
   
     /// <summary>
@@ -546,6 +558,18 @@ namespace Recurly {
     public Invoice GetInvoice(string site_id, string invoice_id) {
       var url = $"/sites/{site_id}/invoices/{invoice_id}";
       return MakeRequest<Invoice>(Method.GET, url).Data;
+    }
+  
+    /// <summary>
+    /// Update an invoice
+    /// </summary>
+    /// <returns>
+    /// An invoice.
+    /// </returns>
+    /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</excption>
+    public Invoice PutInvoice(string site_id, string invoice_id, InvoiceUpdatable body) {
+      var url = $"/sites/{site_id}/invoices/{invoice_id}";
+      return MakeRequest<Invoice>(Method.PUT, url, body).Data;
     }
   
     /// <summary>
@@ -641,7 +665,7 @@ namespace Recurly {
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</excption>
     public Invoice RefundInvoice(string site_id, string invoice_id, InvoiceRefund body) {
       var url = $"/sites/{site_id}/invoices/{invoice_id}/refund";
-      return MakeRequest<Invoice>(Method.POST, url).Data;
+      return MakeRequest<Invoice>(Method.POST, url, body).Data;
     }
   
     /// <summary>
@@ -701,7 +725,7 @@ namespace Recurly {
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</excption>
     public Plan CreatePlan(string site_id, PlanCreate body) {
       var url = $"/sites/{site_id}/plans";
-      return MakeRequest<Plan>(Method.POST, url).Data;
+      return MakeRequest<Plan>(Method.POST, url, body).Data;
     }
   
     /// <summary>
@@ -725,7 +749,7 @@ namespace Recurly {
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</excption>
     public Plan UpdatePlan(string site_id, string plan_id, PlanUpdate body) {
       var url = $"/sites/{site_id}/plans/{plan_id}";
-      return MakeRequest<Plan>(Method.PUT, url).Data;
+      return MakeRequest<Plan>(Method.PUT, url, body).Data;
     }
   
     /// <summary>
@@ -761,7 +785,7 @@ namespace Recurly {
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</excption>
     public AddOn CreatePlanAddOn(string site_id, string plan_id, AddOnCreate body) {
       var url = $"/sites/{site_id}/plans/{plan_id}/add_ons";
-      return MakeRequest<AddOn>(Method.POST, url).Data;
+      return MakeRequest<AddOn>(Method.POST, url, body).Data;
     }
   
     /// <summary>
@@ -785,7 +809,7 @@ namespace Recurly {
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</excption>
     public AddOn UpdatePlanAddOn(string site_id, string add_on_id, string plan_id, AddOnUpdate body) {
       var url = $"/sites/{site_id}/plans/{plan_id}/add_ons/{add_on_id}";
-      return MakeRequest<AddOn>(Method.PUT, url).Data;
+      return MakeRequest<AddOn>(Method.PUT, url, body).Data;
     }
   
     /// <summary>
@@ -845,7 +869,7 @@ namespace Recurly {
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</excption>
     public Subscription CreateSubscription(string site_id, SubscriptionCreate body) {
       var url = $"/sites/{site_id}/subscriptions";
-      return MakeRequest<Subscription>(Method.POST, url).Data;
+      return MakeRequest<Subscription>(Method.POST, url, body).Data;
     }
   
     /// <summary>
@@ -869,7 +893,7 @@ namespace Recurly {
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</excption>
     public Subscription ModifySubscription(string site_id, string subscription_id, SubscriptionUpdate body) {
       var url = $"/sites/{site_id}/subscriptions/{subscription_id}";
-      return MakeRequest<Subscription>(Method.PUT, url).Data;
+      return MakeRequest<Subscription>(Method.PUT, url, body).Data;
     }
   
     /// <summary>
@@ -941,7 +965,7 @@ namespace Recurly {
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</excption>
     public SubscriptionChange CreateSubscriptionChange(string site_id, string subscription_id, SubscriptionChangeCreate body) {
       var url = $"/sites/{site_id}/subscriptions/{subscription_id}/change";
-      return MakeRequest<SubscriptionChange>(Method.POST, url).Data;
+      return MakeRequest<SubscriptionChange>(Method.POST, url, body).Data;
     }
   
     /// <summary>
