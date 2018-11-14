@@ -18,16 +18,9 @@ namespace RecurlyTestRig
             var account = client.GetAccount(subdomain, "code-benjamin-du-monde");
             Console.WriteLine(account.CreatedAt);
 
-            var createAccount = new CreateAccount() {
+            var createAccount = new AccountCreate() {
                 Code = "abcsdaskdljsda",
-                Username = "myuser",
-                Address = new Address() {
-                    City = "New Orleans",
-                    Street1 = "1 Canal St.",
-                    Region = "LA",
-                    Country = "US",
-                    PostalCode = "70115"
-                }
+                Username = "myuser"
             };
 
             var createdAccount = client.CreateAccount(subdomain, createAccount);

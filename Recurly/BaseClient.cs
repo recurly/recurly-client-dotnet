@@ -2,6 +2,8 @@ using System;
 using System.Linq;
 using RestSharp;
 using RestSharp.Authenticators;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace Recurly {
     public class BaseClient {
@@ -23,21 +25,39 @@ namespace Recurly {
 
         public IRestResponse<T> MakeRequest<T>(Method method, string url, Request body = null) where T: new() {
             Console.WriteLine($"Calling {url}");
-            var request = new RestRequest(url, method);
-            if (body != null)
-                request.AddObject(body);
+            var request = new RestSharp.RestRequest(url, method);
+            //request.RequestFormat = DataFormat.Json;
+            //request.JsonSerializer = new NewtonsoftJsonSerializer();
+
+            if (body != null) {
+              DefaultContractResolver contractResolver = new DefaultContractResolver
+              {
+                NamingStrategy = new SnakeCaseNamingStrategy()
+              };
+
+              string json = JsonConvert.SerializeObject(body, new JsonSerializerSettings
+                  {
+                  ContractResolver = contractResolver,
+                  Formatting = Formatting.Indented
+                  });
+
+                Console.WriteLine("body: ");
+                Console.WriteLine(json);
+                request.AddParameter("application/json", json , ParameterType.RequestBody);
+            }
 
             var resp = RestClient.Execute<T>(request);
             var status = (int)resp.StatusCode;
+            Console.WriteLine($"Status: {status}");
+            Console.WriteLine($"Content: {resp.Content}");
             if (status < 200 || status >= 300) {
                 throw new ApiError("Bad responses code");
             }
-            Console.WriteLine(resp.Content);
             return resp;
         }
 
         public IRestResponse MakeRequest(Method method, string url) {
-            var request = new RestRequest(url, method);
+            var request = new RestSharp.RestRequest(url, method);
             var resp = RestClient.Execute(request);
             var status = (int)resp.StatusCode;
             if (status < 200 || status >= 300) {
@@ -49,6 +69,11 @@ namespace Recurly {
         public Type GetErrorClass(string key) {
             return typeof(ApiError).Assembly.GetTypes()
             .Where(type => type.IsSubclassOf(typeof(ApiError)) && type.Name == key).First();
+        }
+
+        protected string InterpolatePath(string path, Dictionary<string, object> urlParams) {
+          ver regex = new Regex("{(.*)}");
+          return regex.Replace(path, m => urlParams.Get(m));
         }
 
         protected string ApiVersion() {
