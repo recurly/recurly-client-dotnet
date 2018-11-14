@@ -76,7 +76,7 @@ namespace Recurly {
 
         protected string InterpolatePath(string path, Dictionary<string, object> urlParams) {
           var regex = new Regex("{(.*)}");
-          return regex.Replace(path, m => urlParams[m]);
+          return regex.Replace(path, m => urlParams[m.Value]);
         }
 
         protected string ApiVersion() {
