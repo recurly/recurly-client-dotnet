@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+dotnet test Recurly.Tests/Recurly.Tests.csproj /p:CollectCoverage=true
