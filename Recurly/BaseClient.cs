@@ -12,7 +12,7 @@ namespace Recurly {
     public class BaseClient {
         private const string API_URL = "https://partner-api.recurly.com/";
         public string SiteId { get; }
-        public string ApiKey { get; }
+        private string ApiKey { get; }
         private RestClient RestClient { get; }
 
         public BaseClient(string siteId, string apiKey) {

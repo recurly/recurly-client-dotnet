@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="Recurly">
-      <HintPath>../Recurly/bin/Debug/netstandard2.0/Recurly.dll</HintPath>
-    </Reference>
-    <PackageReference Include="restsharp" Version="106.3.1" />
-    <PackageReference Include="RestSharp.Newtonsoft.Json" Version="1.5.0" />
+    <ProjectReference Include="..\Recurly\Recurly.csproj" />
   </ItemGroup>
 </Project>
