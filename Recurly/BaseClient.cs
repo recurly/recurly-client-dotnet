@@ -41,7 +41,8 @@ namespace Recurly {
               string json = JsonConvert.SerializeObject(body, new JsonSerializerSettings
                   {
                   ContractResolver = contractResolver,
-                  Formatting = Formatting.Indented
+                  Formatting = Formatting.Indented,
+                  NullValueHandling = NullValueHandling.Ignore
                   });
 
                 Console.WriteLine("body: ");
