@@ -75,8 +75,12 @@ namespace Recurly {
         }
 
         protected string InterpolatePath(string path, Dictionary<string, object> urlParams) {
-          var regex = new Regex("{(.*)}");
-          return regex.Replace(path, m => urlParams[m.Value.ToString()]);
+          urlParams.Add("site_id", SiteId);
+          var regex = new Regex("{([A-Za-z|_]*)}");
+          // TODO ToString() here might not appropriately format all data types
+          // such as datetimes
+          // TODO could get rid of string replaces with nicer regex matcher
+          return regex.Replace(path, m => urlParams[m.Value.Replace("{", "").Replace("}", "")].ToString());
         }
 
         protected string ApiVersion() {

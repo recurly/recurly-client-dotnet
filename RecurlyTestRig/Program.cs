@@ -12,10 +12,8 @@ namespace RecurlyTestRig
             var subdomain = Environment.GetEnvironmentVariable("RECURLY_SUBDOMAIN");
             var apiKey = Environment.GetEnvironmentVariable("RECURLY_API_KEY");
             var client = new Recurly.Client(subdomain, apiKey);
-            var site = client.GetSite(subdomain);
-            Console.WriteLine(site.Id);
 
-            var account = client.GetAccount(subdomain, "code-benjamin-du-monde");
+            var account = client.GetAccount("code-benjamin-du-monde");
             Console.WriteLine(account.CreatedAt);
 
             var createAccount = new AccountCreate() {
@@ -23,11 +21,11 @@ namespace RecurlyTestRig
                 Username = "myuser"
             };
 
-            var createdAccount = client.CreateAccount(subdomain, createAccount);
+            var createdAccount = client.CreateAccount(createAccount);
             Console.WriteLine(createdAccount.CreatedAt);
 
             try {
-                var nonexistentAccount = client.GetAccount(subdomain, "idontexist");
+                var nonexistentAccount = client.GetAccount("idontexist");
             } catch (Recurly.ApiError err) {
                 Console.WriteLine(err);
             }
