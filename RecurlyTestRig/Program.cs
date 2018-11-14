@@ -17,12 +17,20 @@ namespace RecurlyTestRig
             Console.WriteLine(account.CreatedAt);
 
             var createAccount = new AccountCreate() {
-                Code = "abcsdaskdljsda",
-                Username = "myuser"
+                Code = Guid.NewGuid().ToString(),
+                Username = "myuser",
+                Address = new Address() {
+                  Street1 = "123 Main St",
+                  City = "New Orleans",
+                  Region = "LA",
+                  PostalCode = "70114",
+                  Country = "US",
+                }
             };
 
             var createdAccount = client.CreateAccount(createAccount);
             Console.WriteLine(createdAccount.CreatedAt);
+            Console.WriteLine(createdAccount); 
 
             try {
                 var nonexistentAccount = client.GetAccount("idontexist");
