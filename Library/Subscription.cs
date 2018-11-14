@@ -1046,6 +1046,23 @@ namespace Recurly
             else if (CollectionMethod.Like("automatic"))
                 xmlWriter.WriteElementString("collection_method", "automatic");
 
+            if (ImportedTrial.HasValue)
+            {
+                xmlWriter.WriteElementString("imported_trial", ImportedTrial.Value.ToString().ToLower());
+            }
+
+            if (RevenueScheduleType.HasValue)
+                xmlWriter.WriteElementString("revenue_schedule_type", RevenueScheduleType.Value.ToString().EnumNameToTransportCase());
+
+            if (RemainingBillingCycles.HasValue)
+                xmlWriter.WriteElementString("remaining_billing_cycles", RemainingBillingCycles.Value.AsString());
+
+            if (AutoRenew.HasValue)
+                xmlWriter.WriteElementString("auto_renew", AutoRenew.Value.AsString());
+
+            if (RenewalBillingCycles.HasValue)
+                xmlWriter.WriteElementString("renewal_billing_cycles", RenewalBillingCycles.Value.AsString());
+
             xmlWriter.WriteEndElement(); // End: subscription
         }
 
