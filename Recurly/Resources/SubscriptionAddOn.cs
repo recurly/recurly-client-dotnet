@@ -21,10 +21,6 @@ namespace Recurly.Resources {
     [DeserializeAs(Name = "id")]
     public string Id { get; set; }
   
-    /// <value>Object type</value>
-    [DeserializeAs(Name = "object")]
-    public string Object { get; set; }
-  
     /// <value>Add-on quantity</value>
     [DeserializeAs(Name = "quantity")]
     public int? Quantity { get; set; }

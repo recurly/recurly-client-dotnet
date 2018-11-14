@@ -29,10 +29,6 @@ namespace Recurly.Resources {
     [DeserializeAs(Name = "mode")]
     public string Mode { get; set; }
   
-    /// <value>Object type</value>
-    [DeserializeAs(Name = "object")]
-    public string Object { get; set; }
-  
     /// <value>This value is used to configure RecurlyJS to submit tokenized billing information.</value>
     [DeserializeAs(Name = "public_api_key")]
     public string PublicApiKey { get; set; }

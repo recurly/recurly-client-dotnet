@@ -21,10 +21,6 @@ namespace Recurly.Resources {
     [DeserializeAs(Name = "message")]
     public string Message { get; set; }
   
-    /// <value>Object type</value>
-    [DeserializeAs(Name = "object")]
-    public string Object { get; set; }
-  
     
     [DeserializeAs(Name = "user")]
     public User User { get; set; }

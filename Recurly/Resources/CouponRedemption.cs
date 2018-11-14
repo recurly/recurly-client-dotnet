@@ -29,10 +29,6 @@ namespace Recurly.Resources {
     [DeserializeAs(Name = "id")]
     public string Id { get; set; }
   
-    /// <value>Will always be `coupon`.</value>
-    [DeserializeAs(Name = "object")]
-    public string Object { get; set; }
-  
     /// <value>The date and time the redemption was removed from the account (un-redeemed).</value>
     [DeserializeAs(Name = "removed_at")]
     public DateTime? RemovedAt { get; set; }

@@ -95,10 +95,6 @@ namespace Recurly.Resources {
     [DeserializeAs(Name = "ip_address_v4")]
     public string IpAddressV4 { get; set; }
   
-    /// <value>Object type</value>
-    [DeserializeAs(Name = "object")]
-    public string Object { get; set; }
-  
     /// <value>Describes how the transaction was triggered.</value>
     [DeserializeAs(Name = "origin")]
     public string Origin { get; set; }

@@ -21,10 +21,6 @@ namespace Recurly.Resources {
     [DeserializeAs(Name = "id")]
     public string Id { get; set; }
   
-    /// <value>Will always be `coupon`.</value>
-    [DeserializeAs(Name = "object")]
-    public string Object { get; set; }
-  
     /// <value>Invoice state</value>
     [DeserializeAs(Name = "state")]
     public string State { get; set; }

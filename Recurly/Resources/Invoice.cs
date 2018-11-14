@@ -65,10 +65,6 @@ namespace Recurly.Resources {
     [DeserializeAs(Name = "number")]
     public string Number { get; set; }
   
-    /// <value>Object type</value>
-    [DeserializeAs(Name = "object")]
-    public string Object { get; set; }
-  
     /// <value>The event that created the invoice.</value>
     [DeserializeAs(Name = "origin")]
     public string Origin { get; set; }

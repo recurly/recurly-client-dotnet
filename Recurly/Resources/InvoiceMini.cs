@@ -13,10 +13,6 @@ namespace Recurly.Resources {
     [DeserializeAs(Name = "number")]
     public string Number { get; set; }
   
-    /// <value>Object type</value>
-    [DeserializeAs(Name = "object")]
-    public string Object { get; set; }
-  
     /// <value>Invoice state</value>
     [DeserializeAs(Name = "state")]
     public string State { get; set; }

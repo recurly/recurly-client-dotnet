@@ -57,10 +57,6 @@ namespace Recurly.Resources {
     [DeserializeAs(Name = "last_name")]
     public string LastName { get; set; }
   
-    /// <value>Object type</value>
-    [DeserializeAs(Name = "object")]
-    public string Object { get; set; }
-  
     /// <value>The UUID of the parent account associated with this account.</value>
     [DeserializeAs(Name = "parent_account_id")]
     public string ParentAccountId { get; set; }

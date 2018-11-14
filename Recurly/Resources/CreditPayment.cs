@@ -33,10 +33,6 @@ namespace Recurly.Resources {
     [DeserializeAs(Name = "id")]
     public string Id { get; set; }
   
-    /// <value>Object type</value>
-    [DeserializeAs(Name = "object")]
-    public string Object { get; set; }
-  
     /// <value>For credit payments with action `refund`, this is the credit payment that was refunded.</value>
     [DeserializeAs(Name = "original_credit_payment_id")]
     public string OriginalCreditPaymentId { get; set; }

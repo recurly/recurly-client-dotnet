@@ -53,10 +53,6 @@ namespace Recurly.Resources {
     [DeserializeAs(Name = "name")]
     public string Name { get; set; }
   
-    /// <value>Object type</value>
-    [DeserializeAs(Name = "object")]
-    public string Object { get; set; }
-  
     /// <value>Accounting code for invoice line items for the plan's setup fee. If no value is provided, it defaults to plan's accounting code.</value>
     [DeserializeAs(Name = "setup_fee_accounting_code")]
     public string SetupFeeAccountingCode { get; set; }

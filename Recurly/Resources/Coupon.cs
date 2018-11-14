@@ -72,10 +72,6 @@ namespace Recurly.Resources {
     [DeserializeAs(Name = "name")]
     public string Name { get; set; }
   
-    /// <value>Object type</value>
-    [DeserializeAs(Name = "object")]
-    public string Object { get; set; }
-  
     /// <value>Plans</value>
     [DeserializeAs(Name = "plans")]
     public List<PlanMini> Plans { get; set; }

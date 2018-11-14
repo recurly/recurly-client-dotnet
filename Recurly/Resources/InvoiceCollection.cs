@@ -13,9 +13,5 @@ namespace Recurly.Resources {
     [DeserializeAs(Name = "credit_invoices")]
     public List<Invoice> CreditInvoices { get; set; }
   
-    /// <value>Object type</value>
-    [DeserializeAs(Name = "object")]
-    public string Object { get; set; }
-  
   }
 }

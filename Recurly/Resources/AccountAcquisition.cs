@@ -29,10 +29,6 @@ namespace Recurly.Resources {
     [DeserializeAs(Name = "id")]
     public string Id { get; set; }
   
-    /// <value>Object type</value>
-    [DeserializeAs(Name = "object")]
-    public string Object { get; set; }
-  
     /// <value>An arbitrary subchannel string representing a distinction/subcategory within a broader channel.</value>
     [DeserializeAs(Name = "subchannel")]
     public string Subchannel { get; set; }

@@ -89,10 +89,6 @@ namespace Recurly.Resources {
     [DeserializeAs(Name = "net_terms")]
     public int? NetTerms { get; set; }
   
-    /// <value>Object type</value>
-    [DeserializeAs(Name = "object")]
-    public string Object { get; set; }
-  
     /// <value>Null unless subscription is paused or will pause at the end of the current billing period.</value>
     [DeserializeAs(Name = "paused_at")]
     public DateTime? PausedAt { get; set; }

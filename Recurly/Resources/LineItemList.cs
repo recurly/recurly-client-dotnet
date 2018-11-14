@@ -17,9 +17,5 @@ namespace Recurly.Resources {
     [DeserializeAs(Name = "next")]
     public string Next { get; set; }
   
-    /// <value>Will always be List.</value>
-    [DeserializeAs(Name = "object")]
-    public string Object { get; set; }
-  
   }
 }

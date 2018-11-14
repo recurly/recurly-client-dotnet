@@ -2252,7 +2252,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.Account::get_Object()": {
+    "System.String Recurly.Resources.Account::get_ParentAccountId()": {
      "Lines": {
       "62": {
        "Hits": 0
@@ -2261,7 +2261,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.Account::get_ParentAccountId()": {
+    "System.String Recurly.Resources.Account::get_PreferredLocale()": {
      "Lines": {
       "66": {
        "Hits": 0
@@ -2270,7 +2270,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.Account::get_PreferredLocale()": {
+    "System.Collections.Generic.List`1<Recurly.Resources.ShippingAddress> Recurly.Resources.Account::get_ShippingAddresses()": {
      "Lines": {
       "70": {
        "Hits": 0
@@ -2279,7 +2279,7 @@
      "Branches": {
      }
     },
-    "System.Collections.Generic.List`1<Recurly.Resources.ShippingAddress> Recurly.Resources.Account::get_ShippingAddresses()": {
+    "System.String Recurly.Resources.Account::get_State()": {
      "Lines": {
       "74": {
        "Hits": 0
@@ -2288,7 +2288,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.Account::get_State()": {
+    "System.Nullable`1<System.Boolean> Recurly.Resources.Account::get_TaxExempt()": {
      "Lines": {
       "78": {
        "Hits": 0
@@ -2297,7 +2297,7 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.Boolean> Recurly.Resources.Account::get_TaxExempt()": {
+    "System.Nullable`1<System.DateTime> Recurly.Resources.Account::get_UpdatedAt()": {
      "Lines": {
       "82": {
        "Hits": 0
@@ -2306,7 +2306,7 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.DateTime> Recurly.Resources.Account::get_UpdatedAt()": {
+    "System.String Recurly.Resources.Account::get_Username()": {
      "Lines": {
       "86": {
        "Hits": 0
@@ -2315,18 +2315,9 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.Account::get_Username()": {
-     "Lines": {
-      "90": {
-       "Hits": 0
-      }
-     },
-     "Branches": {
-     }
-    },
     "System.String Recurly.Resources.Account::get_VatNumber()": {
      "Lines": {
-      "94": {
+      "90": {
        "Hits": 0
       }
      },
@@ -2391,7 +2382,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.AccountAcquisition::get_Object()": {
+    "System.String Recurly.Resources.AccountAcquisition::get_Subchannel()": {
      "Lines": {
       "34": {
        "Hits": 0
@@ -2400,18 +2391,9 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.AccountAcquisition::get_Subchannel()": {
-     "Lines": {
-      "38": {
-       "Hits": 0
-      }
-     },
-     "Branches": {
-     }
-    },
     "System.Nullable`1<System.DateTime> Recurly.Resources.AccountAcquisition::get_UpdatedAt()": {
      "Lines": {
-      "42": {
+      "38": {
        "Hits": 0
       }
      },
@@ -2480,18 +2462,9 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.AccountBalance::get_Object()": {
-     "Lines": {
-      "18": {
-       "Hits": 0
-      }
-     },
-     "Branches": {
-     }
-    },
     "System.Nullable`1<System.Boolean> Recurly.Resources.AccountBalance::get_PastDue()": {
      "Lines": {
-      "22": {
+      "18": {
        "Hits": 0
       }
      },
@@ -2712,15 +2685,6 @@
      },
      "Branches": {
      }
-    },
-    "System.String Recurly.Resources.AccountMini::get_Object()": {
-     "Lines": {
-      "34": {
-       "Hits": 0
-      }
-     },
-     "Branches": {
-     }
     }
    }
   },
@@ -2762,18 +2726,9 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.AccountNote::get_Object()": {
-     "Lines": {
-      "26": {
-       "Hits": 0
-      }
-     },
-     "Branches": {
-     }
-    },
     "Recurly.Resources.User Recurly.Resources.AccountNote::get_User()": {
      "Lines": {
-      "30": {
+      "26": {
        "Hits": 0
       }
      },
@@ -2995,7 +2950,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.AddOn::get_Object()": {
+    "System.String Recurly.Resources.AddOn::get_PlanId()": {
      "Lines": {
       "46": {
        "Hits": 0
@@ -3004,7 +2959,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.AddOn::get_PlanId()": {
+    "System.String Recurly.Resources.AddOn::get_State()": {
      "Lines": {
       "50": {
        "Hits": 0
@@ -3013,7 +2968,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.AddOn::get_State()": {
+    "System.String Recurly.Resources.AddOn::get_TaxCode()": {
      "Lines": {
       "54": {
        "Hits": 0
@@ -3022,18 +2977,9 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.AddOn::get_TaxCode()": {
-     "Lines": {
-      "58": {
-       "Hits": 0
-      }
-     },
-     "Branches": {
-     }
-    },
     "System.Nullable`1<System.DateTime> Recurly.Resources.AddOn::get_UpdatedAt()": {
      "Lines": {
-      "62": {
+      "58": {
        "Hits": 0
       }
      },
@@ -3150,15 +3096,6 @@
     "System.String Recurly.Resources.AddOnMini::get_Name()": {
      "Lines": {
       "22": {
-       "Hits": 0
-      }
-     },
-     "Branches": {
-     }
-    },
-    "System.String Recurly.Resources.AddOnMini::get_Object()": {
-     "Lines": {
-      "26": {
        "Hits": 0
       }
      },
@@ -3402,7 +3339,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.BillingInfo::get_Object()": {
+    "System.Collections.Generic.Dictionary`2<System.String,System.String> Recurly.Resources.BillingInfo::get_PaymentMethod()": {
      "Lines": {
       "42": {
        "Hits": 0
@@ -3411,7 +3348,7 @@
      "Branches": {
      }
     },
-    "System.Collections.Generic.Dictionary`2<System.String,System.String> Recurly.Resources.BillingInfo::get_PaymentMethod()": {
+    "System.Nullable`1<System.DateTime> Recurly.Resources.BillingInfo::get_UpdatedAt()": {
      "Lines": {
       "46": {
        "Hits": 0
@@ -3420,7 +3357,7 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.DateTime> Recurly.Resources.BillingInfo::get_UpdatedAt()": {
+    "System.Collections.Generic.Dictionary`2<System.String,System.String> Recurly.Resources.BillingInfo::get_UpdatedBy()": {
      "Lines": {
       "50": {
        "Hits": 0
@@ -3429,7 +3366,7 @@
      "Branches": {
      }
     },
-    "System.Collections.Generic.Dictionary`2<System.String,System.String> Recurly.Resources.BillingInfo::get_UpdatedBy()": {
+    "System.Nullable`1<System.Boolean> Recurly.Resources.BillingInfo::get_Valid()": {
      "Lines": {
       "54": {
        "Hits": 0
@@ -3438,18 +3375,9 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.Boolean> Recurly.Resources.BillingInfo::get_Valid()": {
-     "Lines": {
-      "58": {
-       "Hits": 0
-      }
-     },
-     "Branches": {
-     }
-    },
     "System.String Recurly.Resources.BillingInfo::get_VatNumber()": {
      "Lines": {
-      "62": {
+      "58": {
        "Hits": 0
       }
      },
@@ -3725,7 +3653,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.Coupon::get_Object()": {
+    "System.Collections.Generic.List`1<Recurly.Resources.PlanMini> Recurly.Resources.Coupon::get_Plans()": {
      "Lines": {
       "77": {
        "Hits": 0
@@ -3734,7 +3662,7 @@
      "Branches": {
      }
     },
-    "System.Collections.Generic.List`1<Recurly.Resources.PlanMini> Recurly.Resources.Coupon::get_Plans()": {
+    "System.Collections.Generic.List`1<System.String> Recurly.Resources.Coupon::get_PlansNames()": {
      "Lines": {
       "81": {
        "Hits": 0
@@ -3743,7 +3671,7 @@
      "Branches": {
      }
     },
-    "System.Collections.Generic.List`1<System.String> Recurly.Resources.Coupon::get_PlansNames()": {
+    "System.Nullable`1<System.DateTime> Recurly.Resources.Coupon::get_RedeemBy()": {
      "Lines": {
       "85": {
        "Hits": 0
@@ -3752,7 +3680,7 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.DateTime> Recurly.Resources.Coupon::get_RedeemBy()": {
+    "System.String Recurly.Resources.Coupon::get_RedemptionResource()": {
      "Lines": {
       "89": {
        "Hits": 0
@@ -3761,7 +3689,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.Coupon::get_RedemptionResource()": {
+    "System.String Recurly.Resources.Coupon::get_State()": {
      "Lines": {
       "93": {
        "Hits": 0
@@ -3770,7 +3698,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.Coupon::get_State()": {
+    "System.Nullable`1<System.Int32> Recurly.Resources.Coupon::get_TemporalAmount()": {
      "Lines": {
       "97": {
        "Hits": 0
@@ -3779,7 +3707,7 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.Int32> Recurly.Resources.Coupon::get_TemporalAmount()": {
+    "System.String Recurly.Resources.Coupon::get_TemporalUnit()": {
      "Lines": {
       "101": {
        "Hits": 0
@@ -3788,7 +3716,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.Coupon::get_TemporalUnit()": {
+    "System.Nullable`1<System.Int32> Recurly.Resources.Coupon::get_UniqueCouponCodesCount()": {
      "Lines": {
       "105": {
        "Hits": 0
@@ -3797,18 +3725,9 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.Int32> Recurly.Resources.Coupon::get_UniqueCouponCodesCount()": {
-     "Lines": {
-      "109": {
-       "Hits": 0
-      }
-     },
-     "Branches": {
-     }
-    },
     "System.Nullable`1<System.DateTime> Recurly.Resources.Coupon::get_UpdatedAt()": {
      "Lines": {
-      "113": {
+      "109": {
        "Hits": 0
       }
      },
@@ -4119,18 +4038,9 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.CouponMini::get_Object()": {
-     "Lines": {
-      "34": {
-       "Hits": 0
-      }
-     },
-     "Branches": {
-     }
-    },
     "System.String Recurly.Resources.CouponMini::get_State()": {
      "Lines": {
-      "38": {
+      "34": {
        "Hits": 0
       }
      },
@@ -4195,7 +4105,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.CouponRedemption::get_Object()": {
+    "System.Nullable`1<System.DateTime> Recurly.Resources.CouponRedemption::get_RemovedAt()": {
      "Lines": {
       "34": {
        "Hits": 0
@@ -4204,7 +4114,7 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.DateTime> Recurly.Resources.CouponRedemption::get_RemovedAt()": {
+    "System.String Recurly.Resources.CouponRedemption::get_State()": {
      "Lines": {
       "38": {
        "Hits": 0
@@ -4213,18 +4123,9 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.CouponRedemption::get_State()": {
-     "Lines": {
-      "42": {
-       "Hits": 0
-      }
-     },
-     "Branches": {
-     }
-    },
     "System.Nullable`1<System.DateTime> Recurly.Resources.CouponRedemption::get_UpdatedAt()": {
      "Lines": {
-      "46": {
+      "42": {
        "Hits": 0
       }
      },
@@ -4293,18 +4194,9 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.CouponRedemptionMini::get_Object()": {
-     "Lines": {
-      "26": {
-       "Hits": 0
-      }
-     },
-     "Branches": {
-     }
-    },
     "System.String Recurly.Resources.CouponRedemptionMini::get_State()": {
      "Lines": {
-      "30": {
+      "26": {
        "Hits": 0
       }
      },
@@ -4436,7 +4328,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.CreditPayment::get_Object()": {
+    "System.String Recurly.Resources.CreditPayment::get_OriginalCreditPaymentId()": {
      "Lines": {
       "38": {
        "Hits": 0
@@ -4445,7 +4337,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.CreditPayment::get_OriginalCreditPaymentId()": {
+    "Recurly.Resources.InvoiceMini Recurly.Resources.CreditPayment::get_OriginalInvoice()": {
      "Lines": {
       "42": {
        "Hits": 0
@@ -4454,7 +4346,7 @@
      "Branches": {
      }
     },
-    "Recurly.Resources.InvoiceMini Recurly.Resources.CreditPayment::get_OriginalInvoice()": {
+    "Recurly.Resources.Transaction Recurly.Resources.CreditPayment::get_RefundTransaction()": {
      "Lines": {
       "46": {
        "Hits": 0
@@ -4463,7 +4355,7 @@
      "Branches": {
      }
     },
-    "Recurly.Resources.Transaction Recurly.Resources.CreditPayment::get_RefundTransaction()": {
+    "System.Nullable`1<System.DateTime> Recurly.Resources.CreditPayment::get_UpdatedAt()": {
      "Lines": {
       "50": {
        "Hits": 0
@@ -4472,7 +4364,7 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.DateTime> Recurly.Resources.CreditPayment::get_UpdatedAt()": {
+    "System.String Recurly.Resources.CreditPayment::get_Uuid()": {
      "Lines": {
       "54": {
        "Hits": 0
@@ -4481,18 +4373,9 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.CreditPayment::get_Uuid()": {
-     "Lines": {
-      "58": {
-       "Hits": 0
-      }
-     },
-     "Branches": {
-     }
-    },
     "System.Nullable`1<System.DateTime> Recurly.Resources.CreditPayment::get_VoidedAt()": {
      "Lines": {
-      "62": {
+      "58": {
        "Hits": 0
       }
      },
@@ -4570,7 +4453,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.CustomFieldDefinition::get_Object()": {
+    "System.String Recurly.Resources.CustomFieldDefinition::get_RelatedType()": {
      "Lines": {
       "30": {
        "Hits": 0
@@ -4579,7 +4462,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.CustomFieldDefinition::get_RelatedType()": {
+    "System.String Recurly.Resources.CustomFieldDefinition::get_Tooltip()": {
      "Lines": {
       "34": {
        "Hits": 0
@@ -4588,7 +4471,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.CustomFieldDefinition::get_Tooltip()": {
+    "System.Nullable`1<System.DateTime> Recurly.Resources.CustomFieldDefinition::get_UpdatedAt()": {
      "Lines": {
       "38": {
        "Hits": 0
@@ -4597,18 +4480,9 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.DateTime> Recurly.Resources.CustomFieldDefinition::get_UpdatedAt()": {
-     "Lines": {
-      "42": {
-       "Hits": 0
-      }
-     },
-     "Branches": {
-     }
-    },
     "System.String Recurly.Resources.CustomFieldDefinition::get_UserAccess()": {
      "Lines": {
-      "52": {
+      "48": {
        "Hits": 0
       }
      },
@@ -4825,7 +4699,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.Invoice::get_Object()": {
+    "System.String Recurly.Resources.Invoice::get_Origin()": {
      "Lines": {
       "70": {
        "Hits": 0
@@ -4834,7 +4708,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.Invoice::get_Origin()": {
+    "System.Nullable`1<System.Single> Recurly.Resources.Invoice::get_Paid()": {
      "Lines": {
       "74": {
        "Hits": 0
@@ -4843,7 +4717,7 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.Single> Recurly.Resources.Invoice::get_Paid()": {
+    "System.String Recurly.Resources.Invoice::get_PoNumber()": {
      "Lines": {
       "78": {
        "Hits": 0
@@ -4852,7 +4726,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.Invoice::get_PoNumber()": {
+    "System.String Recurly.Resources.Invoice::get_PreviousInvoiceId()": {
      "Lines": {
       "82": {
        "Hits": 0
@@ -4861,7 +4735,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.Invoice::get_PreviousInvoiceId()": {
+    "System.Nullable`1<System.Single> Recurly.Resources.Invoice::get_RefundableAmount()": {
      "Lines": {
       "86": {
        "Hits": 0
@@ -4870,7 +4744,7 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.Single> Recurly.Resources.Invoice::get_RefundableAmount()": {
+    "Recurly.Resources.ShippingAddress Recurly.Resources.Invoice::get_ShippingAddress()": {
      "Lines": {
       "90": {
        "Hits": 0
@@ -4879,7 +4753,7 @@
      "Branches": {
      }
     },
-    "Recurly.Resources.ShippingAddress Recurly.Resources.Invoice::get_ShippingAddress()": {
+    "System.String Recurly.Resources.Invoice::get_State()": {
      "Lines": {
       "94": {
        "Hits": 0
@@ -4888,7 +4762,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.Invoice::get_State()": {
+    "System.Collections.Generic.List`1<System.String> Recurly.Resources.Invoice::get_SubscriptionIds()": {
      "Lines": {
       "98": {
        "Hits": 0
@@ -4897,7 +4771,7 @@
      "Branches": {
      }
     },
-    "System.Collections.Generic.List`1<System.String> Recurly.Resources.Invoice::get_SubscriptionIds()": {
+    "System.Nullable`1<System.Single> Recurly.Resources.Invoice::get_Subtotal()": {
      "Lines": {
       "102": {
        "Hits": 0
@@ -4906,7 +4780,7 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.Single> Recurly.Resources.Invoice::get_Subtotal()": {
+    "System.Nullable`1<System.Single> Recurly.Resources.Invoice::get_Tax()": {
      "Lines": {
       "106": {
        "Hits": 0
@@ -4915,7 +4789,7 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.Single> Recurly.Resources.Invoice::get_Tax()": {
+    "Recurly.Resources.TaxInfo Recurly.Resources.Invoice::get_TaxInfo()": {
      "Lines": {
       "110": {
        "Hits": 0
@@ -4924,7 +4798,7 @@
      "Branches": {
      }
     },
-    "Recurly.Resources.TaxInfo Recurly.Resources.Invoice::get_TaxInfo()": {
+    "System.String Recurly.Resources.Invoice::get_TermsAndConditions()": {
      "Lines": {
       "114": {
        "Hits": 0
@@ -4933,7 +4807,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.Invoice::get_TermsAndConditions()": {
+    "System.Nullable`1<System.Single> Recurly.Resources.Invoice::get_Total()": {
      "Lines": {
       "118": {
        "Hits": 0
@@ -4942,7 +4816,7 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.Single> Recurly.Resources.Invoice::get_Total()": {
+    "System.Collections.Generic.List`1<Recurly.Resources.Transaction> Recurly.Resources.Invoice::get_Transactions()": {
      "Lines": {
       "122": {
        "Hits": 0
@@ -4951,7 +4825,7 @@
      "Branches": {
      }
     },
-    "System.Collections.Generic.List`1<Recurly.Resources.Transaction> Recurly.Resources.Invoice::get_Transactions()": {
+    "System.String Recurly.Resources.Invoice::get_Type()": {
      "Lines": {
       "126": {
        "Hits": 0
@@ -4960,7 +4834,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.Invoice::get_Type()": {
+    "System.Nullable`1<System.DateTime> Recurly.Resources.Invoice::get_UpdatedAt()": {
      "Lines": {
       "130": {
        "Hits": 0
@@ -4969,7 +4843,7 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.DateTime> Recurly.Resources.Invoice::get_UpdatedAt()": {
+    "System.String Recurly.Resources.Invoice::get_VatNumber()": {
      "Lines": {
       "134": {
        "Hits": 0
@@ -4978,18 +4852,9 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.Invoice::get_VatNumber()": {
-     "Lines": {
-      "138": {
-       "Hits": 0
-      }
-     },
-     "Branches": {
-     }
-    },
     "System.String Recurly.Resources.Invoice::get_VatReverseChargeNotes()": {
      "Lines": {
-      "142": {
+      "138": {
        "Hits": 0
       }
      },
@@ -5097,15 +4962,6 @@
     "System.Collections.Generic.List`1<Recurly.Resources.Invoice> Recurly.Resources.InvoiceCollection::get_CreditInvoices()": {
      "Lines": {
       "14": {
-       "Hits": 0
-      }
-     },
-     "Branches": {
-     }
-    },
-    "System.String Recurly.Resources.InvoiceCollection::get_Object()": {
-     "Lines": {
-      "18": {
        "Hits": 0
       }
      },
@@ -5219,7 +5075,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.InvoiceMini::get_Object()": {
+    "System.String Recurly.Resources.InvoiceMini::get_State()": {
      "Lines": {
       "18": {
        "Hits": 0
@@ -5228,18 +5084,9 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.InvoiceMini::get_State()": {
-     "Lines": {
-      "22": {
-       "Hits": 0
-      }
-     },
-     "Branches": {
-     }
-    },
     "System.String Recurly.Resources.InvoiceMini::get_Type()": {
      "Lines": {
-      "26": {
+      "22": {
        "Hits": 0
       }
      },
@@ -5510,7 +5357,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.LineItem::get_Object()": {
+    "System.String Recurly.Resources.LineItem::get_Origin()": {
      "Lines": {
       "80": {
        "Hits": 0
@@ -5519,7 +5366,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.LineItem::get_Origin()": {
+    "System.String Recurly.Resources.LineItem::get_OriginalLineItemInvoiceId()": {
      "Lines": {
       "84": {
        "Hits": 0
@@ -5528,7 +5375,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.LineItem::get_OriginalLineItemInvoiceId()": {
+    "System.String Recurly.Resources.LineItem::get_PlanCode()": {
      "Lines": {
       "88": {
        "Hits": 0
@@ -5537,7 +5384,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.LineItem::get_PlanCode()": {
+    "System.String Recurly.Resources.LineItem::get_PlanId()": {
      "Lines": {
       "92": {
        "Hits": 0
@@ -5546,7 +5393,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.LineItem::get_PlanId()": {
+    "System.String Recurly.Resources.LineItem::get_PreviousLineItemId()": {
      "Lines": {
       "96": {
        "Hits": 0
@@ -5555,7 +5402,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.LineItem::get_PreviousLineItemId()": {
+    "System.String Recurly.Resources.LineItem::get_ProductCode()": {
      "Lines": {
       "100": {
        "Hits": 0
@@ -5564,7 +5411,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.LineItem::get_ProductCode()": {
+    "System.Nullable`1<System.Single> Recurly.Resources.LineItem::get_ProrationRate()": {
      "Lines": {
       "104": {
        "Hits": 0
@@ -5573,7 +5420,7 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.Single> Recurly.Resources.LineItem::get_ProrationRate()": {
+    "System.Nullable`1<System.Int32> Recurly.Resources.LineItem::get_Quantity()": {
      "Lines": {
       "108": {
        "Hits": 0
@@ -5582,7 +5429,7 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.Int32> Recurly.Resources.LineItem::get_Quantity()": {
+    "System.Nullable`1<System.Boolean> Recurly.Resources.LineItem::get_Refund()": {
      "Lines": {
       "112": {
        "Hits": 0
@@ -5591,7 +5438,7 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.Boolean> Recurly.Resources.LineItem::get_Refund()": {
+    "System.Nullable`1<System.Int32> Recurly.Resources.LineItem::get_RefundedQuantity()": {
      "Lines": {
       "116": {
        "Hits": 0
@@ -5600,7 +5447,7 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.Int32> Recurly.Resources.LineItem::get_RefundedQuantity()": {
+    "Recurly.Resources.ShippingAddress Recurly.Resources.LineItem::get_ShippingAddress()": {
      "Lines": {
       "120": {
        "Hits": 0
@@ -5609,7 +5456,7 @@
      "Branches": {
      }
     },
-    "Recurly.Resources.ShippingAddress Recurly.Resources.LineItem::get_ShippingAddress()": {
+    "System.Nullable`1<System.DateTime> Recurly.Resources.LineItem::get_StartDate()": {
      "Lines": {
       "124": {
        "Hits": 0
@@ -5618,7 +5465,7 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.DateTime> Recurly.Resources.LineItem::get_StartDate()": {
+    "System.String Recurly.Resources.LineItem::get_State()": {
      "Lines": {
       "128": {
        "Hits": 0
@@ -5627,7 +5474,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.LineItem::get_State()": {
+    "System.String Recurly.Resources.LineItem::get_SubscriptionId()": {
      "Lines": {
       "132": {
        "Hits": 0
@@ -5636,7 +5483,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.LineItem::get_SubscriptionId()": {
+    "System.Nullable`1<System.Single> Recurly.Resources.LineItem::get_Subtotal()": {
      "Lines": {
       "136": {
        "Hits": 0
@@ -5645,7 +5492,7 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.Single> Recurly.Resources.LineItem::get_Subtotal()": {
+    "System.Nullable`1<System.Single> Recurly.Resources.LineItem::get_Tax()": {
      "Lines": {
       "140": {
        "Hits": 0
@@ -5654,7 +5501,7 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.Single> Recurly.Resources.LineItem::get_Tax()": {
+    "System.String Recurly.Resources.LineItem::get_TaxCode()": {
      "Lines": {
       "144": {
        "Hits": 0
@@ -5663,7 +5510,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.LineItem::get_TaxCode()": {
+    "System.Nullable`1<System.Boolean> Recurly.Resources.LineItem::get_TaxExempt()": {
      "Lines": {
       "148": {
        "Hits": 0
@@ -5672,7 +5519,7 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.Boolean> Recurly.Resources.LineItem::get_TaxExempt()": {
+    "Recurly.Resources.TaxInfo Recurly.Resources.LineItem::get_TaxInfo()": {
      "Lines": {
       "152": {
        "Hits": 0
@@ -5681,7 +5528,7 @@
      "Branches": {
      }
     },
-    "Recurly.Resources.TaxInfo Recurly.Resources.LineItem::get_TaxInfo()": {
+    "System.Nullable`1<System.Boolean> Recurly.Resources.LineItem::get_Taxable()": {
      "Lines": {
       "156": {
        "Hits": 0
@@ -5690,7 +5537,7 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.Boolean> Recurly.Resources.LineItem::get_Taxable()": {
+    "System.String Recurly.Resources.LineItem::get_Type()": {
      "Lines": {
       "160": {
        "Hits": 0
@@ -5699,7 +5546,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.LineItem::get_Type()": {
+    "System.Nullable`1<System.Single> Recurly.Resources.LineItem::get_UnitAmount()": {
      "Lines": {
       "164": {
        "Hits": 0
@@ -5708,7 +5555,7 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.Single> Recurly.Resources.LineItem::get_UnitAmount()": {
+    "System.Nullable`1<System.DateTime> Recurly.Resources.LineItem::get_UpdatedAt()": {
      "Lines": {
       "168": {
        "Hits": 0
@@ -5717,18 +5564,9 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.DateTime> Recurly.Resources.LineItem::get_UpdatedAt()": {
-     "Lines": {
-      "172": {
-       "Hits": 0
-      }
-     },
-     "Branches": {
-     }
-    },
     "System.String Recurly.Resources.LineItem::get_Uuid()": {
      "Lines": {
-      "176": {
+      "172": {
        "Hits": 0
       }
      },
@@ -5854,15 +5692,6 @@
     "System.String Recurly.Resources.LineItemList::get_Next()": {
      "Lines": {
       "18": {
-       "Hits": 0
-      }
-     },
-     "Branches": {
-     }
-    },
-    "System.String Recurly.Resources.LineItemList::get_Object()": {
-     "Lines": {
-      "22": {
        "Hits": 0
       }
      },
@@ -6012,7 +5841,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.Plan::get_Object()": {
+    "System.String Recurly.Resources.Plan::get_SetupFeeAccountingCode()": {
      "Lines": {
       "58": {
        "Hits": 0
@@ -6021,7 +5850,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.Plan::get_SetupFeeAccountingCode()": {
+    "System.String Recurly.Resources.Plan::get_State()": {
      "Lines": {
       "62": {
        "Hits": 0
@@ -6030,7 +5859,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.Plan::get_State()": {
+    "System.String Recurly.Resources.Plan::get_TaxCode()": {
      "Lines": {
       "66": {
        "Hits": 0
@@ -6039,7 +5868,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.Plan::get_TaxCode()": {
+    "System.Nullable`1<System.Boolean> Recurly.Resources.Plan::get_TaxExempt()": {
      "Lines": {
       "70": {
        "Hits": 0
@@ -6048,7 +5877,7 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.Boolean> Recurly.Resources.Plan::get_TaxExempt()": {
+    "System.Nullable`1<System.Int32> Recurly.Resources.Plan::get_TotalBillingCycles()": {
      "Lines": {
       "74": {
        "Hits": 0
@@ -6057,7 +5886,7 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.Int32> Recurly.Resources.Plan::get_TotalBillingCycles()": {
+    "System.Nullable`1<System.Int32> Recurly.Resources.Plan::get_TrialLength()": {
      "Lines": {
       "78": {
        "Hits": 0
@@ -6066,7 +5895,7 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.Int32> Recurly.Resources.Plan::get_TrialLength()": {
+    "System.String Recurly.Resources.Plan::get_TrialUnit()": {
      "Lines": {
       "82": {
        "Hits": 0
@@ -6075,18 +5904,9 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.Plan::get_TrialUnit()": {
-     "Lines": {
-      "86": {
-       "Hits": 0
-      }
-     },
-     "Branches": {
-     }
-    },
     "System.Nullable`1<System.DateTime> Recurly.Resources.Plan::get_UpdatedAt()": {
      "Lines": {
-      "90": {
+      "86": {
        "Hits": 0
       }
      },
@@ -6266,15 +6086,6 @@
     "System.String Recurly.Resources.PlanMini::get_Name()": {
      "Lines": {
       "18": {
-       "Hits": 0
-      }
-     },
-     "Branches": {
-     }
-    },
-    "System.String Recurly.Resources.PlanMini::get_Object()": {
-     "Lines": {
-      "22": {
        "Hits": 0
       }
      },
@@ -6917,7 +6728,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.Site::get_Object()": {
+    "System.String Recurly.Resources.Site::get_PublicApiKey()": {
      "Lines": {
       "34": {
        "Hits": 0
@@ -6926,7 +6737,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.Site::get_PublicApiKey()": {
+    "Recurly.Resources.Settings Recurly.Resources.Site::get_Settings()": {
      "Lines": {
       "38": {
        "Hits": 0
@@ -6935,7 +6746,7 @@
      "Branches": {
      }
     },
-    "Recurly.Resources.Settings Recurly.Resources.Site::get_Settings()": {
+    "System.String Recurly.Resources.Site::get_Subdomain()": {
      "Lines": {
       "42": {
        "Hits": 0
@@ -6944,18 +6755,9 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.Site::get_Subdomain()": {
-     "Lines": {
-      "46": {
-       "Hits": 0
-      }
-     },
-     "Branches": {
-     }
-    },
     "System.Nullable`1<System.DateTime> Recurly.Resources.Site::get_UpdatedAt()": {
      "Lines": {
-      "50": {
+      "46": {
        "Hits": 0
       }
      },
@@ -7155,7 +6957,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.Subscription::get_Object()": {
+    "System.Nullable`1<System.DateTime> Recurly.Resources.Subscription::get_PausedAt()": {
      "Lines": {
       "94": {
        "Hits": 0
@@ -7164,7 +6966,7 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.DateTime> Recurly.Resources.Subscription::get_PausedAt()": {
+    "Recurly.Resources.SubscriptionChange Recurly.Resources.Subscription::get_PendingChange()": {
      "Lines": {
       "98": {
        "Hits": 0
@@ -7173,7 +6975,7 @@
      "Branches": {
      }
     },
-    "Recurly.Resources.SubscriptionChange Recurly.Resources.Subscription::get_PendingChange()": {
+    "Recurly.Resources.PlanMini Recurly.Resources.Subscription::get_Plan()": {
      "Lines": {
       "102": {
        "Hits": 0
@@ -7182,7 +6984,7 @@
      "Branches": {
      }
     },
-    "Recurly.Resources.PlanMini Recurly.Resources.Subscription::get_Plan()": {
+    "System.String Recurly.Resources.Subscription::get_PoNumber()": {
      "Lines": {
       "106": {
        "Hits": 0
@@ -7191,7 +6993,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.Subscription::get_PoNumber()": {
+    "System.Nullable`1<System.Int32> Recurly.Resources.Subscription::get_Quantity()": {
      "Lines": {
       "110": {
        "Hits": 0
@@ -7200,7 +7002,7 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.Int32> Recurly.Resources.Subscription::get_Quantity()": {
+    "System.Nullable`1<System.Int32> Recurly.Resources.Subscription::get_RemainingBillingCycles()": {
      "Lines": {
       "114": {
        "Hits": 0
@@ -7209,7 +7011,7 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.Int32> Recurly.Resources.Subscription::get_RemainingBillingCycles()": {
+    "System.Nullable`1<System.Int32> Recurly.Resources.Subscription::get_RemainingPauseCycles()": {
      "Lines": {
       "118": {
        "Hits": 0
@@ -7218,7 +7020,7 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.Int32> Recurly.Resources.Subscription::get_RemainingPauseCycles()": {
+    "System.Nullable`1<System.Int32> Recurly.Resources.Subscription::get_RenewalBillingCycles()": {
      "Lines": {
       "122": {
        "Hits": 0
@@ -7227,7 +7029,7 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.Int32> Recurly.Resources.Subscription::get_RenewalBillingCycles()": {
+    "Recurly.Resources.ShippingAddress Recurly.Resources.Subscription::get_ShippingAddress()": {
      "Lines": {
       "126": {
        "Hits": 0
@@ -7236,7 +7038,7 @@
      "Branches": {
      }
     },
-    "Recurly.Resources.ShippingAddress Recurly.Resources.Subscription::get_ShippingAddress()": {
+    "System.String Recurly.Resources.Subscription::get_State()": {
      "Lines": {
       "130": {
        "Hits": 0
@@ -7245,7 +7047,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.Subscription::get_State()": {
+    "System.Nullable`1<System.Single> Recurly.Resources.Subscription::get_Subtotal()": {
      "Lines": {
       "134": {
        "Hits": 0
@@ -7254,7 +7056,7 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.Single> Recurly.Resources.Subscription::get_Subtotal()": {
+    "System.String Recurly.Resources.Subscription::get_TermsAndConditions()": {
      "Lines": {
       "138": {
        "Hits": 0
@@ -7263,7 +7065,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.Subscription::get_TermsAndConditions()": {
+    "System.Nullable`1<System.Int32> Recurly.Resources.Subscription::get_TotalBillingCycles()": {
      "Lines": {
       "142": {
        "Hits": 0
@@ -7272,7 +7074,7 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.Int32> Recurly.Resources.Subscription::get_TotalBillingCycles()": {
+    "System.Nullable`1<System.DateTime> Recurly.Resources.Subscription::get_TrialEndsAt()": {
      "Lines": {
       "146": {
        "Hits": 0
@@ -7281,7 +7083,7 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.DateTime> Recurly.Resources.Subscription::get_TrialEndsAt()": {
+    "System.Nullable`1<System.DateTime> Recurly.Resources.Subscription::get_TrialStartedAt()": {
      "Lines": {
       "150": {
        "Hits": 0
@@ -7290,7 +7092,7 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.DateTime> Recurly.Resources.Subscription::get_TrialStartedAt()": {
+    "System.Nullable`1<System.Single> Recurly.Resources.Subscription::get_UnitAmount()": {
      "Lines": {
       "154": {
        "Hits": 0
@@ -7299,7 +7101,7 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.Single> Recurly.Resources.Subscription::get_UnitAmount()": {
+    "System.Nullable`1<System.DateTime> Recurly.Resources.Subscription::get_UpdatedAt()": {
      "Lines": {
       "158": {
        "Hits": 0
@@ -7308,18 +7110,9 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.DateTime> Recurly.Resources.Subscription::get_UpdatedAt()": {
-     "Lines": {
-      "162": {
-       "Hits": 0
-      }
-     },
-     "Branches": {
-     }
-    },
     "System.String Recurly.Resources.Subscription::get_Uuid()": {
      "Lines": {
-      "166": {
+      "162": {
        "Hits": 0
       }
      },
@@ -7366,7 +7159,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.SubscriptionAddOn::get_Object()": {
+    "System.Nullable`1<System.Int32> Recurly.Resources.SubscriptionAddOn::get_Quantity()": {
      "Lines": {
       "26": {
        "Hits": 0
@@ -7375,7 +7168,7 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.Int32> Recurly.Resources.SubscriptionAddOn::get_Quantity()": {
+    "System.String Recurly.Resources.SubscriptionAddOn::get_SubscriptionId()": {
      "Lines": {
       "30": {
        "Hits": 0
@@ -7384,7 +7177,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.SubscriptionAddOn::get_SubscriptionId()": {
+    "System.Nullable`1<System.Single> Recurly.Resources.SubscriptionAddOn::get_UnitAmount()": {
      "Lines": {
       "34": {
        "Hits": 0
@@ -7393,18 +7186,9 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.Single> Recurly.Resources.SubscriptionAddOn::get_UnitAmount()": {
-     "Lines": {
-      "38": {
-       "Hits": 0
-      }
-     },
-     "Branches": {
-     }
-    },
     "System.Nullable`1<System.DateTime> Recurly.Resources.SubscriptionAddOn::get_UpdatedAt()": {
      "Lines": {
-      "42": {
+      "38": {
        "Hits": 0
       }
      },
@@ -7509,7 +7293,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.SubscriptionChange::get_Object()": {
+    "Recurly.Resources.PlanMini Recurly.Resources.SubscriptionChange::get_Plan()": {
      "Lines": {
       "34": {
        "Hits": 0
@@ -7518,7 +7302,7 @@
      "Branches": {
      }
     },
-    "Recurly.Resources.PlanMini Recurly.Resources.SubscriptionChange::get_Plan()": {
+    "System.Nullable`1<System.Int32> Recurly.Resources.SubscriptionChange::get_Quantity()": {
      "Lines": {
       "38": {
        "Hits": 0
@@ -7527,7 +7311,7 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.Int32> Recurly.Resources.SubscriptionChange::get_Quantity()": {
+    "System.String Recurly.Resources.SubscriptionChange::get_SubscriptionId()": {
      "Lines": {
       "42": {
        "Hits": 0
@@ -7536,7 +7320,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.SubscriptionChange::get_SubscriptionId()": {
+    "System.Nullable`1<System.Single> Recurly.Resources.SubscriptionChange::get_UnitAmount()": {
      "Lines": {
       "46": {
        "Hits": 0
@@ -7545,18 +7329,9 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.Single> Recurly.Resources.SubscriptionChange::get_UnitAmount()": {
-     "Lines": {
-      "50": {
-       "Hits": 0
-      }
-     },
-     "Branches": {
-     }
-    },
     "System.Nullable`1<System.DateTime> Recurly.Resources.SubscriptionChange::get_UpdatedAt()": {
      "Lines": {
-      "54": {
+      "50": {
        "Hits": 0
       }
      },
@@ -8208,7 +7983,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.Transaction::get_Object()": {
+    "System.String Recurly.Resources.Transaction::get_Origin()": {
      "Lines": {
       "100": {
        "Hits": 0
@@ -8217,7 +7992,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.Transaction::get_Origin()": {
+    "System.String Recurly.Resources.Transaction::get_OriginalTransactionId()": {
      "Lines": {
       "104": {
        "Hits": 0
@@ -8226,7 +8001,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.Transaction::get_OriginalTransactionId()": {
+    "System.Collections.Generic.Dictionary`2<System.String,System.String> Recurly.Resources.Transaction::get_PaymentGateway()": {
      "Lines": {
       "108": {
        "Hits": 0
@@ -8235,7 +8010,7 @@
      "Branches": {
      }
     },
-    "System.Collections.Generic.Dictionary`2<System.String,System.String> Recurly.Resources.Transaction::get_PaymentGateway()": {
+    "System.Collections.Generic.Dictionary`2<System.String,System.String> Recurly.Resources.Transaction::get_PaymentMethod()": {
      "Lines": {
       "112": {
        "Hits": 0
@@ -8244,7 +8019,7 @@
      "Branches": {
      }
     },
-    "System.Collections.Generic.Dictionary`2<System.String,System.String> Recurly.Resources.Transaction::get_PaymentMethod()": {
+    "System.Nullable`1<System.Boolean> Recurly.Resources.Transaction::get_Refunded()": {
      "Lines": {
       "116": {
        "Hits": 0
@@ -8253,7 +8028,7 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.Boolean> Recurly.Resources.Transaction::get_Refunded()": {
+    "System.String Recurly.Resources.Transaction::get_Status()": {
      "Lines": {
       "120": {
        "Hits": 0
@@ -8262,7 +8037,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.Transaction::get_Status()": {
+    "System.String Recurly.Resources.Transaction::get_StatusCode()": {
      "Lines": {
       "124": {
        "Hits": 0
@@ -8271,7 +8046,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.Transaction::get_StatusCode()": {
+    "System.String Recurly.Resources.Transaction::get_StatusMessage()": {
      "Lines": {
       "128": {
        "Hits": 0
@@ -8280,7 +8055,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.Transaction::get_StatusMessage()": {
+    "System.Collections.Generic.List`1<System.String> Recurly.Resources.Transaction::get_SubscriptionIds()": {
      "Lines": {
       "132": {
        "Hits": 0
@@ -8289,7 +8064,7 @@
      "Branches": {
      }
     },
-    "System.Collections.Generic.List`1<System.String> Recurly.Resources.Transaction::get_SubscriptionIds()": {
+    "System.Nullable`1<System.Boolean> Recurly.Resources.Transaction::get_Success()": {
      "Lines": {
       "136": {
        "Hits": 0
@@ -8298,7 +8073,7 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.Boolean> Recurly.Resources.Transaction::get_Success()": {
+    "System.String Recurly.Resources.Transaction::get_Type()": {
      "Lines": {
       "140": {
        "Hits": 0
@@ -8307,7 +8082,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.Transaction::get_Type()": {
+    "System.String Recurly.Resources.Transaction::get_Uuid()": {
      "Lines": {
       "144": {
        "Hits": 0
@@ -8316,7 +8091,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.Transaction::get_Uuid()": {
+    "System.Nullable`1<System.DateTime> Recurly.Resources.Transaction::get_VoidedAt()": {
      "Lines": {
       "148": {
        "Hits": 0
@@ -8325,18 +8100,9 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.DateTime> Recurly.Resources.Transaction::get_VoidedAt()": {
-     "Lines": {
-      "152": {
-       "Hits": 0
-      }
-     },
-     "Branches": {
-     }
-    },
     "Recurly.Resources.InvoiceMini Recurly.Resources.Transaction::get_VoidedByInvoice()": {
      "Lines": {
-      "156": {
+      "152": {
        "Hits": 0
       }
      },
@@ -8383,7 +8149,7 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.UniqueCouponCode::get_Object()": {
+    "System.Nullable`1<System.DateTime> Recurly.Resources.UniqueCouponCode::get_RedeemedAt()": {
      "Lines": {
       "26": {
        "Hits": 0
@@ -8392,7 +8158,7 @@
      "Branches": {
      }
     },
-    "System.Nullable`1<System.DateTime> Recurly.Resources.UniqueCouponCode::get_RedeemedAt()": {
+    "System.String Recurly.Resources.UniqueCouponCode::get_State()": {
      "Lines": {
       "30": {
        "Hits": 0
@@ -8401,18 +8167,9 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.UniqueCouponCode::get_State()": {
-     "Lines": {
-      "34": {
-       "Hits": 0
-      }
-     },
-     "Branches": {
-     }
-    },
     "System.Nullable`1<System.DateTime> Recurly.Resources.UniqueCouponCode::get_UpdatedAt()": {
      "Lines": {
-      "38": {
+      "34": {
        "Hits": 0
       }
      },
@@ -8477,18 +8234,9 @@
      "Branches": {
      }
     },
-    "System.String Recurly.Resources.User::get_Object()": {
-     "Lines": {
-      "34": {
-       "Hits": 0
-      }
-     },
-     "Branches": {
-     }
-    },
     "System.String Recurly.Resources.User::get_TimeZone()": {
      "Lines": {
-      "38": {
+      "34": {
        "Hits": 0
       }
      },

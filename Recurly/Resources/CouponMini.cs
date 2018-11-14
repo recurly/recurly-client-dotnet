@@ -29,10 +29,6 @@ namespace Recurly.Resources {
     [DeserializeAs(Name = "name")]
     public string Name { get; set; }
   
-    /// <value>Object type</value>
-    [DeserializeAs(Name = "object")]
-    public string Object { get; set; }
-  
     /// <value>Indicates if the coupon is redeemable, and if it is not, why.</value>
     [DeserializeAs(Name = "state")]
     public string State { get; set; }

@@ -21,10 +21,6 @@ namespace Recurly.Resources {
     [DeserializeAs(Name = "id")]
     public string Id { get; set; }
   
-    /// <value>Object type</value>
-    [DeserializeAs(Name = "object")]
-    public string Object { get; set; }
-  
     /// <value>The date and time the unique coupon code was redeemed.</value>
     [DeserializeAs(Name = "redeemed_at")]
     public DateTime? RedeemedAt { get; set; }

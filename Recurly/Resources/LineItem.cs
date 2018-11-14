@@ -75,10 +75,6 @@ namespace Recurly.Resources {
     [DeserializeAs(Name = "legacy_category")]
     public string LegacyCategory { get; set; }
   
-    /// <value>Object type</value>
-    [DeserializeAs(Name = "object")]
-    public string Object { get; set; }
-  
     /// <value>A credit created from an original charge will have the value of the charge's origin.</value>
     [DeserializeAs(Name = "origin")]
     public string Origin { get; set; }

@@ -37,10 +37,6 @@ namespace Recurly.Resources {
     [DeserializeAs(Name = "last_name")]
     public string LastName { get; set; }
   
-    /// <value>Object type</value>
-    [DeserializeAs(Name = "object")]
-    public string Object { get; set; }
-  
     
     [DeserializeAs(Name = "payment_method")]
     public Dictionary<string, string> PaymentMethod { get; set; }
