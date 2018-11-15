@@ -29,8 +29,6 @@ namespace Recurly {
         public IRestResponse<T> MakeRequest<T>(Method method, string url, Request body = null) where T: new() {
             Console.WriteLine($"Calling {url}");
             var request = new RestSharp.RestRequest(url, method);
-            //request.RequestFormat = DataFormat.Json;
-            //request.JsonSerializer = new NewtonsoftJsonSerializer();
 
             if (body != null) {
               DefaultContractResolver contractResolver = new DefaultContractResolver
@@ -55,7 +53,8 @@ namespace Recurly {
             Console.WriteLine($"Status: {status}");
             Console.WriteLine($"Content: {resp.Content}");
             if (status < 200 || status >= 300) {
-                throw new ApiError("Bad responses code");
+                var err = JsonConvert.DeserializeObject<ApiError>(resp.Content);
+                throw err;
             }
             return resp;
         }
@@ -68,11 +67,6 @@ namespace Recurly {
                 throw new ApiError("Bad responses code");
             }
             return resp;
-        }
-
-        public Type GetErrorClass(string key) {
-            return typeof(ApiError).Assembly.GetTypes()
-            .Where(type => type.IsSubclassOf(typeof(ApiError)) && type.Name == key).First();
         }
 
         protected string InterpolatePath(string path, Dictionary<string, object> urlParams) {
