@@ -18,7 +18,7 @@ namespace Recurly {
     /// </returns>
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
     public Pager<Site> ListSites() {
-      var urlParams = new Dictionary<string, object>{  };
+      var urlParams = new Dictionary<string, object>{ };
       var url = this.InterpolatePath("/sites", urlParams);
       return MakeRequest<Pager<Site>>(Method.GET, url).Data;
     }
@@ -31,7 +31,7 @@ namespace Recurly {
     /// </returns>
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
     public Site GetSite() {
-      var urlParams = new Dictionary<string, object>{  };
+      var urlParams = new Dictionary<string, object>{ };
       var url = this.InterpolatePath("/sites/{site_id}", urlParams);
       return MakeRequest<Site>(Method.GET, url).Data;
     }
@@ -44,7 +44,7 @@ namespace Recurly {
     /// </returns>
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
     public Pager<Account> ListAccounts() {
-      var urlParams = new Dictionary<string, object>{  };
+      var urlParams = new Dictionary<string, object>{ };
       var url = this.InterpolatePath("/sites/{site_id}/accounts", urlParams);
       return MakeRequest<Pager<Account>>(Method.GET, url).Data;
     }
@@ -57,7 +57,7 @@ namespace Recurly {
     /// </returns>
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
     public Account CreateAccount(AccountCreate body) {
-      var urlParams = new Dictionary<string, object>{ { "body", body } };
+      var urlParams = new Dictionary<string, object>{ };
       var url = this.InterpolatePath("/sites/{site_id}/accounts", urlParams);
       return MakeRequest<Account>(Method.POST, url, body).Data;
     }
@@ -83,7 +83,7 @@ namespace Recurly {
     /// </returns>
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
     public Account UpdateAccount(string account_id, AccountUpdate body) {
-      var urlParams = new Dictionary<string, object>{ { "account_id", account_id },{ "body", body } };
+      var urlParams = new Dictionary<string, object>{ { "account_id", account_id } };
       var url = this.InterpolatePath("/sites/{site_id}/accounts/{account_id}", urlParams);
       return MakeRequest<Account>(Method.PUT, url, body).Data;
     }
@@ -122,7 +122,7 @@ namespace Recurly {
     /// </returns>
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
     public AccountAcquisition UpdateAccountAcquisition(string account_id, AccountAcquisitionUpdatable body) {
-      var urlParams = new Dictionary<string, object>{ { "account_id", account_id },{ "body", body } };
+      var urlParams = new Dictionary<string, object>{ { "account_id", account_id } };
       var url = this.InterpolatePath("/sites/{site_id}/accounts/{account_id}/acquisition", urlParams);
       return MakeRequest<AccountAcquisition>(Method.PUT, url, body).Data;
     }
@@ -187,7 +187,7 @@ namespace Recurly {
     /// </returns>
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
     public BillingInfo UpdateBillingInfo(string account_id, BillingInfoCreate body) {
-      var urlParams = new Dictionary<string, object>{ { "account_id", account_id },{ "body", body } };
+      var urlParams = new Dictionary<string, object>{ { "account_id", account_id } };
       var url = this.InterpolatePath("/sites/{site_id}/accounts/{account_id}/billing_info", urlParams);
       return MakeRequest<BillingInfo>(Method.PUT, url, body).Data;
     }
@@ -278,7 +278,7 @@ namespace Recurly {
     /// </returns>
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
     public InvoiceCollection CreateInvoice(string account_id, InvoiceCreate body) {
-      var urlParams = new Dictionary<string, object>{ { "account_id", account_id },{ "body", body } };
+      var urlParams = new Dictionary<string, object>{ { "account_id", account_id } };
       var url = this.InterpolatePath("/sites/{site_id}/accounts/{account_id}/invoices", urlParams);
       return MakeRequest<InvoiceCollection>(Method.POST, url, body).Data;
     }
@@ -291,7 +291,7 @@ namespace Recurly {
     /// </returns>
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
     public InvoiceCollection PreviewInvoice(string account_id, InvoiceCreate body) {
-      var urlParams = new Dictionary<string, object>{ { "account_id", account_id },{ "body", body } };
+      var urlParams = new Dictionary<string, object>{ { "account_id", account_id } };
       var url = this.InterpolatePath("/sites/{site_id}/accounts/{account_id}/invoices/preview", urlParams);
       return MakeRequest<InvoiceCollection>(Method.POST, url, body).Data;
     }
@@ -317,7 +317,7 @@ namespace Recurly {
     /// </returns>
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
     public LineItem CreateLineItem(string account_id, LineItemCreate body) {
-      var urlParams = new Dictionary<string, object>{ { "account_id", account_id },{ "body", body } };
+      var urlParams = new Dictionary<string, object>{ { "account_id", account_id } };
       var url = this.InterpolatePath("/sites/{site_id}/accounts/{account_id}/line_items", urlParams);
       return MakeRequest<LineItem>(Method.POST, url, body).Data;
     }
@@ -343,7 +343,7 @@ namespace Recurly {
     /// </returns>
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
     public AccountNote GetAccountNote(string account_id, string account_note_id) {
-      var urlParams = new Dictionary<string, object>{ { "account_id", account_id },{ "account_note_id", account_note_id } };
+      var urlParams = new Dictionary<string, object>{ { "account_id", account_id }, { "account_note_id", account_note_id } };
       var url = this.InterpolatePath("/sites/{site_id}/accounts/{account_id}/notes/{account_note_id}", urlParams);
       return MakeRequest<AccountNote>(Method.GET, url).Data;
     }
@@ -369,7 +369,7 @@ namespace Recurly {
     /// </returns>
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
     public ShippingAddress CreateShippingAddress(string account_id, ShippingAddressCreate body) {
-      var urlParams = new Dictionary<string, object>{ { "account_id", account_id },{ "body", body } };
+      var urlParams = new Dictionary<string, object>{ { "account_id", account_id } };
       var url = this.InterpolatePath("/sites/{site_id}/accounts/{account_id}/shipping_addresses", urlParams);
       return MakeRequest<ShippingAddress>(Method.POST, url, body).Data;
     }
@@ -382,7 +382,7 @@ namespace Recurly {
     /// </returns>
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
     public ShippingAddress GetShippingAddress(string account_id, string shipping_address_id) {
-      var urlParams = new Dictionary<string, object>{ { "account_id", account_id },{ "shipping_address_id", shipping_address_id } };
+      var urlParams = new Dictionary<string, object>{ { "account_id", account_id }, { "shipping_address_id", shipping_address_id } };
       var url = this.InterpolatePath("/sites/{site_id}/accounts/{account_id}/shipping_addresses/{shipping_address_id}", urlParams);
       return MakeRequest<ShippingAddress>(Method.GET, url).Data;
     }
@@ -395,7 +395,7 @@ namespace Recurly {
     /// </returns>
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
     public ShippingAddress UpdateShippingAddress(string account_id, string shipping_address_id, ShippingAddressUpdate body) {
-      var urlParams = new Dictionary<string, object>{ { "account_id", account_id },{ "shipping_address_id", shipping_address_id },{ "body", body } };
+      var urlParams = new Dictionary<string, object>{ { "account_id", account_id }, { "shipping_address_id", shipping_address_id } };
       var url = this.InterpolatePath("/sites/{site_id}/accounts/{account_id}/shipping_addresses/{shipping_address_id}", urlParams);
       return MakeRequest<ShippingAddress>(Method.PUT, url, body).Data;
     }
@@ -408,7 +408,7 @@ namespace Recurly {
     /// </returns>
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
     public void RemoveShippingAddress(string account_id, string shipping_address_id) {
-      var urlParams = new Dictionary<string, object>{ { "account_id", account_id },{ "shipping_address_id", shipping_address_id } };
+      var urlParams = new Dictionary<string, object>{ { "account_id", account_id }, { "shipping_address_id", shipping_address_id } };
       var url = this.InterpolatePath("/sites/{site_id}/accounts/{account_id}/shipping_addresses/{shipping_address_id}", urlParams);
       MakeRequest(Method.DELETE, url);
     }
@@ -460,7 +460,7 @@ namespace Recurly {
     /// </returns>
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
     public AccountAcquisition ListAccountAcquisition() {
-      var urlParams = new Dictionary<string, object>{  };
+      var urlParams = new Dictionary<string, object>{ };
       var url = this.InterpolatePath("/sites/{site_id}/acquisitions", urlParams);
       return MakeRequest<AccountAcquisition>(Method.GET, url).Data;
     }
@@ -473,7 +473,7 @@ namespace Recurly {
     /// </returns>
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
     public Pager<Coupon> ListCoupons() {
-      var urlParams = new Dictionary<string, object>{  };
+      var urlParams = new Dictionary<string, object>{ };
       var url = this.InterpolatePath("/sites/{site_id}/coupons", urlParams);
       return MakeRequest<Pager<Coupon>>(Method.GET, url).Data;
     }
@@ -486,7 +486,7 @@ namespace Recurly {
     /// </returns>
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
     public Coupon CreateCoupon(CouponCreate body) {
-      var urlParams = new Dictionary<string, object>{ { "body", body } };
+      var urlParams = new Dictionary<string, object>{ };
       var url = this.InterpolatePath("/sites/{site_id}/coupons", urlParams);
       return MakeRequest<Coupon>(Method.POST, url, body).Data;
     }
@@ -512,7 +512,7 @@ namespace Recurly {
     /// </returns>
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
     public Coupon UpdateCoupon(string coupon_id, CouponUpdate body) {
-      var urlParams = new Dictionary<string, object>{ { "coupon_id", coupon_id },{ "body", body } };
+      var urlParams = new Dictionary<string, object>{ { "coupon_id", coupon_id } };
       var url = this.InterpolatePath("/sites/{site_id}/coupons/{coupon_id}", urlParams);
       return MakeRequest<Coupon>(Method.PUT, url, body).Data;
     }
@@ -538,7 +538,7 @@ namespace Recurly {
     /// </returns>
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
     public Pager<CreditPayment> ListCreditPayments() {
-      var urlParams = new Dictionary<string, object>{  };
+      var urlParams = new Dictionary<string, object>{ };
       var url = this.InterpolatePath("/sites/{site_id}/credit_payments", urlParams);
       return MakeRequest<Pager<CreditPayment>>(Method.GET, url).Data;
     }
@@ -564,7 +564,7 @@ namespace Recurly {
     /// </returns>
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
     public Pager<CustomFieldDefinition> ListCustomFieldDefinitions() {
-      var urlParams = new Dictionary<string, object>{  };
+      var urlParams = new Dictionary<string, object>{ };
       var url = this.InterpolatePath("/sites/{site_id}/custom_field_definitions", urlParams);
       return MakeRequest<Pager<CustomFieldDefinition>>(Method.GET, url).Data;
     }
@@ -590,7 +590,7 @@ namespace Recurly {
     /// </returns>
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
     public Pager<Invoice> ListInvoices() {
-      var urlParams = new Dictionary<string, object>{  };
+      var urlParams = new Dictionary<string, object>{ };
       var url = this.InterpolatePath("/sites/{site_id}/invoices", urlParams);
       return MakeRequest<Pager<Invoice>>(Method.GET, url).Data;
     }
@@ -616,7 +616,7 @@ namespace Recurly {
     /// </returns>
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
     public Invoice PutInvoice(string invoice_id, InvoiceUpdatable body) {
-      var urlParams = new Dictionary<string, object>{ { "invoice_id", invoice_id },{ "body", body } };
+      var urlParams = new Dictionary<string, object>{ { "invoice_id", invoice_id } };
       var url = this.InterpolatePath("/sites/{site_id}/invoices/{invoice_id}", urlParams);
       return MakeRequest<Invoice>(Method.PUT, url, body).Data;
     }
@@ -720,7 +720,7 @@ namespace Recurly {
     /// </returns>
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
     public Invoice RefundInvoice(string invoice_id, InvoiceRefund body) {
-      var urlParams = new Dictionary<string, object>{ { "invoice_id", invoice_id },{ "body", body } };
+      var urlParams = new Dictionary<string, object>{ { "invoice_id", invoice_id } };
       var url = this.InterpolatePath("/sites/{site_id}/invoices/{invoice_id}/refund", urlParams);
       return MakeRequest<Invoice>(Method.POST, url, body).Data;
     }
@@ -733,7 +733,7 @@ namespace Recurly {
     /// </returns>
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
     public Pager<LineItem> ListLineItems() {
-      var urlParams = new Dictionary<string, object>{  };
+      var urlParams = new Dictionary<string, object>{ };
       var url = this.InterpolatePath("/sites/{site_id}/line_items", urlParams);
       return MakeRequest<Pager<LineItem>>(Method.GET, url).Data;
     }
@@ -772,7 +772,7 @@ namespace Recurly {
     /// </returns>
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
     public Pager<Plan> ListPlans() {
-      var urlParams = new Dictionary<string, object>{  };
+      var urlParams = new Dictionary<string, object>{ };
       var url = this.InterpolatePath("/sites/{site_id}/plans", urlParams);
       return MakeRequest<Pager<Plan>>(Method.GET, url).Data;
     }
@@ -785,7 +785,7 @@ namespace Recurly {
     /// </returns>
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
     public Plan CreatePlan(PlanCreate body) {
-      var urlParams = new Dictionary<string, object>{ { "body", body } };
+      var urlParams = new Dictionary<string, object>{ };
       var url = this.InterpolatePath("/sites/{site_id}/plans", urlParams);
       return MakeRequest<Plan>(Method.POST, url, body).Data;
     }
@@ -811,7 +811,7 @@ namespace Recurly {
     /// </returns>
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
     public Plan UpdatePlan(string plan_id, PlanUpdate body) {
-      var urlParams = new Dictionary<string, object>{ { "plan_id", plan_id },{ "body", body } };
+      var urlParams = new Dictionary<string, object>{ { "plan_id", plan_id } };
       var url = this.InterpolatePath("/sites/{site_id}/plans/{plan_id}", urlParams);
       return MakeRequest<Plan>(Method.PUT, url, body).Data;
     }
@@ -850,7 +850,7 @@ namespace Recurly {
     /// </returns>
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
     public AddOn CreatePlanAddOn(string plan_id, AddOnCreate body) {
-      var urlParams = new Dictionary<string, object>{ { "plan_id", plan_id },{ "body", body } };
+      var urlParams = new Dictionary<string, object>{ { "plan_id", plan_id } };
       var url = this.InterpolatePath("/sites/{site_id}/plans/{plan_id}/add_ons", urlParams);
       return MakeRequest<AddOn>(Method.POST, url, body).Data;
     }
@@ -863,7 +863,7 @@ namespace Recurly {
     /// </returns>
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
     public AddOn GetPlanAddOn(string add_on_id, string plan_id) {
-      var urlParams = new Dictionary<string, object>{ { "add_on_id", add_on_id },{ "plan_id", plan_id } };
+      var urlParams = new Dictionary<string, object>{ { "add_on_id", add_on_id }, { "plan_id", plan_id } };
       var url = this.InterpolatePath("/sites/{site_id}/plans/{plan_id}/add_ons/{add_on_id}", urlParams);
       return MakeRequest<AddOn>(Method.GET, url).Data;
     }
@@ -876,7 +876,7 @@ namespace Recurly {
     /// </returns>
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
     public AddOn UpdatePlanAddOn(string add_on_id, string plan_id, AddOnUpdate body) {
-      var urlParams = new Dictionary<string, object>{ { "add_on_id", add_on_id },{ "plan_id", plan_id },{ "body", body } };
+      var urlParams = new Dictionary<string, object>{ { "add_on_id", add_on_id }, { "plan_id", plan_id } };
       var url = this.InterpolatePath("/sites/{site_id}/plans/{plan_id}/add_ons/{add_on_id}", urlParams);
       return MakeRequest<AddOn>(Method.PUT, url, body).Data;
     }
@@ -889,7 +889,7 @@ namespace Recurly {
     /// </returns>
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
     public AddOn RemovePlanAddOn(string add_on_id, string plan_id) {
-      var urlParams = new Dictionary<string, object>{ { "add_on_id", add_on_id },{ "plan_id", plan_id } };
+      var urlParams = new Dictionary<string, object>{ { "add_on_id", add_on_id }, { "plan_id", plan_id } };
       var url = this.InterpolatePath("/sites/{site_id}/plans/{plan_id}/add_ons/{add_on_id}", urlParams);
       return MakeRequest<AddOn>(Method.DELETE, url).Data;
     }
@@ -902,7 +902,7 @@ namespace Recurly {
     /// </returns>
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
     public Pager<AddOn> ListAddOns() {
-      var urlParams = new Dictionary<string, object>{  };
+      var urlParams = new Dictionary<string, object>{ };
       var url = this.InterpolatePath("/sites/{site_id}/add_ons", urlParams);
       return MakeRequest<Pager<AddOn>>(Method.GET, url).Data;
     }
@@ -928,7 +928,7 @@ namespace Recurly {
     /// </returns>
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
     public Pager<Subscription> ListSubscriptions() {
-      var urlParams = new Dictionary<string, object>{  };
+      var urlParams = new Dictionary<string, object>{ };
       var url = this.InterpolatePath("/sites/{site_id}/subscriptions", urlParams);
       return MakeRequest<Pager<Subscription>>(Method.GET, url).Data;
     }
@@ -941,7 +941,7 @@ namespace Recurly {
     /// </returns>
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
     public Subscription CreateSubscription(SubscriptionCreate body) {
-      var urlParams = new Dictionary<string, object>{ { "body", body } };
+      var urlParams = new Dictionary<string, object>{ };
       var url = this.InterpolatePath("/sites/{site_id}/subscriptions", urlParams);
       return MakeRequest<Subscription>(Method.POST, url, body).Data;
     }
@@ -967,7 +967,7 @@ namespace Recurly {
     /// </returns>
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
     public Subscription ModifySubscription(string subscription_id, SubscriptionUpdate body) {
-      var urlParams = new Dictionary<string, object>{ { "subscription_id", subscription_id },{ "body", body } };
+      var urlParams = new Dictionary<string, object>{ { "subscription_id", subscription_id } };
       var url = this.InterpolatePath("/sites/{site_id}/subscriptions/{subscription_id}", urlParams);
       return MakeRequest<Subscription>(Method.PUT, url, body).Data;
     }
@@ -1045,7 +1045,7 @@ namespace Recurly {
     /// </returns>
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
     public SubscriptionChange CreateSubscriptionChange(string subscription_id, SubscriptionChangeCreate body) {
-      var urlParams = new Dictionary<string, object>{ { "subscription_id", subscription_id },{ "body", body } };
+      var urlParams = new Dictionary<string, object>{ { "subscription_id", subscription_id } };
       var url = this.InterpolatePath("/sites/{site_id}/subscriptions/{subscription_id}/change", urlParams);
       return MakeRequest<SubscriptionChange>(Method.POST, url, body).Data;
     }
@@ -1084,7 +1084,7 @@ namespace Recurly {
     /// </returns>
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
     public Pager<Transaction> ListTransactions() {
-      var urlParams = new Dictionary<string, object>{  };
+      var urlParams = new Dictionary<string, object>{ };
       var url = this.InterpolatePath("/sites/{site_id}/transactions", urlParams);
       return MakeRequest<Pager<Transaction>>(Method.GET, url).Data;
     }
