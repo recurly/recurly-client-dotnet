@@ -1,11 +1,18 @@
 using System;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace Recurly {
-    public class ApiError : Exception {
-        public ApiError(string message) : base(message) {}
+    public class ApiError : Resource {
 
-        public ApiError(string message, Exception inner) : base(message, inner)
-        {
+        [JsonProperty("type")]
+        public ApiErrorTypes Type { get; set; }
+
+        [JsonProperty("message")]
+        public string Message { get; set; }
+
+        public ApiError() {
+
         }
     }
 }

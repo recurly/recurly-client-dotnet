@@ -7,6 +7,7 @@ using RestSharp;
 using RestSharp.Authenticators;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json.Converters;
 
 namespace Recurly {
     public class BaseClient {
@@ -20,8 +21,7 @@ namespace Recurly {
             ApiKey = apiKey;
             RestClient = new RestClient(API_URL);
             RestClient.Authenticator = new HttpBasicAuthenticator(ApiKey, "");
-            var apiVersion = ApiVersion();
-            RestClient.AddDefaultHeader("Accept", $"application/vnd.recurly.{apiVersion}");
+            RestClient.AddDefaultHeader("Accept", $"application/vnd.recurly.{ApiVersion()}");
             RestClient.AddDefaultHeader("Content-Type", "application/json");
             RestClient.AddDefaultHeader("User-Agent", "Recurly/0.0.1; .NET");
         }
@@ -42,7 +42,8 @@ namespace Recurly {
                   {
                   ContractResolver = contractResolver,
                   Formatting = Formatting.Indented,
-                  NullValueHandling = NullValueHandling.Ignore
+                  NullValueHandling = NullValueHandling.Ignore,
+                  Converters = new List<JsonConverter> { new StringEnumConverter { CamelCaseText = true } },
                   });
 
                 Console.WriteLine("body: ");
@@ -55,7 +56,9 @@ namespace Recurly {
             Console.WriteLine($"Status: {status}");
             Console.WriteLine($"Content: {resp.Content}");
             if (status < 200 || status >= 300) {
-                throw new ApiError("Bad responses code");
+                var err = JsonConvert.DeserializeObject<ApiError>(resp.Content);
+                Console.WriteLine("ERROR");
+                Console.WriteLine(err.Type);
             }
             return resp;
         }
@@ -65,7 +68,7 @@ namespace Recurly {
             var resp = RestClient.Execute(request);
             var status = (int)resp.StatusCode;
             if (status < 200 || status >= 300) {
-                throw new ApiError("Bad responses code");
+                //throw new ApiError("Bad responses code");
             }
             return resp;
         }

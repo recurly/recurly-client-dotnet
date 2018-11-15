@@ -8,7 +8,7 @@ namespace RecurlyTestRig
     {
         static void Main(string[] args)
         {
-          try {
+          //try {
             var subdomain = Environment.GetEnvironmentVariable("RECURLY_SUBDOMAIN");
             var apiKey = Environment.GetEnvironmentVariable("RECURLY_API_KEY");
             var client = new Recurly.Client(subdomain, apiKey);;
@@ -44,14 +44,14 @@ namespace RecurlyTestRig
             var subscription = client.CreateSubscription(subscriptionRequest);
             Console.WriteLine(subscription); 
 
-            try {
+            //try {
                 var nonexistentAccount = client.GetAccount("idontexist");
-            } catch (Recurly.ApiError err) {
-                Console.WriteLine(err);
-            }
-          } catch (Recurly.ApiError err) {
-                Console.WriteLine(err);
-          }
+            //} catch (Recurly.ApiError err) {
+          //      Console.WriteLine(err);
+            //}
+          //} catch (Recurly.ApiError err) {
+          //      Console.WriteLine(err);
+          //}
         }
     }
 }
