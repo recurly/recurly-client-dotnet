@@ -1,32 +1,32 @@
 using System;
 using System.Collections.Generic;
-using RestSharp.Deserializers;
+using Newtonsoft.Json;
 
 namespace Recurly.Resources {
   public class AccountMini : Resource {
   
     /// <value>The unique identifier of the account.</value>
-    [DeserializeAs(Name = "code")]
+    [JsonProperty("code")]
     public string Code { get; set; }
   
     
-    [DeserializeAs(Name = "company")]
+    [JsonProperty("company")]
     public string Company { get; set; }
   
     /// <value>The email address used for communicating with this customer.</value>
-    [DeserializeAs(Name = "email")]
+    [JsonProperty("email")]
     public string Email { get; set; }
   
     
-    [DeserializeAs(Name = "first_name")]
+    [JsonProperty("first_name")]
     public string FirstName { get; set; }
   
     
-    [DeserializeAs(Name = "id")]
+    [JsonProperty("id")]
     public string Id { get; set; }
   
     
-    [DeserializeAs(Name = "last_name")]
+    [JsonProperty("last_name")]
     public string LastName { get; set; }
   
   }

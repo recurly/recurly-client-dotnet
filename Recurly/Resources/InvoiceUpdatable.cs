@@ -1,26 +1,26 @@
 using System;
 using System.Collections.Generic;
-using RestSharp.Deserializers;
+using Newtonsoft.Json;
 
 namespace Recurly.Resources {
   public class InvoiceUpdatable : Request {
   
-    [DeserializeAs(Name = "address")]
+    [JsonProperty("address")]
     public InvoiceAddress Address { get; set; }
   
-    [DeserializeAs(Name = "customer_notes")]
+    [JsonProperty("customer_notes")]
     public string CustomerNotes { get; set; }
   
-    [DeserializeAs(Name = "net_terms")]
+    [JsonProperty("net_terms")]
     public int? NetTerms { get; set; }
   
-    [DeserializeAs(Name = "po_number")]
+    [JsonProperty("po_number")]
     public string PoNumber { get; set; }
   
-    [DeserializeAs(Name = "terms_and_conditions")]
+    [JsonProperty("terms_and_conditions")]
     public string TermsAndConditions { get; set; }
   
-    [DeserializeAs(Name = "vat_reverse_charge_notes")]
+    [JsonProperty("vat_reverse_charge_notes")]
     public string VatReverseChargeNotes { get; set; }
   
   }

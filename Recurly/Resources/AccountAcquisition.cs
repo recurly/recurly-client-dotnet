@@ -1,40 +1,40 @@
 using System;
 using System.Collections.Generic;
-using RestSharp.Deserializers;
+using Newtonsoft.Json;
 
 namespace Recurly.Resources {
   public class AccountAcquisition : Resource {
   
     
-    [DeserializeAs(Name = "account")]
+    [JsonProperty("account")]
     public AccountMini Account { get; set; }
   
     /// <value>An arbitrary identifier for the marketing campaign that led to the acquisition of this account.</value>
-    [DeserializeAs(Name = "campaign")]
+    [JsonProperty("campaign")]
     public string Campaign { get; set; }
   
     /// <value>The channel through which the account was acquired.</value>
-    [DeserializeAs(Name = "channel")]
+    [JsonProperty("channel")]
     public string Channel { get; set; }
   
     /// <value>Account balance</value>
-    [DeserializeAs(Name = "cost")]
+    [JsonProperty("cost")]
     public Dictionary<string, string> Cost { get; set; }
   
     /// <value>When the account acquisition data was created.</value>
-    [DeserializeAs(Name = "created_at")]
+    [JsonProperty("created_at")]
     public DateTime? CreatedAt { get; set; }
   
     
-    [DeserializeAs(Name = "id")]
+    [JsonProperty("id")]
     public string Id { get; set; }
   
     /// <value>An arbitrary subchannel string representing a distinction/subcategory within a broader channel.</value>
-    [DeserializeAs(Name = "subchannel")]
+    [JsonProperty("subchannel")]
     public string Subchannel { get; set; }
   
     /// <value>When the account acquisition data was last changed.</value>
-    [DeserializeAs(Name = "updated_at")]
+    [JsonProperty("updated_at")]
     public DateTime? UpdatedAt { get; set; }
   
   }

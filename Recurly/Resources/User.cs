@@ -1,36 +1,36 @@
 using System;
 using System.Collections.Generic;
-using RestSharp.Deserializers;
+using Newtonsoft.Json;
 
 namespace Recurly.Resources {
   public class User : Resource {
   
     
-    [DeserializeAs(Name = "created_at")]
+    [JsonProperty("created_at")]
     public DateTime? CreatedAt { get; set; }
   
     
-    [DeserializeAs(Name = "deleted_at")]
+    [JsonProperty("deleted_at")]
     public DateTime? DeletedAt { get; set; }
   
     
-    [DeserializeAs(Name = "email")]
+    [JsonProperty("email")]
     public string Email { get; set; }
   
     
-    [DeserializeAs(Name = "first_name")]
+    [JsonProperty("first_name")]
     public string FirstName { get; set; }
   
     
-    [DeserializeAs(Name = "id")]
+    [JsonProperty("id")]
     public string Id { get; set; }
   
     
-    [DeserializeAs(Name = "last_name")]
+    [JsonProperty("last_name")]
     public string LastName { get; set; }
   
     
-    [DeserializeAs(Name = "time_zone")]
+    [JsonProperty("time_zone")]
     public string TimeZone { get; set; }
   
   }

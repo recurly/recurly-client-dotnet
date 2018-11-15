@@ -1,56 +1,56 @@
 using System;
 using System.Collections.Generic;
-using RestSharp.Deserializers;
+using Newtonsoft.Json;
 
 namespace Recurly.Resources {
   public class PlanCreate : Request {
   
-    [DeserializeAs(Name = "accounting_code")]
+    [JsonProperty("accounting_code")]
     public string AccountingCode { get; set; }
   
-    [DeserializeAs(Name = "add_ons")]
+    [JsonProperty("add_ons")]
     public List<AddOnCreate> AddOns { get; set; }
   
-    [DeserializeAs(Name = "auto_renew")]
+    [JsonProperty("auto_renew")]
     public bool? AutoRenew { get; set; }
   
-    [DeserializeAs(Name = "code")]
+    [JsonProperty("code")]
     public string Code { get; set; }
   
-    [DeserializeAs(Name = "currencies")]
+    [JsonProperty("currencies")]
     public List<Dictionary<string, string>> Currencies { get; set; }
   
-    [DeserializeAs(Name = "description")]
+    [JsonProperty("description")]
     public string Description { get; set; }
   
-    [DeserializeAs(Name = "hosted_pages")]
+    [JsonProperty("hosted_pages")]
     public Dictionary<string, string> HostedPages { get; set; }
   
-    [DeserializeAs(Name = "interval_length")]
+    [JsonProperty("interval_length")]
     public int? IntervalLength { get; set; }
   
-    [DeserializeAs(Name = "interval_unit")]
+    [JsonProperty("interval_unit")]
     public string IntervalUnit { get; set; }
   
-    [DeserializeAs(Name = "name")]
+    [JsonProperty("name")]
     public string Name { get; set; }
   
-    [DeserializeAs(Name = "setup_fee_accounting_code")]
+    [JsonProperty("setup_fee_accounting_code")]
     public string SetupFeeAccountingCode { get; set; }
   
-    [DeserializeAs(Name = "tax_code")]
+    [JsonProperty("tax_code")]
     public string TaxCode { get; set; }
   
-    [DeserializeAs(Name = "tax_exempt")]
+    [JsonProperty("tax_exempt")]
     public bool? TaxExempt { get; set; }
   
-    [DeserializeAs(Name = "total_billing_cycles")]
+    [JsonProperty("total_billing_cycles")]
     public int? TotalBillingCycles { get; set; }
   
-    [DeserializeAs(Name = "trial_length")]
+    [JsonProperty("trial_length")]
     public int? TrialLength { get; set; }
   
-    [DeserializeAs(Name = "trial_unit")]
+    [JsonProperty("trial_unit")]
     public string TrialUnit { get; set; }
   
   }

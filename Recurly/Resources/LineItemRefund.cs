@@ -1,17 +1,17 @@
 using System;
 using System.Collections.Generic;
-using RestSharp.Deserializers;
+using Newtonsoft.Json;
 
 namespace Recurly.Resources {
   public class LineItemRefund : Request {
   
-    [DeserializeAs(Name = "id")]
+    [JsonProperty("id")]
     public string Id { get; set; }
   
-    [DeserializeAs(Name = "prorate")]
+    [JsonProperty("prorate")]
     public bool? Prorate { get; set; }
   
-    [DeserializeAs(Name = "quantity")]
+    [JsonProperty("quantity")]
     public int? Quantity { get; set; }
   
   }

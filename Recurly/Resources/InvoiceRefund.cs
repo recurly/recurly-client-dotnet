@@ -1,26 +1,26 @@
 using System;
 using System.Collections.Generic;
-using RestSharp.Deserializers;
+using Newtonsoft.Json;
 
 namespace Recurly.Resources {
   public class InvoiceRefund : Request {
   
-    [DeserializeAs(Name = "amount")]
+    [JsonProperty("amount")]
     public int? Amount { get; set; }
   
-    [DeserializeAs(Name = "credit_customer_notes")]
+    [JsonProperty("credit_customer_notes")]
     public string CreditCustomerNotes { get; set; }
   
-    [DeserializeAs(Name = "external_refund")]
+    [JsonProperty("external_refund")]
     public Dictionary<string, string> ExternalRefund { get; set; }
   
-    [DeserializeAs(Name = "line_items")]
+    [JsonProperty("line_items")]
     public List<LineItemRefund> LineItems { get; set; }
   
-    [DeserializeAs(Name = "refund_method")]
+    [JsonProperty("refund_method")]
     public string RefundMethod { get; set; }
   
-    [DeserializeAs(Name = "type")]
+    [JsonProperty("type")]
     public string Type { get; set; }
   
   }

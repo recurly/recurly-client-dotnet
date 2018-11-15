@@ -1,20 +1,20 @@
 using System;
 using System.Collections.Generic;
-using RestSharp.Deserializers;
+using Newtonsoft.Json;
 
 namespace Recurly.Resources {
   public class Error : Resource {
   
     /// <value>Message</value>
-    [DeserializeAs(Name = "message")]
+    [JsonProperty("message")]
     public string Message { get; set; }
   
     /// <value>Parameter specific errors</value>
-    [DeserializeAs(Name = "params")]
+    [JsonProperty("params")]
     public List<Dictionary<string, string>> Params { get; set; }
   
     /// <value>Type</value>
-    [DeserializeAs(Name = "type")]
+    [JsonProperty("type")]
     public string Type { get; set; }
   
   }

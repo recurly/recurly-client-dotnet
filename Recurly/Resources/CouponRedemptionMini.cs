@@ -1,28 +1,28 @@
 using System;
 using System.Collections.Generic;
-using RestSharp.Deserializers;
+using Newtonsoft.Json;
 
 namespace Recurly.Resources {
   public class CouponRedemptionMini : Resource {
   
     
-    [DeserializeAs(Name = "coupon")]
+    [JsonProperty("coupon")]
     public CouponMini Coupon { get; set; }
   
     /// <value>Created at</value>
-    [DeserializeAs(Name = "created_at")]
+    [JsonProperty("created_at")]
     public DateTime? CreatedAt { get; set; }
   
     /// <value>The amount that was discounted upon the application of the coupon, formatted with the currency.</value>
-    [DeserializeAs(Name = "discounted")]
+    [JsonProperty("discounted")]
     public string Discounted { get; set; }
   
     /// <value>Coupon Redemption ID</value>
-    [DeserializeAs(Name = "id")]
+    [JsonProperty("id")]
     public string Id { get; set; }
   
     /// <value>Invoice state</value>
-    [DeserializeAs(Name = "state")]
+    [JsonProperty("state")]
     public string State { get; set; }
   
   }

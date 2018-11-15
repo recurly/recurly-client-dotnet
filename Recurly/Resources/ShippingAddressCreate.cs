@@ -1,47 +1,47 @@
 using System;
 using System.Collections.Generic;
-using RestSharp.Deserializers;
+using Newtonsoft.Json;
 
 namespace Recurly.Resources {
   public class ShippingAddressCreate : Request {
   
-    [DeserializeAs(Name = "city")]
+    [JsonProperty("city")]
     public string City { get; set; }
   
-    [DeserializeAs(Name = "company")]
+    [JsonProperty("company")]
     public string Company { get; set; }
   
-    [DeserializeAs(Name = "country")]
+    [JsonProperty("country")]
     public string Country { get; set; }
   
-    [DeserializeAs(Name = "email")]
+    [JsonProperty("email")]
     public string Email { get; set; }
   
-    [DeserializeAs(Name = "first_name")]
+    [JsonProperty("first_name")]
     public string FirstName { get; set; }
   
-    [DeserializeAs(Name = "last_name")]
+    [JsonProperty("last_name")]
     public string LastName { get; set; }
   
-    [DeserializeAs(Name = "nickname")]
+    [JsonProperty("nickname")]
     public string Nickname { get; set; }
   
-    [DeserializeAs(Name = "phone")]
+    [JsonProperty("phone")]
     public string Phone { get; set; }
   
-    [DeserializeAs(Name = "postal_code")]
+    [JsonProperty("postal_code")]
     public string PostalCode { get; set; }
   
-    [DeserializeAs(Name = "region")]
+    [JsonProperty("region")]
     public string Region { get; set; }
   
-    [DeserializeAs(Name = "street1")]
+    [JsonProperty("street1")]
     public string Street1 { get; set; }
   
-    [DeserializeAs(Name = "street2")]
+    [JsonProperty("street2")]
     public string Street2 { get; set; }
   
-    [DeserializeAs(Name = "vat_number")]
+    [JsonProperty("vat_number")]
     public string VatNumber { get; set; }
   
   }

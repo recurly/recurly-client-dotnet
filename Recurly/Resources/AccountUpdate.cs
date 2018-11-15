@@ -1,50 +1,50 @@
 using System;
 using System.Collections.Generic;
-using RestSharp.Deserializers;
+using Newtonsoft.Json;
 
 namespace Recurly.Resources {
   public class AccountUpdate : Request {
   
-    [DeserializeAs(Name = "address")]
+    [JsonProperty("address")]
     public Address Address { get; set; }
   
-    [DeserializeAs(Name = "billing_info")]
+    [JsonProperty("billing_info")]
     public BillingInfoCreate BillingInfo { get; set; }
   
-    [DeserializeAs(Name = "cc_emails")]
+    [JsonProperty("cc_emails")]
     public string CcEmails { get; set; }
   
-    [DeserializeAs(Name = "company")]
+    [JsonProperty("company")]
     public string Company { get; set; }
   
-    [DeserializeAs(Name = "custom_fields")]
+    [JsonProperty("custom_fields")]
     public List<CustomField> CustomFields { get; set; }
   
-    [DeserializeAs(Name = "email")]
+    [JsonProperty("email")]
     public string Email { get; set; }
   
-    [DeserializeAs(Name = "first_name")]
+    [JsonProperty("first_name")]
     public string FirstName { get; set; }
   
-    [DeserializeAs(Name = "last_name")]
+    [JsonProperty("last_name")]
     public string LastName { get; set; }
   
-    [DeserializeAs(Name = "parent_account_code")]
+    [JsonProperty("parent_account_code")]
     public string ParentAccountCode { get; set; }
   
-    [DeserializeAs(Name = "parent_account_id")]
+    [JsonProperty("parent_account_id")]
     public string ParentAccountId { get; set; }
   
-    [DeserializeAs(Name = "preferred_locale")]
+    [JsonProperty("preferred_locale")]
     public string PreferredLocale { get; set; }
   
-    [DeserializeAs(Name = "tax_exempt")]
+    [JsonProperty("tax_exempt")]
     public bool? TaxExempt { get; set; }
   
-    [DeserializeAs(Name = "username")]
+    [JsonProperty("username")]
     public string Username { get; set; }
   
-    [DeserializeAs(Name = "vat_number")]
+    [JsonProperty("vat_number")]
     public string VatNumber { get; set; }
   
   }

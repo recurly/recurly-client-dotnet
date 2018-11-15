@@ -1,24 +1,24 @@
 using System;
 using System.Collections.Generic;
-using RestSharp.Deserializers;
+using Newtonsoft.Json;
 
 namespace Recurly.Resources {
   public class InvoiceMini : Resource {
   
     /// <value>Invoice ID</value>
-    [DeserializeAs(Name = "id")]
+    [JsonProperty("id")]
     public string Id { get; set; }
   
     /// <value>Invoice number</value>
-    [DeserializeAs(Name = "number")]
+    [JsonProperty("number")]
     public string Number { get; set; }
   
     /// <value>Invoice state</value>
-    [DeserializeAs(Name = "state")]
+    [JsonProperty("state")]
     public string State { get; set; }
   
     /// <value>Invoice type</value>
-    [DeserializeAs(Name = "type")]
+    [JsonProperty("type")]
     public string Type { get; set; }
   
   }

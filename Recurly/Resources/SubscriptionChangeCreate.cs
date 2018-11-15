@@ -1,35 +1,35 @@
 using System;
 using System.Collections.Generic;
-using RestSharp.Deserializers;
+using Newtonsoft.Json;
 
 namespace Recurly.Resources {
   public class SubscriptionChangeCreate : Request {
   
-    [DeserializeAs(Name = "add_ons")]
+    [JsonProperty("add_ons")]
     public List<SubscriptionAddOnCreate> AddOns { get; set; }
   
-    [DeserializeAs(Name = "collection_method")]
+    [JsonProperty("collection_method")]
     public string CollectionMethod { get; set; }
   
-    [DeserializeAs(Name = "coupon_codes")]
+    [JsonProperty("coupon_codes")]
     public List<string> CouponCodes { get; set; }
   
-    [DeserializeAs(Name = "net_terms")]
+    [JsonProperty("net_terms")]
     public int? NetTerms { get; set; }
   
-    [DeserializeAs(Name = "plan_code")]
+    [JsonProperty("plan_code")]
     public string PlanCode { get; set; }
   
-    [DeserializeAs(Name = "po_number")]
+    [JsonProperty("po_number")]
     public string PoNumber { get; set; }
   
-    [DeserializeAs(Name = "quantity")]
+    [JsonProperty("quantity")]
     public int? Quantity { get; set; }
   
-    [DeserializeAs(Name = "timeframe")]
+    [JsonProperty("timeframe")]
     public string Timeframe { get; set; }
   
-    [DeserializeAs(Name = "unit_amount")]
+    [JsonProperty("unit_amount")]
     public float? UnitAmount { get; set; }
   
   }

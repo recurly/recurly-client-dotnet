@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
-using RestSharp.Deserializers;
+using Newtonsoft.Json;
 
 namespace Recurly.Resources {
   public class CouponRedemptionCreate : Request {
   
-    [DeserializeAs(Name = "coupon_id")]
+    [JsonProperty("coupon_id")]
     public string CouponId { get; set; }
   
-    [DeserializeAs(Name = "currency")]
+    [JsonProperty("currency")]
     public string Currency { get; set; }
   
   }

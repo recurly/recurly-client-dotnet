@@ -1,71 +1,71 @@
 using System;
 using System.Collections.Generic;
-using RestSharp.Deserializers;
+using Newtonsoft.Json;
 
 namespace Recurly.Resources {
   public class CouponCreate : Request {
   
-    [DeserializeAs(Name = "applies_to_all_plans")]
+    [JsonProperty("applies_to_all_plans")]
     public bool? AppliesToAllPlans { get; set; }
   
-    [DeserializeAs(Name = "applies_to_non_plan_charges")]
+    [JsonProperty("applies_to_non_plan_charges")]
     public bool? AppliesToNonPlanCharges { get; set; }
   
-    [DeserializeAs(Name = "code")]
+    [JsonProperty("code")]
     public string Code { get; set; }
   
-    [DeserializeAs(Name = "coupon_type")]
+    [JsonProperty("coupon_type")]
     public string CouponType { get; set; }
   
-    [DeserializeAs(Name = "currencies")]
+    [JsonProperty("currencies")]
     public List<Dictionary<string, string>> Currencies { get; set; }
   
-    [DeserializeAs(Name = "discount_percent")]
+    [JsonProperty("discount_percent")]
     public int? DiscountPercent { get; set; }
   
-    [DeserializeAs(Name = "discount_type")]
+    [JsonProperty("discount_type")]
     public string DiscountType { get; set; }
   
-    [DeserializeAs(Name = "duration")]
+    [JsonProperty("duration")]
     public string Duration { get; set; }
   
-    [DeserializeAs(Name = "free_trial_amount")]
+    [JsonProperty("free_trial_amount")]
     public int? FreeTrialAmount { get; set; }
   
-    [DeserializeAs(Name = "free_trial_unit")]
+    [JsonProperty("free_trial_unit")]
     public string FreeTrialUnit { get; set; }
   
-    [DeserializeAs(Name = "hosted_description")]
+    [JsonProperty("hosted_description")]
     public string HostedDescription { get; set; }
   
-    [DeserializeAs(Name = "invoice_description")]
+    [JsonProperty("invoice_description")]
     public string InvoiceDescription { get; set; }
   
-    [DeserializeAs(Name = "max_redemptions")]
+    [JsonProperty("max_redemptions")]
     public int? MaxRedemptions { get; set; }
   
-    [DeserializeAs(Name = "max_redemptions_per_account")]
+    [JsonProperty("max_redemptions_per_account")]
     public int? MaxRedemptionsPerAccount { get; set; }
   
-    [DeserializeAs(Name = "name")]
+    [JsonProperty("name")]
     public string Name { get; set; }
   
-    [DeserializeAs(Name = "plan_codes")]
+    [JsonProperty("plan_codes")]
     public List<string> PlanCodes { get; set; }
   
-    [DeserializeAs(Name = "redeem_by_date")]
+    [JsonProperty("redeem_by_date")]
     public string RedeemByDate { get; set; }
   
-    [DeserializeAs(Name = "redemption_resource")]
+    [JsonProperty("redemption_resource")]
     public string RedemptionResource { get; set; }
   
-    [DeserializeAs(Name = "temporal_amount")]
+    [JsonProperty("temporal_amount")]
     public int? TemporalAmount { get; set; }
   
-    [DeserializeAs(Name = "temporal_unit")]
+    [JsonProperty("temporal_unit")]
     public string TemporalUnit { get; set; }
   
-    [DeserializeAs(Name = "unique_code_template")]
+    [JsonProperty("unique_code_template")]
     public string UniqueCodeTemplate { get; set; }
   
   }

@@ -1,40 +1,40 @@
 using System;
 using System.Collections.Generic;
-using RestSharp.Deserializers;
+using Newtonsoft.Json;
 
 namespace Recurly.Resources {
   public class CustomFieldDefinition : Resource {
   
     /// <value>Created at</value>
-    [DeserializeAs(Name = "created_at")]
+    [JsonProperty("created_at")]
     public DateTime? CreatedAt { get; set; }
   
     /// <value>Definitions are initially soft deleted, and once all the values are removed from the accouts or subscriptions, will be hard deleted an no longer visible.</value>
-    [DeserializeAs(Name = "deleted_at")]
+    [JsonProperty("deleted_at")]
     public DateTime? DeletedAt { get; set; }
   
     /// <value>Used to label the field when viewing and editing the field in Recurly's admin UI.</value>
-    [DeserializeAs(Name = "display_name")]
+    [JsonProperty("display_name")]
     public string DisplayName { get; set; }
   
     /// <value>Custom field definition ID</value>
-    [DeserializeAs(Name = "id")]
+    [JsonProperty("id")]
     public string Id { get; set; }
   
     /// <value>Used by the API to identify the field or reading and writing. The name can only be used once per Recurly object type.</value>
-    [DeserializeAs(Name = "name")]
+    [JsonProperty("name")]
     public string Name { get; set; }
   
     /// <value>Related Recurly object type</value>
-    [DeserializeAs(Name = "related_type")]
+    [JsonProperty("related_type")]
     public string RelatedType { get; set; }
   
     /// <value>Displayed as a tooltip when editing the field in the Recurly admin UI.</value>
-    [DeserializeAs(Name = "tooltip")]
+    [JsonProperty("tooltip")]
     public string Tooltip { get; set; }
   
     /// <value>Last updated at</value>
-    [DeserializeAs(Name = "updated_at")]
+    [JsonProperty("updated_at")]
     public DateTime? UpdatedAt { get; set; }
   
     /// <value>
@@ -44,7 +44,7 @@ namespace Recurly.Resources {
     ///   editing will only be available via the API.
     /// - `write` - Users with the Customers role will be able to view and edit this field's data via the admin UI.
     /// </value>
-    [DeserializeAs(Name = "user_access")]
+    [JsonProperty("user_access")]
     public string UserAccess { get; set; }
   
   }

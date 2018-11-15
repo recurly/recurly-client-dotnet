@@ -1,20 +1,20 @@
 using System;
 using System.Collections.Generic;
-using RestSharp.Deserializers;
+using Newtonsoft.Json;
 
 namespace Recurly.Resources {
   public class AccountBalance : Resource {
   
     
-    [DeserializeAs(Name = "account")]
+    [JsonProperty("account")]
     public AccountMini Account { get; set; }
   
     /// <value>Account balance</value>
-    [DeserializeAs(Name = "balances")]
+    [JsonProperty("balances")]
     public Dictionary<string, string> Balances { get; set; }
   
     
-    [DeserializeAs(Name = "past_due")]
+    [JsonProperty("past_due")]
     public bool? PastDue { get; set; }
   
   }

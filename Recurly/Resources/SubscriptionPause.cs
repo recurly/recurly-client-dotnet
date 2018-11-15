@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
-using RestSharp.Deserializers;
+using Newtonsoft.Json;
 
 namespace Recurly.Resources {
   public class SubscriptionPause : Request {
   
-    [DeserializeAs(Name = "remaining_pause_cycles")]
+    [JsonProperty("remaining_pause_cycles")]
     public int? RemainingPauseCycles { get; set; }
   
   }

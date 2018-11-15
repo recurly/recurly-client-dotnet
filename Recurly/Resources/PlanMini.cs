@@ -1,20 +1,20 @@
 using System;
 using System.Collections.Generic;
-using RestSharp.Deserializers;
+using Newtonsoft.Json;
 
 namespace Recurly.Resources {
   public class PlanMini : Resource {
   
     /// <value>Unique code to identify the plan. This is used in Hosted Payment Page URLs and in the invoice exports.</value>
-    [DeserializeAs(Name = "code")]
+    [JsonProperty("code")]
     public string Code { get; set; }
   
     /// <value>Plan ID</value>
-    [DeserializeAs(Name = "id")]
+    [JsonProperty("id")]
     public string Id { get; set; }
   
     /// <value>This name describes your plan and will appear on the Hosted Payment Page and the subscriber's invoice.</value>
-    [DeserializeAs(Name = "name")]
+    [JsonProperty("name")]
     public string Name { get; set; }
   
   }

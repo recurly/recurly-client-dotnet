@@ -1,20 +1,20 @@
 using System;
 using System.Collections.Generic;
-using RestSharp.Deserializers;
+using Newtonsoft.Json;
 
 namespace Recurly.Resources {
   public class AccountAcquisitionUpdatable : Request {
   
-    [DeserializeAs(Name = "campaign")]
+    [JsonProperty("campaign")]
     public string Campaign { get; set; }
   
-    [DeserializeAs(Name = "channel")]
+    [JsonProperty("channel")]
     public string Channel { get; set; }
   
-    [DeserializeAs(Name = "cost")]
+    [JsonProperty("cost")]
     public Dictionary<string, string> Cost { get; set; }
   
-    [DeserializeAs(Name = "subchannel")]
+    [JsonProperty("subchannel")]
     public string Subchannel { get; set; }
   
   }
