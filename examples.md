@@ -1,5 +1,5 @@
 
-#Documentation
+# Documentation
 
 **NOTE**: Requests that result in a `404` from the Recurly API will raise a `NotFoundException`.
 
@@ -16,7 +16,7 @@
 - [Manual Invoicing Subscriptions](#subscriptions-for-manual-invoicing)
 - [Transactions](#transactions)
 
-#Accounts
+## Accounts
 
 - [List](#list-accounts)
 - [Get](#get-account)
@@ -25,7 +25,7 @@
 - [Reopen](#reopen-account)
 - [List Account Notes](#list-account-notes)
 
-###List Accounts
+### List Accounts
 ```c#
 using System.Linq;
 
@@ -38,7 +38,7 @@ while (accounts.Any())
 }
 ```
 
-###Get Account
+### Get Account
 ```c#
 try
 {
@@ -52,7 +52,7 @@ catch (NotFoundException e)
 ```
 **Please note**: the client library will raise an exception if the account is not found.
 
-###Create Account
+### Create Account
 ```c#
 var account = new Account("1")
 {
@@ -63,7 +63,7 @@ var account = new Account("1")
 account.Create();
 ```
 
-###Close Account
+### Close Account
 ```c#
 var account = Accounts.Get("1");
 account.Close();
@@ -72,7 +72,7 @@ account.Close();
 Accounts.Close("1");
 ```
 
-###Reopen Account
+### Reopen Account
 ```c#
 var account = Accounts.Get("1");
 account.Reopen();
@@ -81,7 +81,7 @@ account.Reopen();
 Accounts.Reopen("1");
 ```
 
-###List Account Notes
+### List Account Notes
 ```c#
 using System.Linq;
 
@@ -97,14 +97,14 @@ while (notes.Any())
 
 [back to top](#documentation)
 
-#Account Adjustments
+## Account Adjustments
 
 - [List](#list-adjustments)
 - [Get](#get-adjustment)
 - [Create](#create-adjustment)
 - [Delete](#delete-adjustment)
 
-###List adjustments
+### List adjustments
 
 ```c#
 using System.Linq;
@@ -119,14 +119,14 @@ while (adjustments.Any())
 }
 ```
 
-###Get adjustment
+### Get adjustment
 
 ```c#
 var adjustment = Adjustments.Get("123456789");
 Console.WriteLine("Adjustment: " + adjustment);
 ```
 
-###Create adjustment
+### Create adjustment
 
 ```c#
 var account = Accounts.Get("1");
@@ -140,7 +140,7 @@ var adjustment = account.NewAdjustment(
 adjustment.Create();
 ```
 
-###Delete adjustment
+### Delete adjustment
 
 ```c#
 var adjustment = Adjustments.Get("123456789");
@@ -149,20 +149,20 @@ adjustment.Delete()
 
 [back to top](#documentation)
 
-#BillingInfo
+## BillingInfo
 
 - [Get](#get-billing-info)
 - [Update](#update-billing-info)
 - [Delete](#delete-billing-info)
 
-###Get Billing Info
+### Get Billing Info
 
 ```c#
 var account = Accounts.Get("1");
 var info = account.BillingInfo;
 ```
 
-###Update billing info
+### Update billing info
 
 ```c#
 var account = Accounts.Get("1");
@@ -182,7 +182,7 @@ info.TokenId = "some-token-id";
 info.Update();
 ```
 
-###Delete billing info
+### Delete billing info
 
 ```c#
 var account = Accounts.Get("1");
@@ -191,14 +191,14 @@ account.DeleteBillingInfo();
 
 [back to top](#documentation)
 
-#Coupons
+## Coupons
 
 - [List](#list-active-coupons)
 - [Get](#get-coupon)
 - [Create](#create-coupon)
 - [Deactivate](#deactivate-coupon)
 
-###List active coupons
+### List active coupons
 ```c#
 using System.Linq;
 
@@ -211,12 +211,12 @@ while (coupons.Any())
 }
 ```
 
-###Get coupon
+### Get coupon
 ```c#
 var coupon = Coupons.Get("special");
 ```
 
-###Create coupon
+### Create coupon
 ```c#
 // $2 off...
 var coupon = new Coupon("special", "Special $2 off coupon", new Dictionary<string, int> {{"USD", 200}});
@@ -236,7 +236,7 @@ coupon.Plans.Add("silver");
 coupon.Create();
 ```
 
-###Deactivate coupon
+### Deactivate coupon
 ```c#
 var coupon = Coupons.Get("special");
 coupon.Deactivate();
@@ -244,28 +244,28 @@ coupon.Deactivate();
 
 [back to top](#documentation)
 
-#Coupon Redemptions
+## Coupon Redemptions
 
 - [Redeem coupon](#redeem-a-coupon)
 - [Lookup redemption](#lookup-a-redemption)
 - [Delete redemption](#delete-redemption)
 - [Lookup an Invoice redemption](#lookup-a-coupon-redemption-on-an-invoice)
 
-###Redeem a coupon
+### Redeem a coupon
 
 ```c#
 var account = Accounts.Get("1");
 var redemption = account.Redeem("special", "USD");
 ```
 
-###Lookup a redemption
+### Lookup a redemption
 
 ```c#
 var account = Accounts.Get("1");
 var redemption = account.GetActiveRedemption();
 ```
 
-###Delete redemption
+### Delete redemption
 
 ```c#
 var account = Accounts.Get("1");
@@ -273,7 +273,7 @@ var redemption = account.GetActiveRedemption();
 redemption.Delete();
 ```
 
-###Lookup a coupon redemption on an invoice
+### Lookup a coupon redemption on an invoice
 
 ```c#
 var invoice = Invoices.Get(1);
@@ -282,7 +282,7 @@ var redemption = invoice.GetRedemption();
 
 [back to top](#documentation)
 
-#Invoices
+## Invoices
 
 - [List](#list-invoices)
 - [List by Account](#list-an-accounts-invoices)
@@ -293,7 +293,7 @@ var redemption = invoice.GetRedemption();
 - [Mark failed](#mark-an-invoice-as-failed-collection)
 - [Line Item Refunds](#line-item-refunds)
 
-###List Invoices
+### List Invoices
 
 ```c#
 using System.Linq;
@@ -307,7 +307,7 @@ while (invoices.Any())
 }
 ```
 
-###List an account's invoices
+### List an account's invoices
 ```c#
 using System.Linq;
 
@@ -326,36 +326,36 @@ while (invoices.Any())
 }
 ```
 
-###Get Invoice
+### Get Invoice
 ```c#
 var invoice = Invoices.Get(1005);
 ```
 
-###Retrieve a PDF invoice
+### Retrieve a PDF invoice
 ```c#
 var invoice = Invoices.Get(1005);
 byte[] pdf = invoice.GetPdf();
 ```
 
-###Create an invoice: invoice pending charges on an account
+### Create an invoice: invoice pending charges on an account
 ```c#
 var account = Accounts.Get("1");
 var invoice = account.InvoicePendingCharges();
 ```
 
-###Mark an invoice as paid successfully
+### Mark an invoice as paid successfully
 ```c#
 var invoice = Invoices.Get(1005);
 invoice.MarkSuccessful();
 ```
 
-###Mark an invoice as failed collection
+### Mark an invoice as failed collection
 ```c#
 var invoice = Invoices.Get(1005);
 invoice.MarkFailed();
 ```
 
-###Line item refunds
+### Line item refunds
 ```c#
 var invoice = Invoices.Get(1005);
 
@@ -376,7 +376,7 @@ invoice = invoice.Refund(invoice.Adjustments, true);
 
 [back to top](#documentation)
 
-#Plans
+## Plans
 
 - [List](#list-plans)
 - [Get](#lookup-plan-details)
@@ -384,7 +384,7 @@ invoice = invoice.Refund(invoice.Adjustments, true);
 - [Update](#update-plan)
 - [Deactivate](#deactivate-plan)
 
-###List plans
+### List plans
 ```c#
 using System.Linq;
 
@@ -397,12 +397,12 @@ while (plans.Any())
 }
 ```
 
-###Lookup plan details
+### Lookup plan details
 ```c#
 var plan = Plans.Get("gold");
 ```
 
-###Create plan
+### Create plan
 ```c#
 var plan = new Plan("gold", "Gold plan"); // plan code, name
 plan.UnitAmountInCents.Add("USD", 1000);
@@ -415,14 +415,14 @@ plan.TaxExempt = false;
 plan.Create();
 ```
 
-###Update Plan
+### Update Plan
 ```c#
 var plan = Plans.Get("gold");
 plan.SetupFeeInCents["EUR"] = 5000;
 plan.Update();
 ```
 
-###Deactivate Plan
+### Deactivate Plan
 ```c#
 var plan = Plans.Get("gold");
 plan.Deactivate();
@@ -430,7 +430,7 @@ plan.Deactivate();
 
 [back to top](#documentation)
 
-#Plan Addons
+## Plan Addons
 
 - [List](#list-plan-add-ons)
 - [Get](#lookup-an-add-on)
@@ -438,7 +438,7 @@ plan.Deactivate();
 - [Update](#update-add-on)
 - [Delete](#delete-add-on)
 
-###List plan add-ons
+### List plan add-ons
 ```c#
 using System.Linq;
 
@@ -452,13 +452,13 @@ while (addons.Any())
 }
 ```
 
-###Lookup an add-on
+### Lookup an add-on
 ```c#
 var plan = Plans.Get("gold");
 var addon = plan.GetAddOn("addOnCode");
 ```
 
-###Create add-on
+### Create add-on
 ```c#
 var plan = Plans.Get("gold");
 var addon = plan.NewAddOn("ipaddresses", "Extra IP Addresses"); // add-on code, name
@@ -471,7 +471,7 @@ addon.Create();
 // Please contact us if you need this.
 ```
 
-###Update add-on
+### Update add-on
 ```c#
 var plan = Plans.Get("gold");
 var addon = plan.GetAddOn("ipaddresses");
@@ -479,7 +479,7 @@ addon.UnitAmountInCents["USD"] = 200;
 addon.Update();
 ```
 
-###Delete add-on
+### Delete add-on
 ```c#
 var plan = Plans.Get("gold");
 var addon = plan.GetAddOn("ipaddresses");
@@ -488,7 +488,7 @@ addon.Delete();
 
 [back to top](#documentation)
 
-#Subscriptions
+## Subscriptions
 
 - [List](#list-subscriptions)
 - [Get](#get-subscription)
@@ -500,7 +500,7 @@ addon.Delete();
 - [Postpone](#postpone-a-subscription)
 - [Preview](#preview-a-subscription)
 
-###List Subscriptions
+### List Subscriptions
 ```c#
 using System.Linq;
 
@@ -513,7 +513,7 @@ while (subscriptions.Any())
 }
 ```
 
-###List an account's subscriptions
+### List an account's subscriptions
 ```c#
 using System.Linq;
 
@@ -527,12 +527,12 @@ while (subscriptions.Any())
 }
 ```
 
-###Get subscription
+### Get subscription
 ```c#
 var subscription = Subscriptions.Get("44f83d7cba354d5b84812419f923ea96");
 ```
 
-###Create Subscription
+### Create Subscription
 ```c#
 var account = Accounts.Get("1"); // Account contains BillingInfo
 var plan = Plans.Get("gold");
@@ -540,7 +540,7 @@ var subscription = new Subscription(account, plan, "USD"); // account, plan, cur
 subscription.Create();
 ```
 
-###Update subscription
+### Update subscription
 ```c#
 var subscription = Subscriptions.Get("44f83d7cba354d5b84812419f923ea96");
 subscription.Plan = Plans.Get("silver");
@@ -555,19 +555,19 @@ subscription.ChangeSubscription();
 // You might also use `Subscription.ChangeTimeframe.Renewal`
 ```
 
-###Cancel subscription
+### Cancel subscription
 ```c#
 var subscription = Subscriptions.Get("44f83d7cba354d5b84812419f923ea96");
 subscription.Cancel();
 ```
 
-###Reactivating a canceled subscription
+### Reactivating a canceled subscription
 ```c#
 var subscription = Subscriptions.Get("44f83d7cba354d5b84812419f923ea96");
 subscription.Reactivate();
 ```
 
-###Terminate a subscription
+### Terminate a subscription
 ```c#
 var subscription = Subscriptions.Get("44f83d7cba354d5b84812419f923ea96");
 subscription.Terminate(Subscription.RefundType.Full);
@@ -575,13 +575,13 @@ subscription.Terminate(Subscription.RefundType.Full);
 //subscription.Terminate(Subscription.RefundType.None);
 ```
 
-###Postpone a subscription
+### Postpone a subscription
 ```c#
 var subscription = Subscriptions.Get("44f83d7cba354d5b84812419f923ea96");
 subscription.Postpone(new DateTime(2012, 12, 31));
 ```
 
-###Preview a subscription
+### Preview a subscription
 ```c#
 var account = Accounts.Get("1");
 var plan = Plans.Get("gold");
@@ -595,12 +595,12 @@ Debug.WriteLine(subscription.ExpiresAt);
 
 [back to top](#documentation)
 
-#Subscription Add-ons
+## Subscription Add-ons
 
 - [Create with Addons](#create-a-subscription-with-add-ons)
 - [Update with Addons](#update-subscription-with-add-ons)
 
-###Create a subscription with Add-Ons
+### Create a subscription with Add-Ons
 ```c#
 var account = Accounts.Get("1");
 var plan = Plans.Get("gold");
@@ -612,7 +612,7 @@ subscription.AddOns.Add(new SubscriptionAddOn("extra_users", 1000, 2));
 subscription.Create();
 ```
 
-###Update subscription with add-ons
+### Update subscription with add-ons
 ```c#
 var subscription = Subscriptions.Get("44f83d7cba354d5b84812419f923ea96");
 
@@ -636,12 +636,12 @@ subscription.ChangeSubscription(Subscription.ChangeTimeframe.Now);
 
 [back to top](#documentation)
 
-#Subscriptions for Manual Invoicing
+## Subscriptions for Manual Invoicing
 
 - [Create manual invoicing subscription](#create-subscription-manual-invoice)
 - [Update manual invoicing subscription](#update-subscription-manual-invoice)
 
-###Create subscription (Manual Invoice)
+### Create subscription (Manual Invoice)
 ```c#
 var account = Accounts.Get("1");
 var plan = Plans.Get("gold");
@@ -652,7 +652,7 @@ subscription.PoNumber = "PO1234";
 subscription.Create();
 ```
 
-###Update subscription (Manual Invoice)
+### Update subscription (Manual Invoice)
 ```c#
 var subscription = Subscriptions.Get("44f83d7cba354d5b84812419f923ea96");
 subscription.CollectionMethod = "manual";
@@ -663,7 +663,7 @@ subscription.ChangeSubscription(Subscription.ChangeTimeframe.Now);
 
 [back to top](#documentation)
 
-#Transactions
+## Transactions
 
 - [List](#list-transactions)
 - [List Account Transactions](#list-an-accounts-transactions)
@@ -675,7 +675,7 @@ subscription.ChangeSubscription(Subscription.ChangeTimeframe.Now);
   - [Partial](#partial-refund)
   - [Full](#full-refund)
 
-###List transactions
+### List transactions
 ```c#
 using System.Linq;
 
@@ -694,7 +694,7 @@ var transactions = Transactions.List(TransactionList.TransactionState.Success);
 var transactions = Transactions.List(TransactionList.TransactionState.Success, TransactionList.TransactionType.Failed);
 ```
 
-###List an account's transactions
+### List an account's transactions
 ```c#
 using System.Linq;
 
@@ -708,20 +708,20 @@ while (transactions.Any())
 }
 ```
 
-###Get transaction
+### Get transaction
 ```c#
 var transaction = Transactions.Get("a13acd8fe4294916b79aec87b7ea441f");
 ```
 
-###Create Transaction
+### Create Transaction
 
-####Example with stored billing info
+#### Example with stored billing info
 ```c#
 var transaction = new Transaction("1", 100, "USD"); // account code, unit amount in cents, currency
 transaction.Create();
 ```
 
-####Example with new billing info
+#### Example with new billing info
 ```c#
 var account = Accounts.Get("1");
 account.BillingInfo = new BillingInfo(account.AccountCode)
@@ -737,15 +737,15 @@ var transaction = new Transaction(account, 100, "USD");
 transaction.Create();
 ```
 
-###Refund transaction
+### Refund transaction
 
-####Partial Refund
+#### Partial Refund
 ```c#
 var transaction = Transactions.Get("a13acd8fe4294916b79aec87b7ea441f");
 transaction.Refund(1000); // (in cents) Refund $10
 ```
 
-####Full Refund
+#### Full Refund
 ```c#
 var transaction = Transactions.Get("a13acd8fe4294916b79aec87b7ea441f");
 transaction.Refund();
