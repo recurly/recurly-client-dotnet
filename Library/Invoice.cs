@@ -123,6 +123,7 @@ namespace Recurly
         public string CustomerNotes { get; set; }
         public string TermsAndConditions { get; set; }
         public string VatReverseChargeNotes { get; set; }
+        public string GatewayCode { get; set; }
         public DateTime? AttemptNextCollectionAt { get; set; }
         public string RecoveryReason { get; set; }
         public string AllLineItemsLink { get; set; }
@@ -553,6 +554,10 @@ namespace Recurly
                         VatReverseChargeNotes = reader.ReadElementContentAsString();
                         break;
 
+                    case "gateway_code":
+                        GatewayCode = reader.ReadElementContentAsString();
+                        break;
+
                     case "line_items":
                         // overrite existing value with the Recurly API response
                         Adjustments = new AdjustmentList();
@@ -650,6 +655,7 @@ namespace Recurly
             xmlWriter.WriteElementString("customer_notes", CustomerNotes);
             xmlWriter.WriteElementString("terms_and_conditions", TermsAndConditions);
             xmlWriter.WriteElementString("vat_reverse_charge_notes", VatReverseChargeNotes);
+            xmlWriter.WriteElementString("gateway_code", GatewayCode);
             xmlWriter.WriteElementString("po_number", PoNumber);
 
             if (NetTerms.HasValue && _netTermsChanged)

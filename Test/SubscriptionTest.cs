@@ -400,6 +400,7 @@ namespace Recurly.Test
             notes.Add("CustomerNotes", "New Customer Notes");
             notes.Add("TermsAndConditions", "New T and C");
             notes.Add("VatReverseChargeNotes", "New VAT Notes");
+            notes.Add("GatewayCode", "jhq4mlfe7wtw");
             sub.CustomFields.Add(new CustomField("food", "taco"));
 
             sub.UpdateNotes(notes);
@@ -407,6 +408,7 @@ namespace Recurly.Test
             sub.CustomerNotes.Should().Be(notes["CustomerNotes"]);
             sub.TermsAndConditions.Should().Be(notes["TermsAndConditions"]);
             sub.VatReverseChargeNotes.Should().Be(notes["VatReverseChargeNotes"]);
+            sub.GatewayCode.Should().Be(notes["GatewayCode"]);
             sub.CustomFields.Should().Contain(cf => cf.Name == "food");
             sub.CustomFields.Should().Contain(cf => cf.Value == "taco");
 

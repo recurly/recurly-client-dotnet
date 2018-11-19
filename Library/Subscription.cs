@@ -307,6 +307,8 @@ namespace Recurly
         public string CustomerNotes { get; set; }
         public string TermsAndConditions { get; set; }
         public string VatReverseChargeNotes { get; set; }
+        public string GatewayCode { get; set; }
+
         /// <summary>
         /// True if the subscription started from a gift card.
         /// </summary>
@@ -571,10 +573,17 @@ namespace Recurly
                 UrlPrefix + Uri.EscapeDataString(Uuid) + "/notes",
                 WriteSubscriptionNotesXml(notes),
                 ReadXml);
+            if (notes.ContainsKey("CustomerNotes"))
+                CustomerNotes = notes["CustomerNotes"];
 
-            CustomerNotes = notes["CustomerNotes"];
-            TermsAndConditions = notes["TermsAndConditions"];
-            VatReverseChargeNotes = notes["VatReverseChargeNotes"];
+            if (notes.ContainsKey("TermsAndConditions"))
+                TermsAndConditions = notes["TermsAndConditions"];
+
+            if (notes.ContainsKey("VatReverseChargeNotes"))
+                VatReverseChargeNotes = notes["VatReverseChargeNotes"];
+
+            if (notes.ContainsKey("GatewayCode"))
+                GatewayCode = notes["GatewayCode"];
 
             return true;
         }
@@ -796,6 +805,10 @@ namespace Recurly
 
                     case "vat_reverse_charge_notes":
                         VatReverseChargeNotes = reader.ReadElementContentAsString();
+                        break;
+
+                    case "gateway_code":
+                        GatewayCode = reader.ReadElementContentAsString();
                         break;
 
                     case "address":
@@ -1076,9 +1089,18 @@ namespace Recurly
             {
                 xmlWriter.WriteStartElement("subscription"); // Start: subscription
 
-                xmlWriter.WriteElementString("customer_notes", notes["CustomerNotes"]);
-                xmlWriter.WriteElementString("terms_and_conditions", notes["TermsAndConditions"]);
-                xmlWriter.WriteElementString("vat_reverse_charge_notes", notes["VatReverseChargeNotes"]);
+                if (notes.ContainsKey("CustomerNotes"))
+                    xmlWriter.WriteElementString("customer_notes", notes["CustomerNotes"]);
+
+                if (notes.ContainsKey("TermsAndConditions"))
+                    xmlWriter.WriteElementString("terms_and_conditions", notes["TermsAndConditions"]);
+
+                if (notes.ContainsKey("VatReverseChargeNotes"))
+                    xmlWriter.WriteElementString("vat_reverse_charge_notes", notes["VatReverseChargeNotes"]);
+
+                if (notes.ContainsKey("GatewayCode"))
+                    xmlWriter.WriteElementString("gateway_code", notes["GatewayCode"]);
+
                 xmlWriter.WriteIfCollectionHasAny("custom_fields", CustomFields);
 
                 xmlWriter.WriteEndElement(); // End: subscription
