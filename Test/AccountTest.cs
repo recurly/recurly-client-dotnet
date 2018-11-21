@@ -33,6 +33,7 @@ namespace Recurly.Test
                 AcceptLanguage = "en",
                 VatNumber = "my-vat-number",
                 TaxExempt = true,
+                ExemptionCertificate = "Some Certificate",
                 EntityUseCode = "I",
                 CcEmails = "cc1@test.com,cc2@test.com",
                 Address = new Address(),
@@ -53,6 +54,7 @@ namespace Recurly.Test
             acct.CcEmails.Should().Be("cc1@test.com,cc2@test.com");
             Assert.Equal("my-vat-number", acct.VatNumber);
             Assert.True(acct.TaxExempt.Value);
+            Assert.Equal(acct.ExemptionCertificate, "Some Certificate");
             Assert.Equal("I", acct.EntityUseCode);
             Assert.Equal(address, acct.Address.Address1);
             Assert.False(acct.VatLocationValid);
