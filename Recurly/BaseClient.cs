@@ -7,42 +7,40 @@ using RestSharp;
 using RestSharp.Authenticators;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json.Converters;
 
 namespace Recurly {
     public class BaseClient {
         private const string API_URL = "https://partner-api.recurly.com/";
         public string SiteId { get; }
         private string ApiKey { get; }
-        private RestClient RestClient { get; }
+        public IRestClient RestClient { get; set; }
+        public virtual string ApiVersion { get; protected set; }
 
         public BaseClient(string siteId, string apiKey) {
+            if (String.IsNullOrEmpty(siteId))
+                throw new ArgumentException($"siteId is required. You passed in {siteId}");
+            if (String.IsNullOrEmpty(apiKey))
+                throw new ArgumentException($"apiKey is required. You passed in {apiKey}");
+
             SiteId = siteId;
             ApiKey = apiKey;
-            RestClient = new RestClient(API_URL);
+            RestClient = new RestClient();
+            RestClient.BaseUrl = new Uri(API_URL);
             RestClient.Authenticator = new HttpBasicAuthenticator(ApiKey, "");
-            var apiVersion = ApiVersion();
-            RestClient.AddDefaultHeader("Accept", $"application/vnd.recurly.{apiVersion}");
+            // We need to remove the default accepts as they are not overwritten by ours
+            RestClient.RemoveDefaultParameter("Accept");
+            RestClient.AddDefaultHeader("Accept", $"application/vnd.recurly.{ApiVersion}");
             RestClient.AddDefaultHeader("Content-Type", "application/json");
             RestClient.AddDefaultHeader("User-Agent", "Recurly/0.0.1; .NET");
         }
 
         public IRestResponse<T> MakeRequest<T>(Method method, string url, Request body = null) where T: new() {
             Console.WriteLine($"Calling {url}");
-            var request = new RestSharp.RestRequest(url, method);
+            var request = new RestRequest(url, method);
 
             if (body != null) {
-              DefaultContractResolver contractResolver = new DefaultContractResolver
-              {
-                NamingStrategy = new SnakeCaseNamingStrategy()
-              };
-
-              string json = JsonConvert.SerializeObject(body, new JsonSerializerSettings
-                  {
-                  ContractResolver = contractResolver,
-                  Formatting = Formatting.Indented,
-                  NullValueHandling = NullValueHandling.Ignore
-                  });
-
+                string json = Json.Serialize(body); 
                 Console.WriteLine("body: ");
                 Console.WriteLine(json);
                 request.AddParameter("application/json", json , ParameterType.RequestBody);
@@ -53,19 +51,12 @@ namespace Recurly {
             Console.WriteLine($"Status: {status}");
             Console.WriteLine($"Content: {resp.Content}");
             if (status < 200 || status >= 300) {
-                var err = JsonConvert.DeserializeObject<ApiError>(resp.Content);
-                throw err;
+                var err = Json.Deserialize<ApiErrorWrapper>(resp.Content).Error;
+                var apiError = new ApiError(err.Message);
+                apiError.Error = err;
+                throw apiError;
             }
-            return resp;
-        }
 
-        public IRestResponse MakeRequest(Method method, string url) {
-            var request = new RestSharp.RestRequest(url, method);
-            var resp = RestClient.Execute(request);
-            var status = (int)resp.StatusCode;
-            if (status < 200 || status >= 300) {
-                throw new ApiError("Bad responses code");
-            }
             return resp;
         }
 
@@ -76,10 +67,6 @@ namespace Recurly {
           // such as datetimes
           // TODO could get rid of string replaces with nicer regex matcher
           return regex.Replace(path, m => urlParams[m.Value.Replace("{", "").Replace("}", "")].ToString());
-        }
-
-        protected string ApiVersion() {
-            return null;
         }
     }
 }

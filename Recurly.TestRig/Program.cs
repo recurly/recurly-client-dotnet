@@ -1,6 +1,8 @@
 ﻿using System;
 using Recurly;
 using Recurly.Resources;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace RecurlyTestRig
 {
@@ -8,50 +10,24 @@ namespace RecurlyTestRig
     {
         static void Main(string[] args)
         {
-          try {
             var subdomain = Environment.GetEnvironmentVariable("RECURLY_SUBDOMAIN");
             var apiKey = Environment.GetEnvironmentVariable("RECURLY_API_KEY");
             var client = new Recurly.Client(subdomain, apiKey);;
 
-            var address = new Address() {
-                Street1 = "123 Main St",
-                City = "New Orleans",
-                Region = "LA",
-                PostalCode = "70114",
-                Country = "US",
-            };
-
-            var account = new AccountCreate() {
-                Code = Guid.NewGuid().ToString(),
-                Username = "myuser",
-                Address = address,
-                BillingInfo = new BillingInfoCreate() {
-                    FirstName = "Benjamin",
-                    LastName = "Eckel",
-                    Number = "4111-1111-1111-1111",
-                    Month = "12",
-                    Year = "2022",
-                    Address = address,
-                }
-            };
-
-            var subscriptionRequest = new SubscriptionCreate() {
-                Account = account,
-                PlanCode = "gold1",
-                Currency = "USD",
-            };
-
-            var subscription = client.CreateSubscription(subscriptionRequest);
-            Console.WriteLine(subscription); 
-
             try {
-                var nonexistentAccount = client.GetAccount("idontexist");
-            } catch (Recurly.ApiError err) {
-                Console.WriteLine(err);
+                var account = client.GetAccount("unknown");
+            } catch (Recurly.ApiError e) {
+                Console.WriteLine(e.Error);
+                Console.WriteLine(e.Error.Type);
+                Console.WriteLine(e.Error.Message);
+                Console.WriteLine(e.Error.Params);
             }
-          } catch (Recurly.ApiError err) {
-                Console.WriteLine(err);
-          }
+
+            // var accounts = client.ListAccounts();
+            // foreach(Account account in accounts)
+            // {
+            //     Console.WriteLine(account.Code);
+            // }
         }
     }
 }

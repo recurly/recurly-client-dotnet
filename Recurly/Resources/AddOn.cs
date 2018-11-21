@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 
 namespace Recurly.Resources {
+  [ExcludeFromCodeCoverage] 
   public class AddOn : Resource {
   
     /// <value>Accounting code for invoice line items for this add-on. If no value is provided, it defaults to add-on's code.</value>

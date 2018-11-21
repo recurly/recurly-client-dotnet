@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 
 namespace Recurly.Resources {
+  [ExcludeFromCodeCoverage] 
   public class Error : Resource {
   
     /// <value>Message</value>
@@ -15,7 +17,7 @@ namespace Recurly.Resources {
   
     /// <value>Type</value>
     [JsonProperty("type")]
-    public string Type { get; set; }
+    public ApiErrorType Type { get; set; }
   
   }
 }
