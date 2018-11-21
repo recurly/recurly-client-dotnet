@@ -60,9 +60,10 @@ namespace Recurly.UnitTests
             Assert.Equal(ParameterType.HttpHeader, contentParam.Type);
             Assert.Equal("application/json", contentParam.Value);
 
+            var libVersion = typeof(Recurly.Client).Assembly.GetName().Version;
             var agentParam = restClient.DefaultParameters.First(p => p.Name == "User-Agent");
             Assert.Equal(ParameterType.HttpHeader, agentParam.Type);
-            Assert.Equal("Recurly/0.0.1; .NET", agentParam.Value);
+            Assert.Equal($"Recurly/{libVersion}; .NET", agentParam.Value);
         }
 
         [Fact]

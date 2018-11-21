@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Linq;
+using System.Reflection;
 using RestSharp;
 using RestSharp.Authenticators;
 using Newtonsoft.Json;
@@ -29,10 +30,11 @@ namespace Recurly {
             RestClient.BaseUrl = new Uri(API_URL);
             RestClient.Authenticator = new HttpBasicAuthenticator(ApiKey, "");
             // We need to remove the default accepts as they are not overwritten by ours
+            var libVersion = typeof(Recurly.Client).Assembly.GetName().Version;
             RestClient.RemoveDefaultParameter("Accept");
             RestClient.AddDefaultHeader("Accept", $"application/vnd.recurly.{ApiVersion}");
             RestClient.AddDefaultHeader("Content-Type", "application/json");
-            RestClient.AddDefaultHeader("User-Agent", "Recurly/0.0.1; .NET");
+            RestClient.AddDefaultHeader("User-Agent", $"Recurly/{libVersion}; .NET");
         }
 
         public IRestResponse<T> MakeRequest<T>(Method method, string url, Request body = null) where T: new() {

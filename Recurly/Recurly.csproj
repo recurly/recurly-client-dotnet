@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>Recurly</PackageId>
-    <Version>1.1.9</Version>
+    <Version>3.0.0-alpha1</Version>
     <Authors>ben@recurly.com</Authors>
     <Company>Recurly, Inc.</Company>
 

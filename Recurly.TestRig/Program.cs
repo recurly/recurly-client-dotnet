@@ -12,10 +12,25 @@ namespace RecurlyTestRig
         {
             var subdomain = Environment.GetEnvironmentVariable("RECURLY_SUBDOMAIN");
             var apiKey = Environment.GetEnvironmentVariable("RECURLY_API_KEY");
-            var client = new Recurly.Client(subdomain, apiKey);;
+            var client = new Recurly.Client(subdomain, apiKey);
+
+            var accountReq = new AccountCreate() {
+                Code = "myaccountcode",
+                Address = new Address() {
+                    FirstName = "Benjamin",
+                    LastName = "DuMonde",
+                    Street1 = "123 Canal St.",
+                    PostalCode = "70115",
+                    Region = "LA",
+                    City = "New Orleans",
+                    Country = "US"
+                },
+            };
+
+            Account account = client.CreateAccount(accountReq);
 
             try {
-                var account = client.GetAccount("unknown");
+                client.GetAccount("code-unknown");
             } catch (Recurly.ApiError e) {
                 Console.WriteLine(e.Error);
                 Console.WriteLine(e.Error.Type);
