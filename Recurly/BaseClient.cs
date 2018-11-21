@@ -29,12 +29,17 @@ namespace Recurly {
             RestClient = new RestClient();
             RestClient.BaseUrl = new Uri(API_URL);
             RestClient.Authenticator = new HttpBasicAuthenticator(ApiKey, "");
-            // We need to remove the default accepts as they are not overwritten by ours
+            
+            // AddDefaultHeader does not work for user-agent
             var libVersion = typeof(Recurly.Client).Assembly.GetName().Version;
+            RestClient.UserAgent = $"Recurly/{libVersion}; .NET";
+
+            // We need to remove the default accepts as they are not overwritten by ours
             RestClient.RemoveDefaultParameter("Accept");
+
+            // These are the default headers to send on every request
             RestClient.AddDefaultHeader("Accept", $"application/vnd.recurly.{ApiVersion}");
             RestClient.AddDefaultHeader("Content-Type", "application/json");
-            RestClient.AddDefaultHeader("User-Agent", $"Recurly/{libVersion}; .NET");
         }
 
         public IRestResponse<T> MakeRequest<T>(Method method, string url, Request body = null) where T: new() {

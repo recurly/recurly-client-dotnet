@@ -15,10 +15,8 @@ namespace RecurlyTestRig
             var client = new Recurly.Client(subdomain, apiKey);
 
             var accountReq = new AccountCreate() {
-                Code = "myaccountcode",
+                Code = "myaccountcode123",
                 Address = new Address() {
-                    FirstName = "Benjamin",
-                    LastName = "DuMonde",
                     Street1 = "123 Canal St.",
                     PostalCode = "70115",
                     Region = "LA",
