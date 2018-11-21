@@ -1,12 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Recurly.Resources;
 using RestSharp;
 
 namespace Recurly {
+  [ExcludeFromCodeCoverage] 
   public class Client : BaseClient {
-    public new string ApiVersion() { return "v2018-10-04"; }
+    public override string ApiVersion => "v2018-10-04";
 
     public Client(string siteId, string apiKey) : base(siteId, apiKey) {}
   
@@ -137,7 +139,7 @@ namespace Recurly {
     public void RemoveAccountAcquisition(string account_id) {
       var urlParams = new Dictionary<string, object>{ { "account_id", account_id } };
       var url = this.InterpolatePath("/sites/{site_id}/accounts/{account_id}/acquisition", urlParams);
-      MakeRequest(Method.DELETE, url);
+      MakeRequest<object>(Method.DELETE, url);
     }
   
     /// <summary>
@@ -202,7 +204,7 @@ namespace Recurly {
     public void RemoveBillingInfo(string account_id) {
       var urlParams = new Dictionary<string, object>{ { "account_id", account_id } };
       var url = this.InterpolatePath("/sites/{site_id}/accounts/{account_id}/billing_info", urlParams);
-      MakeRequest(Method.DELETE, url);
+      MakeRequest<object>(Method.DELETE, url);
     }
   
     /// <summary>
@@ -410,7 +412,7 @@ namespace Recurly {
     public void RemoveShippingAddress(string account_id, string shipping_address_id) {
       var urlParams = new Dictionary<string, object>{ { "account_id", account_id }, { "shipping_address_id", shipping_address_id } };
       var url = this.InterpolatePath("/sites/{site_id}/accounts/{account_id}/shipping_addresses/{shipping_address_id}", urlParams);
-      MakeRequest(Method.DELETE, url);
+      MakeRequest<object>(Method.DELETE, url);
     }
   
     /// <summary>
@@ -761,7 +763,7 @@ namespace Recurly {
     public void RemoveLineItem(string line_item_id) {
       var urlParams = new Dictionary<string, object>{ { "line_item_id", line_item_id } };
       var url = this.InterpolatePath("/sites/{site_id}/line_items/{line_item_id}", urlParams);
-      MakeRequest(Method.DELETE, url);
+      MakeRequest<object>(Method.DELETE, url);
     }
   
     /// <summary>
@@ -1060,7 +1062,7 @@ namespace Recurly {
     public void RemoveSubscriptionChange(string subscription_id) {
       var urlParams = new Dictionary<string, object>{ { "subscription_id", subscription_id } };
       var url = this.InterpolatePath("/sites/{site_id}/subscriptions/{subscription_id}/change", urlParams);
-      MakeRequest(Method.DELETE, url);
+      MakeRequest<object>(Method.DELETE, url);
     }
   
     /// <summary>

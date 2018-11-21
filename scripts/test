@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 
-dotnet test Recurly.Tests/Recurly.Tests.csproj /p:CollectCoverage=true
+dotnet test Recurly.Tests/Recurly.Tests.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+dotnet ~/.nuget/packages/reportgenerator/*/tools/netcoreapp*/ReportGenerator.dll -reports:./Recurly.Tests/coverage.opencover.xml -targetdir:./Recurly.Tests/coverage_report

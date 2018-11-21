@@ -3,16 +3,24 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
 namespace Recurly {
-    public class ApiError : Resource {
 
-        [JsonProperty("type")]
-        public ApiErrorTypes Type { get; set; }
+    public class ApiError : Exception {
+        public Recurly.Resources.Error Error { get; set; }
 
-        [JsonProperty("message")]
-        public string Message { get; set; }
-
-        public ApiError() {
-
+        public ApiError()
+        {
         }
+
+        public ApiError(string message) : base(message)
+        {
+        }
+
+        public ApiError(string message, Exception inner) : base(message, inner)
+        {
+        }
+    }
+
+    public class ApiErrorWrapper {
+        public Recurly.Resources.Error Error { get; set; }
     }
 }

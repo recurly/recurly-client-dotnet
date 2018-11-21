@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 
 namespace Recurly.Resources {
+  [ExcludeFromCodeCoverage] 
   public class SubscriptionUpdate : Request {
   
     [JsonProperty("auto_renew")]

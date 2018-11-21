@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 
 namespace Recurly.Resources {
+  [ExcludeFromCodeCoverage] 
   public class Coupon : Resource {
   
     /// <value>The coupon is valid for all plans if true. If false then `plans` and `plans_names` will list the applicable plans.</value>

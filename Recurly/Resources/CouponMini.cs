@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 
 namespace Recurly.Resources {
+  [ExcludeFromCodeCoverage] 
   public class CouponMini : Resource {
   
     /// <value>The code the customer enters to redeem the coupon.</value>

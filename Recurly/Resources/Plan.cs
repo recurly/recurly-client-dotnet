@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 
 namespace Recurly.Resources {
+  [ExcludeFromCodeCoverage] 
   public class Plan : Resource {
   
     /// <value>Accounting code for invoice line items for the plan. If no value is provided, it defaults to plan's code.</value>
