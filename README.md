@@ -51,8 +51,7 @@ updating your application to use the above method.
 
 ## Client Documentation
 
-The API documentation is available on our [developer docs site](https://dev.recurly.com/docs/getting-started)
-You can find .NET examples there but we have some examples in [examples.md](./examples.md).
+The API documentation is available on our [developer docs site](https://dev.recurly.com/docs/getting-started). Examples can be found there for each API endpoint.
 
 ## .NET core and standard support
 
