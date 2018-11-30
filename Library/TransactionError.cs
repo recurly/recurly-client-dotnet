@@ -35,6 +35,8 @@ namespace Recurly
         /// </summary>
         public string GatewayErrorCode { get; internal set; }
 
+        public TransactionError() { }
+
         internal TransactionError(XmlTextReader reader)
         {
             while (reader.Read())

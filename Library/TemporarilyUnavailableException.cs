@@ -2,7 +2,7 @@
 {
     public class TemporarilyUnavailableException : ServerException
     {
-        internal TemporarilyUnavailableException()
+        public TemporarilyUnavailableException()
             : base("Recurly is temporarily unavailable. Please try again.")
         { }
     }

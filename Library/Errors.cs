@@ -6,9 +6,9 @@ using System.Xml;
 namespace Recurly
 {
     /// <summary>
-    /// An internal class for parsing and handling errors
+    /// A class for parsing and handling errors
     /// </summary>
-    internal class Errors
+    public class Errors
     {
         /// <summary>
         /// Error objects message
@@ -20,7 +20,10 @@ namespace Recurly
         /// </summary>
         public TransactionError TransactionError { get; internal set; }
 
-        internal Errors() { }
+        public Errors()
+        {
+            ValidationErrors = new List<Error>().ToArray();
+        }
 
         internal Errors(XmlTextReader xmlReader)
         {

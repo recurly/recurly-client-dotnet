@@ -6,6 +6,8 @@
     /// </summary>
     public class ValidationException : RecurlyException
     {
+        public ValidationException() { }
+
         /// <summary>
         /// HTTP Status Code 422 is "Unprocessable Entity"
         /// </summary>

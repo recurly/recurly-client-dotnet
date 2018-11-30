@@ -14,27 +14,29 @@ namespace Recurly
         /// <summary>
         /// Error message
         /// </summary>
-        public string Message { get; internal set; }
+        public string Message { get; set; }
 
         /// <summary>
         /// Field causing the error, if appropriate.
         /// </summary>
-        public string Field { get; internal set; }
+        public string Field { get; set; }
 
         /// <summary>
         /// Error code set for certain transaction failures.
         /// </summary>
-        public string Code { get; internal set; }
+        public string Code { get; set; }
 
         /// <summary>
         /// Error symbol
         /// </summary>
-        public string Symbol { get; internal set; }
+        public string Symbol { get; set; }
 
         /// <summary>
         /// Error details
         /// </summary>
-        public string Details { get; internal set; }
+        public string Details { get; set; }
+
+        public Error() { }
 
         internal Error(XmlTextReader reader, bool fromList)
         {
