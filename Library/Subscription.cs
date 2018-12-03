@@ -1062,6 +1062,8 @@ namespace Recurly
 
             if (RenewalBillingCycles.HasValue)
                 xmlWriter.WriteElementString("renewal_billing_cycles", RenewalBillingCycles.Value.AsString());
+            
+            xmlWriter.WriteIfCollectionHasAny("custom_fields", CustomFields);
 
             xmlWriter.WriteEndElement(); // End: subscription
         }
