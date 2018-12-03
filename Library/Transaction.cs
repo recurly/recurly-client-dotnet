@@ -332,6 +332,18 @@ namespace Recurly
             xmlWriter.WriteEndElement();
         }
 
+        internal void WriteOfflinePaymentXml(XmlTextWriter xmlWriter)
+        {
+            xmlWriter.WriteStartElement("transaction");
+
+            xmlWriter.WriteStringIfValid("payment_method", PaymentMethod);
+            xmlWriter.WriteElementString("collected_at", CollectedAt.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ"));
+            xmlWriter.WriteElementString("amount_in_cents", AmountInCents.AsString());
+            xmlWriter.WriteStringIfValid("description", Description);
+
+            xmlWriter.WriteEndElement();
+        }
+
         #endregion
 
         #region Object Overrides
