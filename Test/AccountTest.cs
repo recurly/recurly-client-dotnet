@@ -173,5 +173,39 @@ namespace Recurly.Test
             balance.Should().NotBeNull();
             balance.BalanceInCents.First().Value.Should().BeGreaterThan(0);
         }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void ShippingAddresses()
+        {
+            var account = new Account(GetUniqueAccountCode());
+            account.Create();
+
+            var newAddress = new ShippingAddress();
+            newAddress.FirstName = "P.";
+            newAddress.LastName = "Sherman";
+            newAddress.Address1 = "42 Wallaby Way";
+            newAddress.Address2 = "Suite 200";
+            newAddress.City = "Sydney";
+            newAddress.State = "New South Wales";
+            newAddress.Country = "Australia";
+            newAddress.Zip = "2060";
+
+            var shippingAddress = account.CreateShippingAddress(newAddress);
+            shippingAddress.Id.Should().NotBeNull();
+
+            var shippingAddresses = account.GetShippingAddresses();
+            shippingAddresses.Should().NotBeEmpty();
+
+            shippingAddress.Address2 = "Suite 100";
+
+            var updatedShippingAddress = account.UpdateShippingAddress(shippingAddress);
+            updatedShippingAddress.Address2.ShouldBeEquivalentTo("Suite 100");
+            var id = updatedShippingAddress.Id;
+
+            account.DeleteShippingAddress((long) id);
+
+            shippingAddresses = account.GetShippingAddresses();
+            shippingAddresses.Should().BeEmpty();
+        }
     }
 }
