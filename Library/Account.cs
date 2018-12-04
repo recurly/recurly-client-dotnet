@@ -430,6 +430,46 @@ namespace Recurly
             return activeRedemptions.ToArray()[0];
         }
 
+        /// <summary>
+        /// Creates a shipping address
+        /// </summary>
+        /// <param name="shippingAddress"></param>
+        /// <returns>ShippingAddress object</returns>
+        public ShippingAddress CreateShippingAddress(ShippingAddress shippingAddress)
+        {
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
+                UrlPrefix + Uri.EscapeDataString(AccountCode) + "/shipping_addresses",
+                shippingAddress.WriteXml,
+                shippingAddress.ReadXml);
+
+            return statusCode == HttpStatusCode.Created ? shippingAddress : null;
+        }
+
+        /// <summary>
+        /// Gets all shipping addresses
+        /// </summary>
+        /// <param name="shippingAddress"></param>
+        /// <returns>ShippingAddress object</returns>
+        public ShippingAddress UpdateShippingAddress(ShippingAddress shippingAddress)
+        {
+            var shippingAddressId = shippingAddress.Id;
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
+                UrlPrefix + Uri.EscapeDataString(AccountCode) + "/shipping_addresses/" + shippingAddressId,
+                shippingAddress.WriteXml,
+                shippingAddress.ReadXml);
+
+            return statusCode == HttpStatusCode.OK ? shippingAddress : null;
+        }
+
+        /// <summary>
+        /// Deletes a shipping address
+        /// </summary>
+        public void DeleteShippingAddress(long shippingAddressId)
+        {
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Delete,
+                UrlPrefix + Uri.EscapeDataString(AccountCode) + "/shipping_addresses/" + shippingAddressId);
+        }
+
         #region Read and Write XML documents
 
         internal override void ReadXml(XmlTextReader reader)
