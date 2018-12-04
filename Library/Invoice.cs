@@ -290,12 +290,12 @@ namespace Recurly
             var refunds = new RefundList(adjustments, options);
             var invoice = new Invoice();
 
-            var response = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 memberUrl() + "/refund",
                 refunds.WriteXml,
                 invoice.ReadXml);
 
-            if (HttpStatusCode.Created == response || HttpStatusCode.OK == response)
+            if (HttpStatusCode.Created == statusCode || HttpStatusCode.OK == statusCode)
                 return invoice;
             else
                 return null;
@@ -345,12 +345,12 @@ namespace Recurly
             var refunds = new RefundList(adjustments, prorate, quantity, method);
             var invoice = new Invoice();
 
-            var response = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 memberUrl() + "/refund",
                 refunds.WriteXml,
                 invoice.ReadXml);
 
-            if (HttpStatusCode.Created == response || HttpStatusCode.OK == response)
+            if (HttpStatusCode.Created == statusCode || HttpStatusCode.OK == statusCode)
                 return invoice;
             else
                 return null;
@@ -367,12 +367,12 @@ namespace Recurly
             var refundInvoice = new Invoice();
             var refund = new OpenAmountRefund(amountInCents, options);
 
-            var response = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 memberUrl() + "/refund",
                 refund.WriteXml,
                 refundInvoice.ReadXml);
 
-            if (HttpStatusCode.Created == response || HttpStatusCode.OK == response)
+            if (HttpStatusCode.Created == statusCode || HttpStatusCode.OK == statusCode)
                 return refundInvoice;
             else
                 return null;
@@ -384,13 +384,33 @@ namespace Recurly
             var refundInvoice = new Invoice();
             var refund = new OpenAmountRefund(amountInCents, method);
 
-            var response = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 memberUrl() + "/refund",
                 refund.WriteXml,
                 refundInvoice.ReadXml);
 
-            if (HttpStatusCode.Created == response || HttpStatusCode.OK == response)
+            if (HttpStatusCode.Created == statusCode || HttpStatusCode.OK == statusCode)
                 return refundInvoice;
+            else
+                return null;
+        }
+
+        /// <summary>
+        /// Enter an offline payment for a manual invoice
+        /// </summary>
+        /// <param name="transaction">The transaction to be entered.</param>
+        /// <returns>new Transaction object</returns>
+        public Transaction EnterOfflinePayment(Transaction transaction)
+        {
+            var successfulTransaction = new Transaction();
+
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
+                memberUrl() + "/transactions",
+                transaction.WriteOfflinePaymentXml,
+                successfulTransaction.ReadXml);
+
+            if (HttpStatusCode.Created == statusCode || HttpStatusCode.OK == statusCode)
+                return successfulTransaction;
             else
                 return null;
         }

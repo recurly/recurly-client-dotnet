@@ -348,5 +348,27 @@ namespace Recurly.Test
 
             account.Close();
         }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void EnterOfflinePayment()
+        {
+            var account = CreateNewAccountWithBillingInfo();
+            var adjustment = account.NewAdjustment("USD", 5000, "Test Charge");
+            adjustment.Create();
+
+            // Can only record offline transactions on manual invoices
+            var newInvoice = new Invoice();
+            newInvoice.CollectionMethod = Invoice.Collection.Manual;
+
+            var invoice = account.InvoicePendingCharges(newInvoice).ChargeInvoice;
+
+            var offlineTransaction = new Transaction(account, 5000, "");
+            offlineTransaction.PaymentMethod = "credit_card";
+            offlineTransaction.CollectedAt = DateTime.Now;
+            offlineTransaction.Description = "Paid the test charge. Gooood customer *pats customer head*";
+
+            var recordedTransaction = invoice.EnterOfflinePayment(offlineTransaction);
+            Assert.Equal(recordedTransaction.Status, Recurly.Transaction.TransactionState.Success);
+        }
     }
 }
