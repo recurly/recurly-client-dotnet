@@ -54,17 +54,17 @@ This allows you to create requests in a type-safe manner. Request types are not 
 
 ```csharp
 var accountReq = new AccountCreate()
-  {
-    Code = "myaccountcode",
-    Address = new Address() {
-        FirstName = "Benjamin",
-        LastName = "DuMonde",
-        Street1 = "123 Canal St.",
-        PostalCode = "70115",
-        Region = "LA",
-        City = "New Orleans",
-        Country = "US"
-    },
+{
+  Code = "myaccountcode",
+  Address = new Address() {
+    FirstName = "Benjamin",
+    LastName = "DuMonde",
+    Street1 = "123 Canal St.",
+    PostalCode = "70115",
+    Region = "LA",
+    City = "New Orleans",
+    Country = "US"
+  }
 };
 
 // CreateAccount takes an AccountCreate object and returns an Account object
