@@ -7,6 +7,10 @@ namespace Recurly.Resources {
   [ExcludeFromCodeCoverage] 
   public class AccountMini : Resource {
   
+    
+    [JsonProperty("bill_to")]
+    public string BillTo { get; set; }
+  
     /// <value>The unique identifier of the account.</value>
     [JsonProperty("code")]
     public string Code { get; set; }
@@ -30,6 +34,10 @@ namespace Recurly.Resources {
     
     [JsonProperty("last_name")]
     public string LastName { get; set; }
+  
+    
+    [JsonProperty("parent_account_id")]
+    public string ParentAccountId { get; set; }
   
   }
 }

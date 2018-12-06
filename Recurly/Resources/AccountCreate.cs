@@ -13,6 +13,9 @@ namespace Recurly.Resources {
     [JsonProperty("address")]
     public Address Address { get; set; }
   
+    [JsonProperty("bill_to")]
+    public string BillTo { get; set; }
+  
     [JsonProperty("billing_info")]
     public BillingInfoCreate BillingInfo { get; set; }
   
@@ -30,6 +33,9 @@ namespace Recurly.Resources {
   
     [JsonProperty("email")]
     public string Email { get; set; }
+  
+    [JsonProperty("exemption_certificate")]
+    public string ExemptionCertificate { get; set; }
   
     [JsonProperty("first_name")]
     public string FirstName { get; set; }

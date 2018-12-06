@@ -21,7 +21,7 @@ namespace Recurly.Resources {
   
     /// <value>Add-on pricing</value>
     [JsonProperty("currencies")]
-    public List<Dictionary<string, string>> Currencies { get; set; }
+    public List<AddOnPricing> Currencies { get; set; }
   
     /// <value>Default quantity for the hosted pages.</value>
     [JsonProperty("default_quantity")]

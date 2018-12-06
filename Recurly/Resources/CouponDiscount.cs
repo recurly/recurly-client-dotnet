@@ -9,7 +9,7 @@ namespace Recurly.Resources {
   
     /// <value>This is only present when `type=fixed`.</value>
     [JsonProperty("currencies")]
-    public List<Dictionary<string, string>> Currencies { get; set; }
+    public List<CouponDiscountPricing> Currencies { get; set; }
   
     /// <value>This is only present when `type=percent`.</value>
     [JsonProperty("percent")]

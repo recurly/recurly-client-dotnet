@@ -20,7 +20,7 @@ namespace Recurly.Resources {
     public string Code { get; set; }
   
     [JsonProperty("currencies")]
-    public List<Dictionary<string, string>> Currencies { get; set; }
+    public List<PlanPricing> Currencies { get; set; }
   
     [JsonProperty("description")]
     public string Description { get; set; }

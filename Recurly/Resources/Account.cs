@@ -11,6 +11,10 @@ namespace Recurly.Resources {
     [JsonProperty("address")]
     public Address Address { get; set; }
   
+    /// <value>An enumerable describing the billing behavior of the account, specifically whether the account is self-paying or will rely on the parent account to pay.</value>
+    [JsonProperty("bill_to")]
+    public string BillTo { get; set; }
+  
     
     [JsonProperty("billing_info")]
     public BillingInfo BillingInfo { get; set; }
@@ -42,6 +46,10 @@ namespace Recurly.Resources {
     /// <value>The email address used for communicating with this customer. The customer will also use this email address to log into your hosted account management pages. This value does not need to be unique.</value>
     [JsonProperty("email")]
     public string Email { get; set; }
+  
+    /// <value>The tax exemption certificate number for the account. If the merchant has an integration for the Vertex tax provider, this optional value will be sent in any tax calculation requests for the account.</value>
+    [JsonProperty("exemption_certificate")]
+    public string ExemptionCertificate { get; set; }
   
     
     [JsonProperty("first_name")]

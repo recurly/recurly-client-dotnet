@@ -25,7 +25,7 @@ namespace Recurly.Resources {
   
     /// <value>Pricing</value>
     [JsonProperty("currencies")]
-    public List<Dictionary<string, string>> Currencies { get; set; }
+    public List<PlanPricing> Currencies { get; set; }
   
     /// <value>Deleted at</value>
     [JsonProperty("deleted_at")]

@@ -20,7 +20,7 @@ namespace Recurly.Resources {
     public string CouponType { get; set; }
   
     [JsonProperty("currencies")]
-    public List<Dictionary<string, string>> Currencies { get; set; }
+    public List<CouponPricing> Currencies { get; set; }
   
     [JsonProperty("discount_percent")]
     public int? DiscountPercent { get; set; }
