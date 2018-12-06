@@ -22,6 +22,12 @@ namespace Recurly {
 
         public Pager() {}
 
+        public Pager<T> WithClient(Recurly.Client client)
+        {
+          RecurlyClient = client;
+          return this;
+        }
+
         public T Current
         {
             get

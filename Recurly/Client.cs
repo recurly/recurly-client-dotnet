@@ -22,7 +22,7 @@ namespace Recurly {
     public Pager<Site> ListSites() {
       var urlParams = new Dictionary<string, object>{ };
       var url = this.InterpolatePath("/sites", urlParams);
-      return MakeRequest<Pager<Site>>(Method.GET, url).Data;
+      return MakeRequest<Pager<Site>>(Method.GET, url).Data.WithClient(this);
     }
   
     /// <summary>
@@ -48,7 +48,7 @@ namespace Recurly {
     public Pager<Account> ListAccounts() {
       var urlParams = new Dictionary<string, object>{ };
       var url = this.InterpolatePath("/sites/{site_id}/accounts", urlParams);
-      return MakeRequest<Pager<Account>>(Method.GET, url).Data;
+      return MakeRequest<Pager<Account>>(Method.GET, url).Data.WithClient(this);
     }
   
     /// <summary>
@@ -217,7 +217,7 @@ namespace Recurly {
     public Pager<CouponRedemption> ListAccountCouponRedemptions(string account_id) {
       var urlParams = new Dictionary<string, object>{ { "account_id", account_id } };
       var url = this.InterpolatePath("/sites/{site_id}/accounts/{account_id}/coupon_redemptions", urlParams);
-      return MakeRequest<Pager<CouponRedemption>>(Method.GET, url).Data;
+      return MakeRequest<Pager<CouponRedemption>>(Method.GET, url).Data.WithClient(this);
     }
   
     /// <summary>
@@ -256,7 +256,7 @@ namespace Recurly {
     public Pager<CreditPayment> ListAccountCreditPayments(string account_id) {
       var urlParams = new Dictionary<string, object>{ { "account_id", account_id } };
       var url = this.InterpolatePath("/sites/{site_id}/accounts/{account_id}/credit_payments", urlParams);
-      return MakeRequest<Pager<CreditPayment>>(Method.GET, url).Data;
+      return MakeRequest<Pager<CreditPayment>>(Method.GET, url).Data.WithClient(this);
     }
   
     /// <summary>
@@ -269,7 +269,7 @@ namespace Recurly {
     public Pager<Invoice> ListAccountInvoices(string account_id) {
       var urlParams = new Dictionary<string, object>{ { "account_id", account_id } };
       var url = this.InterpolatePath("/sites/{site_id}/accounts/{account_id}/invoices", urlParams);
-      return MakeRequest<Pager<Invoice>>(Method.GET, url).Data;
+      return MakeRequest<Pager<Invoice>>(Method.GET, url).Data.WithClient(this);
     }
   
     /// <summary>
@@ -308,7 +308,7 @@ namespace Recurly {
     public Pager<LineItem> ListAccountLineItems(string account_id) {
       var urlParams = new Dictionary<string, object>{ { "account_id", account_id } };
       var url = this.InterpolatePath("/sites/{site_id}/accounts/{account_id}/line_items", urlParams);
-      return MakeRequest<Pager<LineItem>>(Method.GET, url).Data;
+      return MakeRequest<Pager<LineItem>>(Method.GET, url).Data.WithClient(this);
     }
   
     /// <summary>
@@ -334,7 +334,7 @@ namespace Recurly {
     public Pager<AccountNote> ListAccountNotes(string account_id) {
       var urlParams = new Dictionary<string, object>{ { "account_id", account_id } };
       var url = this.InterpolatePath("/sites/{site_id}/accounts/{account_id}/notes", urlParams);
-      return MakeRequest<Pager<AccountNote>>(Method.GET, url).Data;
+      return MakeRequest<Pager<AccountNote>>(Method.GET, url).Data.WithClient(this);
     }
   
     /// <summary>
@@ -360,7 +360,7 @@ namespace Recurly {
     public Pager<ShippingAddress> ListShippingAddresses(string account_id) {
       var urlParams = new Dictionary<string, object>{ { "account_id", account_id } };
       var url = this.InterpolatePath("/sites/{site_id}/accounts/{account_id}/shipping_addresses", urlParams);
-      return MakeRequest<Pager<ShippingAddress>>(Method.GET, url).Data;
+      return MakeRequest<Pager<ShippingAddress>>(Method.GET, url).Data.WithClient(this);
     }
   
     /// <summary>
@@ -425,7 +425,7 @@ namespace Recurly {
     public Pager<Subscription> ListAccountSubscriptions(string account_id) {
       var urlParams = new Dictionary<string, object>{ { "account_id", account_id } };
       var url = this.InterpolatePath("/sites/{site_id}/accounts/{account_id}/subscriptions", urlParams);
-      return MakeRequest<Pager<Subscription>>(Method.GET, url).Data;
+      return MakeRequest<Pager<Subscription>>(Method.GET, url).Data.WithClient(this);
     }
   
     /// <summary>
@@ -438,7 +438,7 @@ namespace Recurly {
     public Pager<Transaction> ListAccountTransactions(string account_id) {
       var urlParams = new Dictionary<string, object>{ { "account_id", account_id } };
       var url = this.InterpolatePath("/sites/{site_id}/accounts/{account_id}/transactions", urlParams);
-      return MakeRequest<Pager<Transaction>>(Method.GET, url).Data;
+      return MakeRequest<Pager<Transaction>>(Method.GET, url).Data.WithClient(this);
     }
   
     /// <summary>
@@ -451,7 +451,7 @@ namespace Recurly {
     public Pager<Account> ListChildAccounts(string account_id) {
       var urlParams = new Dictionary<string, object>{ { "account_id", account_id } };
       var url = this.InterpolatePath("/sites/{site_id}/accounts/{account_id}/accounts", urlParams);
-      return MakeRequest<Pager<Account>>(Method.GET, url).Data;
+      return MakeRequest<Pager<Account>>(Method.GET, url).Data.WithClient(this);
     }
   
     /// <summary>
@@ -477,7 +477,7 @@ namespace Recurly {
     public Pager<Coupon> ListCoupons() {
       var urlParams = new Dictionary<string, object>{ };
       var url = this.InterpolatePath("/sites/{site_id}/coupons", urlParams);
-      return MakeRequest<Pager<Coupon>>(Method.GET, url).Data;
+      return MakeRequest<Pager<Coupon>>(Method.GET, url).Data.WithClient(this);
     }
   
     /// <summary>
@@ -529,7 +529,7 @@ namespace Recurly {
     public Pager<UniqueCouponCode> ListUniqueCouponCodes(string coupon_id) {
       var urlParams = new Dictionary<string, object>{ { "coupon_id", coupon_id } };
       var url = this.InterpolatePath("/sites/{site_id}/coupons/{coupon_id}/unique_coupon_codes", urlParams);
-      return MakeRequest<Pager<UniqueCouponCode>>(Method.GET, url).Data;
+      return MakeRequest<Pager<UniqueCouponCode>>(Method.GET, url).Data.WithClient(this);
     }
   
     /// <summary>
@@ -542,7 +542,7 @@ namespace Recurly {
     public Pager<CreditPayment> ListCreditPayments() {
       var urlParams = new Dictionary<string, object>{ };
       var url = this.InterpolatePath("/sites/{site_id}/credit_payments", urlParams);
-      return MakeRequest<Pager<CreditPayment>>(Method.GET, url).Data;
+      return MakeRequest<Pager<CreditPayment>>(Method.GET, url).Data.WithClient(this);
     }
   
     /// <summary>
@@ -568,7 +568,7 @@ namespace Recurly {
     public Pager<CustomFieldDefinition> ListCustomFieldDefinitions() {
       var urlParams = new Dictionary<string, object>{ };
       var url = this.InterpolatePath("/sites/{site_id}/custom_field_definitions", urlParams);
-      return MakeRequest<Pager<CustomFieldDefinition>>(Method.GET, url).Data;
+      return MakeRequest<Pager<CustomFieldDefinition>>(Method.GET, url).Data.WithClient(this);
     }
   
     /// <summary>
@@ -594,7 +594,7 @@ namespace Recurly {
     public Pager<Invoice> ListInvoices() {
       var urlParams = new Dictionary<string, object>{ };
       var url = this.InterpolatePath("/sites/{site_id}/invoices", urlParams);
-      return MakeRequest<Pager<Invoice>>(Method.GET, url).Data;
+      return MakeRequest<Pager<Invoice>>(Method.GET, url).Data.WithClient(this);
     }
   
     /// <summary>
@@ -685,7 +685,7 @@ namespace Recurly {
     public Pager<LineItem> ListInvoiceLineItems(string invoice_id) {
       var urlParams = new Dictionary<string, object>{ { "invoice_id", invoice_id } };
       var url = this.InterpolatePath("/sites/{site_id}/invoices/{invoice_id}/line_items", urlParams);
-      return MakeRequest<Pager<LineItem>>(Method.GET, url).Data;
+      return MakeRequest<Pager<LineItem>>(Method.GET, url).Data.WithClient(this);
     }
   
     /// <summary>
@@ -698,7 +698,7 @@ namespace Recurly {
     public Pager<CouponRedemption> ListInvoiceCouponRedemptions(string invoice_id) {
       var urlParams = new Dictionary<string, object>{ { "invoice_id", invoice_id } };
       var url = this.InterpolatePath("/sites/{site_id}/invoices/{invoice_id}/coupon_redemptions", urlParams);
-      return MakeRequest<Pager<CouponRedemption>>(Method.GET, url).Data;
+      return MakeRequest<Pager<CouponRedemption>>(Method.GET, url).Data.WithClient(this);
     }
   
     /// <summary>
@@ -711,7 +711,7 @@ namespace Recurly {
     public Pager<Invoice> ListRelatedInvoices(string invoice_id) {
       var urlParams = new Dictionary<string, object>{ { "invoice_id", invoice_id } };
       var url = this.InterpolatePath("/sites/{site_id}/invoices/{invoice_id}/related_invoices", urlParams);
-      return MakeRequest<Pager<Invoice>>(Method.GET, url).Data;
+      return MakeRequest<Pager<Invoice>>(Method.GET, url).Data.WithClient(this);
     }
   
     /// <summary>
@@ -737,7 +737,7 @@ namespace Recurly {
     public Pager<LineItem> ListLineItems() {
       var urlParams = new Dictionary<string, object>{ };
       var url = this.InterpolatePath("/sites/{site_id}/line_items", urlParams);
-      return MakeRequest<Pager<LineItem>>(Method.GET, url).Data;
+      return MakeRequest<Pager<LineItem>>(Method.GET, url).Data.WithClient(this);
     }
   
     /// <summary>
@@ -776,7 +776,7 @@ namespace Recurly {
     public Pager<Plan> ListPlans() {
       var urlParams = new Dictionary<string, object>{ };
       var url = this.InterpolatePath("/sites/{site_id}/plans", urlParams);
-      return MakeRequest<Pager<Plan>>(Method.GET, url).Data;
+      return MakeRequest<Pager<Plan>>(Method.GET, url).Data.WithClient(this);
     }
   
     /// <summary>
@@ -841,7 +841,7 @@ namespace Recurly {
     public Pager<AddOn> ListPlanAddOns(string plan_id) {
       var urlParams = new Dictionary<string, object>{ { "plan_id", plan_id } };
       var url = this.InterpolatePath("/sites/{site_id}/plans/{plan_id}/add_ons", urlParams);
-      return MakeRequest<Pager<AddOn>>(Method.GET, url).Data;
+      return MakeRequest<Pager<AddOn>>(Method.GET, url).Data.WithClient(this);
     }
   
     /// <summary>
@@ -906,7 +906,7 @@ namespace Recurly {
     public Pager<AddOn> ListAddOns() {
       var urlParams = new Dictionary<string, object>{ };
       var url = this.InterpolatePath("/sites/{site_id}/add_ons", urlParams);
-      return MakeRequest<Pager<AddOn>>(Method.GET, url).Data;
+      return MakeRequest<Pager<AddOn>>(Method.GET, url).Data.WithClient(this);
     }
   
     /// <summary>
@@ -932,7 +932,7 @@ namespace Recurly {
     public Pager<Subscription> ListSubscriptions() {
       var urlParams = new Dictionary<string, object>{ };
       var url = this.InterpolatePath("/sites/{site_id}/subscriptions", urlParams);
-      return MakeRequest<Pager<Subscription>>(Method.GET, url).Data;
+      return MakeRequest<Pager<Subscription>>(Method.GET, url).Data.WithClient(this);
     }
   
     /// <summary>
@@ -1075,7 +1075,7 @@ namespace Recurly {
     public Pager<Invoice> ListSubscriptionInvoices(string subscription_id) {
       var urlParams = new Dictionary<string, object>{ { "subscription_id", subscription_id } };
       var url = this.InterpolatePath("/sites/{site_id}/subscriptions/{subscription_id}/invoices", urlParams);
-      return MakeRequest<Pager<Invoice>>(Method.GET, url).Data;
+      return MakeRequest<Pager<Invoice>>(Method.GET, url).Data.WithClient(this);
     }
   
     /// <summary>
@@ -1088,7 +1088,7 @@ namespace Recurly {
     public Pager<Transaction> ListTransactions() {
       var urlParams = new Dictionary<string, object>{ };
       var url = this.InterpolatePath("/sites/{site_id}/transactions", urlParams);
-      return MakeRequest<Pager<Transaction>>(Method.GET, url).Data;
+      return MakeRequest<Pager<Transaction>>(Method.GET, url).Data.WithClient(this);
     }
   
     /// <summary>
