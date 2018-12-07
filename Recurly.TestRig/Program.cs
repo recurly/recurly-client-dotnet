@@ -14,6 +14,23 @@ namespace RecurlyTestRig
             var apiKey = Environment.GetEnvironmentVariable("RECURLY_API_KEY");
             var client = new Recurly.Client(subdomain, apiKey);
 
+            // var acc = client.GetAccount("code-benjamin-du-monde");
+            // var emails = acc.CcEmails.Split(",");
+            // foreach (var email in emails)
+            // {
+            //     Console.WriteLine(email);
+            // }
+
+            // var accReq = new AccountUpdate() {
+            //     CcEmails = "ben@recurly.com,scott.choi@recurly.com",
+            // };
+            // acc = client.UpdateAccount(acc.Id, accReq);
+            // emails = acc.CcEmails.Split(",");
+            // foreach (var email in emails)
+            // {
+            //     Console.WriteLine(email);
+            // }
+
             /** Create a Plan */
             var planRequest = new PlanCreate() {
                 Code = Guid.NewGuid().ToString(),
@@ -28,7 +45,7 @@ namespace RecurlyTestRig
                 }
             };
             var plan = client.CreatePlan(planRequest);
-
+            
             /** Create IP Address AddOn */
             var ipAddOnRequst = new AddOnCreate() {
                 Code = "ip_addresses",
@@ -55,9 +72,9 @@ namespace RecurlyTestRig
             };
             var userAddOn = client.CreatePlanAddOn(plan.Id, userAddOnRequst);
             
-
+            
             /** Create Subscription */
-        
+            
             var address = new Address() {
                 Street1 = "123 Main St",
                 City = "New Orleans",
@@ -65,7 +82,7 @@ namespace RecurlyTestRig
                 PostalCode = "70114",
                 Country = "US",
             };
-
+            
             var account = new AccountCreate() {
                 Code = Guid.NewGuid().ToString(),
                 Username = "myuser",
@@ -79,7 +96,7 @@ namespace RecurlyTestRig
                     Address = address,
                 }
             };
-
+            
             var subscriptionRequest = new SubscriptionCreate() {
                 Account = account,
                 PlanCode = plan.Code,
@@ -92,11 +109,11 @@ namespace RecurlyTestRig
                     }
                 }
             };
-
+            
             var subscription = client.CreateSubscription(subscriptionRequest);
             
             /** Add on the user add on after the fact with a subscription change */
-
+            
             var addOnsRequest = new List<SubscriptionAddOnCreate>() {
                 // existing add on, we can reference by Id for existing add on
                 new SubscriptionAddOnCreate() {
@@ -113,7 +130,7 @@ namespace RecurlyTestRig
                 AddOns = addOnsRequest
             };
             var subChange = client.CreateSubscriptionChange(subscription.Id, subChangeRequest);
-
+            
             Console.WriteLine(subscription.Uuid);
 
             // var accountReq = new AccountCreate() {
@@ -126,9 +143,9 @@ namespace RecurlyTestRig
             //         Country = "US"
             //     },
             // };
-            //
-            // Account account = client.CreateAccount(accountReq);
-            //
+            
+            // Account acct = client.CreateAccount(accountReq);
+            
             // try {
             //     client.GetAccount("code-unknown");
             // } catch (Recurly.ApiError e) {
@@ -138,13 +155,12 @@ namespace RecurlyTestRig
             //     Console.WriteLine(e.Error.Params);
             // }
 
-            // var accounts = client.ListAccounts();
-            // foreach(Account account in accounts)
-            // {
-            //     Console.WriteLine(account.Code);
-            // }
-
-
+            var filter = new DateTime(2018, 1, 1);
+            var accounts = client.ListAccounts(limit: 200, order: "desc", begin_time: filter);
+            foreach(Account acc in accounts)
+            {
+                Console.WriteLine(acc.CreatedAt.ToString());
+            }
         }
     }
 }

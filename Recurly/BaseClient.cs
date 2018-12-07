@@ -42,10 +42,28 @@ namespace Recurly {
             RestClient.AddDefaultHeader("Content-Type", "application/json");
         }
 
-        public IRestResponse<T> MakeRequest<T>(Method method, string url, Request body = null) where T: new() {
+        public IRestResponse<T> MakeRequest<T>(Method method, string url, Request body = null, Dictionary<string, object> queryParams = null) where T: new() {
             Console.WriteLine($"Calling {url}");
             var request = new RestRequest(url, method);
 
+            // If we have any query params, add them to the request
+            if (queryParams != null)
+            {
+              foreach(KeyValuePair<string, object> entry in queryParams)
+              {
+                  if (entry.Value != null)
+                  {
+                    var stringRepr = entry.Value.ToString();
+                    if (entry.Value.GetType() == typeof(DateTime)) {
+                        stringRepr = ((DateTime)entry.Value).ToString("o");
+                    }
+                    Console.WriteLine($"Parameter: {entry.Key.ToString()} {stringRepr}");
+                    request.AddQueryParameter(entry.Key.ToString(), stringRepr);
+                  }
+              }
+            }
+
+            // If we have a body, serialize it and add it to the request
             if (body != null) {
                 string json = Json.Serialize(body); 
                 Console.WriteLine("body: ");
@@ -56,7 +74,7 @@ namespace Recurly {
             var resp = RestClient.Execute<T>(request);
             var status = (int)resp.StatusCode;
             Console.WriteLine($"Status: {status}");
-            Console.WriteLine($"Content: {resp.Content}");
+            //Console.WriteLine($"Content: {resp.Content}");
             if (status < 200 || status >= 300) {
                 var err = Json.Deserialize<ApiErrorWrapper>(resp.Content).Error;
                 var apiError = new ApiError(err.Message);
