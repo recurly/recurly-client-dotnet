@@ -1,6 +1,12 @@
 Unreleased
 ===============
 
+### Upgrade Notes
+This release contains one breaking change:
+
+To update a subscription, a SubscriptionChange object must be passed into the `ChangeSubscription()` method.
+See the C# example in our [dev docs](https://dev.recurly.com/docs/update-subscription).
+
 1.14.1 (stable) / 2018-12-11
 ===============
 

@@ -52,9 +52,14 @@ namespace Recurly.Test
 
             var sub = new Subscription(account, plan, "USD");
             sub.Create();
-            sub.UnitAmountInCents = 3000;
 
-            sub.ChangeSubscription(Subscription.ChangeTimeframe.Renewal);
+            var subChange = new SubscriptionChange()
+            {
+                UnitAmountInCents = 3000,
+                TimeFrame = SubscriptionChange.ChangeTimeframe.Renewal
+            };
+
+            Subscription.ChangeSubscription(sub.Uuid, subChange);
 
             var newSubscription = Subscriptions.Get(sub.Uuid);
             newSubscription.PendingSubscription.Should().NotBeNull();
@@ -239,9 +244,13 @@ namespace Recurly.Test
 
             var sub = new Subscription(account, plan, "USD");
             sub.Create();
-            sub.Plan = plan2;
 
-            sub.ChangeSubscription(); // change "Now" is default
+            var subChange = new SubscriptionChange()
+            {
+                PlanCode = plan2.PlanCode
+            };
+
+            Subscription.ChangeSubscription(sub.Uuid, subChange);
 
             var newSubscription = Subscriptions.Get(sub.Uuid);
 
@@ -424,7 +433,7 @@ namespace Recurly.Test
             Account account = null;
             Subscription sub = null;
             Subscription sub2 = null;
-            Subscription sub3 = null;
+            SubscriptionChange subChange = null;
 
             try
             {
@@ -478,22 +487,25 @@ namespace Recurly.Test
 
                 // test changing the plan of a subscription
 
-                sub2 = Subscriptions.Get(sub.Uuid);
-                sub2.UnitAmountInCents = plan2.UnitAmountInCents["USD"];
-                sub2.Plan = plan2;
+                subChange = new SubscriptionChange()
+                {
+                    UnitAmountInCents = plan2.UnitAmountInCents["USD"],
+                    PlanCode = plan2.PlanCode,
+                    AddOns = sub.AddOns
+                };
 
-                foreach (var addOn in sub2.AddOns)
+                foreach (var addOn in subChange.AddOns)
                 {
                     addOn.UnitAmountInCents = plan2.UnitAmountInCents["USD"];
                 }
 
-                sub2.ChangeSubscription(Subscription.ChangeTimeframe.Now);
+                Subscription.ChangeSubscription(sub.Uuid, subChange);
 
                 // check if the changes were saved
-                sub3 = Subscriptions.Get(sub2.Uuid);
-                sub3.UnitAmountInCents.Should().Equals(plan2.UnitAmountInCents["USD"]);
-                Assert.Equal(1, sub3.AddOns.Count);
-                foreach (var addOn in sub3.AddOns)
+                sub2 = Subscriptions.Get(sub.Uuid);
+                sub2.UnitAmountInCents.Should().Equals(plan2.UnitAmountInCents["USD"]);
+                Assert.Equal(1, sub2.AddOns.Count);
+                foreach (var addOn in sub2.AddOns)
                 {
                     addOn.UnitAmountInCents.Should().Equals(plan2.UnitAmountInCents["USD"]);
                 }

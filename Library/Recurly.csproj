@@ -127,6 +127,7 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Subscription.cs" />
     <Compile Include="SubscriptionAddOn.cs" />
+    <Compile Include="SubscriptionChange.cs" />
     <Compile Include="TemporarilyUnavailableException.cs" />
     <Compile Include="Transaction.cs" />
     <Compile Include="List\TransactionList.cs" />

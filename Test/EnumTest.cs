@@ -45,7 +45,7 @@ namespace Recurly.Test
             private static readonly Action CouponState = () => EnumOperations<CouponState>();
             private static readonly Action InvoiceState = () => EnumOperations<InvoiceState>();
             private static readonly Action SubscriptionState = () => EnumOperations<SubscriptionState>();
-            private static readonly Action SubscriptionChangeTimeframe = () => EnumOperations<Subscription.ChangeTimeframe>();
+            private static readonly Action SubscriptionChangeTimeframe = () => EnumOperations<SubscriptionChange.ChangeTimeframe>();
             private static readonly Action SubscriptionRefundType = () => EnumOperations<Subscription.RefundType>();
 
             private readonly List<object[]> _data = new List<object[]>

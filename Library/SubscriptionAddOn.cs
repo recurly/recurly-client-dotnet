@@ -10,6 +10,7 @@ namespace Recurly
         public int? UnitAmountInCents { get; set; }
         public int Quantity { get; set; }
         public Adjustment.RevenueSchedule? RevenueScheduleType { get; set; }
+        public float? UsagePercentage { get; set; }
 
         public SubscriptionAddOn(XmlTextReader reader)
         {
@@ -67,6 +68,10 @@ namespace Recurly
                         if (!revenueScheduleType.IsNullOrEmpty())
                             RevenueScheduleType = revenueScheduleType.ParseAsEnum<Adjustment.RevenueSchedule>();
                         break;
+
+                    case "usage_percentage":
+                        UsagePercentage = reader.ReadElementContentAsFloat();
+                        break;
                 }
             }
         }
@@ -83,6 +88,9 @@ namespace Recurly
 
             if (RevenueScheduleType.HasValue)
                 writer.WriteElementString("revenue_schedule_type", RevenueScheduleType.Value.ToString().EnumNameToTransportCase());
+
+            if (UsagePercentage.HasValue)
+                writer.WriteElementString("usage_percentage", UsagePercentage.ToString());
 
             writer.WriteEndElement();
         }
