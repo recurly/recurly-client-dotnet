@@ -252,11 +252,13 @@ namespace Recurly.Test
             invoice.PoNumber = "1234";
             invoice.CustomerNotes = "Some Customer Notes";
             invoice.TermsAndConditions = "Some Terms and Conditions";
+            invoice.GatewayCode = "jhq4mlfe7wtw";
             invoice.Update();
 
             Assert.Equal(invoice.PoNumber, "1234");
             Assert.Equal(invoice.CustomerNotes, "Some Customer Notes");
             Assert.Equal(invoice.TermsAndConditions, "Some Terms and Conditions");
+            Assert.Equal(invoice.GatewayCode, "jhq4mlfe7wtw");
         }
 
         [Fact(Skip = "This feature is deprecated and no longer supported for accounts where line item refunds are turned on.")]

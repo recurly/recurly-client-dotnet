@@ -35,6 +35,7 @@ namespace Recurly
         public string CompanyName { get; set; }
         public string VatNumber { get; set; }
         public bool? TaxExempt { get; set; }
+        public string ExemptionCertificate { get; set; }
         public string EntityUseCode { get; set; }
         public string AcceptLanguage { get; set; }
         public string CcEmails { get; set; }
@@ -536,6 +537,10 @@ namespace Recurly
                         TaxExempt = reader.ReadElementContentAsBoolean();
                         break;
 
+                    case "exemption_certificate":
+                        ExemptionCertificate = reader.ReadElementContentAsString();
+                        break;
+
                     case "entity_use_code":
                         EntityUseCode = reader.ReadElementContentAsString();
                         break;
@@ -653,6 +658,8 @@ namespace Recurly
 
             if (TaxExempt.HasValue)
                 xmlWriter.WriteElementString("tax_exempt", TaxExempt.Value.AsString());
+
+            xmlWriter.WriteStringIfValid("exemption_certificate", ExemptionCertificate);
 
             if(_accountAcquisition != null)
                 _accountAcquisition.WriteXml(xmlWriter);

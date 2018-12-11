@@ -1,6 +1,21 @@
 Unreleased
 ===============
 
+1.14.1 (stable) / 2018-12-11
+===============
+
+This release brings us up to API version 2.17
+
+* Add public constructors to error classes [PR](https://github.com/recurly/recurly-client-net/pull/350)
+* Add missing values to WriteSubscriptionXml() [PR](https://github.com/recurly/recurly-client-net/pull/352)
+* Add `GatewayCode` to Subscription for notes and Invoice [PR](https://github.com/recurly/recurly-client-net/pull/355)
+* Add `ExemptionCertificate` attribute to Account [PR](https://github.com/recurly/recurly-client-net/pull/356)
+* Remove examples.md [PR](https://github.com/recurly/recurly-client-net/pull/357)
+* Add Custom Fields to WriteSubscriptionXml() [PR](https://github.com/recurly/recurly-client-net/pull/358)
+* Add EnterOfflinePayment method to Invoice [PR](https://github.com/recurly/recurly-client-net/pull/359)
+* Add methods for working with Shipping Addresses [PR](https://github.com/recurly/recurly-client-net/pull/360)
+* Make UTC explicit in Subscription.Postpone [PR](https://github.com/recurly/recurly-client-net/pull/362)
+
 1.14.0 (stable) / 2018-10-30
 ===============
 
