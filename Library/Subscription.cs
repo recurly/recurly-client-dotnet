@@ -30,12 +30,6 @@ namespace Recurly
             Paused   = 1024
         }
 
-        public enum ChangeTimeframe : short
-        {
-            Now,
-            Renewal
-        }
-
         public enum RefundType : short
         {
             Full,
@@ -423,29 +417,6 @@ namespace Recurly
                 ReadXml);
         }
 
-        /// <summary>
-        /// Request that an update to a subscription take place
-        /// </summary>
-        /// <param name="timeframe">when the update should occur: now (default) or at renewal</param>
-        public void ChangeSubscription(ChangeTimeframe timeframe)
-        {
-            Client.WriteXmlDelegate writeXmlDelegate;
-
-            if (ChangeTimeframe.Renewal == timeframe)
-                writeXmlDelegate = WriteChangeSubscriptionAtRenewalXml;
-            else
-                writeXmlDelegate = WriteChangeSubscriptionNowXml;
-
-            Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
-                UrlPrefix + Uri.EscapeDataString(Uuid),
-                writeXmlDelegate,
-                ReadXml);
-        }
-
-        public void ChangeSubscription()
-        {
-            ChangeSubscription(ChangeTimeframe.Now);
-        }
 
         /// <summary>
         /// Cancel an active subscription.  The subscription will not renew, but will continue to be active
@@ -482,8 +453,7 @@ namespace Recurly
         /// <summary>
         /// Transforms this object into a preview Subscription applied to the account.
         /// </summary>
-        /// <param name="timeframe">ChangeTimeframe.Now (default) or at Renewal</param>
-        public void Preview(ChangeTimeframe timeframe)
+        public void Preview()
         {
             if (_saved)
             {
@@ -497,44 +467,6 @@ namespace Recurly
 
             // this method does not save the object
             _saved = false;
-        }
-
-        public void Preview()
-        {
-            Preview(ChangeTimeframe.Now);
-        }
-
-        /// <summary>
-        /// Preview the changes associated with the current subscription
-        /// </summary>
-        /// <param name="timeframe">ChangeTimeframe.Now (default) or at Renewal</param>
-        public virtual Subscription PreviewChange(ChangeTimeframe timeframe)
-        {
-            if (!_saved)
-            {
-                throw new Recurly.RecurlyException("Must have an existing subscription to preview changes.");
-            }
-
-            Client.WriteXmlDelegate writeXmlDelegate;
-
-            if (ChangeTimeframe.Renewal == timeframe)
-                writeXmlDelegate = WriteChangeSubscriptionAtRenewalXml;
-            else
-                writeXmlDelegate = WriteChangeSubscriptionNowXml;
-
-            var previewSubscription = new Subscription();
-
-            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
-                UrlPrefix + Uri.EscapeDataString(Uuid) + "/preview",
-                writeXmlDelegate,
-                previewSubscription.ReadPreviewXml);
-
-            return statusCode == HttpStatusCode.NotFound ? null : previewSubscription;
-        }
-
-        public virtual Subscription PreviewChange()
-        {
-            return PreviewChange(ChangeTimeframe.Now);
         }
 
         /// <summary>
@@ -596,6 +528,55 @@ namespace Recurly
                 coupons.ReadXmlList);
 
             return statusCode == HttpStatusCode.NotFound ? null : coupons;
+        }
+
+        /// <summary>
+        /// Request that an update to a subscription take place
+        /// </summary>
+        /// <param name="uuid">The uuid of the subscription to be changed</param>
+        /// <param name="change">A subscription change object listing what to change about the subscription</param>
+        public static Subscription ChangeSubscription(String uuid, SubscriptionChange change)
+        {
+            if (uuid.IsNullOrEmpty())
+            {
+                throw new ArgumentException("uuid cannot be null or empty");
+            }
+
+            if (change == null)
+            {
+                throw new ArgumentException("change cannot be null or empty");
+            }
+
+            var subscription = new Subscription();
+
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
+                UrlPrefix + Uri.EscapeDataString(uuid),
+                change.WriteChangeSubscriptionXml,
+                subscription.ReadXml);
+
+            return statusCode == HttpStatusCode.NotFound ? null : subscription;
+        }
+
+        /// <summary>
+        /// Preview the changes associated with the current subscription
+        /// </summary>
+        /// <param name="uuid">The uuid of the subscription to be changed</param>
+        /// <param name="change">A subscription change object listing what to change about the subscription</param>
+        public static Subscription PreviewChange(String uuid, SubscriptionChange change)
+        {
+            if (uuid.IsNullOrEmpty())
+            {
+                throw new Recurly.RecurlyException("Must have an existing subscription to preview changes.");
+            }
+
+            var previewSubscription = new Subscription();
+
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
+                UrlPrefix + Uri.EscapeDataString(uuid) + "/preview",
+                change.WriteChangeSubscriptionXml,
+                previewSubscription.ReadPreviewXml);
+
+            return statusCode == HttpStatusCode.NotFound ? null : previewSubscription;
         }
 
         #region Read and Write XML documents
@@ -1014,70 +995,6 @@ namespace Recurly
             if (RenewalBillingCycles.HasValue)
                 xmlWriter.WriteElementString("renewal_billing_cycles", RenewalBillingCycles.Value.AsString());
 
-            xmlWriter.WriteIfCollectionHasAny("custom_fields", CustomFields);
-
-            xmlWriter.WriteEndElement(); // End: subscription
-        }
-
-        protected void WriteChangeSubscriptionNowXml(XmlTextWriter xmlWriter)
-        {
-            WriteChangeSubscriptionXml(xmlWriter, ChangeTimeframe.Now);
-        }
-
-        protected void WriteChangeSubscriptionAtRenewalXml(XmlTextWriter xmlWriter)
-        {
-            WriteChangeSubscriptionXml(xmlWriter, ChangeTimeframe.Renewal);
-        }
-
-        protected void WriteChangeSubscriptionXml(XmlTextWriter xmlWriter, ChangeTimeframe timeframe)
-        {
-            xmlWriter.WriteStartElement("subscription"); // Start: subscription
-
-            xmlWriter.WriteElementString("timeframe", timeframe.ToString().EnumNameToTransportCase());
-            xmlWriter.WriteElementString("quantity", Quantity.AsString());
-            xmlWriter.WriteStringIfValid("plan_code", PlanCode);
-            xmlWriter.WriteIfCollectionHasAny("subscription_add_ons", AddOns);
-            xmlWriter.WriteStringIfValid("coupon_code", _couponCode);
-
-            if (_couponCodes != null && _couponCodes.Length != 0) {
-                xmlWriter.WriteStartElement("coupon_codes");
-                foreach (var _coupon_code in _couponCodes)
-                {
-                    xmlWriter.WriteElementString("coupon_code", _coupon_code);
-                }
-                xmlWriter.WriteEndElement();
-            }
-
-
-            if (UnitAmountInCents.HasValue)
-                xmlWriter.WriteElementString("unit_amount_in_cents", UnitAmountInCents.Value.AsString());
-
-            if (CollectionMethod.Like("manual"))
-            {
-                xmlWriter.WriteElementString("collection_method", "manual");
-                xmlWriter.WriteElementString("net_terms", NetTerms.Value.AsString());
-                xmlWriter.WriteElementString("po_number", PoNumber);
-            }
-            else if (CollectionMethod.Like("automatic"))
-                xmlWriter.WriteElementString("collection_method", "automatic");
-
-            if (ImportedTrial.HasValue)
-            {
-                xmlWriter.WriteElementString("imported_trial", ImportedTrial.Value.ToString().ToLower());
-            }
-
-            if (RevenueScheduleType.HasValue)
-                xmlWriter.WriteElementString("revenue_schedule_type", RevenueScheduleType.Value.ToString().EnumNameToTransportCase());
-
-            if (RemainingBillingCycles.HasValue)
-                xmlWriter.WriteElementString("remaining_billing_cycles", RemainingBillingCycles.Value.AsString());
-
-            if (AutoRenew.HasValue)
-                xmlWriter.WriteElementString("auto_renew", AutoRenew.Value.AsString());
-
-            if (RenewalBillingCycles.HasValue)
-                xmlWriter.WriteElementString("renewal_billing_cycles", RenewalBillingCycles.Value.AsString());
-            
             xmlWriter.WriteIfCollectionHasAny("custom_fields", CustomFields);
 
             xmlWriter.WriteEndElement(); // End: subscription
