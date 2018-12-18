@@ -1,4 +1,6 @@
 using System;
+using System.Data;
+using System.Diagnostics;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -43,7 +45,7 @@ namespace Recurly {
         }
 
         public IRestResponse<T> MakeRequest<T>(Method method, string url, Request body = null, Dictionary<string, object> queryParams = null) where T: new() {
-            Console.WriteLine($"Calling {url}");
+            Debug.WriteLine($"Calling {url}");
             var request = new RestRequest(url, method);
 
             // If we have any query params, add them to the request
@@ -57,7 +59,7 @@ namespace Recurly {
                     if (entry.Value.GetType() == typeof(DateTime)) {
                         stringRepr = ((DateTime)entry.Value).ToString("o");
                     }
-                    Console.WriteLine($"Parameter: {entry.Key.ToString()} {stringRepr}");
+                    Debug.WriteLine($"Parameter: {entry.Key.ToString()} {stringRepr}");
                     request.AddQueryParameter(entry.Key.ToString(), stringRepr);
                   }
               }
@@ -66,15 +68,16 @@ namespace Recurly {
             // If we have a body, serialize it and add it to the request
             if (body != null) {
                 string json = Json.Serialize(body); 
-                Console.WriteLine("body: ");
-                Console.WriteLine(json);
+                Debug.WriteLine("body: ");
+                Debug.WriteLine(json);
                 request.AddParameter("application/json", json , ParameterType.RequestBody);
             }
 
             var resp = RestClient.Execute<T>(request);
+            this.ProcessResponse(resp);
             var status = (int)resp.StatusCode;
-            Console.WriteLine($"Status: {status}");
-            //Console.WriteLine($"Content: {resp.Content}");
+            Debug.WriteLine($"Status: {status}");
+            //Debug.WriteLine($"Content: {resp.Content}");
             if (status < 200 || status >= 300) {
                 var err = Json.Deserialize<ApiErrorWrapper>(resp.Content).Error;
                 var apiError = new ApiError(err.Message);
@@ -83,6 +86,24 @@ namespace Recurly {
             }
 
             return resp;
+        }
+
+        private void ProcessResponse(IRestResponse resp) {
+            if (resp.Headers.Any(t => t.Name == "Recurly-Deprecated"))
+            {
+                var headers = resp.Headers.ToList();
+                var deprecated = headers
+                    .Find(x => x.Name == "Recurly-Deprecated")
+                    .Value.ToString();
+                var sunset = headers
+                    .Find(x => x.Name == "Recurly-Sunset-Date")
+                    .Value.ToString();
+
+                if (deprecated.ToUpper() == "TRUE")
+                {
+                    Debug.WriteLine($"[recurly-client-net] WARNING: Your current API version \"${ApiVersion}\" is deprecated and will be sunset on ${sunset}");
+                }
+            }
         }
 
         protected string InterpolatePath(string path, Dictionary<string, object> urlParams) {

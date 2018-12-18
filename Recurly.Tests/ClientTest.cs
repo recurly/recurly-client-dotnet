@@ -97,6 +97,7 @@ namespace Recurly.UnitTests
             var response =  new Mock<IRestResponse<Account>>();
             response.Setup(_ => _.StatusCode).Returns(System.Net.HttpStatusCode.OK);
             response.Setup(_ => _.Content).Returns("{\"code\": \"benjamin\"}");
+            response.Setup(_ => _.Headers).Returns(new List<Parameter> {});
             response.Setup(_ => _.Data).Returns(data);
 
             var mockIRestClient = new Mock<IRestClient>();
@@ -113,6 +114,7 @@ namespace Recurly.UnitTests
             var response =  new Mock<IRestResponse<Account>>();
             response.Setup(_ => _.StatusCode).Returns(System.Net.HttpStatusCode.Created);
             response.Setup(_ => _.Content).Returns("{\"code\": \"benjamin\"}");
+            response.Setup(_ => _.Headers).Returns(new List<Parameter> {});
             response.Setup(_ => _.Data).Returns(data);
 
             var mockIRestClient = new Mock<IRestClient>();
@@ -127,6 +129,7 @@ namespace Recurly.UnitTests
             var response =  new Mock<IRestResponse<Account>>();
             response.Setup(_ => _.StatusCode).Returns(System.Net.HttpStatusCode.NotFound);
             response.Setup(_ => _.Content).Returns("{\"error\":{ \"type\": \"not_found\", \"message\": \"Account not found\"}}");
+            response.Setup(_ => _.Headers).Returns(new List<Parameter> {});
 
             var mockIRestClient = new Mock<IRestClient>();
             mockIRestClient

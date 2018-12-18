@@ -91,6 +91,7 @@ namespace Recurly.UnitTests
             };
             var response =  new Mock<IRestResponse<Pager<MyResource>>>();
             response.Setup(_ => _.StatusCode).Returns(System.Net.HttpStatusCode.OK);
+            response.Setup(_ => _.Headers).Returns(new List<Parameter> {});
             response.Setup(_ => _.Data).Returns(data);
 
             var mockIRestClient = new Mock<IRestClient>();
