@@ -11,6 +11,7 @@ using RestSharp.Authenticators;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json.Converters;
+using System.Net;
 
 namespace Recurly {
     public class BaseClient {
@@ -59,7 +60,6 @@ namespace Recurly {
                     if (entry.Value.GetType() == typeof(DateTime)) {
                         stringRepr = ((DateTime)entry.Value).ToString("o");
                     }
-                    Debug.WriteLine($"Parameter: {entry.Key.ToString()} {stringRepr}");
                     request.AddQueryParameter(entry.Key.ToString(), stringRepr);
                   }
               }
@@ -77,12 +77,24 @@ namespace Recurly {
             this.ProcessResponse(resp);
             var status = (int)resp.StatusCode;
             Debug.WriteLine($"Status: {status}");
-            //Debug.WriteLine($"Content: {resp.Content}");
-            if (status < 200 || status >= 300) {
-                var err = Json.Deserialize<ApiErrorWrapper>(resp.Content).Error;
-                var apiError = new ApiError(err.Message);
-                apiError.Error = err;
-                throw apiError;
+            Debug.WriteLine($"Content: {resp.Content}");
+            if (status < 200 || status >= 300)
+            {
+                // Turn web exceptions into Recurly.NetworkErrors
+                if (resp.ErrorException is WebException)
+                {
+                    var netError = new NetworkError(resp.ErrorMessage);
+                    netError.ExceptionStatus = ((WebException)resp.ErrorException).Status;
+                    throw netError;
+                }
+                // everything else becomes a Recurly.ApiError
+                else
+                {
+                    var err = Json.Deserialize<ApiErrorWrapper>(resp.Content).Error;
+                    var apiError = new ApiError(err.Message);
+                    apiError.Error = err;
+                    throw apiError;
+                }
             }
 
             return resp;

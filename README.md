@@ -74,22 +74,69 @@ Console.WriteLine(account.Address.City); // "New Orleans"
 
 ### Error Handling
 
-This library currently throws 1 type of exception `Recurly.ApiError`.
+This library currently throws 2 types of exceptions. They both exist as subclasses of `Recurly.RecurlyError`.
+
+1. `Recurly.ApiError`
+2. `Recurly.NetworkError`
+
+`ApiError`s come from the Recurly API and each endpoint in the documentation describes the types of errors it
+may return. These errors generally mean that something was wrong with the request. Whether or not it can be recovered
+depends on your context and the `Type` value of the error. A common scenario might be a `Validation` error:
 
 ```csharp
 try
 {
-  var account = client.GetAccount("code-idontexist");
+  var accountReq = new AccountCreate()
+  {
+    Code = "myaccountcode",
+  };
+
+  Account acct = client.CreateAccount(accountReq);
 }
 catch (Recurly.ApiError ex)
 {
-  if (ex.Error.Type == Recurly.ApiErrorType.NotFound)
+  var apiErr = ex.Error;
+  // Here you might want to determine what kind of ApiError this is
+  switch (apiErr.Type)
   {
-    Console.WriteLine("404 Account could not be found");
+    case Recurly.ApiErrorType.Validation:
+      // Here we have a validation error and might want to
+      // pass this information back to the user to fix
+      break;
+    default:
+      // If we don't know what to do with it, we should
+      // probably re-raise and let our web framework or logger handle it
+      throw;
   }
-  else
+}
+```
+
+`Recurly.NetworkError`s don't come from Recurly's servers, but instead are triggered by some problem in
+related to the network. Depending on the context, you can often automatically retry these calls. GETs are always safe to retry but be careful about automatically re-trying any other call that might mutate state on the server side.
+
+```csharp
+try
+{
+  Account acct = client.GetAccount("code-my-account-code");
+}
+catch (Recurly.NetworkError ex)
+{
+  // Here you might want to determine what kind of ApiError this is
+  // The options for ExceptionStatus are defined here: https://docs.microsoft.com/en-us/dotnet/api/system.net.webexceptionstatus
+  switch (ex.ExceptionStatus)
   {
-    Console.WriteLine("Something else wrong happened");
+    case WebException.Timeout:
+      // The server timed out
+      // probably safe to retry after waiting a moment
+      break;
+    case WebException.ConnectFailure:
+      // Could not connect to Recurly's servers
+      // This is hopefully a temporary problem and is safe to retry after waiting a moment
+      break;
+    default:
+      // If we don't know what to do with it, we should
+      // probably re-raise and let our web framework or logger handle it
+      throw;
   }
 }
 ```
