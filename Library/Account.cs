@@ -51,6 +51,7 @@ namespace Recurly
         public bool HasCanceledSubscription { get; private set; }
         public bool HasPastDueInvoice { get; private set; }
         public string PreferredLocale { get; set; }
+        public string ParentAccountCode { get; set; }
 
         private AccountAcquisition _accountAcquisition;
 
@@ -373,6 +374,22 @@ namespace Recurly
             return new NoteList(UrlPrefix + Uri.EscapeDataString(AccountCode) + "/notes/");
         }
 
+        public Account GetParentAccount()
+        {
+            if (ParentAccountCode == null) return null;
+            var parent = new Account(ParentAccountCode);
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
+                UrlPrefix + Uri.EscapeDataString(ParentAccountCode),
+                parent.ReadXml);
+
+            return statusCode == HttpStatusCode.NotFound ? null : parent;
+        }
+
+        public RecurlyList<Account> GetChildAccounts()
+        {
+            return new AccountList(UrlPrefix + Uri.EscapeDataString(AccountCode) + "/child_accounts");
+        }
+
         /// <summary>
         /// Returns a new adjustment (credit or charge) for this account
         /// </summary>
@@ -494,6 +511,10 @@ namespace Recurly
                    
                     case "account_code":
                         AccountCode = reader.ReadElementContentAsString();
+                        break;
+
+                    case "parent_account_code":
+                        ParentAccountCode = reader.ReadElementContentAsString();
                         break;
 
                     case "billing_info":
@@ -655,6 +676,10 @@ namespace Recurly
 
             xmlWriter.WriteIfCollectionHasAny("shipping_addresses", ShippingAddresses);
             xmlWriter.WriteIfCollectionHasAny("custom_fields", CustomFields);
+
+            // Clear the parent account by writing empty string. Null should not clear parent.
+            if (ParentAccountCode != null)
+                xmlWriter.WriteElementString("parent_account_code", ParentAccountCode);
 
             if (TaxExempt.HasValue)
                 xmlWriter.WriteElementString("tax_exempt", TaxExempt.Value.AsString());
