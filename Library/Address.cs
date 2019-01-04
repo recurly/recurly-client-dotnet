@@ -85,17 +85,28 @@ namespace Recurly
         {
             xmlWriter.WriteStartElement("address");
 
-            xmlWriter.WriteElementString("first_name", FirstName);
-            xmlWriter.WriteElementString("last_name", LastName);
-            xmlWriter.WriteElementString("name_on_account", NameOnAccount);
-            xmlWriter.WriteElementString("company", Company);
-            xmlWriter.WriteElementString("address1", Address1);
-            xmlWriter.WriteElementString("address2", Address2);
-            xmlWriter.WriteElementString("city", City);
-            xmlWriter.WriteElementString("state", State);
-            xmlWriter.WriteElementString("zip", Zip);
-            xmlWriter.WriteElementString("country", Country);
-            xmlWriter.WriteElementString("phone", Phone);
+            if (FirstName != null)
+                xmlWriter.WriteElementString("first_name", FirstName);
+            if (LastName != null)
+                xmlWriter.WriteElementString("last_name", LastName);
+            if (NameOnAccount != null)
+                xmlWriter.WriteElementString("name_on_account", NameOnAccount);
+            if (Company != null)
+                xmlWriter.WriteElementString("company", Company);
+            if (Address1 != null)
+                xmlWriter.WriteElementString("address1", Address1);
+            if (Address2 != null)
+                xmlWriter.WriteElementString("address2", Address2);
+            if (City != null)
+                xmlWriter.WriteElementString("city", City);
+            if (State != null)
+                xmlWriter.WriteElementString("state", State);
+            if (Zip != null)
+                xmlWriter.WriteElementString("zip", Zip);
+            if (Country != null)
+                xmlWriter.WriteElementString("country", Country);
+            if (Phone != null)
+                xmlWriter.WriteElementString("phone", Phone);
 
             xmlWriter.WriteEndElement();
         }

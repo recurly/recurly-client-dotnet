@@ -215,10 +215,13 @@ namespace Recurly
             xmlWriter.WriteStartElement("purchase"); // Start: purchase
 
             xmlWriter.WriteElementString("collection_method", CollectionMethod.ToString().EnumNameToTransportCase());
+
             if (NetTerms.HasValue)
                 xmlWriter.WriteElementString("net_terms", NetTerms.Value.ToString());
 
-            xmlWriter.WriteElementString("po_number", PoNumber);
+            if (PoNumber != null)
+                xmlWriter.WriteElementString("po_number", PoNumber);
+
             xmlWriter.WriteElementString("currency", Currency);
 
             if (ShippingAddressId.HasValue)
