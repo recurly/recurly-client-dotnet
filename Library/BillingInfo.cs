@@ -102,6 +102,11 @@ namespace Recurly
         /// </summary>
         public string AmazonBillingAgreementId { get; set; }
 
+        /// <summary>
+        /// Amazon Region
+        /// </summary>
+        public string AmazonRegion { get; set; }
+
         private string _cardNumber;
 
         /// <summary>
@@ -326,6 +331,10 @@ namespace Recurly
                         AmazonBillingAgreementId = reader.ReadElementContentAsString();
                         break;
 
+                    case "amazon_region":
+                        AmazonRegion = reader.ReadElementContentAsString();
+                        break;
+
                     case "routing_number":
                         RoutingNumber = reader.ReadElementContentAsString();
                         break;
@@ -403,6 +412,11 @@ namespace Recurly
                 if (!AmazonBillingAgreementId.IsNullOrEmpty())
                 {
                     xmlWriter.WriteElementString("amazon_billing_agreement_id", AmazonBillingAgreementId);
+                }
+
+                if (!AmazonRegion.IsNullOrEmpty())
+                {
+                    xmlWriter.WriteElementString("amazon_region", AmazonRegion);
                 }
 
                 if (ExternalHppType.HasValue)
