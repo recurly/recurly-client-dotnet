@@ -50,5 +50,15 @@ namespace Recurly
         {
             Errors = errors;
         }
+
+        public override string ToString()
+        {
+            var details = "";
+            foreach (Error e in Errors)
+                details += e.ToString() + "\n";
+            if (TransactionError != null)
+                details += TransactionError.ToString() + "\n";
+            return string.Format("{0} {1}", details, base.ToString());
+        }
     }
 }

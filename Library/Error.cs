@@ -60,7 +60,8 @@ namespace Recurly
             // single error returned
             // <error>
             //    <symbol>asdf</symbol>
-            //    <description>asdfasdf </symbol>
+            //    <description>asdfasdf</description>
+            //    <details>asdfasdfasdfasdf</details>
             // </error>
             while (reader.Read())
             {
