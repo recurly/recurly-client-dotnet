@@ -34,7 +34,7 @@ This release brings us up to API version 2.17
 ### Upgrade Notes
 
 This release brings us up to API version 2.16.
-Refunding multiple adjustments requires use of the new Invoice#RefundOptions class.
+The properties RedeemedAt and DeliveredAt of the GiftCard class are now nullable.
 
 1.13.1 (stable) / 2018-09-25
 ===============
