@@ -72,6 +72,7 @@ namespace Recurly
         public string Message { get; set; }
         public string ApprovalCode { get; set; }
         public DateTime CollectedAt { get; set; }
+        public TransactionError Error { get; private set; }
 
         public Account Account
         {
@@ -306,6 +307,9 @@ namespace Recurly
                         {
                             CollectedAt = d;
                         }
+                        break;
+                    case "transaction_error":
+                        Error = new TransactionError(reader);
                         break;
                 }
             }
