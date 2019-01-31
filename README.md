@@ -1,4 +1,3 @@
-# For Mightycall Purposes
 # Recurly .NET Client
 
 **The majority of the Recurly API v2 objects are supported, however there may be a
