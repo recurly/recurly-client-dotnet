@@ -14,6 +14,20 @@ namespace Recurly
         /// Transaction Error Code
         /// </summary>
         public string ErrorCode { get; internal set; }
+        public TransactionErrorCodeEnum ErrorCodeEnum
+        {
+            get
+            {
+                TransactionErrorCodeEnum errorEnum;
+                if (Enum.TryParse(ErrorCode, out errorEnum))
+                {
+                    return errorEnum;
+                } else
+                {
+                    return TransactionErrorCodeEnum.not_recognized;
+                }
+            }
+        }
 
         /// <summary>
         /// Category of error
@@ -41,7 +55,7 @@ namespace Recurly
         {
             while (reader.Read())
             {
-   
+
                 if (reader.Name == "transaction_error" &&
                     reader.NodeType == XmlNodeType.EndElement)
                     break;
