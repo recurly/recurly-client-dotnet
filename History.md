@@ -1,11 +1,25 @@
 Unreleased
 ===============
 
-### Upgrade Notes
-This release contains one breaking change:
+1.15.0 (stable) / 2019-02-05
+===============
 
+* Bug fixes [PR](https://github.com/recurly/recurly-client-net/pull/368)
+* Remove broken test [PR](https://github.com/recurly/recurly-client-net/pull/365)
+* Add SubscriptionChange class [PR](https://github.com/recurly/recurly-client-net/pull/363)
+* Update the User Agent [PR](https://github.com/recurly/recurly-client-net/pull/361)
+* Add TransactionError property to Transaction class [PR](https://github.com/recurly/recurly-client-net/pull/372)
+
+### Upgrade Notes
+This release contains two breaking changes:
+
+#### 1. Subscription Change Objects
 To update a subscription, a SubscriptionChange object must be passed into the `ChangeSubscription()` method.
 See the C# example in our [dev docs](https://dev.recurly.com/docs/update-subscription).
+
+#### 2. Address requires empty string to clear values
+In the past, if you were to leave a value such as `FirstName` null, it would nullify it via the API.
+Now, you must explicitly nullify it by setting it to empty string `""`. See [this conversation](https://github.com/recurly/recurly-client-net/pull/368#discussion_r246890848) for an example.
 
 1.14.1 (stable) / 2018-12-11
 ===============
