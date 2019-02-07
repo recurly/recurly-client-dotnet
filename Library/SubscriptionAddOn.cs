@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Xml;
+using System.Globalization;
 
 namespace Recurly
 {
@@ -70,7 +71,10 @@ namespace Recurly
                         break;
 
                     case "usage_percentage":
-                        UsagePercentage = reader.ReadElementContentAsFloat();
+                        var usagePercentage = reader.ReadElementContentAsString();
+                        if (Single.TryParse(usagePercentage, NumberStyles.Number,
+                                CultureInfo.InvariantCulture.NumberFormat, out float percentage))
+                            UsagePercentage = percentage;
                         break;
                 }
             }
