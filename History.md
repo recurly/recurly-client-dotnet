@@ -1,8 +1,15 @@
 Unreleased
 ===============
 
+1.15.1 (stable) / 2019-02-07
+===============
+
+* Fix bug when SubscriptionAddOn.UsagePercentage is null [PR](https://github.com/recurly/recurly-client-net/pull/376)
+
 1.15.0 (stable) / 2019-02-05
 ===============
+
+Note: this release contains a bug in SubscriptionAddoOn. Please use version 1.15.1 or higher instead.
 
 * Bug fixes [PR](https://github.com/recurly/recurly-client-net/pull/368)
 * Remove broken test [PR](https://github.com/recurly/recurly-client-net/pull/365)
