@@ -1,6 +1,13 @@
 Unreleased
 ===============
 
+1.15.2 (stable) / 2019-02-19
+===============
+
+This release brings us up to API version 2.18
+
+* Add support for Amazon Region [PR](https://github.com/recurly/recurly-client-net/pull/369)
+
 1.15.1 (stable) / 2019-02-07
 ===============
 
