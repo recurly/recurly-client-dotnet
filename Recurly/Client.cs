@@ -14,7 +14,7 @@ using RestSharp;
 namespace Recurly {
   [ExcludeFromCodeCoverage]
   public class Client : BaseClient {
-    public override string ApiVersion => "v2018-10-04";
+    public override string ApiVersion => "v2018-08-09";
 
     public Client(string siteId, string apiKey) : base(siteId, apiKey) {}
   
@@ -1169,40 +1169,6 @@ namespace Recurly {
       var urlParams = new Dictionary<string, object>{ { "add_on_id", add_on_id } };
       var url = this.InterpolatePath("/sites/{site_id}/add_ons/{add_on_id}", urlParams);
       return MakeRequest<AddOn>(Method.GET, url).Data;
-    }
-  
-    /// <summary>
-    /// List a site's shipping services
-    /// </summary>
-    /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**  * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
-    /// <param name="limit">Limit number of records 1-200.</param>
-    /// <param name="order">Sort order.</param>
-    /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
-    /// <param name="begin_time">Filter by begin_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
-    /// <param name="end_time">Filter by end_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
-    /// <returns>
-    /// A list of the site's shipping services.
-    /// </returns>
-    /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
-    public Pager<ShippingService> ListShippingServices(string ids = null, int? limit = null, string order = null, string sort = null, DateTime? begin_time = null, DateTime? end_time = null) {
-      var urlParams = new Dictionary<string, object>{ };
-      var queryParams = new Dictionary<string, object>{ { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", begin_time }, { "end_time", end_time } };
-      var url = this.InterpolatePath("/sites/{site_id}/shipping_services", urlParams);
-      return MakeRequest<Pager<ShippingService>>(Method.GET, url, null, queryParams).Data.WithClient(this);
-    }
-  
-    /// <summary>
-    /// Fetch a shipping service
-    /// </summary>
-    /// <param name="id">Shipping Service ID or code (use prefix: `code-`, e.g. `code-usps_2-day`).</param>
-    /// <returns>
-    /// A shipping_service.
-    /// </returns>
-    /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
-    public ShippingService GetShippingService(string id) {
-      var urlParams = new Dictionary<string, object>{ { "id", id } };
-      var url = this.InterpolatePath("/sites/{site_id}/shipping_services/{id}", urlParams);
-      return MakeRequest<ShippingService>(Method.GET, url).Data;
     }
   
     /// <summary>
