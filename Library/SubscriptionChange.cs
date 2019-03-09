@@ -41,13 +41,8 @@ namespace Recurly
         /// <summary>
         /// List of add ons for this subscription
         /// </summary>
-        public SubscriptionAddOnList AddOns
-        {
-            get { return _addOns ?? (_addOns = new SubscriptionAddOnList(new Subscription())); }
-            set { _addOns = value; }
-        }
+        public SubscriptionAddOnList AddOns { get; set; }
 
-        private SubscriptionAddOnList _addOns;
         /// <summary>
         /// The coupon code you want to redeem in the update.
         /// Only allowed if timeframe is now and you change something about the subscription that creates an invoice.
@@ -101,22 +96,22 @@ namespace Recurly
                 xmlWriter.WriteElementString("quantity", Quantity.ToString());
 
             xmlWriter.WriteStringIfValid("plan_code", PlanCode);
-            xmlWriter.WriteIfCollectionHasAny("subscription_add_ons", AddOns);
+
+            if (AddOns != null)
+                xmlWriter.WriteIfCollectionHasAny("subscription_add_ons", AddOns);
+
             xmlWriter.WriteStringIfValid("coupon_code", CouponCode);
 
             if (UnitAmountInCents.HasValue)
                 xmlWriter.WriteElementString("unit_amount_in_cents", UnitAmountInCents.Value.AsString());
 
-            if (CollectionMethod.Like("manual"))
-            {
-                xmlWriter.WriteElementString("collection_method", "manual");
+            xmlWriter.WriteStringIfValid("collection_method", CollectionMethod);
+
+            if (NetTerms.HasValue)
                 xmlWriter.WriteElementString("net_terms", NetTerms.Value.AsString());
+
+            if (PoNumber != null)
                 xmlWriter.WriteElementString("po_number", PoNumber);
-            }
-            else if (CollectionMethod.Like("automatic"))
-            {
-                xmlWriter.WriteElementString("collection_method", "automatic");
-            }
 
             if (ImportedTrial.HasValue)
                 xmlWriter.WriteElementString("imported_trial", ImportedTrial.Value.ToString().ToLower());
