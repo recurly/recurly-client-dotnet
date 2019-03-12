@@ -1,6 +1,14 @@
 Unreleased
 ===============
 
+1.15.3 (stable) / 2019-03-12
+===============
+
+This release brings us up to API version 2.19. There are no breaking changes.
+
+* Add support for Account Hierarchy [PR](https://github.com/recurly/recurly-client-net/pull/367)
+* Fix issues with AddOns in Subscription Change [PR](https://github.com/recurly/recurly-client-net/pull/381)
+
 1.15.2 (stable) / 2019-02-19
 ===============
 
