@@ -65,7 +65,7 @@ namespace Recurly.Configuration
         }
 
         protected const string RecurlyServerUri = "https://{0}.recurly.com/v2{1}";
-        public const string RecurlyApiVersion = "2.18";
+        public const string RecurlyApiVersion = "2.19";
         public const string ValidDomain = ".recurly.com";
 
         // static, unlikely to change
