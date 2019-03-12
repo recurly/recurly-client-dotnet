@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reflection;
 using RestSharp;
 using RestSharp.Authenticators;
+using RestSharp.Serializers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json.Converters;
@@ -29,16 +30,14 @@ namespace Recurly {
 
             SiteId = siteId;
             ApiKey = apiKey;
-            RestClient = new RestClient();
-            RestClient.BaseUrl = new Uri(API_URL);
-            RestClient.Authenticator = new HttpBasicAuthenticator(ApiKey, "");
+            RestClient = new RestClient() {
+                BaseUrl = new Uri(API_URL),
+                Authenticator = new HttpBasicAuthenticator(ApiKey, "")
+            };
             
             // AddDefaultHeader does not work for user-agent
             var libVersion = typeof(Recurly.Client).Assembly.GetName().Version;
             RestClient.UserAgent = $"Recurly/{libVersion}; .NET";
-
-            // We need to remove the default accepts as they are not overwritten by ours
-            RestClient.RemoveDefaultParameter("Accept");
 
             // These are the default headers to send on every request
             RestClient.AddDefaultHeader("Accept", $"application/vnd.recurly.{ApiVersion}");
@@ -48,6 +47,8 @@ namespace Recurly {
         public IRestResponse<T> MakeRequest<T>(Method method, string url, Request body = null, Dictionary<string, object> queryParams = null) where T: new() {
             Debug.WriteLine($"Calling {url}");
             var request = new RestRequest(url, method);
+            var serializer = Recurly.JsonSerializer.Default;
+            request.JsonSerializer = serializer;
 
             // If we have any query params, add them to the request
             if (queryParams != null)
@@ -67,10 +68,8 @@ namespace Recurly {
 
             // If we have a body, serialize it and add it to the request
             if (body != null) {
-                string json = Json.Serialize(body); 
-                Debug.WriteLine("body: ");
-                Debug.WriteLine(json);
-                request.AddParameter("application/json", json , ParameterType.RequestBody);
+                //request.AddParameter("application/json", json , ParameterType.RequestBody);
+                request.AddJsonBody(body);
             }
 
             var resp = RestClient.Execute<T>(request);
@@ -90,7 +89,7 @@ namespace Recurly {
                 // everything else becomes a Recurly.ApiError
                 else
                 {
-                    var err = Json.Deserialize<ApiErrorWrapper>(resp.Content).Error;
+                    var err = serializer.Deserialize<ApiErrorWrapper>(resp).Error;
                     var apiError = new ApiError(err.Message);
                     apiError.Error = err;
                     throw apiError;
