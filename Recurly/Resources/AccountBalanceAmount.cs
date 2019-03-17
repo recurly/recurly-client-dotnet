@@ -11,19 +11,15 @@ using Newtonsoft.Json;
 
 namespace Recurly.Resources {
   [ExcludeFromCodeCoverage] 
-  public class AccountBalance : Resource {
+  public class AccountBalanceAmount : Resource {
   
-    
-    [JsonProperty("account")]
-    public AccountMini Account { get; set; }
+    /// <value>Total amount the account is past due.</value>
+    [JsonProperty("amount")]
+    public float? Amount { get; set; }
   
-    
-    [JsonProperty("balances")]
-    public List<AccountBalanceAmount> Balances { get; set; }
-  
-    
-    [JsonProperty("past_due")]
-    public bool? PastDue { get; set; }
+    /// <value>3-letter ISO 4217 currency code.</value>
+    [JsonProperty("currency")]
+    public string Currency { get; set; }
   
   }
 }

@@ -8,28 +8,6 @@ else
   echo "✓ Found homebrew"
 fi
 
-if ! hash nuget 2>/dev/null; then
-  read -p "✖ 'nuget' not found. Would you like to install it? [Y/n] " -n 1 -r
-  echo
-  if [[ $REPLY =~ ^[Yy]$ ]]
-  then
-    echo "Installing nuget requires sudo..."
-    sudo curl -o /usr/local/bin/nuget.exe https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
-    echo
-    echo "Please follow the instructions below before continuing:"
-    echo "nuget installed, add this alias to your bash_profile or equivalent location"
-    echo "alias nuget=\"mono /usr/local/bin/nuget.exe\""
-    read -p "Press enter to continue"
-    # Set this for the session
-    alias nuget="mono /usr/local/bin/nuget.exe"
-    echo "✓ Installed nuget"
-  else
-    exit 1
-  fi
-else
-  echo "✓ Found nuget"
-fi
-
 if ! hash dotnet 2>/dev/null; then
   read -p "✖ 'dotnet' not found. Would you like to install it? [Y/n] " -n 1 -r
   echo

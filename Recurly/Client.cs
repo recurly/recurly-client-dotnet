@@ -247,13 +247,16 @@ namespace Recurly {
     /// </summary>
     /// <param name="account_id">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
     /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**  * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
+    /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
+    /// <param name="begin_time">Filter by begin_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
+    /// <param name="end_time">Filter by end_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
     /// <returns>
     /// A list of the the coupon redemptions on an account.
     /// </returns>
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
-    public Pager<CouponRedemption> ListAccountCouponRedemptions(string account_id, string ids = null) {
+    public Pager<CouponRedemption> ListAccountCouponRedemptions(string account_id, string ids = null, string sort = null, DateTime? begin_time = null, DateTime? end_time = null) {
       var urlParams = new Dictionary<string, object>{ { "account_id", account_id } };
-      var queryParams = new Dictionary<string, object>{ { "ids", ids } };
+      var queryParams = new Dictionary<string, object>{ { "ids", ids }, { "sort", sort }, { "begin_time", begin_time }, { "end_time", end_time } };
       var url = this.InterpolatePath("/sites/{site_id}/accounts/{account_id}/coupon_redemptions", urlParams);
       return MakeRequest<Pager<CouponRedemption>>(Method.GET, url, null, queryParams).Data.WithClient(this);
     }
@@ -884,13 +887,16 @@ namespace Recurly {
     /// </summary>
     /// <param name="invoice_id">Invoice ID or number (use prefix: `number-`, e.g. `number-1000`).</param>
     /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**  * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
+    /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
+    /// <param name="begin_time">Filter by begin_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
+    /// <param name="end_time">Filter by end_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
     /// <returns>
     /// A list of the the coupon redemptions associated with the invoice.
     /// </returns>
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
-    public Pager<CouponRedemption> ListInvoiceCouponRedemptions(string invoice_id, string ids = null) {
+    public Pager<CouponRedemption> ListInvoiceCouponRedemptions(string invoice_id, string ids = null, string sort = null, DateTime? begin_time = null, DateTime? end_time = null) {
       var urlParams = new Dictionary<string, object>{ { "invoice_id", invoice_id } };
-      var queryParams = new Dictionary<string, object>{ { "ids", ids } };
+      var queryParams = new Dictionary<string, object>{ { "ids", ids }, { "sort", sort }, { "begin_time", begin_time }, { "end_time", end_time } };
       var url = this.InterpolatePath("/sites/{site_id}/invoices/{invoice_id}/coupon_redemptions", urlParams);
       return MakeRequest<Pager<CouponRedemption>>(Method.GET, url, null, queryParams).Data.WithClient(this);
     }
@@ -1093,14 +1099,14 @@ namespace Recurly {
     /// <summary>
     /// Fetch a plan's add-on
     /// </summary>
-    /// <param name="add_on_id">Add-on ID or code (use prefix: `code-`, e.g. `code-gold`).</param>
     /// <param name="plan_id">Plan ID or code (use prefix: `code-`, e.g. `code-gold`).</param>
+    /// <param name="add_on_id">Add-on ID or code (use prefix: `code-`, e.g. `code-gold`).</param>
     /// <returns>
     /// An add-on.
     /// </returns>
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
-    public AddOn GetPlanAddOn(string add_on_id, string plan_id) {
-      var urlParams = new Dictionary<string, object>{ { "add_on_id", add_on_id }, { "plan_id", plan_id } };
+    public AddOn GetPlanAddOn(string plan_id, string add_on_id) {
+      var urlParams = new Dictionary<string, object>{ { "plan_id", plan_id }, { "add_on_id", add_on_id } };
       var url = this.InterpolatePath("/sites/{site_id}/plans/{plan_id}/add_ons/{add_on_id}", urlParams);
       return MakeRequest<AddOn>(Method.GET, url).Data;
     }
@@ -1108,15 +1114,15 @@ namespace Recurly {
     /// <summary>
     /// Update an add-on
     /// </summary>
-    /// <param name="add_on_id">Add-on ID or code (use prefix: `code-`, e.g. `code-gold`).</param>
     /// <param name="plan_id">Plan ID or code (use prefix: `code-`, e.g. `code-gold`).</param>
+    /// <param name="add_on_id">Add-on ID or code (use prefix: `code-`, e.g. `code-gold`).</param>
     /// <param name="body"></param>
     /// <returns>
     /// An add-on.
     /// </returns>
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
-    public AddOn UpdatePlanAddOn(string add_on_id, string plan_id, AddOnUpdate body) {
-      var urlParams = new Dictionary<string, object>{ { "add_on_id", add_on_id }, { "plan_id", plan_id } };
+    public AddOn UpdatePlanAddOn(string plan_id, string add_on_id, AddOnUpdate body) {
+      var urlParams = new Dictionary<string, object>{ { "plan_id", plan_id }, { "add_on_id", add_on_id } };
       var url = this.InterpolatePath("/sites/{site_id}/plans/{plan_id}/add_ons/{add_on_id}", urlParams);
       return MakeRequest<AddOn>(Method.PUT, url, body).Data;
     }
@@ -1124,14 +1130,14 @@ namespace Recurly {
     /// <summary>
     /// Remove an add-on
     /// </summary>
-    /// <param name="add_on_id">Add-on ID or code (use prefix: `code-`, e.g. `code-gold`).</param>
     /// <param name="plan_id">Plan ID or code (use prefix: `code-`, e.g. `code-gold`).</param>
+    /// <param name="add_on_id">Add-on ID or code (use prefix: `code-`, e.g. `code-gold`).</param>
     /// <returns>
     /// Add-on deleted
     /// </returns>
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
-    public AddOn RemovePlanAddOn(string add_on_id, string plan_id) {
-      var urlParams = new Dictionary<string, object>{ { "add_on_id", add_on_id }, { "plan_id", plan_id } };
+    public AddOn RemovePlanAddOn(string plan_id, string add_on_id) {
+      var urlParams = new Dictionary<string, object>{ { "plan_id", plan_id }, { "add_on_id", add_on_id } };
       var url = this.InterpolatePath("/sites/{site_id}/plans/{plan_id}/add_ons/{add_on_id}", urlParams);
       return MakeRequest<AddOn>(Method.DELETE, url).Data;
     }
@@ -1380,6 +1386,25 @@ namespace Recurly {
       var queryParams = new Dictionary<string, object>{ { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", begin_time }, { "end_time", end_time }, { "original", original }, { "state", state }, { "type", type } };
       var url = this.InterpolatePath("/sites/{site_id}/subscriptions/{subscription_id}/line_items", urlParams);
       return MakeRequest<Pager<LineItem>>(Method.GET, url, null, queryParams).Data.WithClient(this);
+    }
+  
+    /// <summary>
+    /// Show the coupon redemptions for a subscription
+    /// </summary>
+    /// <param name="subscription_id">Subscription ID or UUID (use prefix: `uuid-`, e.g. `uuid-123457890`).</param>
+    /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**  * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
+    /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
+    /// <param name="begin_time">Filter by begin_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
+    /// <param name="end_time">Filter by end_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
+    /// <returns>
+    /// A list of the the coupon redemptions on a subscription.
+    /// </returns>
+    /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
+    public Pager<CouponRedemption> ListSubscriptionCouponRedemptions(string subscription_id, string ids = null, string sort = null, DateTime? begin_time = null, DateTime? end_time = null) {
+      var urlParams = new Dictionary<string, object>{ { "subscription_id", subscription_id } };
+      var queryParams = new Dictionary<string, object>{ { "ids", ids }, { "sort", sort }, { "begin_time", begin_time }, { "end_time", end_time } };
+      var url = this.InterpolatePath("/sites/{site_id}/subscriptions/{subscription_id}/coupon_redemptions", urlParams);
+      return MakeRequest<Pager<CouponRedemption>>(Method.GET, url, null, queryParams).Data.WithClient(this);
     }
   
     /// <summary>
