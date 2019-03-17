@@ -11,4 +11,3 @@ function check_for_command {
 
 check_for_command "msbuild"
 check_for_command "dotnet"
-check_for_command "nuget"
