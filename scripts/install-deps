@@ -13,7 +13,7 @@ if ! hash dotnet 2>/dev/null; then
   echo
   if [[ $REPLY =~ ^[Yy]$ ]]
   then
-    curl -o /tmp/dotnet.pkg https://download.microsoft.com/download/E/8/A/E8AF2EE0-5DDA-4420-A395-D1A50EEFD83E/dotnet-sdk-2.1.401-osx-gs-x64.pkg
+    curl -o /tmp/dotnet.pkg https://download.visualstudio.microsoft.com/download/pr/4850aa8f-44a9-4c4a-9961-f18aa4d90ceb/07d790444f3ba6b412a76d6f1aced338/dotnet-sdk-2.2.105-osx-x64.pkg
     echo "Installing dotnet requires sudo..."
     sudo installer -pkg /tmp/dotnet.pkg -target /
     echo "✓ Installed dotnet"
