@@ -9,5 +9,4 @@ function check_for_command {
   echo "✓ Found $1"
 }
 
-check_for_command "msbuild"
 check_for_command "dotnet"
