@@ -7,7 +7,12 @@ and is not yet an official release. Documentation for the API can be [found here
 
 ### Installing
 
-This library is not yet published. We will start publishing pre-releases to nuget soon.
+This package is published on Nuget under the name [Recurly](https://www.nuget.org/packages/Recurly).
+We recommend using Nuget to install and maintain this dependency:
+
+```
+dotnet add package Recurly --version 3.0.0-beta.1
+```
 
 ### Creating a client
 
