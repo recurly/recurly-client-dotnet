@@ -68,7 +68,6 @@ namespace Recurly {
 
             // If we have a body, serialize it and add it to the request
             if (body != null) {
-                //request.AddParameter("application/json", json , ParameterType.RequestBody);
                 request.AddJsonBody(body);
             }
 
