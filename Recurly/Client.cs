@@ -276,6 +276,21 @@ namespace Recurly {
     }
   
     /// <summary>
+    /// Generate an active coupon redemption on an account
+    /// </summary>
+    /// <param name="account_id">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
+    /// <param name="body"></param>
+    /// <returns>
+    /// Returns the new coupon redemption.
+    /// </returns>
+    /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
+    public CouponRedemption CreateCouponRedemption(string account_id, CouponRedemptionCreate body) {
+      var urlParams = new Dictionary<string, object>{ { "account_id", account_id } };
+      var url = this.InterpolatePath("/sites/{site_id}/accounts/{account_id}/coupon_redemptions/active", urlParams);
+      return MakeRequest<CouponRedemption>(Method.POST, url, body).Data;
+    }
+  
+    /// <summary>
     /// Delete the active coupon redemption from an account
     /// </summary>
     /// <param name="account_id">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
@@ -1283,6 +1298,21 @@ namespace Recurly {
       var urlParams = new Dictionary<string, object>{ { "subscription_id", subscription_id } };
       var url = this.InterpolatePath("/sites/{site_id}/subscriptions/{subscription_id}/reactivate", urlParams);
       return MakeRequest<Subscription>(Method.PUT, url).Data;
+    }
+  
+    /// <summary>
+    /// Pause subscription
+    /// </summary>
+    /// <param name="subscription_id">Subscription ID or UUID (use prefix: `uuid-`, e.g. `uuid-123457890`).</param>
+    /// <param name="body"></param>
+    /// <returns>
+    /// A subscription.
+    /// </returns>
+    /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
+    public Subscription PauseSubscription(string subscription_id, SubscriptionPause body) {
+      var urlParams = new Dictionary<string, object>{ { "subscription_id", subscription_id } };
+      var url = this.InterpolatePath("/sites/{site_id}/subscriptions/{subscription_id}/pause", urlParams);
+      return MakeRequest<Subscription>(Method.PUT, url, body).Data;
     }
   
     /// <summary>
