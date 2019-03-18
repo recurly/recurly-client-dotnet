@@ -1,16 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>netstandard2.0;netcoreapp2.2</TargetFrameworks>
     <PackageId>Recurly</PackageId>
-    <Version>3.0.0-alpha1</Version>
+    <Version>3.0.0-beta.1</Version>
     <Authors>ben@recurly.com</Authors>
     <Company>Recurly, Inc.</Company>
 
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="restsharp" Version="106.3.1" />
+    <PackageReference Include="restsharp" Version="106.6.9" />
     <PackageReference Include="RestSharp.Newtonsoft.Json" Version="1.5.0" />
   </ItemGroup>
 </Project>

@@ -1,13 +1,8 @@
 language: csharp
 solution: recurly.sln
 dist: xenial
+dotnet: 2.2.105
 mono: none
-matrix:
-  include:
-    - dotnet: 2.1.300
-      mono: none
-    - dotnet: 2.2.101
-      mono: none
 script:
   - dotnet restore
   - ./scripts/build

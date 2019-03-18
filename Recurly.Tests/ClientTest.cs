@@ -52,10 +52,6 @@ namespace Recurly.UnitTests
             Assert.NotNull(restClient.Authenticator);
             var apiVersion = _client.ApiVersion;
 
-            var acceptParam = restClient.DefaultParameters.First(p => p.Name == "Accept");
-            Assert.Equal(ParameterType.HttpHeader, acceptParam.Type);
-            Assert.Equal($"application/vnd.recurly.{apiVersion}", acceptParam.Value);
-
             var contentParam = restClient.DefaultParameters.First(p => p.Name == "Content-Type");
             Assert.Equal(ParameterType.HttpHeader, contentParam.Type);
             Assert.Equal("application/json", contentParam.Value);
