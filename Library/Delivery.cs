@@ -97,6 +97,10 @@ namespace Recurly
                     case "gifter_name":
                         GifterName = reader.ReadElementContentAsString();
                         break;
+                    
+                    case "personal_message":
+                        PersonalMessage = reader.ReadElementContentAsString();
+                        break;
 
                     case "deliver_at":
                         if (DateTime.TryParse(reader.ReadElementContentAsString(), out dateVal))
@@ -123,6 +127,7 @@ namespace Recurly
             xmlWriter.WriteStringIfValid("last_name", LastName);
             xmlWriter.WriteStringIfValid("email_address", EmailAddress);
             xmlWriter.WriteStringIfValid("gifter_name", GifterName);
+            xmlWriter.WriteStringIfValid("personal_message", PersonalMessage);
 
             if (DeliverAt.HasValue)
                 xmlWriter.WriteStringIfValid("deliver_at", DeliverAt.Value.ToString("s"));
