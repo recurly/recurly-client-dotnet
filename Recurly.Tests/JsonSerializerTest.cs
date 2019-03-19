@@ -51,16 +51,13 @@ namespace Recurly.UnitTests
         public void DeserializeWithWrongType()
         {
             var json = "{\"my_string\":\"benjamin\",\"my_int\":\"49urj\"}";
-            var resource = _jsonSerializer.Deserialize<MyResource>(MockResourceResponse(json));
-            // It should ignore the field that was wrong type but still parse other properties
-            Assert.Null(resource.MyInt);
-            Assert.Equal("benjamin", resource.MyString);
+            Assert.Throws<JsonReaderException>(() => _jsonSerializer.Deserialize<MyResource>(MockResourceResponse(json)));
         }
 
         [Fact]
         public void DeserializeWithNewUnrecognizedKey()
         {
-            var json = "{\"my_string\":\"benjamin\",\"unregonized\":\"unknown\"}";
+            var json = "{\"my_string\":\"benjamin\",\"unrecognized\":\"unknown\"}";
             var resource = _jsonSerializer.Deserialize<MyResource>(MockResourceResponse(json));
             // It should ignore the the unrecognized new field but still parse other properties
             Assert.Equal("benjamin", resource.MyString);
