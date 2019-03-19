@@ -85,6 +85,13 @@ namespace Recurly.UnitTests
             _client.RestClient = this.GetAccountFailureClient();
             Assert.Throws<Recurly.ApiError>(() =>  _client.GetAccount("code-benjamin"));
         }
+ 
+        [Fact]
+        public void WillThrowAnExceptionWhenResponseHasErrorException()
+        {
+            _client.RestClient = this.GetErroredResponseClient();
+            Assert.Throws<Recurly.RecurlyError>(() =>  _client.GetAccount("code-benjamin"));
+        }
 
         private IRestClient GetAccountSuccessClient() {
             var data = new Account() {
@@ -103,6 +110,23 @@ namespace Recurly.UnitTests
 
             return mockIRestClient.Object;
         }
+
+        private IRestClient GetErroredResponseClient() {
+            var response =  new Mock<IRestResponse<Account>>();
+            response.Setup(_ => _.StatusCode).Returns(System.Net.HttpStatusCode.Created);
+            response.Setup(_ => _.Content).Returns("{\"code\": 123}");
+            response.Setup(_ => _.Headers).Returns(new List<Parameter> {});
+            response.Setup(_ => _.ErrorException).Returns(new Exception("parsing error"));
+            response.Setup(_ => _.ErrorMessage).Returns("parsing error");
+
+            var mockIRestClient = new Mock<IRestClient>();
+            mockIRestClient
+                .Setup(x => x.Execute<Account>(It.IsAny<IRestRequest>()))
+                .Returns(response.Object);
+
+            return mockIRestClient.Object;
+        }
+
         private IRestClient CreateAccountSuccessClient() {
             var data = new Account() {
                 Code = "benjamin"

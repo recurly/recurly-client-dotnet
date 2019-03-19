@@ -15,15 +15,6 @@ namespace Recurly {
     public class JsonSerializer : ISerializer, IDeserializer
     {
         private Newtonsoft.Json.JsonSerializer serializer;
-        private List<string> _errors;
-        public List<string> Errors {
-            get {
-                if (this._errors == null)
-                    this._errors = new List<string>();
-                return this._errors;
-            }
-        }
-        
         public string RootElement { get; set; }
         public string Namespace { get; set; }
         public string DateFormat { get; set; }
@@ -41,11 +32,6 @@ namespace Recurly {
                 MissingMemberHandling = MissingMemberHandling.Ignore,
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,
                 DateTimeZoneHandling = DateTimeZoneHandling.Utc,
-                Error = delegate(object sender, Newtonsoft.Json.Serialization.ErrorEventArgs args)
-                {
-                    Errors.Add(args.ErrorContext.Error.Message);
-                    args.ErrorContext.Handled = true;
-                },
                 //Formatting = Formatting.Indented,
             };
             this.serializer = Newtonsoft.Json.JsonSerializer.Create(settings);
@@ -59,14 +45,6 @@ namespace Recurly {
                 using (var jsonTextReader = new JsonTextReader(stringReader))
                 {
                     var obj = serializer.Deserialize<T>(jsonTextReader);
-                    if (Errors.Any())
-                    {
-                        Debug.WriteLine("WARNING: Serialization errors");
-                        foreach (string err in Errors)
-                        {
-                            Debug.WriteLine(err);
-                        }
-                    }
                     return obj;
                 }
             }

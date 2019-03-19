@@ -67,7 +67,8 @@ namespace Recurly {
             }
 
             // If we have a body, serialize it and add it to the request
-            if (body != null) {
+            if (body != null)
+            {
                 request.AddJsonBody(body);
             }
 
@@ -76,7 +77,15 @@ namespace Recurly {
             var status = (int)resp.StatusCode;
             Debug.WriteLine($"Status: {status}");
             Debug.WriteLine($"Content: {resp.Content}");
-            if (status < 200 || status >= 300)
+
+            // If the response has an ErrorException,
+            // an error casting the json to a Resource
+            // has likely occurred
+            if (resp.ErrorException != null)
+            {
+                throw new RecurlyError(resp.ErrorMessage);
+            }
+            else if (status < 200 || status >= 300)
             {
                 // Turn web exceptions into Recurly.NetworkErrors
                 if (resp.ErrorException is WebException)
