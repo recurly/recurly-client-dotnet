@@ -1,6 +1,11 @@
 Unreleased
 ===============
 
+1.15.4 (stable) / 2019-03-19
+===============
+
+* Fix XML for GiftCard Personal Message [PR](https://github.com/recurly/recurly-client-net/pull/386)
+
 1.15.3 (stable) / 2019-03-12
 ===============
 
