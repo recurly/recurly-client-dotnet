@@ -19,7 +19,7 @@ namespace Recurly {
     public Client(string siteId, string apiKey) : base(siteId, apiKey) {}
   
     /// <summary>
-    /// List sites
+    /// List sites <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_sites">list_sites api documentation</see>
     /// </summary>
     /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**  * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
     /// <param name="limit">Limit number of records 1-200.</param>
@@ -37,7 +37,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Fetch a site
+    /// Fetch a site <see href="https://partner-docs.recurly.com/v2018-08-09#operation/get_site">get_site api documentation</see>
     /// </summary>
     /// <returns>
     /// A site.
@@ -50,7 +50,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// List a site's accounts
+    /// List a site's accounts <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_accounts">list_accounts api documentation</see>
     /// </summary>
     /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**  * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
     /// <param name="limit">Limit number of records 1-200.</param>
@@ -72,7 +72,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Create an account
+    /// Create an account <see href="https://partner-docs.recurly.com/v2018-08-09#operation/create_account">create_account api documentation</see>
     /// </summary>
     /// <param name="body"></param>
     /// <returns>
@@ -86,7 +86,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Fetch an account
+    /// Fetch an account <see href="https://partner-docs.recurly.com/v2018-08-09#operation/get_account">get_account api documentation</see>
     /// </summary>
     /// <param name="account_id">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
     /// <returns>
@@ -100,7 +100,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Modify an account
+    /// Modify an account <see href="https://partner-docs.recurly.com/v2018-08-09#operation/update_account">update_account api documentation</see>
     /// </summary>
     /// <param name="account_id">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
     /// <param name="body"></param>
@@ -115,7 +115,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Deactivate an account
+    /// Deactivate an account <see href="https://partner-docs.recurly.com/v2018-08-09#operation/deactivate_account">deactivate_account api documentation</see>
     /// </summary>
     /// <param name="account_id">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
     /// <returns>
@@ -129,7 +129,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Fetch an account's acquisition data
+    /// Fetch an account's acquisition data <see href="https://partner-docs.recurly.com/v2018-08-09#operation/get_account_acquisition">get_account_acquisition api documentation</see>
     /// </summary>
     /// <param name="account_id">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
     /// <returns>
@@ -143,7 +143,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Update an account's acquisition data
+    /// Update an account's acquisition data <see href="https://partner-docs.recurly.com/v2018-08-09#operation/update_account_acquisition">update_account_acquisition api documentation</see>
     /// </summary>
     /// <param name="account_id">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
     /// <param name="body"></param>
@@ -158,7 +158,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Remove an account's acquisition data
+    /// Remove an account's acquisition data <see href="https://partner-docs.recurly.com/v2018-08-09#operation/remove_account_acquisition">remove_account_acquisition api documentation</see>
     /// </summary>
     /// <param name="account_id">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
     /// <returns>
@@ -172,7 +172,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Reactivate an inactive account
+    /// Reactivate an inactive account <see href="https://partner-docs.recurly.com/v2018-08-09#operation/reactivate_account">reactivate_account api documentation</see>
     /// </summary>
     /// <param name="account_id">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
     /// <returns>
@@ -186,7 +186,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Fetch an account's balance and past due status
+    /// Fetch an account's balance and past due status <see href="https://partner-docs.recurly.com/v2018-08-09#operation/get_account_balance">get_account_balance api documentation</see>
     /// </summary>
     /// <param name="account_id">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
     /// <returns>
@@ -200,7 +200,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Fetch an account's billing information
+    /// Fetch an account's billing information <see href="https://partner-docs.recurly.com/v2018-08-09#operation/get_billing_info">get_billing_info api documentation</see>
     /// </summary>
     /// <param name="account_id">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
     /// <returns>
@@ -214,7 +214,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Set an account's billing information
+    /// Set an account's billing information <see href="https://partner-docs.recurly.com/v2018-08-09#operation/update_billing_info">update_billing_info api documentation</see>
     /// </summary>
     /// <param name="account_id">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
     /// <param name="body"></param>
@@ -229,7 +229,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Remove an account's billing information
+    /// Remove an account's billing information <see href="https://partner-docs.recurly.com/v2018-08-09#operation/remove_billing_info">remove_billing_info api documentation</see>
     /// </summary>
     /// <param name="account_id">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
     /// <returns>
@@ -243,7 +243,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Show the coupon redemptions for an account
+    /// Show the coupon redemptions for an account <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_account_coupon_redemptions">list_account_coupon_redemptions api documentation</see>
     /// </summary>
     /// <param name="account_id">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
     /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**  * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
@@ -262,7 +262,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Show the coupon redemption that is active on an account
+    /// Show the coupon redemption that is active on an account <see href="https://partner-docs.recurly.com/v2018-08-09#operation/get_active_coupon_redemption">get_active_coupon_redemption api documentation</see>
     /// </summary>
     /// <param name="account_id">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
     /// <returns>
@@ -276,7 +276,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Generate an active coupon redemption on an account
+    /// Generate an active coupon redemption on an account <see href="https://partner-docs.recurly.com/v2018-08-09#operation/create_coupon_redemption">create_coupon_redemption api documentation</see>
     /// </summary>
     /// <param name="account_id">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
     /// <param name="body"></param>
@@ -291,7 +291,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Delete the active coupon redemption from an account
+    /// Delete the active coupon redemption from an account <see href="https://partner-docs.recurly.com/v2018-08-09#operation/remove_coupon_redemption">remove_coupon_redemption api documentation</see>
     /// </summary>
     /// <param name="account_id">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
     /// <returns>
@@ -305,7 +305,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// List an account's credit payments
+    /// List an account's credit payments <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_account_credit_payments">list_account_credit_payments api documentation</see>
     /// </summary>
     /// <param name="account_id">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
     /// <param name="limit">Limit number of records 1-200.</param>
@@ -325,7 +325,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// List an account's invoices
+    /// List an account's invoices <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_account_invoices">list_account_invoices api documentation</see>
     /// </summary>
     /// <param name="account_id">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
     /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**  * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
@@ -347,7 +347,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Create an invoice for pending line items
+    /// Create an invoice for pending line items <see href="https://partner-docs.recurly.com/v2018-08-09#operation/create_invoice">create_invoice api documentation</see>
     /// </summary>
     /// <param name="account_id">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
     /// <param name="body"></param>
@@ -362,7 +362,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Preview new invoice for pending line items
+    /// Preview new invoice for pending line items <see href="https://partner-docs.recurly.com/v2018-08-09#operation/preview_invoice">preview_invoice api documentation</see>
     /// </summary>
     /// <param name="account_id">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
     /// <param name="body"></param>
@@ -377,7 +377,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// List an account's line items
+    /// List an account's line items <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_account_line_items">list_account_line_items api documentation</see>
     /// </summary>
     /// <param name="account_id">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
     /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**  * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
@@ -401,7 +401,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Create a new line item for the account
+    /// Create a new line item for the account <see href="https://partner-docs.recurly.com/v2018-08-09#operation/create_line_item">create_line_item api documentation</see>
     /// </summary>
     /// <param name="account_id">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
     /// <param name="body"></param>
@@ -416,7 +416,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Fetch a list of an account's notes
+    /// Fetch a list of an account's notes <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_account_notes">list_account_notes api documentation</see>
     /// </summary>
     /// <param name="account_id">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
     /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**  * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
@@ -432,7 +432,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Fetch an account note
+    /// Fetch an account note <see href="https://partner-docs.recurly.com/v2018-08-09#operation/get_account_note">get_account_note api documentation</see>
     /// </summary>
     /// <param name="account_id">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
     /// <param name="account_note_id">Account Note ID.</param>
@@ -447,7 +447,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Fetch a list of an account's shipping addresses
+    /// Fetch a list of an account's shipping addresses <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_shipping_addresses">list_shipping_addresses api documentation</see>
     /// </summary>
     /// <param name="account_id">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
     /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**  * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
@@ -468,7 +468,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Create a new shipping address for the account
+    /// Create a new shipping address for the account <see href="https://partner-docs.recurly.com/v2018-08-09#operation/create_shipping_address">create_shipping_address api documentation</see>
     /// </summary>
     /// <param name="account_id">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
     /// <param name="body"></param>
@@ -483,7 +483,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Fetch an account's shipping address
+    /// Fetch an account's shipping address <see href="https://partner-docs.recurly.com/v2018-08-09#operation/get_shipping_address">get_shipping_address api documentation</see>
     /// </summary>
     /// <param name="account_id">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
     /// <param name="shipping_address_id">Shipping Address ID.</param>
@@ -498,7 +498,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Update an account's shipping address
+    /// Update an account's shipping address <see href="https://partner-docs.recurly.com/v2018-08-09#operation/update_shipping_address">update_shipping_address api documentation</see>
     /// </summary>
     /// <param name="account_id">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
     /// <param name="shipping_address_id">Shipping Address ID.</param>
@@ -514,7 +514,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Remove an account's shipping address
+    /// Remove an account's shipping address <see href="https://partner-docs.recurly.com/v2018-08-09#operation/remove_shipping_address">remove_shipping_address api documentation</see>
     /// </summary>
     /// <param name="account_id">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
     /// <param name="shipping_address_id">Shipping Address ID.</param>
@@ -529,7 +529,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// List an account's subscriptions
+    /// List an account's subscriptions <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_account_subscriptions">list_account_subscriptions api documentation</see>
     /// </summary>
     /// <param name="account_id">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
     /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**  * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
@@ -551,7 +551,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// List an account's transactions
+    /// List an account's transactions <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_account_transactions">list_account_transactions api documentation</see>
     /// </summary>
     /// <param name="account_id">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
     /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**  * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
@@ -574,7 +574,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// List an account's child accounts
+    /// List an account's child accounts <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_child_accounts">list_child_accounts api documentation</see>
     /// </summary>
     /// <param name="account_id">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
     /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**  * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
@@ -597,7 +597,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// List a site's account acquisition data
+    /// List a site's account acquisition data <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_account_acquisition">list_account_acquisition api documentation</see>
     /// </summary>
     /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**  * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
     /// <param name="limit">Limit number of records 1-200.</param>
@@ -617,7 +617,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// List a site's coupons
+    /// List a site's coupons <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_coupons">list_coupons api documentation</see>
     /// </summary>
     /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**  * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
     /// <param name="limit">Limit number of records 1-200.</param>
@@ -637,7 +637,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Create a new coupon
+    /// Create a new coupon <see href="https://partner-docs.recurly.com/v2018-08-09#operation/create_coupon">create_coupon api documentation</see>
     /// </summary>
     /// <param name="body"></param>
     /// <returns>
@@ -651,7 +651,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Fetch a coupon
+    /// Fetch a coupon <see href="https://partner-docs.recurly.com/v2018-08-09#operation/get_coupon">get_coupon api documentation</see>
     /// </summary>
     /// <param name="coupon_id">Coupon ID or code (use prefix: `code-`, e.g. `code-10off`).</param>
     /// <returns>
@@ -665,7 +665,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Update an active coupon
+    /// Update an active coupon <see href="https://partner-docs.recurly.com/v2018-08-09#operation/update_coupon">update_coupon api documentation</see>
     /// </summary>
     /// <param name="coupon_id">Coupon ID or code (use prefix: `code-`, e.g. `code-10off`).</param>
     /// <param name="body"></param>
@@ -680,7 +680,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// List unique coupon codes associated with a bulk coupon
+    /// List unique coupon codes associated with a bulk coupon <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_unique_coupon_codes">list_unique_coupon_codes api documentation</see>
     /// </summary>
     /// <param name="coupon_id">Coupon ID or code (use prefix: `code-`, e.g. `code-10off`).</param>
     /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**  * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
@@ -701,7 +701,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// List a site's credit payments
+    /// List a site's credit payments <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_credit_payments">list_credit_payments api documentation</see>
     /// </summary>
     /// <param name="limit">Limit number of records 1-200.</param>
     /// <param name="order">Sort order.</param>
@@ -720,7 +720,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Fetch a credit payment
+    /// Fetch a credit payment <see href="https://partner-docs.recurly.com/v2018-08-09#operation/get_credit_payment">get_credit_payment api documentation</see>
     /// </summary>
     /// <param name="credit_payment_id">Credit Payment ID or UUID (use prefix: `uuid-`, e.g. `uuid-123457890`).</param>
     /// <returns>
@@ -734,7 +734,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// List a site's custom field definitions
+    /// List a site's custom field definitions <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_custom_field_definitions">list_custom_field_definitions api documentation</see>
     /// </summary>
     /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**  * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
     /// <param name="limit">Limit number of records 1-200.</param>
@@ -754,7 +754,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Fetch an custom field definition
+    /// Fetch an custom field definition <see href="https://partner-docs.recurly.com/v2018-08-09#operation/get_custom_field_definition">get_custom_field_definition api documentation</see>
     /// </summary>
     /// <param name="custom_field_definition_id">Custom Field Definition ID</param>
     /// <returns>
@@ -768,7 +768,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// List a site's invoices
+    /// List a site's invoices <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_invoices">list_invoices api documentation</see>
     /// </summary>
     /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**  * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
     /// <param name="limit">Limit number of records 1-200.</param>
@@ -789,7 +789,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Fetch an invoice
+    /// Fetch an invoice <see href="https://partner-docs.recurly.com/v2018-08-09#operation/get_invoice">get_invoice api documentation</see>
     /// </summary>
     /// <param name="invoice_id">Invoice ID or number (use prefix: `number-`, e.g. `number-1000`).</param>
     /// <returns>
@@ -803,7 +803,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Update an invoice
+    /// Update an invoice <see href="https://partner-docs.recurly.com/v2018-08-09#operation/put_invoice">put_invoice api documentation</see>
     /// </summary>
     /// <param name="invoice_id">Invoice ID or number (use prefix: `number-`, e.g. `number-1000`).</param>
     /// <param name="body"></param>
@@ -818,7 +818,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Collect a pending or past due, automatic invoice
+    /// Collect a pending or past due, automatic invoice <see href="https://partner-docs.recurly.com/v2018-08-09#operation/collect_invoice">collect_invoice api documentation</see>
     /// </summary>
     /// <param name="invoice_id">Invoice ID or number (use prefix: `number-`, e.g. `number-1000`).</param>
     /// <returns>
@@ -832,7 +832,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Mark an open invoice as failed
+    /// Mark an open invoice as failed <see href="https://partner-docs.recurly.com/v2018-08-09#operation/fail_invoice">fail_invoice api documentation</see>
     /// </summary>
     /// <param name="invoice_id">Invoice ID or number (use prefix: `number-`, e.g. `number-1000`).</param>
     /// <returns>
@@ -846,7 +846,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Mark an open invoice as successful
+    /// Mark an open invoice as successful <see href="https://partner-docs.recurly.com/v2018-08-09#operation/mark_invoice_successful">mark_invoice_successful api documentation</see>
     /// </summary>
     /// <param name="invoice_id">Invoice ID or number (use prefix: `number-`, e.g. `number-1000`).</param>
     /// <returns>
@@ -860,7 +860,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Reopen a closed, manual invoice
+    /// Reopen a closed, manual invoice <see href="https://partner-docs.recurly.com/v2018-08-09#operation/reopen_invoice">reopen_invoice api documentation</see>
     /// </summary>
     /// <param name="invoice_id">Invoice ID or number (use prefix: `number-`, e.g. `number-1000`).</param>
     /// <returns>
@@ -874,7 +874,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// List a invoice's line items
+    /// List a invoice's line items <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_invoice_line_items">list_invoice_line_items api documentation</see>
     /// </summary>
     /// <param name="invoice_id">Invoice ID or number (use prefix: `number-`, e.g. `number-1000`).</param>
     /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**  * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
@@ -898,7 +898,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Show the coupon redemptions applied to an invoice
+    /// Show the coupon redemptions applied to an invoice <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_invoice_coupon_redemptions">list_invoice_coupon_redemptions api documentation</see>
     /// </summary>
     /// <param name="invoice_id">Invoice ID or number (use prefix: `number-`, e.g. `number-1000`).</param>
     /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**  * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
@@ -917,7 +917,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// List an invoice's related credit or charge invoices
+    /// List an invoice's related credit or charge invoices <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_related_invoices">list_related_invoices api documentation</see>
     /// </summary>
     /// <param name="invoice_id">Invoice ID or number (use prefix: `number-`, e.g. `number-1000`).</param>
     /// <returns>
@@ -931,7 +931,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Refund an invoice
+    /// Refund an invoice <see href="https://partner-docs.recurly.com/v2018-08-09#operation/refund_invoice">refund_invoice api documentation</see>
     /// </summary>
     /// <param name="invoice_id">Invoice ID or number (use prefix: `number-`, e.g. `number-1000`).</param>
     /// <param name="body"></param>
@@ -946,7 +946,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// List a site's line items
+    /// List a site's line items <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_line_items">list_line_items api documentation</see>
     /// </summary>
     /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**  * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
     /// <param name="limit">Limit number of records 1-200.</param>
@@ -969,7 +969,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Fetch a line item
+    /// Fetch a line item <see href="https://partner-docs.recurly.com/v2018-08-09#operation/get_line_item">get_line_item api documentation</see>
     /// </summary>
     /// <param name="line_item_id">Line Item ID.</param>
     /// <returns>
@@ -983,7 +983,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Delete an uninvoiced line item
+    /// Delete an uninvoiced line item <see href="https://partner-docs.recurly.com/v2018-08-09#operation/remove_line_item">remove_line_item api documentation</see>
     /// </summary>
     /// <param name="line_item_id">Line Item ID.</param>
     /// <returns>
@@ -997,7 +997,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// List a site's plans
+    /// List a site's plans <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_plans">list_plans api documentation</see>
     /// </summary>
     /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**  * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
     /// <param name="limit">Limit number of records 1-200.</param>
@@ -1018,7 +1018,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Create a plan
+    /// Create a plan <see href="https://partner-docs.recurly.com/v2018-08-09#operation/create_plan">create_plan api documentation</see>
     /// </summary>
     /// <param name="body"></param>
     /// <returns>
@@ -1032,7 +1032,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Fetch a plan
+    /// Fetch a plan <see href="https://partner-docs.recurly.com/v2018-08-09#operation/get_plan">get_plan api documentation</see>
     /// </summary>
     /// <param name="plan_id">Plan ID or code (use prefix: `code-`, e.g. `code-gold`).</param>
     /// <returns>
@@ -1046,7 +1046,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Update a plan
+    /// Update a plan <see href="https://partner-docs.recurly.com/v2018-08-09#operation/update_plan">update_plan api documentation</see>
     /// </summary>
     /// <param name="plan_id">Plan ID or code (use prefix: `code-`, e.g. `code-gold`).</param>
     /// <param name="body"></param>
@@ -1061,7 +1061,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Remove a plan
+    /// Remove a plan <see href="https://partner-docs.recurly.com/v2018-08-09#operation/remove_plan">remove_plan api documentation</see>
     /// </summary>
     /// <param name="plan_id">Plan ID or code (use prefix: `code-`, e.g. `code-gold`).</param>
     /// <returns>
@@ -1075,7 +1075,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// List a plan's add-ons
+    /// List a plan's add-ons <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_plan_add_ons">list_plan_add_ons api documentation</see>
     /// </summary>
     /// <param name="plan_id">Plan ID or code (use prefix: `code-`, e.g. `code-gold`).</param>
     /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**  * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
@@ -1097,7 +1097,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Create an add-on
+    /// Create an add-on <see href="https://partner-docs.recurly.com/v2018-08-09#operation/create_plan_add_on">create_plan_add_on api documentation</see>
     /// </summary>
     /// <param name="plan_id">Plan ID or code (use prefix: `code-`, e.g. `code-gold`).</param>
     /// <param name="body"></param>
@@ -1112,7 +1112,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Fetch a plan's add-on
+    /// Fetch a plan's add-on <see href="https://partner-docs.recurly.com/v2018-08-09#operation/get_plan_add_on">get_plan_add_on api documentation</see>
     /// </summary>
     /// <param name="plan_id">Plan ID or code (use prefix: `code-`, e.g. `code-gold`).</param>
     /// <param name="add_on_id">Add-on ID or code (use prefix: `code-`, e.g. `code-gold`).</param>
@@ -1127,7 +1127,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Update an add-on
+    /// Update an add-on <see href="https://partner-docs.recurly.com/v2018-08-09#operation/update_plan_add_on">update_plan_add_on api documentation</see>
     /// </summary>
     /// <param name="plan_id">Plan ID or code (use prefix: `code-`, e.g. `code-gold`).</param>
     /// <param name="add_on_id">Add-on ID or code (use prefix: `code-`, e.g. `code-gold`).</param>
@@ -1143,7 +1143,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Remove an add-on
+    /// Remove an add-on <see href="https://partner-docs.recurly.com/v2018-08-09#operation/remove_plan_add_on">remove_plan_add_on api documentation</see>
     /// </summary>
     /// <param name="plan_id">Plan ID or code (use prefix: `code-`, e.g. `code-gold`).</param>
     /// <param name="add_on_id">Add-on ID or code (use prefix: `code-`, e.g. `code-gold`).</param>
@@ -1158,7 +1158,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// List a site's add-ons
+    /// List a site's add-ons <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_add_ons">list_add_ons api documentation</see>
     /// </summary>
     /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**  * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
     /// <param name="limit">Limit number of records 1-200.</param>
@@ -1179,7 +1179,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Fetch an add-on
+    /// Fetch an add-on <see href="https://partner-docs.recurly.com/v2018-08-09#operation/get_add_on">get_add_on api documentation</see>
     /// </summary>
     /// <param name="add_on_id">Add-on ID or code (use prefix: `code-`, e.g. `code-gold`).</param>
     /// <returns>
@@ -1193,7 +1193,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// List a site's subscriptions
+    /// List a site's subscriptions <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_subscriptions">list_subscriptions api documentation</see>
     /// </summary>
     /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**  * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
     /// <param name="limit">Limit number of records 1-200.</param>
@@ -1214,7 +1214,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Create a new subscription
+    /// Create a new subscription <see href="https://partner-docs.recurly.com/v2018-08-09#operation/create_subscription">create_subscription api documentation</see>
     /// </summary>
     /// <param name="body"></param>
     /// <returns>
@@ -1228,7 +1228,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Fetch a subscription
+    /// Fetch a subscription <see href="https://partner-docs.recurly.com/v2018-08-09#operation/get_subscription">get_subscription api documentation</see>
     /// </summary>
     /// <param name="subscription_id">Subscription ID or UUID (use prefix: `uuid-`, e.g. `uuid-123457890`).</param>
     /// <returns>
@@ -1242,7 +1242,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Modify a subscription
+    /// Modify a subscription <see href="https://partner-docs.recurly.com/v2018-08-09#operation/modify_subscription">modify_subscription api documentation</see>
     /// </summary>
     /// <param name="subscription_id">Subscription ID or UUID (use prefix: `uuid-`, e.g. `uuid-123457890`).</param>
     /// <param name="body"></param>
@@ -1257,7 +1257,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Terminate a subscription
+    /// Terminate a subscription <see href="https://partner-docs.recurly.com/v2018-08-09#operation/terminate_subscription">terminate_subscription api documentation</see>
     /// </summary>
     /// <param name="subscription_id">Subscription ID or UUID (use prefix: `uuid-`, e.g. `uuid-123457890`).</param>
     /// <param name="refund">The type of refund to perform:    * `full` - Performs a full refund of the last invoice for the current subscription term.  * `partial` - Prorates a refund based on the amount of time remaining in the current bill cycle.  * `none` - Terminates the subscription without a refund.    In the event that the most recent invoice is a $0 invoice paid entirely by credit, Recurly will apply the credit back to the customer’s account.    You may also terminate a subscription with no refund and then manually refund specific invoices.  </param>
@@ -1273,7 +1273,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Cancel a subscription
+    /// Cancel a subscription <see href="https://partner-docs.recurly.com/v2018-08-09#operation/cancel_subscription">cancel_subscription api documentation</see>
     /// </summary>
     /// <param name="subscription_id">Subscription ID or UUID (use prefix: `uuid-`, e.g. `uuid-123457890`).</param>
     /// <returns>
@@ -1287,7 +1287,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Reactivate a canceled subscription
+    /// Reactivate a canceled subscription <see href="https://partner-docs.recurly.com/v2018-08-09#operation/reactivate_subscription">reactivate_subscription api documentation</see>
     /// </summary>
     /// <param name="subscription_id">Subscription ID or UUID (use prefix: `uuid-`, e.g. `uuid-123457890`).</param>
     /// <returns>
@@ -1301,7 +1301,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Pause subscription
+    /// Pause subscription <see href="https://partner-docs.recurly.com/v2018-08-09#operation/pause_subscription">pause_subscription api documentation</see>
     /// </summary>
     /// <param name="subscription_id">Subscription ID or UUID (use prefix: `uuid-`, e.g. `uuid-123457890`).</param>
     /// <param name="body"></param>
@@ -1316,7 +1316,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Resume subscription
+    /// Resume subscription <see href="https://partner-docs.recurly.com/v2018-08-09#operation/resume_subscription">resume_subscription api documentation</see>
     /// </summary>
     /// <param name="subscription_id">Subscription ID or UUID (use prefix: `uuid-`, e.g. `uuid-123457890`).</param>
     /// <returns>
@@ -1330,7 +1330,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Fetch a subscription's pending change
+    /// Fetch a subscription's pending change <see href="https://partner-docs.recurly.com/v2018-08-09#operation/get_subscription_change">get_subscription_change api documentation</see>
     /// </summary>
     /// <param name="subscription_id">Subscription ID or UUID (use prefix: `uuid-`, e.g. `uuid-123457890`).</param>
     /// <returns>
@@ -1344,7 +1344,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Create a new subscription change
+    /// Create a new subscription change <see href="https://partner-docs.recurly.com/v2018-08-09#operation/create_subscription_change">create_subscription_change api documentation</see>
     /// </summary>
     /// <param name="subscription_id">Subscription ID or UUID (use prefix: `uuid-`, e.g. `uuid-123457890`).</param>
     /// <param name="body"></param>
@@ -1359,7 +1359,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Delete the pending subscription change
+    /// Delete the pending subscription change <see href="https://partner-docs.recurly.com/v2018-08-09#operation/remove_subscription_change">remove_subscription_change api documentation</see>
     /// </summary>
     /// <param name="subscription_id">Subscription ID or UUID (use prefix: `uuid-`, e.g. `uuid-123457890`).</param>
     /// <returns>
@@ -1373,7 +1373,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// List a subscription's invoices
+    /// List a subscription's invoices <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_subscription_invoices">list_subscription_invoices api documentation</see>
     /// </summary>
     /// <param name="subscription_id">Subscription ID or UUID (use prefix: `uuid-`, e.g. `uuid-123457890`).</param>
     /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**  * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
@@ -1395,7 +1395,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// List a subscription's line items
+    /// List a subscription's line items <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_subscription_line_items">list_subscription_line_items api documentation</see>
     /// </summary>
     /// <param name="subscription_id">Subscription ID or UUID (use prefix: `uuid-`, e.g. `uuid-123457890`).</param>
     /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**  * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
@@ -1419,7 +1419,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Show the coupon redemptions for a subscription
+    /// Show the coupon redemptions for a subscription <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_subscription_coupon_redemptions">list_subscription_coupon_redemptions api documentation</see>
     /// </summary>
     /// <param name="subscription_id">Subscription ID or UUID (use prefix: `uuid-`, e.g. `uuid-123457890`).</param>
     /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**  * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
@@ -1438,7 +1438,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// List a site's transactions
+    /// List a site's transactions <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_transactions">list_transactions api documentation</see>
     /// </summary>
     /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**  * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
     /// <param name="limit">Limit number of records 1-200.</param>
@@ -1460,7 +1460,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Fetch a transaction
+    /// Fetch a transaction <see href="https://partner-docs.recurly.com/v2018-08-09#operation/get_transaction">get_transaction api documentation</see>
     /// </summary>
     /// <param name="transaction_id">Transaction ID or UUID (use prefix: `uuid-`, e.g. `uuid-123457890`).</param>
     /// <returns>
@@ -1474,7 +1474,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Fetch a unique coupon code
+    /// Fetch a unique coupon code <see href="https://partner-docs.recurly.com/v2018-08-09#operation/get_unique_coupon_code">get_unique_coupon_code api documentation</see>
     /// </summary>
     /// <param name="unique_coupon_code_id">Unique Coupon Code ID or code (use prefix: `code-`, e.g. `code-abc-8dh2-def`).</param>
     /// <returns>
@@ -1488,7 +1488,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Deactivate a unique coupon code
+    /// Deactivate a unique coupon code <see href="https://partner-docs.recurly.com/v2018-08-09#operation/deactivate_unique_coupon_code">deactivate_unique_coupon_code api documentation</see>
     /// </summary>
     /// <param name="unique_coupon_code_id">Unique Coupon Code ID or code (use prefix: `code-`, e.g. `code-abc-8dh2-def`).</param>
     /// <returns>
@@ -1502,7 +1502,7 @@ namespace Recurly {
     }
   
     /// <summary>
-    /// Restore a unique coupon code
+    /// Restore a unique coupon code <see href="https://partner-docs.recurly.com/v2018-08-09#operation/reactivate_unique_coupon_code">reactivate_unique_coupon_code api documentation</see>
     /// </summary>
     /// <param name="unique_coupon_code_id">Unique Coupon Code ID or code (use prefix: `code-`, e.g. `code-abc-8dh2-def`).</param>
     /// <returns>
