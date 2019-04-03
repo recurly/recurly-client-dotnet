@@ -17,6 +17,10 @@ namespace Recurly.Resources {
     [JsonProperty("city")]
     public string City { get; set; }
   
+    /// <value>Company</value>
+    [JsonProperty("company")]
+    public string Company { get; set; }
+  
     /// <value>Country, 2-letter ISO code.</value>
     [JsonProperty("country")]
     public string Country { get; set; }
@@ -28,6 +32,10 @@ namespace Recurly.Resources {
     /// <value>Last name</value>
     [JsonProperty("last_name")]
     public string LastName { get; set; }
+  
+    /// <value>Name on account</value>
+    [JsonProperty("name_on_account")]
+    public string NameOnAccount { get; set; }
   
     /// <value>Phone number</value>
     [JsonProperty("phone")]

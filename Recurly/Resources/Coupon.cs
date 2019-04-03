@@ -104,6 +104,10 @@ namespace Recurly.Resources {
     [JsonProperty("temporal_unit")]
     public string TemporalUnit { get; set; }
   
+    /// <value>On a bulk coupon, the template from which unique coupon codes are generated.</value>
+    [JsonProperty("unique_code_template")]
+    public string UniqueCodeTemplate { get; set; }
+  
     /// <value>When this number reaches `max_redemptions` the coupon will no longer be redeemable.</value>
     [JsonProperty("unique_coupon_codes_count")]
     public int? UniqueCouponCodesCount { get; set; }

@@ -39,7 +39,7 @@ namespace Recurly.Resources {
   
     /// <value>Hosted pages settings</value>
     [JsonProperty("hosted_pages")]
-    public Dictionary<string, string> HostedPages { get; set; }
+    public PlanHostedPages HostedPages { get; set; }
   
     /// <value>Plan ID</value>
     [JsonProperty("id")]

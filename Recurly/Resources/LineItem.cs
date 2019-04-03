@@ -123,6 +123,10 @@ namespace Recurly.Resources {
     [JsonProperty("refunded_quantity")]
     public int? RefundedQuantity { get; set; }
   
+    
+    [JsonProperty("shipping_address")]
+    public ShippingAddress ShippingAddress { get; set; }
+  
     /// <value>If an end date is present, this is value indicates the beginning of a billing time range. If no end date is present it indicates billing for a specific date.</value>
     [JsonProperty("start_date")]
     public DateTime? StartDate { get; set; }

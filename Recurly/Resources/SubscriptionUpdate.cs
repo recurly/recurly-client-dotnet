@@ -51,7 +51,7 @@ namespace Recurly.Resources {
   
     /// <value>Create a shipping address on the account and assign it to the subscription. If this and `shipping_address_id` are both present, `shipping_address_id` will take precedence."</value>
     [JsonProperty("shipping_address")]
-    public Dictionary<string, string> ShippingAddress { get; set; }
+    public ShippingAddressCreate ShippingAddress { get; set; }
   
     /// <value>Assign a shipping address from the account's existing shipping addresses.</value>
     [JsonProperty("shipping_address_id")]
