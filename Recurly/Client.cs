@@ -609,11 +609,11 @@ namespace Recurly {
     /// A list of the site's account acquisition data.
     /// </returns>
     /// <exception cref="Recurly.ApiError">Thrown when the request is invalid.</exception>
-    public AccountAcquisition ListAccountAcquisition(string ids = null, int? limit = null, string order = null, string sort = null, DateTime? begin_time = null, DateTime? end_time = null) {
+    public Pager<AccountAcquisition> ListAccountAcquisition(string ids = null, int? limit = null, string order = null, string sort = null, DateTime? begin_time = null, DateTime? end_time = null) {
       var urlParams = new Dictionary<string, object>{ };
       var queryParams = new Dictionary<string, object>{ { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", begin_time }, { "end_time", end_time } };
       var url = this.InterpolatePath("/sites/{site_id}/acquisitions", urlParams);
-      return MakeRequest<AccountAcquisition>(Method.GET, url, null, queryParams).Data;
+      return MakeRequest<Pager<AccountAcquisition>>(Method.GET, url, null, queryParams).Data.WithClient(this);
     }
   
     /// <summary>
