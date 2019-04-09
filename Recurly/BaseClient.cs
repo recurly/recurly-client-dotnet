@@ -16,11 +16,12 @@ using System.Net;
 
 namespace Recurly {
     public class BaseClient {
-        private const string API_URL = "https://partner-api.recurly.com/";
         public string SiteId { get; }
         private string ApiKey { get; }
         public IRestClient RestClient { get; set; }
         public virtual string ApiVersion { get; protected set; }
+
+        private const string API_URL = "https://partner-api.recurly.com/";
 
         public BaseClient(string siteId, string apiKey) {
             if (String.IsNullOrEmpty(siteId))
@@ -34,7 +35,7 @@ namespace Recurly {
                 BaseUrl = new Uri(API_URL),
                 Authenticator = new HttpBasicAuthenticator(ApiKey, "")
             };
-            
+
             // AddDefaultHeader does not work for user-agent
             var libVersion = typeof(Recurly.Client).Assembly.GetName().Version;
             RestClient.UserAgent = $"Recurly/{libVersion}; .NET";
@@ -105,6 +106,16 @@ namespace Recurly {
             }
 
             return resp;
+        }
+
+        public void _SetApiUrl(string uri) {
+          if (System.Environment.GetEnvironmentVariable("RECURLY_INSECURE") == "true") {
+            Console.WriteLine("[SECURITY WARNING] _SetApiUrl is for testing only and not supported in production.");
+            this.RestClient.BaseUrl = new Uri(uri);
+          } else {
+            Console.WriteLine("[SECURITY WARNING] _SetApiUrl is for testing only and not supported in production.");
+            Console.WriteLine("ApiUrl not changed. To change, set the environment variable RECURLY_INSECURE to true");
+          }
         }
 
         private void ProcessResponse(IRestResponse resp) {
