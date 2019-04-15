@@ -23,7 +23,7 @@ namespace Recurly.Resources {
   
     /// <value>Type</value>
     [JsonProperty("type")]
-    public ApiErrorType Type { get; set; }
+    public string Type { get; set; }
   
   }
 }

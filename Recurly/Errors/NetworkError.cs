@@ -1,7 +1,7 @@
 using System;
 using System.Net;
 
-namespace Recurly {
+namespace Recurly.Errors {
   public class NetworkError : RecurlyError {
     public WebExceptionStatus ExceptionStatus { get; internal set; }
 

@@ -80,10 +80,10 @@ namespace Recurly.UnitTests
         }
 
         [Fact]
-        public void WillThrowAnExceptionForNon200()
+        public void WillThrowNotFoundExceptionForNon200()
         {
             _client.RestClient = this.GetAccountFailureClient();
-            Assert.Throws<Recurly.ApiError>(() =>  _client.GetAccount("code-benjamin"));
+            Assert.Throws<Recurly.Errors.NotFound>(() =>  _client.GetAccount("code-benjamin"));
         }
  
         [Fact]

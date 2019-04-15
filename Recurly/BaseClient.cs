@@ -91,17 +91,16 @@ namespace Recurly {
                 // Turn web exceptions into Recurly.NetworkErrors
                 if (resp.ErrorException is WebException)
                 {
-                    var netError = new NetworkError(resp.ErrorMessage);
+                    var netError = new Errors.NetworkError(resp.ErrorMessage);
                     netError.ExceptionStatus = ((WebException)resp.ErrorException).Status;
                     throw netError;
                 }
                 // everything else becomes a Recurly.ApiError
                 else
                 {
-                    var err = serializer.Deserialize<ApiErrorWrapper>(resp).Error;
-                    var apiError = new ApiError(err.Message);
-                    apiError.Error = err;
-                    throw apiError;
+                    var err = serializer.Deserialize<Errors.ApiErrorWrapper>(resp).Error;
+                    var ex = Errors.Factory.Create(err);
+                    throw ex;
                 }
             }
 
