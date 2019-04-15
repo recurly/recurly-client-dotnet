@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netcoreapp2.1;netcoreapp2.2</TargetFrameworks>
     <PackageId>Recurly</PackageId>
-    <Version>3.0.0-beta.2</Version>
+    <Version>3.0.0-beta.3</Version>
     <Authors>ben@recurly.com</Authors>
     <Company>Recurly, Inc.</Company>
   </PropertyGroup>
