@@ -81,12 +81,12 @@ Console.WriteLine(account.Address.City); // "New Orleans"
 
 This library currently throws 2 types of exceptions. They both exist as subclasses of `Recurly.RecurlyError`.
 
-1. `Recurly.ApiError`
-2. `Recurly.NetworkError`
+1. `Recurly.Errors.ApiError`
+2. `Recurly.Errors.NetworkError`
 
 `ApiError`s come from the Recurly API and each endpoint in the documentation describes the types of errors it
-may return. These errors generally mean that something was wrong with the request. Whether or not it can be recovered
-depends on your context and the `Type` value of the error. A common scenario might be a `Validation` error:
+may return. These errors generally mean that something was wrong with the request. There are a number of subclasses
+to `ApiError` which are derived from the error responses `type` json key.  A common scenario might be a `Validation` error:
 
 ```csharp
 try
@@ -98,33 +98,30 @@ try
 
   Account acct = client.CreateAccount(accountReq);
 }
-catch (Recurly.ApiError ex)
+catch (Recurly.Errors.Validation ex)
 {
-  var apiErr = ex.Error;
-  // Here you might want to determine what kind of ApiError this is
-  switch (apiErr.Type)
-  {
-    case Recurly.ApiErrorType.Validation:
-      // Here we have a validation error and might want to
-      // pass this information back to the user to fix
-      break;
-    default:
-      // If we don't know what to do with it, we should
-      // probably re-raise and let our web framework or logger handle it
-      throw;
-  }
+  // Here we have a validation error and might want to
+  // pass this information back to the user to fix
+  Console.WriteLine($"Validation Error: {ex.Error.Message}");
+}
+catch (Recurly.Errors.ApiError ex)
+{
+  // Use base class ApiError to catch a generic error from the API
+  Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
 }
 ```
 
-`Recurly.NetworkError`s don't come from Recurly's servers, but instead are triggered by some problem in
-related to the network. Depending on the context, you can often automatically retry these calls. GETs are always safe to retry but be careful about automatically re-trying any other call that might mutate state on the server side.
+`Recurly.Errors.NetworkError`s don't come from Recurly's servers, but instead are triggered by some problem in
+related to the network. Depending on the context, you can often automatically retry these calls.
+GETs are always safe to retry but be careful about automatically re-trying any other call that might mutate state on the server side
+as we cannot guarantee that it will not be executed twice.
 
 ```csharp
 try
 {
   Account acct = client.GetAccount("code-my-account-code");
 }
-catch (Recurly.NetworkError ex)
+catch (Recurly.Errors.NetworkError ex)
 {
   // Here you might want to determine what kind of ApiError this is
   // The options for ExceptionStatus are defined here: https://docs.microsoft.com/en-us/dotnet/api/system.net.webexceptionstatus
