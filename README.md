@@ -111,7 +111,7 @@ catch (Recurly.Errors.ApiError ex)
 }
 ```
 
-`Recurly.Errors.NetworkError`s don't come from Recurly's servers, but instead are triggered by some problem in
+`Recurly.Errors.NetworkError`s don't come from Recurly's servers, but instead are triggered by some problem
 related to the network. Depending on the context, you can often automatically retry these calls.
 GETs are always safe to retry but be careful about automatically re-trying any other call that might mutate state on the server side
 as we cannot guarantee that it will not be executed twice.
