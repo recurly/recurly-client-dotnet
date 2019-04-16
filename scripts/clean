@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 
 rm -f ./Recurly/Resources/*
+rm -f ./Recurly/Errors/ApiErrorType*.cs
+rm -f ./Recurly/Errors/ApiErrors.cs
