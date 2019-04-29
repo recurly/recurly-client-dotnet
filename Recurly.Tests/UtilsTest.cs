@@ -3,7 +3,7 @@ using Recurly;
 using Newtonsoft.Json;
 using System;
 
-namespace Recurly.UnitTests
+namespace Recurly.Tests
 {
     public class UtilsTest
     {

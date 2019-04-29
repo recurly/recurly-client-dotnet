@@ -15,9 +15,7 @@ namespace Recurly {
     public class JsonSerializer : ISerializer, IDeserializer
     {
         private Newtonsoft.Json.JsonSerializer serializer;
-        public string RootElement { get; set; }
-        public string Namespace { get; set; }
-        public string DateFormat { get; set; }
+
         public string ContentType { get; set; }
 
         public JsonSerializer() {

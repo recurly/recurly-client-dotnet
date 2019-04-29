@@ -1,9 +1,12 @@
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using RestSharp;
 using RestSharp.Deserializers;
 using Newtonsoft.Json;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace Recurly {
     public class Pager<T> : IEnumerator<T>, IEnumerable<T> {
@@ -16,16 +19,43 @@ namespace Recurly {
         [JsonProperty("next")]
         public string Next { get; set; }
 
-        public Recurly.Client RecurlyClient { get; set; }
+        internal Recurly.Client RecurlyClient { get; set; }
 
         private int _index = 0;
 
-        public Pager() {}
+        public Pager() { }
 
-        public Pager<T> WithClient(Recurly.Client client)
+        internal static Pager<T> Build(string url, Dictionary<string, object> queryParams, Client client)
         {
-          RecurlyClient = client;
-          return this;
+            // TODO - need to properly build URL from queryParams
+            return new Pager<T>()
+            {
+                HasMore = true,
+                Data = new List<T>(),
+                Next = url,
+                RecurlyClient = client
+            };
+        }
+
+        public Pager<T> FetchNextPage() {
+            var pager = RecurlyClient.MakeRequest<Pager<T>>(Method.GET, Next);
+            this.Clone(pager);
+            return this;
+        }
+
+        public async Task<Pager<T>> FetchNextPageAsync(CancellationToken cancellationToken = default(CancellationToken)) {
+            var task = RecurlyClient.MakeRequestAsync<Pager<T>>(Method.GET, Next, null, null, cancellationToken);
+            return await task.ContinueWith(t => {
+                var pager = t.Result;
+                this.Clone(pager);
+                return this;
+            });
+        }
+
+        private void Clone(Pager<T> pager) {
+            this.Next = pager.Next;
+            this.Data = pager.Data;
+            this.HasMore = pager.HasMore;
         }
 
         public T Current
@@ -38,16 +68,6 @@ namespace Recurly {
                 }
                 return Data[_index++];
             }
-        }
-
-        private void FetchNextPage()
-        {
-            var response = RecurlyClient.MakeRequest<Pager<T>>(Method.GET, Next);
-            var pager = response.Data;
-            // this is brittle
-            this.Next = pager.Next;
-            this.Data = pager.Data;
-            this.HasMore = pager.HasMore;
         }
 
         object IEnumerator.Current => Current;

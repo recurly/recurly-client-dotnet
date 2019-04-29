@@ -11,22 +11,8 @@ using RestSharp.Authenticators;
 using Moq;
 using Newtonsoft.Json;
 
-namespace Recurly.UnitTests
+namespace Recurly.Tests
 {
-    internal class MyResource : Resource {
-        [JsonProperty("my_string")]
-        public string MyString { get; set; }
-
-        [JsonProperty("my_float")]
-        public float? MyFloat { get; set; }
-
-        [JsonProperty("my_int")]
-        public int? MyInt { get; set; }
-
-        [JsonProperty("my_date_time")]
-        public DateTime? MyDateTime { get; set; }
-    }
-
     public class JsonSerializerTest
     {
         private JsonSerializer _jsonSerializer;
@@ -45,6 +31,33 @@ namespace Recurly.UnitTests
             Assert.Equal("benjamin", resource.MyString);
             Assert.Equal(3.14f, resource.MyFloat);
             Assert.Equal(3, resource.MyInt);
+        }
+
+        [Fact]
+        public void DeserializeWithDateTime()
+        {
+            var json = "{\"my_date_time\":\"2019-04-26T12:00:00Z\"}";
+            var resource = _jsonSerializer.Deserialize<MyResource>(MockResourceResponse(json));
+            Assert.Equal(new DateTime(2019, 4, 26, 12, 0, 0), resource.MyDateTime);
+        }
+
+        [Fact]
+        public void DeserializeWithEmbeddedSubResource()
+        {
+            var json = "{\"my_sub_resource\":{\"my_string\": \"subresource\"}}";
+            var resource = _jsonSerializer.Deserialize<MyResource>(MockResourceResponse(json));
+            Assert.Equal("subresource", resource.MySubResource.MyString);
+        }
+
+        [Fact]
+        public void DeserializeWithArrays()
+        {
+            var json = "{\"my_array_string\":[\"a\", \"b\"], \"my_array_sub_resource\": [{ \"my_string\": \"subresource1\" }, { \"my_string\": \"subresource2\" } ]}";
+            var resource = _jsonSerializer.Deserialize<MyResource>(MockResourceResponse(json));
+            var expectedStrings = new List<string>() { "a", "b" };
+            Assert.Equal(expectedStrings, resource.MyArrayString);
+            Assert.Equal("subresource1", resource.MyArraySubResource[0].MyString);
+            Assert.Equal("subresource2", resource.MyArraySubResource[1].MyString);
         }
 
         [Fact]
@@ -70,10 +83,17 @@ namespace Recurly.UnitTests
             var resource = new MyResource() {
                 MyString = "benjamin",
                 MyFloat = 3.14f,
-                MyInt = 3
+                MyInt = 3,
+                MySubResource = new MySubResource() { MyString = "subresource"},
+                MyArrayString = new List<string>() { "a", "b" },
+                MyArraySubResource = new List<MySubResource>()
+                {
+                    new MySubResource() { MyString = "subresource1" },
+                    new MySubResource() { MyString = "subresource2" },
+                }
             };
             var jsonStr = _jsonSerializer.Serialize(resource);
-            var json = "{\"my_string\":\"benjamin\",\"my_float\":3.14,\"my_int\":3}";
+            var json = "{\"my_string\":\"benjamin\",\"my_float\":3.14,\"my_int\":3,\"my_sub_resource\":{\"my_string\":\"subresource\"},\"my_array_string\":[\"a\",\"b\"],\"my_array_sub_resource\":[{\"my_string\":\"subresource1\"},{\"my_string\":\"subresource2\"}]}";
             Assert.Equal(jsonStr, json);
         }
         private RestSharp.IRestResponse MockResourceResponse(string json) {
