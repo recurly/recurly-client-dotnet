@@ -246,6 +246,20 @@ namespace Recurly
         }
 
         /// <summary>
+        /// Attempts to collect a pending or past due invoice.
+        /// </summary>
+        /// <returns>New Invoice Collection</returns>
+        public Invoice ForceCollect()
+        {
+            var invoice = new Invoice();
+            Client.Instance.PerformRequest(
+                Client.HttpRequestMethod.Put,
+                memberUrl() + "/collect",
+                invoice.ReadXml);
+            return invoice;
+        }
+
+        /// <summary>
         /// Returns the active coupon redemption on this invoice
         /// </summary>
         /// <returns></returns>
