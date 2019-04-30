@@ -1,6 +1,11 @@
 Unreleased
 ===============
 
+1.15.5 (stable) / 2019-04-30
+===============
+
+* Add ForceCollect to Invoice [PR](https://github.com/recurly/recurly-client-net/pull/393)
+
 1.15.4 (stable) / 2019-03-19
 ===============
 
