@@ -39,6 +39,34 @@ var sub = client.GetSubscription("uuid-abcd123456")
 The `Recurly.Client` contains every `operation` you can perform on the site as a list of methods. Each method is documented explaining
 the types and descriptions for each input and return type.
 
+### Async Operations
+
+Each operation in the `Recurly.Client` has an async equivalent method which ends in `Async`. Async operations return `Task<Resource>`
+which can be `await`ed:
+
+```csharp
+var client = new Recurly.Client(siteId, apiKey);
+var sub = await client.GetSubscription("uuid-abcd123456");
+```
+
+Async operations also support cancellation tokens. Here is an example of canceling a request before it executes:
+
+```csharp
+var cancellationTokenSource = new CancellationTokenSource();
+var task = await client.GetSubscription("uuid-abcd123456", cancellationTokenSource.Token);
+
+// Cancel the request before it finishes which will throw a
+// System.Threading.Tasks.TaskCanceledException
+cancellationTokenSource.Cancel();
+
+task.Wait();
+var sub = task.Result;
+Console.WriteLine($"Subscription: {sub.Uuid}");
+```
+
+**Warning**: Be careful cancelling requests as you have no way of knowing whether or not they were completed
+by the server. We only guarantee that server state does not change on GET requests.
+
 ### Pagination
 
 Pagination is done by the class `Recurly.Pager<T>`. All `List*` methods on the client return an instance of this class.
@@ -50,6 +78,38 @@ foreach(Account account in accounts)
 {
   Console.WriteLine(account.Code);
 }
+```
+
+The `FetchNextPage` method provides more control over the network calls. We recommend using this
+interface for writing scripts that iterate over many pages. This allows you
+to catch exceptions and safely retry without double processing or missing some elements:
+
+```csharp
+var accounts = client.ListAccounts();
+do
+{
+    Console.WriteLine("Fetching next page...");
+    accounts = accounts.FetchNextPage();
+    foreach(Account a in accounts.Data)
+    {
+      Console.WriteLine($"Account: {a.CreatedAt}");
+    }
+} while(accounts.HasMore);
+```
+
+For async pagination, await on `FetchNextPageAsync`:
+
+```csharp
+var accounts = client.ListAccounts();
+do
+{
+    Console.WriteLine("Fetching next page...");
+    accounts = await accounts.FetchNextPageAsync();
+    foreach(Account a in accounts.Data)
+    {
+      Console.WriteLine($"Account: {a.CreatedAt}");
+    }
+} while(accounts.HasMore);
 ```
 
 ### Creating Resources

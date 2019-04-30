@@ -1,4 +1,7 @@
 using System;
+using System.Net;
+using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 using System.Data;
 using System.Diagnostics;
 using System.Collections;
@@ -12,16 +15,18 @@ using RestSharp.Serializers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json.Converters;
-using System.Net;
+using System.Threading;
+
+[assembly: InternalsVisibleTo("Recurly.Tests")]
 
 namespace Recurly {
     public class BaseClient {
         public string SiteId { get; }
         private string ApiKey { get; }
-        public IRestClient RestClient { get; set; }
+        private const string ApiUrl = "https://partner-api.recurly.com/";
         public virtual string ApiVersion { get; protected set; }
 
-        private const string API_URL = "https://partner-api.recurly.com/";
+        internal IRestClient RestClient { get; set; }
 
         public BaseClient(string siteId, string apiKey) {
             if (String.IsNullOrEmpty(siteId))
@@ -31,10 +36,9 @@ namespace Recurly {
 
             SiteId = siteId;
             ApiKey = apiKey;
-            RestClient = new RestClient() {
-                BaseUrl = new Uri(API_URL),
-                Authenticator = new HttpBasicAuthenticator(ApiKey, "")
-            };
+            RestClient = new RestClient();
+            RestClient.BaseUrl = new Uri(ApiUrl);
+            RestClient.Authenticator = new HttpBasicAuthenticator(ApiKey, "");
 
             // AddDefaultHeader does not work for user-agent
             var libVersion = typeof(Recurly.Client).Assembly.GetName().Version;
@@ -45,11 +49,37 @@ namespace Recurly {
             RestClient.AddDefaultHeader("Content-Type", "application/json");
         }
 
-        public IRestResponse<T> MakeRequest<T>(Method method, string url, Request body = null, Dictionary<string, object> queryParams = null) where T: new() {
+        public async Task<T> MakeRequestAsync<T>(Method method, string url, Request body = null, Dictionary<string, object> queryParams = null, CancellationToken cancellationToken = default(CancellationToken)) where T: new() {
             Debug.WriteLine($"Calling {url}");
+            var request = BuildRequest(method, url, body, queryParams);
+            var task = RestClient.ExecuteTaskAsync<T>(request, cancellationToken);
+            return await task.ContinueWith(t => {
+                var resp = t.Result;
+                this.HandleResponse(resp);
+                return resp.Data;
+            });
+        }
+
+        public T MakeRequest<T>(Method method, string url, Request body = null, Dictionary<string, object> queryParams = null) where T: new() {
+            Debug.WriteLine($"Calling {url}");
+            var request = BuildRequest(method, url, body, queryParams);
+            var resp = RestClient.Execute<T>(request);
+            this.HandleResponse(resp);
+            return resp.Data;
+        }
+
+        public void _SetApiUrl(string uri) {
+          Console.WriteLine("[SECURITY WARNING] _SetApiUrl is for testing only and not supported in production.");
+          if (System.Environment.GetEnvironmentVariable("RECURLY_INSECURE") == "true") {
+            this.RestClient.BaseUrl = new Uri(uri);
+          } else {
+            Console.WriteLine("ApiUrl not changed. To change, set the environment variable RECURLY_INSECURE to true");
+          }
+        }
+
+        private RestRequest BuildRequest(Method method, string url, Request body = null, Dictionary<string, object> queryParams = null) {
             var request = new RestRequest(url, method);
-            var serializer = Recurly.JsonSerializer.Default;
-            request.JsonSerializer = serializer;
+            request.JsonSerializer = Recurly.JsonSerializer.Default;
 
             // If we have any query params, add them to the request
             if (queryParams != null)
@@ -58,9 +88,14 @@ namespace Recurly {
               {
                   if (entry.Value != null)
                   {
-                    var stringRepr = entry.Value.ToString();
-                    if (entry.Value.GetType() == typeof(DateTime)) {
+                    string stringRepr;
+                    if (entry.Value.GetType() == typeof(DateTime))
+                    {
                         stringRepr = ((DateTime)entry.Value).ToString("o");
+                    }
+                    else
+                    {
+                        stringRepr = entry.Value.ToString();
                     }
                     request.AddQueryParameter(entry.Key.ToString(), stringRepr);
                   }
@@ -73,8 +108,26 @@ namespace Recurly {
                 request.AddJsonBody(body);
             }
 
-            var resp = RestClient.Execute<T>(request);
-            this.ProcessResponse(resp);
+            return request;
+        }
+
+        private void HandleResponse(IRestResponse resp) {
+            if (resp.Headers.Any(t => t.Name == "Recurly-Deprecated"))
+            {
+                var headers = resp.Headers.ToList();
+                var deprecated = headers
+                    .Find(x => x.Name == "Recurly-Deprecated")
+                    .Value.ToString();
+                var sunset = headers
+                    .Find(x => x.Name == "Recurly-Sunset-Date")
+                    .Value.ToString();
+
+                if (deprecated.ToUpper() == "TRUE")
+                {
+                    Debug.WriteLine($"[recurly-client-net] WARNING: Your current API version \"${ApiVersion}\" is deprecated and will be sunset on ${sunset}");
+                }
+            }
+
             var status = (int)resp.StatusCode;
             Debug.WriteLine($"Status: {status}");
             Debug.WriteLine($"Content: {resp.Content}");
@@ -98,39 +151,10 @@ namespace Recurly {
                 // everything else becomes a Recurly.ApiError
                 else
                 {
+                    var serializer = Recurly.JsonSerializer.Default;
                     var err = serializer.Deserialize<Errors.ApiErrorWrapper>(resp).Error;
                     var ex = Errors.Factory.Create(err);
                     throw ex;
-                }
-            }
-
-            return resp;
-        }
-
-        public void _SetApiUrl(string uri) {
-          if (System.Environment.GetEnvironmentVariable("RECURLY_INSECURE") == "true") {
-            Console.WriteLine("[SECURITY WARNING] _SetApiUrl is for testing only and not supported in production.");
-            this.RestClient.BaseUrl = new Uri(uri);
-          } else {
-            Console.WriteLine("[SECURITY WARNING] _SetApiUrl is for testing only and not supported in production.");
-            Console.WriteLine("ApiUrl not changed. To change, set the environment variable RECURLY_INSECURE to true");
-          }
-        }
-
-        private void ProcessResponse(IRestResponse resp) {
-            if (resp.Headers.Any(t => t.Name == "Recurly-Deprecated"))
-            {
-                var headers = resp.Headers.ToList();
-                var deprecated = headers
-                    .Find(x => x.Name == "Recurly-Deprecated")
-                    .Value.ToString();
-                var sunset = headers
-                    .Find(x => x.Name == "Recurly-Sunset-Date")
-                    .Value.ToString();
-
-                if (deprecated.ToUpper() == "TRUE")
-                {
-                    Debug.WriteLine($"[recurly-client-net] WARNING: Your current API version \"${ApiVersion}\" is deprecated and will be sunset on ${sunset}");
                 }
             }
         }
