@@ -13,9 +13,9 @@ namespace Recurly.Resources {
   [ExcludeFromCodeCoverage] 
   public class CouponRedemption : Resource {
   
-    /// <value>The Account ID on which the coupon was applied.</value>
-    [JsonProperty("account_id")]
-    public string AccountId { get; set; }
+    /// <value>The Account on which the coupon was applied.</value>
+    [JsonProperty("account")]
+    public AccountMini Account { get; set; }
   
     
     [JsonProperty("coupon")]
