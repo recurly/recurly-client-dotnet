@@ -55,6 +55,15 @@ namespace Recurly.Configuration
             get { return (int)base["pageSize"]; }
             set { base["pageSize"] = value; }
         }
+
+        /// <summary>
+        /// Default request timeout
+        /// </summary>
+        public int TimeoutMilliseconds
+        {
+            get { return (int)base["requestTimeoutMilliseconds"]; }
+            set { base["requestTimeoutMilliseconds"] = value; }
+        }
       
         #endregion
     }

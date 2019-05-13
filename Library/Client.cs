@@ -147,6 +147,7 @@ namespace Recurly
             request.Headers.Add(HttpRequestHeader.Authorization, Settings.AuthorizationHeaderValue);
             request.Headers.Add("X-Api-Version", Settings.RecurlyApiVersion);
             request.Method = method.ToString().ToUpper();
+            request.Timeout = Settings.RequestTimeoutMilliseconds ?? request.Timeout;
 
             Console.WriteLine(String.Format("Recurly: Requesting {0} {1}", request.Method, request.RequestUri));
 
