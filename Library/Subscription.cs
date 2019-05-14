@@ -358,6 +358,18 @@ namespace Recurly
 
         public Adjustment.RevenueSchedule? RevenueScheduleType { get; set; }
 
+        /// <summary>
+        /// Unique code associated with the recurring shipping fees for this subscription.
+        /// Required if ShippingAmountInCents is specified.
+        /// </summary>
+        public string ShippingMethodCode { get; set; }
+
+        /// <summary>
+        /// Specifies the amount of recurring shipping fees for this subscription.
+        /// Required if ShippingMethodCode is specified.
+        /// </summary>
+        public int? ShippingAmountInCents { get; set; }
+
         internal Subscription()
         {
             IsPendingSubscription = false;
@@ -853,6 +865,14 @@ namespace Recurly
                         if (DateTime.TryParse(reader.ReadElementContentAsString(), out dateVal))
                             NextBillDate = dateVal;
                         break;
+
+                    case "shipping_method_code":
+                        ShippingMethodCode = reader.ReadElementContentAsString();
+                        break;
+
+                    case "shipping_amount_in_cents":
+                        ShippingAmountInCents = reader.ReadElementContentAsInt();
+                        break;
                 }
             }
         }
@@ -996,6 +1016,12 @@ namespace Recurly
                 xmlWriter.WriteElementString("renewal_billing_cycles", RenewalBillingCycles.Value.AsString());
 
             xmlWriter.WriteIfCollectionHasAny("custom_fields", CustomFields);
+
+            if (!ShippingMethodCode.IsNullOrEmpty())
+                xmlWriter.WriteElementString("shipping_method_code", ShippingMethodCode);
+
+            if (ShippingAmountInCents.HasValue)
+                xmlWriter.WriteElementString("shipping_amount_in_cents", ShippingAmountInCents.Value.AsString());
 
             xmlWriter.WriteEndElement(); // End: subscription
         }
