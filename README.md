@@ -41,6 +41,11 @@ The recommended way to configure the library is to statically initialize it:
 Recurly.Configuration.SettingsManager.Initialize(apiKey, subdomain, pageSize);
 ```
 
+```csharp
+// requestTimeoutMilliseconds is potional and defaults to null
+Recurly.Configuration.SettingsManager.Initialize(apiKey, subdomain, pageSize, requestTimeoutMilliseconds);
+```
+
 We recommend doing this for compatibility with newer .NET frameworks as well as security. We also recommend you encrypt
 your api key at rest or use a secrets service. *You should not store your api key in plain text on your system.*
 
