@@ -42,7 +42,7 @@ Recurly.Configuration.SettingsManager.Initialize(apiKey, subdomain, pageSize);
 ```
 
 ```csharp
-// requestTimeoutMilliseconds is potional and defaults to null
+// requestTimeoutMilliseconds is optional and defaults to null
 Recurly.Configuration.SettingsManager.Initialize(apiKey, subdomain, pageSize, requestTimeoutMilliseconds);
 ```
 
