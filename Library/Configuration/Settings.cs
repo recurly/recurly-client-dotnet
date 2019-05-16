@@ -64,6 +64,19 @@ namespace Recurly.Configuration
             private set { _pageSize = value; }
         }
 
+        public int? RequestTimeoutMilliseconds
+        {
+            get
+            {
+                if (_hasLoaded == false)
+                {
+                    throw new Exception("The Recurly client has has no configuration initialized, please add your settings to web/app.config or call Recurly.Configuration.SettingsManager.Initialize(args)");
+                }
+                return _requestTimeoutMilliseconds;
+            }
+            private set { _requestTimeoutMilliseconds = value; }
+        }
+
         protected const string RecurlyServerUri = "https://{0}.recurly.com/v2{1}";
         public const string RecurlyApiVersion = "2.19";
         public const string ValidDomain = ".recurly.com";
@@ -101,6 +114,7 @@ namespace Recurly.Configuration
         private int _pageSize;
         private bool _hasLoaded;
         private string _subdomain;
+        private int? _requestTimeoutMilliseconds;
 
         public static Settings Instance
         {
@@ -114,15 +128,17 @@ namespace Recurly.Configuration
             Subdomain = Section.Current.Subdomain;
             PrivateKey = Section.Current.PrivateKey;
             PageSize = Section.Current.PageSize;
+            RequestTimeoutMilliseconds = Section.Current.TimeoutMilliseconds;
             _hasLoaded = true;
         }
 
-        public void Initialize(string apiKey, string subdomain, string privateKey = "", int pageSize = 50)
+        public void Initialize(string apiKey, string subdomain, string privateKey = "", int pageSize = 50, int? requestTimeoutMilliseconds = null)
         {
             ApiKey = apiKey;
             Subdomain = subdomain;
             PrivateKey = privateKey;
             PageSize = pageSize;
+            RequestTimeoutMilliseconds = requestTimeoutMilliseconds;
             _hasLoaded = true;
         }
 

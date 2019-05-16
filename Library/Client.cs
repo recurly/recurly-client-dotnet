@@ -130,6 +130,7 @@ namespace Recurly
         protected virtual HttpStatusCode PerformRequest(HttpRequestMethod method, string urlPath,
             WriteXmlDelegate writeXmlDelegate, ReadXmlDelegate readXmlDelegate, ReadXmlListDelegate readXmlListDelegate, ReadResponseDelegate reseponseDelegate)
         {
+            const int sixtySeconds = 60000;
             var url = Settings.GetServerUri(urlPath);
 #if (DEBUG)
             Console.WriteLine("Requesting " + method + " " + url);
@@ -147,13 +148,14 @@ namespace Recurly
             request.Headers.Add(HttpRequestHeader.Authorization, Settings.AuthorizationHeaderValue);
             request.Headers.Add("X-Api-Version", Settings.RecurlyApiVersion);
             request.Method = method.ToString().ToUpper();
+            request.Timeout = Settings.RequestTimeoutMilliseconds ?? request.Timeout;
 
             Console.WriteLine(String.Format("Recurly: Requesting {0} {1}", request.Method, request.RequestUri));
 
             if ((method == HttpRequestMethod.Post || method == HttpRequestMethod.Put) && (writeXmlDelegate != null))
             {
                 // 60 second timeout -- some payment gateways (e.g. PayPal) can take a while to respond
-                request.Timeout = 60000;
+                request.Timeout = Settings.RequestTimeoutMilliseconds.HasValue ? request.Timeout : sixtySeconds;
 
                 // Write POST/PUT body
                 using (var requestStream = request.GetRequestStream())
