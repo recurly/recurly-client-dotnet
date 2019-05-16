@@ -38,12 +38,12 @@ The recommended way to configure the library is to statically initialize it:
 
 ```csharp
 // pageSize is optional and defaults to 200
-Recurly.Configuration.SettingsManager.Initialize(apiKey, subdomain, pageSize);
+Recurly.Configuration.SettingsManager.Initialize(apiKey, subdomain, privateKey, pageSize);
 ```
 
 ```csharp
 // requestTimeoutMilliseconds is optional and defaults to null
-Recurly.Configuration.SettingsManager.Initialize(apiKey, subdomain, pageSize, requestTimeoutMilliseconds);
+Recurly.Configuration.SettingsManager.Initialize(apiKey, subdomain, privateKey, pageSize, requestTimeoutMilliseconds);
 ```
 
 We recommend doing this for compatibility with newer .NET frameworks as well as security. We also recommend you encrypt
