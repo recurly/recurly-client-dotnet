@@ -86,7 +86,7 @@ to catch exceptions and safely retry without double processing or missing some e
 
 ```csharp
 var accounts = client.ListAccounts();
-do
+while(accounts.HasMore)
 {
     Console.WriteLine("Fetching next page...");
     accounts = accounts.FetchNextPage();
@@ -94,14 +94,14 @@ do
     {
       Console.WriteLine($"Account: {a.CreatedAt}");
     }
-} while(accounts.HasMore);
+}
 ```
 
 For async pagination, await on `FetchNextPageAsync`:
 
 ```csharp
 var accounts = client.ListAccounts();
-do
+while(accounts.HasMore)
 {
     Console.WriteLine("Fetching next page...");
     accounts = await accounts.FetchNextPageAsync();
@@ -109,7 +109,7 @@ do
     {
       Console.WriteLine($"Account: {a.CreatedAt}");
     }
-} while(accounts.HasMore);
+}
 ```
 
 ### Creating Resources
