@@ -1,8 +1,5 @@
 # Recurly .NET Client
 
-**The majority of the Recurly API v2 objects are supported, however there may be a
-few that are still in progress or were missed. Please report any questions or issues via Github.**
-
 The Official .NET [Recurly API](https://dev.recurly.com/docs/getting-started) client library.
 
 Compatible with Recurly API v2.
