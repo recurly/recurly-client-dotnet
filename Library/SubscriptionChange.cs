@@ -14,7 +14,8 @@ namespace Recurly
         public enum ChangeTimeframe : short
         {
             Now,
-            Renewal
+            Renewal,
+            BillDate
         }
 
         public ChangeTimeframe TimeFrame { get; set; }

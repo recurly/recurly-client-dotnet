@@ -1,6 +1,15 @@
 Unreleased
 ===============
 
+1.15.6 (stable) / 2019-05-21
+===============
+
+This release brings us up to API version 2.20. There are no breaking changes.
+
+* Add Default Request Timeout Setting [PR](https://github.com/recurly/recurly-client-net/pull/395)
+* Add Shipping Fees [PR](https://github.com/recurly/recurly-client-net/pull/396)
+* Allow updating a subscription at next bill date [PR](https://github.com/recurly/recurly-client-net/pull/397)
+
 1.15.5 (stable) / 2019-04-30
 ===============
 

@@ -58,6 +58,17 @@ namespace Recurly
         private List<Adjustment> _adjustments;
 
         /// <summary>
+        /// List of shipping fees to apply to this purchase
+        /// </summary>
+        public List<ShippingFee> ShippingFees
+        {
+            get { return _shippingFees ?? (_shippingFees = new List<ShippingFee>()); }
+            set { _shippingFees = value; }
+        }
+
+        private List<ShippingFee> _shippingFees;
+
+        /// <summary>
         /// List of coupon codes to apply to this purchase
         /// </summary>
         public List<string> CouponCodes
@@ -247,6 +258,16 @@ namespace Recurly
                     subscription.WriteEmbeddedSubscriptionXml(xmlWriter);
                 }
                 xmlWriter.WriteEndElement(); // End: subscriptions
+            }
+
+            if (ShippingFees.HasAny())
+            {
+                xmlWriter.WriteStartElement("shipping_fees"); // Start: shipping_fees
+                foreach (var shippingFee in ShippingFees)
+                {
+                    shippingFee.WriteEmbeddedXml(xmlWriter);
+                }
+                xmlWriter.WriteEndElement(); // End: shipping_fees
             }
 
             if (CouponCodes.HasAny())

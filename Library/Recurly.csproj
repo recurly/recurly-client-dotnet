@@ -84,6 +84,9 @@
     <Compile Include="List\UsageList.cs" />
     <Compile Include="List\ShippingAddressList.cs" />
     <Compile Include="ShippingAddress.cs" />
+    <Compile Include="List\ShippingMethodList.cs" />
+    <Compile Include="ShippingMethod.cs" />
+    <Compile Include="ShippingFee.cs" />
     <Compile Include="Configuration\SettingsManager.cs" />
     <Compile Include="List\MeasuredUnitList.cs" />
     <Compile Include="Usage.cs" />
