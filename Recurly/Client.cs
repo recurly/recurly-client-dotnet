@@ -89,7 +89,7 @@ namespace Recurly {
     /// <summary>
     /// Create an account <see href="https://partner-docs.recurly.com/v2018-08-09#operation/create_account">create_account api documentation</see>
     /// </summary>
-    /// <param name="body"></param>
+    /// <param name="body">The body of the request.</param>
     /// <returns>
     /// An account.
     /// </returns>
@@ -103,7 +103,7 @@ namespace Recurly {
     /// <summary>
     /// Create an account <see href="https://partner-docs.recurly.com/v2018-08-09#operation/create_account">create_account api documentation</see>
     /// </summary>
-    /// <param name="body"></param>
+    /// <param name="body">The body of the request.</param>
     /// <returns>
     /// An account.
     /// </returns>
@@ -146,7 +146,7 @@ namespace Recurly {
     /// Modify an account <see href="https://partner-docs.recurly.com/v2018-08-09#operation/update_account">update_account api documentation</see>
     /// </summary>
     /// <param name="accountId">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
-    /// <param name="body"></param>
+    /// <param name="body">The body of the request.</param>
     /// <returns>
     /// An account.
     /// </returns>
@@ -161,7 +161,7 @@ namespace Recurly {
     /// Modify an account <see href="https://partner-docs.recurly.com/v2018-08-09#operation/update_account">update_account api documentation</see>
     /// </summary>
     /// <param name="accountId">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
-    /// <param name="body"></param>
+    /// <param name="body">The body of the request.</param>
     /// <returns>
     /// An account.
     /// </returns>
@@ -232,7 +232,7 @@ namespace Recurly {
     /// Update an account's acquisition data <see href="https://partner-docs.recurly.com/v2018-08-09#operation/update_account_acquisition">update_account_acquisition api documentation</see>
     /// </summary>
     /// <param name="accountId">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
-    /// <param name="body"></param>
+    /// <param name="body">The body of the request.</param>
     /// <returns>
     /// An account's updated acquisition data.
     /// </returns>
@@ -247,7 +247,7 @@ namespace Recurly {
     /// Update an account's acquisition data <see href="https://partner-docs.recurly.com/v2018-08-09#operation/update_account_acquisition">update_account_acquisition api documentation</see>
     /// </summary>
     /// <param name="accountId">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
-    /// <param name="body"></param>
+    /// <param name="body">The body of the request.</param>
     /// <returns>
     /// An account's updated acquisition data.
     /// </returns>
@@ -374,7 +374,7 @@ namespace Recurly {
     /// Set an account's billing information <see href="https://partner-docs.recurly.com/v2018-08-09#operation/update_billing_info">update_billing_info api documentation</see>
     /// </summary>
     /// <param name="accountId">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
-    /// <param name="body"></param>
+    /// <param name="body">The body of the request.</param>
     /// <returns>
     /// Updated billing information.
     /// </returns>
@@ -389,7 +389,7 @@ namespace Recurly {
     /// Set an account's billing information <see href="https://partner-docs.recurly.com/v2018-08-09#operation/update_billing_info">update_billing_info api documentation</see>
     /// </summary>
     /// <param name="accountId">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
-    /// <param name="body"></param>
+    /// <param name="body">The body of the request.</param>
     /// <returns>
     /// Updated billing information.
     /// </returns>
@@ -479,7 +479,7 @@ namespace Recurly {
     /// Generate an active coupon redemption on an account <see href="https://partner-docs.recurly.com/v2018-08-09#operation/create_coupon_redemption">create_coupon_redemption api documentation</see>
     /// </summary>
     /// <param name="accountId">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
-    /// <param name="body"></param>
+    /// <param name="body">The body of the request.</param>
     /// <returns>
     /// Returns the new coupon redemption.
     /// </returns>
@@ -494,7 +494,7 @@ namespace Recurly {
     /// Generate an active coupon redemption on an account <see href="https://partner-docs.recurly.com/v2018-08-09#operation/create_coupon_redemption">create_coupon_redemption api documentation</see>
     /// </summary>
     /// <param name="accountId">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
-    /// <param name="body"></param>
+    /// <param name="body">The body of the request.</param>
     /// <returns>
     /// Returns the new coupon redemption.
     /// </returns>
@@ -579,7 +579,7 @@ namespace Recurly {
     /// Create an invoice for pending line items <see href="https://partner-docs.recurly.com/v2018-08-09#operation/create_invoice">create_invoice api documentation</see>
     /// </summary>
     /// <param name="accountId">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
-    /// <param name="body"></param>
+    /// <param name="body">The body of the request.</param>
     /// <returns>
     /// Returns the new invoices.
     /// </returns>
@@ -594,7 +594,7 @@ namespace Recurly {
     /// Create an invoice for pending line items <see href="https://partner-docs.recurly.com/v2018-08-09#operation/create_invoice">create_invoice api documentation</see>
     /// </summary>
     /// <param name="accountId">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
-    /// <param name="body"></param>
+    /// <param name="body">The body of the request.</param>
     /// <returns>
     /// Returns the new invoices.
     /// </returns>
@@ -609,7 +609,7 @@ namespace Recurly {
     /// Preview new invoice for pending line items <see href="https://partner-docs.recurly.com/v2018-08-09#operation/preview_invoice">preview_invoice api documentation</see>
     /// </summary>
     /// <param name="accountId">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
-    /// <param name="body"></param>
+    /// <param name="body">The body of the request.</param>
     /// <returns>
     /// Returns the invoice previews.
     /// </returns>
@@ -624,7 +624,7 @@ namespace Recurly {
     /// Preview new invoice for pending line items <see href="https://partner-docs.recurly.com/v2018-08-09#operation/preview_invoice">preview_invoice api documentation</see>
     /// </summary>
     /// <param name="accountId">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
-    /// <param name="body"></param>
+    /// <param name="body">The body of the request.</param>
     /// <returns>
     /// Returns the invoice previews.
     /// </returns>
@@ -663,7 +663,7 @@ namespace Recurly {
     /// Create a new line item for the account <see href="https://partner-docs.recurly.com/v2018-08-09#operation/create_line_item">create_line_item api documentation</see>
     /// </summary>
     /// <param name="accountId">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
-    /// <param name="body"></param>
+    /// <param name="body">The body of the request.</param>
     /// <returns>
     /// Returns the new line item.
     /// </returns>
@@ -678,7 +678,7 @@ namespace Recurly {
     /// Create a new line item for the account <see href="https://partner-docs.recurly.com/v2018-08-09#operation/create_line_item">create_line_item api documentation</see>
     /// </summary>
     /// <param name="accountId">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
-    /// <param name="body"></param>
+    /// <param name="body">The body of the request.</param>
     /// <returns>
     /// Returns the new line item.
     /// </returns>
@@ -760,7 +760,7 @@ namespace Recurly {
     /// Create a new shipping address for the account <see href="https://partner-docs.recurly.com/v2018-08-09#operation/create_shipping_address">create_shipping_address api documentation</see>
     /// </summary>
     /// <param name="accountId">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
-    /// <param name="body"></param>
+    /// <param name="body">The body of the request.</param>
     /// <returns>
     /// Returns the new shipping address.
     /// </returns>
@@ -775,7 +775,7 @@ namespace Recurly {
     /// Create a new shipping address for the account <see href="https://partner-docs.recurly.com/v2018-08-09#operation/create_shipping_address">create_shipping_address api documentation</see>
     /// </summary>
     /// <param name="accountId">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
-    /// <param name="body"></param>
+    /// <param name="body">The body of the request.</param>
     /// <returns>
     /// Returns the new shipping address.
     /// </returns>
@@ -821,7 +821,7 @@ namespace Recurly {
     /// </summary>
     /// <param name="accountId">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
     /// <param name="shippingAddressId">Shipping Address ID.</param>
-    /// <param name="body"></param>
+    /// <param name="body">The body of the request.</param>
     /// <returns>
     /// The updated shipping address.
     /// </returns>
@@ -837,7 +837,7 @@ namespace Recurly {
     /// </summary>
     /// <param name="accountId">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
     /// <param name="shippingAddressId">Shipping Address ID.</param>
-    /// <param name="body"></param>
+    /// <param name="body">The body of the request.</param>
     /// <returns>
     /// The updated shipping address.
     /// </returns>
@@ -989,7 +989,7 @@ namespace Recurly {
     /// <summary>
     /// Create a new coupon <see href="https://partner-docs.recurly.com/v2018-08-09#operation/create_coupon">create_coupon api documentation</see>
     /// </summary>
-    /// <param name="body"></param>
+    /// <param name="body">The body of the request.</param>
     /// <returns>
     /// A new coupon.
     /// </returns>
@@ -1003,7 +1003,7 @@ namespace Recurly {
     /// <summary>
     /// Create a new coupon <see href="https://partner-docs.recurly.com/v2018-08-09#operation/create_coupon">create_coupon api documentation</see>
     /// </summary>
-    /// <param name="body"></param>
+    /// <param name="body">The body of the request.</param>
     /// <returns>
     /// A new coupon.
     /// </returns>
@@ -1046,7 +1046,7 @@ namespace Recurly {
     /// Update an active coupon <see href="https://partner-docs.recurly.com/v2018-08-09#operation/update_coupon">update_coupon api documentation</see>
     /// </summary>
     /// <param name="couponId">Coupon ID or code (use prefix: `code-`, e.g. `code-10off`).</param>
-    /// <param name="body"></param>
+    /// <param name="body">The body of the request.</param>
     /// <returns>
     /// The updated coupon.
     /// </returns>
@@ -1061,7 +1061,7 @@ namespace Recurly {
     /// Update an active coupon <see href="https://partner-docs.recurly.com/v2018-08-09#operation/update_coupon">update_coupon api documentation</see>
     /// </summary>
     /// <param name="couponId">Coupon ID or code (use prefix: `code-`, e.g. `code-10off`).</param>
-    /// <param name="body"></param>
+    /// <param name="body">The body of the request.</param>
     /// <returns>
     /// The updated coupon.
     /// </returns>
@@ -1241,7 +1241,7 @@ namespace Recurly {
     /// Update an invoice <see href="https://partner-docs.recurly.com/v2018-08-09#operation/put_invoice">put_invoice api documentation</see>
     /// </summary>
     /// <param name="invoiceId">Invoice ID or number (use prefix: `number-`, e.g. `number-1000`).</param>
-    /// <param name="body"></param>
+    /// <param name="body">The body of the request.</param>
     /// <returns>
     /// An invoice.
     /// </returns>
@@ -1256,7 +1256,7 @@ namespace Recurly {
     /// Update an invoice <see href="https://partner-docs.recurly.com/v2018-08-09#operation/put_invoice">put_invoice api documentation</see>
     /// </summary>
     /// <param name="invoiceId">Invoice ID or number (use prefix: `number-`, e.g. `number-1000`).</param>
-    /// <param name="body"></param>
+    /// <param name="body">The body of the request.</param>
     /// <returns>
     /// An invoice.
     /// </returns>
@@ -1440,7 +1440,7 @@ namespace Recurly {
     /// Refund an invoice <see href="https://partner-docs.recurly.com/v2018-08-09#operation/refund_invoice">refund_invoice api documentation</see>
     /// </summary>
     /// <param name="invoiceId">Invoice ID or number (use prefix: `number-`, e.g. `number-1000`).</param>
-    /// <param name="body"></param>
+    /// <param name="body">The body of the request.</param>
     /// <returns>
     /// Returns the new credit invoice.
     /// </returns>
@@ -1455,7 +1455,7 @@ namespace Recurly {
     /// Refund an invoice <see href="https://partner-docs.recurly.com/v2018-08-09#operation/refund_invoice">refund_invoice api documentation</see>
     /// </summary>
     /// <param name="invoiceId">Invoice ID or number (use prefix: `number-`, e.g. `number-1000`).</param>
-    /// <param name="body"></param>
+    /// <param name="body">The body of the request.</param>
     /// <returns>
     /// Returns the new credit invoice.
     /// </returns>
@@ -1569,7 +1569,7 @@ namespace Recurly {
     /// <summary>
     /// Create a plan <see href="https://partner-docs.recurly.com/v2018-08-09#operation/create_plan">create_plan api documentation</see>
     /// </summary>
-    /// <param name="body"></param>
+    /// <param name="body">The body of the request.</param>
     /// <returns>
     /// A plan.
     /// </returns>
@@ -1583,7 +1583,7 @@ namespace Recurly {
     /// <summary>
     /// Create a plan <see href="https://partner-docs.recurly.com/v2018-08-09#operation/create_plan">create_plan api documentation</see>
     /// </summary>
-    /// <param name="body"></param>
+    /// <param name="body">The body of the request.</param>
     /// <returns>
     /// A plan.
     /// </returns>
@@ -1626,7 +1626,7 @@ namespace Recurly {
     /// Update a plan <see href="https://partner-docs.recurly.com/v2018-08-09#operation/update_plan">update_plan api documentation</see>
     /// </summary>
     /// <param name="planId">Plan ID or code (use prefix: `code-`, e.g. `code-gold`).</param>
-    /// <param name="body"></param>
+    /// <param name="body">The body of the request.</param>
     /// <returns>
     /// A plan.
     /// </returns>
@@ -1641,7 +1641,7 @@ namespace Recurly {
     /// Update a plan <see href="https://partner-docs.recurly.com/v2018-08-09#operation/update_plan">update_plan api documentation</see>
     /// </summary>
     /// <param name="planId">Plan ID or code (use prefix: `code-`, e.g. `code-gold`).</param>
-    /// <param name="body"></param>
+    /// <param name="body">The body of the request.</param>
     /// <returns>
     /// A plan.
     /// </returns>
@@ -1706,7 +1706,7 @@ namespace Recurly {
     /// Create an add-on <see href="https://partner-docs.recurly.com/v2018-08-09#operation/create_plan_add_on">create_plan_add_on api documentation</see>
     /// </summary>
     /// <param name="planId">Plan ID or code (use prefix: `code-`, e.g. `code-gold`).</param>
-    /// <param name="body"></param>
+    /// <param name="body">The body of the request.</param>
     /// <returns>
     /// An add-on.
     /// </returns>
@@ -1721,7 +1721,7 @@ namespace Recurly {
     /// Create an add-on <see href="https://partner-docs.recurly.com/v2018-08-09#operation/create_plan_add_on">create_plan_add_on api documentation</see>
     /// </summary>
     /// <param name="planId">Plan ID or code (use prefix: `code-`, e.g. `code-gold`).</param>
-    /// <param name="body"></param>
+    /// <param name="body">The body of the request.</param>
     /// <returns>
     /// An add-on.
     /// </returns>
@@ -1767,7 +1767,7 @@ namespace Recurly {
     /// </summary>
     /// <param name="planId">Plan ID or code (use prefix: `code-`, e.g. `code-gold`).</param>
     /// <param name="addOnId">Add-on ID or code (use prefix: `code-`, e.g. `code-gold`).</param>
-    /// <param name="body"></param>
+    /// <param name="body">The body of the request.</param>
     /// <returns>
     /// An add-on.
     /// </returns>
@@ -1783,7 +1783,7 @@ namespace Recurly {
     /// </summary>
     /// <param name="planId">Plan ID or code (use prefix: `code-`, e.g. `code-gold`).</param>
     /// <param name="addOnId">Add-on ID or code (use prefix: `code-`, e.g. `code-gold`).</param>
-    /// <param name="body"></param>
+    /// <param name="body">The body of the request.</param>
     /// <returns>
     /// An add-on.
     /// </returns>
@@ -1897,7 +1897,7 @@ namespace Recurly {
     /// <summary>
     /// Create a new subscription <see href="https://partner-docs.recurly.com/v2018-08-09#operation/create_subscription">create_subscription api documentation</see>
     /// </summary>
-    /// <param name="body"></param>
+    /// <param name="body">The body of the request.</param>
     /// <returns>
     /// A subscription.
     /// </returns>
@@ -1911,7 +1911,7 @@ namespace Recurly {
     /// <summary>
     /// Create a new subscription <see href="https://partner-docs.recurly.com/v2018-08-09#operation/create_subscription">create_subscription api documentation</see>
     /// </summary>
-    /// <param name="body"></param>
+    /// <param name="body">The body of the request.</param>
     /// <returns>
     /// A subscription.
     /// </returns>
@@ -1954,7 +1954,7 @@ namespace Recurly {
     /// Modify a subscription <see href="https://partner-docs.recurly.com/v2018-08-09#operation/modify_subscription">modify_subscription api documentation</see>
     /// </summary>
     /// <param name="subscriptionId">Subscription ID or UUID (use prefix: `uuid-`, e.g. `uuid-123457890`).</param>
-    /// <param name="body"></param>
+    /// <param name="body">The body of the request.</param>
     /// <returns>
     /// A subscription.
     /// </returns>
@@ -1969,7 +1969,7 @@ namespace Recurly {
     /// Modify a subscription <see href="https://partner-docs.recurly.com/v2018-08-09#operation/modify_subscription">modify_subscription api documentation</see>
     /// </summary>
     /// <param name="subscriptionId">Subscription ID or UUID (use prefix: `uuid-`, e.g. `uuid-123457890`).</param>
-    /// <param name="body"></param>
+    /// <param name="body">The body of the request.</param>
     /// <returns>
     /// A subscription.
     /// </returns>
@@ -2072,7 +2072,7 @@ namespace Recurly {
     /// Pause subscription <see href="https://partner-docs.recurly.com/v2018-08-09#operation/pause_subscription">pause_subscription api documentation</see>
     /// </summary>
     /// <param name="subscriptionId">Subscription ID or UUID (use prefix: `uuid-`, e.g. `uuid-123457890`).</param>
-    /// <param name="body"></param>
+    /// <param name="body">The body of the request.</param>
     /// <returns>
     /// A subscription.
     /// </returns>
@@ -2087,7 +2087,7 @@ namespace Recurly {
     /// Pause subscription <see href="https://partner-docs.recurly.com/v2018-08-09#operation/pause_subscription">pause_subscription api documentation</see>
     /// </summary>
     /// <param name="subscriptionId">Subscription ID or UUID (use prefix: `uuid-`, e.g. `uuid-123457890`).</param>
-    /// <param name="body"></param>
+    /// <param name="body">The body of the request.</param>
     /// <returns>
     /// A subscription.
     /// </returns>
@@ -2158,7 +2158,7 @@ namespace Recurly {
     /// Create a new subscription change <see href="https://partner-docs.recurly.com/v2018-08-09#operation/create_subscription_change">create_subscription_change api documentation</see>
     /// </summary>
     /// <param name="subscriptionId">Subscription ID or UUID (use prefix: `uuid-`, e.g. `uuid-123457890`).</param>
-    /// <param name="body"></param>
+    /// <param name="body">The body of the request.</param>
     /// <returns>
     /// A subscription change.
     /// </returns>
@@ -2173,7 +2173,7 @@ namespace Recurly {
     /// Create a new subscription change <see href="https://partner-docs.recurly.com/v2018-08-09#operation/create_subscription_change">create_subscription_change api documentation</see>
     /// </summary>
     /// <param name="subscriptionId">Subscription ID or UUID (use prefix: `uuid-`, e.g. `uuid-123457890`).</param>
-    /// <param name="body"></param>
+    /// <param name="body">The body of the request.</param>
     /// <returns>
     /// A subscription change.
     /// </returns>

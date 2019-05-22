@@ -49,7 +49,7 @@ namespace Recurly.Resources {
     [JsonProperty("renewal_billing_cycles")]
     public int? RenewalBillingCycles { get; set; }
   
-    /// <value>Create a shipping address on the account and assign it to the subscription. If this and `shipping_address_id` are both present, `shipping_address_id` will take precedence."</value>
+    /// <value>Create a shipping address on the account and assign it to the subscription. If this and `shipping_address_id` are both present, `shipping_address_id` will take precedence.</value>
     [JsonProperty("shipping_address")]
     public ShippingAddressCreate ShippingAddress { get; set; }
   
