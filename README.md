@@ -183,7 +183,7 @@ try
 }
 catch (Recurly.Errors.NetworkError ex)
 {
-  // Here you might want to determine what kind of ApiError this is
+  // Here you might want to determine what kind of NetworkError this is
   // The options for ExceptionStatus are defined here: https://docs.microsoft.com/en-us/dotnet/api/system.net.webexceptionstatus
   switch (ex.ExceptionStatus)
   {
