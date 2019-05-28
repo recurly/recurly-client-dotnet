@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace Recurly {
@@ -16,6 +17,34 @@ namespace Recurly {
 
             return newString.ToString();
         }
+
+        public static string QueryString(Dictionary<string, object> queryParams) {
+            var qString = new List<string>();
+
+            foreach (var param in queryParams)
+            {
+                if (param.Value != null)
+                {
+                    string stringRepr;
+                    if (param.Value.GetType() == typeof(DateTime))
+                    {
+                        stringRepr = ((DateTime)param.Value).ToString("o");
+                    }
+                    else
+                    {
+                        stringRepr = param.Value.ToString();
+                    }
+                    qString.Add($"{param.Key}={Uri.EscapeUriString(stringRepr)}");
+                }
+            }
+
+            if (qString.Count > 0) {
+                return "?" + String.Join("&", qString);
+            } else {
+                return String.Empty;
+            }
+        }
+
     }
     
 }

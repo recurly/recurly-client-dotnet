@@ -27,7 +27,11 @@ namespace Recurly {
 
         internal static Pager<T> Build(string url, Dictionary<string, object> queryParams, Client client)
         {
-            // TODO - need to properly build URL from queryParams
+            if (queryParams != null)
+            {
+                url += Utils.QueryString(queryParams);
+            }
+
             return new Pager<T>()
             {
                 HasMore = true,
