@@ -84,22 +84,7 @@ namespace Recurly {
             // If we have any query params, add them to the request
             if (queryParams != null)
             {
-              foreach(KeyValuePair<string, object> entry in queryParams)
-              {
-                  if (entry.Value != null)
-                  {
-                    string stringRepr;
-                    if (entry.Value.GetType() == typeof(DateTime))
-                    {
-                        stringRepr = ((DateTime)entry.Value).ToString("o");
-                    }
-                    else
-                    {
-                        stringRepr = entry.Value.ToString();
-                    }
-                    request.AddQueryParameter(entry.Key.ToString(), stringRepr);
-                  }
-              }
+                url += Utils.QueryString(queryParams);
             }
 
             // If we have a body, serialize it and add it to the request
