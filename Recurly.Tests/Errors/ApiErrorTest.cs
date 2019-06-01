@@ -10,7 +10,8 @@ namespace Recurly.Tests
         [Fact]
         public void ConstructorTest()
         {
-            var err = new Recurly.Resources.Error() {
+            var err = new Recurly.Resources.Error()
+            {
                 Message = "Something bad happened",
                 Type = "my_api_error"
             };

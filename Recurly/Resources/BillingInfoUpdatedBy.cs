@@ -9,17 +9,19 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 
-namespace Recurly.Resources {
-  [ExcludeFromCodeCoverage] 
-  public class BillingInfoUpdatedBy : Resource {
-  
-    /// <value>Country of IP address, if known by Recurly.</value>
-    [JsonProperty("country")]
-    public string Country { get; set; }
-  
-    /// <value>Customer's IP address when updating their billing information.</value>
-    [JsonProperty("ip")]
-    public string Ip { get; set; }
-  
-  }
+namespace Recurly.Resources
+{
+    [ExcludeFromCodeCoverage]
+    public class BillingInfoUpdatedBy : Resource
+    {
+
+        /// <value>Country of IP address, if known by Recurly.</value>
+        [JsonProperty("country")]
+        public string Country { get; set; }
+
+        /// <value>Customer's IP address when updating their billing information.</value>
+        [JsonProperty("ip")]
+        public string Ip { get; set; }
+
+    }
 }

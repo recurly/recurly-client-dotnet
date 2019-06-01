@@ -9,21 +9,23 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 
-namespace Recurly.Resources {
-  [ExcludeFromCodeCoverage] 
-  public class FraudInfo : Resource {
-  
-    /// <value>Kount decision</value>
-    [JsonProperty("decision")]
-    public string Decision { get; set; }
-  
-    /// <value>Kount rules</value>
-    [JsonProperty("risk_rules_triggered")]
-    public Dictionary<string, string> RiskRulesTriggered { get; set; }
-  
-    /// <value>Kount score</value>
-    [JsonProperty("score")]
-    public int? Score { get; set; }
-  
-  }
+namespace Recurly.Resources
+{
+    [ExcludeFromCodeCoverage]
+    public class FraudInfo : Resource
+    {
+
+        /// <value>Kount decision</value>
+        [JsonProperty("decision")]
+        public string Decision { get; set; }
+
+        /// <value>Kount rules</value>
+        [JsonProperty("risk_rules_triggered")]
+        public Dictionary<string, string> RiskRulesTriggered { get; set; }
+
+        /// <value>Kount score</value>
+        [JsonProperty("score")]
+        public int? Score { get; set; }
+
+    }
 }

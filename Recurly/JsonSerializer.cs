@@ -11,20 +11,23 @@ using RestSharp.Deserializers;
 using RestSharp;
 using System.IO;
 
-namespace Recurly {
+namespace Recurly
+{
     public class JsonSerializer : ISerializer, IDeserializer
     {
         private Newtonsoft.Json.JsonSerializer serializer;
 
         public string ContentType { get; set; }
 
-        public JsonSerializer() {
+        public JsonSerializer()
+        {
             ContentType = "application/json";
             var contractResolver = new DefaultContractResolver
             {
                 NamingStrategy = new SnakeCaseNamingStrategy()
             };
-            var settings = new JsonSerializerSettings() {
+            var settings = new JsonSerializerSettings()
+            {
                 ContractResolver = contractResolver,
                 NullValueHandling = NullValueHandling.Ignore,
                 MissingMemberHandling = MissingMemberHandling.Ignore,

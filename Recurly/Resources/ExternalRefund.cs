@@ -9,21 +9,23 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 
-namespace Recurly.Resources {
-  [ExcludeFromCodeCoverage] 
-  public class ExternalRefund : Request {
-  
-    /// <value>Used as the refund transactions' description.</value>
-    [JsonProperty("description")]
-    public string Description { get; set; }
-  
-    /// <value>Payment method used for external refund transaction.</value>
-    [JsonProperty("payment_method")]
-    public string PaymentMethod { get; set; }
-  
-    /// <value>Date the external refund payment was made. Defaults to the current date-time.</value>
-    [JsonProperty("refunded_at")]
-    public DateTime? RefundedAt { get; set; }
-  
-  }
+namespace Recurly.Resources
+{
+    [ExcludeFromCodeCoverage]
+    public class ExternalRefund : Request
+    {
+
+        /// <value>Used as the refund transactions' description.</value>
+        [JsonProperty("description")]
+        public string Description { get; set; }
+
+        /// <value>Payment method used for external refund transaction.</value>
+        [JsonProperty("payment_method")]
+        public string PaymentMethod { get; set; }
+
+        /// <value>Date the external refund payment was made. Defaults to the current date-time.</value>
+        [JsonProperty("refunded_at")]
+        public DateTime? RefundedAt { get; set; }
+
+    }
 }

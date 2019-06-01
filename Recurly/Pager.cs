@@ -8,8 +8,10 @@ using Newtonsoft.Json;
 using System.Threading.Tasks;
 using System.Threading;
 
-namespace Recurly {
-    public class Pager<T> : IEnumerator<T>, IEnumerable<T> {
+namespace Recurly
+{
+    public class Pager<T> : IEnumerator<T>, IEnumerable<T>
+    {
         [JsonProperty("has_more")]
         public bool HasMore { get; set; }
 
@@ -41,22 +43,26 @@ namespace Recurly {
             };
         }
 
-        public Pager<T> FetchNextPage() {
+        public Pager<T> FetchNextPage()
+        {
             var pager = RecurlyClient.MakeRequest<Pager<T>>(Method.GET, Next);
             this.Clone(pager);
             return this;
         }
 
-        public async Task<Pager<T>> FetchNextPageAsync(CancellationToken cancellationToken = default(CancellationToken)) {
+        public async Task<Pager<T>> FetchNextPageAsync(CancellationToken cancellationToken = default(CancellationToken))
+        {
             var task = RecurlyClient.MakeRequestAsync<Pager<T>>(Method.GET, Next, null, null, cancellationToken);
-            return await task.ContinueWith(t => {
+            return await task.ContinueWith(t =>
+            {
                 var pager = t.Result;
                 this.Clone(pager);
                 return this;
             });
         }
 
-        private void Clone(Pager<T> pager) {
+        private void Clone(Pager<T> pager)
+        {
             this.Next = pager.Next;
             this.Data = pager.Data;
             this.HasMore = pager.HasMore;
@@ -66,7 +72,8 @@ namespace Recurly {
         {
             get
             {
-                if (_index >= Data.Count && HasMore) {
+                if (_index >= Data.Count && HasMore)
+                {
                     FetchNextPage();
                     _index = 0;
                 }
