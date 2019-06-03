@@ -80,11 +80,12 @@ namespace Recurly.Tests
         public void Serialize()
         {
             // make sure it can serialize all primitive types and convert b/w snake and camel case
-            var resource = new MyResource() {
+            var resource = new MyResource()
+            {
                 MyString = "benjamin",
                 MyFloat = 3.14f,
                 MyInt = 3,
-                MySubResource = new MySubResource() { MyString = "subresource"},
+                MySubResource = new MySubResource() { MyString = "subresource" },
                 MyArrayString = new List<string>() { "a", "b" },
                 MyArraySubResource = new List<MySubResource>()
                 {
@@ -96,11 +97,12 @@ namespace Recurly.Tests
             var json = "{\"my_string\":\"benjamin\",\"my_float\":3.14,\"my_int\":3,\"my_sub_resource\":{\"my_string\":\"subresource\"},\"my_array_string\":[\"a\",\"b\"],\"my_array_sub_resource\":[{\"my_string\":\"subresource1\"},{\"my_string\":\"subresource2\"}]}";
             Assert.Equal(jsonStr, json);
         }
-        private RestSharp.IRestResponse MockResourceResponse(string json) {
-            var mockResponse =  new Mock<IRestResponse<Account>>();
+        private RestSharp.IRestResponse MockResourceResponse(string json)
+        {
+            var mockResponse = new Mock<IRestResponse<Account>>();
             mockResponse.Setup(_ => _.StatusCode).Returns(System.Net.HttpStatusCode.OK);
             mockResponse.Setup(_ => _.Content).Returns(json);
-            mockResponse.Setup(_ => _.Headers).Returns(new List<Parameter> {});
+            mockResponse.Setup(_ => _.Headers).Returns(new List<Parameter> { });
             return mockResponse.Object;
         }
     }

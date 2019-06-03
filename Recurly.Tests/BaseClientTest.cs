@@ -19,30 +19,31 @@ namespace Recurly.Tests
         private string siteId = "subdomain-mysubdomain";
         private string apiKey = "myapikey";
 
-        internal class MyClient : BaseClient {
+        internal class MyClient : BaseClient
+        {
             public override string ApiVersion => "v2018-08-09";
 
-            public MyClient(string siteId, string apiKey) : base(siteId, apiKey) {}
+            public MyClient(string siteId, string apiKey) : base(siteId, apiKey) { }
 
             public MyResource CreateResource(MyResourceCreate body)
             {
-                var urlParams = new Dictionary<string, object>{ };
+                var urlParams = new Dictionary<string, object> { };
                 var url = this.InterpolatePath("/sites/{site_id}/my_resources", urlParams);
                 return MakeRequest<MyResource>(Method.POST, url, body, null);
             }
 
             public MyResource GetResource(string resourceId, string param1, DateTime param2)
             {
-                var urlParams = new Dictionary<string, object>{ { "resource_id", resourceId } };
-                var queryParams = new Dictionary<string, object>{ { "param_1", param1 }, { "param_2", param2 } };
+                var urlParams = new Dictionary<string, object> { { "resource_id", resourceId } };
+                var queryParams = new Dictionary<string, object> { { "param_1", param1 }, { "param_2", param2 } };
                 var url = this.InterpolatePath("/sites/{site_id}/my_resources/{resource_id}", urlParams);
                 return MakeRequest<MyResource>(Method.GET, url, null, queryParams);
             }
 
             public Task<MyResource> GetResourceAsync(string resourceId, string param1, DateTime param2)
             {
-                var urlParams = new Dictionary<string, object>{ { "resource_id", resourceId } };
-                var queryParams = new Dictionary<string, object>{ { "param_1", param1 }, { "param_2", param2 } };
+                var urlParams = new Dictionary<string, object> { { "resource_id", resourceId } };
+                var queryParams = new Dictionary<string, object> { { "param_1", param1 }, { "param_2", param2 } };
                 var url = this.InterpolatePath("/sites/{site_id}/my_resources/{resource_id}", urlParams);
                 return MakeRequestAsync<MyResource>(Method.GET, url, null, queryParams);
             }
@@ -77,7 +78,7 @@ namespace Recurly.Tests
         public void CanProperlyFetchAResource()
         {
             var client = this.GetResourceSuccessClient();
-            MyResource resource = client.GetResource("benjamin", "param1", new DateTime(2020,01,01));
+            MyResource resource = client.GetResource("benjamin", "param1", new DateTime(2020, 01, 01));
             Assert.Equal("benjamin", resource.MyString);
         }
 
@@ -85,7 +86,7 @@ namespace Recurly.Tests
         public async void CanProperlyFetchAResourceAsync()
         {
             var client = this.GetResourceSuccessClient();
-            MyResource resource = await client.GetResourceAsync("benjamin", "param1", new DateTime(2020,01,01));
+            MyResource resource = await client.GetResourceAsync("benjamin", "param1", new DateTime(2020, 01, 01));
             Assert.Equal("benjamin", resource.MyString);
         }
 
@@ -93,7 +94,8 @@ namespace Recurly.Tests
         public void CanProperlyCreateAResource()
         {
             var client = this.CreateResourceSuccessClient();
-            var request = new MyResourceCreate() {
+            var request = new MyResourceCreate()
+            {
                 MyString = "benjamin"
             };
             MyResource resource = client.CreateResource(request);
@@ -104,14 +106,14 @@ namespace Recurly.Tests
         public void WillThrowNotFoundExceptionForNon200()
         {
             var client = this.GetResourceFailureClient();
-            Assert.Throws<Recurly.Errors.NotFound>(() =>  client.GetResource("benjamin", "param1", new DateTime(2020,01,01)));
+            Assert.Throws<Recurly.Errors.NotFound>(() => client.GetResource("benjamin", "param1", new DateTime(2020, 01, 01)));
         }
- 
+
         [Fact]
         public void WillThrowAnExceptionWhenResponseHasErrorException()
         {
             var client = this.GetErroredResponseClient();
-            Assert.Throws<Recurly.RecurlyError>(() =>  client.GetResource("benjamin", "param1", new DateTime(2020,01,01)));
+            Assert.Throws<Recurly.RecurlyError>(() => client.GetResource("benjamin", "param1", new DateTime(2020, 01, 01)));
         }
 
         private MyClient GetResourceSuccessClient()
@@ -120,10 +122,10 @@ namespace Recurly.Tests
             {
                 MyString = "benjamin"
             };
-            var response =  new Mock<IRestResponse<MyResource>>();
+            var response = new Mock<IRestResponse<MyResource>>();
             response.Setup(_ => _.StatusCode).Returns(System.Net.HttpStatusCode.OK);
             response.Setup(_ => _.Content).Returns("{\"my_string\": \"benjamin\"}");
-            response.Setup(_ => _.Headers).Returns(new List<Parameter> {});
+            response.Setup(_ => _.Headers).Returns(new List<Parameter> { });
             response.Setup(_ => _.Data).Returns(data);
 
             var mockIRestClient = new Mock<IRestClient>();
@@ -143,10 +145,10 @@ namespace Recurly.Tests
 
         private MyClient GetErroredResponseClient()
         {
-            var response =  new Mock<IRestResponse<MyResource>>();
+            var response = new Mock<IRestResponse<MyResource>>();
             response.Setup(_ => _.StatusCode).Returns(System.Net.HttpStatusCode.Created);
             response.Setup(_ => _.Content).Returns("{\"code\": 123}");
-            response.Setup(_ => _.Headers).Returns(new List<Parameter> {});
+            response.Setup(_ => _.Headers).Returns(new List<Parameter> { });
             response.Setup(_ => _.ErrorException).Returns(new Exception("parsing error"));
             response.Setup(_ => _.ErrorMessage).Returns("parsing error");
 
@@ -163,13 +165,14 @@ namespace Recurly.Tests
 
         private MyClient CreateResourceSuccessClient()
         {
-            var data = new MyResource() {
+            var data = new MyResource()
+            {
                 MyString = "benjamin"
             };
-            var response =  new Mock<IRestResponse<MyResource>>();
+            var response = new Mock<IRestResponse<MyResource>>();
             response.Setup(_ => _.StatusCode).Returns(System.Net.HttpStatusCode.Created);
             response.Setup(_ => _.Content).Returns("{\"my_string\": \"benjamin\"}");
-            response.Setup(_ => _.Headers).Returns(new List<Parameter> {});
+            response.Setup(_ => _.Headers).Returns(new List<Parameter> { });
             response.Setup(_ => _.Data).Returns(data);
 
             var mockIRestClient = new Mock<IRestClient>();
@@ -185,10 +188,10 @@ namespace Recurly.Tests
 
         private MyClient GetResourceFailureClient()
         {
-            var response =  new Mock<IRestResponse<MyResource>>();
+            var response = new Mock<IRestResponse<MyResource>>();
             response.Setup(_ => _.StatusCode).Returns(System.Net.HttpStatusCode.NotFound);
             response.Setup(_ => _.Content).Returns("{\"error\":{ \"type\": \"not_found\", \"message\": \"MyResource not found\"}}");
-            response.Setup(_ => _.Headers).Returns(new List<Parameter> {});
+            response.Setup(_ => _.Headers).Returns(new List<Parameter> { });
 
             var mockIRestClient = new Mock<IRestClient>();
             mockIRestClient

@@ -1,4 +1,14 @@
 #!/usr/bin/env bash
 
+# First check formatting
+echo "Checking style..."
+./scripts/format --check
+if [ $? -ne 0 ]; then
+  echo "Code does not conform to style guide. To autoformat, run './scripts/format'."
+  exit 1
+else
+  echo "Style check passed"
+fi
+
 dotnet test Recurly.Tests/Recurly.Tests.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=opencover \
 && dotnet ~/.nuget/packages/reportgenerator/*/tools/netcoreapp*/ReportGenerator.dll -reports:./Recurly.Tests/coverage.opencover.xml -targetdir:./Recurly.Tests/coverage_report

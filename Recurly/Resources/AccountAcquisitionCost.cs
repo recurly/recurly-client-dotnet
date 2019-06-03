@@ -9,17 +9,19 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 
-namespace Recurly.Resources {
-  [ExcludeFromCodeCoverage] 
-  public class AccountAcquisitionCost : Request {
-  
-    /// <value>The amount of the corresponding currency used to acquire the account.</value>
-    [JsonProperty("amount")]
-    public float? Amount { get; set; }
-  
-    /// <value>3-letter ISO 4217 currency code.</value>
-    [JsonProperty("currency")]
-    public string Currency { get; set; }
-  
-  }
+namespace Recurly.Resources
+{
+    [ExcludeFromCodeCoverage]
+    public class AccountAcquisitionCost : Request
+    {
+
+        /// <value>The amount of the corresponding currency used to acquire the account.</value>
+        [JsonProperty("amount")]
+        public float? Amount { get; set; }
+
+        /// <value>3-letter ISO 4217 currency code.</value>
+        [JsonProperty("currency")]
+        public string Currency { get; set; }
+
+    }
 }

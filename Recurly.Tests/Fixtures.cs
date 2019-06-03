@@ -29,7 +29,8 @@ namespace Recurly.Tests
         public List<MySubResource> MyArraySubResource { get; set; }
     }
 
-    public class MySubResource : Resource {
+    public class MySubResource : Resource
+    {
         [JsonProperty("my_string")]
         public string MyString { get; set; }
     }
@@ -42,9 +43,9 @@ namespace Recurly.Tests
 
     public class MyApiError : Recurly.Errors.ApiError
     {
-        public MyApiError() {}
-        public MyApiError(string message) : base(message) {}
-        public MyApiError(string message, Exception inner) : base(message, inner) {}
+        public MyApiError() { }
+        public MyApiError(string message) : base(message) { }
+        public MyApiError(string message, Exception inner) : base(message, inner) { }
     }
 
 }

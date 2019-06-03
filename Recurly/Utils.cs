@@ -2,9 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Recurly {
-    public class Utils {
-        public static string Camelize(string source) {
+namespace Recurly
+{
+    public class Utils
+    {
+        public static string Camelize(string source)
+        {
             var words = source.Split('_');
             var newString = new StringBuilder();
             foreach (var word in words)
@@ -18,7 +21,8 @@ namespace Recurly {
             return newString.ToString();
         }
 
-        public static string QueryString(Dictionary<string, object> queryParams) {
+        public static string QueryString(Dictionary<string, object> queryParams)
+        {
             var qString = new List<string>();
 
             foreach (var param in queryParams)
@@ -38,13 +42,16 @@ namespace Recurly {
                 }
             }
 
-            if (qString.Count > 0) {
+            if (qString.Count > 0)
+            {
                 return "?" + String.Join("&", qString);
-            } else {
+            }
+            else
+            {
                 return String.Empty;
             }
         }
 
     }
-    
+
 }

@@ -19,8 +19,10 @@ using System.Threading;
 
 [assembly: InternalsVisibleTo("Recurly.Tests")]
 
-namespace Recurly {
-    public class BaseClient {
+namespace Recurly
+{
+    public class BaseClient
+    {
         public string SiteId { get; }
         private string ApiKey { get; }
         private const string ApiUrl = "https://partner-api.recurly.com/";
@@ -28,7 +30,8 @@ namespace Recurly {
 
         internal IRestClient RestClient { get; set; }
 
-        public BaseClient(string siteId, string apiKey) {
+        public BaseClient(string siteId, string apiKey)
+        {
             if (String.IsNullOrEmpty(siteId))
                 throw new ArgumentException($"siteId is required. You passed in {siteId}");
             if (String.IsNullOrEmpty(apiKey))
@@ -49,18 +52,21 @@ namespace Recurly {
             RestClient.AddDefaultHeader("Content-Type", "application/json");
         }
 
-        public async Task<T> MakeRequestAsync<T>(Method method, string url, Request body = null, Dictionary<string, object> queryParams = null, CancellationToken cancellationToken = default(CancellationToken)) where T: new() {
+        public async Task<T> MakeRequestAsync<T>(Method method, string url, Request body = null, Dictionary<string, object> queryParams = null, CancellationToken cancellationToken = default(CancellationToken)) where T : new()
+        {
             Debug.WriteLine($"Calling {url}");
             var request = BuildRequest(method, url, body, queryParams);
             var task = RestClient.ExecuteTaskAsync<T>(request, cancellationToken);
-            return await task.ContinueWith(t => {
+            return await task.ContinueWith(t =>
+            {
                 var resp = t.Result;
                 this.HandleResponse(resp);
                 return resp.Data;
             });
         }
 
-        public T MakeRequest<T>(Method method, string url, Request body = null, Dictionary<string, object> queryParams = null) where T: new() {
+        public T MakeRequest<T>(Method method, string url, Request body = null, Dictionary<string, object> queryParams = null) where T : new()
+        {
             Debug.WriteLine($"Calling {url}");
             var request = BuildRequest(method, url, body, queryParams);
             var resp = RestClient.Execute<T>(request);
@@ -68,16 +74,21 @@ namespace Recurly {
             return resp.Data;
         }
 
-        public void _SetApiUrl(string uri) {
-          Console.WriteLine("[SECURITY WARNING] _SetApiUrl is for testing only and not supported in production.");
-          if (System.Environment.GetEnvironmentVariable("RECURLY_INSECURE") == "true") {
-            this.RestClient.BaseUrl = new Uri(uri);
-          } else {
-            Console.WriteLine("ApiUrl not changed. To change, set the environment variable RECURLY_INSECURE to true");
-          }
+        public void _SetApiUrl(string uri)
+        {
+            Console.WriteLine("[SECURITY WARNING] _SetApiUrl is for testing only and not supported in production.");
+            if (System.Environment.GetEnvironmentVariable("RECURLY_INSECURE") == "true")
+            {
+                this.RestClient.BaseUrl = new Uri(uri);
+            }
+            else
+            {
+                Console.WriteLine("ApiUrl not changed. To change, set the environment variable RECURLY_INSECURE to true");
+            }
         }
 
-        private RestRequest BuildRequest(Method method, string url, Request body = null, Dictionary<string, object> queryParams = null) {
+        private RestRequest BuildRequest(Method method, string url, Request body = null, Dictionary<string, object> queryParams = null)
+        {
             var request = new RestRequest(url, method);
             request.JsonSerializer = Recurly.JsonSerializer.Default;
 
@@ -96,7 +107,8 @@ namespace Recurly {
             return request;
         }
 
-        private void HandleResponse(IRestResponse resp) {
+        private void HandleResponse(IRestResponse resp)
+        {
             if (resp.Headers.Any(t => t.Name == "Recurly-Deprecated"))
             {
                 var headers = resp.Headers.ToList();
@@ -144,13 +156,14 @@ namespace Recurly {
             }
         }
 
-        protected string InterpolatePath(string path, Dictionary<string, object> urlParams) {
-          urlParams.Add("site_id", SiteId);
-          var regex = new Regex("{([A-Za-z|_]*)}");
-          // TODO ToString() here might not appropriately format all data types
-          // such as datetimes
-          // TODO could get rid of string replaces with nicer regex matcher
-          return regex.Replace(path, m => urlParams[m.Value.Replace("{", "").Replace("}", "")].ToString());
+        protected string InterpolatePath(string path, Dictionary<string, object> urlParams)
+        {
+            urlParams.Add("site_id", SiteId);
+            var regex = new Regex("{([A-Za-z|_]*)}");
+            // TODO ToString() here might not appropriately format all data types
+            // such as datetimes
+            // TODO could get rid of string replaces with nicer regex matcher
+            return regex.Replace(path, m => urlParams[m.Value.Replace("{", "").Replace("}", "")].ToString());
         }
     }
 }

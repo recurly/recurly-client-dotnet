@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+if [ "$1" == "--check" ]; then
+  ./bin/dotnet-format --check --dry-run
+else
+  ./bin/dotnet-format
+fi

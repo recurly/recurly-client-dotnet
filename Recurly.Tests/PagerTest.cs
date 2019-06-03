@@ -12,7 +12,8 @@ namespace Recurly.Tests
 {
     public class PagerTest
     {
-        public class MyResource : Recurly.Resource {
+        public class MyResource : Recurly.Resource
+        {
             [JsonProperty("my_string")]
             public string MyString { get; set; }
         }
@@ -20,10 +21,11 @@ namespace Recurly.Tests
         [Fact]
         public void EnumerableTest()
         {
-            var pager = Pager<MyResource>.Build("/next", new Dictionary<string, object>{}, GetPagerSuccessClient());
+            var pager = Pager<MyResource>.Build("/next", new Dictionary<string, object> { }, GetPagerSuccessClient());
 
             var i = 0;
-            foreach(MyResource r in pager) {
+            foreach (MyResource r in pager)
+            {
                 if (i < 3)
                 {
                     Assert.Equal("A page 1 String", r.MyString);
@@ -40,7 +42,8 @@ namespace Recurly.Tests
             Assert.Equal(5, i);
 
             // We don't allow resetting pager states right now
-            Assert.Throws<NotImplementedException>(() => {
+            Assert.Throws<NotImplementedException>(() =>
+            {
                 pager.Reset();
             });
 
@@ -48,7 +51,8 @@ namespace Recurly.Tests
             pager.Dispose();
         }
 
-        private Recurly.Client GetPagerSuccessClient() {
+        private Recurly.Client GetPagerSuccessClient()
+        {
             var page1 = new Pager<MyResource>()
             {
                 HasMore = true,
@@ -59,9 +63,9 @@ namespace Recurly.Tests
                     new MyResource() { MyString = "A page 1 String" },
                 }
             };
-            var page1Response =  new Mock<IRestResponse<Pager<MyResource>>>();
+            var page1Response = new Mock<IRestResponse<Pager<MyResource>>>();
             page1Response.Setup(_ => _.StatusCode).Returns(System.Net.HttpStatusCode.OK);
-            page1Response.Setup(_ => _.Headers).Returns(new List<Parameter> {});
+            page1Response.Setup(_ => _.Headers).Returns(new List<Parameter> { });
             page1Response.Setup(_ => _.Data).Returns(page1);
 
             var page2 = new Pager<MyResource>()
@@ -73,9 +77,9 @@ namespace Recurly.Tests
                     new MyResource() { MyString = "A page 2 String" },
                 }
             };
-            var page2Response =  new Mock<IRestResponse<Pager<MyResource>>>();
+            var page2Response = new Mock<IRestResponse<Pager<MyResource>>>();
             page2Response.Setup(_ => _.StatusCode).Returns(System.Net.HttpStatusCode.OK);
-            page2Response.Setup(_ => _.Headers).Returns(new List<Parameter> {});
+            page2Response.Setup(_ => _.Headers).Returns(new List<Parameter> { });
             page2Response.Setup(_ => _.Data).Returns(page2);
 
             var mockIRestClient = new Mock<IRestClient>();

@@ -9,29 +9,31 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 
-namespace Recurly.Resources {
-  [ExcludeFromCodeCoverage] 
-  public class TransactionPaymentMethod : Resource {
-  
-    /// <value>Visa, MasterCard, American Express, Discover, JCB, etc.</value>
-    [JsonProperty("card_type")]
-    public string CardType { get; set; }
-  
-    /// <value>Expiration month.</value>
-    [JsonProperty("exp_month")]
-    public int? ExpMonth { get; set; }
-  
-    /// <value>Expiration year.</value>
-    [JsonProperty("exp_year")]
-    public int? ExpYear { get; set; }
-  
-    /// <value>Credit card number's first six digits.</value>
-    [JsonProperty("first_six")]
-    public string FirstSix { get; set; }
-  
-    /// <value>Credit card number's last four digits.</value>
-    [JsonProperty("last_four")]
-    public string LastFour { get; set; }
-  
-  }
+namespace Recurly.Resources
+{
+    [ExcludeFromCodeCoverage]
+    public class TransactionPaymentMethod : Resource
+    {
+
+        /// <value>Visa, MasterCard, American Express, Discover, JCB, etc.</value>
+        [JsonProperty("card_type")]
+        public string CardType { get; set; }
+
+        /// <value>Expiration month.</value>
+        [JsonProperty("exp_month")]
+        public int? ExpMonth { get; set; }
+
+        /// <value>Expiration year.</value>
+        [JsonProperty("exp_year")]
+        public int? ExpYear { get; set; }
+
+        /// <value>Credit card number's first six digits.</value>
+        [JsonProperty("first_six")]
+        public string FirstSix { get; set; }
+
+        /// <value>Credit card number's last four digits.</value>
+        [JsonProperty("last_four")]
+        public string LastFour { get; set; }
+
+    }
 }

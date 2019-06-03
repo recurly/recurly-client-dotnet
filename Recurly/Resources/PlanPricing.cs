@@ -9,21 +9,23 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 
-namespace Recurly.Resources {
-  [ExcludeFromCodeCoverage] 
-  public class PlanPricing : Request {
-  
-    /// <value>3-letter ISO 4217 currency code.</value>
-    [JsonProperty("currency")]
-    public string Currency { get; set; }
-  
-    /// <value>Amount of one-time setup fee automatically charged at the beginning of a subscription billing cycle. For subscription plans with a trial, the setup fee will be charged at the time of signup. Setup fees do not increase with the quantity of a subscription plan.</value>
-    [JsonProperty("setup_fee")]
-    public float? SetupFee { get; set; }
-  
-    /// <value>Unit price</value>
-    [JsonProperty("unit_amount")]
-    public float? UnitAmount { get; set; }
-  
-  }
+namespace Recurly.Resources
+{
+    [ExcludeFromCodeCoverage]
+    public class PlanPricing : Request
+    {
+
+        /// <value>3-letter ISO 4217 currency code.</value>
+        [JsonProperty("currency")]
+        public string Currency { get; set; }
+
+        /// <value>Amount of one-time setup fee automatically charged at the beginning of a subscription billing cycle. For subscription plans with a trial, the setup fee will be charged at the time of signup. Setup fees do not increase with the quantity of a subscription plan.</value>
+        [JsonProperty("setup_fee")]
+        public float? SetupFee { get; set; }
+
+        /// <value>Unit price</value>
+        [JsonProperty("unit_amount")]
+        public float? UnitAmount { get; set; }
+
+    }
 }
