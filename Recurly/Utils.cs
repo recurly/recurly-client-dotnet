@@ -6,6 +6,25 @@ namespace Recurly
 {
     public class Utils
     {
+        private static bool? strictMode = null;
+        public static bool StrictMode
+        {
+            get
+            {
+                if (!strictMode.HasValue)
+                {
+                    lock (typeof(bool?))
+                    {
+                        if (!strictMode.HasValue)
+                        {
+                            strictMode = Environment.GetEnvironmentVariable("RECURLY_STRICT_MODE").ToUpper() == "TRUE";
+                        }
+                    }
+                }
+                return strictMode.Value;
+            }
+        }
+
         public static string Camelize(string source)
         {
             var words = source.Split('_');
@@ -53,5 +72,4 @@ namespace Recurly
         }
 
     }
-
 }
