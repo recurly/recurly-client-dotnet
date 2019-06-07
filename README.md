@@ -89,7 +89,7 @@ var accounts = client.ListAccounts();
 while(accounts.HasMore)
 {
     Console.WriteLine("Fetching next page...");
-    accounts = accounts.FetchNextPage();
+    accounts.FetchNextPage();
     foreach(Account a in accounts.Data)
     {
       Console.WriteLine($"Account: {a.CreatedAt}");
@@ -104,7 +104,7 @@ var accounts = client.ListAccounts();
 while(accounts.HasMore)
 {
     Console.WriteLine("Fetching next page...");
-    accounts = await accounts.FetchNextPageAsync();
+    await accounts.FetchNextPageAsync();
     foreach(Account a in accounts.Data)
     {
       Console.WriteLine($"Account: {a.CreatedAt}");

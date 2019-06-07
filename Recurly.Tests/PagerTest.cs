@@ -51,6 +51,42 @@ namespace Recurly.Tests
             pager.Dispose();
         }
 
+        [Fact]
+        public void EnumerablePagesTest()
+        {
+            var pager = Pager<MyResource>.Build("/next", new Dictionary<string, object> { }, GetPagerSuccessClient());
+
+            var total = 0;
+            var page = 0;
+            while (pager.HasMore)
+            {
+                pager.FetchNextPage();
+                var count = 0;
+                page++;
+                foreach (MyResource r in pager.Data)
+                {
+                    count++;
+                    total++;
+                }
+                if (page == 1)
+                {
+                    Assert.Equal(count, 3);
+                }
+                else if (page == 2)
+                {
+                    Assert.Equal(count, 2);
+                }
+                else
+                {
+                    Assert.True(false, $"Should not have reached this page: {page}");
+                }
+            }
+
+            // There should be 5 resources since
+            // there is a second page
+            Assert.Equal(5, total);
+        }
+
         private Recurly.Client GetPagerSuccessClient()
         {
             var page1 = new Pager<MyResource>()
