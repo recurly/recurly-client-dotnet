@@ -77,7 +77,7 @@ namespace Recurly.Resources
 
         /// <value>Time, in seconds, for gateway to process the transaction.</value>
         [JsonProperty("gateway_response_time")]
-        public int? GatewayResponseTime { get; set; }
+        public float? GatewayResponseTime { get; set; }
 
         /// <value>The values in this field will vary from gateway to gateway.</value>
         [JsonProperty("gateway_response_values")]
