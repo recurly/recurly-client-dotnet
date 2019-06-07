@@ -11,7 +11,7 @@ This package is published on Nuget under the name [Recurly](https://www.nuget.or
 We recommend using Nuget to install and maintain this dependency:
 
 ```
-dotnet add package Recurly --version 3.0.0-beta.3
+dotnet add package Recurly --version 3.0.0-beta.4
 ```
 
 ### Creating a client
