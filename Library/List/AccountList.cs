@@ -4,7 +4,7 @@ namespace Recurly
 {
     public class AccountList : RecurlyList<Account>
     {
-        internal AccountList(string baseUrl) : base(Client.HttpRequestMethod.Get, baseUrl)
+        protected internal AccountList(string baseUrl) : base(Client.HttpRequestMethod.Get, baseUrl)
         {
         }
 

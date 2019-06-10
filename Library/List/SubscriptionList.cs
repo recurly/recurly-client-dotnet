@@ -4,7 +4,7 @@ namespace Recurly
 {
     public class SubscriptionList : RecurlyList<Subscription>
     {
-        internal SubscriptionList(string baseUrl) : base(Client.HttpRequestMethod.Get, baseUrl)
+        protected internal SubscriptionList(string baseUrl) : base(Client.HttpRequestMethod.Get, baseUrl)
         {
         }
 

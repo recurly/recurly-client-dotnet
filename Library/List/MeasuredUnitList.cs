@@ -4,7 +4,7 @@ namespace Recurly
 {
     public class MeasuredUnitList : RecurlyList<MeasuredUnit>
     {
-        internal MeasuredUnitList(string baseUrl) : base(Client.HttpRequestMethod.Get, baseUrl)
+        protected internal MeasuredUnitList(string baseUrl) : base(Client.HttpRequestMethod.Get, baseUrl)
         {
         }
 

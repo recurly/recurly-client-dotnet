@@ -14,6 +14,11 @@ namespace Recurly
             ReadXml(xmlReader);
         }
 
+        protected internal Note()
+        {
+
+        }
+
         internal override void ReadXml(XmlTextReader reader)
         {
             while (reader.Read())

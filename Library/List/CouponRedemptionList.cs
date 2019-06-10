@@ -5,11 +5,11 @@ namespace Recurly
     public class CouponRedemptionList : RecurlyList<CouponRedemption>
     {
 
-        internal CouponRedemptionList()
+        protected internal CouponRedemptionList()
         {
         }
 
-        internal CouponRedemptionList(string baseUrl) : base(Client.HttpRequestMethod.Get, baseUrl)
+        protected internal CouponRedemptionList(string baseUrl) : base(Client.HttpRequestMethod.Get, baseUrl)
         {
         }
 

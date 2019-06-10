@@ -5,7 +5,7 @@ namespace Recurly
 {
     public class GiftCardList : RecurlyList<GiftCard>
     {
-        internal GiftCardList(string baseUrl) : base(Client.HttpRequestMethod.Get, baseUrl)
+        protected internal GiftCardList(string baseUrl) : base(Client.HttpRequestMethod.Get, baseUrl)
         {
         }
 

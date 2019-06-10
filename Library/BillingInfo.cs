@@ -156,7 +156,7 @@ namespace Recurly
         private const string UrlPrefix = "/accounts/";
         private const string UrlPostfix = "/billing_info";
 
-        internal BillingInfo(string accountCode) : this()
+        protected internal BillingInfo(string accountCode) : this()
         {
             AccountCode = accountCode;
         }

@@ -4,7 +4,7 @@ namespace Recurly
 {
     public class PlanList : RecurlyList<Plan>
     {
-        internal PlanList(string baseUrl) : base(Client.HttpRequestMethod.Get, baseUrl)
+        protected internal PlanList(string baseUrl) : base(Client.HttpRequestMethod.Get, baseUrl)
         {
         }
 

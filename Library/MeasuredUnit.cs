@@ -17,7 +17,7 @@ namespace Recurly
 
         internal const string UrlPrefix = "/measured_units/";
 
-        internal MeasuredUnit()
+        protected internal MeasuredUnit()
         {
         }
 

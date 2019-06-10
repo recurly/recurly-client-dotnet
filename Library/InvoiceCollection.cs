@@ -22,7 +22,7 @@ namespace Recurly
         /// </summary>
         public RecurlyList<Invoice> CreditInvoices { get; private set; }
 
-        internal InvoiceCollection()
+        protected internal InvoiceCollection()
         {
         }
 

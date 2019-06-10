@@ -92,7 +92,7 @@ namespace Recurly
             return InvoicePrefix + Convert.ToString(Invoice);
         }
 
-        internal Transaction()
+        protected internal Transaction()
         { }
 
         internal Transaction(XmlTextReader reader)

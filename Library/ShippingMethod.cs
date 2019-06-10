@@ -23,7 +23,7 @@ namespace Recurly
 
         #region Constructors
 
-        internal ShippingMethod()
+        protected internal ShippingMethod()
         {
         }
 

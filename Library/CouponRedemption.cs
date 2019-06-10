@@ -30,7 +30,7 @@ namespace Recurly
             ReadXml(reader);
         }
 
-        internal CouponRedemption()
+        protected internal CouponRedemption()
         {
 
         }

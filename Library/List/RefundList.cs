@@ -28,7 +28,7 @@ namespace Recurly
             };
         }
 
-        internal RefundList(IEnumerable<Adjustment> adjustments, Invoice.RefundOptions options)
+        protected internal RefundList(IEnumerable<Adjustment> adjustments, Invoice.RefundOptions options)
         {
             foreach (var adjustment in adjustments)
             {

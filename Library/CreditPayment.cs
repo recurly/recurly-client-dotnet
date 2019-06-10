@@ -19,7 +19,7 @@ namespace Recurly
 
         #region Constructors
 
-        internal CreditPayment()
+        protected internal CreditPayment()
         {
         }
 

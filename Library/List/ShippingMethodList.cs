@@ -8,11 +8,11 @@ namespace Recurly
 {
     public class ShippingMethodList : RecurlyList<ShippingMethod>
     {
-        internal ShippingMethodList()
+        protected internal ShippingMethodList()
         {
         }
 
-        internal ShippingMethodList(string baseUrl) : base(Client.HttpRequestMethod.Get, baseUrl)
+        protected internal ShippingMethodList(string baseUrl) : base(Client.HttpRequestMethod.Get, baseUrl)
         {
         }
 

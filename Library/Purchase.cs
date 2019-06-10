@@ -119,7 +119,7 @@ namespace Recurly
 
         #region Constructors
 
-        internal Purchase()
+        protected internal Purchase()
         {
         }
 

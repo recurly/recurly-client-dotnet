@@ -8,11 +8,11 @@ namespace Recurly
 {
     public class CouponList : RecurlyList<Coupon>
     {
-        internal CouponList()
+        protected internal CouponList()
         {
         }
 
-        internal CouponList(string baseUrl) : base(Client.HttpRequestMethod.Get, baseUrl)
+        protected internal CouponList(string baseUrl) : base(Client.HttpRequestMethod.Get, baseUrl)
         {
         }
 

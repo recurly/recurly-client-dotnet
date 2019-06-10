@@ -18,7 +18,7 @@ namespace Recurly
             Recording
         }
 
-        internal UsageList()
+        protected internal UsageList()
         {
         }
 

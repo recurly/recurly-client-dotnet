@@ -22,7 +22,7 @@ namespace Recurly
             Refund
         }
 
-        internal TransactionList()
+        protected internal TransactionList()
         {
         }
 

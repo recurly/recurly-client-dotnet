@@ -370,7 +370,7 @@ namespace Recurly
         /// </summary>
         public int? ShippingAmountInCents { get; set; }
 
-        internal Subscription()
+        protected internal Subscription()
         {
             IsPendingSubscription = false;
         }

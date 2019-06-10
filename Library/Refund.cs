@@ -17,7 +17,7 @@ namespace Recurly
             Uuid = adjustment.Uuid;
         }
 
-        internal Refund(Adjustment adjustment)
+        protected internal Refund(Adjustment adjustment)
         {
             Prorate = adjustment.Prorate.HasValue ? adjustment.Prorate.Value : false;
             Quantity = adjustment.Quantity;

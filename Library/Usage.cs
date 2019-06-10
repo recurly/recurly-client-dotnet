@@ -34,7 +34,7 @@ namespace Recurly
 
         private String _href;
 
-        internal Usage()
+        protected internal Usage()
         {
         }
 

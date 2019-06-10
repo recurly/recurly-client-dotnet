@@ -84,7 +84,7 @@ namespace Recurly
             Quantity = quantity;
         }
 
-        internal Adjustment()
+        protected internal Adjustment()
         {
             
         }

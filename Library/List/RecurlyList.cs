@@ -65,7 +65,7 @@ namespace Recurly
             return false;
         }
 
-        internal RecurlyList()
+        protected internal RecurlyList()
         {
             PerPage = Client.Instance.Settings.PageSize;
         }

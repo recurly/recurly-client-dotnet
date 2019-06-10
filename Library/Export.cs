@@ -14,6 +14,11 @@ namespace Recurly
         internal const string UrlPrefix = "/export_dates";
         public DateTime Date { get; set; }
 
+        protected internal ExportDate()
+        {
+
+        }
+
         internal ExportDate(XmlTextReader reader)
         {
             ReadXml(reader);

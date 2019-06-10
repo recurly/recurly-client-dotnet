@@ -92,7 +92,7 @@ namespace Recurly
         internal const string UrlPrefix = "/plans/";
 
         #region Constructors
-        internal Plan()
+        protected internal Plan()
         {
         }
 

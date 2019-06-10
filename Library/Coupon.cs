@@ -107,7 +107,7 @@ namespace Recurly
 
         #region Constructors
 
-        internal Coupon()
+        protected internal Coupon()
         {
         }
 

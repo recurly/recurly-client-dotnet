@@ -40,7 +40,7 @@ namespace Recurly
         private const string UrlPostfix = "/add_ons/";
 
         #region Constructors
-        internal AddOn()
+        protected internal AddOn()
         {
         }
 
