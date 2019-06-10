@@ -205,15 +205,6 @@ catch (Recurly.Errors.NetworkError ex)
 
 ## Development
 
-### Dependencies
-
-If you are on macos, you can use the `check-deps` or `install-deps` scripts to setup your development
-dependencies. We only support doing this on macos at the moment.
-
-```bash
-./scripts/install-deps
-```
-
 ### Testing
 
 The tests can be found in `Recurly.Tests`. To run the tests, use the test script. This
