@@ -90,8 +90,7 @@ namespace Recurly.Test
             var acquisition = new AccountAcquisition(accountCode);
             acquisition.Create();
 
-            acquisition = AccountAcquisition.Get(account.AccountCode);
-            acquisition.Should().NotBeNull();
+            AccountAcquisition.Get(account.AccountCode).Should().NotBeNull();
         }
 
         [Fact]
@@ -110,7 +109,7 @@ namespace Recurly.Test
             VerifyModifiedAccountAcquisition(acquisition);
         }
 
-        private AccountAcquisition NewAccountAcquisition(string accountCode)
+        private IAccountAcquisition NewAccountAcquisition(string accountCode)
         {
             return new AccountAcquisition(accountCode)
             {
@@ -122,7 +121,7 @@ namespace Recurly.Test
             };
         }
 
-        private void VerifyTestAccountAcquisition(AccountAcquisition acquisition)
+        private void VerifyTestAccountAcquisition(IAccountAcquisition acquisition)
         {
             acquisition.CostInCents.Should().Be(1000);
             acquisition.Currency.Should().Be("USD");
@@ -131,7 +130,7 @@ namespace Recurly.Test
             acquisition.SubChannel.Should().Be("Test Sub Channel");
         }
 
-        private void ModifyAccountAcquisition(AccountAcquisition acquisition)
+        private void ModifyAccountAcquisition(IAccountAcquisition acquisition)
         {
             acquisition.CostInCents = 2002;
             acquisition.Currency = "CAD";
@@ -140,7 +139,7 @@ namespace Recurly.Test
             acquisition.SubChannel = "Modified Sub Channel";
         }
 
-        private void VerifyModifiedAccountAcquisition(AccountAcquisition acquisition)
+        private void VerifyModifiedAccountAcquisition(IAccountAcquisition acquisition)
         {
             acquisition.CostInCents.Should().Be(2002);
             acquisition.Currency.Should().Be("CAD");

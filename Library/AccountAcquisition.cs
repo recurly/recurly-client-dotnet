@@ -4,7 +4,7 @@ using System.Xml;
 
 namespace Recurly
 {
-    public class AccountAcquisition : RecurlyEntity
+    public class AccountAcquisition : RecurlyEntity, IAccountAcquisition
     {
         public enum AccountAcquisitionChannel : short
         {
@@ -47,7 +47,7 @@ namespace Recurly
         {
         }
 
-        public static AccountAcquisition Get(string accountCode)
+        public static IAccountAcquisition Get(string accountCode)
         {
             if (string.IsNullOrWhiteSpace(accountCode))
             {
@@ -153,11 +153,11 @@ namespace Recurly
 
         public override bool Equals(object obj)
         {
-            var a = obj as AccountAcquisition;
+            var a = obj as IAccountAcquisition;
             return a != null && Equals(a);
         }
 
-        public bool Equals(AccountAcquisition accountAcquisition)
+        public bool Equals(IAccountAcquisition accountAcquisition)
         {
             return AccountCode == accountAcquisition.AccountCode;
         }

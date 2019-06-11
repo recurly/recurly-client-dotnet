@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Recurly.Extensions;
+using System;
 using System.Xml;
 
 namespace Recurly
@@ -133,7 +134,7 @@ namespace Recurly
                 xmlWriter.WriteStringIfValid("deliver_at", DeliverAt.Value.ToString("s"));
             
             if (Address != null)
-                Address.WriteXml(xmlWriter);
+                Address.TryWriteXml(xmlWriter);
 
             xmlWriter.WriteEndElement(); // End: delivery
         }

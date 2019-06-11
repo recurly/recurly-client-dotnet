@@ -8,13 +8,20 @@ using System.Xml;
 
 namespace Recurly
 {
-    public class AccountBalance : RecurlyEntity
+    public class AccountBalance : RecurlyEntity, IAccountBalance
     {
         public bool PastDue { get; internal set; }
-        public Dictionary<string, int> BalanceInCents = new Dictionary<string, int>();
+
+        public Dictionary<string, int> _balanceInCents = new Dictionary<string, int>();
+
+        public Dictionary<string, int> BalanceInCents
+        {
+            get { return _balanceInCents; }
+        }
+
         private const string UrlPrefix = "/accounts/";
 
-        public static AccountBalance Get(string accountCode)
+        public static IAccountBalance Get(string accountCode)
         {
             if (string.IsNullOrWhiteSpace(accountCode))
             {

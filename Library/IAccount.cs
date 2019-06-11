@@ -6,10 +6,10 @@ namespace Recurly
     public interface IAccount : IRecurlyEntity
     {
         string AcceptLanguage { get; set; }
-        AccountAcquisition AccountAcquisition { get; set; }
+        IAccountAcquisition AccountAcquisition { get; set; }
         string AccountCode { get; }
         IAddress Address { get; set; }
-        AccountBalance Balance { get; set; }
+        IAccountBalance Balance { get; set; }
         BillingInfo BillingInfo { get; set; }
         string CcEmails { get; set; }
         DateTime? ClosedAt { get; }

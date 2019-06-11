@@ -1,6 +1,6 @@
 ﻿namespace Recurly
 {
-    public interface IAddress
+    public interface IAddress : IRecurlyEntity
     {
         string Address1 { get; set; }
         string Address2 { get; set; }

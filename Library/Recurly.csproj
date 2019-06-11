@@ -66,12 +66,15 @@
     <Compile Include="CreditPayment.cs" />
     <Compile Include="CustomField.cs" />
     <Compile Include="Delivery.cs" />
+    <Compile Include="Extensions\RecurlyEntityExtensions.cs" />
     <Compile Include="GiftCard.cs" />
     <Compile Include="Account.cs" />
     <Compile Include="AccountBalance.cs" />
     <Compile Include="Address.cs" />
     <Compile Include="FilterCriteria.cs" />
     <Compile Include="IAccount.cs" />
+    <Compile Include="IAccountAcquisition.cs" />
+    <Compile Include="IAccountBalance.cs" />
     <Compile Include="IAddress.cs" />
     <Compile Include="IInvoice.cs" />
     <Compile Include="InvoiceCollection.cs" />

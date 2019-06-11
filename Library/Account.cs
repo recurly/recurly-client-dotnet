@@ -1,3 +1,4 @@
+using Recurly.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -53,9 +54,9 @@ namespace Recurly
         public string PreferredLocale { get; set; }
         public string ParentAccountCode { get; set; }
 
-        private AccountAcquisition _accountAcquisition;
+        private IAccountAcquisition _accountAcquisition;
 
-        public AccountAcquisition AccountAcquisition
+        public IAccountAcquisition AccountAcquisition
         {
             get
             {
@@ -64,7 +65,7 @@ namespace Recurly
 
                 try
                 {
-                    _accountAcquisition = AccountAcquisition.Get(AccountCode);
+                    _accountAcquisition = Recurly.AccountAcquisition.Get(AccountCode);
                 }
                 catch (NotFoundException)
                 {
@@ -104,9 +105,9 @@ namespace Recurly
             }
         }
 
-        private AccountBalance _balance;
+        private IAccountBalance _balance;
 
-        public AccountBalance Balance
+        public IAccountBalance Balance
         {
             get
             {
@@ -250,7 +251,7 @@ namespace Recurly
             var collection = new InvoiceCollection();
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 UrlPrefix + Uri.EscapeDataString(AccountCode) + "/invoices",
-                writer => Invoice.WriteXml(writer, invoice),
+                invoice.TryWriteXml,
                 collection.ReadXml);
 
             return collection;
@@ -265,7 +266,7 @@ namespace Recurly
             var collection = new InvoiceCollection();
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 UrlPrefix + Uri.EscapeDataString(AccountCode) + "/invoices/preview",
-                writer => Invoice.WriteXml(writer, invoice),
+                invoice.TryWriteXml,
                 collection.ReadXml);
 
             return collection;
@@ -703,7 +704,7 @@ namespace Recurly
             //    _billingInfo.WriteXml(xmlWriter);
 
             if (account.Address != null)
-                account.Address.WriteXml(xmlWriter);
+                account.Address.TryWriteXml(xmlWriter);
 
             xmlWriter.WriteEndElement(); // End: account
         }

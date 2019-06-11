@@ -3,6 +3,7 @@ using System.Net;
 using System.Xml;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using Recurly.Extensions;
 
 namespace Recurly
 {
@@ -641,53 +642,43 @@ namespace Recurly
 
         internal override void WriteXml(XmlTextWriter xmlWriter)
         {
-            WriteXml(xmlWriter, this);
-        }
-
-        internal static void WriteXml(XmlTextWriter xmlWriter, IInvoice invoice)
-        {
             xmlWriter.WriteStartElement("invoice"); // Start: invoice
 
-            xmlWriter.WriteElementString("customer_notes", invoice.CustomerNotes);
-            xmlWriter.WriteElementString("terms_and_conditions", invoice.TermsAndConditions);
-            xmlWriter.WriteElementString("vat_reverse_charge_notes", invoice.VatReverseChargeNotes);
-            xmlWriter.WriteElementString("po_number", invoice.PoNumber);
+            xmlWriter.WriteElementString("customer_notes", CustomerNotes);
+            xmlWriter.WriteElementString("terms_and_conditions", TermsAndConditions);
+            xmlWriter.WriteElementString("vat_reverse_charge_notes", VatReverseChargeNotes);
+            xmlWriter.WriteElementString("po_number", PoNumber);
 
-            if (invoice.CollectionMethod == Collection.Manual)
+            if (CollectionMethod == Collection.Manual)
             {
                 xmlWriter.WriteElementString("collection_method", "manual");
 
-                if (invoice.NetTerms.HasValue)
-                    xmlWriter.WriteElementString("net_terms", invoice.NetTerms.Value.AsString());
+                if (NetTerms.HasValue)
+                    xmlWriter.WriteElementString("net_terms", NetTerms.Value.AsString());
             }
-            else if (invoice.CollectionMethod == Collection.Automatic)
+            else if (CollectionMethod == Collection.Automatic)
             {
                 xmlWriter.WriteElementString("collection_method", "automatic");
             }
-           
+
             xmlWriter.WriteEndElement(); // End: invoice
         }
 
         internal void WriteUpdateXml(XmlTextWriter xmlWriter)
         {
-            WriteUpdateXml(xmlWriter, this);
-        }
-
-        internal static void WriteUpdateXml(XmlTextWriter xmlWriter, IInvoice invoice)
-        {
             xmlWriter.WriteStartElement("invoice"); // Start: invoice
 
-            invoice.Address.WriteXml(xmlWriter);
-            xmlWriter.WriteElementString("customer_notes", invoice.CustomerNotes);
-            xmlWriter.WriteElementString("terms_and_conditions", invoice.TermsAndConditions);
-            xmlWriter.WriteElementString("vat_reverse_charge_notes", invoice.VatReverseChargeNotes);
-            xmlWriter.WriteElementString("gateway_code", invoice.GatewayCode);
-            xmlWriter.WriteElementString("po_number", invoice.PoNumber);
+            Address.TryWriteXml(xmlWriter);
+            xmlWriter.WriteElementString("customer_notes", CustomerNotes);
+            xmlWriter.WriteElementString("terms_and_conditions", TermsAndConditions);
+            xmlWriter.WriteElementString("vat_reverse_charge_notes", VatReverseChargeNotes);
+            xmlWriter.WriteElementString("gateway_code", GatewayCode);
+            xmlWriter.WriteElementString("po_number", PoNumber);
 
-            //if (invoice.NetTerms.HasValue && _netTermsChanged)
-            //{
-            //    xmlWriter.WriteElementString("net_terms", invoice.NetTerms.Value.AsString());
-            //}
+            if (NetTerms.HasValue && _netTermsChanged)
+            {
+                xmlWriter.WriteElementString("net_terms", NetTerms.Value.AsString());
+            }
 
             xmlWriter.WriteEndElement(); // End: invoice
         }
