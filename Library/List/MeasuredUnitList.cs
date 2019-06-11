@@ -8,17 +8,17 @@ namespace Recurly
         {
         }
 
-        public override RecurlyList<MeasuredUnit> Start
+        public override IRecurlyList<MeasuredUnit> Start
         {
             get { return HasStartPage() ? new MeasuredUnitList(StartUrl) : RecurlyList.Empty<MeasuredUnit>(); }
         }
 
-        public override RecurlyList<MeasuredUnit> Next
+        public override IRecurlyList<MeasuredUnit> Next
         {
             get { return HasNextPage() ? new MeasuredUnitList(NextUrl) : RecurlyList.Empty<MeasuredUnit>(); }
         }
 
-        public override RecurlyList<MeasuredUnit> Prev
+        public override IRecurlyList<MeasuredUnit> Prev
         {
             get { return HasPrevPage() ? new MeasuredUnitList(PrevUrl) : RecurlyList.Empty<MeasuredUnit>(); }
         }

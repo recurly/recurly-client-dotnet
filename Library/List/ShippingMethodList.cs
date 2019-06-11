@@ -16,17 +16,17 @@ namespace Recurly
         {
         }
 
-        public override RecurlyList<ShippingMethod> Start
+        public override IRecurlyList<ShippingMethod> Start
         {
             get { return HasStartPage() ? new ShippingMethodList(StartUrl) : RecurlyList.Empty<ShippingMethod>(); }
         }
 
-        public override RecurlyList<ShippingMethod> Next
+        public override IRecurlyList<ShippingMethod> Next
         {
             get { return HasNextPage() ? new ShippingMethodList(NextUrl) : RecurlyList.Empty<ShippingMethod>(); }
         }
 
-        public override RecurlyList<ShippingMethod> Prev
+        public override IRecurlyList<ShippingMethod> Prev
         {
             get { return HasPrevPage() ? new ShippingMethodList(PrevUrl) : RecurlyList.Empty<ShippingMethod>(); }
         }

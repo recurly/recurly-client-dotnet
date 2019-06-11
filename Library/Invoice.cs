@@ -117,8 +117,8 @@ namespace Recurly
         public string TaxRegion { get; private set; }
         public decimal? TaxRate { get; private set; }
 
-        public RecurlyList<Adjustment> Adjustments { get; private set; }
-        public RecurlyList<Transaction> Transactions { get; private set; }
+        public IRecurlyList<Adjustment> Adjustments { get; private set; }
+        public IRecurlyList<Transaction> Transactions { get; private set; }
 
         public string CustomerNotes { get; set; }
         public string TermsAndConditions { get; set; }
@@ -269,7 +269,7 @@ namespace Recurly
             return redemptionList.HasAny() ? redemptionList[0] : null;
         }
 
-        public RecurlyList<CouponRedemption> GetRedemptions()
+        public IRecurlyList<CouponRedemption> GetRedemptions()
         {
             var coupons = new CouponRedemptionList();
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
@@ -710,22 +710,22 @@ namespace Recurly
 
     public sealed class Invoices
     {
-        public static RecurlyList<Invoice> List(string accountCode)
+        public static IRecurlyList<Invoice> List(string accountCode)
         {
             return new InvoiceList("/accounts/" + Uri.EscapeDataString(accountCode) + "/invoices");
         }
 
-        public static RecurlyList<Invoice> List()
+        public static IRecurlyList<Invoice> List()
         {
             return new InvoiceList(Invoice.UrlPrefix);
         }
 
-        public static RecurlyList<Invoice> List(Invoice.InvoiceState state)
+        public static IRecurlyList<Invoice> List(Invoice.InvoiceState state)
         {
             return new InvoiceList(Invoice.UrlPrefix + "?state=" + state.ToString().EnumNameToTransportCase());
         }
 
-        public static RecurlyList<Invoice> List(Invoice.InvoiceState state, FilterCriteria filter)
+        public static IRecurlyList<Invoice> List(Invoice.InvoiceState state, FilterCriteria filter)
         {
             filter = filter ?? FilterCriteria.Instance;
             var parameters = filter.ToNamedValueCollection();
@@ -733,7 +733,7 @@ namespace Recurly
             return new InvoiceList(Invoice.UrlPrefix + "?" + parameters.ToString());
         }
 
-        public static RecurlyList<Invoice> List(FilterCriteria filter)
+        public static IRecurlyList<Invoice> List(FilterCriteria filter)
         {
             filter = filter ?? FilterCriteria.Instance;
             var parameters = filter.ToNamedValueCollection();

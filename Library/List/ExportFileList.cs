@@ -11,9 +11,9 @@ namespace Recurly.List
     {
         public ExportFileList(string baseUrl) : base(Client.HttpRequestMethod.Get, baseUrl)
         { }
-        public override RecurlyList<ExportFile> Start { get; }
-        public override RecurlyList<ExportFile> Next { get; }
-        public override RecurlyList<ExportFile> Prev { get; }
+        public override IRecurlyList<ExportFile> Start { get; }
+        public override IRecurlyList<ExportFile> Next { get; }
+        public override IRecurlyList<ExportFile> Prev { get; }
         internal override void ReadXml(XmlTextReader reader)
         {
             while (reader.Read())

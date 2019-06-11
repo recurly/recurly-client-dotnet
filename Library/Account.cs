@@ -277,7 +277,7 @@ namespace Recurly
         /// <param name="type">Adjustment type to retrieve. Optional, default: All.</param>
         /// <param name="state">State of the Adjustments to retrieve. Optional, default: Any.</param>
         /// <returns></returns>
-        public RecurlyList<Adjustment> GetAdjustments(Adjustment.AdjustmentType type = Adjustment.AdjustmentType.All,
+        public IRecurlyList<Adjustment> GetAdjustments(Adjustment.AdjustmentType type = Adjustment.AdjustmentType.All,
             Adjustment.AdjustmentState state = Adjustment.AdjustmentState.Any)
         {
             var adjustments = new AdjustmentList();
@@ -297,7 +297,7 @@ namespace Recurly
         /// <param name="type">Adjustment type to retrieve. Optional, default: All.</param>
         /// <param name="state">State of the Adjustments to retrieve. Optional, default: Any.</param>
         /// <returns></returns>
-        public RecurlyList<Adjustment> GetAdjustments(FilterCriteria filter, Adjustment.AdjustmentType type = Adjustment.AdjustmentType.All,
+        public IRecurlyList<Adjustment> GetAdjustments(FilterCriteria filter, Adjustment.AdjustmentType type = Adjustment.AdjustmentType.All,
             Adjustment.AdjustmentState state = Adjustment.AdjustmentState.Any)
         {
             var adjustments = new AdjustmentList();
@@ -325,7 +325,7 @@ namespace Recurly
         /// Gets all shipping addresses
         /// </summary>
         /// <returns></returns>
-        public RecurlyList<ShippingAddress> GetShippingAddresses()
+        public IRecurlyList<ShippingAddress> GetShippingAddresses()
         {
             var shippingAddresses = new ShippingAddressList(this);
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
@@ -339,7 +339,7 @@ namespace Recurly
         /// Returns a list of invoices for this account
         /// </summary>
         /// <returns></returns>
-        public RecurlyList<Invoice> GetInvoices()
+        public IRecurlyList<Invoice> GetInvoices()
         {
             return Invoices.List(AccountCode);
         }
@@ -349,7 +349,7 @@ namespace Recurly
         /// </summary>
         /// <param name="state"></param>
         /// <returns></returns>
-        public RecurlyList<Subscription> GetSubscriptions(Subscription.SubscriptionState state = Subscription.SubscriptionState.All)
+        public IRecurlyList<Subscription> GetSubscriptions(Subscription.SubscriptionState state = Subscription.SubscriptionState.All)
         {
             return new SubscriptionList(UrlPrefix + Uri.EscapeDataString(AccountCode) + "/subscriptions/"
                 + Build.QueryStringWith(state.Equals(Subscription.SubscriptionState.All) ? "" : "state=" + state.ToString().EnumNameToTransportCase()));
@@ -361,7 +361,7 @@ namespace Recurly
         /// <param name="state">Transactions of this state will be retrieved. Optional, default: All.</param>
         /// <param name="type">Transactions of this type will be retrieved. Optional, default: All.</param>
         /// <returns></returns>
-        public RecurlyList<Transaction> GetTransactions(TransactionList.TransactionState state = TransactionList.TransactionState.All,
+        public IRecurlyList<Transaction> GetTransactions(TransactionList.TransactionState state = TransactionList.TransactionState.All,
             TransactionList.TransactionType type = TransactionList.TransactionType.All)
         {
             return new TransactionList(UrlPrefix + Uri.EscapeDataString(AccountCode) + "/transactions/"
@@ -369,7 +369,7 @@ namespace Recurly
                    .AndWith(type != TransactionList.TransactionType.All ? "type=" + type.ToString().EnumNameToTransportCase() : ""));
         }
 
-        public RecurlyList<Note> GetNotes()
+        public IRecurlyList<Note> GetNotes()
         {
             return new NoteList(UrlPrefix + Uri.EscapeDataString(AccountCode) + "/notes/");
         }
@@ -385,7 +385,7 @@ namespace Recurly
             return statusCode == HttpStatusCode.NotFound ? null : parent;
         }
 
-        public RecurlyList<Account> GetChildAccounts()
+        public IRecurlyList<Account> GetChildAccounts()
         {
             return new AccountList(UrlPrefix + Uri.EscapeDataString(AccountCode) + "/child_accounts");
         }
@@ -421,7 +421,7 @@ namespace Recurly
         /// Returns all active coupon redemptions on this account
         /// </summary>
         /// <returns></returns>
-        public RecurlyList<CouponRedemption> GetActiveRedemptions()
+        public IRecurlyList<CouponRedemption> GetActiveRedemptions()
         {
             var redemptions = new CouponRedemptionList();
 
@@ -790,7 +790,7 @@ namespace Recurly
         /// </summary>
         /// <param name="state">Account state to retrieve</param>
         /// <returns></returns>
-        public static RecurlyList<Account> List(Account.AccountState state = Account.AccountState.Active)
+        public static IRecurlyList<Account> List(Account.AccountState state = Account.AccountState.Active)
         {
             return List(state, null);
         }
@@ -801,7 +801,7 @@ namespace Recurly
         /// <param name="state">Account state to retrieve</param>
         /// <param name="filter">FilterCriteria used to apply server side sorting and filtering</param>
         /// <returns></returns>
-        public static RecurlyList<Account> List(Account.AccountState state, FilterCriteria filter)
+        public static IRecurlyList<Account> List(Account.AccountState state, FilterCriteria filter)
         {
             filter = filter ?? FilterCriteria.Instance;
             var parameters = filter.ToNamedValueCollection();

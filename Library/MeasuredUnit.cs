@@ -146,7 +146,7 @@ namespace Recurly
         /// <summary>
         /// Lists measured units
         /// </summary>
-        public static RecurlyList<MeasuredUnit> List()
+        public static IRecurlyList<MeasuredUnit> List()
         {
             return new MeasuredUnitList("/measured_units/");
         }

@@ -15,17 +15,17 @@ namespace Recurly
         {
         }
 
-        public override RecurlyList<Invoice> Start
+        public override IRecurlyList<Invoice> Start
         {
             get { return HasStartPage() ? new InvoiceList(StartUrl) : RecurlyList.Empty<Invoice>(); }
         }
 
-        public override RecurlyList<Invoice> Next
+        public override IRecurlyList<Invoice> Next
         {
             get { return HasNextPage() ? new InvoiceList(NextUrl) : RecurlyList.Empty<Invoice>(); }
         }
 
-        public override RecurlyList<Invoice> Prev
+        public override IRecurlyList<Invoice> Prev
         {
             get { return HasPrevPage() ? new InvoiceList(PrevUrl) : RecurlyList.Empty<Invoice>(); }
         }

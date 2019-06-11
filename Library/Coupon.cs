@@ -53,7 +53,7 @@ namespace Recurly
 
         public long Id { get; private set; }
 
-        public RecurlyList<CouponRedemption> Redemptions { get; private set; }
+        public IRecurlyList<CouponRedemption> Redemptions { get; private set; }
 
         public string CouponCode { get; set; }
         public string Name { get; set; }
@@ -195,7 +195,7 @@ namespace Recurly
                 UrlPrefix + Uri.EscapeDataString(CouponCode));
         }
 
-        public RecurlyList<Coupon> GetUniqueCouponCodes()
+        public IRecurlyList<Coupon> GetUniqueCouponCodes()
         {
             var coupons = new CouponList();
 
@@ -206,7 +206,7 @@ namespace Recurly
             return statusCode == HttpStatusCode.NotFound ? null : coupons;
         }
 
-        public RecurlyList<Coupon> Generate(int amount)
+        public IRecurlyList<Coupon> Generate(int amount)
         {
             NumberOfUniqueCodes = amount;
             var coupons = new CouponList();
@@ -551,7 +551,7 @@ namespace Recurly
         /// </summary>
         /// <param name="state">Account state to retrieve</param>
         /// <returns></returns>
-        public static RecurlyList<Coupon> List(Coupon.CouponState state = Coupon.CouponState.All)
+        public static IRecurlyList<Coupon> List(Coupon.CouponState state = Coupon.CouponState.All)
         {
             return List(state, null);
         }
@@ -562,7 +562,7 @@ namespace Recurly
         /// <param name="state">Coupon state to retrieve</param>
         /// <param name="filter">FilterCriteria used to apply server side sorting and filtering</param>
         /// <returns></returns>
-        public static RecurlyList<Coupon> List(Coupon.CouponState state, FilterCriteria filter)
+        public static IRecurlyList<Coupon> List(Coupon.CouponState state, FilterCriteria filter)
         {
             filter = filter ?? FilterCriteria.Instance;
             var parameters = filter.ToNamedValueCollection();

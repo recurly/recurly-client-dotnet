@@ -17,17 +17,17 @@ namespace Recurly
         {
         }
 
-        public override RecurlyList<SubscriptionAddOn> Start
+        public override IRecurlyList<SubscriptionAddOn> Start
         {
             get { return HasStartPage() ? new SubscriptionAddOnList(StartUrl) : RecurlyList.Empty<SubscriptionAddOn>(); }
         }
 
-        public override RecurlyList<SubscriptionAddOn> Next
+        public override IRecurlyList<SubscriptionAddOn> Next
         {
             get { return HasNextPage() ? new SubscriptionAddOnList(NextUrl) : RecurlyList.Empty<SubscriptionAddOn>(); }
         }
 
-        public override RecurlyList<SubscriptionAddOn> Prev
+        public override IRecurlyList<SubscriptionAddOn> Prev
         {
             get { return HasPrevPage() ? new SubscriptionAddOnList(PrevUrl) : RecurlyList.Empty<SubscriptionAddOn>(); }
         }

@@ -30,17 +30,17 @@ namespace Recurly
         {
         }
 
-        public override RecurlyList<Transaction> Start
+        public override IRecurlyList<Transaction> Start
         {
             get { return HasStartPage() ? new TransactionList(StartUrl) : RecurlyList.Empty<Transaction>(); }
         }
 
-        public override RecurlyList<Transaction> Next
+        public override IRecurlyList<Transaction> Next
         {
             get { return HasNextPage() ? new TransactionList(NextUrl) : RecurlyList.Empty<Transaction>(); }
         }
 
-        public override RecurlyList<Transaction> Prev
+        public override IRecurlyList<Transaction> Prev
         {
             get { return HasPrevPage() ? new TransactionList(PrevUrl) : RecurlyList.Empty<Transaction>(); }
         }

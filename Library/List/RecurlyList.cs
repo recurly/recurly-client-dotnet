@@ -8,7 +8,7 @@ using HttpRequestMethod = Recurly.Client.HttpRequestMethod;
 
 namespace Recurly
 {
-    public abstract class RecurlyList<T> : IEnumerable<T> where T : RecurlyEntity
+    public abstract class RecurlyList<T> : IEnumerable<T>, IRecurlyList<T> where T : RecurlyEntity
     {
         protected List<T> Items = new List<T>();
         internal HttpRequestMethod Method;
@@ -26,11 +26,11 @@ namespace Recurly
             }
         }
 
-        public abstract RecurlyList<T> Start { get; }
-        public abstract RecurlyList<T> Next { get; }
-        public abstract RecurlyList<T> Prev { get; }
+        public abstract IRecurlyList<T> Start { get; }
+        public abstract IRecurlyList<T> Next { get; }
+        public abstract IRecurlyList<T> Prev { get; }
 
-        public IList<T> All
+        public IEnumerable<T> All
         {
             get
             {
@@ -258,17 +258,17 @@ namespace Recurly
             Items = new List<T>();
         }
 
-        public override RecurlyList<T> Start
+        public override IRecurlyList<T> Start
         {
             get { return new EmptyRecurlyListImpl<T>(); }
         }
 
-        public override RecurlyList<T> Next
+        public override IRecurlyList<T> Next
         {
             get { return new EmptyRecurlyListImpl<T>(); }
         }
 
-        public override RecurlyList<T> Prev
+        public override IRecurlyList<T> Prev
         {
             get { return new EmptyRecurlyListImpl<T>(); }
         }

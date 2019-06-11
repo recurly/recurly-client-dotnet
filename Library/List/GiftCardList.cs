@@ -24,17 +24,17 @@ namespace Recurly
 
         }
 
-        public override RecurlyList<GiftCard> Start
+        public override IRecurlyList<GiftCard> Start
         {
             get { return HasStartPage() ? new GiftCardList(StartUrl) : RecurlyList.Empty<GiftCard>(); }
         }
 
-        public override RecurlyList<GiftCard> Next
+        public override IRecurlyList<GiftCard> Next
         {
             get { return HasNextPage() ? new GiftCardList(NextUrl) : RecurlyList.Empty<GiftCard>(); }
         }
 
-        public override RecurlyList<GiftCard> Prev
+        public override IRecurlyList<GiftCard> Prev
         {
             get { return HasPrevPage() ? new GiftCardList(PrevUrl) : RecurlyList.Empty<GiftCard>(); }
         }

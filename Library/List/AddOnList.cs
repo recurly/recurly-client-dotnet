@@ -27,17 +27,17 @@ namespace Recurly
             }
         }
 
-        public override RecurlyList<AddOn> Start
+        public override IRecurlyList<AddOn> Start
         {
             get { return HasStartPage() ? new AddOnList(StartUrl) : RecurlyList.Empty<AddOn>(); }
         }
 
-        public override RecurlyList<AddOn> Next
+        public override IRecurlyList<AddOn> Next
         {
             get { return HasNextPage() ? new AddOnList(NextUrl) : RecurlyList.Empty<AddOn>(); }
         }
 
-        public override RecurlyList<AddOn> Prev
+        public override IRecurlyList<AddOn> Prev
         {
             get { return HasPrevPage() ? new AddOnList(PrevUrl) : RecurlyList.Empty<AddOn>(); }
         }

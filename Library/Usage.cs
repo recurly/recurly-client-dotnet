@@ -236,7 +236,7 @@ namespace Recurly
         /// <param name="subscriptionUuid">uuid of the Subscription</param>
         /// <param name="subscriptionAddOnCode">add on code of the Subscription</param>
         /// <returns></returns>
-        public static RecurlyList<Usage> List(string subscriptionUuid, string subscriptionAddOnCode)
+        public static IRecurlyList<Usage> List(string subscriptionUuid, string subscriptionAddOnCode)
         {
             return new UsageList(UrlPrefix(subscriptionUuid, subscriptionAddOnCode));
         }
@@ -248,13 +248,13 @@ namespace Recurly
         /// <param name="subscriptionAddOnCode">add on code of the Subscription</param>
         /// <param name="filter">FilterCriteria used to apply server side sorting and filtering</param>
         /// <returns></returns>
-        public static RecurlyList<Usage> List(string subscriptionUuid, string subscriptionAddOnCode, FilterCriteria filter)
+        public static IRecurlyList<Usage> List(string subscriptionUuid, string subscriptionAddOnCode, FilterCriteria filter)
         {
             filter = filter ?? FilterCriteria.Instance;
             return new UsageList(UrlPrefix(subscriptionUuid, subscriptionAddOnCode) + "?" + filter.ToNamedValueCollection().ToString());
         }
 
-        public static RecurlyList<Usage> List(string subscriptionUuid, string subscriptionAddOnCode, FilterCriteria filter,
+        public static IRecurlyList<Usage> List(string subscriptionUuid, string subscriptionAddOnCode, FilterCriteria filter,
             UsageList.UsageBillingState billingState = UsageList.UsageBillingState.All,
             UsageList.UsageDateTimeType dateTimeType = UsageList.UsageDateTimeType.All)
         {

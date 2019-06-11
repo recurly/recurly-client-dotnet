@@ -4,17 +4,17 @@ namespace Recurly
 {
     public class CreditPaymentList : RecurlyList<CreditPayment>
     {
-        public override RecurlyList<CreditPayment> Start
+        public override IRecurlyList<CreditPayment> Start
         {
             get { return HasStartPage() ? new CreditPaymentList(StartUrl) : RecurlyList.Empty<CreditPayment>(); }
         }
 
-        public override RecurlyList<CreditPayment> Next
+        public override IRecurlyList<CreditPayment> Next
         {
             get { return HasNextPage() ? new CreditPaymentList(NextUrl) : RecurlyList.Empty<CreditPayment>(); }
         }
 
-        public override RecurlyList<CreditPayment> Prev
+        public override IRecurlyList<CreditPayment> Prev
         {
             get { return HasPrevPage() ? new CreditPaymentList(PrevUrl) : RecurlyList.Empty<CreditPayment>(); }
         }

@@ -73,6 +73,7 @@
     <Compile Include="FilterCriteria.cs" />
     <Compile Include="InvoiceCollection.cs" />
     <Compile Include="List\CreditPaymentList.cs" />
+    <Compile Include="List\IRecurlyList.cs" />
     <Compile Include="Purchase.cs" />
     <Compile Include="Errors.cs" />
     <Compile Include="Export.cs" />

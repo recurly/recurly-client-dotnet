@@ -20,7 +20,7 @@ namespace Recurly
         /// <summary>
         /// The invoices associated with credits.
         /// </summary>
-        public RecurlyList<Invoice> CreditInvoices { get; private set; }
+        public IRecurlyList<Invoice> CreditInvoices { get; private set; }
 
         internal InvoiceCollection()
         {

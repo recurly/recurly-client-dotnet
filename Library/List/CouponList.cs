@@ -16,17 +16,17 @@ namespace Recurly
         {
         }
 
-        public override RecurlyList<Coupon> Start
+        public override IRecurlyList<Coupon> Start
         {
             get { return HasStartPage() ? new CouponList(StartUrl) : RecurlyList.Empty<Coupon>(); }
         }
 
-        public override RecurlyList<Coupon> Next
+        public override IRecurlyList<Coupon> Next
         {
             get { return HasNextPage() ? new CouponList(NextUrl) : RecurlyList.Empty<Coupon>(); }
         }
 
-        public override RecurlyList<Coupon> Prev
+        public override IRecurlyList<Coupon> Prev
         {
             get { return HasPrevPage() ? new CouponList(PrevUrl) : RecurlyList.Empty<Coupon>(); }
         }

@@ -8,17 +8,17 @@ namespace Recurly
         {
         }
 
-        public override RecurlyList<Plan> Start
+        public override IRecurlyList<Plan> Start
         {
             get { return HasStartPage() ? new PlanList(StartUrl) : RecurlyList.Empty<Plan>(); }
         }
 
-        public override RecurlyList<Plan> Next
+        public override IRecurlyList<Plan> Next
         {
             get { return HasNextPage() ? new PlanList(NextUrl) : RecurlyList.Empty<Plan>(); }
         }
 
-        public override RecurlyList<Plan> Prev
+        public override IRecurlyList<Plan> Prev
         {
             get { return HasPrevPage() ? new PlanList(PrevUrl) : RecurlyList.Empty<Plan>(); }
         }

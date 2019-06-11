@@ -64,7 +64,7 @@ namespace Recurly
         /// <param name="writer">The <see cref="T:System.Xml.XmlTextWriter"/> to write to.</param>
         /// <param name="collectionName">The value to use for the encompassing XML tag if the collection is written.</param>
         /// <param name="items">The collection to test and then write if it has any elements.</param>
-        public static void WriteIfCollectionHasAny<T>(this XmlTextWriter writer, string collectionName, RecurlyList<T> items)
+        public static void WriteIfCollectionHasAny<T>(this XmlTextWriter writer, string collectionName, IRecurlyList<T> items)
             where T : RecurlyEntity
         {
             if (!items.includeEmptyTag() && !items.HasAny()) return;

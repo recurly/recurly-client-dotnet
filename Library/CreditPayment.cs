@@ -119,7 +119,7 @@ namespace Recurly
         /// </summary>
         /// <param name="filter">FilterCriteria used to apply server side sorting and filtering</param>
         /// <returns></returns>
-        public static RecurlyList<CreditPayment> List(FilterCriteria filter)
+        public static IRecurlyList<CreditPayment> List(FilterCriteria filter)
         {
             filter = filter ?? FilterCriteria.Instance;
             var parameters = filter.ToNamedValueCollection();

@@ -97,12 +97,12 @@ namespace Recurly
 
     public sealed class Exports
     {
-        public static RecurlyList<ExportDate> ListExportDates()
+        public static IRecurlyList<ExportDate> ListExportDates()
         {
             return new ExportDateList(ExportDate.UrlPrefix);
         }
 
-        public static RecurlyList<ExportFile> ListExportFiles(DateTime date)
+        public static IRecurlyList<ExportFile> ListExportFiles(DateTime date)
         {
             return new ExportFileList(string.Format(ExportFile.FilesUrlPrefix, date.ToString("yyyy-MM-dd")));
         }

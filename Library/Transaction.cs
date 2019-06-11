@@ -385,7 +385,7 @@ namespace Recurly
         /// <param name="state"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static RecurlyList<Transaction> List(TransactionList.TransactionState state = TransactionList.TransactionState.All,
+        public static IRecurlyList<Transaction> List(TransactionList.TransactionState state = TransactionList.TransactionState.All,
             TransactionList.TransactionType type = TransactionList.TransactionType.All)
         {
             return List(state, type, null);
@@ -398,7 +398,7 @@ namespace Recurly
         /// <param name="type"></param>
         /// <param name="filter">FilterCriteria used to apply server side sorting and filtering</param>
         /// <returns></returns>
-        public static RecurlyList<Transaction> List(TransactionList.TransactionState state,
+        public static IRecurlyList<Transaction> List(TransactionList.TransactionState state,
             TransactionList.TransactionType type,
             FilterCriteria filter)
         {

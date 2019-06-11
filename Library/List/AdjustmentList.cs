@@ -4,17 +4,17 @@ namespace Recurly
 {
     public class AdjustmentList : RecurlyList<Adjustment>
     {
-        public override RecurlyList<Adjustment> Start
+        public override IRecurlyList<Adjustment> Start
         {
             get { return HasStartPage() ? new AdjustmentList(StartUrl) : RecurlyList.Empty<Adjustment>(); }
         }
 
-        public override RecurlyList<Adjustment> Next
+        public override IRecurlyList<Adjustment> Next
         {
             get { return HasNextPage() ? new AdjustmentList(NextUrl) : RecurlyList.Empty<Adjustment>(); }
         }
 
-        public override RecurlyList<Adjustment> Prev
+        public override IRecurlyList<Adjustment> Prev
         {
             get { return HasPrevPage() ? new AdjustmentList(PrevUrl) : RecurlyList.Empty<Adjustment>(); }
         }

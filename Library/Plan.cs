@@ -58,7 +58,7 @@ namespace Recurly
 
         private AddOnList _addOns;
 
-        public RecurlyList<AddOn> AddOns
+        public IRecurlyList<AddOn> AddOns
         {
             get
             {
@@ -442,7 +442,7 @@ namespace Recurly
         /// Retrieves a list of all active plans
         /// </summary>
         /// <returns></returns>
-        public static RecurlyList<Plan> List()
+        public static IRecurlyList<Plan> List()
         {
             return List(null);
         }
@@ -453,7 +453,7 @@ namespace Recurly
         /// <param name="state">Account state to retrieve</param>
         /// <param name="filter">FilterCriteria used to apply server side sorting and filtering</param>
         /// <returns></returns>
-        public static RecurlyList<Plan> List(FilterCriteria filter)
+        public static IRecurlyList<Plan> List(FilterCriteria filter)
         {
             filter = filter == null ? FilterCriteria.Instance : filter;
             return new PlanList(Plan.UrlPrefix + "?" + filter.ToNamedValueCollection().ToString());

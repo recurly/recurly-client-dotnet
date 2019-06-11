@@ -26,17 +26,17 @@ namespace Recurly
         {
         }
 
-        public override RecurlyList<Usage> Start
+        public override IRecurlyList<Usage> Start
         {
             get { return HasStartPage() ? new UsageList(StartUrl) : RecurlyList.Empty<Usage>(); }
         }
 
-        public override RecurlyList<Usage> Next
+        public override IRecurlyList<Usage> Next
         {
             get { return HasNextPage() ? new UsageList(NextUrl) : RecurlyList.Empty<Usage>(); }
         }
 
-        public override RecurlyList<Usage> Prev
+        public override IRecurlyList<Usage> Prev
         {
             get { return HasPrevPage() ? new UsageList(PrevUrl) : RecurlyList.Empty<Usage>(); }
         }

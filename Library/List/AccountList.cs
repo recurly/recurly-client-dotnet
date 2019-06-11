@@ -23,17 +23,17 @@ namespace Recurly
 
         }
 
-        public override RecurlyList<Account> Start
+        public override IRecurlyList<Account> Start
         {
             get { return HasStartPage() ? new AccountList(StartUrl) : RecurlyList.Empty<Account>(); }
         }
 
-        public override RecurlyList<Account> Next
+        public override IRecurlyList<Account> Next
         {
             get { return HasNextPage() ? new AccountList(NextUrl) : RecurlyList.Empty<Account>(); }
         }
 
-        public override RecurlyList<Account> Prev
+        public override IRecurlyList<Account> Prev
         {
             get { return HasPrevPage() ? new AccountList(PrevUrl) : RecurlyList.Empty<Account>(); }
         }

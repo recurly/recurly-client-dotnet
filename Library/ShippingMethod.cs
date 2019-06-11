@@ -142,7 +142,7 @@ namespace Recurly
         /// Lists shipping methods
         /// </summary>
         /// <returns></returns>
-        public static RecurlyList<ShippingMethod> List()
+        public static IRecurlyList<ShippingMethod> List()
         {
             return new ShippingMethodList(ShippingMethod.UrlPrefix);
         }
@@ -152,7 +152,7 @@ namespace Recurly
         /// </summary>
         /// <param name="filter">FilterCriteria used to apply server side sorting and filtering</param>
         /// <returns></returns>
-        public static RecurlyList<ShippingMethod> List(FilterCriteria filter)
+        public static IRecurlyList<ShippingMethod> List(FilterCriteria filter)
         {
             filter = filter ?? FilterCriteria.Instance;
             var parameters = filter.ToNamedValueCollection();

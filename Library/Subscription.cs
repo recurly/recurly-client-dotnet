@@ -532,7 +532,7 @@ namespace Recurly
             return true;
         }
 
-        public RecurlyList<CouponRedemption> GetRedemptions()
+        public IRecurlyList<CouponRedemption> GetRedemptions()
         {
             var coupons = new CouponRedemptionList();
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
@@ -1088,7 +1088,7 @@ namespace Recurly
         /// </summary>
         /// <param name="state">State of subscriptions to return, defaults to "live"</param>
         /// <returns></returns>
-        public static RecurlyList<Subscription> List(Subscription.SubscriptionState state = Subscription.SubscriptionState.Live)
+        public static IRecurlyList<Subscription> List(Subscription.SubscriptionState state = Subscription.SubscriptionState.Live)
         {
             return List(state, null);
         }
@@ -1101,7 +1101,7 @@ namespace Recurly
         /// <param name="state">State of subscriptions to return, defaults to "live"</param>
         /// <param name="filter">FilterCriteria used to apply server side sorting and filtering</param>
         /// <returns></returns>
-        public static RecurlyList<Subscription> List(Subscription.SubscriptionState state, FilterCriteria filter)
+        public static IRecurlyList<Subscription> List(Subscription.SubscriptionState state, FilterCriteria filter)
         {
             filter = filter ?? FilterCriteria.Instance;
             var parameters = filter.ToNamedValueCollection();

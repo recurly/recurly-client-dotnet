@@ -6,20 +6,20 @@ namespace Recurly
     {
         public NoteList(string baseUrl) : base(Client.HttpRequestMethod.Get, baseUrl)
         {
-            
+
         }
 
-        public override RecurlyList<Note> Start
+        public override IRecurlyList<Note> Start
         {
             get { return HasStartPage() ? new NoteList(StartUrl) : RecurlyList.Empty<Note>(); }
         }
 
-        public override RecurlyList<Note> Next
+        public override IRecurlyList<Note> Next
         {
             get { return HasNextPage() ? new NoteList(NextUrl) : RecurlyList.Empty<Note>(); }
         }
 
-        public override RecurlyList<Note> Prev
+        public override IRecurlyList<Note> Prev
         {
             get { return HasPrevPage() ? new NoteList(PrevUrl) : RecurlyList.Empty<Note>(); }
         }

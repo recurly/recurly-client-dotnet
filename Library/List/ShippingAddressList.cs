@@ -15,17 +15,17 @@ namespace Recurly
         {
         }
 
-        public override RecurlyList<ShippingAddress> Start
+        public override IRecurlyList<ShippingAddress> Start
         {
             get { return HasStartPage() ? new ShippingAddressList(StartUrl) : RecurlyList.Empty<ShippingAddress>(); }
         }
 
-        public override RecurlyList<ShippingAddress> Next
+        public override IRecurlyList<ShippingAddress> Next
         {
             get { return HasNextPage() ? new ShippingAddressList(NextUrl) : RecurlyList.Empty<ShippingAddress>(); }
         }
 
-        public override RecurlyList<ShippingAddress> Prev
+        public override IRecurlyList<ShippingAddress> Prev
         {
             get { return HasPrevPage() ? new ShippingAddressList(PrevUrl) : RecurlyList.Empty<ShippingAddress>(); }
         }

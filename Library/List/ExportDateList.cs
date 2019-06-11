@@ -11,17 +11,17 @@ namespace Recurly.List
     {
         public ExportDateList(string baseUrl) : base(Client.HttpRequestMethod.Get, baseUrl)
         { }
-        public override RecurlyList<ExportDate> Start
+        public override IRecurlyList<ExportDate> Start
         {
             get { return HasStartPage() ? new ExportDateList(StartUrl) : RecurlyList.Empty<ExportDate>(); }
         }
 
-        public override RecurlyList<ExportDate> Next
+        public override IRecurlyList<ExportDate> Next
         {
             get { return HasNextPage() ? new ExportDateList(NextUrl) : RecurlyList.Empty<ExportDate>(); }
         }
 
-        public override RecurlyList<ExportDate> Prev
+        public override IRecurlyList<ExportDate> Prev
         {
             get { return HasPrevPage() ? new ExportDateList(PrevUrl) : RecurlyList.Empty<ExportDate>(); }
         }

@@ -403,7 +403,7 @@ namespace Recurly
         /// <param name="recipientAccountCode">A recipients's account code to filter by (may be null)</param>
         /// <param name="filter">FilterCriteria used to apply server side sorting and filtering</param>
         /// <returns></returns>
-        public static RecurlyList<GiftCard> List(string gifterAccountCode = null, string recipientAccountCode = null, FilterCriteria filter = null)
+        public static IRecurlyList<GiftCard> List(string gifterAccountCode = null, string recipientAccountCode = null, FilterCriteria filter = null)
         {
             filter = filter ?? FilterCriteria.Instance;
             var parameters = filter.ToNamedValueCollection();
