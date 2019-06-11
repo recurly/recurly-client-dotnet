@@ -60,7 +60,7 @@ namespace Recurly
         public DateTime CreatedAt { get; private set; }
         public DateTime UpdatedAt { get; private set; }
 
-        private Account _account;
+        private IAccount _account;
 
         public string AccountCode { get; private set; }
 
@@ -74,7 +74,7 @@ namespace Recurly
         public DateTime CollectedAt { get; set; }
         public TransactionError Error { get; private set; }
 
-        public Account Account
+        public IAccount Account
         {
             get { return _account ?? (_account = Accounts.Get(AccountCode)); }
             set
@@ -106,7 +106,7 @@ namespace Recurly
         /// <param name="account"></param>
         /// <param name="amountInCents"></param>
         /// <param name="currency"></param>
-        public Transaction(Account account, int amountInCents, string currency)
+        public Transaction(IAccount account, int amountInCents, string currency)
         {
             Account = account;
             AmountInCents = amountInCents;
@@ -151,7 +151,7 @@ namespace Recurly
                 ReadXml);
         }
 
-        public Invoice GetInvoice()
+        public IInvoice GetInvoice()
         {
             return Invoices.Get(InvoiceNumberWithPrefix());
         }
@@ -330,7 +330,7 @@ namespace Recurly
 
             if (Account != null)
             {
-                Account.WriteXml(xmlWriter);
+                Recurly.Account.WriteXml(xmlWriter, Account);
             }
 
             xmlWriter.WriteEndElement();

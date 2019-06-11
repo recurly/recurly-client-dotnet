@@ -40,7 +40,7 @@ namespace Recurly
         /// <summary>
         /// The address of the recipient.
         /// </summary>
-        public Address Address { get; set; }
+        public IAddress Address { get; set; }
 
         /// <summary>
         /// When the gift card should be delivered to the recipient.

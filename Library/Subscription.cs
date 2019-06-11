@@ -37,30 +37,30 @@ namespace Recurly
             None
         }
 
-        public Address Address
+        public IAddress Address
         {
             get { return _address ?? (_address = new Address()); }
             set { _address = value; }
         }
-        private Address _address;
+        private IAddress _address;
 
         private string _accountCode;
         public string AccountCode => _accountCode;
 
-        private Account _account;
+        private IAccount _account;
         /// <summary>
         /// Account in Recurly
         /// </summary>
-        public Account Account
+        public IAccount Account
         {
             get { return _account ?? (_account = Accounts.Get(_accountCode)); }
         }
 
         private string _invoiceNumber;
-        private Invoice _invoice;
+        private IInvoice _invoice;
         /// <summary>
         /// </summary>
-        public Invoice Invoice
+        public IInvoice Invoice
         {
             get { return _invoice ?? (_invoice = Invoices.Get(_invoiceNumber)); }
         }
@@ -264,7 +264,7 @@ namespace Recurly
         /// <summary>
         /// The invoice generated when calling the Preview method
         /// </summary>
-        public Invoice InvoicePreview { get; private set; }
+        public IInvoice InvoicePreview { get; private set; }
         public int? TotalBillingCycles { get; set; }
         public int? RemainingBillingCycles { get; set; }
         public int? RemainingPauseCycles { get; private set; }
@@ -386,7 +386,7 @@ namespace Recurly
         /// <param name="account"></param>
         /// <param name="plan"></param>
         /// <param name="currency"></param>
-        public Subscription(Account account, Plan plan, string currency)
+        public Subscription(IAccount account, Plan plan, string currency)
         {
             _accountCode = account.AccountCode;
             _account = account;
@@ -402,7 +402,7 @@ namespace Recurly
         /// <param name="plan"></param>
         /// <param name="currency"></param>
         /// <param name="couponCode"></param>
-        public Subscription(Account account, Plan plan, string currency, string couponCode)
+        public Subscription(IAccount account, Plan plan, string currency, string couponCode)
         {
             _accountCode = account.AccountCode;
             _account = account;
@@ -939,7 +939,7 @@ namespace Recurly
             if (!embedded)
             {
                 // <account> and billing info
-                Account.WriteXml(xmlWriter);
+                Recurly.Account.WriteXml(xmlWriter, Account);
                 xmlWriter.WriteElementString("currency", Currency);
                 xmlWriter.WriteElementString("customer_notes", CustomerNotes);
                 xmlWriter.WriteElementString("terms_and_conditions", TermsAndConditions);

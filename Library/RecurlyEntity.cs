@@ -2,7 +2,7 @@
 
 namespace Recurly
 {
-    public abstract class RecurlyEntity
+    public abstract class RecurlyEntity : IRecurlyEntity
     {
         internal QueryStringBuilder Build { get; set; }
 

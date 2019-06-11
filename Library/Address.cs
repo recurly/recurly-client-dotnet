@@ -2,7 +2,7 @@
 
 namespace Recurly
 {
-    public class Address : RecurlyEntity
+    public class Address : RecurlyEntity, IAddress
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

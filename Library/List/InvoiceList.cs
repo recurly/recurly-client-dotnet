@@ -2,7 +2,7 @@
 
 namespace Recurly
 {
-    public class InvoiceList : RecurlyList<Invoice>
+    public class InvoiceList : RecurlyList<IInvoice>
     {
 
         internal InvoiceList()
@@ -15,19 +15,19 @@ namespace Recurly
         {
         }
 
-        public override IRecurlyList<Invoice> Start
+        public override IRecurlyList<IInvoice> Start
         {
-            get { return HasStartPage() ? new InvoiceList(StartUrl) : RecurlyList.Empty<Invoice>(); }
+            get { return HasStartPage() ? new InvoiceList(StartUrl) : RecurlyList.Empty<IInvoice>(); }
         }
 
-        public override IRecurlyList<Invoice> Next
+        public override IRecurlyList<IInvoice> Next
         {
-            get { return HasNextPage() ? new InvoiceList(NextUrl) : RecurlyList.Empty<Invoice>(); }
+            get { return HasNextPage() ? new InvoiceList(NextUrl) : RecurlyList.Empty<IInvoice>(); }
         }
 
-        public override IRecurlyList<Invoice> Prev
+        public override IRecurlyList<IInvoice> Prev
         {
-            get { return HasPrevPage() ? new InvoiceList(PrevUrl) : RecurlyList.Empty<Invoice>(); }
+            get { return HasPrevPage() ? new InvoiceList(PrevUrl) : RecurlyList.Empty<IInvoice>(); }
         }
 
         internal override void ReadXml(XmlTextReader reader)

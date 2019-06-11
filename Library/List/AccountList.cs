@@ -2,7 +2,7 @@
 
 namespace Recurly
 {
-    public class AccountList : RecurlyList<Account>
+    public class AccountList : RecurlyList<IAccount>
     {
         internal AccountList(string baseUrl) : base(Client.HttpRequestMethod.Get, baseUrl)
         {
@@ -23,19 +23,19 @@ namespace Recurly
 
         }
 
-        public override IRecurlyList<Account> Start
+        public override IRecurlyList<IAccount> Start
         {
-            get { return HasStartPage() ? new AccountList(StartUrl) : RecurlyList.Empty<Account>(); }
+            get { return HasStartPage() ? new AccountList(StartUrl) : RecurlyList.Empty<IAccount>(); }
         }
 
-        public override IRecurlyList<Account> Next
+        public override IRecurlyList<IAccount> Next
         {
-            get { return HasNextPage() ? new AccountList(NextUrl) : RecurlyList.Empty<Account>(); }
+            get { return HasNextPage() ? new AccountList(NextUrl) : RecurlyList.Empty<IAccount>(); }
         }
 
-        public override IRecurlyList<Account> Prev
+        public override IRecurlyList<IAccount> Prev
         {
-            get { return HasPrevPage() ? new AccountList(PrevUrl) : RecurlyList.Empty<Account>(); }
+            get { return HasPrevPage() ? new AccountList(PrevUrl) : RecurlyList.Empty<IAccount>(); }
         }
     }
 }

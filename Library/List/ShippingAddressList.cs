@@ -4,9 +4,9 @@ namespace Recurly
 {
     public class ShippingAddressList : RecurlyList<ShippingAddress>
     {
-        private Account _accountn;
+        private IAccount _accountn;
 
-        public ShippingAddressList(Account account)
+        public ShippingAddressList(IAccount account)
         {
             _accountn = account;
         }

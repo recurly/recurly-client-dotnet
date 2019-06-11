@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace Recurly
 {
-    public class Invoice : RecurlyEntity
+    public class Invoice : RecurlyEntity, IInvoice
     {
         // The currently valid Invoice States
         public enum InvoiceState
@@ -101,12 +101,12 @@ namespace Recurly
         public DateTime? UpdatedAt { get; private set; }
         public DateTime? ClosedAt { get; private set; }
 
-        public Address Address
+        public IAddress Address
         {
             get { return _address ?? (_address = new Address()); }
             set { _address = value; }
         }
-        private Address _address;
+        private IAddress _address;
 
         public ShippingAddress ShippingAddress { get; private set; }
 
@@ -174,7 +174,7 @@ namespace Recurly
             return Client.Instance.PerformDownloadRequest(memberUrl(), "application/pdf", acceptLanguage);
         }
 
-        public SubscriptionList GetSubscriptions()
+        public IRecurlyList<Subscription> GetSubscriptions()
         {
             var url = this.memberUrl() + "/subscriptions";
             return new SubscriptionList(url);
@@ -249,7 +249,7 @@ namespace Recurly
         /// Attempts to collect a pending or past due invoice.
         /// </summary>
         /// <returns>New Invoice Collection</returns>
-        public Invoice ForceCollect()
+        public IInvoice ForceCollect()
         {
             var invoice = new Invoice();
             Client.Instance.PerformRequest(
@@ -279,12 +279,12 @@ namespace Recurly
             return statusCode == HttpStatusCode.NotFound ? null : coupons;
         }
 
-        public Invoice GetOriginalInvoice()
+        public IInvoice GetOriginalInvoice()
         {
             return Invoices.Get(OriginalInvoiceNumberWithPrefix());
         }
 
-        public TransactionList GetTransactions()
+        public IRecurlyList<Transaction> GetTransactions()
         {
             var transactions = new TransactionList();
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
@@ -300,7 +300,7 @@ namespace Recurly
         /// <param name="adjustments">The list of adjustments to refund.</param>
         /// <param name="options">The options for the refund invoice.</param>
         /// <returns>new Invoice object</returns>
-        public Invoice Refund(IEnumerable<Adjustment> adjustments, RefundOptions options)
+        public IInvoice Refund(IEnumerable<Adjustment> adjustments, RefundOptions options)
         {
             var refunds = new RefundList(adjustments, options);
             var invoice = new Invoice();
@@ -322,7 +322,7 @@ namespace Recurly
         /// <param name="adjustment">The adjustment to be refunded.</param>
         /// <param name="options">The options for the refund invoice.</param>
         /// <returns>new Invoice object</returns>
-        public Invoice Refund(Adjustment adjustment, RefundOptions options)
+        public IInvoice Refund(Adjustment adjustment, RefundOptions options)
         {
             var adjustments = new List<Adjustment>();
             adjustments.Add(adjustment);
@@ -338,7 +338,7 @@ namespace Recurly
         /// <param name="method"></param>
         /// <returns>new Invoice object</returns>
         [Obsolete("This method is deprecated, please use Refund(Adjustment, Invoice.RefundOptions).")]
-        public Invoice Refund(Adjustment adjustment, bool prorate = false, int quantity = 0, RefundMethod method = RefundMethod.CreditFirst)
+        public IInvoice Refund(Adjustment adjustment, bool prorate = false, int quantity = 0, RefundMethod method = RefundMethod.CreditFirst)
         {
             var adjustments = new List<Adjustment>();
             adjustments.Add(adjustment);
@@ -355,7 +355,7 @@ namespace Recurly
         /// <param name="method"></param>
         /// <returns>new Invoice object</returns>
         [Obsolete("This method is deprecated, please use Refund(IEnumerable<Adjustment>, Invoice.RefundOptions).")]
-        public Invoice Refund(IEnumerable<Adjustment> adjustments, bool prorate = false, int quantity = 0, RefundMethod method = RefundMethod.CreditFirst)
+        public IInvoice Refund(IEnumerable<Adjustment> adjustments, bool prorate = false, int quantity = 0, RefundMethod method = RefundMethod.CreditFirst)
         {
             var refunds = new RefundList(adjustments, prorate, quantity, method);
             var invoice = new Invoice();
@@ -377,7 +377,7 @@ namespace Recurly
         /// <param name="amountIncents">The amount in cents to refund from the invoice.</param>
         /// <param name="options">The options for the refund invoice.</param>
         /// <returns>new Invoice object</returns>
-        public Invoice RefundAmount(int amountInCents, RefundOptions options)
+        public IInvoice RefundAmount(int amountInCents, RefundOptions options)
         {
             var refundInvoice = new Invoice();
             var refund = new OpenAmountRefund(amountInCents, options);
@@ -394,7 +394,7 @@ namespace Recurly
         }
 
         [Obsolete("This method is deprecated, please use RefundAmount(int, Invoice.RefundOptions).")]
-        public Invoice RefundAmount(int amountInCents, RefundMethod method = RefundMethod.CreditFirst)
+        public IInvoice RefundAmount(int amountInCents, RefundMethod method = RefundMethod.CreditFirst)
         {
             var refundInvoice = new Invoice();
             var refund = new OpenAmountRefund(amountInCents, method);
@@ -574,14 +574,16 @@ namespace Recurly
 
                     case "line_items":
                         // overrite existing value with the Recurly API response
-                        Adjustments = new AdjustmentList();
-                        Adjustments.ReadXml(reader);
+                        var adjustments = new AdjustmentList();
+                        adjustments.ReadXml(reader);
+                        Adjustments = adjustments;
                         break;
 
                     case "transactions":
                         // overrite existing value with the Recurly API response
-                        Transactions = new TransactionList();
-                        Transactions.ReadXml(reader);
+                        var transactions = new TransactionList();
+                        transactions.ReadXml(reader);
+                        Transactions = transactions;
                         break;
 
                     case "address":
@@ -639,21 +641,26 @@ namespace Recurly
 
         internal override void WriteXml(XmlTextWriter xmlWriter)
         {
+            WriteXml(xmlWriter, this);
+        }
+
+        internal static void WriteXml(XmlTextWriter xmlWriter, IInvoice invoice)
+        {
             xmlWriter.WriteStartElement("invoice"); // Start: invoice
 
-            xmlWriter.WriteElementString("customer_notes", CustomerNotes);
-            xmlWriter.WriteElementString("terms_and_conditions", TermsAndConditions);
-            xmlWriter.WriteElementString("vat_reverse_charge_notes", VatReverseChargeNotes);
-            xmlWriter.WriteElementString("po_number", PoNumber);
+            xmlWriter.WriteElementString("customer_notes", invoice.CustomerNotes);
+            xmlWriter.WriteElementString("terms_and_conditions", invoice.TermsAndConditions);
+            xmlWriter.WriteElementString("vat_reverse_charge_notes", invoice.VatReverseChargeNotes);
+            xmlWriter.WriteElementString("po_number", invoice.PoNumber);
 
-            if (CollectionMethod == Collection.Manual)
+            if (invoice.CollectionMethod == Collection.Manual)
             {
                 xmlWriter.WriteElementString("collection_method", "manual");
 
-                if (NetTerms.HasValue)
-                    xmlWriter.WriteElementString("net_terms", NetTerms.Value.AsString());
+                if (invoice.NetTerms.HasValue)
+                    xmlWriter.WriteElementString("net_terms", invoice.NetTerms.Value.AsString());
             }
-            else if (CollectionMethod == Collection.Automatic)
+            else if (invoice.CollectionMethod == Collection.Automatic)
             {
                 xmlWriter.WriteElementString("collection_method", "automatic");
             }
@@ -663,19 +670,24 @@ namespace Recurly
 
         internal void WriteUpdateXml(XmlTextWriter xmlWriter)
         {
+            WriteUpdateXml(xmlWriter, this);
+        }
+
+        internal static void WriteUpdateXml(XmlTextWriter xmlWriter, IInvoice invoice)
+        {
             xmlWriter.WriteStartElement("invoice"); // Start: invoice
 
-            Address.WriteXml(xmlWriter);
-            xmlWriter.WriteElementString("customer_notes", CustomerNotes);
-            xmlWriter.WriteElementString("terms_and_conditions", TermsAndConditions);
-            xmlWriter.WriteElementString("vat_reverse_charge_notes", VatReverseChargeNotes);
-            xmlWriter.WriteElementString("gateway_code", GatewayCode);
-            xmlWriter.WriteElementString("po_number", PoNumber);
+            invoice.Address.WriteXml(xmlWriter);
+            xmlWriter.WriteElementString("customer_notes", invoice.CustomerNotes);
+            xmlWriter.WriteElementString("terms_and_conditions", invoice.TermsAndConditions);
+            xmlWriter.WriteElementString("vat_reverse_charge_notes", invoice.VatReverseChargeNotes);
+            xmlWriter.WriteElementString("gateway_code", invoice.GatewayCode);
+            xmlWriter.WriteElementString("po_number", invoice.PoNumber);
 
-            if (NetTerms.HasValue && _netTermsChanged)
-            {
-                xmlWriter.WriteElementString("net_terms", NetTerms.Value.AsString());
-            }
+            //if (invoice.NetTerms.HasValue && _netTermsChanged)
+            //{
+            //    xmlWriter.WriteElementString("net_terms", invoice.NetTerms.Value.AsString());
+            //}
 
             xmlWriter.WriteEndElement(); // End: invoice
         }
@@ -695,7 +707,7 @@ namespace Recurly
             return invoice != null && Equals(invoice);
         }
 
-        public bool Equals(Invoice invoice)
+        public bool Equals(IInvoice invoice)
         {
             return Uuid == invoice.Uuid;
         }
@@ -710,22 +722,22 @@ namespace Recurly
 
     public sealed class Invoices
     {
-        public static IRecurlyList<Invoice> List(string accountCode)
+        public static IRecurlyList<IInvoice> List(string accountCode)
         {
             return new InvoiceList("/accounts/" + Uri.EscapeDataString(accountCode) + "/invoices");
         }
 
-        public static IRecurlyList<Invoice> List()
+        public static IRecurlyList<IInvoice> List()
         {
             return new InvoiceList(Invoice.UrlPrefix);
         }
 
-        public static IRecurlyList<Invoice> List(Invoice.InvoiceState state)
+        public static IRecurlyList<IInvoice> List(Invoice.InvoiceState state)
         {
             return new InvoiceList(Invoice.UrlPrefix + "?state=" + state.ToString().EnumNameToTransportCase());
         }
 
-        public static IRecurlyList<Invoice> List(Invoice.InvoiceState state, FilterCriteria filter)
+        public static IRecurlyList<IInvoice> List(Invoice.InvoiceState state, FilterCriteria filter)
         {
             filter = filter ?? FilterCriteria.Instance;
             var parameters = filter.ToNamedValueCollection();
@@ -733,7 +745,7 @@ namespace Recurly
             return new InvoiceList(Invoice.UrlPrefix + "?" + parameters.ToString());
         }
 
-        public static IRecurlyList<Invoice> List(FilterCriteria filter)
+        public static IRecurlyList<IInvoice> List(FilterCriteria filter)
         {
             filter = filter ?? FilterCriteria.Instance;
             var parameters = filter.ToNamedValueCollection();
@@ -745,7 +757,7 @@ namespace Recurly
         /// </summary>
         /// <param name="invoiceNumber">Invoice Number</param>
         /// <returns></returns>
-        public static Invoice Get(int invoiceNumber)
+        public static IInvoice Get(int invoiceNumber)
         {
             return Get(Convert.ToString(invoiceNumber));
         }
@@ -755,7 +767,7 @@ namespace Recurly
         /// </summary>
         /// <param name="invoiceNumber">Invoice Number</param>
         /// <returns></returns>
-        public static Invoice Get(string invoiceNumberWithPrefix)
+        public static IInvoice Get(string invoiceNumberWithPrefix)
         {
             if (string.IsNullOrWhiteSpace(invoiceNumberWithPrefix))
             {

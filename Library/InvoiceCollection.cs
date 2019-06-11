@@ -15,12 +15,12 @@ namespace Recurly
         /// <summary>
         /// The invoice associated with charges.
         /// </summary>
-        public Invoice ChargeInvoice { get; private set; }
+        public IInvoice ChargeInvoice { get; private set; }
 
         /// <summary>
         /// The invoices associated with credits.
         /// </summary>
-        public IRecurlyList<Invoice> CreditInvoices { get; private set; }
+        public IRecurlyList<IInvoice> CreditInvoices { get; private set; }
 
         internal InvoiceCollection()
         {

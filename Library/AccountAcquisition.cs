@@ -38,7 +38,7 @@ namespace Recurly
             AccountCode = accountCode;
         }
 
-        public AccountAcquisition(Account account) : this()
+        public AccountAcquisition(IAccount account) : this()
         {
             AccountCode = account.AccountCode;
         }

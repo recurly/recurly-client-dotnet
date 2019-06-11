@@ -8,7 +8,7 @@ using HttpRequestMethod = Recurly.Client.HttpRequestMethod;
 
 namespace Recurly
 {
-    public abstract class RecurlyList<T> : IEnumerable<T>, IRecurlyList<T> where T : RecurlyEntity
+    public abstract class RecurlyList<T> : IEnumerable<T>, IRecurlyList<T> where T : class, IRecurlyEntity
     {
         protected List<T> Items = new List<T>();
         internal HttpRequestMethod Method;
@@ -121,27 +121,27 @@ namespace Recurly
         {
             return Items.AsReadOnly();
         }
-        internal bool Contains(T item)
+        public bool Contains(T item)
         {
             return Items.Contains(item);
         }
-        internal bool Contains(T value, IEqualityComparer<T> comparer)
+        public bool Contains(T value, IEqualityComparer<T> comparer)
         {
             return Items.Contains(value, comparer);
         }
-        internal bool Exists(Predicate <T> match)
+        public bool Exists(Predicate <T> match)
         {
             return Items.Exists(match);
         }
-        internal T Find(Predicate<T> match)
+        public T Find(Predicate<T> match)
         {
             return Items.Find(match);
         }
-        internal List<T> FindAll(Predicate<T> match)
+        public IEnumerable<T> FindAll(Predicate<T> match)
         {
             return Items.FindAll(match);
         }
-        internal T FindLast(Predicate<T> match)
+        public T FindLast(Predicate<T> match)
         {
             return Items.FindLast(match);
         }
@@ -197,7 +197,7 @@ namespace Recurly
         {
             Items.Sort(index, count, comparer);
         }
-        internal T[] ToArray()
+        public T[] ToArray()
         {
             return Items.ToArray();
         }
@@ -235,13 +235,13 @@ namespace Recurly
             Desc
         }
 
-        public static RecurlyList<T> Empty<T>() where T : RecurlyEntity
+        public static IRecurlyList<T> Empty<T>() where T : class, IRecurlyEntity
         {
             return EmptyRecurlyList<T>.Instance;
         }
     }
 
-    internal class EmptyRecurlyList<T> where T : RecurlyEntity
+    internal class EmptyRecurlyList<T> where T : class, IRecurlyEntity
     {
         private static volatile EmptyRecurlyListImpl<T> _instance;
 
@@ -251,7 +251,7 @@ namespace Recurly
         } 
     }
 
-    internal class EmptyRecurlyListImpl<T> : RecurlyList<T> where T : RecurlyEntity
+    internal class EmptyRecurlyListImpl<T> : RecurlyList<T> where T : class, IRecurlyEntity
     {
         public EmptyRecurlyListImpl()
         {

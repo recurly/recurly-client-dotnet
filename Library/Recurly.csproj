@@ -71,7 +71,11 @@
     <Compile Include="AccountBalance.cs" />
     <Compile Include="Address.cs" />
     <Compile Include="FilterCriteria.cs" />
+    <Compile Include="IAccount.cs" />
+    <Compile Include="IAddress.cs" />
+    <Compile Include="IInvoice.cs" />
     <Compile Include="InvoiceCollection.cs" />
+    <Compile Include="IRecurlyEntity.cs" />
     <Compile Include="List\CreditPaymentList.cs" />
     <Compile Include="List\IRecurlyList.cs" />
     <Compile Include="Purchase.cs" />

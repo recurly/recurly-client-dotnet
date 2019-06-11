@@ -17,7 +17,7 @@ namespace Recurly
         public long Id { get; private set; }
         
         private string _accountCode;
-        private Account _account;
+        private IAccount _account;
 
         /// <summary>
         /// Account details for the gifter.
@@ -26,7 +26,7 @@ namespace Recurly
         /// An account_code is required. If this object only has a
         /// link to the account, it will fetch and cache it.
         /// </summary>
-        public Account GifterAccount
+        public IAccount GifterAccount
         {
             get { return _account ?? (_account = Accounts.Get(_accountCode)); }
             set { _account = value; }
@@ -101,16 +101,16 @@ namespace Recurly
 
         
         private String _purchaseInvoiceId;
-        private Invoice _purchaseInvoice;
+        private IInvoice _purchaseInvoice;
 
         private String _redemptionInvoiceId;
-        private Invoice _redemptionInvoice;
+        private IInvoice _redemptionInvoice;
 
 
         /// <summary>
         /// The charge invoice for the gift card purchase.
         /// </summary>
-        public Invoice PurchaseInvoice
+        public IInvoice PurchaseInvoice
         {
             get
             {
@@ -126,7 +126,7 @@ namespace Recurly
         /// <summary>
         /// The credit invoice for the gift card redemption.
         /// </summary>
-        public Invoice RedemptionInvoice
+        public IInvoice RedemptionInvoice
         {
             get
             {
@@ -150,7 +150,7 @@ namespace Recurly
             Delivery = delivery;
         }
 
-        public GiftCard(Account gifterAccount, Delivery delivery, string productCode, int unitAmountInCents, string currency)
+        public GiftCard(IAccount gifterAccount, Delivery delivery, string productCode, int unitAmountInCents, string currency)
         {
             GifterAccount = gifterAccount;
             ProductCode = productCode;
@@ -329,7 +329,7 @@ namespace Recurly
             xmlWriter.WriteElementString("unit_amount_in_cents", UnitAmountInCents.ToString());
 
             if (GifterAccount != null)
-                GifterAccount.WriteXml(xmlWriter, "gifter_account");
+                Account.WriteXml(xmlWriter, "gifter_account", GifterAccount);
 
             if (Delivery != null)
                 Delivery.WriteXml(xmlWriter);

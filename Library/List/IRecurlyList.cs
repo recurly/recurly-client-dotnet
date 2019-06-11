@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Recurly
 {
-    public interface IRecurlyList<out T> : IEnumerable<T> where T : RecurlyEntity
+    public interface IRecurlyList<T> : IEnumerable<T> where T : class, IRecurlyEntity
     {
         T this[int i] { get; }
 
@@ -13,12 +14,21 @@ namespace Recurly
         IRecurlyList<T> Start { get; }
 
         void Clear();
-        IEnumerator<T> GetEnumerator();
         void GetItems();
         bool HasNextPage();
         bool HasPrevPage();
         bool HasStartPage();
         bool includeEmptyTag();
         void RemoveAt(int i);
+
+
+        bool Contains(T item);
+        bool Contains(T value, IEqualityComparer<T> comparer);
+        bool Exists(Predicate<T> match);
+        T Find(Predicate<T> match);
+        IEnumerable<T> FindAll(Predicate<T> match);
+        T FindLast(Predicate<T> match);
+
+        T[] ToArray();
     }
 }

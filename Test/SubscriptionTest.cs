@@ -595,7 +595,7 @@ namespace Recurly.Test
                 Predicate<SubscriptionAddOn> p = x => x.AddOnCode == "a";
                 Assert.True(sub.AddOns.Exists(p));
                 Assert.NotNull(sub.AddOns.Find(p));
-                Assert.Equal(1, sub.AddOns.FindAll(p).Count);
+                Assert.Equal(1, sub.AddOns.FindAll(p).Count());
                 Assert.NotNull(sub.AddOns.FindLast(p));
 
                 int count = 0;

@@ -161,7 +161,7 @@ namespace Recurly
             AccountCode = accountCode;
         }
 
-        public BillingInfo(Account account) : this()
+        public BillingInfo(IAccount account) : this()
         {
             AccountCode = account.AccountCode;
         }

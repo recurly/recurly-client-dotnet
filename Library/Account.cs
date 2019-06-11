@@ -10,7 +10,7 @@ namespace Recurly
     ///
     /// https://dev.recurly.com/docs/get-account
     /// </summary>
-    public class Account : RecurlyEntity
+    public class Account : RecurlyEntity, IAccount
     {
 
         // The currently valid account states
@@ -44,7 +44,7 @@ namespace Recurly
         public DateTime UpdatedAt { get; private set; }
         public DateTime? ClosedAt { get; private set; }
         public bool VatLocationValid { get; private set; }
-        public Address Address { get; set; }
+        public IAddress Address { get; set; }
         public bool HasLiveSubscription { get; private set; }
         public bool HasActiveSubscription { get; private set; }
         public bool HasFutureSubscription { get; private set; }
@@ -244,13 +244,13 @@ namespace Recurly
         /// <summary>
         /// Posts pending charges on an account
         /// </summary>
-        public InvoiceCollection InvoicePendingCharges(Invoice invoice = null)
+        public InvoiceCollection InvoicePendingCharges(IInvoice invoice = null)
         {
             invoice = invoice ?? new Invoice();
             var collection = new InvoiceCollection();
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 UrlPrefix + Uri.EscapeDataString(AccountCode) + "/invoices",
-                invoice.WriteXml,
+                writer => Invoice.WriteXml(writer, invoice),
                 collection.ReadXml);
 
             return collection;
@@ -259,13 +259,13 @@ namespace Recurly
         /// <summary>
         /// Previews a new invoice for the pending charges on an account
         /// </summary>
-        public InvoiceCollection PreviewInvoicePendingCharges(Invoice invoice = null)
+        public InvoiceCollection PreviewInvoicePendingCharges(IInvoice invoice = null)
         {
             invoice = invoice ?? new Invoice(); 
             var collection = new InvoiceCollection();
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 UrlPrefix + Uri.EscapeDataString(AccountCode) + "/invoices/preview",
-                invoice.WriteXml,
+                writer => Invoice.WriteXml(writer, invoice),
                 collection.ReadXml);
 
             return collection;
@@ -339,7 +339,7 @@ namespace Recurly
         /// Returns a list of invoices for this account
         /// </summary>
         /// <returns></returns>
-        public IRecurlyList<Invoice> GetInvoices()
+        public IRecurlyList<IInvoice> GetInvoices()
         {
             return Invoices.List(AccountCode);
         }
@@ -374,7 +374,7 @@ namespace Recurly
             return new NoteList(UrlPrefix + Uri.EscapeDataString(AccountCode) + "/notes/");
         }
 
-        public Account GetParentAccount()
+        public IAccount GetParentAccount()
         {
             if (ParentAccountCode == null) return null;
             var parent = new Account(ParentAccountCode);
@@ -385,7 +385,7 @@ namespace Recurly
             return statusCode == HttpStatusCode.NotFound ? null : parent;
         }
 
-        public IRecurlyList<Account> GetChildAccounts()
+        public IRecurlyList<IAccount> GetChildAccounts()
         {
             return new AccountList(UrlPrefix + Uri.EscapeDataString(AccountCode) + "/child_accounts");
         }
@@ -660,40 +660,50 @@ namespace Recurly
 
         internal void WriteXml(XmlTextWriter xmlWriter, string xmlName)
         {
+            WriteXml(xmlWriter, xmlName, this);
+        }
+
+        internal static void WriteXml(XmlTextWriter xmlWriter, IAccount account)
+        {
+            WriteXml(xmlWriter, "account", account);
+        }
+
+        internal static void WriteXml(XmlTextWriter xmlWriter, string xmlName, IAccount account)
+        {
             xmlWriter.WriteStartElement(xmlName); // Start: account
 
-            xmlWriter.WriteElementString("account_code", AccountCode);
-            xmlWriter.WriteStringIfValid("username", Username);
-            xmlWriter.WriteStringIfValid("email", Email);
-            xmlWriter.WriteStringIfValid("first_name", FirstName);
-            xmlWriter.WriteStringIfValid("last_name", LastName);
-            xmlWriter.WriteStringIfValid("company_name", CompanyName);
-            xmlWriter.WriteStringIfValid("accept_language", AcceptLanguage);
-            xmlWriter.WriteStringIfValid("vat_number", VatNumber);
-            xmlWriter.WriteStringIfValid("entity_use_code", EntityUseCode);
-            xmlWriter.WriteStringIfValid("cc_emails", CcEmails);
-            xmlWriter.WriteStringIfValid("preferred_locale", PreferredLocale);
+            xmlWriter.WriteElementString("account_code", account.AccountCode);
+            xmlWriter.WriteStringIfValid("username", account.Username);
+            xmlWriter.WriteStringIfValid("email", account.Email);
+            xmlWriter.WriteStringIfValid("first_name", account.FirstName);
+            xmlWriter.WriteStringIfValid("last_name", account.LastName);
+            xmlWriter.WriteStringIfValid("company_name", account.CompanyName);
+            xmlWriter.WriteStringIfValid("accept_language", account.AcceptLanguage);
+            xmlWriter.WriteStringIfValid("vat_number", account.VatNumber);
+            xmlWriter.WriteStringIfValid("entity_use_code", account.EntityUseCode);
+            xmlWriter.WriteStringIfValid("cc_emails", account.CcEmails);
+            xmlWriter.WriteStringIfValid("preferred_locale", account.PreferredLocale);
 
-            xmlWriter.WriteIfCollectionHasAny("shipping_addresses", ShippingAddresses);
-            xmlWriter.WriteIfCollectionHasAny("custom_fields", CustomFields);
+            xmlWriter.WriteIfCollectionHasAny("shipping_addresses", account.ShippingAddresses);
+            xmlWriter.WriteIfCollectionHasAny("custom_fields", account.CustomFields);
 
             // Clear the parent account by writing empty string. Null should not clear parent.
-            if (ParentAccountCode != null)
-                xmlWriter.WriteElementString("parent_account_code", ParentAccountCode);
+            if (account.ParentAccountCode != null)
+                xmlWriter.WriteElementString("parent_account_code", account.ParentAccountCode);
 
-            if (TaxExempt.HasValue)
-                xmlWriter.WriteElementString("tax_exempt", TaxExempt.Value.AsString());
+            if (account.TaxExempt.HasValue)
+                xmlWriter.WriteElementString("tax_exempt", account.TaxExempt.Value.AsString());
 
-            xmlWriter.WriteStringIfValid("exemption_certificate", ExemptionCertificate);
+            xmlWriter.WriteStringIfValid("exemption_certificate", account.ExemptionCertificate);
 
-            if(_accountAcquisition != null)
-                _accountAcquisition.WriteXml(xmlWriter);
+            //if(_accountAcquisition != null)
+            //    _accountAcquisition.WriteXml(xmlWriter);
 
-            if (_billingInfo != null)
-                _billingInfo.WriteXml(xmlWriter);
+            //if (_billingInfo != null)
+            //    _billingInfo.WriteXml(xmlWriter);
 
-            if (Address != null)
-                Address.WriteXml(xmlWriter);
+            if (account.Address != null)
+                account.Address.WriteXml(xmlWriter);
 
             xmlWriter.WriteEndElement(); // End: account
         }
@@ -724,7 +734,7 @@ namespace Recurly
             return a != null && Equals(a);
         }
 
-        public bool Equals(Account account)
+        public bool Equals(IAccount account)
         {
             return account != null && AccountCode == account.AccountCode;
         }
@@ -746,7 +756,7 @@ namespace Recurly
         /// </summary>
         /// <param name="accountCode"></param>
         /// <returns></returns>
-        public static Account Get(string accountCode)
+        public static IAccount Get(string accountCode)
         {
             if (string.IsNullOrWhiteSpace(accountCode))
             {
@@ -790,7 +800,7 @@ namespace Recurly
         /// </summary>
         /// <param name="state">Account state to retrieve</param>
         /// <returns></returns>
-        public static IRecurlyList<Account> List(Account.AccountState state = Account.AccountState.Active)
+        public static IRecurlyList<IAccount> List(Account.AccountState state = Account.AccountState.Active)
         {
             return List(state, null);
         }
@@ -801,7 +811,7 @@ namespace Recurly
         /// <param name="state">Account state to retrieve</param>
         /// <param name="filter">FilterCriteria used to apply server side sorting and filtering</param>
         /// <returns></returns>
-        public static IRecurlyList<Account> List(Account.AccountState state, FilterCriteria filter)
+        public static IRecurlyList<IAccount> List(Account.AccountState state, FilterCriteria filter)
         {
             filter = filter ?? FilterCriteria.Instance;
             var parameters = filter.ToNamedValueCollection();

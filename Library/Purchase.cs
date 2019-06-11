@@ -15,7 +15,7 @@ namespace Recurly
         /// <summary>
         /// An account object. This can be an existing account or a new account.
         /// </summary>
-        public Account Account { get; set; }
+        public IAccount Account { get; set; }
 
         /// <summary>
         /// The 3 letter currency code for the invoice transactions.
@@ -144,7 +144,7 @@ namespace Recurly
         /// </summary>
         /// <param name="account">An account object. This can be an existing account or a new account</param>
         /// <param name="currency">The 3 letter currency code for the invoice transactions</param>
-        public Purchase(Account account, string currency)
+        public Purchase(IAccount account, string currency)
         {
             Account = account;
             Currency = currency;
@@ -238,7 +238,7 @@ namespace Recurly
             if (ShippingAddressId.HasValue)
                 xmlWriter.WriteElementString("shipping_address_id", ShippingAddressId.Value.ToString());
 
-            Account.WriteXml(xmlWriter);
+            Recurly.Account.WriteXml(xmlWriter, Account);
 
             if (Adjustments.HasAny())
             {
