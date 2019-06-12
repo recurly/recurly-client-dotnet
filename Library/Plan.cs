@@ -13,6 +13,10 @@ namespace Recurly
             Months
         }
 
+        // The existing plan code must be preserved
+        // if the user wishes to change the plan code
+        private string _referencePlanCode;
+
         public string PlanCode { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -64,7 +68,7 @@ namespace Recurly
             {
                 if (_addOns == null)
                 {
-                    var url = UrlPrefix + Uri.EscapeDataString(PlanCode) + "/add_ons/";
+                    var url = UrlPrefix + Uri.EscapeDataString(ReferencePlanCode) + "/add_ons/";
                     _addOns = new AddOnList(url);
                 }
                 return _addOns;
@@ -126,7 +130,7 @@ namespace Recurly
         public void Update()
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
-                UrlPrefix + Uri.EscapeDataString(PlanCode),
+                UrlPrefix + Uri.EscapeDataString(ReferencePlanCode),
                 WriteXml);
         }
 
@@ -136,6 +140,23 @@ namespace Recurly
         public void Deactivate()
         {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Delete, UrlPrefix + Uri.EscapeDataString(PlanCode));
+        }
+
+        // returns the cached PlanCode in case the programmer
+        // is attempting to change the plan code
+        private string ReferencePlanCode
+        {
+            get
+            {
+                if (!_referencePlanCode.IsNullOrEmpty())
+                {
+                    return _referencePlanCode;
+                }
+                else
+                {
+                    return PlanCode;
+                }
+            }
         }
 
         /// <summary>
@@ -160,7 +181,7 @@ namespace Recurly
             var addOn = new AddOn();
 
             var status = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
-                UrlPrefix + Uri.EscapeDataString(PlanCode) + "/add_ons/" + Uri.EscapeDataString(addOnCode),
+                UrlPrefix + Uri.EscapeDataString(ReferencePlanCode) + "/add_ons/" + Uri.EscapeDataString(addOnCode),
                 addOn.ReadXml);
 
             if (status != HttpStatusCode.OK) return null;
@@ -224,6 +245,8 @@ namespace Recurly
                 {
                     case "plan_code":
                         PlanCode = reader.ReadElementContentAsString();
+                        // cache a reference to the plan code in case it changes
+                        _referencePlanCode = PlanCode;
                         break;
 
                     case "name":
