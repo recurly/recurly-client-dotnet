@@ -10,7 +10,6 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Recurly.Errors
 {
-
     [ExcludeFromCodeCoverage]
     public static class Factory
     {
@@ -99,7 +98,19 @@ namespace Recurly.Errors
                         Error = err
                     };
                 default:
-                    throw new ArgumentException($"{err.Type} has no valid exception class");
+                    // Explode if we are in strict mode
+                    if (Utils.StrictMode)
+                    {
+                        throw new ArgumentException($"{err.Type} has no valid exception class");
+                    }
+                    // Fall back to generic API error if we are in production
+                    else
+                    {
+                        return new ApiError(err.Message)
+                        {
+                            Error = err
+                        };
+                    }
             }
         }
     }
