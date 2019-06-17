@@ -6,7 +6,7 @@ using System.Xml;
 
 namespace Recurly
 {
-    public class BillingInfo : RecurlyEntity
+    public class BillingInfo : RecurlyEntity, IBillingInfo
     {
         public enum CreditCardType : short
         {
@@ -180,7 +180,7 @@ namespace Recurly
         /// </summary>
         /// <param name="accountCode"></param>
         /// <returns></returns>
-        public static BillingInfo Get(string accountCode)
+        public static IBillingInfo Get(string accountCode)
         {
             if (string.IsNullOrWhiteSpace(accountCode))
             {
@@ -454,11 +454,11 @@ namespace Recurly
 
         public override bool Equals(object obj)
         {
-            var a = obj as BillingInfo;
+            var a = obj as IBillingInfo;
             return a != null && Equals(a);
         }
 
-        public bool Equals(BillingInfo billingInfo)
+        public bool Equals(IBillingInfo billingInfo)
         {
             return AccountCode == billingInfo.AccountCode;
         }

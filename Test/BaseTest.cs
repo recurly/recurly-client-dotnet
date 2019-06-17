@@ -46,7 +46,7 @@ namespace Recurly.Test
             return account;
         }
 
-        protected BillingInfo NewACHBillingInfo(string accountCode)
+        protected IBillingInfo NewACHBillingInfo(string accountCode)
         {
             //test account #'s at https://docs.recurly.com/docs/test
             var info = new BillingInfo(accountCode)
@@ -103,7 +103,7 @@ namespace Recurly.Test
             return name + " " + DateTime.Now.ToString("yyyyMMddhhmmFFFFFFF");
         }
 
-        public BillingInfo NewBillingInfo(Account account)
+        public IBillingInfo NewBillingInfo(Account account)
         {
             var billingInfo = new BillingInfo(account)
             {
@@ -128,7 +128,7 @@ namespace Recurly.Test
             return billingInfo;
         }
 
-        public BillingInfo NewBillingInfo(string accountCode)
+        public IBillingInfo NewBillingInfo(string accountCode)
         {
             return new BillingInfo(accountCode)
             {

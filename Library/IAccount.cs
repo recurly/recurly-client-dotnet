@@ -10,7 +10,7 @@ namespace Recurly
         string AccountCode { get; }
         IAddress Address { get; set; }
         IAccountBalance Balance { get; set; }
-        BillingInfo BillingInfo { get; set; }
+        IBillingInfo BillingInfo { get; set; }
         string CcEmails { get; set; }
         DateTime? ClosedAt { get; }
         string CompanyName { get; set; }
@@ -47,8 +47,8 @@ namespace Recurly
         bool Equals(object obj);
         CouponRedemption GetActiveRedemption();
         IRecurlyList<CouponRedemption> GetActiveRedemptions();
-        IRecurlyList<Adjustment> GetAdjustments(Adjustment.AdjustmentType type = Adjustment.AdjustmentType.All, Adjustment.AdjustmentState state = Adjustment.AdjustmentState.Any);
-        IRecurlyList<Adjustment> GetAdjustments(FilterCriteria filter, Adjustment.AdjustmentType type = Adjustment.AdjustmentType.All, Adjustment.AdjustmentState state = Adjustment.AdjustmentState.Any);
+        IRecurlyList<IAdjustment> GetAdjustments(Adjustment.AdjustmentType type = Adjustment.AdjustmentType.All, Adjustment.AdjustmentState state = Adjustment.AdjustmentState.Any);
+        IRecurlyList<IAdjustment> GetAdjustments(FilterCriteria filter, Adjustment.AdjustmentType type = Adjustment.AdjustmentType.All, Adjustment.AdjustmentState state = Adjustment.AdjustmentState.Any);
         IRecurlyList<IAccount> GetChildAccounts();
         int GetHashCode();
         IRecurlyList<IInvoice> GetInvoices();
@@ -58,7 +58,7 @@ namespace Recurly
         IRecurlyList<Subscription> GetSubscriptions(Subscription.SubscriptionState state = Subscription.SubscriptionState.All);
         IRecurlyList<Transaction> GetTransactions(TransactionList.TransactionState state = TransactionList.TransactionState.All, TransactionList.TransactionType type = TransactionList.TransactionType.All);
         InvoiceCollection InvoicePendingCharges(IInvoice invoice = null);
-        Adjustment NewAdjustment(string currency, int unitAmountInCents, string description = "", int quantity = 1, string accountingCode = "", bool taxExempt = false);
+        IAdjustment NewAdjustment(string currency, int unitAmountInCents, string description = "", int quantity = 1, string accountingCode = "", bool taxExempt = false);
         InvoiceCollection PreviewInvoicePendingCharges(IInvoice invoice = null);
         CouponRedemption RedeemCoupon(string couponCode, string currency, string subscriptionUuid = null);
         void Reopen();

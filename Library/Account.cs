@@ -79,9 +79,9 @@ namespace Recurly
             }
         }
 
-        private BillingInfo _billingInfo;
+        private IBillingInfo _billingInfo;
 
-        public BillingInfo BillingInfo
+        public IBillingInfo BillingInfo
         {
             get
             {
@@ -90,7 +90,7 @@ namespace Recurly
 
                 try
                 {
-                    _billingInfo = BillingInfo.Get(AccountCode);
+                    _billingInfo = Recurly.BillingInfo.Get(AccountCode);
                 }
                 catch (NotFoundException)
                 {
@@ -160,7 +160,7 @@ namespace Recurly
         /// </summary>
         /// <param name="accountCode"></param>
         /// <param name="billingInfo"></param>
-        public Account(string accountCode, BillingInfo billingInfo)
+        public Account(string accountCode, IBillingInfo billingInfo)
         {
             AccountCode = accountCode;
             _billingInfo = billingInfo;
@@ -278,7 +278,7 @@ namespace Recurly
         /// <param name="type">Adjustment type to retrieve. Optional, default: All.</param>
         /// <param name="state">State of the Adjustments to retrieve. Optional, default: Any.</param>
         /// <returns></returns>
-        public IRecurlyList<Adjustment> GetAdjustments(Adjustment.AdjustmentType type = Adjustment.AdjustmentType.All,
+        public IRecurlyList<IAdjustment> GetAdjustments(Adjustment.AdjustmentType type = Adjustment.AdjustmentType.All,
             Adjustment.AdjustmentState state = Adjustment.AdjustmentState.Any)
         {
             var adjustments = new AdjustmentList();
@@ -298,7 +298,7 @@ namespace Recurly
         /// <param name="type">Adjustment type to retrieve. Optional, default: All.</param>
         /// <param name="state">State of the Adjustments to retrieve. Optional, default: Any.</param>
         /// <returns></returns>
-        public IRecurlyList<Adjustment> GetAdjustments(FilterCriteria filter, Adjustment.AdjustmentType type = Adjustment.AdjustmentType.All,
+        public IRecurlyList<IAdjustment> GetAdjustments(FilterCriteria filter, Adjustment.AdjustmentType type = Adjustment.AdjustmentType.All,
             Adjustment.AdjustmentState state = Adjustment.AdjustmentState.Any)
         {
             var adjustments = new AdjustmentList();
@@ -401,7 +401,7 @@ namespace Recurly
         /// <param name="accountingCode">Accounting code. Max of 20 characters.</param>
         /// <param name="taxExempt"></param>
         /// <returns></returns>
-        public Adjustment NewAdjustment(string currency, int unitAmountInCents, string description = "", int quantity = 1, string accountingCode = "", bool taxExempt = false)
+        public IAdjustment NewAdjustment(string currency, int unitAmountInCents, string description = "", int quantity = 1, string accountingCode = "", bool taxExempt = false)
         {
             // TODO All of the properties should be settable
             return new Adjustment(AccountCode, description, currency, unitAmountInCents, quantity, accountingCode, taxExempt);

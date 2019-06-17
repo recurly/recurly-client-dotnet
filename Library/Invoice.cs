@@ -118,7 +118,7 @@ namespace Recurly
         public string TaxRegion { get; private set; }
         public decimal? TaxRate { get; private set; }
 
-        public IRecurlyList<Adjustment> Adjustments { get; private set; }
+        public IRecurlyList<IAdjustment> Adjustments { get; private set; }
         public IRecurlyList<Transaction> Transactions { get; private set; }
 
         public string CustomerNotes { get; set; }
@@ -301,7 +301,7 @@ namespace Recurly
         /// <param name="adjustments">The list of adjustments to refund.</param>
         /// <param name="options">The options for the refund invoice.</param>
         /// <returns>new Invoice object</returns>
-        public IInvoice Refund(IEnumerable<Adjustment> adjustments, RefundOptions options)
+        public IInvoice Refund(IEnumerable<IAdjustment> adjustments, RefundOptions options)
         {
             var refunds = new RefundList(adjustments, options);
             var invoice = new Invoice();
@@ -323,9 +323,9 @@ namespace Recurly
         /// <param name="adjustment">The adjustment to be refunded.</param>
         /// <param name="options">The options for the refund invoice.</param>
         /// <returns>new Invoice object</returns>
-        public IInvoice Refund(Adjustment adjustment, RefundOptions options)
+        public IInvoice Refund(IAdjustment adjustment, RefundOptions options)
         {
-            var adjustments = new List<Adjustment>();
+            var adjustments = new List<IAdjustment>();
             adjustments.Add(adjustment);
             return Refund(adjustments, options);
         }
@@ -339,9 +339,9 @@ namespace Recurly
         /// <param name="method"></param>
         /// <returns>new Invoice object</returns>
         [Obsolete("This method is deprecated, please use Refund(Adjustment, Invoice.RefundOptions).")]
-        public IInvoice Refund(Adjustment adjustment, bool prorate = false, int quantity = 0, RefundMethod method = RefundMethod.CreditFirst)
+        public IInvoice Refund(IAdjustment adjustment, bool prorate = false, int quantity = 0, RefundMethod method = RefundMethod.CreditFirst)
         {
-            var adjustments = new List<Adjustment>();
+            var adjustments = new List<IAdjustment>();
             adjustments.Add(adjustment);
 
             return Refund(adjustments, prorate, quantity, method);
@@ -356,7 +356,7 @@ namespace Recurly
         /// <param name="method"></param>
         /// <returns>new Invoice object</returns>
         [Obsolete("This method is deprecated, please use Refund(IEnumerable<Adjustment>, Invoice.RefundOptions).")]
-        public IInvoice Refund(IEnumerable<Adjustment> adjustments, bool prorate = false, int quantity = 0, RefundMethod method = RefundMethod.CreditFirst)
+        public IInvoice Refund(IEnumerable<IAdjustment> adjustments, bool prorate = false, int quantity = 0, RefundMethod method = RefundMethod.CreditFirst)
         {
             var refunds = new RefundList(adjustments, prorate, quantity, method);
             var invoice = new Invoice();

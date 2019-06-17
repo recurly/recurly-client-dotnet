@@ -7,7 +7,7 @@ namespace Recurly
     {
         string AccountCode { get; }
         IAddress Address { get; set; }
-        IRecurlyList<Adjustment> Adjustments { get; }
+        IRecurlyList<IAdjustment> Adjustments { get; }
         string AllLineItemsLink { get; set; }
         DateTime? AttemptNextCollectionAt { get; set; }
         int? BalanceInCents { get; set; }
@@ -61,10 +61,10 @@ namespace Recurly
         void MarkSuccessful();
         string OriginalInvoiceNumberWithPrefix();
         void Preview(string accountCode);
-        IInvoice Refund(Adjustment adjustment, bool prorate = false, int quantity = 0, Invoice.RefundMethod method = Invoice.RefundMethod.CreditFirst);
-        IInvoice Refund(Adjustment adjustment, Invoice.RefundOptions options);
-        IInvoice Refund(IEnumerable<Adjustment> adjustments, bool prorate = false, int quantity = 0, Invoice.RefundMethod method = Invoice.RefundMethod.CreditFirst);
-        IInvoice Refund(IEnumerable<Adjustment> adjustments, Invoice.RefundOptions options);
+        IInvoice Refund(IAdjustment adjustment, bool prorate = false, int quantity = 0, Invoice.RefundMethod method = Invoice.RefundMethod.CreditFirst);
+        IInvoice Refund(IAdjustment adjustment, Invoice.RefundOptions options);
+        IInvoice Refund(IEnumerable<IAdjustment> adjustments, bool prorate = false, int quantity = 0, Invoice.RefundMethod method = Invoice.RefundMethod.CreditFirst);
+        IInvoice Refund(IEnumerable<IAdjustment> adjustments, Invoice.RefundOptions options);
         IInvoice RefundAmount(int amountInCents, Invoice.RefundMethod method = Invoice.RefundMethod.CreditFirst);
         IInvoice RefundAmount(int amountInCents, Invoice.RefundOptions options);
         string ToString();

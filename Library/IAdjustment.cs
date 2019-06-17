@@ -2,7 +2,7 @@
 
 namespace Recurly
 {
-    public interface IAdjustment
+    public interface IAdjustment : IRecurlyEntity
     {
         string AccountCode { get; }
         string AccountingCode { get; set; }
@@ -15,7 +15,7 @@ namespace Recurly
         string Origin { get; }
         string OriginalAjustmentUuid { get; set; }
         string ProductCode { get; set; }
-        bool? Prorate { set; }
+        bool? Prorate { get; set; }
         int Quantity { get; set; }
         Adjustment.RevenueSchedule? RevenueScheduleType { get; set; }
         ShippingAddress ShippingAddress { get; }

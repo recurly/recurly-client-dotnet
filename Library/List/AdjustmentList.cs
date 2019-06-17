@@ -2,21 +2,21 @@
 
 namespace Recurly
 {
-    public class AdjustmentList : RecurlyList<Adjustment>
+    public class AdjustmentList : RecurlyList<IAdjustment>
     {
-        public override IRecurlyList<Adjustment> Start
+        public override IRecurlyList<IAdjustment> Start
         {
-            get { return HasStartPage() ? new AdjustmentList(StartUrl) : RecurlyList.Empty<Adjustment>(); }
+            get { return HasStartPage() ? new AdjustmentList(StartUrl) : RecurlyList.Empty<IAdjustment>(); }
         }
 
-        public override IRecurlyList<Adjustment> Next
+        public override IRecurlyList<IAdjustment> Next
         {
-            get { return HasNextPage() ? new AdjustmentList(NextUrl) : RecurlyList.Empty<Adjustment>(); }
+            get { return HasNextPage() ? new AdjustmentList(NextUrl) : RecurlyList.Empty<IAdjustment>(); }
         }
 
-        public override IRecurlyList<Adjustment> Prev
+        public override IRecurlyList<IAdjustment> Prev
         {
-            get { return HasPrevPage() ? new AdjustmentList(PrevUrl) : RecurlyList.Empty<Adjustment>(); }
+            get { return HasPrevPage() ? new AdjustmentList(PrevUrl) : RecurlyList.Empty<IAdjustment>(); }
         }
 
         public AdjustmentList()

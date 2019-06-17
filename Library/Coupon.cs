@@ -5,7 +5,7 @@ using System.Xml;
 
 namespace Recurly
 {
-    public class Coupon : RecurlyEntity
+    public class Coupon : RecurlyEntity, ICoupon
     {
         public enum CouponState : short
         {
@@ -195,7 +195,7 @@ namespace Recurly
                 UrlPrefix + Uri.EscapeDataString(CouponCode));
         }
 
-        public IRecurlyList<Coupon> GetUniqueCouponCodes()
+        public IRecurlyList<ICoupon> GetUniqueCouponCodes()
         {
             var coupons = new CouponList();
 
@@ -206,7 +206,7 @@ namespace Recurly
             return statusCode == HttpStatusCode.NotFound ? null : coupons;
         }
 
-        public IRecurlyList<Coupon> Generate(int amount)
+        public IRecurlyList<ICoupon> Generate(int amount)
         {
             NumberOfUniqueCodes = amount;
             var coupons = new CouponList();
@@ -506,11 +506,11 @@ namespace Recurly
 
         public override bool Equals(object obj)
         {
-            var coupon = obj as Coupon;
+            var coupon = obj as ICoupon;
             return coupon != null && Equals(coupon);
         }
 
-        public bool Equals(Coupon coupon)
+        public bool Equals(ICoupon coupon)
         {
             return CouponCode == coupon.CouponCode;
         }
@@ -530,7 +530,7 @@ namespace Recurly
         /// </summary>
         /// <param name="couponCode">Coupon code</param>
         /// <returns></returns>
-        public static Coupon Get(string couponCode)
+        public static ICoupon Get(string couponCode)
         {
             if (string.IsNullOrWhiteSpace(couponCode))
             {
@@ -551,7 +551,7 @@ namespace Recurly
         /// </summary>
         /// <param name="state">Account state to retrieve</param>
         /// <returns></returns>
-        public static IRecurlyList<Coupon> List(Coupon.CouponState state = Coupon.CouponState.All)
+        public static IRecurlyList<ICoupon> List(Coupon.CouponState state = Coupon.CouponState.All)
         {
             return List(state, null);
         }
@@ -562,7 +562,7 @@ namespace Recurly
         /// <param name="state">Coupon state to retrieve</param>
         /// <param name="filter">FilterCriteria used to apply server side sorting and filtering</param>
         /// <returns></returns>
-        public static IRecurlyList<Coupon> List(Coupon.CouponState state, FilterCriteria filter)
+        public static IRecurlyList<ICoupon> List(Coupon.CouponState state, FilterCriteria filter)
         {
             filter = filter ?? FilterCriteria.Instance;
             var parameters = filter.ToNamedValueCollection();

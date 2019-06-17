@@ -75,7 +75,11 @@
     <Compile Include="IAccount.cs" />
     <Compile Include="IAccountAcquisition.cs" />
     <Compile Include="IAccountBalance.cs" />
+    <Compile Include="IAddOn.cs" />
     <Compile Include="IAddress.cs" />
+    <Compile Include="IAdjustment.cs" />
+    <Compile Include="IBillingInfo.cs" />
+    <Compile Include="ICoupon.cs" />
     <Compile Include="IInvoice.cs" />
     <Compile Include="InvoiceCollection.cs" />
     <Compile Include="IRecurlyEntity.cs" />

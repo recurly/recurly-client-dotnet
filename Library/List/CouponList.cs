@@ -6,7 +6,7 @@ using System.Xml;
 
 namespace Recurly
 {
-    public class CouponList : RecurlyList<Coupon>
+    public class CouponList : RecurlyList<ICoupon>
     {
         internal CouponList()
         {
@@ -16,19 +16,19 @@ namespace Recurly
         {
         }
 
-        public override IRecurlyList<Coupon> Start
+        public override IRecurlyList<ICoupon> Start
         {
-            get { return HasStartPage() ? new CouponList(StartUrl) : RecurlyList.Empty<Coupon>(); }
+            get { return HasStartPage() ? new CouponList(StartUrl) : RecurlyList.Empty<ICoupon>(); }
         }
 
-        public override IRecurlyList<Coupon> Next
+        public override IRecurlyList<ICoupon> Next
         {
-            get { return HasNextPage() ? new CouponList(NextUrl) : RecurlyList.Empty<Coupon>(); }
+            get { return HasNextPage() ? new CouponList(NextUrl) : RecurlyList.Empty<ICoupon>(); }
         }
 
-        public override IRecurlyList<Coupon> Prev
+        public override IRecurlyList<ICoupon> Prev
         {
-            get { return HasPrevPage() ? new CouponList(PrevUrl) : RecurlyList.Empty<Coupon>(); }
+            get { return HasPrevPage() ? new CouponList(PrevUrl) : RecurlyList.Empty<ICoupon>(); }
         }
 
         internal override void ReadXml(XmlTextReader reader)

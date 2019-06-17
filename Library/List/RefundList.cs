@@ -11,7 +11,7 @@ namespace Recurly
         private Invoice.RefundOptions RefundOptions;
 
         [Obsolete("This constructor is deprecated, please use RefundList(IEnumerable<Adjustment>, Invoice.RefundOptions).")]
-        internal RefundList(IEnumerable<Adjustment> adjustments, bool prorate, int quantity = 0, Invoice.RefundMethod method = Invoice.RefundMethod.CreditFirst)
+        internal RefundList(IEnumerable<IAdjustment> adjustments, bool prorate, int quantity = 0, Invoice.RefundMethod method = Invoice.RefundMethod.CreditFirst)
         {
             foreach (var adjustment in adjustments)
             {
@@ -28,7 +28,7 @@ namespace Recurly
             };
         }
 
-        internal RefundList(IEnumerable<Adjustment> adjustments, Invoice.RefundOptions options)
+        internal RefundList(IEnumerable<IAdjustment> adjustments, Invoice.RefundOptions options)
         {
             foreach (var adjustment in adjustments)
             {

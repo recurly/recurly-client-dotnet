@@ -6,7 +6,7 @@ namespace Recurly
     /// <summary>
     /// Represents adjustments - credits and charges - on accounts.
     /// </summary>
-    public class Adjustment : RecurlyEntity
+    public class Adjustment : RecurlyEntity, IAdjustment
     {
         // The currently valid adjustment types
         public enum AdjustmentType : short
@@ -60,7 +60,7 @@ namespace Recurly
 
         public ShippingAddress ShippingAddress { get; private set; }
 
-        public bool? Prorate { internal get; set; }
+        public bool? Prorate { get; set; }
 
         public DateTime StartDate { get; protected set; }
         public DateTime? EndDate { get; protected set; }
@@ -140,7 +140,6 @@ namespace Recurly
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Delete,
                 UrlPostfix + Uri.EscapeDataString(Uuid));
         }
-
 
         #region Read and Write XML documents
 
@@ -286,17 +285,27 @@ namespace Recurly
 
         internal void WriteXml(XmlTextWriter xmlWriter, bool embedded = false)
         {
+            WriteXml(xmlWriter, this, "adjustment", embedded);
+        }
+
+        internal static void WriteEmbeddedXml(XmlTextWriter xmlWriter, IAdjustment adjustment)
+        {
+            WriteXml(xmlWriter, adjustment, "adjustment", true);
+        }
+
+        internal static void WriteXml(XmlTextWriter xmlWriter, IAdjustment adjustment, string tagName = "adjustment", bool embedded = false)
+        {
             xmlWriter.WriteStartElement("adjustment"); // Start: adjustment
-            xmlWriter.WriteElementString("description", Description);
-            xmlWriter.WriteElementString("unit_amount_in_cents", UnitAmountInCents.AsString());
-            xmlWriter.WriteElementString("quantity", Quantity.AsString());
-            xmlWriter.WriteElementString("accounting_code", AccountingCode);
-            xmlWriter.WriteElementString("tax_exempt", TaxExempt.AsString());
-            xmlWriter.WriteElementString("product_code", ProductCode);
+            xmlWriter.WriteElementString("description", adjustment.Description);
+            xmlWriter.WriteElementString("unit_amount_in_cents", adjustment.UnitAmountInCents.AsString());
+            xmlWriter.WriteElementString("quantity", adjustment.Quantity.AsString());
+            xmlWriter.WriteElementString("accounting_code", adjustment.AccountingCode);
+            xmlWriter.WriteElementString("tax_exempt", adjustment.TaxExempt.AsString());
+            xmlWriter.WriteElementString("product_code", adjustment.ProductCode);
             if (!embedded)
-                xmlWriter.WriteElementString("currency", Currency);
-            if (RevenueScheduleType.HasValue)
-                xmlWriter.WriteElementString("revenue_schedule_type", RevenueScheduleType.Value.ToString().EnumNameToTransportCase());
+                xmlWriter.WriteElementString("currency", adjustment.Currency);
+            if (adjustment.RevenueScheduleType.HasValue)
+                xmlWriter.WriteElementString("revenue_schedule_type", adjustment.RevenueScheduleType.Value.ToString().EnumNameToTransportCase());
             xmlWriter.WriteEndElement(); // End: adjustment
         }
 
@@ -305,7 +314,7 @@ namespace Recurly
 
     public class Adjustments
     {
-        public static Adjustment Get(string uuid)
+        public static IAdjustment Get(string uuid)
         {
             if (string.IsNullOrWhiteSpace(uuid))
             {

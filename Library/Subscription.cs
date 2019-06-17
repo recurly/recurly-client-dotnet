@@ -192,16 +192,16 @@ namespace Recurly
         /// </summary>
         private bool IsPendingSubscription { get; set; }
 
-        private Coupon _coupon;
+        private ICoupon _coupon;
         private string _couponCode;
 
-        private Coupon[] _coupons;
+        private ICoupon[] _coupons;
         private string[] _couponCodes;
 
         /// <summary>
         /// Optional coupon for the subscription
         /// </summary>
-        public Coupon Coupon
+        public ICoupon Coupon
         {
             get
             {
@@ -222,12 +222,12 @@ namespace Recurly
         /// <summary>
         /// Optional coupons for the subscription
         /// </summary>
-        public Coupon[] Coupons
+        public ICoupon[] Coupons
         {
             get {
                 if (_coupons == null)
                 {
-                    _coupons = new Coupon[_couponCodes.Length];
+                    _coupons = new ICoupon[_couponCodes.Length];
                 }
 
                 if ( _coupons.Length == 0)

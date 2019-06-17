@@ -4,7 +4,7 @@ using System.Xml;
 
 namespace Recurly
 {
-    public class AddOn : RecurlyEntity
+    public class AddOn : RecurlyEntity, IAddOn
     {
         public enum Type
         {
@@ -222,11 +222,11 @@ namespace Recurly
 
         public override bool Equals(object obj)
         {
-            var addon = obj as AddOn;
+            var addon = obj as IAddOn;
             return addon != null && Equals(addon);
         }
 
-        public bool Equals(AddOn addon)
+        public bool Equals(IAddOn addon)
         {
             return PlanCode == addon.PlanCode && AddOnCode == addon.AddOnCode;
         }

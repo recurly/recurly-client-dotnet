@@ -50,12 +50,12 @@ namespace Recurly
         /// <summary>
         /// List of adjustments to apply to this purchase
         /// </summary>
-        public List<Adjustment> Adjustments
+        public List<IAdjustment> Adjustments
         {
-            get { return _adjustments ?? (_adjustments = new List<Adjustment>()); }
+            get { return _adjustments ?? (_adjustments = new List<IAdjustment>()); }
             set { _adjustments = value; }
         }
-        private List<Adjustment> _adjustments;
+        private List<IAdjustment> _adjustments;
 
         /// <summary>
         /// List of shipping fees to apply to this purchase
@@ -245,7 +245,7 @@ namespace Recurly
                 xmlWriter.WriteStartElement("adjustments"); // Start: adjustments
                 foreach (var adjustment in Adjustments)
                 {
-                    adjustment.WriteEmbeddedXml(xmlWriter);
+                    Adjustment.WriteEmbeddedXml(xmlWriter, adjustment);
                 }
                 xmlWriter.WriteEndElement(); // End: adjustments
             }

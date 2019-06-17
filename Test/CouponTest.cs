@@ -101,7 +101,7 @@ namespace Recurly.Test
         [RecurlyFact(TestEnvironment.Type.Integration)]
         public void CreateCouponPercent()
         {
-            var coupon = new Coupon(GetMockCouponCode(), GetMockCouponName(), 10);
+            var coupon = new Coupon(GetMockCouponCode(), GetMockCouponName(), 10) as ICoupon;
             coupon.Create();
 
             coupon.CreatedAt.Should().NotBe(default(DateTime));
@@ -117,7 +117,7 @@ namespace Recurly.Test
         public void CreateCouponDollars()
         {
             var discounts = new Dictionary<string, int> {{"USD", 100}, {"EUR", 50}};
-            var coupon = new Coupon(GetMockCouponCode(), GetMockCouponName(), discounts);
+            var coupon = new Coupon(GetMockCouponCode(), GetMockCouponName(), discounts) as ICoupon;
 
             coupon.Create();
             coupon.CreatedAt.Should().NotBe(default(DateTime));
@@ -163,7 +163,7 @@ namespace Recurly.Test
         public void DeactivateCoupon()
         {
             var discounts = new Dictionary<string, int> { { "USD", 100 }, { "EUR", 50 } };
-            var coupon = new Coupon(GetMockCouponCode(), GetMockCouponName(), discounts);
+            var coupon = new Coupon(GetMockCouponCode(), GetMockCouponName(), discounts) as ICoupon;
             coupon.Create();
             coupon.CreatedAt.Should().NotBe(default(DateTime));
 
