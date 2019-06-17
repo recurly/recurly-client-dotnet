@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Xml;
+using System.Linq;
 
 namespace Recurly
 {
@@ -49,6 +50,11 @@ namespace Recurly
         /// </summary>
         public string GatewayErrorCode { get; internal set; }
 
+        /// <summary>
+        /// The 3DS Action token to pass into RecurlyJS
+        /// </summary>
+        public string ThreeDSecureActionTokenId { get; internal set; }
+
         public TransactionError() { }
 
         internal TransactionError(XmlTextReader reader)
@@ -77,14 +83,16 @@ namespace Recurly
                     case "gateway_error_code":
                         GatewayErrorCode = reader.ReadElementContentAsString();
                         break;
+                    case "three_d_secure_action_token_id":
+                        ThreeDSecureActionTokenId = reader.ReadElementContentAsString();
+                        break;
                 }
             }
         }
 
         public override string ToString()
         {
-            return string.Format("Code: \"{0}\" Category: \"{1}\" CustomerMessage: \"{2}\" MerchantAdvice: \"{3}\" GatewayCode: \"{4}\""
-                , ErrorCode, ErrorCategory, CustomerMessage, MerchantAdvice, GatewayErrorCode);
+            return String.Concat(this.GetType().GetProperties().Select(i=>$"{i.Name}: \"{i.GetValue(this, null)}\" "));
         }
 
         internal static TransactionError ReadResponseAndParseError(HttpWebResponse response)

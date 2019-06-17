@@ -90,6 +90,11 @@
         recurly_failed_to_get_token,
         recurly_token_not_found,
 
-        not_recognized
+        // NOTE: not_recognized is used as a default and does not reflect a
+        // valid value from the Recurly API. To preserve backwards compatibility,
+        // order of this enum should be preserved and new values must be appended.
+        not_recognized,
+
+        three_d_secure_action_required
     }
 }
