@@ -1,6 +1,11 @@
 Unreleased
 ===============
 
+1.15.7 (stable) / 2019-06-18
+===============
+
+* Allow programmer to change the PlanCode [PR](https://github.com/recurly/recurly-client-net/pull/414)
+
 1.15.6 (stable) / 2019-05-21
 ===============
 
