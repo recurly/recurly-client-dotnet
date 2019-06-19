@@ -70,11 +70,11 @@ namespace Recurly.Tests
                 }
                 if (page == 1)
                 {
-                    Assert.Equal(count, 3);
+                    Assert.Equal(3, count);
                 }
                 else if (page == 2)
                 {
-                    Assert.Equal(count, 2);
+                    Assert.Equal(2, count);
                 }
                 else
                 {

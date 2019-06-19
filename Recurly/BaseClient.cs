@@ -2,19 +2,12 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
-using System.Data;
 using System.Diagnostics;
-using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Linq;
-using System.Reflection;
 using RestSharp;
 using RestSharp.Authenticators;
-using RestSharp.Serializers;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using Newtonsoft.Json.Converters;
 using System.Threading;
 
 [assembly: InternalsVisibleTo("Recurly.Tests")]

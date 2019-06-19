@@ -5,7 +5,6 @@
  * need and we will usher them to the appropriate places.
  */
 using System;
-using System.Runtime.Serialization;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Recurly.Errors
