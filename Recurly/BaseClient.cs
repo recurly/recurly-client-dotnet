@@ -2,19 +2,12 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
-using System.Data;
 using System.Diagnostics;
-using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Linq;
-using System.Reflection;
 using RestSharp;
 using RestSharp.Authenticators;
-using RestSharp.Serializers;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using Newtonsoft.Json.Converters;
 using System.Threading;
 
 [assembly: InternalsVisibleTo("Recurly.Tests")]
@@ -30,12 +23,12 @@ namespace Recurly
 
         internal IRestClient RestClient { get; set; }
 
-        public BaseClient(string siteId, string apiKey)
+        internal BaseClient(string apiKey, string siteId)
         {
-            if (String.IsNullOrEmpty(siteId))
-                throw new ArgumentException($"siteId is required. You passed in {siteId}");
             if (String.IsNullOrEmpty(apiKey))
                 throw new ArgumentException($"apiKey is required. You passed in {apiKey}");
+            if (String.IsNullOrEmpty(siteId))
+                throw new ArgumentException($"siteId is required. You passed in {siteId}");
 
             SiteId = siteId;
             ApiKey = apiKey;
@@ -44,14 +37,13 @@ namespace Recurly
             RestClient.Authenticator = new HttpBasicAuthenticator(ApiKey, "");
 
             // AddDefaultHeader does not work for user-agent
-            var libVersion = typeof(Recurly.Client).Assembly.GetName().Version;
+            var libVersion = typeof(RecurlyClient).Assembly.GetName().Version;
             RestClient.UserAgent = $"Recurly/{libVersion}; .NET";
 
             // These are the default headers to send on every request
             RestClient.AddDefaultHeader("Accept", $"application/vnd.recurly.{ApiVersion}");
             RestClient.AddDefaultHeader("Content-Type", "application/json");
         }
-
         public async Task<T> MakeRequestAsync<T>(Method method, string url, Request body = null, Dictionary<string, object> queryParams = null, CancellationToken cancellationToken = default(CancellationToken)) where T : new()
         {
             Debug.WriteLine($"Calling {url}");

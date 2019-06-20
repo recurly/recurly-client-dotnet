@@ -16,11 +16,13 @@ using RestSharp;
 namespace Recurly
 {
     [ExcludeFromCodeCoverage]
-    public class Client : BaseClient
+    internal class RecurlyClient : BaseClient, IRecurlyClient
     {
         public override string ApiVersion => "v2018-08-09";
 
-        public Client(string siteId, string apiKey) : base(siteId, apiKey) { }
+        internal RecurlyClient(string apiKey, string siteId) : base(apiKey, siteId) { }
+
+
 
         /// <summary>
         /// List sites <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_sites">list_sites api documentation</see>

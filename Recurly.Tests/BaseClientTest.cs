@@ -23,7 +23,7 @@ namespace Recurly.Tests
         {
             public override string ApiVersion => "v2018-08-09";
 
-            public MyClient(string siteId, string apiKey) : base(siteId, apiKey) { }
+            public MyClient(string apiKey, string siteId) : base(apiKey, siteId) { }
 
             public MyResource CreateResource(MyResourceCreate body)
             {
@@ -54,23 +54,23 @@ namespace Recurly.Tests
         [Fact]
         public void CantInitializeWithoutSiteIdAndApiKey()
         {
-            Assert.Throws<ArgumentException>(() => new MyClient(null, apiKey));
-            Assert.Throws<ArgumentException>(() => new MyClient("", apiKey));
-            Assert.Throws<ArgumentException>(() => new MyClient(siteId, null));
-            Assert.Throws<ArgumentException>(() => new MyClient(siteId, ""));
+            Assert.Throws<ArgumentException>(() => new MyClient(null, siteId));
+            Assert.Throws<ArgumentException>(() => new MyClient("", siteId));
+            Assert.Throws<ArgumentException>(() => new MyClient(apiKey, null));
+            Assert.Throws<ArgumentException>(() => new MyClient(apiKey, ""));
         }
 
         [Fact]
         public void SetsTheSiteId()
         {
-            var client = new MyClient(siteId, apiKey);
+            var client = new MyClient(apiKey, siteId);
             Assert.Equal("subdomain-mysubdomain", client.SiteId);
         }
 
         [Fact]
         public void RespondsWithGivenApiVersion()
         {
-            var client = new MyClient(siteId, apiKey);
+            var client = new MyClient(apiKey, siteId);
             Assert.Equal("v2018-08-09", client.ApiVersion);
         }
 

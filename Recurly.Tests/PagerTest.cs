@@ -1,9 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using Xunit;
 using Recurly;
-using Recurly.Resources;
 using Newtonsoft.Json;
 using RestSharp;
 using Moq;
@@ -87,7 +85,7 @@ namespace Recurly.Tests
             Assert.Equal(5, total);
         }
 
-        private Recurly.Client GetPagerSuccessClient()
+        private RecurlyClient GetPagerSuccessClient()
         {
             var page1 = new Pager<MyResource>()
             {
@@ -124,7 +122,7 @@ namespace Recurly.Tests
                 .Returns(page1Response.Object)
                 .Returns(page2Response.Object);
 
-            return new Recurly.Client("subdomain", "myapikey")
+            return new RecurlyClient("subdomain", "myapikey")
             {
                 RestClient = mockIRestClient.Object
             };

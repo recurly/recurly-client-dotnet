@@ -1,9 +1,7 @@
 using System;
-using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using RestSharp;
-using RestSharp.Deserializers;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
 using System.Threading;
@@ -21,13 +19,13 @@ namespace Recurly
         [JsonProperty("next")]
         public string Next { get; set; }
 
-        internal Recurly.Client RecurlyClient { get; set; }
+        internal RecurlyClient RecurlyClient { get; set; }
 
         private int _index = 0;
 
         public Pager() { }
 
-        internal static Pager<T> Build(string url, Dictionary<string, object> queryParams, Client client)
+        internal static Pager<T> Build(string url, Dictionary<string, object> queryParams, RecurlyClient client)
         {
             if (queryParams != null)
             {
