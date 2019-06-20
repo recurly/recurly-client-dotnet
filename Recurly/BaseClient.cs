@@ -21,6 +21,8 @@ namespace Recurly
         private const string ApiUrl = "https://partner-api.recurly.com/";
         public virtual string ApiVersion { get; protected set; }
 
+        public IRecurlyLogger Logger { private get; set; }
+
         internal IRestClient RestClient { get; set; }
 
         public BaseClient(string siteId, string apiKey)
@@ -32,6 +34,7 @@ namespace Recurly
 
             SiteId = siteId;
             ApiKey = apiKey;
+            Logger = new NullLogger();
             RestClient = new RestClient();
             RestClient.BaseUrl = new Uri(ApiUrl);
             RestClient.Authenticator = new HttpBasicAuthenticator(ApiKey, "");
@@ -43,15 +46,19 @@ namespace Recurly
             // These are the default headers to send on every request
             RestClient.AddDefaultHeader("Accept", $"application/vnd.recurly.{ApiVersion}");
             RestClient.AddDefaultHeader("Content-Type", "application/json");
+            LogInfo($"Created new Recurly client with user agent {RestClient.UserAgent}");
         }
 
         public async Task<T> MakeRequestAsync<T>(Method method, string url, Request body = null, Dictionary<string, object> queryParams = null, CancellationToken cancellationToken = default(CancellationToken)) where T : new()
         {
-            Debug.WriteLine($"Calling {url}");
+            LogInfo($"[HTTP] Calling {method} on {url}");
             var request = BuildRequest(method, url, body, queryParams);
+            var stopWatch = Stopwatch.StartNew();
             var task = RestClient.ExecuteTaskAsync<T>(request, cancellationToken);
             return await task.ContinueWith(t =>
             {
+                stopWatch.Stop();
+                LogInfo($"[HTTP] Got response from {method} on {url}", stopWatch.ElapsedMilliseconds);
                 var resp = t.Result;
                 this.HandleResponse(resp);
                 return resp.Data;
@@ -60,23 +67,26 @@ namespace Recurly
 
         public T MakeRequest<T>(Method method, string url, Request body = null, Dictionary<string, object> queryParams = null) where T : new()
         {
-            Debug.WriteLine($"Calling {url}");
+            LogInfo($"[HTTP] Calling {method} on {url}");
             var request = BuildRequest(method, url, body, queryParams);
+            var stopWatch = Stopwatch.StartNew();
             var resp = RestClient.Execute<T>(request);
+            stopWatch.Stop();
+            LogInfo($"[HTTP] Got response from {method} on {url}", stopWatch.ElapsedMilliseconds);
             this.HandleResponse(resp);
             return resp.Data;
         }
 
         public void _SetApiUrl(string uri)
         {
-            Console.WriteLine("[SECURITY WARNING] _SetApiUrl is for testing only and not supported in production.");
+            LogInfo("[SECURITY-WARNING] _SetApiUrl is for testing only and not supported in production.");
             if (System.Environment.GetEnvironmentVariable("RECURLY_INSECURE") == "true")
             {
                 this.RestClient.BaseUrl = new Uri(uri);
             }
             else
             {
-                Console.WriteLine("ApiUrl not changed. To change, set the environment variable RECURLY_INSECURE to true");
+                LogInfo($"[SECURITY-WARNING] ApiUrl not changed. To change, set the environment variable RECURLY_INSECURE to true");
             }
         }
 
@@ -114,13 +124,11 @@ namespace Recurly
 
                 if (deprecated.ToUpper() == "TRUE")
                 {
-                    Debug.WriteLine($"[recurly-client-net] WARNING: Your current API version \"${ApiVersion}\" is deprecated and will be sunset on ${sunset}");
+                    LogInfo($"[WARNING] Your current API version \"${ApiVersion}\" is deprecated and will be sunset on ${sunset}");
                 }
             }
 
             var status = (int)resp.StatusCode;
-            Debug.WriteLine($"Status: {status}");
-            Debug.WriteLine($"Content: {resp.Content}");
 
             // If the response has an ErrorException,
             // an error casting the json to a Resource
@@ -157,6 +165,16 @@ namespace Recurly
             // such as datetimes
             // TODO could get rid of string replaces with nicer regex matcher
             return regex.Replace(path, m => urlParams[m.Value.Replace("{", "").Replace("}", "")].ToString());
+        }
+
+        private void LogInfo(string message, float? duration = null)
+        {
+            Logger.Log(RecurlyLogLevel.Information, message, duration);
+        }
+
+        private void LogDebug(string message, float? duration = null)
+        {
+            Logger.Log(RecurlyLogLevel.Debug, message, duration);
         }
     }
 }
