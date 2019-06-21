@@ -59,11 +59,11 @@ namespace Recurly.Configuration
         /// <summary>
         /// Default request timeout
         /// </summary>
-        [ConfigurationProperty("timeoutMilliseconds", IsRequired = false, DefaultValue=null)]
+        [ConfigurationProperty("timeoutMilliseconds", IsRequired = false, DefaultValue=60000)]
         public int? TimeoutMilliseconds
         {
-            get { return (int)base["requestTimeoutMilliseconds"]; }
-            set { base["requestTimeoutMilliseconds"] = value; }
+            get { return (int)base["timeoutMilliseconds"]; }
+            set { base["timeoutMilliseconds"] = value; }
         }
       
         #endregion
