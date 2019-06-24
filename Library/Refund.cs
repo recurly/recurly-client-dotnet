@@ -29,13 +29,6 @@ namespace Recurly
             throw new System.NotImplementedException();
         }
 
-        internal static void WriteXml(XmlTextWriter writer, IRefund refund)
-        {
-            var recurlyRefund = refund as Refund;
-            if (recurlyRefund != null)
-                recurlyRefund.WriteXml(writer);
-        }
-
         internal override void WriteXml(XmlTextWriter writer)
         {
             writer.WriteStartElement("adjustment");

@@ -266,7 +266,7 @@ namespace Recurly
                 xmlWriter.WriteStartElement("shipping_fees"); // Start: shipping_fees
                 foreach (var shippingFee in ShippingFees)
                 {
-                    ShippingFee.WriteEmbeddedXml(xmlWriter, shippingFee);
+                    shippingFee.TryWriteXml(xmlWriter);
                 }
                 xmlWriter.WriteEndElement(); // End: shipping_fees
             }

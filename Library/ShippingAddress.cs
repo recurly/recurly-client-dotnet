@@ -31,13 +31,6 @@ namespace Recurly
 
         public ShippingAddress() { }
 
-        internal static void ReadXml(XmlTextReader reader, IShippingAddress address)
-        {
-            var recurlyAddress = address as ShippingAddress;
-            if (recurlyAddress != null)
-                recurlyAddress.ReadXml(reader);
-        }
-
         internal override void ReadXml(XmlTextReader reader)
         {
             while (reader.Read())
@@ -108,29 +101,24 @@ namespace Recurly
             }
         }
 
-        internal static void WriteXml(XmlTextWriter xmlWriter, IShippingAddress address)
+        internal override void WriteXml(XmlTextWriter xmlWriter)
         {
             xmlWriter.WriteStartElement("shipping_address");
 
-            xmlWriter.WriteElementString("address1", address.Address1);
-            xmlWriter.WriteElementString("address2", address.Address2);
-            xmlWriter.WriteElementString("city", address.City);
-            xmlWriter.WriteElementString("state", address.State);
-            xmlWriter.WriteElementString("zip", address.Zip);
-            xmlWriter.WriteElementString("country", address.Country);
-            xmlWriter.WriteElementString("phone", address.Phone);
-            xmlWriter.WriteElementString("first_name", address.FirstName);
-            xmlWriter.WriteElementString("last_name", address.LastName);
-            xmlWriter.WriteElementString("vat_number", address.VatNumber);
-            xmlWriter.WriteElementString("nickname", address.Nickname);
-            xmlWriter.WriteElementString("email", address.Email);
+            xmlWriter.WriteElementString("address1", Address1);
+            xmlWriter.WriteElementString("address2", Address2);
+            xmlWriter.WriteElementString("city", City);
+            xmlWriter.WriteElementString("state", State);
+            xmlWriter.WriteElementString("zip", Zip);
+            xmlWriter.WriteElementString("country", Country);
+            xmlWriter.WriteElementString("phone", Phone);
+            xmlWriter.WriteElementString("first_name", FirstName);
+            xmlWriter.WriteElementString("last_name", LastName);
+            xmlWriter.WriteElementString("vat_number", VatNumber);
+            xmlWriter.WriteElementString("nickname", Nickname);
+            xmlWriter.WriteElementString("email", Email);
 
             xmlWriter.WriteEndElement();
-        }
-
-        internal override void WriteXml(XmlTextWriter xmlWriter)
-        {
-            WriteXml(xmlWriter, this);
         }
     }
 }

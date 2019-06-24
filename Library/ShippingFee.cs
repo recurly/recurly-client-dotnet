@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Recurly.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Xml;
@@ -48,39 +49,30 @@ namespace Recurly
 
         internal override void WriteXml(XmlTextWriter xmlWriter)
         {
-            WriteXml(xmlWriter, this);
-        }
-
-        internal void WriteEmbeddedXml(XmlTextWriter xmlWriter)
-        {
-            WriteEmbeddedXml(xmlWriter, this);
-        }
-
-        internal static void WriteXml(XmlTextWriter xmlWriter, IShippingFee shippingFee)
-        {
             xmlWriter.WriteStartElement("shipping_fee"); // Start: shipping_fee
 
-            xmlWriter.WriteElementString("shipping_method_code", shippingFee.ShippingMethodCode);
+            xmlWriter.WriteElementString("shipping_method_code", ShippingMethodCode);
 
-            if (shippingFee.ShippingAmountInCents.HasValue)
-                xmlWriter.WriteElementString("shipping_amount_in_cents", shippingFee.ShippingAmountInCents.Value.AsString());
+            if (ShippingAmountInCents.HasValue)
+                xmlWriter.WriteElementString("shipping_amount_in_cents", ShippingAmountInCents.Value.AsString());
 
-            if (shippingFee.ShippingAddressId.HasValue)
+            if (ShippingAddressId.HasValue)
             {
-                xmlWriter.WriteElementString("shipping_address_id", shippingFee.ShippingAddressId.Value.ToString());
+                xmlWriter.WriteElementString("shipping_address_id", ShippingAddressId.Value.ToString());
             }
-            else if (shippingFee.ShippingAddress != null)
+            else if (_shippingAddress != null)
             {
-                Recurly.ShippingAddress.WriteXml(xmlWriter, shippingFee.ShippingAddress);
+                _shippingAddress.TryWriteXml(xmlWriter);
             }
 
             xmlWriter.WriteEndElement(); // End: shipping_fee
         }
 
-        internal static void WriteEmbeddedXml(XmlTextWriter xmlWriter, IShippingFee shippingFee)
+        internal void WriteEmbeddedXml(XmlTextWriter xmlWriter)
         {
-            WriteXml(xmlWriter, shippingFee);
+            WriteXml(xmlWriter);
         }
+
         #endregion
 
         #region Object Overrides
