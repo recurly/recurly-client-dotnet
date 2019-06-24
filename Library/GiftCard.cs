@@ -329,7 +329,7 @@ namespace Recurly
             xmlWriter.WriteElementString("unit_amount_in_cents", UnitAmountInCents.ToString());
 
             if (GifterAccount != null)
-                Account.WriteXml(xmlWriter, "gifter_account", GifterAccount);
+                Account.WriteXml(xmlWriter, GifterAccount, "gifter_account");
 
             var recurlyDelivery = Delivery as Delivery;
 

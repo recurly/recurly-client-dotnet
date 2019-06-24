@@ -711,6 +711,13 @@ namespace Recurly
             xmlWriter.WriteEndElement(); // End: recipient_account
         }
 
+        internal static void WriteXml(XmlTextWriter xmlWriter, IAccount account, string nodeName = "account")
+        {
+            var recurlyAccount = account as Account;
+            if (recurlyAccount != null)
+                recurlyAccount.WriteXml(xmlWriter, nodeName);
+        }
+
         #endregion
 
         #region Object Overrides
