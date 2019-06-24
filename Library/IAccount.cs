@@ -29,7 +29,7 @@ namespace Recurly
         string LastName { get; set; }
         string ParentAccountCode { get; set; }
         string PreferredLocale { get; set; }
-        List<ShippingAddress> ShippingAddresses { get; set; }
+        List<IShippingAddress> ShippingAddresses { get; set; }
         Account.AccountState State { get; }
         bool? TaxExempt { get; set; }
         DateTime UpdatedAt { get; }
@@ -39,7 +39,7 @@ namespace Recurly
 
         void Close();
         void Create();
-        ShippingAddress CreateShippingAddress(ShippingAddress shippingAddress);
+        IShippingAddress CreateShippingAddress(IShippingAddress shippingAddress);
         void DeleteAccountAcquisition();
         void DeleteBillingInfo();
         void DeleteShippingAddress(long shippingAddressId);
@@ -54,8 +54,8 @@ namespace Recurly
         IRecurlyList<IInvoice> GetInvoices();
         IRecurlyList<INote> GetNotes();
         IAccount GetParentAccount();
-        IRecurlyList<ShippingAddress> GetShippingAddresses();
-        IRecurlyList<Subscription> GetSubscriptions(Subscription.SubscriptionState state = Subscription.SubscriptionState.All);
+        IRecurlyList<IShippingAddress> GetShippingAddresses();
+        IRecurlyList<ISubscription> GetSubscriptions(Subscription.SubscriptionState state = Subscription.SubscriptionState.All);
         IRecurlyList<Transaction> GetTransactions(TransactionList.TransactionState state = TransactionList.TransactionState.All, TransactionList.TransactionType type = TransactionList.TransactionType.All);
         IInvoiceCollection InvoicePendingCharges(IInvoice invoice = null);
         IAdjustment NewAdjustment(string currency, int unitAmountInCents, string description = "", int quantity = 1, string accountingCode = "", bool taxExempt = false);
@@ -64,6 +64,6 @@ namespace Recurly
         void Reopen();
         string ToString();
         void Update();
-        ShippingAddress UpdateShippingAddress(ShippingAddress shippingAddress);
+        IShippingAddress UpdateShippingAddress(IShippingAddress shippingAddress);
     }
 }

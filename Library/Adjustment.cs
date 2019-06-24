@@ -58,7 +58,7 @@ namespace Recurly
         public string CreditReasonCode { get; set; }
         public string OriginalAjustmentUuid { get; set; }
 
-        public ShippingAddress ShippingAddress { get; private set; }
+        public IShippingAddress ShippingAddress { get; private set; }
 
         public bool? Prorate { get; set; }
 
@@ -266,8 +266,9 @@ namespace Recurly
                         break;
 
                     case "shipping_address":
-                        ShippingAddress = new ShippingAddress();
-                        ShippingAddress.ReadXml(reader);
+                        var address = new ShippingAddress();
+                        address.ReadXml(reader);
+                        ShippingAddress = address;
                         break;
                 }
             }

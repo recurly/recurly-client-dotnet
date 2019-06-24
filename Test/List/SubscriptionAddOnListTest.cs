@@ -69,8 +69,8 @@ namespace Recurly.Test.List
 
             var newAddOn = sub.AddOns.First();
             newAddOn.Should()
-                .Match<SubscriptionAddOn>(x => x.AddOnCode == addOnCode)
-                .And.Match<SubscriptionAddOn>(x => x.UnitAmountInCents == addOn.UnitAmountInCents[sub.Currency]);
+                .Match<ISubscriptionAddOn>(x => x.AddOnCode == addOnCode)
+                .And.Match<ISubscriptionAddOn>(x => x.UnitAmountInCents == addOn.UnitAmountInCents[sub.Currency]);
         }
     }
 }

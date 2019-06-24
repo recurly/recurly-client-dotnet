@@ -18,7 +18,7 @@ namespace Recurly
         bool? Prorate { get; set; }
         int Quantity { get; set; }
         Adjustment.RevenueSchedule? RevenueScheduleType { get; set; }
-        ShippingAddress ShippingAddress { get; }
+        IShippingAddress ShippingAddress { get; }
         DateTime StartDate { get; }
         Adjustment.AdjustmentState State { get; }
         string TaxCode { get; set; }

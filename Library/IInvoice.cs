@@ -27,7 +27,7 @@ namespace Recurly
         string OriginalInvoiceNumberPrefix { get; }
         string PoNumber { get; set; }
         string RecoveryReason { get; set; }
-        ShippingAddress ShippingAddress { get; }
+        IShippingAddress ShippingAddress { get; }
         Invoice.InvoiceState State { get; }
         int SubtotalBeforeDiscountInCents { get; set; }
         int SubtotalInCents { get; }
@@ -54,7 +54,7 @@ namespace Recurly
         byte[] GetPdf(string acceptLanguage = "en-US");
         ICouponRedemption GetRedemption();
         IRecurlyList<ICouponRedemption> GetRedemptions();
-        IRecurlyList<Subscription> GetSubscriptions();
+        IRecurlyList<ISubscription> GetSubscriptions();
         IRecurlyList<Transaction> GetTransactions();
         string InvoiceNumberWithPrefix();
         IInvoiceCollection MarkFailed();

@@ -2,7 +2,7 @@
 
 namespace Recurly
 {
-    public class ShippingAddressList : RecurlyList<ShippingAddress>
+    public class ShippingAddressList : RecurlyList<IShippingAddress>
     {
         private IAccount _accountn;
 
@@ -15,19 +15,19 @@ namespace Recurly
         {
         }
 
-        public override IRecurlyList<ShippingAddress> Start
+        public override IRecurlyList<IShippingAddress> Start
         {
-            get { return HasStartPage() ? new ShippingAddressList(StartUrl) : RecurlyList.Empty<ShippingAddress>(); }
+            get { return HasStartPage() ? new ShippingAddressList(StartUrl) : RecurlyList.Empty<IShippingAddress>(); }
         }
 
-        public override IRecurlyList<ShippingAddress> Next
+        public override IRecurlyList<IShippingAddress> Next
         {
-            get { return HasNextPage() ? new ShippingAddressList(NextUrl) : RecurlyList.Empty<ShippingAddress>(); }
+            get { return HasNextPage() ? new ShippingAddressList(NextUrl) : RecurlyList.Empty<IShippingAddress>(); }
         }
 
-        public override IRecurlyList<ShippingAddress> Prev
+        public override IRecurlyList<IShippingAddress> Prev
         {
-            get { return HasPrevPage() ? new ShippingAddressList(PrevUrl) : RecurlyList.Empty<ShippingAddress>(); }
+            get { return HasPrevPage() ? new ShippingAddressList(PrevUrl) : RecurlyList.Empty<IShippingAddress>(); }
         }
 
         public override bool includeEmptyTag()
@@ -49,7 +49,7 @@ namespace Recurly
             }
         }
 
-        public new void Add(ShippingAddress address)
+        public new void Add(IShippingAddress address)
         {
             base.Add(address);
         }

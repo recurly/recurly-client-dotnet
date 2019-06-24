@@ -5,7 +5,7 @@ using System.Xml;
 
 namespace Recurly
 {
-    public class ShippingMethod : RecurlyEntity
+    public class ShippingMethod : RecurlyEntity, IShippingMethod
     {
         public string Code { get; set; }
         public string Name { get; set; }
@@ -98,11 +98,11 @@ namespace Recurly
 
         public override bool Equals(object obj)
         {
-            var shippingMethod = obj as ShippingMethod;
+            var shippingMethod = obj as IShippingMethod;
             return shippingMethod != null && Equals(shippingMethod);
         }
 
-        public bool Equals(ShippingMethod shippingMethod)
+        public bool Equals(IShippingMethod shippingMethod)
         {
             return Code == shippingMethod.Code;
         }
@@ -122,7 +122,7 @@ namespace Recurly
         /// </summary>
         /// <param name="shippingMethod">Shipping method code</param>
         /// <returns></returns>
-        public static ShippingMethod Get(string Code)
+        public static IShippingMethod Get(string Code)
         {
             if (string.IsNullOrWhiteSpace(Code))
             {
@@ -142,7 +142,7 @@ namespace Recurly
         /// Lists shipping methods
         /// </summary>
         /// <returns></returns>
-        public static IRecurlyList<ShippingMethod> List()
+        public static IRecurlyList<IShippingMethod> List()
         {
             return new ShippingMethodList(ShippingMethod.UrlPrefix);
         }
@@ -152,7 +152,7 @@ namespace Recurly
         /// </summary>
         /// <param name="filter">FilterCriteria used to apply server side sorting and filtering</param>
         /// <returns></returns>
-        public static IRecurlyList<ShippingMethod> List(FilterCriteria filter)
+        public static IRecurlyList<IShippingMethod> List(FilterCriteria filter)
         {
             filter = filter ?? FilterCriteria.Instance;
             var parameters = filter.ToNamedValueCollection();

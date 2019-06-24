@@ -5,7 +5,7 @@ using System.Xml;
 
 namespace Recurly
 {
-    public class Purchase : RecurlyEntity
+    public class Purchase : RecurlyEntity, IPurchase
     {
         /// <summary>
         /// The collection method for the invoice (Automatic or Manual)
@@ -40,12 +40,12 @@ namespace Recurly
         /// <summary>
         /// List of subscriptions to apply to this purchase
         /// </summary>
-        public List<Subscription> Subscriptions
+        public List<ISubscription> Subscriptions
         {
-            get { return _subscriptions ?? (_subscriptions = new List<Subscription>()); }
+            get { return _subscriptions ?? (_subscriptions = new List<ISubscription>()); }
             set { _subscriptions = value; }
         }
-        private List<Subscription> _subscriptions;
+        private List<ISubscription> _subscriptions;
 
         /// <summary>
         /// List of adjustments to apply to this purchase
@@ -60,13 +60,13 @@ namespace Recurly
         /// <summary>
         /// List of shipping fees to apply to this purchase
         /// </summary>
-        public List<ShippingFee> ShippingFees
+        public List<IShippingFee> ShippingFees
         {
-            get { return _shippingFees ?? (_shippingFees = new List<ShippingFee>()); }
+            get { return _shippingFees ?? (_shippingFees = new List<IShippingFee>()); }
             set { _shippingFees = value; }
         }
 
-        private List<ShippingFee> _shippingFees;
+        private List<IShippingFee> _shippingFees;
 
         /// <summary>
         /// List of coupon codes to apply to this purchase
@@ -157,13 +157,13 @@ namespace Recurly
         /// <summary>
         /// Creates and invoices this purchase.
         /// </summary>
-        public static IInvoiceCollection Invoice(Purchase purchase)
+        public static IInvoiceCollection Invoice(IPurchase purchase)
         {
             var collection = new InvoiceCollection();
 
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
-                UrlPrefix, 
-                purchase.WriteXml,
+                UrlPrefix,
+                xml => WriteXml(xml, purchase),
                 collection.ReadXml);
 
             return collection;
@@ -172,13 +172,13 @@ namespace Recurly
         /// <summary>
         /// Previews the invoice for this purchase. Runs validations but not transactions.
         /// </summary>
-        public static IInvoiceCollection Preview(Purchase purchase)
+        public static IInvoiceCollection Preview(IPurchase purchase)
         {
             var collection = new InvoiceCollection();
 
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 UrlPrefix + "preview/",
-                purchase.WriteXml,
+                xml => WriteXml(xml, purchase),
                 collection.ReadXml);
 
             return collection;
@@ -191,13 +191,13 @@ namespace Recurly
         /// has been completed on an external source (e.g. Adyen's Hosted
         /// Payment Pages).
         /// </summary>
-        public static IInvoiceCollection Authorize(Purchase purchase)
+        public static IInvoiceCollection Authorize(IPurchase purchase)
         {
             var collection = new InvoiceCollection();
 
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 UrlPrefix + "authorize/",
-                purchase.WriteXml,
+                xml => WriteXml(xml, purchase),
                 collection.ReadXml);
 
             return collection;
@@ -207,19 +207,26 @@ namespace Recurly
         /// Use for Adyen HPP transaction requests. Runs validations
         /// but does not run any transactions.
         /// </summary>
-        public static IInvoiceCollection Pending(Purchase purchase)
+        public static IInvoiceCollection Pending(IPurchase purchase)
         {
             var collection = new InvoiceCollection();
 
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 UrlPrefix + "pending/",
-                purchase.WriteXml,
+                xml => WriteXml(xml, purchase),
                 collection.ReadXml);
 
             return collection;
         }
 
         #region Read and Write XML documents
+
+        internal static void WriteXml(XmlTextWriter xmlWriter, IPurchase purchase)
+        {
+            var recurlyPurchase = purchase as Purchase;
+            if (recurlyPurchase != null)
+                recurlyPurchase.WriteXml(xmlWriter);
+        }
 
         internal override void WriteXml(XmlTextWriter xmlWriter)
         {
@@ -255,7 +262,7 @@ namespace Recurly
                 xmlWriter.WriteStartElement("subscriptions"); // Start: subscriptions
                 foreach (var subscription in Subscriptions)
                 {
-                    subscription.WriteEmbeddedSubscriptionXml(xmlWriter);
+                    Subscription.WriteEmbeddedSubscriptionXml(xmlWriter, subscription);
                 }
                 xmlWriter.WriteEndElement(); // End: subscriptions
             }
@@ -265,7 +272,7 @@ namespace Recurly
                 xmlWriter.WriteStartElement("shipping_fees"); // Start: shipping_fees
                 foreach (var shippingFee in ShippingFees)
                 {
-                    shippingFee.WriteEmbeddedXml(xmlWriter);
+                    ShippingFee.WriteEmbeddedXml(xmlWriter, shippingFee);
                 }
                 xmlWriter.WriteEndElement(); // End: shipping_fees
             }

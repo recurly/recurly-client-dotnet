@@ -426,14 +426,14 @@ namespace Recurly.Test
         [RecurlyFact(TestEnvironment.Type.Integration)]
         public void CreateSubscriptionPlanWithAddons()
         {
-            Plan plan = null;
-            Plan plan2 = null;
+            IPlan plan = null;
+            IPlan plan2 = null;
             IAddOn addon1 = null;
             IAddOn addon2 = null;
             IAccount account = null;
-            Subscription sub = null;
-            Subscription sub2 = null;
-            SubscriptionChange subChange = null;
+            ISubscription sub = null;
+            ISubscription sub2 = null;
+            ISubscriptionChange subChange = null;
 
             try
             {
@@ -524,8 +524,8 @@ namespace Recurly.Test
         [Trait("include", "y")]
         public void SubscriptionAddOverloads()
         {
-            Plan plan = null;
-            Account account = null;
+            IPlan plan = null;
+            IAccount account = null;
             Subscription sub = null;
             System.Collections.Generic.List<IAddOn> addons = new System.Collections.Generic.List<IAddOn>();
 
@@ -582,7 +582,7 @@ namespace Recurly.Test
                 Assert.Equal(0, sub.AddOns.Count);
 
                 var subaddon = new SubscriptionAddOn("a", AddOn.Type.Fixed, 1);
-                var list = new System.Collections.Generic.List<SubscriptionAddOn>();
+                var list = new System.Collections.Generic.List<ISubscriptionAddOn>();
                 list.Add(subaddon);
                 sub.AddOns.AddRange(list);
                 Assert.Equal(1, sub.AddOns.Count);
@@ -592,14 +592,14 @@ namespace Recurly.Test
 
                 Assert.True(sub.AddOns.Contains(subaddon));
 
-                Predicate<SubscriptionAddOn> p = x => x.AddOnCode == "a";
+                Predicate<ISubscriptionAddOn> p = x => x.AddOnCode == "a";
                 Assert.True(sub.AddOns.Exists(p));
                 Assert.NotNull(sub.AddOns.Find(p));
                 Assert.Equal(1, sub.AddOns.FindAll(p).Count());
                 Assert.NotNull(sub.AddOns.FindLast(p));
 
                 int count = 0;
-                sub.AddOns.ForEach(delegate (SubscriptionAddOn s)
+                sub.AddOns.ForEach(delegate (ISubscriptionAddOn s)
                 {
                     count++;
                 });

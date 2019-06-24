@@ -8,12 +8,12 @@ namespace Recurly.Test
         protected const string NullString = null;
         protected const string EmptyString = "";
 
-        protected readonly List<Plan> PlansToDeactivateOnDispose;
+        protected readonly List<IPlan> PlansToDeactivateOnDispose;
 
         protected BaseTest()
         {
             Client.Instance.ApplySettings(SettingsFixture.TestSettings);
-            PlansToDeactivateOnDispose = new List<Plan>();
+            PlansToDeactivateOnDispose = new List<IPlan>();
         }
 
         protected Account CreateNewAccount()

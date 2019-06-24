@@ -6,7 +6,7 @@ using System.Xml;
 
 namespace Recurly
 {
-    public class ShippingMethodList : RecurlyList<ShippingMethod>
+    public class ShippingMethodList : RecurlyList<IShippingMethod>
     {
         internal ShippingMethodList()
         {
@@ -16,19 +16,19 @@ namespace Recurly
         {
         }
 
-        public override IRecurlyList<ShippingMethod> Start
+        public override IRecurlyList<IShippingMethod> Start
         {
-            get { return HasStartPage() ? new ShippingMethodList(StartUrl) : RecurlyList.Empty<ShippingMethod>(); }
+            get { return HasStartPage() ? new ShippingMethodList(StartUrl) : RecurlyList.Empty<IShippingMethod>(); }
         }
 
-        public override IRecurlyList<ShippingMethod> Next
+        public override IRecurlyList<IShippingMethod> Next
         {
-            get { return HasNextPage() ? new ShippingMethodList(NextUrl) : RecurlyList.Empty<ShippingMethod>(); }
+            get { return HasNextPage() ? new ShippingMethodList(NextUrl) : RecurlyList.Empty<IShippingMethod>(); }
         }
 
-        public override IRecurlyList<ShippingMethod> Prev
+        public override IRecurlyList<IShippingMethod> Prev
         {
-            get { return HasPrevPage() ? new ShippingMethodList(PrevUrl) : RecurlyList.Empty<ShippingMethod>(); }
+            get { return HasPrevPage() ? new ShippingMethodList(PrevUrl) : RecurlyList.Empty<IShippingMethod>(); }
         }
 
         internal override void ReadXml(XmlTextReader reader)

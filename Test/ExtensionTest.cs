@@ -242,7 +242,7 @@ namespace Recurly.Test
         [Fact]
         public void WriteIfCollectionHasAny_renders_RecurlyEntity_lists_correctly()
         {
-            var list = new List<SubscriptionAddOn>
+            var list = new List<ISubscriptionAddOn>
             {
                 new SubscriptionAddOn("addon1", AddOn.Type.Fixed, 100),
                 new SubscriptionAddOn("addon2", AddOn.Type.Fixed, 200, 2)

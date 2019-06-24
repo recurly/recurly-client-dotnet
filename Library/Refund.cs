@@ -3,7 +3,7 @@ using System.Xml;
 
 namespace Recurly
 {
-    public class Refund : RecurlyEntity
+    public class Refund : RecurlyEntity, IRefund
     {
         public bool Prorate { get; protected set; }
         public int Quantity { get; protected set; }
@@ -27,6 +27,13 @@ namespace Recurly
         internal override void ReadXml(XmlTextReader reader)
         {
             throw new System.NotImplementedException();
+        }
+
+        internal static void WriteXml(XmlTextWriter writer, IRefund refund)
+        {
+            var recurlyRefund = refund as Refund;
+            if (recurlyRefund != null)
+                recurlyRefund.WriteXml(writer);
         }
 
         internal override void WriteXml(XmlTextWriter writer)

@@ -9,7 +9,7 @@ namespace Recurly
     /// <summary>
     /// Represents subscriptions for accounts
     /// </summary>
-    public class SubscriptionChange
+    public class SubscriptionChange : ISubscriptionChange
     {
         public enum ChangeTimeframe : short
         {
@@ -89,51 +89,55 @@ namespace Recurly
 
         internal void WriteChangeSubscriptionXml(XmlTextWriter xmlWriter)
         {
+            WriteChangeSubscriptionXml(xmlWriter, this);
+        }
+
+        internal static void WriteChangeSubscriptionXml(XmlTextWriter xmlWriter, ISubscriptionChange subscription)
+        {
             xmlWriter.WriteStartElement("subscription"); // Start: subscription
 
-            xmlWriter.WriteElementString("timeframe", TimeFrame.ToString().EnumNameToTransportCase());
+            xmlWriter.WriteElementString("timeframe", subscription.TimeFrame.ToString().EnumNameToTransportCase());
 
-            if (Quantity.HasValue)
-                xmlWriter.WriteElementString("quantity", Quantity.ToString());
+            if (subscription.Quantity.HasValue)
+                xmlWriter.WriteElementString("quantity", subscription.Quantity.ToString());
 
-            xmlWriter.WriteStringIfValid("plan_code", PlanCode);
+            xmlWriter.WriteStringIfValid("plan_code", subscription.PlanCode);
 
-            if (AddOns != null)
-                xmlWriter.WriteIfCollectionHasAny("subscription_add_ons", AddOns);
+            if (subscription.AddOns != null)
+                xmlWriter.WriteIfCollectionHasAny("subscription_add_ons", subscription.AddOns);
 
-            xmlWriter.WriteStringIfValid("coupon_code", CouponCode);
+            xmlWriter.WriteStringIfValid("coupon_code", subscription.CouponCode);
 
-            if (UnitAmountInCents.HasValue)
-                xmlWriter.WriteElementString("unit_amount_in_cents", UnitAmountInCents.Value.AsString());
+            if (subscription.UnitAmountInCents.HasValue)
+                xmlWriter.WriteElementString("unit_amount_in_cents", subscription.UnitAmountInCents.Value.AsString());
 
-            xmlWriter.WriteStringIfValid("collection_method", CollectionMethod);
+            xmlWriter.WriteStringIfValid("collection_method", subscription.CollectionMethod);
 
-            if (NetTerms.HasValue)
-                xmlWriter.WriteElementString("net_terms", NetTerms.Value.AsString());
+            if (subscription.NetTerms.HasValue)
+                xmlWriter.WriteElementString("net_terms", subscription.NetTerms.Value.AsString());
 
-            if (PoNumber != null)
-                xmlWriter.WriteElementString("po_number", PoNumber);
+            if (subscription.PoNumber != null)
+                xmlWriter.WriteElementString("po_number", subscription.PoNumber);
 
-            if (ImportedTrial.HasValue)
-                xmlWriter.WriteElementString("imported_trial", ImportedTrial.Value.ToString().ToLower());
+            if (subscription.ImportedTrial.HasValue)
+                xmlWriter.WriteElementString("imported_trial", subscription.ImportedTrial.Value.ToString().ToLower());
 
-            if (RevenueScheduleType.HasValue)
-                xmlWriter.WriteElementString("revenue_schedule_type", RevenueScheduleType.Value.ToString().EnumNameToTransportCase());
+            if (subscription.RevenueScheduleType.HasValue)
+                xmlWriter.WriteElementString("revenue_schedule_type", subscription.RevenueScheduleType.Value.ToString().EnumNameToTransportCase());
 
-            if (RemainingBillingCycles.HasValue)
-                xmlWriter.WriteElementString("remaining_billing_cycles", RemainingBillingCycles.Value.AsString());
+            if (subscription.RemainingBillingCycles.HasValue)
+                xmlWriter.WriteElementString("remaining_billing_cycles", subscription.RemainingBillingCycles.Value.AsString());
 
-            if (AutoRenew.HasValue)
-                xmlWriter.WriteElementString("auto_renew", AutoRenew.Value.AsString());
+            if (subscription.AutoRenew.HasValue)
+                xmlWriter.WriteElementString("auto_renew", subscription.AutoRenew.Value.AsString());
 
-            if (RenewalBillingCycles.HasValue)
-                xmlWriter.WriteElementString("renewal_billing_cycles", RenewalBillingCycles.Value.AsString());
+            if (subscription.RenewalBillingCycles.HasValue)
+                xmlWriter.WriteElementString("renewal_billing_cycles", subscription.RenewalBillingCycles.Value.AsString());
 
-            xmlWriter.WriteIfCollectionHasAny("custom_fields", CustomFields);
+            xmlWriter.WriteIfCollectionHasAny("custom_fields", subscription.CustomFields);
 
             xmlWriter.WriteEndElement(); // End: subscription
         }
-
         #endregion
 
 

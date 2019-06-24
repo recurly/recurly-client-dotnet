@@ -2,25 +2,25 @@
 
 namespace Recurly
 {
-    public class PlanList : RecurlyList<Plan>
+    public class PlanList : RecurlyList<IPlan>
     {
         internal PlanList(string baseUrl) : base(Client.HttpRequestMethod.Get, baseUrl)
         {
         }
 
-        public override IRecurlyList<Plan> Start
+        public override IRecurlyList<IPlan> Start
         {
-            get { return HasStartPage() ? new PlanList(StartUrl) : RecurlyList.Empty<Plan>(); }
+            get { return HasStartPage() ? new PlanList(StartUrl) : RecurlyList.Empty<IPlan>(); }
         }
 
-        public override IRecurlyList<Plan> Next
+        public override IRecurlyList<IPlan> Next
         {
-            get { return HasNextPage() ? new PlanList(NextUrl) : RecurlyList.Empty<Plan>(); }
+            get { return HasNextPage() ? new PlanList(NextUrl) : RecurlyList.Empty<IPlan>(); }
         }
 
-        public override IRecurlyList<Plan> Prev
+        public override IRecurlyList<IPlan> Prev
         {
-            get { return HasPrevPage() ? new PlanList(PrevUrl) : RecurlyList.Empty<Plan>(); }
+            get { return HasPrevPage() ? new PlanList(PrevUrl) : RecurlyList.Empty<IPlan>(); }
         }
 
         internal override void ReadXml(XmlTextReader reader)

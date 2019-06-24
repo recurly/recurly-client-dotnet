@@ -5,9 +5,9 @@ using System.Collections.Generic;
 
 namespace Recurly
 {
-    internal class RefundList : IEnumerable<Refund>
+    internal class RefundList : IEnumerable<IRefund>
     {
-        private List<Refund> Refunds = new List<Refund>();
+        private List<IRefund> Refunds = new List<IRefund>();
         private Invoice.RefundOptions RefundOptions;
 
         [Obsolete("This constructor is deprecated, please use RefundList(IEnumerable<Adjustment>, Invoice.RefundOptions).")]
@@ -48,7 +48,7 @@ namespace Recurly
 
             foreach (var refund in Refunds)
             {
-                refund.WriteXml(writer);
+                Refund.WriteXml(writer, refund);
             }
 
             writer.WriteEndElement(); // line_items
@@ -73,7 +73,7 @@ namespace Recurly
             return Refunds.GetEnumerator();
         }
 
-        public IEnumerator<Refund> GetEnumerator()
+        public IEnumerator<IRefund> GetEnumerator()
         {
             return Refunds.GetEnumerator();
         }

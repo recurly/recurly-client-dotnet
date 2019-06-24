@@ -131,12 +131,12 @@ namespace Recurly
         /// <summary>
         /// List of shipping addresses
         /// </summary>
-        public List<ShippingAddress> ShippingAddresses
+        public List<IShippingAddress> ShippingAddresses
         {
-            get { return _shippingAddresses ?? (_shippingAddresses = new List<ShippingAddress>()); }
+            get { return _shippingAddresses ?? (_shippingAddresses = new List<IShippingAddress>()); }
             set { _shippingAddresses = value; }
         }
-        private List<ShippingAddress> _shippingAddresses;
+        private List<IShippingAddress> _shippingAddresses;
 
         /// <summary>
         /// List of custom fields
@@ -326,7 +326,7 @@ namespace Recurly
         /// Gets all shipping addresses
         /// </summary>
         /// <returns></returns>
-        public IRecurlyList<ShippingAddress> GetShippingAddresses()
+        public IRecurlyList<IShippingAddress> GetShippingAddresses()
         {
             var shippingAddresses = new ShippingAddressList(this);
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
@@ -350,7 +350,7 @@ namespace Recurly
         /// </summary>
         /// <param name="state"></param>
         /// <returns></returns>
-        public IRecurlyList<Subscription> GetSubscriptions(Subscription.SubscriptionState state = Subscription.SubscriptionState.All)
+        public IRecurlyList<ISubscription> GetSubscriptions(Subscription.SubscriptionState state = Subscription.SubscriptionState.All)
         {
             return new SubscriptionList(UrlPrefix + Uri.EscapeDataString(AccountCode) + "/subscriptions/"
                 + Build.QueryStringWith(state.Equals(Subscription.SubscriptionState.All) ? "" : "state=" + state.ToString().EnumNameToTransportCase()));
@@ -454,12 +454,12 @@ namespace Recurly
         /// </summary>
         /// <param name="shippingAddress"></param>
         /// <returns>ShippingAddress object</returns>
-        public ShippingAddress CreateShippingAddress(ShippingAddress shippingAddress)
+        public IShippingAddress CreateShippingAddress(IShippingAddress shippingAddress)
         {
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 UrlPrefix + Uri.EscapeDataString(AccountCode) + "/shipping_addresses",
-                shippingAddress.WriteXml,
-                shippingAddress.ReadXml);
+                xml => ShippingAddress.WriteXml(xml, shippingAddress),
+                xml => ShippingAddress.ReadXml(xml, shippingAddress));
 
             return statusCode == HttpStatusCode.Created ? shippingAddress : null;
         }
@@ -469,13 +469,13 @@ namespace Recurly
         /// </summary>
         /// <param name="shippingAddress"></param>
         /// <returns>ShippingAddress object</returns>
-        public ShippingAddress UpdateShippingAddress(ShippingAddress shippingAddress)
+        public IShippingAddress UpdateShippingAddress(IShippingAddress shippingAddress)
         {
             var shippingAddressId = shippingAddress.Id;
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
                 UrlPrefix + Uri.EscapeDataString(AccountCode) + "/shipping_addresses/" + shippingAddressId,
-                shippingAddress.WriteXml,
-                shippingAddress.ReadXml);
+                xml => ShippingAddress.WriteXml(xml, shippingAddress),
+                xml => ShippingAddress.ReadXml(xml, shippingAddress));
 
             return statusCode == HttpStatusCode.OK ? shippingAddress : null;
         }

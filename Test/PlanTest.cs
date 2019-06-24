@@ -77,7 +77,7 @@ namespace Recurly.Test
         [RecurlyFact(TestEnvironment.Type.Integration)]
         public void UpdatePlan()
         {
-            var plan = new Plan(GetMockPlanCode(), GetMockPlanName()) {Description = "Test Update"};
+            IPlan plan = new Plan(GetMockPlanCode(), GetMockPlanName()) { Description = "Test Update" };
             plan.UnitAmountInCents.Add("USD", 100);
             plan.Create();
             PlansToDeactivateOnDispose.Add(plan);
@@ -98,7 +98,7 @@ namespace Recurly.Test
         public void DeactivatePlan()
         {
             // Arrange
-            var plan = new Plan(GetMockPlanCode(), GetMockPlanName()) {Description = "Test Delete"};
+            IPlan plan = new Plan(GetMockPlanCode(), GetMockPlanName()) {Description = "Test Delete"};
             plan.UnitAmountInCents.Add("USD", 100);
             plan.Create();
             PlansToDeactivateOnDispose.Add(plan);

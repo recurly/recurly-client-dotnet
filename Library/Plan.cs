@@ -5,7 +5,7 @@ using System.Xml;
 
 namespace Recurly
 {
-    public class Plan : RecurlyEntity
+    public class Plan : RecurlyEntity, IPlan
     {
         public enum IntervalUnit
         {
@@ -419,11 +419,11 @@ namespace Recurly
 
         public override bool Equals(object obj)
         {
-            var plan = obj as Plan;
+            var plan = obj as IPlan;
             return plan != null && Equals(plan);
         }
 
-        public bool Equals(Plan plan)
+        public bool Equals(IPlan plan)
         {
             return PlanCode == plan.PlanCode;
         }
@@ -442,7 +442,7 @@ namespace Recurly
         /// Retrieves a list of all active plans
         /// </summary>
         /// <returns></returns>
-        public static IRecurlyList<Plan> List()
+        public static IRecurlyList<IPlan> List()
         {
             return List(null);
         }
@@ -453,7 +453,7 @@ namespace Recurly
         /// <param name="state">Account state to retrieve</param>
         /// <param name="filter">FilterCriteria used to apply server side sorting and filtering</param>
         /// <returns></returns>
-        public static IRecurlyList<Plan> List(FilterCriteria filter)
+        public static IRecurlyList<IPlan> List(FilterCriteria filter)
         {
             filter = filter == null ? FilterCriteria.Instance : filter;
             return new PlanList(Plan.UrlPrefix + "?" + filter.ToNamedValueCollection().ToString());
@@ -464,7 +464,7 @@ namespace Recurly
         /// </summary>
         /// <param name="planCode"></param>
         /// <returns></returns>
-        public static Plan Get(string planCode)
+        public static IPlan Get(string planCode)
         {
             if (string.IsNullOrWhiteSpace(planCode))
             {

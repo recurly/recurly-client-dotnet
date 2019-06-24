@@ -50,7 +50,7 @@ namespace Recurly
         /// <param name="collectionName">The value to use for the encompassing XML tag if the collection is written.</param>
         /// <param name="items">The collection to test and then write if it has any elements.</param>
         public static void WriteIfCollectionHasAny<T>(this XmlTextWriter writer, string collectionName, IEnumerable<T> items)
-            where T : RecurlyEntity
+            where T : class, IRecurlyEntity
         {
             if (!items.HasAny()) return;
             WriteCollection(writer, collectionName, items);
@@ -65,19 +65,19 @@ namespace Recurly
         /// <param name="collectionName">The value to use for the encompassing XML tag if the collection is written.</param>
         /// <param name="items">The collection to test and then write if it has any elements.</param>
         public static void WriteIfCollectionHasAny<T>(this XmlTextWriter writer, string collectionName, IRecurlyList<T> items)
-            where T : RecurlyEntity
+            where T : class, IRecurlyEntity
         {
             if (!items.includeEmptyTag() && !items.HasAny()) return;
             WriteCollection(writer, collectionName, items);
         }
 
         private static void WriteCollection<T>(this XmlTextWriter writer, string collectionName, IEnumerable<T> items)
-            where T : RecurlyEntity
+            where T : class, IRecurlyEntity
         {
             writer.WriteStartElement(collectionName);
             foreach (var item in items)
             {
-                item.WriteXml(writer);
+                RecurlyEntity.WriteXml(writer, item);
             }
             writer.WriteEndElement();
         }

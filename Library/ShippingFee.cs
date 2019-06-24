@@ -5,13 +5,13 @@ using System.Xml;
 
 namespace Recurly
 {
-    public class ShippingFee : RecurlyEntity
+    public class ShippingFee : RecurlyEntity, IShippingFee
     {
         public string ShippingMethodCode { get; set; }
         public int? ShippingAmountInCents { get; set; }
-        private ShippingAddress _shippingAddress;
+        private IShippingAddress _shippingAddress;
 
-        public ShippingAddress ShippingAddress
+        public IShippingAddress ShippingAddress
         {
             get { return _shippingAddress; }
             set
@@ -48,29 +48,39 @@ namespace Recurly
 
         internal override void WriteXml(XmlTextWriter xmlWriter)
         {
+            WriteXml(xmlWriter, this);
+        }
+
+        internal void WriteEmbeddedXml(XmlTextWriter xmlWriter)
+        {
+            WriteEmbeddedXml(xmlWriter, this);
+        }
+
+        internal static void WriteXml(XmlTextWriter xmlWriter, IShippingFee shippingFee)
+        {
             xmlWriter.WriteStartElement("shipping_fee"); // Start: shipping_fee
 
-            xmlWriter.WriteElementString("shipping_method_code", ShippingMethodCode);
+            xmlWriter.WriteElementString("shipping_method_code", shippingFee.ShippingMethodCode);
 
-            if (ShippingAmountInCents.HasValue)
-                xmlWriter.WriteElementString("shipping_amount_in_cents", ShippingAmountInCents.Value.AsString());
+            if (shippingFee.ShippingAmountInCents.HasValue)
+                xmlWriter.WriteElementString("shipping_amount_in_cents", shippingFee.ShippingAmountInCents.Value.AsString());
 
-            if (ShippingAddressId.HasValue)
+            if (shippingFee.ShippingAddressId.HasValue)
             {
-                xmlWriter.WriteElementString("shipping_address_id", ShippingAddressId.Value.ToString());
-            } else if(_shippingAddress != null)
+                xmlWriter.WriteElementString("shipping_address_id", shippingFee.ShippingAddressId.Value.ToString());
+            }
+            else if (shippingFee.ShippingAddress != null)
             {
-                _shippingAddress.WriteXml(xmlWriter);
+                Recurly.ShippingAddress.WriteXml(xmlWriter, shippingFee.ShippingAddress);
             }
 
             xmlWriter.WriteEndElement(); // End: shipping_fee
         }
 
-        internal void WriteEmbeddedXml(XmlTextWriter xmlWriter)
+        internal static void WriteEmbeddedXml(XmlTextWriter xmlWriter, IShippingFee shippingFee)
         {
-            WriteXml(xmlWriter);
+            WriteXml(xmlWriter, shippingFee);
         }
-
         #endregion
 
         #region Object Overrides
@@ -82,11 +92,11 @@ namespace Recurly
 
         public override bool Equals(object obj)
         {
-            var shippingFee = obj as ShippingFee;
+            var shippingFee = obj as IShippingFee;
             return shippingFee != null && Equals(shippingFee);
         }
 
-        public bool Equals(ShippingFee shippingFee)
+        public bool Equals(IShippingFee shippingFee)
         {
             return ShippingMethodCode == shippingFee.ShippingMethodCode &&
                 ShippingAmountInCents == shippingFee.ShippingAmountInCents;

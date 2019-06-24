@@ -9,7 +9,7 @@ namespace Recurly
     /// <summary>
     /// Represents subscriptions for accounts
     /// </summary>
-    public class Subscription : RecurlyEntity
+    public class Subscription : RecurlyEntity, ISubscription
     {
         // changed to flags based on https://dev.recurly.com/docs/list-subscriptions saying Subscriptions can be in multiple states
         [Flags]
@@ -67,9 +67,9 @@ namespace Recurly
 
         public IInvoiceCollection InvoiceCollection { get; private set; }
 
-        private Plan _plan;
+        private IPlan _plan;
 
-        public Plan Plan
+        public IPlan Plan
         {
             get { return _plan ?? (_plan = Plans.Get(PlanCode)); }
             set
@@ -81,9 +81,9 @@ namespace Recurly
 
         public string PlanCode { get; private set; }
 
-        private ShippingAddress _shippingAddress;
+        private IShippingAddress _shippingAddress;
 
-        public ShippingAddress ShippingAddress
+        public IShippingAddress ShippingAddress
         {
             get { return _shippingAddress; }
             set
@@ -184,7 +184,7 @@ namespace Recurly
         /// <summary>
         /// Represents pending changes to the subscription
         /// </summary>
-        public Subscription PendingSubscription { get; private set; }
+        public ISubscription PendingSubscription { get; private set; }
         public string NoBillingInfoReason { get; private set; }
 
         /// <summary>
@@ -386,7 +386,7 @@ namespace Recurly
         /// <param name="account"></param>
         /// <param name="plan"></param>
         /// <param name="currency"></param>
-        public Subscription(IAccount account, Plan plan, string currency)
+        public Subscription(IAccount account, IPlan plan, string currency)
         {
             _accountCode = account.AccountCode;
             _account = account;
@@ -402,7 +402,7 @@ namespace Recurly
         /// <param name="plan"></param>
         /// <param name="currency"></param>
         /// <param name="couponCode"></param>
-        public Subscription(IAccount account, Plan plan, string currency, string couponCode)
+        public Subscription(IAccount account, IPlan plan, string currency, string couponCode)
         {
             _accountCode = account.AccountCode;
             _account = account;
@@ -547,7 +547,7 @@ namespace Recurly
         /// </summary>
         /// <param name="uuid">The uuid of the subscription to be changed</param>
         /// <param name="change">A subscription change object listing what to change about the subscription</param>
-        public static Subscription ChangeSubscription(String uuid, SubscriptionChange change)
+        public static ISubscription ChangeSubscription(String uuid, ISubscriptionChange change)
         {
             if (uuid.IsNullOrEmpty())
             {
@@ -563,7 +563,7 @@ namespace Recurly
 
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
                 UrlPrefix + Uri.EscapeDataString(uuid),
-                change.WriteChangeSubscriptionXml,
+                xml => SubscriptionChange.WriteChangeSubscriptionXml(xml, change),
                 subscription.ReadXml);
 
             return statusCode == HttpStatusCode.NotFound ? null : subscription;
@@ -574,7 +574,7 @@ namespace Recurly
         /// </summary>
         /// <param name="uuid">The uuid of the subscription to be changed</param>
         /// <param name="change">A subscription change object listing what to change about the subscription</param>
-        public static Subscription PreviewChange(String uuid, SubscriptionChange change)
+        public static ISubscription PreviewChange(String uuid, ISubscriptionChange change)
         {
             if (uuid.IsNullOrEmpty())
             {
@@ -585,7 +585,7 @@ namespace Recurly
 
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 UrlPrefix + Uri.EscapeDataString(uuid) + "/preview",
-                change.WriteChangeSubscriptionXml,
+                xml => SubscriptionChange.WriteChangeSubscriptionXml(xml, change),
                 previewSubscription.ReadPreviewXml);
 
             return statusCode == HttpStatusCode.NotFound ? null : previewSubscription;
@@ -744,8 +744,9 @@ namespace Recurly
                         break;
 
                     case "pending_subscription":
-                        PendingSubscription = new Subscription { IsPendingSubscription = true };
-                        PendingSubscription.ReadPendingSubscription(reader);
+                        var subscription = new Subscription { IsPendingSubscription = true };
+                        subscription.ReadPendingSubscription(reader);
+                        PendingSubscription = subscription;
                         // TODO test all returned properties are read
                         break;
 
@@ -932,26 +933,15 @@ namespace Recurly
 
         internal void WriteSubscriptionXml(XmlTextWriter xmlWriter, bool embedded)
         {
-            xmlWriter.WriteStartElement("subscription"); // Start: subscription
+            WriteSubscriptionXml(xmlWriter, this, embedded);
+        }
 
-            xmlWriter.WriteElementString("plan_code", PlanCode);
-
-            if (!embedded)
-            {
-                // <account> and billing info
-                Recurly.Account.WriteXml(xmlWriter, Account);
-                xmlWriter.WriteElementString("currency", Currency);
-                xmlWriter.WriteElementString("customer_notes", CustomerNotes);
-                xmlWriter.WriteElementString("terms_and_conditions", TermsAndConditions);
-                xmlWriter.WriteElementString("vat_reverse_charge_notes", VatReverseChargeNotes);
-                xmlWriter.WriteElementString("po_number", PoNumber);
-            }
-
-            xmlWriter.WriteIfCollectionHasAny("subscription_add_ons", AddOns);
-
+        internal void WriteCouponXml(XmlTextWriter xmlWriter)
+        {
             xmlWriter.WriteStringIfValid("coupon_code", _couponCode);
 
-            if (_couponCodes != null && _couponCodes.Length != 0) {
+            if (_couponCodes != null && _couponCodes.Length != 0)
+            {
                 xmlWriter.WriteStartElement("coupon_codes");
                 foreach (var _coupon_code in _couponCodes)
                 {
@@ -959,69 +949,103 @@ namespace Recurly
                 }
                 xmlWriter.WriteEndElement();
             }
+        }
 
-            if (UnitAmountInCents.HasValue)
-                xmlWriter.WriteElementString("unit_amount_in_cents", UnitAmountInCents.Value.AsString());
+        internal static void WriteSubscriptionXml(XmlTextWriter xmlWriter, ISubscription subscription)
+        {
+            WriteSubscriptionXml(xmlWriter, subscription, false);
+        }
 
-            xmlWriter.WriteElementString("quantity", Quantity.AsString());
+        internal static void WriteEmbeddedSubscriptionXml(XmlTextWriter xmlWriter, ISubscription subscription)
+        {
+            WriteSubscriptionXml(xmlWriter, subscription, true);
+        }
 
-            if (TrialPeriodEndsAt.HasValue)
-                xmlWriter.WriteElementString("trial_ends_at", TrialPeriodEndsAt.Value.ToString("s"));
+        internal static void WriteSubscriptionXml(XmlTextWriter xmlWriter, ISubscription subscription, bool embedded)
+        {
+            xmlWriter.WriteStartElement("subscription"); // Start: subscription
 
-            if (BankAccountAuthorizedAt.HasValue)
-                xmlWriter.WriteElementString("bank_account_authorized_at", BankAccountAuthorizedAt.Value.ToString("s"));
+            xmlWriter.WriteElementString("plan_code", subscription.PlanCode);
 
-            if (StartsAt.HasValue)
-                xmlWriter.WriteElementString("starts_at", StartsAt.Value.ToString("s"));
+            if (!embedded)
+            {
+                // <account> and billing info
+                Recurly.Account.WriteXml(xmlWriter, subscription.Account);
+                xmlWriter.WriteElementString("currency", subscription.Currency);
+                xmlWriter.WriteElementString("customer_notes", subscription.CustomerNotes);
+                xmlWriter.WriteElementString("terms_and_conditions", subscription.TermsAndConditions);
+                xmlWriter.WriteElementString("vat_reverse_charge_notes", subscription.VatReverseChargeNotes);
+                xmlWriter.WriteElementString("po_number", subscription.PoNumber);
+            }
 
-            if (TotalBillingCycles.HasValue)
-                xmlWriter.WriteElementString("total_billing_cycles", TotalBillingCycles.Value.AsString());
+            xmlWriter.WriteIfCollectionHasAny("subscription_add_ons", subscription.AddOns);
 
-            if (FirstRenewalDate.HasValue)
-                xmlWriter.WriteElementString("first_renewal_date", FirstRenewalDate.Value.ToString("s"));
+            var recurlySubscription = subscription as Subscription;
+            if (recurlySubscription != null)
+                recurlySubscription.WriteCouponXml(xmlWriter);
+            
+            if (subscription.UnitAmountInCents.HasValue)
+                xmlWriter.WriteElementString("unit_amount_in_cents", subscription.UnitAmountInCents.Value.AsString());
 
-            if (Bulk.HasValue)
-                xmlWriter.WriteElementString("bulk", Bulk.ToString().ToLower());
+            xmlWriter.WriteElementString("quantity", subscription.Quantity.AsString());
 
-            if (CollectionMethod.Like("manual"))
+            if (subscription.TrialPeriodEndsAt.HasValue)
+                xmlWriter.WriteElementString("trial_ends_at", subscription.TrialPeriodEndsAt.Value.ToString("s"));
+
+            if (subscription.BankAccountAuthorizedAt.HasValue)
+                xmlWriter.WriteElementString("bank_account_authorized_at", subscription.BankAccountAuthorizedAt.Value.ToString("s"));
+
+            if (subscription.StartsAt.HasValue)
+                xmlWriter.WriteElementString("starts_at", subscription.StartsAt.Value.ToString("s"));
+
+            if (subscription.TotalBillingCycles.HasValue)
+                xmlWriter.WriteElementString("total_billing_cycles", subscription.TotalBillingCycles.Value.AsString());
+
+            if (subscription.FirstRenewalDate.HasValue)
+                xmlWriter.WriteElementString("first_renewal_date", subscription.FirstRenewalDate.Value.ToString("s"));
+
+            if (subscription.Bulk.HasValue)
+                xmlWriter.WriteElementString("bulk", subscription.Bulk.ToString().ToLower());
+
+            if (subscription.CollectionMethod.Like("manual"))
             {
                 xmlWriter.WriteElementString("collection_method", "manual");
 
-                if (NetTerms.HasValue)
-                    xmlWriter.WriteElementString("net_terms", NetTerms.Value.AsString());
+                if (subscription.NetTerms.HasValue)
+                    xmlWriter.WriteElementString("net_terms", subscription.NetTerms.Value.AsString());
             }
-            else if (CollectionMethod.Like("automatic"))
+            else if (subscription.CollectionMethod.Like("automatic"))
                 xmlWriter.WriteElementString("collection_method", "automatic");
 
-            if (ShippingAddressId.HasValue)
+            if (subscription.ShippingAddressId.HasValue)
             {
-                xmlWriter.WriteElementString("shipping_address_id", ShippingAddressId.Value.ToString());
+                xmlWriter.WriteElementString("shipping_address_id", subscription.ShippingAddressId.Value.ToString());
             }
 
-            if (ImportedTrial.HasValue)
+            if (subscription.ImportedTrial.HasValue)
             {
-                xmlWriter.WriteElementString("imported_trial", ImportedTrial.Value.ToString().ToLower());
+                xmlWriter.WriteElementString("imported_trial", subscription.ImportedTrial.Value.ToString().ToLower());
             }
 
-            if (RevenueScheduleType.HasValue)
-                xmlWriter.WriteElementString("revenue_schedule_type", RevenueScheduleType.Value.ToString().EnumNameToTransportCase());
+            if (subscription.RevenueScheduleType.HasValue)
+                xmlWriter.WriteElementString("revenue_schedule_type", subscription.RevenueScheduleType.Value.ToString().EnumNameToTransportCase());
 
-            if (RemainingBillingCycles.HasValue)
-                xmlWriter.WriteElementString("remaining_billing_cycles", RemainingBillingCycles.Value.AsString());
+            if (subscription.RemainingBillingCycles.HasValue)
+                xmlWriter.WriteElementString("remaining_billing_cycles", subscription.RemainingBillingCycles.Value.AsString());
 
-            if (AutoRenew.HasValue)
-                xmlWriter.WriteElementString("auto_renew", AutoRenew.Value.AsString());
+            if (subscription.AutoRenew.HasValue)
+                xmlWriter.WriteElementString("auto_renew", subscription.AutoRenew.Value.AsString());
 
-            if (RenewalBillingCycles.HasValue)
-                xmlWriter.WriteElementString("renewal_billing_cycles", RenewalBillingCycles.Value.AsString());
+            if (subscription.RenewalBillingCycles.HasValue)
+                xmlWriter.WriteElementString("renewal_billing_cycles", subscription.RenewalBillingCycles.Value.AsString());
 
-            xmlWriter.WriteIfCollectionHasAny("custom_fields", CustomFields);
+            xmlWriter.WriteIfCollectionHasAny("custom_fields", subscription.CustomFields);
 
-            if (!ShippingMethodCode.IsNullOrEmpty())
-                xmlWriter.WriteElementString("shipping_method_code", ShippingMethodCode);
+            if (!subscription.ShippingMethodCode.IsNullOrEmpty())
+                xmlWriter.WriteElementString("shipping_method_code", subscription.ShippingMethodCode);
 
-            if (ShippingAmountInCents.HasValue)
-                xmlWriter.WriteElementString("shipping_amount_in_cents", ShippingAmountInCents.Value.AsString());
+            if (subscription.ShippingAmountInCents.HasValue)
+                xmlWriter.WriteElementString("shipping_amount_in_cents", subscription.ShippingAmountInCents.Value.AsString());
 
             xmlWriter.WriteEndElement(); // End: subscription
         }
@@ -1062,11 +1086,11 @@ namespace Recurly
 
         public override bool Equals(object obj)
         {
-            var sub = obj as Subscription;
+            var sub = obj as ISubscription;
             return sub != null && Equals(sub);
         }
 
-        public bool Equals(Subscription subscription)
+        public bool Equals(ISubscription subscription)
         {
             return Uuid == subscription.Uuid;
         }
@@ -1088,7 +1112,7 @@ namespace Recurly
         /// </summary>
         /// <param name="state">State of subscriptions to return, defaults to "live"</param>
         /// <returns></returns>
-        public static IRecurlyList<Subscription> List(Subscription.SubscriptionState state = Subscription.SubscriptionState.Live)
+        public static IRecurlyList<ISubscription> List(Subscription.SubscriptionState state = Subscription.SubscriptionState.Live)
         {
             return List(state, null);
         }
@@ -1101,7 +1125,7 @@ namespace Recurly
         /// <param name="state">State of subscriptions to return, defaults to "live"</param>
         /// <param name="filter">FilterCriteria used to apply server side sorting and filtering</param>
         /// <returns></returns>
-        public static IRecurlyList<Subscription> List(Subscription.SubscriptionState state, FilterCriteria filter)
+        public static IRecurlyList<ISubscription> List(Subscription.SubscriptionState state, FilterCriteria filter)
         {
             filter = filter ?? FilterCriteria.Instance;
             var parameters = filter.ToNamedValueCollection();
@@ -1109,7 +1133,7 @@ namespace Recurly
             return new SubscriptionList(Subscription.UrlPrefix + "?" + parameters.ToString());
         }
 
-        public static Subscription Get(string uuid)
+        public static ISubscription Get(string uuid)
         {
             if (string.IsNullOrWhiteSpace(uuid))
             {

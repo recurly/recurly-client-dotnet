@@ -109,7 +109,7 @@ namespace Recurly
         }
         private IAddress _address;
 
-        public ShippingAddress ShippingAddress { get; private set; }
+        public IShippingAddress ShippingAddress { get; private set; }
 
         /// <summary>
         /// Tax type as "vat" for VAT or "usst" for US Sales Tax.
@@ -175,7 +175,7 @@ namespace Recurly
             return Client.Instance.PerformDownloadRequest(memberUrl(), "application/pdf", acceptLanguage);
         }
 
-        public IRecurlyList<Subscription> GetSubscriptions()
+        public IRecurlyList<ISubscription> GetSubscriptions()
         {
             var url = this.memberUrl() + "/subscriptions";
             return new SubscriptionList(url);

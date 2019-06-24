@@ -13,5 +13,19 @@ namespace Recurly
 
         internal abstract void ReadXml(XmlTextReader reader);
         internal abstract void WriteXml(XmlTextWriter writer);
+
+        internal static void ReadXml(XmlTextReader reader, IRecurlyEntity entity)
+        {
+            var recurlyEntity = entity as RecurlyEntity;
+            if (recurlyEntity != null)
+                recurlyEntity.ReadXml(reader);
+        }
+
+        internal static void WriteXml(XmlTextWriter writer, IRecurlyEntity entity)
+        {
+            var recurlyEntity = entity as RecurlyEntity;
+            if (recurlyEntity != null)
+                recurlyEntity.WriteXml(writer);
+        }
     }
 }

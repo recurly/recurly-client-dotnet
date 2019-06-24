@@ -2,13 +2,13 @@
 
 namespace Recurly
 {
-    public class SubscriptionAddOnList : RecurlyList<SubscriptionAddOn>
+    public class SubscriptionAddOnList : RecurlyList<ISubscriptionAddOn>
     {
-        private Subscription _subscription;
+        private ISubscription _subscription;
 
         public SubscriptionAddOnList() {}
 
-        public SubscriptionAddOnList(Subscription subscription)
+        public SubscriptionAddOnList(ISubscription subscription)
         {
             _subscription = subscription;
         }
@@ -17,19 +17,19 @@ namespace Recurly
         {
         }
 
-        public override IRecurlyList<SubscriptionAddOn> Start
+        public override IRecurlyList<ISubscriptionAddOn> Start
         {
-            get { return HasStartPage() ? new SubscriptionAddOnList(StartUrl) : RecurlyList.Empty<SubscriptionAddOn>(); }
+            get { return HasStartPage() ? new SubscriptionAddOnList(StartUrl) : RecurlyList.Empty<ISubscriptionAddOn>(); }
         }
 
-        public override IRecurlyList<SubscriptionAddOn> Next
+        public override IRecurlyList<ISubscriptionAddOn> Next
         {
-            get { return HasNextPage() ? new SubscriptionAddOnList(NextUrl) : RecurlyList.Empty<SubscriptionAddOn>(); }
+            get { return HasNextPage() ? new SubscriptionAddOnList(NextUrl) : RecurlyList.Empty<ISubscriptionAddOn>(); }
         }
 
-        public override IRecurlyList<SubscriptionAddOn> Prev
+        public override IRecurlyList<ISubscriptionAddOn> Prev
         {
-            get { return HasPrevPage() ? new SubscriptionAddOnList(PrevUrl) : RecurlyList.Empty<SubscriptionAddOn>(); }
+            get { return HasPrevPage() ? new SubscriptionAddOnList(PrevUrl) : RecurlyList.Empty<ISubscriptionAddOn>(); }
         }
 
         public override bool includeEmptyTag()

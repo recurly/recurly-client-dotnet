@@ -90,7 +90,16 @@
     <Compile Include="IMeasuredUnit.cs" />
     <Compile Include="INote.cs" />
     <Compile Include="InvoiceCollection.cs" />
+    <Compile Include="IPlan.cs" />
+    <Compile Include="IPurchase.cs" />
     <Compile Include="IRecurlyEntity.cs" />
+    <Compile Include="IRefund.cs" />
+    <Compile Include="IShippingAddress.cs" />
+    <Compile Include="IShippingFee.cs" />
+    <Compile Include="IShippingMethod.cs" />
+    <Compile Include="ISubscription.cs" />
+    <Compile Include="ISubscriptionAddOn.cs" />
+    <Compile Include="ISubscriptionChange.cs" />
     <Compile Include="List\CreditPaymentList.cs" />
     <Compile Include="List\IRecurlyList.cs" />
     <Compile Include="Purchase.cs" />
