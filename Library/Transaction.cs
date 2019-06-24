@@ -2,6 +2,7 @@
 using System.Net;
 using System.Xml;
 using System.Text.RegularExpressions;
+using Recurly.Extensions;
 
 namespace Recurly
 {
@@ -340,7 +341,7 @@ namespace Recurly
 
             if (transaction.Account != null)
             {
-                Recurly.Account.WriteXml(xmlWriter, transaction.Account);
+                transaction.Account.TryWriteXml(xmlWriter);
             }
 
             xmlWriter.WriteEndElement();

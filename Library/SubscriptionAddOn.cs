@@ -82,24 +82,19 @@ namespace Recurly
 
         internal override void WriteXml(XmlTextWriter writer)
         {
-            WriteXml(writer, this);
-        }
-
-        internal static void WriteXml(XmlTextWriter writer, ISubscriptionAddOn addOn)
-        {
             writer.WriteStartElement("subscription_add_on");
 
-            writer.WriteElementString("add_on_code", addOn.AddOnCode);
-            writer.WriteElementString("quantity", addOn.Quantity.AsString());
+            writer.WriteElementString("add_on_code", AddOnCode);
+            writer.WriteElementString("quantity", Quantity.AsString());
 
-            if (addOn.UnitAmountInCents.HasValue)
-                writer.WriteElementString("unit_amount_in_cents", addOn.UnitAmountInCents.Value.AsString());
+            if (UnitAmountInCents.HasValue)
+                writer.WriteElementString("unit_amount_in_cents", UnitAmountInCents.Value.AsString());
 
-            if (addOn.RevenueScheduleType.HasValue)
-                writer.WriteElementString("revenue_schedule_type", addOn.RevenueScheduleType.Value.ToString().EnumNameToTransportCase());
+            if (RevenueScheduleType.HasValue)
+                writer.WriteElementString("revenue_schedule_type", RevenueScheduleType.Value.ToString().EnumNameToTransportCase());
 
-            if (addOn.UsagePercentage.HasValue)
-                writer.WriteElementString("usage_percentage", addOn.UsagePercentage.ToString());
+            if (UsagePercentage.HasValue)
+                writer.WriteElementString("usage_percentage", UsagePercentage.ToString());
 
             writer.WriteEndElement();
         }
