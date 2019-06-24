@@ -697,11 +697,11 @@ namespace Recurly
 
             xmlWriter.WriteStringIfValid("exemption_certificate", account.ExemptionCertificate);
 
-            //if(_accountAcquisition != null)
-            //    _accountAcquisition.WriteXml(xmlWriter);
+            if (account.AccountAcquisition != null)
+                account.AccountAcquisition.TryWriteXml(xmlWriter);
 
-            //if (_billingInfo != null)
-            //    _billingInfo.WriteXml(xmlWriter);
+            if (account.BillingInfo != null)
+                account.BillingInfo.TryWriteXml(xmlWriter);
 
             if (account.Address != null)
                 account.Address.TryWriteXml(xmlWriter);

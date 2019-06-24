@@ -2,7 +2,7 @@
 
 namespace Recurly
 {
-    public interface IBillingInfo
+    public interface IBillingInfo : IRecurlyEntity
     {
         string AccountCode { get; }
         string AccountNumber { get; set; }

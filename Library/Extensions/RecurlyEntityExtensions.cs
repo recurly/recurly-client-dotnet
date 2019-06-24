@@ -6,24 +6,12 @@ namespace Recurly.Extensions
     {
         internal static void TryWriteXml(this IRecurlyEntity entity, XmlTextWriter writer)
         {
-            var recurlyEntity = entity as RecurlyEntity;
-            if (recurlyEntity == null)
-            {
-                return;
-            }
-
-            recurlyEntity.WriteXml(writer);
+            RecurlyEntity.WriteXml(writer, entity);
         }
 
         internal static void TryReadXml(this IRecurlyEntity entity, XmlTextReader reader)
         {
-            var recurlyEntity = entity as RecurlyEntity;
-            if (recurlyEntity == null)
-            {
-                return;
-            }
-
-            recurlyEntity.ReadXml(reader);
+            RecurlyEntity.ReadXml(reader, entity);
         }
     }
 }
