@@ -2,7 +2,7 @@
 
 namespace Recurly
 {
-    public interface IBillingInfo : IRecurlyEntity
+    public interface IBillingInfo : IRecurlyEntity, IEquatable<object>, IEquatable<IBillingInfo>
     {
         string AccountCode { get; }
         string AccountNumber { get; set; }
@@ -40,8 +40,6 @@ namespace Recurly
         string VerificationValue { get; set; }
 
         void Create();
-        bool Equals(IBillingInfo billingInfo);
-        bool Equals(object obj);
         int GetHashCode();
         string ToString();
         void Update();

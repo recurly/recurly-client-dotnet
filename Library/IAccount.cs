@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Recurly
 {
-    public interface IAccount : IRecurlyEntity
+    public interface IAccount : IRecurlyEntity, IEquatable<object>, IEquatable<IAccount>
     {
         string AcceptLanguage { get; set; }
         IAccountAcquisition AccountAcquisition { get; set; }
@@ -43,8 +43,6 @@ namespace Recurly
         void DeleteAccountAcquisition();
         void DeleteBillingInfo();
         void DeleteShippingAddress(long shippingAddressId);
-        bool Equals(IAccount account);
-        bool Equals(object obj);
         ICouponRedemption GetActiveRedemption();
         IRecurlyList<ICouponRedemption> GetActiveRedemptions();
         IRecurlyList<IAdjustment> GetAdjustments(Adjustment.AdjustmentType type = Adjustment.AdjustmentType.All, Adjustment.AdjustmentState state = Adjustment.AdjustmentState.Any);

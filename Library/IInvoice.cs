@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Recurly
 {
-    public interface IInvoice : IRecurlyEntity
+    public interface IInvoice : IRecurlyEntity, IEquatable<object>, IEquatable<IInvoice>
     {
         string AccountCode { get; }
         IAddress Address { get; set; }
@@ -46,8 +46,6 @@ namespace Recurly
 
         void Create(string accountCode);
         ITransaction EnterOfflinePayment(ITransaction transaction);
-        bool Equals(IInvoice invoice);
-        bool Equals(object obj);
         IInvoice ForceCollect();
         int GetHashCode();
         IInvoice GetOriginalInvoice();

@@ -4,7 +4,7 @@ using System.Xml;
 
 namespace Recurly
 {
-    public interface ICoupon : IRecurlyEntity
+    public interface ICoupon : IRecurlyEntity, IEquatable<object>, IEquatable<ICoupon>
     {
         int? AppliesForMonths { get; set; }
         bool? AppliesToAllPlans { get; set; }
@@ -37,8 +37,6 @@ namespace Recurly
 
         void Create();
         void Deactivate();
-        bool Equals(ICoupon coupon);
-        bool Equals(object obj);
         IRecurlyList<ICoupon> Generate(int amount);
         int GetHashCode();
         IRecurlyList<ICoupon> GetUniqueCouponCodes();

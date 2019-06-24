@@ -2,7 +2,7 @@
 
 namespace Recurly
 {
-    public interface IGiftCard : IRecurlyEntity
+    public interface IGiftCard : IRecurlyEntity, IEquatable<object>, IEquatable<IGiftCard>
     {
         int? BalanceInCents { get; set; }
         DateTime? CanceledAt { get; }
@@ -21,8 +21,6 @@ namespace Recurly
         DateTime UpdatedAt { get; }
 
         void Create();
-        bool Equals(IGiftCard giftCard);
-        bool Equals(object obj);
         int GetHashCode();
         void Preview();
         void Redeem(string accountCode);

@@ -1,6 +1,8 @@
-﻿namespace Recurly
+﻿using System;
+
+namespace Recurly
 {
-    public interface IAccountAcquisition : IRecurlyEntity
+    public interface IAccountAcquisition : IRecurlyEntity, IEquatable<object>, IEquatable<IAccountAcquisition>
     {
         string AccountCode { get; }
         string Campaign { get; set; }
@@ -10,8 +12,6 @@
         string SubChannel { get; set; }
 
         void Create();
-        bool Equals(IAccountAcquisition accountAcquisition);
-        bool Equals(object obj);
         int GetHashCode();
         string ToString();
         void Update();

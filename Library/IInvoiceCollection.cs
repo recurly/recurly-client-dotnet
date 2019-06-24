@@ -1,12 +1,12 @@
-﻿namespace Recurly
+﻿using System;
+
+namespace Recurly
 {
-    public interface IInvoiceCollection : IRecurlyEntity
+    public interface IInvoiceCollection : IRecurlyEntity, IEquatable<object>, IEquatable<IInvoiceCollection>
     {
         IInvoice ChargeInvoice { get; }
         IRecurlyList<IInvoice> CreditInvoices { get; }
 
-        bool Equals(IInvoiceCollection collection);
-        bool Equals(object obj);
         int GetHashCode();
         string ToString();
     }

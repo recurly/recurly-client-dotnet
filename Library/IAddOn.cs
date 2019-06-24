@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Recurly
 {
-    public interface IAddOn : IRecurlyEntity
+    public interface IAddOn : IRecurlyEntity, IEquatable<object>, IEquatable<IAddOn>
     {
         string AccountingCode { get; set; }
         string AddOnCode { get; set; }
@@ -23,8 +23,6 @@ namespace Recurly
 
         void Create();
         void Delete();
-        bool Equals(IAddOn addon);
-        bool Equals(object obj);
         int GetHashCode();
         string ToString();
         void Update();

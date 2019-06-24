@@ -2,7 +2,7 @@
 
 namespace Recurly
 {
-    public interface ICouponRedemption : IRecurlyEntity, IEquatable<ICouponRedemption>
+    public interface ICouponRedemption : IRecurlyEntity, IEquatable<object>, IEquatable<ICouponRedemption>
     {
         string AccountCode { get; set; }
         string CouponCode { get; }
@@ -16,7 +16,6 @@ namespace Recurly
         string Uuid { get; }
 
         void Delete();
-        bool Equals(object obj);
         int GetHashCode();
         string ToString();
     }
