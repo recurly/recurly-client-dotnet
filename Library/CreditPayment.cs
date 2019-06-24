@@ -6,7 +6,7 @@ namespace Recurly
     /// <summary>
     /// Represents a credit payment
     /// </summary>
-    public class CreditPayment : RecurlyEntity
+    public class CreditPayment : RecurlyEntity, ICreditPayment
     {
         public string Uuid { get; set; }
         public string Action { get; set; }
@@ -100,7 +100,7 @@ namespace Recurly
         /// </summary>
         /// <param name="uuid">The unique uuid of the credit payment</param>
         /// <returns>CreditPayment</returns>
-        public static CreditPayment Get(string uuid)
+        public static ICreditPayment Get(string uuid)
         {
             if (string.IsNullOrWhiteSpace(uuid))
             {
@@ -119,7 +119,7 @@ namespace Recurly
         /// </summary>
         /// <param name="filter">FilterCriteria used to apply server side sorting and filtering</param>
         /// <returns></returns>
-        public static IRecurlyList<CreditPayment> List(FilterCriteria filter)
+        public static IRecurlyList<ICreditPayment> List(FilterCriteria filter)
         {
             filter = filter ?? FilterCriteria.Instance;
             var parameters = filter.ToNamedValueCollection();

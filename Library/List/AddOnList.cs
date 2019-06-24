@@ -2,7 +2,7 @@
 
 namespace Recurly
 {
-    public class AddOnList : RecurlyList<AddOn>
+    public class AddOnList : RecurlyList<IAddOn>
     {
         public AddOnList()
         {
@@ -27,19 +27,19 @@ namespace Recurly
             }
         }
 
-        public override IRecurlyList<AddOn> Start
+        public override IRecurlyList<IAddOn> Start
         {
-            get { return HasStartPage() ? new AddOnList(StartUrl) : RecurlyList.Empty<AddOn>(); }
+            get { return HasStartPage() ? new AddOnList(StartUrl) : RecurlyList.Empty<IAddOn>(); }
         }
 
-        public override IRecurlyList<AddOn> Next
+        public override IRecurlyList<IAddOn> Next
         {
-            get { return HasNextPage() ? new AddOnList(NextUrl) : RecurlyList.Empty<AddOn>(); }
+            get { return HasNextPage() ? new AddOnList(NextUrl) : RecurlyList.Empty<IAddOn>(); }
         }
 
-        public override IRecurlyList<AddOn> Prev
+        public override IRecurlyList<IAddOn> Prev
         {
-            get { return HasPrevPage() ? new AddOnList(PrevUrl) : RecurlyList.Empty<AddOn>(); }
+            get { return HasPrevPage() ? new AddOnList(PrevUrl) : RecurlyList.Empty<IAddOn>(); }
         }
     }
 }

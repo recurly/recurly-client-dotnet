@@ -157,7 +157,7 @@ namespace Recurly
         /// <summary>
         /// Creates and invoices this purchase.
         /// </summary>
-        public static InvoiceCollection Invoice(Purchase purchase)
+        public static IInvoiceCollection Invoice(Purchase purchase)
         {
             var collection = new InvoiceCollection();
 
@@ -172,7 +172,7 @@ namespace Recurly
         /// <summary>
         /// Previews the invoice for this purchase. Runs validations but not transactions.
         /// </summary>
-        public static InvoiceCollection Preview(Purchase purchase)
+        public static IInvoiceCollection Preview(Purchase purchase)
         {
             var collection = new InvoiceCollection();
 
@@ -191,7 +191,7 @@ namespace Recurly
         /// has been completed on an external source (e.g. Adyen's Hosted
         /// Payment Pages).
         /// </summary>
-        public static InvoiceCollection Authorize(Purchase purchase)
+        public static IInvoiceCollection Authorize(Purchase purchase)
         {
             var collection = new InvoiceCollection();
 
@@ -207,7 +207,7 @@ namespace Recurly
         /// Use for Adyen HPP transaction requests. Runs validations
         /// but does not run any transactions.
         /// </summary>
-        public static InvoiceCollection Pending(Purchase purchase)
+        public static IInvoiceCollection Pending(Purchase purchase)
         {
             var collection = new InvoiceCollection();
 

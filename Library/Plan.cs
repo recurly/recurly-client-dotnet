@@ -58,7 +58,7 @@ namespace Recurly
 
         private AddOnList _addOns;
 
-        public IRecurlyList<AddOn> AddOns
+        public IRecurlyList<IAddOn> AddOns
         {
             get
             {
@@ -144,13 +144,13 @@ namespace Recurly
         /// <param name="addOnCode"></param>
         /// <param name="name"></param>
         /// <returns></returns>
-        public AddOn NewAddOn(string addOnCode, string name)
+        public IAddOn NewAddOn(string addOnCode, string name)
         {
             var a = new AddOn(PlanCode, addOnCode, name);
             return a;
         }
 
-        public AddOn GetAddOn(string addOnCode)
+        public IAddOn GetAddOn(string addOnCode)
         {
             if (string.IsNullOrWhiteSpace(addOnCode))
             {

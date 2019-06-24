@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Recurly
 {
-    public interface IAddOn
+    public interface IAddOn : IRecurlyEntity
     {
         string AccountingCode { get; set; }
         string AddOnCode { get; set; }

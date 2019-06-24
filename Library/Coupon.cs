@@ -53,7 +53,7 @@ namespace Recurly
 
         public long Id { get; private set; }
 
-        public IRecurlyList<CouponRedemption> Redemptions { get; private set; }
+        public IRecurlyList<ICouponRedemption> Redemptions { get; private set; }
 
         public string CouponCode { get; set; }
         public string Name { get; set; }

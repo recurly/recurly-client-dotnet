@@ -2,7 +2,7 @@
 
 namespace Recurly
 {
-    public class CouponRedemptionList : RecurlyList<CouponRedemption>
+    public class CouponRedemptionList : RecurlyList<ICouponRedemption>
     {
 
         internal CouponRedemptionList()
@@ -13,19 +13,19 @@ namespace Recurly
         {
         }
 
-        public override IRecurlyList<CouponRedemption> Start
+        public override IRecurlyList<ICouponRedemption> Start
         {
-            get { return HasStartPage() ? new CouponRedemptionList(StartUrl) : RecurlyList.Empty<CouponRedemption>(); }
+            get { return HasStartPage() ? new CouponRedemptionList(StartUrl) : RecurlyList.Empty<ICouponRedemption>(); }
         }
 
-        public override IRecurlyList<CouponRedemption> Next
+        public override IRecurlyList<ICouponRedemption> Next
         {
-            get { return HasNextPage() ? new CouponRedemptionList(NextUrl) : RecurlyList.Empty<CouponRedemption>(); }
+            get { return HasNextPage() ? new CouponRedemptionList(NextUrl) : RecurlyList.Empty<ICouponRedemption>(); }
         }
 
-        public override IRecurlyList<CouponRedemption> Prev
+        public override IRecurlyList<ICouponRedemption> Prev
         {
-            get { return HasPrevPage() ? new CouponRedemptionList(PrevUrl) : RecurlyList.Empty<CouponRedemption>(); }
+            get { return HasPrevPage() ? new CouponRedemptionList(PrevUrl) : RecurlyList.Empty<ICouponRedemption>(); }
         }
 
         internal override void ReadXml(XmlTextReader reader)

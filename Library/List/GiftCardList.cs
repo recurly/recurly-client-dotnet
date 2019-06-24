@@ -3,7 +3,7 @@ using System.Xml;
 
 namespace Recurly
 {
-    public class GiftCardList : RecurlyList<GiftCard>
+    public class GiftCardList : RecurlyList<IGiftCard>
     {
         internal GiftCardList(string baseUrl) : base(Client.HttpRequestMethod.Get, baseUrl)
         {
@@ -24,19 +24,19 @@ namespace Recurly
 
         }
 
-        public override IRecurlyList<GiftCard> Start
+        public override IRecurlyList<IGiftCard> Start
         {
-            get { return HasStartPage() ? new GiftCardList(StartUrl) : RecurlyList.Empty<GiftCard>(); }
+            get { return HasStartPage() ? new GiftCardList(StartUrl) : RecurlyList.Empty<IGiftCard>(); }
         }
 
-        public override IRecurlyList<GiftCard> Next
+        public override IRecurlyList<IGiftCard> Next
         {
-            get { return HasNextPage() ? new GiftCardList(NextUrl) : RecurlyList.Empty<GiftCard>(); }
+            get { return HasNextPage() ? new GiftCardList(NextUrl) : RecurlyList.Empty<IGiftCard>(); }
         }
 
-        public override IRecurlyList<GiftCard> Prev
+        public override IRecurlyList<IGiftCard> Prev
         {
-            get { return HasPrevPage() ? new GiftCardList(PrevUrl) : RecurlyList.Empty<GiftCard>(); }
+            get { return HasPrevPage() ? new GiftCardList(PrevUrl) : RecurlyList.Empty<IGiftCard>(); }
         }
     }
 }

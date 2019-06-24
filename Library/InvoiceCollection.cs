@@ -9,7 +9,7 @@ namespace Recurly
     /// <summary>
     /// Represents a collection of charge and credit invoices
     /// </summary>
-    public class InvoiceCollection : RecurlyEntity
+    public class InvoiceCollection : RecurlyEntity, IInvoiceCollection
     {
        
         /// <summary>
@@ -77,11 +77,11 @@ namespace Recurly
 
         public override bool Equals(object obj)
         {
-            var sub = obj as InvoiceCollection;
+            var sub = obj as IInvoiceCollection;
             return sub != null && Equals(sub);
         }
 
-        public bool Equals(InvoiceCollection collection)
+        public bool Equals(IInvoiceCollection collection)
         {
             return ChargeInvoice == collection?.ChargeInvoice
                 && CreditInvoices == collection?.CreditInvoices;

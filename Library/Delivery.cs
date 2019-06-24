@@ -4,7 +4,7 @@ using System.Xml;
 
 namespace Recurly
 {
-    public class Delivery : RecurlyEntity
+    public class Delivery : RecurlyEntity, IDelivery
     {
         [Flags]
         public enum DeliveryMethod : short

@@ -52,12 +52,12 @@ namespace Recurly
         int GetHashCode();
         IInvoice GetOriginalInvoice();
         byte[] GetPdf(string acceptLanguage = "en-US");
-        CouponRedemption GetRedemption();
-        IRecurlyList<CouponRedemption> GetRedemptions();
+        ICouponRedemption GetRedemption();
+        IRecurlyList<ICouponRedemption> GetRedemptions();
         IRecurlyList<Subscription> GetSubscriptions();
         IRecurlyList<Transaction> GetTransactions();
         string InvoiceNumberWithPrefix();
-        InvoiceCollection MarkFailed();
+        IInvoiceCollection MarkFailed();
         void MarkSuccessful();
         string OriginalInvoiceNumberWithPrefix();
         void Preview(string accountCode);

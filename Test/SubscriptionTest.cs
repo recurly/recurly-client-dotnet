@@ -428,9 +428,9 @@ namespace Recurly.Test
         {
             Plan plan = null;
             Plan plan2 = null;
-            AddOn addon1 = null;
-            AddOn addon2 = null;
-            Account account = null;
+            IAddOn addon1 = null;
+            IAddOn addon2 = null;
+            IAccount account = null;
             Subscription sub = null;
             Subscription sub2 = null;
             SubscriptionChange subChange = null;
@@ -527,7 +527,7 @@ namespace Recurly.Test
             Plan plan = null;
             Account account = null;
             Subscription sub = null;
-            System.Collections.Generic.List<AddOn> addons = new System.Collections.Generic.List<AddOn>();
+            System.Collections.Generic.List<IAddOn> addons = new System.Collections.Generic.List<IAddOn>();
 
             try
             {

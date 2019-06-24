@@ -236,7 +236,7 @@ namespace Recurly
         /// this invoice object.
         /// </summary>
         /// <returns>New Invoice Collection</returns>
-        public InvoiceCollection MarkFailed()
+        public IInvoiceCollection MarkFailed()
         {
             var collection = new InvoiceCollection();
             Client.Instance.PerformRequest(
@@ -264,13 +264,13 @@ namespace Recurly
         /// Returns the active coupon redemption on this invoice
         /// </summary>
         /// <returns></returns>
-        public CouponRedemption GetRedemption()
+        public ICouponRedemption GetRedemption()
         {
             var redemptionList = GetRedemptions();
             return redemptionList.HasAny() ? redemptionList[0] : null;
         }
 
-        public IRecurlyList<CouponRedemption> GetRedemptions()
+        public IRecurlyList<ICouponRedemption> GetRedemptions()
         {
             var coupons = new CouponRedemptionList();
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
@@ -783,7 +783,7 @@ namespace Recurly
         /// <param name="accountCode">Account code</param>
         /// <returns></returns>
         [Obsolete("Deprecated, please use the Create instance method on the Invoice object")] 
-        public static Invoice Create(string accountCode)
+        public static IInvoice Create(string accountCode)
         {
             if (string.IsNullOrWhiteSpace(accountCode))
             {

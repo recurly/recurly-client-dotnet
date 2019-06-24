@@ -65,7 +65,7 @@ namespace Recurly
             get { return _invoice ?? (_invoice = Invoices.Get(_invoiceNumber)); }
         }
 
-        public InvoiceCollection InvoiceCollection { get; private set; }
+        public IInvoiceCollection InvoiceCollection { get; private set; }
 
         private Plan _plan;
 
@@ -532,7 +532,7 @@ namespace Recurly
             return true;
         }
 
-        public IRecurlyList<CouponRedemption> GetRedemptions()
+        public IRecurlyList<ICouponRedemption> GetRedemptions()
         {
             var coupons = new CouponRedemptionList();
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,

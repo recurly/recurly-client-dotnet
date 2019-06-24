@@ -2,25 +2,25 @@
 
 namespace Recurly
 {
-    public class MeasuredUnitList : RecurlyList<MeasuredUnit>
+    public class MeasuredUnitList : RecurlyList<IMeasuredUnit>
     {
         internal MeasuredUnitList(string baseUrl) : base(Client.HttpRequestMethod.Get, baseUrl)
         {
         }
 
-        public override IRecurlyList<MeasuredUnit> Start
+        public override IRecurlyList<IMeasuredUnit> Start
         {
-            get { return HasStartPage() ? new MeasuredUnitList(StartUrl) : RecurlyList.Empty<MeasuredUnit>(); }
+            get { return HasStartPage() ? new MeasuredUnitList(StartUrl) : RecurlyList.Empty<IMeasuredUnit>(); }
         }
 
-        public override IRecurlyList<MeasuredUnit> Next
+        public override IRecurlyList<IMeasuredUnit> Next
         {
-            get { return HasNextPage() ? new MeasuredUnitList(NextUrl) : RecurlyList.Empty<MeasuredUnit>(); }
+            get { return HasNextPage() ? new MeasuredUnitList(NextUrl) : RecurlyList.Empty<IMeasuredUnit>(); }
         }
 
-        public override IRecurlyList<MeasuredUnit> Prev
+        public override IRecurlyList<IMeasuredUnit> Prev
         {
-            get { return HasPrevPage() ? new MeasuredUnitList(PrevUrl) : RecurlyList.Empty<MeasuredUnit>(); }
+            get { return HasPrevPage() ? new MeasuredUnitList(PrevUrl) : RecurlyList.Empty<IMeasuredUnit>(); }
         }
 
         internal override void ReadXml(XmlTextReader reader)

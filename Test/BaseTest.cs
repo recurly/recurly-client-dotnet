@@ -66,7 +66,7 @@ namespace Recurly.Test
             return info;
         }
 
-        protected Coupon CreateNewCoupon(int discountPercent)
+        protected ICoupon CreateNewCoupon(int discountPercent)
         {
             var coupon = new Coupon(GetMockCouponCode(), GetMockCouponName(), discountPercent);
             coupon.Create();

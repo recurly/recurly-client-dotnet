@@ -63,7 +63,7 @@ namespace Recurly
         /// </summary>
         /// <param name="planAddOn">The <see cref="T:Recurly.AddOn"/> to add to the current Subscription.</param>
         /// <param name="quantity">The quantity of the add-on. Optional, default is 1.</param>
-        public void Add(AddOn planAddOn, int quantity = 1)
+        public void Add(IAddOn planAddOn, int quantity = 1)
         {
             int amount = 0;
 
@@ -99,7 +99,7 @@ namespace Recurly
         /// <param name="planAddOn">The <see cref="T:Recurly.AddOn"/> to add to the current Subscription.</param>
         /// <param name="quantity">The quantity of the add-on. Optional, default is 1.</param>
         /// <param name="unitAmountInCents">Overrides the UnitAmountInCents of the add-on.</param>
-        public void Add(AddOn planAddOn, int quantity, int unitAmountInCents)
+        public void Add(IAddOn planAddOn, int quantity, int unitAmountInCents)
         {
             var sub = new SubscriptionAddOn(planAddOn.AddOnCode, planAddOn.AddOnType, unitAmountInCents, quantity);
             base.Add(sub);

@@ -80,7 +80,15 @@
     <Compile Include="IAdjustment.cs" />
     <Compile Include="IBillingInfo.cs" />
     <Compile Include="ICoupon.cs" />
+    <Compile Include="ICouponRedemption.cs" />
+    <Compile Include="ICreditPayment.cs" />
+    <Compile Include="IDelivery.cs" />
+    <Compile Include="IExportDate.cs" />
+    <Compile Include="IGiftCard.cs" />
     <Compile Include="IInvoice.cs" />
+    <Compile Include="IInvoiceCollection.cs" />
+    <Compile Include="IMeasuredUnit.cs" />
+    <Compile Include="INote.cs" />
     <Compile Include="InvoiceCollection.cs" />
     <Compile Include="IRecurlyEntity.cs" />
     <Compile Include="List\CreditPaymentList.cs" />

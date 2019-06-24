@@ -2,26 +2,26 @@
 
 namespace Recurly
 {
-    public class NoteList : RecurlyList<Note>
+    public class NoteList : RecurlyList<INote>
     {
         public NoteList(string baseUrl) : base(Client.HttpRequestMethod.Get, baseUrl)
         {
 
         }
 
-        public override IRecurlyList<Note> Start
+        public override IRecurlyList<INote> Start
         {
-            get { return HasStartPage() ? new NoteList(StartUrl) : RecurlyList.Empty<Note>(); }
+            get { return HasStartPage() ? new NoteList(StartUrl) : RecurlyList.Empty<INote>(); }
         }
 
-        public override IRecurlyList<Note> Next
+        public override IRecurlyList<INote> Next
         {
-            get { return HasNextPage() ? new NoteList(NextUrl) : RecurlyList.Empty<Note>(); }
+            get { return HasNextPage() ? new NoteList(NextUrl) : RecurlyList.Empty<INote>(); }
         }
 
-        public override IRecurlyList<Note> Prev
+        public override IRecurlyList<INote> Prev
         {
-            get { return HasPrevPage() ? new NoteList(PrevUrl) : RecurlyList.Empty<Note>(); }
+            get { return HasPrevPage() ? new NoteList(PrevUrl) : RecurlyList.Empty<INote>(); }
         }
 
         internal override void ReadXml(XmlTextReader reader)

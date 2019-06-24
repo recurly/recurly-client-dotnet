@@ -8,7 +8,8 @@ using System.Xml;
 
 namespace Recurly
 {
-    public class MeasuredUnit : RecurlyEntity {
+    public class MeasuredUnit : RecurlyEntity, IMeasuredUnit
+    {
 
         public string DisplayName { get; set; }
         public string Description { get; set; }
@@ -124,11 +125,11 @@ namespace Recurly
 
         public override bool Equals(object obj)
         {
-            var invoice = obj as Invoice;
+            var invoice = obj as IMeasuredUnit;
             return invoice != null && Equals(invoice);
         }
 
-        public bool Equals(MeasuredUnit measuredUnit)
+        public bool Equals(IMeasuredUnit measuredUnit)
         {
             return Id == measuredUnit.Id;
         }
@@ -146,7 +147,7 @@ namespace Recurly
         /// <summary>
         /// Lists measured units
         /// </summary>
-        public static IRecurlyList<MeasuredUnit> List()
+        public static IRecurlyList<IMeasuredUnit> List()
         {
             return new MeasuredUnitList("/measured_units/");
         }
@@ -156,7 +157,7 @@ namespace Recurly
         /// </summary>
         /// <param name="measuredUnitId">MeasuredUnit id</param>
         /// <returns></returns>
-        public static MeasuredUnit Get(long measuredUnitId)
+        public static IMeasuredUnit Get(long measuredUnitId)
         {
             var measuredUnit = new MeasuredUnit();
 

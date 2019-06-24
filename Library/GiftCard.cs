@@ -9,7 +9,7 @@ namespace Recurly
     ///
     /// https://dev.recurly.com/docs/gift-card-object
     /// </summary>
-    public class GiftCard : RecurlyEntity
+    public class GiftCard : RecurlyEntity, IGiftCard
     {
         /// <summary>
         /// Unique ID assigned to this gift card.
@@ -68,7 +68,7 @@ namespace Recurly
         /// <summary>
         /// Block of delivery information.
         /// </summary>
-        public Delivery Delivery { get; set; }
+        public IDelivery Delivery { get; set; }
 
         /// <summary>
         /// When the gift card was purchased.
@@ -141,7 +141,7 @@ namespace Recurly
 
         internal const string UrlPrefix = "/gift_cards/";
 
-        public GiftCard(string accountCode, Delivery delivery, string productCode, int unitAmountInCents, string currency)
+        public GiftCard(string accountCode, IDelivery delivery, string productCode, int unitAmountInCents, string currency)
         {
             GifterAccount = new Account(accountCode);
             ProductCode = productCode;
@@ -150,7 +150,7 @@ namespace Recurly
             Delivery = delivery;
         }
 
-        public GiftCard(IAccount gifterAccount, Delivery delivery, string productCode, int unitAmountInCents, string currency)
+        public GiftCard(IAccount gifterAccount, IDelivery delivery, string productCode, int unitAmountInCents, string currency)
         {
             GifterAccount = gifterAccount;
             ProductCode = productCode;
@@ -331,8 +331,10 @@ namespace Recurly
             if (GifterAccount != null)
                 Account.WriteXml(xmlWriter, "gifter_account", GifterAccount);
 
-            if (Delivery != null)
-                Delivery.WriteXml(xmlWriter);
+            var recurlyDelivery = Delivery as Delivery;
+
+            if (recurlyDelivery != null)
+                recurlyDelivery.WriteXml(xmlWriter);
 
             xmlWriter.WriteEndElement(); // End: gift_card
         }
@@ -359,11 +361,11 @@ namespace Recurly
 
         public override bool Equals(object obj)
         {
-            var a = obj as GiftCard;
+            var a = obj as IGiftCard;
             return a != null && Equals(a);
         }
 
-        public bool Equals(GiftCard giftCard)
+        public bool Equals(IGiftCard giftCard)
         {
             return giftCard != null && Id == giftCard.Id;
         }
@@ -385,7 +387,7 @@ namespace Recurly
         /// </summary>
         /// <param name="id">The long id of the gift card</param>
         /// <returns></returns>
-        public static GiftCard Get(long id)
+        public static IGiftCard Get(long id)
         {
             var giftCard = new GiftCard();
             // GET /gift_cards/<id>
@@ -403,7 +405,7 @@ namespace Recurly
         /// <param name="recipientAccountCode">A recipients's account code to filter by (may be null)</param>
         /// <param name="filter">FilterCriteria used to apply server side sorting and filtering</param>
         /// <returns></returns>
-        public static IRecurlyList<GiftCard> List(string gifterAccountCode = null, string recipientAccountCode = null, FilterCriteria filter = null)
+        public static IRecurlyList<IGiftCard> List(string gifterAccountCode = null, string recipientAccountCode = null, FilterCriteria filter = null)
         {
             filter = filter ?? FilterCriteria.Instance;
             var parameters = filter.ToNamedValueCollection();

@@ -3,7 +3,7 @@ using System.Xml;
 
 namespace Recurly
 {
-    public class Note : RecurlyEntity
+    public class Note : RecurlyEntity, INote
     {
         public string AccountCode { get; protected set; }
         public string Message { get; protected set; }

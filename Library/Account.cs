@@ -245,7 +245,7 @@ namespace Recurly
         /// <summary>
         /// Posts pending charges on an account
         /// </summary>
-        public InvoiceCollection InvoicePendingCharges(IInvoice invoice = null)
+        public IInvoiceCollection InvoicePendingCharges(IInvoice invoice = null)
         {
             invoice = invoice ?? new Invoice();
             var collection = new InvoiceCollection();
@@ -260,7 +260,7 @@ namespace Recurly
         /// <summary>
         /// Previews a new invoice for the pending charges on an account
         /// </summary>
-        public InvoiceCollection PreviewInvoicePendingCharges(IInvoice invoice = null)
+        public IInvoiceCollection PreviewInvoicePendingCharges(IInvoice invoice = null)
         {
             invoice = invoice ?? new Invoice(); 
             var collection = new InvoiceCollection();
@@ -370,7 +370,7 @@ namespace Recurly
                    .AndWith(type != TransactionList.TransactionType.All ? "type=" + type.ToString().EnumNameToTransportCase() : ""));
         }
 
-        public IRecurlyList<Note> GetNotes()
+        public IRecurlyList<INote> GetNotes()
         {
             return new NoteList(UrlPrefix + Uri.EscapeDataString(AccountCode) + "/notes/");
         }
@@ -413,7 +413,7 @@ namespace Recurly
         /// <param name="couponCode"></param>
         /// <param name="currency"></param>
         /// <returns></returns>
-        public CouponRedemption RedeemCoupon(string couponCode, string currency, string subscriptionUuid = null)
+        public ICouponRedemption RedeemCoupon(string couponCode, string currency, string subscriptionUuid = null)
         {
             return CouponRedemption.Redeem(AccountCode, couponCode, currency, subscriptionUuid);
         }
@@ -422,7 +422,7 @@ namespace Recurly
         /// Returns all active coupon redemptions on this account
         /// </summary>
         /// <returns></returns>
-        public IRecurlyList<CouponRedemption> GetActiveRedemptions()
+        public IRecurlyList<ICouponRedemption> GetActiveRedemptions()
         {
             var redemptions = new CouponRedemptionList();
 
@@ -437,7 +437,7 @@ namespace Recurly
         /// Returns the first active coupon redemptions on this account
         /// </summary>
         /// <returns></returns>
-        public CouponRedemption GetActiveRedemption()
+        public ICouponRedemption GetActiveRedemption()
         {
             var activeRedemptions = GetActiveRedemptions();
 
@@ -731,7 +731,7 @@ namespace Recurly
 
         public override bool Equals(object obj)
         {
-            var a = obj as Account;
+            var a = obj as IAccount;
             return a != null && Equals(a);
         }
 

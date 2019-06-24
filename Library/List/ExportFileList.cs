@@ -7,13 +7,13 @@ using System.Xml;
 
 namespace Recurly.List
 {
-    public class ExportFileList : RecurlyList<ExportFile>
+    public class ExportFileList : RecurlyList<IExportFile>
     {
         public ExportFileList(string baseUrl) : base(Client.HttpRequestMethod.Get, baseUrl)
         { }
-        public override IRecurlyList<ExportFile> Start { get; }
-        public override IRecurlyList<ExportFile> Next { get; }
-        public override IRecurlyList<ExportFile> Prev { get; }
+        public override IRecurlyList<IExportFile> Start { get; }
+        public override IRecurlyList<IExportFile> Next { get; }
+        public override IRecurlyList<IExportFile> Prev { get; }
         internal override void ReadXml(XmlTextReader reader)
         {
             while (reader.Read())

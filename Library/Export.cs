@@ -9,7 +9,7 @@ using Recurly.List;
 
 namespace Recurly
 {
-    public class ExportDate : RecurlyEntity
+    public class ExportDate : RecurlyEntity, IExportDate
     {
         internal const string UrlPrefix = "/export_dates";
         public DateTime Date { get; set; }
@@ -46,7 +46,7 @@ namespace Recurly
         }
     }
 
-    public class ExportFile : RecurlyEntity
+    public class ExportFile : RecurlyEntity, IExportFile
     {
         internal const string FilesUrlPrefix = "/export_dates/{0}/export_files/";
         internal const string FileUrlPrefix = FilesUrlPrefix + "{1}";
@@ -97,17 +97,17 @@ namespace Recurly
 
     public sealed class Exports
     {
-        public static IRecurlyList<ExportDate> ListExportDates()
+        public static IRecurlyList<IExportDate> ListExportDates()
         {
             return new ExportDateList(ExportDate.UrlPrefix);
         }
 
-        public static IRecurlyList<ExportFile> ListExportFiles(DateTime date)
+        public static IRecurlyList<IExportFile> ListExportFiles(DateTime date)
         {
             return new ExportFileList(string.Format(ExportFile.FilesUrlPrefix, date.ToString("yyyy-MM-dd")));
         }
 
-        public static ExportFile DownloadExportFile(DateTime date, string fileName)
+        public static IExportFile DownloadExportFile(DateTime date, string fileName)
         {
             if (string.IsNullOrWhiteSpace(fileName))
             {

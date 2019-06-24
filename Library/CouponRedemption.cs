@@ -6,7 +6,7 @@ namespace Recurly
     /// <summary>
     /// Represents an instance where a coupon has been redeemed for a subscription
     /// </summary>
-    public class CouponRedemption : RecurlyEntity
+    public class CouponRedemption : RecurlyEntity, ICouponRedemption
     {
 
         public string Uuid { get; private set; }
@@ -41,7 +41,7 @@ namespace Recurly
         /// </summary>
         /// <param name="accountCode"></param>
         /// <param name="currency"></param>
-        internal static CouponRedemption Redeem(string accountCode, string couponCode, string currency, string subscriptionUuid=null)
+        internal static ICouponRedemption Redeem(string accountCode, string couponCode, string currency, string subscriptionUuid=null)
         {
             var cr = new CouponRedemption {AccountCode = accountCode, Currency = currency, SubscriptionUuid = subscriptionUuid};
 
@@ -154,11 +154,11 @@ namespace Recurly
 
         public override bool Equals(object obj)
         {
-            var redemption = obj as CouponRedemption;
+            var redemption = obj as ICouponRedemption;
             return redemption != null && Equals(redemption);
         }
 
-        public bool Equals(CouponRedemption coupon)
+        public bool Equals(ICouponRedemption coupon)
         {
             return AccountCode == coupon.AccountCode && CouponCode == coupon.CouponCode;
         }

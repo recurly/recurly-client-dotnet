@@ -26,7 +26,7 @@ namespace Recurly
         List<string> Plans { get; }
         DateTime? RedeemByDate { get; set; }
         Coupon.RedemptionResourceType RedemptionResource { get; set; }
-        IRecurlyList<CouponRedemption> Redemptions { get; }
+        IRecurlyList<ICouponRedemption> Redemptions { get; }
         bool? SingleUse { get; set; }
         Coupon.CouponState State { get; }
         int? TemporalAmount { get; set; }
