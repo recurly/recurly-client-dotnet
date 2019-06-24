@@ -2,6 +2,7 @@
 using System.Xml;
 using System.Collections;
 using System.Collections.Generic;
+using Recurly.Extensions;
 
 namespace Recurly
 {
@@ -48,7 +49,7 @@ namespace Recurly
 
             foreach (var refund in Refunds)
             {
-                Refund.WriteXml(writer, refund);
+                refund.TryWriteXml(writer);
             }
 
             writer.WriteEndElement(); // line_items

@@ -164,7 +164,7 @@ namespace Recurly
 
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 UrlPrefix,
-                xml => WriteXml(xml, purchase),
+                purchase.TryWriteXml,
                 collection.ReadXml);
 
             return collection;
@@ -179,7 +179,7 @@ namespace Recurly
 
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 UrlPrefix + "preview/",
-                xml => WriteXml(xml, purchase),
+                purchase.TryWriteXml,
                 collection.ReadXml);
 
             return collection;
@@ -198,7 +198,7 @@ namespace Recurly
 
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 UrlPrefix + "authorize/",
-                xml => WriteXml(xml, purchase),
+                purchase.TryWriteXml,
                 collection.ReadXml);
 
             return collection;
@@ -214,20 +214,13 @@ namespace Recurly
 
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 UrlPrefix + "pending/",
-                xml => WriteXml(xml, purchase),
+                purchase.TryWriteXml,
                 collection.ReadXml);
 
             return collection;
         }
 
         #region Read and Write XML documents
-
-        internal static void WriteXml(XmlTextWriter xmlWriter, IPurchase purchase)
-        {
-            var recurlyPurchase = purchase as Purchase;
-            if (recurlyPurchase != null)
-                recurlyPurchase.WriteXml(xmlWriter);
-        }
 
         internal override void WriteXml(XmlTextWriter xmlWriter)
         {
@@ -246,14 +239,14 @@ namespace Recurly
             if (ShippingAddressId.HasValue)
                 xmlWriter.WriteElementString("shipping_address_id", ShippingAddressId.Value.ToString());
 
-            Recurly.Account.WriteXml(xmlWriter, Account);
+            Account.TryWriteXml(xmlWriter);
 
             if (Adjustments.HasAny())
             {
                 xmlWriter.WriteStartElement("adjustments"); // Start: adjustments
                 foreach (var adjustment in Adjustments)
                 {
-                    adjustment.TryWriteXml(xmlWriter);
+                    Adjustment.WriteEmbeddedXml(xmlWriter, adjustment);
                 }
                 xmlWriter.WriteEndElement(); // End: adjustments
             }

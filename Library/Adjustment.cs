@@ -300,6 +300,13 @@ namespace Recurly
             xmlWriter.WriteEndElement(); // End: adjustment
         }
 
+        internal static void WriteEmbeddedXml(XmlTextWriter xmlWriter, IAdjustment adjustment)
+        {
+            var recurlyAdjustment = adjustment as Adjustment;
+            if (recurlyAdjustment != null)
+                recurlyAdjustment.WriteEmbeddedXml(xmlWriter);
+        }
+
         #endregion
     }
 
