@@ -458,8 +458,8 @@ namespace Recurly
         {
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 UrlPrefix + Uri.EscapeDataString(AccountCode) + "/shipping_addresses",
-                xml => ShippingAddress.WriteXml(xml, shippingAddress),
-                xml => ShippingAddress.ReadXml(xml, shippingAddress));
+                shippingAddress.TryWriteXml,
+                shippingAddress.TryReadXml);
 
             return statusCode == HttpStatusCode.Created ? shippingAddress : null;
         }
@@ -474,8 +474,8 @@ namespace Recurly
             var shippingAddressId = shippingAddress.Id;
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
                 UrlPrefix + Uri.EscapeDataString(AccountCode) + "/shipping_addresses/" + shippingAddressId,
-                xml => ShippingAddress.WriteXml(xml, shippingAddress),
-                xml => ShippingAddress.ReadXml(xml, shippingAddress));
+                shippingAddress.TryWriteXml,
+                shippingAddress.TryReadXml);
 
             return statusCode == HttpStatusCode.OK ? shippingAddress : null;
         }
@@ -661,53 +661,44 @@ namespace Recurly
 
         internal void WriteXml(XmlTextWriter xmlWriter, string xmlName)
         {
-            WriteXml(xmlWriter, xmlName, this);
-        }
-
-        internal static void WriteXml(XmlTextWriter xmlWriter, IAccount account)
-        {
-            WriteXml(xmlWriter, "account", account);
-        }
-
-        internal static void WriteXml(XmlTextWriter xmlWriter, string xmlName, IAccount account)
-        {
             xmlWriter.WriteStartElement(xmlName); // Start: account
 
-            xmlWriter.WriteElementString("account_code", account.AccountCode);
-            xmlWriter.WriteStringIfValid("username", account.Username);
-            xmlWriter.WriteStringIfValid("email", account.Email);
-            xmlWriter.WriteStringIfValid("first_name", account.FirstName);
-            xmlWriter.WriteStringIfValid("last_name", account.LastName);
-            xmlWriter.WriteStringIfValid("company_name", account.CompanyName);
-            xmlWriter.WriteStringIfValid("accept_language", account.AcceptLanguage);
-            xmlWriter.WriteStringIfValid("vat_number", account.VatNumber);
-            xmlWriter.WriteStringIfValid("entity_use_code", account.EntityUseCode);
-            xmlWriter.WriteStringIfValid("cc_emails", account.CcEmails);
-            xmlWriter.WriteStringIfValid("preferred_locale", account.PreferredLocale);
+            xmlWriter.WriteElementString("account_code", AccountCode);
+            xmlWriter.WriteStringIfValid("username", Username);
+            xmlWriter.WriteStringIfValid("email", Email);
+            xmlWriter.WriteStringIfValid("first_name", FirstName);
+            xmlWriter.WriteStringIfValid("last_name", LastName);
+            xmlWriter.WriteStringIfValid("company_name", CompanyName);
+            xmlWriter.WriteStringIfValid("accept_language", AcceptLanguage);
+            xmlWriter.WriteStringIfValid("vat_number", VatNumber);
+            xmlWriter.WriteStringIfValid("entity_use_code", EntityUseCode);
+            xmlWriter.WriteStringIfValid("cc_emails", CcEmails);
+            xmlWriter.WriteStringIfValid("preferred_locale", PreferredLocale);
 
-            xmlWriter.WriteIfCollectionHasAny("shipping_addresses", account.ShippingAddresses);
-            xmlWriter.WriteIfCollectionHasAny("custom_fields", account.CustomFields);
+            xmlWriter.WriteIfCollectionHasAny("shipping_addresses", ShippingAddresses);
+            xmlWriter.WriteIfCollectionHasAny("custom_fields", CustomFields);
 
             // Clear the parent account by writing empty string. Null should not clear parent.
-            if (account.ParentAccountCode != null)
-                xmlWriter.WriteElementString("parent_account_code", account.ParentAccountCode);
+            if (ParentAccountCode != null)
+                xmlWriter.WriteElementString("parent_account_code", ParentAccountCode);
 
-            if (account.TaxExempt.HasValue)
-                xmlWriter.WriteElementString("tax_exempt", account.TaxExempt.Value.AsString());
+            if (TaxExempt.HasValue)
+                xmlWriter.WriteElementString("tax_exempt", TaxExempt.Value.AsString());
 
-            xmlWriter.WriteStringIfValid("exemption_certificate", account.ExemptionCertificate);
+            xmlWriter.WriteStringIfValid("exemption_certificate", ExemptionCertificate);
 
-            if (account.AccountAcquisition != null)
-                account.AccountAcquisition.TryWriteXml(xmlWriter);
+            if (_accountAcquisition != null)
+                _accountAcquisition.TryWriteXml(xmlWriter);
 
-            if (account.BillingInfo != null)
-                account.BillingInfo.TryWriteXml(xmlWriter);
+            if (_billingInfo != null)
+                _billingInfo.TryWriteXml(xmlWriter);
 
-            if (account.Address != null)
-                account.Address.TryWriteXml(xmlWriter);
+            if (Address != null)
+                Address.TryWriteXml(xmlWriter);
 
             xmlWriter.WriteEndElement(); // End: account
         }
+
         /// <summary>
         /// This serializer is used for redeeming a gift card on
         /// this account.
