@@ -56,7 +56,7 @@ namespace Recurly
         IAccount GetParentAccount();
         IRecurlyList<IShippingAddress> GetShippingAddresses();
         IRecurlyList<ISubscription> GetSubscriptions(Subscription.SubscriptionState state = Subscription.SubscriptionState.All);
-        IRecurlyList<Transaction> GetTransactions(TransactionList.TransactionState state = TransactionList.TransactionState.All, TransactionList.TransactionType type = TransactionList.TransactionType.All);
+        IRecurlyList<ITransaction> GetTransactions(TransactionList.TransactionState state = TransactionList.TransactionState.All, TransactionList.TransactionType type = TransactionList.TransactionType.All);
         IInvoiceCollection InvoicePendingCharges(IInvoice invoice = null);
         IAdjustment NewAdjustment(string currency, int unitAmountInCents, string description = "", int quantity = 1, string accountingCode = "", bool taxExempt = false);
         IInvoiceCollection PreviewInvoicePendingCharges(IInvoice invoice = null);

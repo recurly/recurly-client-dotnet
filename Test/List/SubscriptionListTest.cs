@@ -171,7 +171,7 @@ namespace Recurly.Test
             plan.Create();
             PlansToDeactivateOnDispose.Add(plan);
 
-            var subs = new List<Subscription>();
+            var subs = new List<ISubscription>();
             for (var x = 0; x < 2; x++)
             {
                 var account = CreateNewAccountWithBillingInfo();

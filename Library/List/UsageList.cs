@@ -2,7 +2,7 @@
 
 namespace Recurly
 {
-    public class UsageList : RecurlyList<Usage>
+    public class UsageList : RecurlyList<IUsage>
     {
         public enum UsageBillingState : short
         {
@@ -26,19 +26,19 @@ namespace Recurly
         {
         }
 
-        public override IRecurlyList<Usage> Start
+        public override IRecurlyList<IUsage> Start
         {
-            get { return HasStartPage() ? new UsageList(StartUrl) : RecurlyList.Empty<Usage>(); }
+            get { return HasStartPage() ? new UsageList(StartUrl) : RecurlyList.Empty<IUsage>(); }
         }
 
-        public override IRecurlyList<Usage> Next
+        public override IRecurlyList<IUsage> Next
         {
-            get { return HasNextPage() ? new UsageList(NextUrl) : RecurlyList.Empty<Usage>(); }
+            get { return HasNextPage() ? new UsageList(NextUrl) : RecurlyList.Empty<IUsage>(); }
         }
 
-        public override IRecurlyList<Usage> Prev
+        public override IRecurlyList<IUsage> Prev
         {
-            get { return HasPrevPage() ? new UsageList(PrevUrl) : RecurlyList.Empty<Usage>(); }
+            get { return HasPrevPage() ? new UsageList(PrevUrl) : RecurlyList.Empty<IUsage>(); }
         }
 
         internal override void ReadXml(XmlTextReader reader)

@@ -16,14 +16,14 @@ namespace Recurly.Test
             PlansToDeactivateOnDispose = new List<IPlan>();
         }
 
-        protected Account CreateNewAccount()
+        protected IAccount CreateNewAccount()
         {
             var account = new Account(GetUniqueAccountCode());
             account.Create();
             return account;
         }
 
-        protected Account CreateNewAccountWithBillingInfo()
+        protected IAccount CreateNewAccountWithBillingInfo()
         {
             var account = NewAccountWithBillingInfo();
             account.Create();
@@ -31,7 +31,7 @@ namespace Recurly.Test
             return account;
         }
 
-        protected Account CreateNewAccountWithACHBillingInfo()
+        protected IAccount CreateNewAccountWithACHBillingInfo()
         {
             var code = GetUniqueAccountCode();
             var account = new Account(code, NewACHBillingInfo(code));
@@ -39,7 +39,7 @@ namespace Recurly.Test
             return account;
         }
 
-        protected Account NewAccountWithBillingInfo()
+        protected IAccount NewAccountWithBillingInfo()
         {
             var code = GetUniqueAccountCode();
             var account = new Account(code, NewBillingInfo(code));
@@ -103,7 +103,7 @@ namespace Recurly.Test
             return name + " " + DateTime.Now.ToString("yyyyMMddhhmmFFFFFFF");
         }
 
-        public IBillingInfo NewBillingInfo(Account account)
+        public IBillingInfo NewBillingInfo(IAccount account)
         {
             var billingInfo = new BillingInfo(account)
             {

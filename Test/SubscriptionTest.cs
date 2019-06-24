@@ -9,7 +9,7 @@ namespace Recurly.Test
     public class SubscriptionTest : BaseTest
     {
         [RecurlyFact(TestEnvironment.Type.Integration)]
-        public Subscription LookupSubscription()
+        public ISubscription LookupSubscription()
         {
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName()) { Description = "Lookup Subscription Test" };
             plan.UnitAmountInCents.Add("USD", 1500);
@@ -526,7 +526,7 @@ namespace Recurly.Test
         {
             IPlan plan = null;
             IAccount account = null;
-            Subscription sub = null;
+            ISubscription sub = null;
             System.Collections.Generic.List<IAddOn> addons = new System.Collections.Generic.List<IAddOn>();
 
             try

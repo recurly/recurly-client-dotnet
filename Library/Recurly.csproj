@@ -100,6 +100,8 @@
     <Compile Include="ISubscription.cs" />
     <Compile Include="ISubscriptionAddOn.cs" />
     <Compile Include="ISubscriptionChange.cs" />
+    <Compile Include="ITransaction.cs" />
+    <Compile Include="IUsage.cs" />
     <Compile Include="List\CreditPaymentList.cs" />
     <Compile Include="List\IRecurlyList.cs" />
     <Compile Include="Purchase.cs" />

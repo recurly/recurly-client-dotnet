@@ -3,7 +3,7 @@ using System.Xml;
 
 namespace Recurly
 {
-    public class TransactionList : RecurlyList<Transaction>
+    public class TransactionList : RecurlyList<ITransaction>
     {
         public enum TransactionState : short
         {
@@ -30,19 +30,19 @@ namespace Recurly
         {
         }
 
-        public override IRecurlyList<Transaction> Start
+        public override IRecurlyList<ITransaction> Start
         {
-            get { return HasStartPage() ? new TransactionList(StartUrl) : RecurlyList.Empty<Transaction>(); }
+            get { return HasStartPage() ? new TransactionList(StartUrl) : RecurlyList.Empty<ITransaction>(); }
         }
 
-        public override IRecurlyList<Transaction> Next
+        public override IRecurlyList<ITransaction> Next
         {
-            get { return HasNextPage() ? new TransactionList(NextUrl) : RecurlyList.Empty<Transaction>(); }
+            get { return HasNextPage() ? new TransactionList(NextUrl) : RecurlyList.Empty<ITransaction>(); }
         }
 
-        public override IRecurlyList<Transaction> Prev
+        public override IRecurlyList<ITransaction> Prev
         {
-            get { return HasPrevPage() ? new TransactionList(PrevUrl) : RecurlyList.Empty<Transaction>(); }
+            get { return HasPrevPage() ? new TransactionList(PrevUrl) : RecurlyList.Empty<ITransaction>(); }
         }
 
         internal override void ReadXml(XmlTextReader reader)

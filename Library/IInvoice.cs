@@ -37,7 +37,7 @@ namespace Recurly
         string TaxType { get; }
         string TermsAndConditions { get; set; }
         int TotalInCents { get; }
-        IRecurlyList<Transaction> Transactions { get; }
+        IRecurlyList<ITransaction> Transactions { get; }
         string Type { get; set; }
         DateTime? UpdatedAt { get; }
         string Uuid { get; }
@@ -45,7 +45,7 @@ namespace Recurly
         string VatReverseChargeNotes { get; set; }
 
         void Create(string accountCode);
-        Transaction EnterOfflinePayment(Transaction transaction);
+        ITransaction EnterOfflinePayment(ITransaction transaction);
         bool Equals(IInvoice invoice);
         bool Equals(object obj);
         IInvoice ForceCollect();
@@ -55,7 +55,7 @@ namespace Recurly
         ICouponRedemption GetRedemption();
         IRecurlyList<ICouponRedemption> GetRedemptions();
         IRecurlyList<ISubscription> GetSubscriptions();
-        IRecurlyList<Transaction> GetTransactions();
+        IRecurlyList<ITransaction> GetTransactions();
         string InvoiceNumberWithPrefix();
         IInvoiceCollection MarkFailed();
         void MarkSuccessful();

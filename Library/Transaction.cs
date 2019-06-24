@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace Recurly
 {
-    public class Transaction : RecurlyEntity
+    public class Transaction : RecurlyEntity, ITransaction
     {
         // The currently valid Transaction States
         public enum TransactionState : short
@@ -317,33 +317,43 @@ namespace Recurly
 
         internal override void WriteXml(XmlTextWriter xmlWriter)
         {
+            WriteXml(xmlWriter, this);
+        }
+
+        internal void WriteOfflinePaymentXml(XmlTextWriter xmlWriter)
+        {
+            WriteOfflinePaymentXml(xmlWriter, this);
+        }
+
+        internal static void WriteXml(XmlTextWriter xmlWriter, ITransaction transaction)
+        {
             xmlWriter.WriteStartElement("transaction");
 
-            xmlWriter.WriteElementString("amount_in_cents", AmountInCents.AsString());
-            xmlWriter.WriteElementString("currency", Currency);
-            xmlWriter.WriteStringIfValid("description", Description);
-            xmlWriter.WriteStringIfValid("payment_method", PaymentMethod);
+            xmlWriter.WriteElementString("amount_in_cents", transaction.AmountInCents.AsString());
+            xmlWriter.WriteElementString("currency", transaction.Currency);
+            xmlWriter.WriteStringIfValid("description", transaction.Description);
+            xmlWriter.WriteStringIfValid("payment_method", transaction.PaymentMethod);
 
-            xmlWriter.WriteElementString("tax_exempt", TaxExempt.AsString().ToLower());
-            xmlWriter.WriteStringIfValid("tax_code", TaxCode);
-            xmlWriter.WriteStringIfValid("accounting_code", AccountingCode);
+            xmlWriter.WriteElementString("tax_exempt", transaction.TaxExempt.AsString().ToLower());
+            xmlWriter.WriteStringIfValid("tax_code", transaction.TaxCode);
+            xmlWriter.WriteStringIfValid("accounting_code", transaction.AccountingCode);
 
-            if (Account != null)
+            if (transaction.Account != null)
             {
-                Recurly.Account.WriteXml(xmlWriter, Account);
+                Recurly.Account.WriteXml(xmlWriter, transaction.Account);
             }
 
             xmlWriter.WriteEndElement();
         }
 
-        internal void WriteOfflinePaymentXml(XmlTextWriter xmlWriter)
+        internal static void WriteOfflinePaymentXml(XmlTextWriter xmlWriter, ITransaction transaction)
         {
             xmlWriter.WriteStartElement("transaction");
 
-            xmlWriter.WriteStringIfValid("payment_method", PaymentMethod);
-            xmlWriter.WriteElementString("collected_at", CollectedAt.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ"));
-            xmlWriter.WriteElementString("amount_in_cents", AmountInCents.AsString());
-            xmlWriter.WriteStringIfValid("description", Description);
+            xmlWriter.WriteStringIfValid("payment_method", transaction.PaymentMethod);
+            xmlWriter.WriteElementString("collected_at", transaction.CollectedAt.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ"));
+            xmlWriter.WriteElementString("amount_in_cents", transaction.AmountInCents.AsString());
+            xmlWriter.WriteStringIfValid("description", transaction.Description);
 
             xmlWriter.WriteEndElement();
         }
@@ -359,11 +369,11 @@ namespace Recurly
 
         public override bool Equals(object obj)
         {
-            var transaction = obj as Transaction;
+            var transaction = obj as ITransaction;
             return transaction != null && Equals(transaction);
         }
 
-        public bool Equals(Transaction transaction)
+        public bool Equals(ITransaction transaction)
         {
             return Uuid == transaction.Uuid;
         }
@@ -385,7 +395,7 @@ namespace Recurly
         /// <param name="state"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static IRecurlyList<Transaction> List(TransactionList.TransactionState state = TransactionList.TransactionState.All,
+        public static IRecurlyList<ITransaction> List(TransactionList.TransactionState state = TransactionList.TransactionState.All,
             TransactionList.TransactionType type = TransactionList.TransactionType.All)
         {
             return List(state, type, null);
@@ -398,7 +408,7 @@ namespace Recurly
         /// <param name="type"></param>
         /// <param name="filter">FilterCriteria used to apply server side sorting and filtering</param>
         /// <returns></returns>
-        public static IRecurlyList<Transaction> List(TransactionList.TransactionState state,
+        public static IRecurlyList<ITransaction> List(TransactionList.TransactionState state,
             TransactionList.TransactionType type,
             FilterCriteria filter)
         {
@@ -416,7 +426,7 @@ namespace Recurly
             return new TransactionList(Transaction.UrlPrefix + "?" + parameters.ToString());
         }
 
-        public static Transaction Get(string transactionId)
+        public static ITransaction Get(string transactionId)
         {
             if (string.IsNullOrWhiteSpace(transactionId))
             {

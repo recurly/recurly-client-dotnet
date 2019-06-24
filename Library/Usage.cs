@@ -8,7 +8,7 @@ using System.Xml;
 
 namespace Recurly
 {
-    public class Usage : RecurlyEntity
+    public class Usage : RecurlyEntity, IUsage
     {
         public enum Type
         {
@@ -211,11 +211,11 @@ namespace Recurly
 
         public override bool Equals(object obj)
         {
-            var usage = obj as Usage;
+            var usage = obj as IUsage;
             return usage != null && Equals(usage);
         }
 
-        public bool Equals(Usage usage)
+        public bool Equals(IUsage usage)
         {
             return Id == usage.Id;
         }
@@ -236,7 +236,7 @@ namespace Recurly
         /// <param name="subscriptionUuid">uuid of the Subscription</param>
         /// <param name="subscriptionAddOnCode">add on code of the Subscription</param>
         /// <returns></returns>
-        public static IRecurlyList<Usage> List(string subscriptionUuid, string subscriptionAddOnCode)
+        public static IRecurlyList<IUsage> List(string subscriptionUuid, string subscriptionAddOnCode)
         {
             return new UsageList(UrlPrefix(subscriptionUuid, subscriptionAddOnCode));
         }
@@ -248,13 +248,13 @@ namespace Recurly
         /// <param name="subscriptionAddOnCode">add on code of the Subscription</param>
         /// <param name="filter">FilterCriteria used to apply server side sorting and filtering</param>
         /// <returns></returns>
-        public static IRecurlyList<Usage> List(string subscriptionUuid, string subscriptionAddOnCode, FilterCriteria filter)
+        public static IRecurlyList<IUsage> List(string subscriptionUuid, string subscriptionAddOnCode, FilterCriteria filter)
         {
             filter = filter ?? FilterCriteria.Instance;
             return new UsageList(UrlPrefix(subscriptionUuid, subscriptionAddOnCode) + "?" + filter.ToNamedValueCollection().ToString());
         }
 
-        public static IRecurlyList<Usage> List(string subscriptionUuid, string subscriptionAddOnCode, FilterCriteria filter,
+        public static IRecurlyList<IUsage> List(string subscriptionUuid, string subscriptionAddOnCode, FilterCriteria filter,
             UsageList.UsageBillingState billingState = UsageList.UsageBillingState.All,
             UsageList.UsageDateTimeType dateTimeType = UsageList.UsageDateTimeType.All)
         {
@@ -272,7 +272,7 @@ namespace Recurly
             return new UsageList(UrlPrefix(subscriptionUuid, subscriptionAddOnCode) + "?" + parameters.ToString());
         }
 
-        public static Usage Get(string subscriptionUuid, string subscriptionAddOnCode, long usageId)
+        public static IUsage Get(string subscriptionUuid, string subscriptionAddOnCode, long usageId)
         {
             if (string.IsNullOrWhiteSpace(subscriptionUuid) || string.IsNullOrWhiteSpace(subscriptionAddOnCode))
             {

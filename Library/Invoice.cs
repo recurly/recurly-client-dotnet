@@ -119,7 +119,7 @@ namespace Recurly
         public decimal? TaxRate { get; private set; }
 
         public IRecurlyList<IAdjustment> Adjustments { get; private set; }
-        public IRecurlyList<Transaction> Transactions { get; private set; }
+        public IRecurlyList<ITransaction> Transactions { get; private set; }
 
         public string CustomerNotes { get; set; }
         public string TermsAndConditions { get; set; }
@@ -285,7 +285,7 @@ namespace Recurly
             return Invoices.Get(OriginalInvoiceNumberWithPrefix());
         }
 
-        public IRecurlyList<Transaction> GetTransactions()
+        public IRecurlyList<ITransaction> GetTransactions()
         {
             var transactions = new TransactionList();
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
@@ -416,13 +416,13 @@ namespace Recurly
         /// </summary>
         /// <param name="transaction">The transaction to be entered.</param>
         /// <returns>new Transaction object</returns>
-        public Transaction EnterOfflinePayment(Transaction transaction)
+        public ITransaction EnterOfflinePayment(ITransaction transaction)
         {
             var successfulTransaction = new Transaction();
 
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 memberUrl() + "/transactions",
-                transaction.WriteOfflinePaymentXml,
+                xmlWriter => Transaction.WriteOfflinePaymentXml(xmlWriter, transaction),
                 successfulTransaction.ReadXml);
 
             if (HttpStatusCode.Created == statusCode || HttpStatusCode.OK == statusCode)

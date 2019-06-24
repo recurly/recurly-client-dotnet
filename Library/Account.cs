@@ -362,7 +362,7 @@ namespace Recurly
         /// <param name="state">Transactions of this state will be retrieved. Optional, default: All.</param>
         /// <param name="type">Transactions of this type will be retrieved. Optional, default: All.</param>
         /// <returns></returns>
-        public IRecurlyList<Transaction> GetTransactions(TransactionList.TransactionState state = TransactionList.TransactionState.All,
+        public IRecurlyList<ITransaction> GetTransactions(TransactionList.TransactionState state = TransactionList.TransactionState.All,
             TransactionList.TransactionType type = TransactionList.TransactionType.All)
         {
             return new TransactionList(UrlPrefix + Uri.EscapeDataString(AccountCode) + "/transactions/"
