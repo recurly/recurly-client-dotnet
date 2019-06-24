@@ -286,27 +286,17 @@ namespace Recurly
 
         internal void WriteXml(XmlTextWriter xmlWriter, bool embedded = false)
         {
-            WriteXml(xmlWriter, this, "adjustment", embedded);
-        }
-
-        internal static void WriteEmbeddedXml(XmlTextWriter xmlWriter, IAdjustment adjustment)
-        {
-            WriteXml(xmlWriter, adjustment, "adjustment", true);
-        }
-
-        internal static void WriteXml(XmlTextWriter xmlWriter, IAdjustment adjustment, string tagName = "adjustment", bool embedded = false)
-        {
             xmlWriter.WriteStartElement("adjustment"); // Start: adjustment
-            xmlWriter.WriteElementString("description", adjustment.Description);
-            xmlWriter.WriteElementString("unit_amount_in_cents", adjustment.UnitAmountInCents.AsString());
-            xmlWriter.WriteElementString("quantity", adjustment.Quantity.AsString());
-            xmlWriter.WriteElementString("accounting_code", adjustment.AccountingCode);
-            xmlWriter.WriteElementString("tax_exempt", adjustment.TaxExempt.AsString());
-            xmlWriter.WriteElementString("product_code", adjustment.ProductCode);
+            xmlWriter.WriteElementString("description", Description);
+            xmlWriter.WriteElementString("unit_amount_in_cents", UnitAmountInCents.AsString());
+            xmlWriter.WriteElementString("quantity", Quantity.AsString());
+            xmlWriter.WriteElementString("accounting_code", AccountingCode);
+            xmlWriter.WriteElementString("tax_exempt", TaxExempt.AsString());
+            xmlWriter.WriteElementString("product_code", ProductCode);
             if (!embedded)
-                xmlWriter.WriteElementString("currency", adjustment.Currency);
-            if (adjustment.RevenueScheduleType.HasValue)
-                xmlWriter.WriteElementString("revenue_schedule_type", adjustment.RevenueScheduleType.Value.ToString().EnumNameToTransportCase());
+                xmlWriter.WriteElementString("currency", Currency);
+            if (RevenueScheduleType.HasValue)
+                xmlWriter.WriteElementString("revenue_schedule_type", RevenueScheduleType.Value.ToString().EnumNameToTransportCase());
             xmlWriter.WriteEndElement(); // End: adjustment
         }
 

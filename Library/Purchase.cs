@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Recurly.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Xml;
@@ -252,7 +253,7 @@ namespace Recurly
                 xmlWriter.WriteStartElement("adjustments"); // Start: adjustments
                 foreach (var adjustment in Adjustments)
                 {
-                    Adjustment.WriteEmbeddedXml(xmlWriter, adjustment);
+                    adjustment.TryWriteXml(xmlWriter);
                 }
                 xmlWriter.WriteEndElement(); // End: adjustments
             }
