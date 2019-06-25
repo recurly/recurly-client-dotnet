@@ -340,7 +340,10 @@ namespace Recurly
                         break;
 
                     case "account_type":
-                        AccountType = reader.ReadElementContentAsString().ParseAsEnum<BankAccountType>();
+
+                        var accountType = reader.ReadElementContentAsString();
+                        if (!accountType.IsNullOrEmpty())
+                            AccountType = accountType.ParseAsEnum<BankAccountType>();
                         break;
 
                     case "external_hpp_type":
