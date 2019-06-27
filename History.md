@@ -1,6 +1,12 @@
 Unreleased
 ===============
 
+1.15.8 (stable) / 2019-06-27
+===============
+
+* Support 3DS authentication [PR](https://github.com/recurly/recurly-client-net/pull/415)
+* Accomodate null value in Bank Account Type [PR](https://github.com/recurly/recurly-client-net/pull/422)
+
 1.15.7 (stable) / 2019-06-18
 ===============
 

@@ -107,6 +107,11 @@ namespace Recurly
         /// </summary>
         public string AmazonRegion { get; set; }
 
+        /// <summary>
+        /// 3DSecure Action Result Token ID
+        /// </summary>
+        public string ThreeDSecureActionResultTokenId { get; set; }
+
         private string _cardNumber;
 
         /// <summary>
@@ -444,6 +449,7 @@ namespace Recurly
             }
 
             xmlWriter.WriteStringIfValid("token_id", TokenId);
+            xmlWriter.WriteStringIfValid("three_d_secure_action_result_token_id", ThreeDSecureActionResultTokenId);
 
             xmlWriter.WriteEndElement(); // End: billing_info
         }
