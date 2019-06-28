@@ -1469,7 +1469,7 @@ namespace Recurly
         }
 
         /// <summary>
-        /// List a invoice's line items <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_invoice_line_items">list_invoice_line_items api documentation</see>
+        /// List an invoice's line items <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_invoice_line_items">list_invoice_line_items api documentation</see>
         /// </summary>
         /// <param name="invoiceId">Invoice ID or number (use prefix: `number-`, e.g. `number-1000`).</param>
         /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
@@ -2564,6 +2564,66 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "unique_coupon_code_id", uniqueCouponCodeId } };
             var url = this.InterpolatePath("/sites/{site_id}/unique_coupon_codes/{unique_coupon_code_id}/restore", urlParams);
             return MakeRequestAsync<UniqueCouponCode>(Method.PUT, url, null, null, cancellationToken);
+        }
+
+        /// <summary>
+        /// Create a new purchase <see href="https://partner-docs.recurly.com/v2018-08-09#operation/create_purchase">create_purchase api documentation</see>
+        /// </summary>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// Returns the new invoices
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public InvoiceCollection CreatePurchase(PurchaseCreate body)
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var url = this.InterpolatePath("/sites/{site_id}/purchases", urlParams);
+            return MakeRequest<InvoiceCollection>(Method.POST, url, body, null);
+        }
+
+        /// <summary>
+        /// Create a new purchase <see href="https://partner-docs.recurly.com/v2018-08-09#operation/create_purchase">create_purchase api documentation</see>
+        /// </summary>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// Returns the new invoices
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<InvoiceCollection> CreatePurchaseAsync(PurchaseCreate body, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var url = this.InterpolatePath("/sites/{site_id}/purchases", urlParams);
+            return MakeRequestAsync<InvoiceCollection>(Method.POST, url, body, null, cancellationToken);
+        }
+
+        /// <summary>
+        /// Preview a new purchase <see href="https://partner-docs.recurly.com/v2018-08-09#operation/preview_purchase">preview_purchase api documentation</see>
+        /// </summary>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// Returns preview of the new invoices
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public InvoiceCollection PreviewPurchase(PurchaseCreate body)
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var url = this.InterpolatePath("/sites/{site_id}/purchases/preview", urlParams);
+            return MakeRequest<InvoiceCollection>(Method.POST, url, body, null);
+        }
+
+        /// <summary>
+        /// Preview a new purchase <see href="https://partner-docs.recurly.com/v2018-08-09#operation/preview_purchase">preview_purchase api documentation</see>
+        /// </summary>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// Returns preview of the new invoices
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<InvoiceCollection> PreviewPurchaseAsync(PurchaseCreate body, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var url = this.InterpolatePath("/sites/{site_id}/purchases/preview", urlParams);
+            return MakeRequestAsync<InvoiceCollection>(Method.POST, url, body, null, cancellationToken);
         }
     }
 }
