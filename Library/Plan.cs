@@ -464,7 +464,7 @@ namespace Recurly
         /// </summary>
         /// <param name="planCode"></param>
         /// <returns></returns>
-        public static IPlan Get(string planCode)
+        public static Plan Get(string planCode)
         {
             if (string.IsNullOrWhiteSpace(planCode))
             {

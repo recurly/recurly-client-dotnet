@@ -157,7 +157,7 @@ namespace Recurly
         /// </summary>
         /// <param name="measuredUnitId">MeasuredUnit id</param>
         /// <returns></returns>
-        public static IMeasuredUnit Get(long measuredUnitId)
+        public static MeasuredUnit Get(long measuredUnitId)
         {
             var measuredUnit = new MeasuredUnit();
 

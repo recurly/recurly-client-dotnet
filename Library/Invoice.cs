@@ -748,7 +748,7 @@ namespace Recurly
         /// </summary>
         /// <param name="invoiceNumber">Invoice Number</param>
         /// <returns></returns>
-        public static IInvoice Get(int invoiceNumber)
+        public static Invoice Get(int invoiceNumber)
         {
             return Get(Convert.ToString(invoiceNumber));
         }
@@ -758,7 +758,7 @@ namespace Recurly
         /// </summary>
         /// <param name="invoiceNumber">Invoice Number</param>
         /// <returns></returns>
-        public static IInvoice Get(string invoiceNumberWithPrefix)
+        public static Invoice Get(string invoiceNumberWithPrefix)
         {
             if (string.IsNullOrWhiteSpace(invoiceNumberWithPrefix))
             {
@@ -782,8 +782,8 @@ namespace Recurly
         /// </summary>
         /// <param name="accountCode">Account code</param>
         /// <returns></returns>
-        [Obsolete("Deprecated, please use the Create instance method on the Invoice object")] 
-        public static IInvoice Create(string accountCode)
+        [Obsolete("Deprecated, please use the Create instance method on the Invoice object")]
+        public static Invoice Create(string accountCode)
         {
             if (string.IsNullOrWhiteSpace(accountCode))
             {

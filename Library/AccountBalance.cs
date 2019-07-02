@@ -21,7 +21,7 @@ namespace Recurly
 
         private const string UrlPrefix = "/accounts/";
 
-        public static IAccountBalance Get(string accountCode)
+        public static AccountBalance Get(string accountCode)
         {
             if (string.IsNullOrWhiteSpace(accountCode))
             {

@@ -107,7 +107,7 @@ namespace Recurly
             return new ExportFileList(string.Format(ExportFile.FilesUrlPrefix, date.ToString("yyyy-MM-dd")));
         }
 
-        public static IExportFile DownloadExportFile(DateTime date, string fileName)
+        public static ExportFile DownloadExportFile(DateTime date, string fileName)
         {
             if (string.IsNullOrWhiteSpace(fileName))
             {

@@ -312,7 +312,7 @@ namespace Recurly
 
     public class Adjustments
     {
-        public static IAdjustment Get(string uuid)
+        public static Adjustment Get(string uuid)
         {
             if (string.IsNullOrWhiteSpace(uuid))
             {

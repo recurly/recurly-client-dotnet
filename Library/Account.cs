@@ -755,7 +755,7 @@ namespace Recurly
         /// </summary>
         /// <param name="accountCode"></param>
         /// <returns></returns>
-        public static IAccount Get(string accountCode)
+        public static Account Get(string accountCode)
         {
             if (string.IsNullOrWhiteSpace(accountCode))
             {

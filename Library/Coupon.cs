@@ -530,7 +530,7 @@ namespace Recurly
         /// </summary>
         /// <param name="couponCode">Coupon code</param>
         /// <returns></returns>
-        public static ICoupon Get(string couponCode)
+        public static Coupon Get(string couponCode)
         {
             if (string.IsNullOrWhiteSpace(couponCode))
             {

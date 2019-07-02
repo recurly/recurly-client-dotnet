@@ -180,7 +180,7 @@ namespace Recurly
         /// </summary>
         /// <param name="accountCode"></param>
         /// <returns></returns>
-        public static IBillingInfo Get(string accountCode)
+        public static BillingInfo Get(string accountCode)
         {
             if (string.IsNullOrWhiteSpace(accountCode))
             {

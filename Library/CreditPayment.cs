@@ -100,7 +100,7 @@ namespace Recurly
         /// </summary>
         /// <param name="uuid">The unique uuid of the credit payment</param>
         /// <returns>CreditPayment</returns>
-        public static ICreditPayment Get(string uuid)
+        public static CreditPayment Get(string uuid)
         {
             if (string.IsNullOrWhiteSpace(uuid))
             {

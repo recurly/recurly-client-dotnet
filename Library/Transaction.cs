@@ -427,7 +427,7 @@ namespace Recurly
             return new TransactionList(Transaction.UrlPrefix + "?" + parameters.ToString());
         }
 
-        public static ITransaction Get(string transactionId)
+        public static Transaction Get(string transactionId)
         {
             if (string.IsNullOrWhiteSpace(transactionId))
             {

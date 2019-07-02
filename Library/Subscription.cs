@@ -547,7 +547,7 @@ namespace Recurly
         /// </summary>
         /// <param name="uuid">The uuid of the subscription to be changed</param>
         /// <param name="change">A subscription change object listing what to change about the subscription</param>
-        public static ISubscription ChangeSubscription(String uuid, ISubscriptionChange change)
+        public static Subscription ChangeSubscription(String uuid, ISubscriptionChange change)
         {
             if (uuid.IsNullOrEmpty())
             {
@@ -574,7 +574,7 @@ namespace Recurly
         /// </summary>
         /// <param name="uuid">The uuid of the subscription to be changed</param>
         /// <param name="change">A subscription change object listing what to change about the subscription</param>
-        public static ISubscription PreviewChange(String uuid, ISubscriptionChange change)
+        public static Subscription PreviewChange(String uuid, ISubscriptionChange change)
         {
             if (uuid.IsNullOrEmpty())
             {
@@ -1133,7 +1133,7 @@ namespace Recurly
             return new SubscriptionList(Subscription.UrlPrefix + "?" + parameters.ToString());
         }
 
-        public static ISubscription Get(string uuid)
+        public static Subscription Get(string uuid)
         {
             if (string.IsNullOrWhiteSpace(uuid))
             {

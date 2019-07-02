@@ -387,7 +387,7 @@ namespace Recurly
         /// </summary>
         /// <param name="id">The long id of the gift card</param>
         /// <returns></returns>
-        public static IGiftCard Get(long id)
+        public static GiftCard Get(long id)
         {
             var giftCard = new GiftCard();
             // GET /gift_cards/<id>

@@ -122,7 +122,7 @@ namespace Recurly
         /// </summary>
         /// <param name="shippingMethod">Shipping method code</param>
         /// <returns></returns>
-        public static IShippingMethod Get(string Code)
+        public static ShippingMethod Get(string Code)
         {
             if (string.IsNullOrWhiteSpace(Code))
             {

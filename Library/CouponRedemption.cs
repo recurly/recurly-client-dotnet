@@ -41,7 +41,7 @@ namespace Recurly
         /// </summary>
         /// <param name="accountCode"></param>
         /// <param name="currency"></param>
-        internal static ICouponRedemption Redeem(string accountCode, string couponCode, string currency, string subscriptionUuid=null)
+        internal static CouponRedemption Redeem(string accountCode, string couponCode, string currency, string subscriptionUuid=null)
         {
             var cr = new CouponRedemption {AccountCode = accountCode, Currency = currency, SubscriptionUuid = subscriptionUuid};
 

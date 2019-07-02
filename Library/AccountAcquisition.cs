@@ -47,7 +47,7 @@ namespace Recurly
         {
         }
 
-        public static IAccountAcquisition Get(string accountCode)
+        public static AccountAcquisition Get(string accountCode)
         {
             if (string.IsNullOrWhiteSpace(accountCode))
             {
