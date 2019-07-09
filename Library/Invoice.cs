@@ -108,6 +108,9 @@ namespace Recurly
         }
         private Address _address;
 
+        // Preserve original address in case the user wants to change a field in the address
+        private Address _referenceAddress;
+
         public ShippingAddress ShippingAddress { get; private set; }
 
         /// <summary>
@@ -586,6 +589,7 @@ namespace Recurly
 
                     case "address":
                         Address = new Address(reader);
+                        _referenceAddress = (Address) Address.Clone();
                         break;
 
                     case "shipping_address":
@@ -665,12 +669,18 @@ namespace Recurly
         {
             xmlWriter.WriteStartElement("invoice"); // Start: invoice
 
-            Address.WriteXml(xmlWriter);
-            xmlWriter.WriteElementString("customer_notes", CustomerNotes);
-            xmlWriter.WriteElementString("terms_and_conditions", TermsAndConditions);
-            xmlWriter.WriteElementString("vat_reverse_charge_notes", VatReverseChargeNotes);
-            xmlWriter.WriteElementString("gateway_code", GatewayCode);
-            xmlWriter.WriteElementString("po_number", PoNumber);
+            if (!Address.Equals(_referenceAddress)) Address.WriteXml(xmlWriter);
+
+            if (CustomerNotes != null)
+                xmlWriter.WriteElementString("customer_notes", CustomerNotes);
+            if (TermsAndConditions != null)
+                xmlWriter.WriteElementString("terms_and_conditions", TermsAndConditions);
+            if (VatReverseChargeNotes != null)
+                xmlWriter.WriteElementString("vat_reverse_charge_notes", VatReverseChargeNotes);
+            if (GatewayCode != null)
+                xmlWriter.WriteElementString("gateway_code", GatewayCode);
+            if (PoNumber != null)
+                xmlWriter.WriteElementString("po_number", PoNumber);
 
             if (NetTerms.HasValue && _netTermsChanged)
             {
