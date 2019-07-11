@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 
-if [ "$1" == "--check" ]; then
-  ./bin/dotnet-format --check --dry-run
+if test -f ./bin/dotnet-format; then
+  if [ "$1" == "--check" ]; then
+    ./bin/dotnet-format --check --dry-run
+  else
+    ./bin/dotnet-format
+  fi
 else
-  ./bin/dotnet-format
+  echo "[WARNING] dotnet formatter not found"
 fi
