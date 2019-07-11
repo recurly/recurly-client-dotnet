@@ -38,7 +38,7 @@ namespace Recurly
         public string Description { get; set; }
         public string AccountingCode { get; set; }
         public string ProductCode { get; set; }
-        public string Origin { get; protected set; }
+        public string Origin { get; set; }
         public int UnitAmountInCents { get; set; }
         public int Quantity { get; set; }
         public int DiscountInCents { get; protected set; }
@@ -62,8 +62,8 @@ namespace Recurly
 
         public bool? Prorate { internal get; set; }
 
-        public DateTime StartDate { get; protected set; }
-        public DateTime? EndDate { get; protected set; }
+        public DateTime StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
 
         public DateTime? CreatedAt { get ; protected set; }
         public DateTime UpdatedAt { get; private set; }
@@ -297,6 +297,14 @@ namespace Recurly
                 xmlWriter.WriteElementString("currency", Currency);
             if (RevenueScheduleType.HasValue)
                 xmlWriter.WriteElementString("revenue_schedule_type", RevenueScheduleType.Value.ToString().EnumNameToTransportCase());
+            if (TaxCode != null)
+                xmlWriter.WriteElementString("tax_code", TaxCode);
+            if (StartDate != DateTime.MinValue)
+                xmlWriter.WriteElementString("start_date", StartDate.ToString("s"));
+            if (EndDate.HasValue)
+                xmlWriter.WriteElementString("end_date", EndDate.Value.ToString("s"));
+            if (Origin != null)
+                xmlWriter.WriteElementString("origin", Origin);
             xmlWriter.WriteEndElement(); // End: adjustment
         }
 

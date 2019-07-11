@@ -402,7 +402,6 @@ namespace Recurly
         /// <returns></returns>
         public Adjustment NewAdjustment(string currency, int unitAmountInCents, string description = "", int quantity = 1, string accountingCode = "", bool taxExempt = false)
         {
-            // TODO All of the properties should be settable
             return new Adjustment(AccountCode, description, currency, unitAmountInCents, quantity, accountingCode, taxExempt);
         }
 
