@@ -398,44 +398,11 @@ namespace Recurly
         /// <param name="description">Description of the adjustment for the invoice.</param>
         /// <param name="quantity">Quantity, defaults to 1.</param>
         /// <param name="accountingCode">Accounting code. Max of 20 characters.</param>
-        /// <param name="taxExempt">True exempts tax on the charge, false applies tax on the charge.</param>
-        /// <param name="revenueScheduleType">Sets a revenue schedule type.</param>
-        /// <param name="taxCode">For EU VAT merchants and Avalara AvaTax Pro merchants.</param>
-        /// <param name="startDate">A timestamp associated with when the charge began.</param>
-        /// <param name="endDate">A timestamp associated with when the charge ended.</param>
-        /// <param name="productCode">The product code or SKU of the line item. Max of 50 characters.</param>
-        /// <param name="origin">Only allowed if the Gift Cards feature is enabled on your site and unit_amount_in_cents is negative. Can only have a value of external_gift_card.</param>
+        /// <param name="taxExempt"></param>
         /// <returns></returns>
-        public Adjustment NewAdjustment(
-            string currency,
-            int unitAmountInCents,
-            string description = "",
-            int quantity = 1,
-            string accountingCode = "",
-            bool taxExempt = false,
-            Adjustment.RevenueSchedule? revenueScheduleType = null,
-            string taxCode = null,
-            DateTime? startDate = null,
-            DateTime? endDate = null,
-            string productCode = null,
-            string origin = null
-        )
+        public Adjustment NewAdjustment(string currency, int unitAmountInCents, string description = "", int quantity = 1, string accountingCode = "", bool taxExempt = false)
         {
-            return new Adjustment(
-                AccountCode,
-                description,
-                currency,
-                unitAmountInCents,
-                quantity,
-                accountingCode,
-                taxExempt,
-                revenueScheduleType,
-                taxCode,
-                startDate,
-                endDate,
-                productCode,
-                origin
-            );
+            return new Adjustment(AccountCode, description, currency, unitAmountInCents, quantity, accountingCode, taxExempt);
         }
 
         /// <summary>

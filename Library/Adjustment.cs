@@ -38,7 +38,7 @@ namespace Recurly
         public string Description { get; set; }
         public string AccountingCode { get; set; }
         public string ProductCode { get; set; }
-        public string Origin { get; protected set; }
+        public string Origin { get; set; }
         public int UnitAmountInCents { get; set; }
         public int Quantity { get; set; }
         public int DiscountInCents { get; protected set; }
@@ -62,8 +62,8 @@ namespace Recurly
 
         public bool? Prorate { internal get; set; }
 
-        public DateTime? StartDate { get; protected set; }
-        public DateTime? EndDate { get; protected set; }
+        public DateTime StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
 
         public DateTime? CreatedAt { get ; protected set; }
         public DateTime UpdatedAt { get; private set; }
@@ -89,21 +89,7 @@ namespace Recurly
             
         }
 
-        internal Adjustment(
-            string accountCode,
-            string description,
-            string currency,
-            int unitAmountInCents,
-            int quantity,
-            string accountingCode = "",
-            bool taxExempt = false,
-            RevenueSchedule? revenueScheduleType = null,
-            string taxCode = null,
-            DateTime? startDate = null,
-            DateTime? endDate = null,
-            string productCode = null,
-            string origin = null
-        )
+        internal Adjustment(string accountCode, string description, string currency, int unitAmountInCents, int quantity, string accountingCode = "", bool taxExempt = false)
         {
             AccountCode = accountCode;
             Description = description;
@@ -112,12 +98,6 @@ namespace Recurly
             Quantity = quantity;
             AccountingCode = accountingCode;
             TaxExempt = taxExempt;
-            RevenueScheduleType = revenueScheduleType;
-            TaxCode = taxCode;
-            StartDate = startDate;
-            EndDate = endDate;
-            ProductCode = productCode;
-            Origin = origin;
             State = AdjustmentState.Pending;
 
             if (!AccountingCode.IsNullOrEmpty() && AccountingCode.Length > AccountingCodeMaxLength)
@@ -319,8 +299,8 @@ namespace Recurly
                 xmlWriter.WriteElementString("revenue_schedule_type", RevenueScheduleType.Value.ToString().EnumNameToTransportCase());
             if (TaxCode != null)
                 xmlWriter.WriteElementString("tax_code", TaxCode);
-            if (StartDate.HasValue)
-                xmlWriter.WriteElementString("start_date", StartDate.Value.ToString("s"));
+            if (StartDate != DateTime.MinValue)
+                xmlWriter.WriteElementString("start_date", StartDate.ToString("s"));
             if (EndDate.HasValue)
                 xmlWriter.WriteElementString("end_date", EndDate.Value.ToString("s"));
             if (Origin != null)
