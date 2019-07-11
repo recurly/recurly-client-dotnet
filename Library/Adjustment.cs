@@ -62,7 +62,7 @@ namespace Recurly
 
         public bool? Prorate { internal get; set; }
 
-        public DateTime StartDate { get; protected set; }
+        public DateTime? StartDate { get; protected set; }
         public DateTime? EndDate { get; protected set; }
 
         public DateTime? CreatedAt { get ; protected set; }
@@ -89,7 +89,21 @@ namespace Recurly
             
         }
 
-        internal Adjustment(string accountCode, string description, string currency, int unitAmountInCents, int quantity, string accountingCode = "", bool taxExempt = false)
+        internal Adjustment(
+            string accountCode,
+            string description,
+            string currency,
+            int unitAmountInCents,
+            int quantity,
+            string accountingCode = "",
+            bool taxExempt = false,
+            RevenueSchedule? revenueScheduleType = null,
+            string taxCode = null,
+            DateTime? startDate = null,
+            DateTime? endDate = null,
+            string productCode = null,
+            string origin = null
+        )
         {
             AccountCode = accountCode;
             Description = description;
@@ -98,6 +112,12 @@ namespace Recurly
             Quantity = quantity;
             AccountingCode = accountingCode;
             TaxExempt = taxExempt;
+            RevenueScheduleType = revenueScheduleType;
+            TaxCode = taxCode;
+            StartDate = startDate;
+            EndDate = endDate;
+            ProductCode = productCode;
+            Origin = origin;
             State = AdjustmentState.Pending;
 
             if (!AccountingCode.IsNullOrEmpty() && AccountingCode.Length > AccountingCodeMaxLength)
@@ -297,6 +317,14 @@ namespace Recurly
                 xmlWriter.WriteElementString("currency", Currency);
             if (RevenueScheduleType.HasValue)
                 xmlWriter.WriteElementString("revenue_schedule_type", RevenueScheduleType.Value.ToString().EnumNameToTransportCase());
+            if (TaxCode != null)
+                xmlWriter.WriteElementString("tax_code", TaxCode);
+            if (StartDate.HasValue)
+                xmlWriter.WriteElementString("start_date", StartDate.Value.ToString("s"));
+            if (EndDate.HasValue)
+                xmlWriter.WriteElementString("end_date", EndDate.Value.ToString("s"));
+            if (Origin != null)
+                xmlWriter.WriteElementString("origin", Origin);
             xmlWriter.WriteEndElement(); // End: adjustment
         }
 
