@@ -110,5 +110,36 @@ namespace Recurly
 
             xmlWriter.WriteEndElement();
         }
+
+        public bool Equals(object that)
+        {
+            if (null == that)
+                return false;
+            if (object.ReferenceEquals(this, that))
+                return true;
+            if (this.GetType() != that.GetType())
+                return false;
+            return this.CompareMembers(that as Address);
+        }
+
+        private bool CompareMembers(Address that)
+        {
+            if (this.FirstName != that.FirstName) return false;
+            if (this.LastName != that.LastName) return false;
+            if (this.NameOnAccount != that.NameOnAccount) return false;
+            if (this.Company != that.Company) return false;
+            if (this.Address1 != that.Address1) return false;
+            if (this.Address2 != that.Address2) return false;
+            if (this.City != that.City) return false;
+            if (this.State != that.State) return false;
+            if (this.Zip != that.Zip) return false;
+            if (this.Country != that.Country) return false;
+            if (this.Phone != that.Phone) return false;
+            return true;
+        }
+
+        public virtual object Clone() {
+            return this.MemberwiseClone();
+        }
     }
 }
