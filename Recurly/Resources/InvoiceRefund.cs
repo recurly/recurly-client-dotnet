@@ -30,18 +30,9 @@ namespace Recurly.Resources
         [JsonProperty("credit_customer_notes")]
         public string CreditCustomerNotes { get; set; }
 
-        /// <value>
-        /// Indicates that the refund was settled outside of Recurly, and a manual transaction should be created to track it in Recurly.
-        /// 
-        /// Required when:
-        /// - refunding a manually collected charge invoice, and `refund_method` is not `all_credit`
-        /// - refunding a credit invoice that refunded manually collecting invoices
-        /// - refunding a credit invoice for a partial amount
-        /// 
-        /// This field can only be included when the Credit Invoices feature is enabled.
-        /// </value>
+
         [JsonProperty("external_refund")]
-        public Dictionary<string, string> ExternalRefund { get; set; }
+        public ExternalRefund ExternalRefund { get; set; }
 
         /// <value>The line items to be refunded. This is required when `type=line_items`.</value>
         [JsonProperty("line_items")]

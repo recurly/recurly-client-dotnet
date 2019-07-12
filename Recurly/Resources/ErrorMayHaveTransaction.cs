@@ -23,9 +23,9 @@ namespace Recurly.Resources
         [JsonProperty("params")]
         public List<Dictionary<string, string>> Params { get; set; }
 
-        /// <value>This is only included on errors with `type=transaction`.</value>
+
         [JsonProperty("transaction_error")]
-        public Dictionary<string, string> TransactionError { get; set; }
+        public TransactionError TransactionError { get; set; }
 
         /// <value>Type</value>
         [JsonProperty("type")]

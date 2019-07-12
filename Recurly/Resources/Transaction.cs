@@ -115,11 +115,11 @@ namespace Recurly.Resources
 
 
         [JsonProperty("payment_gateway")]
-        public Dictionary<string, string> PaymentGateway { get; set; }
+        public TransactionPaymentGateway PaymentGateway { get; set; }
 
-        /// <value>Payment method (TODO: this overlaps with BillingInfo’s payment_method but only documents credit cards)</value>
+
         [JsonProperty("payment_method")]
-        public Dictionary<string, string> PaymentMethod { get; set; }
+        public TransactionPaymentMethod PaymentMethod { get; set; }
 
         /// <value>Indicates if part or all of this transaction was refunded.</value>
         [JsonProperty("refunded")]

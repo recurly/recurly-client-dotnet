@@ -35,9 +35,9 @@ namespace Recurly.Resources
         [JsonProperty("first_name")]
         public string FirstName { get; set; }
 
-        /// <value>Most recent fraud result.</value>
+
         [JsonProperty("fraud")]
-        public Dictionary<string, string> Fraud { get; set; }
+        public FraudInfo Fraud { get; set; }
 
 
         [JsonProperty("id")]
@@ -49,7 +49,7 @@ namespace Recurly.Resources
 
 
         [JsonProperty("payment_method")]
-        public Dictionary<string, string> PaymentMethod { get; set; }
+        public BillingInfoPaymentMethod PaymentMethod { get; set; }
 
         /// <value>When the billing information was last changed.</value>
         [JsonProperty("updated_at")]
@@ -57,7 +57,7 @@ namespace Recurly.Resources
 
 
         [JsonProperty("updated_by")]
-        public Dictionary<string, string> UpdatedBy { get; set; }
+        public BillingInfoUpdatedBy UpdatedBy { get; set; }
 
 
         [JsonProperty("valid")]

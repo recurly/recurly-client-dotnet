@@ -23,9 +23,9 @@ namespace Recurly.Resources
         [JsonProperty("channel")]
         public string Channel { get; set; }
 
-        /// <value>Account balance</value>
+
         [JsonProperty("cost")]
-        public Dictionary<string, string> Cost { get; set; }
+        public AccountAcquisitionCost Cost { get; set; }
 
         /// <value>An arbitrary subchannel string representing a distinction/subcategory within a broader channel.</value>
         [JsonProperty("subchannel")]
