@@ -31,6 +31,10 @@ namespace Recurly.Resources
         [JsonProperty("end_date")]
         public DateTime? EndDate { get; set; }
 
+        /// <value>Optional field to track a product code or SKU for the line item. This can be used to later reporting on product purchases. For Vertex tax calculations, this field will be used as the Vertex `product` field.</value>
+        [JsonProperty("product_code")]
+        public string ProductCode { get; set; }
+
         /// <value>This number will be multiplied by the unit amount to compute the subtotal before any discounts or taxes.</value>
         [JsonProperty("quantity")]
         public int? Quantity { get; set; }
