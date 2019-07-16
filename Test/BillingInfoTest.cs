@@ -78,7 +78,7 @@ namespace Recurly.Test
             {
                 billingInfo.Update();
             }
-            catch (NotFoundException exception)
+            catch (ValidationException exception)
             {
                 threw = true;
                 exception.Errors[0].Symbol.Should().Be("token_invalid");

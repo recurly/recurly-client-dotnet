@@ -1,6 +1,26 @@
 Unreleased
 ===============
 
+1.16.0 (stable) / 2019-07-16
+===============
+
+* Fix timeoutMilliseconds when using config file [PR](https://github.com/recurly/recurly-client-net/pull/420)
+* Only send Address object if Address properties were changed [PR](https://github.com/recurly/recurly-client-net/pull/426)
+* Add missing properties to XML serializer for Adjustment class  [PR](https://github.com/recurly/recurly-client-net/pull/427)
+
+### Upgrade Notes
+This release contains one breaking change:
+
+When updating an Invoice, the embedded Address object is only sent to the API if explicitly set on the object, and the following fields require an empty string to clear values:
+- CustomerNotes
+- TermsAndConditions
+- VatReverseChargeNotes
+- GatewayCode
+- PoNumber
+
+In the past, if you were to leave a value such as `CustomerNotes` null, it would nullify it via the API.
+Now, you must explicitly nullify it by setting it to empty string `""`. See [this conversation](https://github.com/recurly/recurly-client-net/pull/368#discussion_r246890848) for an example.
+
 1.15.8 (stable) / 2019-06-27
 ===============
 
