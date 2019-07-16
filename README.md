@@ -203,13 +203,6 @@ catch (Recurly.Errors.NetworkError ex)
 }
 ```
 
-## Development
+### Contributing
 
-### Testing
-
-The tests can be found in `Recurly.Tests`. To run the tests, use the test script. This
-will run the tests as well as the code coverage reporter.
-
-```bash
-./scripts/test
-```
+Please see our [Contributing Guide](CONTRIBUTING.md).
