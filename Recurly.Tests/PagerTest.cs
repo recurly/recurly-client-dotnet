@@ -19,6 +19,21 @@ namespace Recurly.Tests
         }
 
         [Fact]
+        public void EmptyEnumerableTest()
+        {
+            var pager = Pager<MyResource>.Build("/next", new Dictionary<string, object> { }, GetEmptyPagerClient());
+
+            var i = 0;
+            foreach (MyResource r in pager)
+            {
+                Assert.True(false, "Should not be iterating anything if response is empty");
+            }
+
+            // There should be 0 resources
+            Assert.Equal(0, i);
+        }
+
+        [Fact]
         public void EnumerableTest()
         {
             var pager = Pager<MyResource>.Build("/next", new Dictionary<string, object> { }, GetPagerSuccessClient());
@@ -70,11 +85,11 @@ namespace Recurly.Tests
                 }
                 if (page == 1)
                 {
-                    Assert.Equal(count, 3);
+                    Assert.Equal(3, count);
                 }
                 else if (page == 2)
                 {
-                    Assert.Equal(count, 2);
+                    Assert.Equal(2, count);
                 }
                 else
                 {
@@ -123,6 +138,30 @@ namespace Recurly.Tests
                 .SetupSequence(x => x.Execute<Pager<MyResource>>(It.IsAny<IRestRequest>()))
                 .Returns(page1Response.Object)
                 .Returns(page2Response.Object);
+
+            return new Recurly.Client("subdomain", "myapikey")
+            {
+                RestClient = mockIRestClient.Object
+            };
+        }
+
+        private Recurly.Client GetEmptyPagerClient()
+        {
+            // When there are no results, the server returns
+            // an empty array with HasMore == false
+            var page = new Pager<MyResource>()
+            {
+                HasMore = false,
+                Data = new List<MyResource>() { }
+            };
+            var pageResponse = new Mock<IRestResponse<Pager<MyResource>>>();
+            pageResponse.Setup(_ => _.StatusCode).Returns(System.Net.HttpStatusCode.OK);
+            pageResponse.Setup(_ => _.Headers).Returns(new List<Parameter> { });
+            pageResponse.Setup(_ => _.Data).Returns(page);
+            var mockIRestClient = new Mock<IRestClient>();
+            mockIRestClient
+                .Setup(x => x.Execute<Pager<MyResource>>(It.IsAny<IRestRequest>()))
+                .Returns(pageResponse.Object);
 
             return new Recurly.Client("subdomain", "myapikey")
             {

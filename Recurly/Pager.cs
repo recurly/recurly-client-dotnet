@@ -37,9 +37,9 @@ namespace Recurly
             return new Pager<T>()
             {
                 HasMore = true,
-                Data = new List<T>(),
+                Data = null,
                 Next = url,
-                RecurlyClient = client
+                RecurlyClient = client,
             };
         }
 
@@ -72,11 +72,6 @@ namespace Recurly
         {
             get
             {
-                if (_index >= Data.Count && HasMore)
-                {
-                    FetchNextPage();
-                    _index = 0;
-                }
                 return Data[_index++];
             }
         }
@@ -97,7 +92,19 @@ namespace Recurly
 
         public bool MoveNext()
         {
-            return _index < Data.Count || HasMore;
+            // HasMore == true on init and when the server says there are more pages of data
+            // HasMore == false only when the server says this is the last page of data
+            // Data == null before we've fetched any pages
+            // _index >= Data.Count when we've reached the end of the current page of data
+            if (HasMore && (Data == null || _index >= Data.Count))
+            {
+                FetchNextPage();
+                _index = 0;
+            }
+
+            // _index < Data.Count when we are still iterating the current page of data
+            // _index == 0 && Data.Count == 0 if the page was empty
+            return _index < Data.Count;
         }
 
         public void Reset()
