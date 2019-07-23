@@ -35,6 +35,10 @@ namespace Recurly.Resources
         [JsonProperty("first_name")]
         public string FirstName { get; set; }
 
+        /// <value>Fraud Session ID</value>
+        [JsonProperty("fraud_session_id")]
+        public string FraudSessionId { get; set; }
+
         /// <value>*STRONGLY RECOMMENDED* Customer's IP address when updating their billing information.</value>
         [JsonProperty("ip_address")]
         public string IpAddress { get; set; }
