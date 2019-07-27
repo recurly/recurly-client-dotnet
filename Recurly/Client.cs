@@ -25,19 +25,16 @@ namespace Recurly
         /// <summary>
         /// List sites <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_sites">list_sites api documentation</see>
         /// </summary>
-        /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
-        /// <param name="limit">Limit number of records 1-200.</param>
-        /// <param name="order">Sort order.</param>
-        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
+        /// <param name="queryParams">The query params for this endpoint.</param>
         /// <returns>
         /// A list of sites.
         /// </returns>
-        public Pager<Site> ListSites(string ids = null, int? limit = null, string order = null, string sort = null)
+        public Pager<Site> ListSites(QueryParams queryParams = null)
         {
+            var qParams = (queryParams == null) ? null : queryParams.ToDictionary();
             var urlParams = new Dictionary<string, object> { };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort } };
             var url = this.InterpolatePath("/sites", urlParams);
-            return Pager<Site>.Build(url, queryParams, this);
+            return Pager<Site>.Build(url, qParams, this);
         }
 
 
@@ -72,23 +69,16 @@ namespace Recurly
         /// <summary>
         /// List a site's accounts <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_accounts">list_accounts api documentation</see>
         /// </summary>
-        /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
-        /// <param name="limit">Limit number of records 1-200.</param>
-        /// <param name="order">Sort order.</param>
-        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
-        /// <param name="beginTime">Filter by begin_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
-        /// <param name="endTime">Filter by end_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
-        /// <param name="subscriber">Filter accounts accounts with or without a subscription in the `active`,  `canceled`, or `future` state.  </param>
-        /// <param name="pastDue">Filter for accounts with an invoice in the `past_due` state.</param>
+        /// <param name="queryParams">The query params for this endpoint.</param>
         /// <returns>
         /// A list of the site's accounts.
         /// </returns>
-        public Pager<Account> ListAccounts(string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string subscriber = null, string pastDue = null)
+        public Pager<Account> ListAccounts(QueryParams queryParams = null)
         {
+            var qParams = (queryParams == null) ? null : queryParams.ToDictionary();
             var urlParams = new Dictionary<string, object> { };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "subscriber", subscriber }, { "past_due", pastDue } };
             var url = this.InterpolatePath("/sites/{site_id}/accounts", urlParams);
-            return Pager<Account>.Build(url, queryParams, this);
+            return Pager<Account>.Build(url, qParams, this);
         }
 
 
@@ -462,19 +452,16 @@ namespace Recurly
         /// Show the coupon redemptions for an account <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_account_coupon_redemptions">list_account_coupon_redemptions api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
-        /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
-        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
-        /// <param name="beginTime">Filter by begin_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
-        /// <param name="endTime">Filter by end_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
+        /// <param name="queryParams">The query params for this endpoint.</param>
         /// <returns>
         /// A list of the the coupon redemptions on an account.
         /// </returns>
-        public Pager<CouponRedemption> ListAccountCouponRedemptions(string accountId, string ids = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null)
+        public Pager<CouponRedemption> ListAccountCouponRedemptions(string accountId, QueryParams queryParams = null)
         {
+            var qParams = (queryParams == null) ? null : queryParams.ToDictionary();
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime } };
             var url = this.InterpolatePath("/sites/{site_id}/accounts/{account_id}/coupon_redemptions", urlParams);
-            return Pager<CouponRedemption>.Build(url, queryParams, this);
+            return Pager<CouponRedemption>.Build(url, qParams, this);
         }
 
 
@@ -574,20 +561,16 @@ namespace Recurly
         /// List an account's credit payments <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_account_credit_payments">list_account_credit_payments api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
-        /// <param name="limit">Limit number of records 1-200.</param>
-        /// <param name="order">Sort order.</param>
-        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
-        /// <param name="beginTime">Filter by begin_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
-        /// <param name="endTime">Filter by end_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
+        /// <param name="queryParams">The query params for this endpoint.</param>
         /// <returns>
         /// A list of the account's credit payments.
         /// </returns>
-        public Pager<CreditPayment> ListAccountCreditPayments(string accountId, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null)
+        public Pager<CreditPayment> ListAccountCreditPayments(string accountId, QueryParams queryParams = null)
         {
+            var qParams = (queryParams == null) ? null : queryParams.ToDictionary();
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
-            var queryParams = new Dictionary<string, object> { { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime } };
             var url = this.InterpolatePath("/sites/{site_id}/accounts/{account_id}/credit_payments", urlParams);
-            return Pager<CreditPayment>.Build(url, queryParams, this);
+            return Pager<CreditPayment>.Build(url, qParams, this);
         }
 
 
@@ -595,22 +578,16 @@ namespace Recurly
         /// List an account's invoices <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_account_invoices">list_account_invoices api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
-        /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
-        /// <param name="limit">Limit number of records 1-200.</param>
-        /// <param name="order">Sort order.</param>
-        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
-        /// <param name="beginTime">Filter by begin_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
-        /// <param name="endTime">Filter by end_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
-        /// <param name="type">Filter by type when:  - `type=charge`, only charge invoices will be returned.  - `type=credit`, only credit invoices will be returned.  - `type=non-legacy`, only charge and credit invoices will be returned.  - `type=legacy`, only legacy invoices will be returned.  </param>
+        /// <param name="queryParams">The query params for this endpoint.</param>
         /// <returns>
         /// A list of the account's invoices.
         /// </returns>
-        public Pager<Invoice> ListAccountInvoices(string accountId, string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string type = null)
+        public Pager<Invoice> ListAccountInvoices(string accountId, QueryParams queryParams = null)
         {
+            var qParams = (queryParams == null) ? null : queryParams.ToDictionary();
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "type", type } };
             var url = this.InterpolatePath("/sites/{site_id}/accounts/{account_id}/invoices", urlParams);
-            return Pager<Invoice>.Build(url, queryParams, this);
+            return Pager<Invoice>.Build(url, qParams, this);
         }
 
 
@@ -682,24 +659,16 @@ namespace Recurly
         /// List an account's line items <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_account_line_items">list_account_line_items api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
-        /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
-        /// <param name="limit">Limit number of records 1-200.</param>
-        /// <param name="order">Sort order.</param>
-        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
-        /// <param name="beginTime">Filter by begin_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
-        /// <param name="endTime">Filter by end_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
-        /// <param name="original">Filter by original field.</param>
-        /// <param name="state">Filter by state field.</param>
-        /// <param name="type">Filter by type field.</param>
+        /// <param name="queryParams">The query params for this endpoint.</param>
         /// <returns>
         /// A list of the account's line items.
         /// </returns>
-        public Pager<LineItem> ListAccountLineItems(string accountId, string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string original = null, string state = null, string type = null)
+        public Pager<LineItem> ListAccountLineItems(string accountId, QueryParams queryParams = null)
         {
+            var qParams = (queryParams == null) ? null : queryParams.ToDictionary();
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "original", original }, { "state", state }, { "type", type } };
             var url = this.InterpolatePath("/sites/{site_id}/accounts/{account_id}/line_items", urlParams);
-            return Pager<LineItem>.Build(url, queryParams, this);
+            return Pager<LineItem>.Build(url, qParams, this);
         }
 
 
@@ -739,16 +708,16 @@ namespace Recurly
         /// Fetch a list of an account's notes <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_account_notes">list_account_notes api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
-        /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
+        /// <param name="queryParams">The query params for this endpoint.</param>
         /// <returns>
         /// A list of an account's notes.
         /// </returns>
-        public Pager<AccountNote> ListAccountNotes(string accountId, string ids = null)
+        public Pager<AccountNote> ListAccountNotes(string accountId, QueryParams queryParams = null)
         {
+            var qParams = (queryParams == null) ? null : queryParams.ToDictionary();
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
-            var queryParams = new Dictionary<string, object> { { "ids", ids } };
             var url = this.InterpolatePath("/sites/{site_id}/accounts/{account_id}/notes", urlParams);
-            return Pager<AccountNote>.Build(url, queryParams, this);
+            return Pager<AccountNote>.Build(url, qParams, this);
         }
 
 
@@ -788,21 +757,16 @@ namespace Recurly
         /// Fetch a list of an account's shipping addresses <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_shipping_addresses">list_shipping_addresses api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
-        /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
-        /// <param name="limit">Limit number of records 1-200.</param>
-        /// <param name="order">Sort order.</param>
-        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
-        /// <param name="beginTime">Filter by begin_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
-        /// <param name="endTime">Filter by end_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
+        /// <param name="queryParams">The query params for this endpoint.</param>
         /// <returns>
         /// A list of an account's shipping addresses.
         /// </returns>
-        public Pager<ShippingAddress> ListShippingAddresses(string accountId, string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null)
+        public Pager<ShippingAddress> ListShippingAddresses(string accountId, QueryParams queryParams = null)
         {
+            var qParams = (queryParams == null) ? null : queryParams.ToDictionary();
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime } };
             var url = this.InterpolatePath("/sites/{site_id}/accounts/{account_id}/shipping_addresses", urlParams);
-            return Pager<ShippingAddress>.Build(url, queryParams, this);
+            return Pager<ShippingAddress>.Build(url, qParams, this);
         }
 
 
@@ -940,22 +904,16 @@ namespace Recurly
         /// List an account's subscriptions <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_account_subscriptions">list_account_subscriptions api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
-        /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
-        /// <param name="limit">Limit number of records 1-200.</param>
-        /// <param name="order">Sort order.</param>
-        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
-        /// <param name="beginTime">Filter by begin_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
-        /// <param name="endTime">Filter by end_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
-        /// <param name="state">Filter by state.    - When `state=active`, `state=canceled`, `state=expired`, or `state=future`, subscriptions with states that match the query and only those subscriptions will be returned.  - When `state=in_trial`, only subscriptions that have a trial_started_at date earlier than now and a trial_ends_at date later than now will be returned.  - When `state=live`, only subscriptions that are in an active, canceled, or future state or are in trial will be returned.  </param>
+        /// <param name="queryParams">The query params for this endpoint.</param>
         /// <returns>
         /// A list of the account's subscriptions.
         /// </returns>
-        public Pager<Subscription> ListAccountSubscriptions(string accountId, string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string state = null)
+        public Pager<Subscription> ListAccountSubscriptions(string accountId, QueryParams queryParams = null)
         {
+            var qParams = (queryParams == null) ? null : queryParams.ToDictionary();
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "state", state } };
             var url = this.InterpolatePath("/sites/{site_id}/accounts/{account_id}/subscriptions", urlParams);
-            return Pager<Subscription>.Build(url, queryParams, this);
+            return Pager<Subscription>.Build(url, qParams, this);
         }
 
 
@@ -963,23 +921,16 @@ namespace Recurly
         /// List an account's transactions <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_account_transactions">list_account_transactions api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
-        /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
-        /// <param name="limit">Limit number of records 1-200.</param>
-        /// <param name="order">Sort order.</param>
-        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
-        /// <param name="beginTime">Filter by begin_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
-        /// <param name="endTime">Filter by end_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
-        /// <param name="type">Filter by type field. The value `payment` will return both `purchase` and `capture` transactions.</param>
-        /// <param name="success">Filter by success field.</param>
+        /// <param name="queryParams">The query params for this endpoint.</param>
         /// <returns>
         /// A list of the account's transactions.
         /// </returns>
-        public Pager<Transaction> ListAccountTransactions(string accountId, string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string type = null, string success = null)
+        public Pager<Transaction> ListAccountTransactions(string accountId, QueryParams queryParams = null)
         {
+            var qParams = (queryParams == null) ? null : queryParams.ToDictionary();
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "type", type }, { "success", success } };
             var url = this.InterpolatePath("/sites/{site_id}/accounts/{account_id}/transactions", urlParams);
-            return Pager<Transaction>.Build(url, queryParams, this);
+            return Pager<Transaction>.Build(url, qParams, this);
         }
 
 
@@ -987,65 +938,48 @@ namespace Recurly
         /// List an account's child accounts <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_child_accounts">list_child_accounts api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code (use prefix: `code-`, e.g. `code-bob`).</param>
-        /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
-        /// <param name="limit">Limit number of records 1-200.</param>
-        /// <param name="order">Sort order.</param>
-        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
-        /// <param name="beginTime">Filter by begin_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
-        /// <param name="endTime">Filter by end_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
-        /// <param name="subscriber">Filter accounts accounts with or without a subscription in the `active`,  `canceled`, or `future` state.  </param>
-        /// <param name="pastDue">Filter for accounts with an invoice in the `past_due` state.</param>
+        /// <param name="queryParams">The query params for this endpoint.</param>
         /// <returns>
         /// A list of an account's child accounts.
         /// </returns>
-        public Pager<Account> ListChildAccounts(string accountId, string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string subscriber = null, string pastDue = null)
+        public Pager<Account> ListChildAccounts(string accountId, QueryParams queryParams = null)
         {
+            var qParams = (queryParams == null) ? null : queryParams.ToDictionary();
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "subscriber", subscriber }, { "past_due", pastDue } };
             var url = this.InterpolatePath("/sites/{site_id}/accounts/{account_id}/accounts", urlParams);
-            return Pager<Account>.Build(url, queryParams, this);
+            return Pager<Account>.Build(url, qParams, this);
         }
 
 
         /// <summary>
         /// List a site's account acquisition data <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_account_acquisition">list_account_acquisition api documentation</see>
         /// </summary>
-        /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
-        /// <param name="limit">Limit number of records 1-200.</param>
-        /// <param name="order">Sort order.</param>
-        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
-        /// <param name="beginTime">Filter by begin_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
-        /// <param name="endTime">Filter by end_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
+        /// <param name="queryParams">The query params for this endpoint.</param>
         /// <returns>
         /// A list of the site's account acquisition data.
         /// </returns>
-        public Pager<AccountAcquisition> ListAccountAcquisition(string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null)
+        public Pager<AccountAcquisition> ListAccountAcquisition(QueryParams queryParams = null)
         {
+            var qParams = (queryParams == null) ? null : queryParams.ToDictionary();
             var urlParams = new Dictionary<string, object> { };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime } };
             var url = this.InterpolatePath("/sites/{site_id}/acquisitions", urlParams);
-            return Pager<AccountAcquisition>.Build(url, queryParams, this);
+            return Pager<AccountAcquisition>.Build(url, qParams, this);
         }
 
 
         /// <summary>
         /// List a site's coupons <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_coupons">list_coupons api documentation</see>
         /// </summary>
-        /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
-        /// <param name="limit">Limit number of records 1-200.</param>
-        /// <param name="order">Sort order.</param>
-        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
-        /// <param name="beginTime">Filter by begin_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
-        /// <param name="endTime">Filter by end_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
+        /// <param name="queryParams">The query params for this endpoint.</param>
         /// <returns>
         /// A list of the site's coupons.
         /// </returns>
-        public Pager<Coupon> ListCoupons(string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null)
+        public Pager<Coupon> ListCoupons(QueryParams queryParams = null)
         {
+            var qParams = (queryParams == null) ? null : queryParams.ToDictionary();
             var urlParams = new Dictionary<string, object> { };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime } };
             var url = this.InterpolatePath("/sites/{site_id}/coupons", urlParams);
-            return Pager<Coupon>.Build(url, queryParams, this);
+            return Pager<Coupon>.Build(url, qParams, this);
         }
 
 
@@ -1145,41 +1079,32 @@ namespace Recurly
         /// List unique coupon codes associated with a bulk coupon <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_unique_coupon_codes">list_unique_coupon_codes api documentation</see>
         /// </summary>
         /// <param name="couponId">Coupon ID or code (use prefix: `code-`, e.g. `code-10off`).</param>
-        /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
-        /// <param name="limit">Limit number of records 1-200.</param>
-        /// <param name="order">Sort order.</param>
-        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
-        /// <param name="beginTime">Filter by begin_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
-        /// <param name="endTime">Filter by end_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
+        /// <param name="queryParams">The query params for this endpoint.</param>
         /// <returns>
         /// A list of unique coupon codes that were generated
         /// </returns>
-        public Pager<UniqueCouponCode> ListUniqueCouponCodes(string couponId, string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null)
+        public Pager<UniqueCouponCode> ListUniqueCouponCodes(string couponId, QueryParams queryParams = null)
         {
+            var qParams = (queryParams == null) ? null : queryParams.ToDictionary();
             var urlParams = new Dictionary<string, object> { { "coupon_id", couponId } };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime } };
             var url = this.InterpolatePath("/sites/{site_id}/coupons/{coupon_id}/unique_coupon_codes", urlParams);
-            return Pager<UniqueCouponCode>.Build(url, queryParams, this);
+            return Pager<UniqueCouponCode>.Build(url, qParams, this);
         }
 
 
         /// <summary>
         /// List a site's credit payments <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_credit_payments">list_credit_payments api documentation</see>
         /// </summary>
-        /// <param name="limit">Limit number of records 1-200.</param>
-        /// <param name="order">Sort order.</param>
-        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
-        /// <param name="beginTime">Filter by begin_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
-        /// <param name="endTime">Filter by end_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
+        /// <param name="queryParams">The query params for this endpoint.</param>
         /// <returns>
         /// A list of the site's credit payments.
         /// </returns>
-        public Pager<CreditPayment> ListCreditPayments(int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null)
+        public Pager<CreditPayment> ListCreditPayments(QueryParams queryParams = null)
         {
+            var qParams = (queryParams == null) ? null : queryParams.ToDictionary();
             var urlParams = new Dictionary<string, object> { };
-            var queryParams = new Dictionary<string, object> { { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime } };
             var url = this.InterpolatePath("/sites/{site_id}/credit_payments", urlParams);
-            return Pager<CreditPayment>.Build(url, queryParams, this);
+            return Pager<CreditPayment>.Build(url, qParams, this);
         }
 
 
@@ -1216,21 +1141,16 @@ namespace Recurly
         /// <summary>
         /// List a site's custom field definitions <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_custom_field_definitions">list_custom_field_definitions api documentation</see>
         /// </summary>
-        /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
-        /// <param name="limit">Limit number of records 1-200.</param>
-        /// <param name="order">Sort order.</param>
-        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
-        /// <param name="beginTime">Filter by begin_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
-        /// <param name="endTime">Filter by end_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
+        /// <param name="queryParams">The query params for this endpoint.</param>
         /// <returns>
         /// A list of the site's custom field definitions.
         /// </returns>
-        public Pager<CustomFieldDefinition> ListCustomFieldDefinitions(string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null)
+        public Pager<CustomFieldDefinition> ListCustomFieldDefinitions(QueryParams queryParams = null)
         {
+            var qParams = (queryParams == null) ? null : queryParams.ToDictionary();
             var urlParams = new Dictionary<string, object> { };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime } };
             var url = this.InterpolatePath("/sites/{site_id}/custom_field_definitions", urlParams);
-            return Pager<CustomFieldDefinition>.Build(url, queryParams, this);
+            return Pager<CustomFieldDefinition>.Build(url, qParams, this);
         }
 
 
@@ -1267,22 +1187,16 @@ namespace Recurly
         /// <summary>
         /// List a site's invoices <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_invoices">list_invoices api documentation</see>
         /// </summary>
-        /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
-        /// <param name="limit">Limit number of records 1-200.</param>
-        /// <param name="order">Sort order.</param>
-        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
-        /// <param name="beginTime">Filter by begin_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
-        /// <param name="endTime">Filter by end_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
-        /// <param name="type">Filter by type when:  - `type=charge`, only charge invoices will be returned.  - `type=credit`, only credit invoices will be returned.  - `type=non-legacy`, only charge and credit invoices will be returned.  - `type=legacy`, only legacy invoices will be returned.  </param>
+        /// <param name="queryParams">The query params for this endpoint.</param>
         /// <returns>
         /// A list of the site's invoices.
         /// </returns>
-        public Pager<Invoice> ListInvoices(string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string type = null)
+        public Pager<Invoice> ListInvoices(QueryParams queryParams = null)
         {
+            var qParams = (queryParams == null) ? null : queryParams.ToDictionary();
             var urlParams = new Dictionary<string, object> { };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "type", type } };
             var url = this.InterpolatePath("/sites/{site_id}/invoices", urlParams);
-            return Pager<Invoice>.Build(url, queryParams, this);
+            return Pager<Invoice>.Build(url, qParams, this);
         }
 
 
@@ -1472,24 +1386,16 @@ namespace Recurly
         /// List an invoice's line items <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_invoice_line_items">list_invoice_line_items api documentation</see>
         /// </summary>
         /// <param name="invoiceId">Invoice ID or number (use prefix: `number-`, e.g. `number-1000`).</param>
-        /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
-        /// <param name="limit">Limit number of records 1-200.</param>
-        /// <param name="order">Sort order.</param>
-        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
-        /// <param name="beginTime">Filter by begin_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
-        /// <param name="endTime">Filter by end_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
-        /// <param name="original">Filter by original field.</param>
-        /// <param name="state">Filter by state field.</param>
-        /// <param name="type">Filter by type field.</param>
+        /// <param name="queryParams">The query params for this endpoint.</param>
         /// <returns>
         /// A list of the invoice's line items.
         /// </returns>
-        public Pager<LineItem> ListInvoiceLineItems(string invoiceId, string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string original = null, string state = null, string type = null)
+        public Pager<LineItem> ListInvoiceLineItems(string invoiceId, QueryParams queryParams = null)
         {
+            var qParams = (queryParams == null) ? null : queryParams.ToDictionary();
             var urlParams = new Dictionary<string, object> { { "invoice_id", invoiceId } };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "original", original }, { "state", state }, { "type", type } };
             var url = this.InterpolatePath("/sites/{site_id}/invoices/{invoice_id}/line_items", urlParams);
-            return Pager<LineItem>.Build(url, queryParams, this);
+            return Pager<LineItem>.Build(url, qParams, this);
         }
 
 
@@ -1497,19 +1403,16 @@ namespace Recurly
         /// Show the coupon redemptions applied to an invoice <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_invoice_coupon_redemptions">list_invoice_coupon_redemptions api documentation</see>
         /// </summary>
         /// <param name="invoiceId">Invoice ID or number (use prefix: `number-`, e.g. `number-1000`).</param>
-        /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
-        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
-        /// <param name="beginTime">Filter by begin_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
-        /// <param name="endTime">Filter by end_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
+        /// <param name="queryParams">The query params for this endpoint.</param>
         /// <returns>
         /// A list of the the coupon redemptions associated with the invoice.
         /// </returns>
-        public Pager<CouponRedemption> ListInvoiceCouponRedemptions(string invoiceId, string ids = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null)
+        public Pager<CouponRedemption> ListInvoiceCouponRedemptions(string invoiceId, QueryParams queryParams = null)
         {
+            var qParams = (queryParams == null) ? null : queryParams.ToDictionary();
             var urlParams = new Dictionary<string, object> { { "invoice_id", invoiceId } };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime } };
             var url = this.InterpolatePath("/sites/{site_id}/invoices/{invoice_id}/coupon_redemptions", urlParams);
-            return Pager<CouponRedemption>.Build(url, queryParams, this);
+            return Pager<CouponRedemption>.Build(url, qParams, this);
         }
 
 
@@ -1563,24 +1466,16 @@ namespace Recurly
         /// <summary>
         /// List a site's line items <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_line_items">list_line_items api documentation</see>
         /// </summary>
-        /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
-        /// <param name="limit">Limit number of records 1-200.</param>
-        /// <param name="order">Sort order.</param>
-        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
-        /// <param name="beginTime">Filter by begin_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
-        /// <param name="endTime">Filter by end_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
-        /// <param name="original">Filter by original field.</param>
-        /// <param name="state">Filter by state field.</param>
-        /// <param name="type">Filter by type field.</param>
+        /// <param name="queryParams">The query params for this endpoint.</param>
         /// <returns>
         /// A list of the site's line items.
         /// </returns>
-        public Pager<LineItem> ListLineItems(string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string original = null, string state = null, string type = null)
+        public Pager<LineItem> ListLineItems(QueryParams queryParams = null)
         {
+            var qParams = (queryParams == null) ? null : queryParams.ToDictionary();
             var urlParams = new Dictionary<string, object> { };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "original", original }, { "state", state }, { "type", type } };
             var url = this.InterpolatePath("/sites/{site_id}/line_items", urlParams);
-            return Pager<LineItem>.Build(url, queryParams, this);
+            return Pager<LineItem>.Build(url, qParams, this);
         }
 
 
@@ -1647,22 +1542,16 @@ namespace Recurly
         /// <summary>
         /// List a site's plans <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_plans">list_plans api documentation</see>
         /// </summary>
-        /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
-        /// <param name="limit">Limit number of records 1-200.</param>
-        /// <param name="order">Sort order.</param>
-        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
-        /// <param name="beginTime">Filter by begin_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
-        /// <param name="endTime">Filter by end_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
-        /// <param name="state">Filter by state.</param>
+        /// <param name="queryParams">The query params for this endpoint.</param>
         /// <returns>
         /// A list of plans.
         /// </returns>
-        public Pager<Plan> ListPlans(string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string state = null)
+        public Pager<Plan> ListPlans(QueryParams queryParams = null)
         {
+            var qParams = (queryParams == null) ? null : queryParams.ToDictionary();
             var urlParams = new Dictionary<string, object> { };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "state", state } };
             var url = this.InterpolatePath("/sites/{site_id}/plans", urlParams);
-            return Pager<Plan>.Build(url, queryParams, this);
+            return Pager<Plan>.Build(url, qParams, this);
         }
 
 
@@ -1792,22 +1681,16 @@ namespace Recurly
         /// List a plan's add-ons <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_plan_add_ons">list_plan_add_ons api documentation</see>
         /// </summary>
         /// <param name="planId">Plan ID or code (use prefix: `code-`, e.g. `code-gold`).</param>
-        /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
-        /// <param name="limit">Limit number of records 1-200.</param>
-        /// <param name="order">Sort order.</param>
-        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
-        /// <param name="beginTime">Filter by begin_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
-        /// <param name="endTime">Filter by end_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
-        /// <param name="state">Filter by state.</param>
+        /// <param name="queryParams">The query params for this endpoint.</param>
         /// <returns>
         /// A list of add-ons.
         /// </returns>
-        public Pager<AddOn> ListPlanAddOns(string planId, string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string state = null)
+        public Pager<AddOn> ListPlanAddOns(string planId, QueryParams queryParams = null)
         {
+            var qParams = (queryParams == null) ? null : queryParams.ToDictionary();
             var urlParams = new Dictionary<string, object> { { "plan_id", planId } };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "state", state } };
             var url = this.InterpolatePath("/sites/{site_id}/plans/{plan_id}/add_ons", urlParams);
-            return Pager<AddOn>.Build(url, queryParams, this);
+            return Pager<AddOn>.Build(url, qParams, this);
         }
 
 
@@ -1944,22 +1827,16 @@ namespace Recurly
         /// <summary>
         /// List a site's add-ons <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_add_ons">list_add_ons api documentation</see>
         /// </summary>
-        /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
-        /// <param name="limit">Limit number of records 1-200.</param>
-        /// <param name="order">Sort order.</param>
-        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
-        /// <param name="beginTime">Filter by begin_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
-        /// <param name="endTime">Filter by end_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
-        /// <param name="state">Filter by state.</param>
+        /// <param name="queryParams">The query params for this endpoint.</param>
         /// <returns>
         /// A list of add-ons.
         /// </returns>
-        public Pager<AddOn> ListAddOns(string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string state = null)
+        public Pager<AddOn> ListAddOns(QueryParams queryParams = null)
         {
+            var qParams = (queryParams == null) ? null : queryParams.ToDictionary();
             var urlParams = new Dictionary<string, object> { };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "state", state } };
             var url = this.InterpolatePath("/sites/{site_id}/add_ons", urlParams);
-            return Pager<AddOn>.Build(url, queryParams, this);
+            return Pager<AddOn>.Build(url, qParams, this);
         }
 
 
@@ -1996,22 +1873,16 @@ namespace Recurly
         /// <summary>
         /// List a site's subscriptions <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_subscriptions">list_subscriptions api documentation</see>
         /// </summary>
-        /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
-        /// <param name="limit">Limit number of records 1-200.</param>
-        /// <param name="order">Sort order.</param>
-        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
-        /// <param name="beginTime">Filter by begin_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
-        /// <param name="endTime">Filter by end_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
-        /// <param name="state">Filter by state.    - When `state=active`, `state=canceled`, `state=expired`, or `state=future`, subscriptions with states that match the query and only those subscriptions will be returned.  - When `state=in_trial`, only subscriptions that have a trial_started_at date earlier than now and a trial_ends_at date later than now will be returned.  - When `state=live`, only subscriptions that are in an active, canceled, or future state or are in trial will be returned.  </param>
+        /// <param name="queryParams">The query params for this endpoint.</param>
         /// <returns>
         /// A list of the site's subscriptions.
         /// </returns>
-        public Pager<Subscription> ListSubscriptions(string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string state = null)
+        public Pager<Subscription> ListSubscriptions(QueryParams queryParams = null)
         {
+            var qParams = (queryParams == null) ? null : queryParams.ToDictionary();
             var urlParams = new Dictionary<string, object> { };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "state", state } };
             var url = this.InterpolatePath("/sites/{site_id}/subscriptions", urlParams);
-            return Pager<Subscription>.Build(url, queryParams, this);
+            return Pager<Subscription>.Build(url, qParams, this);
         }
 
 
@@ -2111,34 +1982,34 @@ namespace Recurly
         /// Terminate a subscription <see href="https://partner-docs.recurly.com/v2018-08-09#operation/terminate_subscription">terminate_subscription api documentation</see>
         /// </summary>
         /// <param name="subscriptionId">Subscription ID or UUID (use prefix: `uuid-`, e.g. `uuid-123457890`).</param>
-        /// <param name="refund">The type of refund to perform:    * `full` - Performs a full refund of the last invoice for the current subscription term.  * `partial` - Prorates a refund based on the amount of time remaining in the current bill cycle.  * `none` - Terminates the subscription without a refund.    In the event that the most recent invoice is a $0 invoice paid entirely by credit, Recurly will apply the credit back to the customer’s account.    You may also terminate a subscription with no refund and then manually refund specific invoices.  </param>
+        /// <param name="queryParams">The query params for this endpoint.</param>
         /// <returns>
         /// An expired subscription.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public Subscription TerminateSubscription(string subscriptionId, string refund = null)
+        public Subscription TerminateSubscription(string subscriptionId, QueryParams queryParams = null)
         {
+            var qParams = (queryParams == null) ? null : queryParams.ToDictionary();
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
-            var queryParams = new Dictionary<string, object> { { "refund", refund } };
             var url = this.InterpolatePath("/sites/{site_id}/subscriptions/{subscription_id}", urlParams);
-            return MakeRequest<Subscription>(Method.DELETE, url, null, queryParams);
+            return MakeRequest<Subscription>(Method.DELETE, url, null, qParams);
         }
 
         /// <summary>
         /// Terminate a subscription <see href="https://partner-docs.recurly.com/v2018-08-09#operation/terminate_subscription">terminate_subscription api documentation</see>
         /// </summary>
         /// <param name="subscriptionId">Subscription ID or UUID (use prefix: `uuid-`, e.g. `uuid-123457890`).</param>
-        /// <param name="refund">The type of refund to perform:    * `full` - Performs a full refund of the last invoice for the current subscription term.  * `partial` - Prorates a refund based on the amount of time remaining in the current bill cycle.  * `none` - Terminates the subscription without a refund.    In the event that the most recent invoice is a $0 invoice paid entirely by credit, Recurly will apply the credit back to the customer’s account.    You may also terminate a subscription with no refund and then manually refund specific invoices.  </param>
+        /// <param name="queryParams">The query params for this endpoint.</param>
         /// <returns>
         /// An expired subscription.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public Task<Subscription> TerminateSubscriptionAsync(string subscriptionId, string refund = null, CancellationToken cancellationToken = default(CancellationToken))
+        public Task<Subscription> TerminateSubscriptionAsync(string subscriptionId, QueryParams queryParams = null, CancellationToken cancellationToken = default(CancellationToken))
         {
+            var qParams = (queryParams == null) ? null : queryParams.ToDictionary();
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
-            var queryParams = new Dictionary<string, object> { { "refund", refund } };
             var url = this.InterpolatePath("/sites/{site_id}/subscriptions/{subscription_id}", urlParams);
-            return MakeRequestAsync<Subscription>(Method.DELETE, url, null, queryParams, cancellationToken);
+            return MakeRequestAsync<Subscription>(Method.DELETE, url, null, qParams, cancellationToken);
         }
 
         /// <summary>
@@ -2359,22 +2230,16 @@ namespace Recurly
         /// List a subscription's invoices <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_subscription_invoices">list_subscription_invoices api documentation</see>
         /// </summary>
         /// <param name="subscriptionId">Subscription ID or UUID (use prefix: `uuid-`, e.g. `uuid-123457890`).</param>
-        /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
-        /// <param name="limit">Limit number of records 1-200.</param>
-        /// <param name="order">Sort order.</param>
-        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
-        /// <param name="beginTime">Filter by begin_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
-        /// <param name="endTime">Filter by end_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
-        /// <param name="type">Filter by type when:  - `type=charge`, only charge invoices will be returned.  - `type=credit`, only credit invoices will be returned.  - `type=non-legacy`, only charge and credit invoices will be returned.  - `type=legacy`, only legacy invoices will be returned.  </param>
+        /// <param name="queryParams">The query params for this endpoint.</param>
         /// <returns>
         /// A list of the subscription's invoices.
         /// </returns>
-        public Pager<Invoice> ListSubscriptionInvoices(string subscriptionId, string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string type = null)
+        public Pager<Invoice> ListSubscriptionInvoices(string subscriptionId, QueryParams queryParams = null)
         {
+            var qParams = (queryParams == null) ? null : queryParams.ToDictionary();
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "type", type } };
             var url = this.InterpolatePath("/sites/{site_id}/subscriptions/{subscription_id}/invoices", urlParams);
-            return Pager<Invoice>.Build(url, queryParams, this);
+            return Pager<Invoice>.Build(url, qParams, this);
         }
 
 
@@ -2382,24 +2247,16 @@ namespace Recurly
         /// List a subscription's line items <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_subscription_line_items">list_subscription_line_items api documentation</see>
         /// </summary>
         /// <param name="subscriptionId">Subscription ID or UUID (use prefix: `uuid-`, e.g. `uuid-123457890`).</param>
-        /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
-        /// <param name="limit">Limit number of records 1-200.</param>
-        /// <param name="order">Sort order.</param>
-        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
-        /// <param name="beginTime">Filter by begin_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
-        /// <param name="endTime">Filter by end_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
-        /// <param name="original">Filter by original field.</param>
-        /// <param name="state">Filter by state field.</param>
-        /// <param name="type">Filter by type field.</param>
+        /// <param name="queryParams">The query params for this endpoint.</param>
         /// <returns>
         /// A list of the subscription's line items.
         /// </returns>
-        public Pager<LineItem> ListSubscriptionLineItems(string subscriptionId, string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string original = null, string state = null, string type = null)
+        public Pager<LineItem> ListSubscriptionLineItems(string subscriptionId, QueryParams queryParams = null)
         {
+            var qParams = (queryParams == null) ? null : queryParams.ToDictionary();
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "original", original }, { "state", state }, { "type", type } };
             var url = this.InterpolatePath("/sites/{site_id}/subscriptions/{subscription_id}/line_items", urlParams);
-            return Pager<LineItem>.Build(url, queryParams, this);
+            return Pager<LineItem>.Build(url, qParams, this);
         }
 
 
@@ -2407,42 +2264,32 @@ namespace Recurly
         /// Show the coupon redemptions for a subscription <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_subscription_coupon_redemptions">list_subscription_coupon_redemptions api documentation</see>
         /// </summary>
         /// <param name="subscriptionId">Subscription ID or UUID (use prefix: `uuid-`, e.g. `uuid-123457890`).</param>
-        /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
-        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
-        /// <param name="beginTime">Filter by begin_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
-        /// <param name="endTime">Filter by end_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
+        /// <param name="queryParams">The query params for this endpoint.</param>
         /// <returns>
         /// A list of the the coupon redemptions on a subscription.
         /// </returns>
-        public Pager<CouponRedemption> ListSubscriptionCouponRedemptions(string subscriptionId, string ids = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null)
+        public Pager<CouponRedemption> ListSubscriptionCouponRedemptions(string subscriptionId, QueryParams queryParams = null)
         {
+            var qParams = (queryParams == null) ? null : queryParams.ToDictionary();
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime } };
             var url = this.InterpolatePath("/sites/{site_id}/subscriptions/{subscription_id}/coupon_redemptions", urlParams);
-            return Pager<CouponRedemption>.Build(url, queryParams, this);
+            return Pager<CouponRedemption>.Build(url, qParams, this);
         }
 
 
         /// <summary>
         /// List a site's transactions <see href="https://partner-docs.recurly.com/v2018-08-09#operation/list_transactions">list_transactions api documentation</see>
         /// </summary>
-        /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
-        /// <param name="limit">Limit number of records 1-200.</param>
-        /// <param name="order">Sort order.</param>
-        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
-        /// <param name="beginTime">Filter by begin_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
-        /// <param name="endTime">Filter by end_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
-        /// <param name="type">Filter by type field. The value `payment` will return both `purchase` and `capture` transactions.</param>
-        /// <param name="success">Filter by success field.</param>
+        /// <param name="queryParams">The query params for this endpoint.</param>
         /// <returns>
         /// A list of the site's transactions.
         /// </returns>
-        public Pager<Transaction> ListTransactions(string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string type = null, string success = null)
+        public Pager<Transaction> ListTransactions(QueryParams queryParams = null)
         {
+            var qParams = (queryParams == null) ? null : queryParams.ToDictionary();
             var urlParams = new Dictionary<string, object> { };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "type", type }, { "success", success } };
             var url = this.InterpolatePath("/sites/{site_id}/transactions", urlParams);
-            return Pager<Transaction>.Build(url, queryParams, this);
+            return Pager<Transaction>.Build(url, qParams, this);
         }
 
 

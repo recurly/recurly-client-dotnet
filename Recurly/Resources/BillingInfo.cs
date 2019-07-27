@@ -35,7 +35,7 @@ namespace Recurly.Resources
         [JsonProperty("first_name")]
         public string FirstName { get; set; }
 
-
+        /// <value>Most recent fraud result.</value>
         [JsonProperty("fraud")]
         public FraudInfo Fraud { get; set; }
 
