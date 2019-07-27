@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Globalization;
 
 namespace Recurly
 {
@@ -23,6 +24,11 @@ namespace Recurly
                 }
                 return strictMode.Value;
             }
+        }
+
+        public static string ISO8601(DateTime dt)
+        {
+            return dt.ToUniversalTime().ToString("yyyy-MM-dd'T'HH:mm:ss.fffK", CultureInfo.InvariantCulture);
         }
 
         public static string Camelize(string source)
@@ -51,7 +57,11 @@ namespace Recurly
                     string stringRepr;
                     if (param.Value.GetType() == typeof(DateTime))
                     {
-                        stringRepr = ((DateTime)param.Value).ToString("o");
+                        stringRepr = ISO8601((DateTime)param.Value);
+                    }
+                    else if (param.Value is bool)
+                    {
+                        stringRepr = ((bool)param.Value) ? "true" : "false";
                     }
                     else
                     {
