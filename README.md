@@ -112,6 +112,18 @@ while(accounts.HasMore)
 }
 ```
 
+#### Query Params
+
+Query params can be passed to `List*` methods as named arguments. These will be used
+to sort and filter the resources.
+
+```csharp
+var accounts = client.ListAccounts(
+    limit: 200,
+    beginTime: new DateTime(2019, 1, 1)
+);
+```
+
 ### Creating Resources
 
 Every `Create*` or `Update*` method on the client takes a specific Request type to form the request.
