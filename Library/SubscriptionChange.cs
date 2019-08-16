@@ -15,7 +15,8 @@ namespace Recurly
         {
             Now,
             Renewal,
-            BillDate
+            BillDate,
+            TermEnd
         }
 
         public ChangeTimeframe TimeFrame { get; set; }

@@ -434,10 +434,16 @@ namespace Recurly
         /// Cancel an active subscription.  The subscription will not renew, but will continue to be active
         /// through the remainder of the current term.
         /// </summary>
-        public void Cancel()
+        public void Cancel(SubscriptionChange.ChangeTimeframe? timeframe = null)
         {
+            var url = UrlPrefix + Uri.EscapeDataString(Uuid) + "/cancel";
+            if (timeframe != null)
+            {
+                url += "?timeframe=" + timeframe.ToString().EnumNameToTransportCase();
+            }
+
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
-                UrlPrefix + Uri.EscapeDataString(Uuid) + "/cancel",
+                url,
                 ReadXml);
         }
 
