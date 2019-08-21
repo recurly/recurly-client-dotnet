@@ -138,6 +138,8 @@ namespace Recurly
         public string Type { get; set; }
         public string Origin { get; set; }
 
+        internal string TransactionType { get; set; }
+
         internal const string UrlPrefix = "/invoices/";
 
         public Invoice()
@@ -251,14 +253,26 @@ namespace Recurly
         /// <summary>
         /// Attempts to collect a pending or past due invoice.
         /// </summary>
+        /// <param name="transactionType">Optional transaction type. Currently accepts "moto"</param>
         /// <returns>New Invoice Collection</returns>
-        public Invoice ForceCollect()
+        public Invoice ForceCollect(string transactionType = null)
         {
             var invoice = new Invoice();
-            Client.Instance.PerformRequest(
-                Client.HttpRequestMethod.Put,
-                memberUrl() + "/collect",
-                invoice.ReadXml);
+            if (transactionType == null) {
+              Client.Instance.PerformRequest(
+                  Client.HttpRequestMethod.Put,
+                  memberUrl() + "/collect",
+                  invoice.ReadXml);
+            } else {
+              var invoiceReq = new Invoice() {
+                TransactionType = transactionType
+              };
+              Client.Instance.PerformRequest(
+                  Client.HttpRequestMethod.Put,
+                  memberUrl() + "/collect",
+                  invoiceReq.WriteXmlForceCollect,
+                  invoice.ReadXml);
+            }
             return invoice;
         }
 
@@ -639,6 +653,13 @@ namespace Recurly
 
                 }
             }
+        }
+
+        internal  void WriteXmlForceCollect(XmlTextWriter xmlWriter)
+        {
+            xmlWriter.WriteStartElement("invoice"); // Start: invoice
+            xmlWriter.WriteElementString("transaction_type", TransactionType);
+            xmlWriter.WriteEndElement(); // End: invoice
         }
 
         internal override void WriteXml(XmlTextWriter xmlWriter)

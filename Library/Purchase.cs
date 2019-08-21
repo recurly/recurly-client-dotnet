@@ -117,6 +117,11 @@ namespace Recurly
         /// </summary>
         public string GatewayCode { get; set; }
 
+        /// <summary>
+        /// Optional type flag for the gateway transaction. Currently accepts only "moto".
+        /// </summary>
+        public string TransactionType { get; set; }
+
         #region Constructors
 
         internal Purchase()
@@ -226,6 +231,9 @@ namespace Recurly
             xmlWriter.WriteStartElement("purchase"); // Start: purchase
 
             xmlWriter.WriteElementString("collection_method", CollectionMethod.ToString().EnumNameToTransportCase());
+
+            if (TransactionType != null)
+                xmlWriter.WriteElementString("transaction_type", TransactionType);
 
             if (NetTerms.HasValue)
                 xmlWriter.WriteElementString("net_terms", NetTerms.Value.ToString());
