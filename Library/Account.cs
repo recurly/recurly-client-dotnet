@@ -52,6 +52,7 @@ namespace Recurly
         public bool HasPastDueInvoice { get; private set; }
         public string PreferredLocale { get; set; }
         public string ParentAccountCode { get; set; }
+        public string TransactionType { get; set; }
 
         private AccountAcquisition _accountAcquisition;
 
@@ -675,6 +676,9 @@ namespace Recurly
 
             xmlWriter.WriteIfCollectionHasAny("shipping_addresses", ShippingAddresses);
             xmlWriter.WriteIfCollectionHasAny("custom_fields", CustomFields);
+
+            if (TransactionType != null)
+                xmlWriter.WriteElementString("transaction_type", TransactionType);
 
             // Clear the parent account by writing empty string. Null should not clear parent.
             if (ParentAccountCode != null)

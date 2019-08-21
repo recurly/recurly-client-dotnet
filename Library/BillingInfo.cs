@@ -112,6 +112,8 @@ namespace Recurly
         /// </summary>
         public string ThreeDSecureActionResultTokenId { get; set; }
 
+        public string TransactionType { get; set; }
+
         private string _cardNumber;
 
         /// <summary>
@@ -447,6 +449,9 @@ namespace Recurly
                     xmlWriter.WriteElementString("card_type", card);
                 }
             }
+
+            if (TransactionType != null)
+                xmlWriter.WriteElementString("transaction_type", TransactionType);
 
             xmlWriter.WriteStringIfValid("token_id", TokenId);
             xmlWriter.WriteStringIfValid("three_d_secure_action_result_token_id", ThreeDSecureActionResultTokenId);

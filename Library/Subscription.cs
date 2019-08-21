@@ -370,6 +370,8 @@ namespace Recurly
         /// </summary>
         public int? ShippingAmountInCents { get; set; }
 
+        public string TransactionType { get; set; }
+
         internal Subscription()
         {
             IsPendingSubscription = false;
@@ -1022,6 +1024,9 @@ namespace Recurly
 
             if (ShippingAmountInCents.HasValue)
                 xmlWriter.WriteElementString("shipping_amount_in_cents", ShippingAmountInCents.Value.AsString());
+
+            if (TransactionType != null)
+                xmlWriter.WriteElementString("transaction_type", TransactionType);
 
             xmlWriter.WriteEndElement(); // End: subscription
         }
