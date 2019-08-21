@@ -1,6 +1,13 @@
 Unreleased
 ===============
 
+1.16.1 (stable) / 2019-08-21
+===============
+
+This brings us up to API version 2.22. There are no breaking changes.
+
+- MOTO transactions [PR](https://github.com/recurly/recurly-client-net/pull/437)
+
 1.16.0 (stable) / 2019-07-16
 ===============
 
