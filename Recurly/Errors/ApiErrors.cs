@@ -10,6 +10,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Recurly.Errors
 {
+
     [ExcludeFromCodeCoverage]
     public static class Factory
     {

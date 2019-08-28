@@ -23,7 +23,7 @@ namespace Recurly.Resources
         [JsonProperty("percent")]
         public int? Percent { get; set; }
 
-
+        /// <value>This is only present when `type=free_trial`.</value>
         [JsonProperty("trial")]
         public CouponDiscountTrial Trial { get; set; }
 

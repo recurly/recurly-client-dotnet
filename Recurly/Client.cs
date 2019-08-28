@@ -78,12 +78,12 @@ namespace Recurly
         /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
         /// <param name="beginTime">Filter by begin_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
         /// <param name="endTime">Filter by end_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
-        /// <param name="subscriber">Filter accounts accounts with or without a subscription in the `active`,  `canceled`, or `future` state.  </param>
+        /// <param name="subscriber">Filter accounts with or without a subscription in the `active`,  `canceled`, or `future` state.  </param>
         /// <param name="pastDue">Filter for accounts with an invoice in the `past_due` state.</param>
         /// <returns>
         /// A list of the site's accounts.
         /// </returns>
-        public Pager<Account> ListAccounts(string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string subscriber = null, string pastDue = null)
+        public Pager<Account> ListAccounts(string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, bool? subscriber = null, string pastDue = null)
         {
             var urlParams = new Dictionary<string, object> { };
             var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "subscriber", subscriber }, { "past_due", pastDue } };
@@ -993,12 +993,12 @@ namespace Recurly
         /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
         /// <param name="beginTime">Filter by begin_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
         /// <param name="endTime">Filter by end_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
-        /// <param name="subscriber">Filter accounts accounts with or without a subscription in the `active`,  `canceled`, or `future` state.  </param>
+        /// <param name="subscriber">Filter accounts with or without a subscription in the `active`,  `canceled`, or `future` state.  </param>
         /// <param name="pastDue">Filter for accounts with an invoice in the `past_due` state.</param>
         /// <returns>
         /// A list of an account's child accounts.
         /// </returns>
-        public Pager<Account> ListChildAccounts(string accountId, string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string subscriber = null, string pastDue = null)
+        public Pager<Account> ListChildAccounts(string accountId, string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, bool? subscriber = null, string pastDue = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "subscriber", subscriber }, { "past_due", pastDue } };
