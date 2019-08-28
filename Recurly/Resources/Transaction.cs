@@ -119,7 +119,7 @@ namespace Recurly.Resources
 
 
         [JsonProperty("payment_method")]
-        public PaymentMethod PaymentMethod { get; set; }
+        public TransactionPaymentMethod PaymentMethod { get; set; }
 
         /// <value>Indicates if part or all of this transaction was refunded.</value>
         [JsonProperty("refunded")]

@@ -12,16 +12,8 @@ using Newtonsoft.Json;
 namespace Recurly.Resources
 {
     [ExcludeFromCodeCoverage]
-    public class PaymentMethod : Resource
+    public class BillingInfoPaymentMethod : Resource
     {
-
-        /// <value>The bank account type. Only present for ACH payment methods.</value>
-        [JsonProperty("account_type")]
-        public string AccountType { get; set; }
-
-        /// <value>Billing Agreement identifier. Only present for Amazon or Paypal payment methods.</value>
-        [JsonProperty("billing_agreement_id")]
-        public string BillingAgreementId { get; set; }
 
         /// <value>Visa, MasterCard, American Express, Discover, JCB, etc.</value>
         [JsonProperty("card_type")]
@@ -39,13 +31,9 @@ namespace Recurly.Resources
         [JsonProperty("first_six")]
         public string FirstSix { get; set; }
 
-        /// <value>Credit card number's last four digits. Will refer to bank account if payment method is ACH.</value>
+        /// <value>Credit card number's last four digits.</value>
         [JsonProperty("last_four")]
         public string LastFour { get; set; }
-
-        /// <value>The bank account's routing number. Only present for ACH payment methods.</value>
-        [JsonProperty("routing_number")]
-        public string RoutingNumber { get; set; }
 
     }
 }

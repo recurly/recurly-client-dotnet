@@ -83,7 +83,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's accounts.
         /// </returns>
-        public Pager<Account> ListAccounts(string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string subscriber = null, string pastDue = null)
+        public Pager<Account> ListAccounts(string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, bool? subscriber = null, string pastDue = null)
         {
             var urlParams = new Dictionary<string, object> { };
             var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "subscriber", subscriber }, { "past_due", pastDue } };
@@ -998,7 +998,7 @@ namespace Recurly
         /// <returns>
         /// A list of an account's child accounts.
         /// </returns>
-        public Pager<Account> ListChildAccounts(string accountId, string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string subscriber = null, string pastDue = null)
+        public Pager<Account> ListChildAccounts(string accountId, string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, bool? subscriber = null, string pastDue = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "subscriber", subscriber }, { "past_due", pastDue } };

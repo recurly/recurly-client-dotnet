@@ -49,7 +49,7 @@ namespace Recurly.Resources
 
 
         [JsonProperty("payment_method")]
-        public PaymentMethod PaymentMethod { get; set; }
+        public BillingInfoPaymentMethod PaymentMethod { get; set; }
 
         /// <value>When the billing information was last changed.</value>
         [JsonProperty("updated_at")]
