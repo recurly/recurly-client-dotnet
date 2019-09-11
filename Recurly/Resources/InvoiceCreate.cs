@@ -43,10 +43,6 @@ namespace Recurly.Resources
         [JsonProperty("terms_and_conditions")]
         public string TermsAndConditions { get; set; }
 
-        /// <value>Specify a type to limit the type of line items that will be invoiced.</value>
-        [JsonProperty("type")]
-        public string Type { get; set; }
-
         /// <value>VAT Reverse Charge Notes only appear if you have EU VAT enabled or are using your own Avalara AvaTax account and the customer is in the EU, has a VAT number, and is in a different country than your own. This will default to the VAT Reverse Charge Notes text specified on the Tax Settings page in your Recurly admin, unless custom notes were created with the original subscription.</value>
         [JsonProperty("vat_reverse_charge_notes")]
         public string VatReverseChargeNotes { get; set; }

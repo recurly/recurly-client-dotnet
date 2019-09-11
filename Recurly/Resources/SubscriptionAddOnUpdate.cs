@@ -12,12 +12,16 @@ using Newtonsoft.Json;
 namespace Recurly.Resources
 {
     [ExcludeFromCodeCoverage]
-    public class SubscriptionAddOnCreate : Request
+    public class SubscriptionAddOnUpdate : Request
     {
 
         /// <value>Add-on code</value>
         [JsonProperty("code")]
         public string Code { get; set; }
+
+        /// <value>Set this to include or modify an existing subscription add-on.</value>
+        [JsonProperty("id")]
+        public string Id { get; set; }
 
         /// <value>Quantity</value>
         [JsonProperty("quantity")]

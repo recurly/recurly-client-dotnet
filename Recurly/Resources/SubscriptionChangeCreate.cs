@@ -15,9 +15,9 @@ namespace Recurly.Resources
     public class SubscriptionChangeCreate : Request
     {
 
-        /// <value>If you set this value you include all the add-ons and their quantities and amounts. The values you include will replace the previous values entirely.</value>
+        /// <value>If you provide a value for this field it will replace any existing add-ons. So, when adding or modifying an add-on, you need to include the existing subscription add-ons. Unchanged add-ons can be included just using the subscription add-on's ID: `{"id": "abc123"}`.</value>
         [JsonProperty("add_ons")]
-        public List<SubscriptionAddOnCreate> AddOns { get; set; }
+        public List<SubscriptionAddOnUpdate> AddOns { get; set; }
 
         /// <value>Collection method</value>
         [JsonProperty("collection_method")]

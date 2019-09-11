@@ -103,7 +103,7 @@ namespace Recurly.Resources
         [JsonProperty("trial_ends_at")]
         public DateTime? TrialEndsAt { get; set; }
 
-        /// <value>Override the unit amount of the subscription plan by setting this value in cents. If not provided, the subscription will inherit the price from the subscription plan for the provided currency.</value>
+        /// <value>Override the unit amount of the subscription plan by setting this value. If not provided, the subscription will inherit the price from the subscription plan for the provided currency.</value>
         [JsonProperty("unit_amount")]
         public float? UnitAmount { get; set; }
 
