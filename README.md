@@ -22,15 +22,13 @@ initialized clients.
 This makes multithreaded environments simpler and provides one location where every
 operation can be found (rather than having them spread out among classes).
 
-`new Recurly.Client(siteId, apiKey)` initializes a new client. It requires an API key and a site id:
+`new Recurly.Client(apiKey)` initializes a new client. It only requires an API key:
 
 ```csharp
 using Recurly;
 
 const apiKey = "83749879bbde395b5fe0cc1a5abf8e5";
-const subdomain = "mysubdomain";
-const siteId = $"subdomain-{subdomain}"; // You could also use the site's reference id ex: "dqzlv9shi7wa"
-var client = new Recurly.Client(siteId, apiKey);
+var client = new Recurly.Client(apiKey);
 var sub = client.GetSubscription("uuid-abcd123456")
 ```
 
@@ -45,7 +43,7 @@ Each operation in the `Recurly.Client` has an async equivalent method which ends
 which can be `await`ed:
 
 ```csharp
-var client = new Recurly.Client(siteId, apiKey);
+var client = new Recurly.Client(apiKey);
 var sub = await client.GetSubscription("uuid-abcd123456");
 ```
 

@@ -23,21 +23,17 @@ namespace Recurly
 {
     public class BaseClient
     {
-        public string SiteId { get; }
         private string ApiKey { get; }
         private const string ApiUrl = "https://partner-api.recurly.com/";
         public virtual string ApiVersion { get; protected set; }
 
         internal IRestClient RestClient { get; set; }
 
-        public BaseClient(string siteId, string apiKey)
+        public BaseClient(string apiKey)
         {
-            if (String.IsNullOrEmpty(siteId))
-                throw new ArgumentException($"siteId is required. You passed in {siteId}");
             if (String.IsNullOrEmpty(apiKey))
                 throw new ArgumentException($"apiKey is required. You passed in {apiKey}");
 
-            SiteId = siteId;
             ApiKey = apiKey;
             RestClient = new RestClient();
             RestClient.BaseUrl = new Uri(ApiUrl);
@@ -158,7 +154,6 @@ namespace Recurly
 
         protected string InterpolatePath(string path, Dictionary<string, object> urlParams)
         {
-            urlParams.Add("site_id", SiteId);
             var regex = new Regex("{([A-Za-z|_]*)}");
             // TODO ToString() here might not appropriately format all data types
             // such as datetimes

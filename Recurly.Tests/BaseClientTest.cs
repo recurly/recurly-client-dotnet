@@ -16,19 +16,18 @@ namespace Recurly.Tests
 {
     public class BaseClientTest
     {
-        private string siteId = "subdomain-mysubdomain";
         private string apiKey = "myapikey";
 
         internal class MyClient : BaseClient
         {
             public override string ApiVersion => "v2018-08-09";
 
-            public MyClient(string siteId, string apiKey) : base(siteId, apiKey) { }
+            public MyClient(string apiKey) : base(apiKey) { }
 
             public MyResource CreateResource(MyResourceCreate body)
             {
                 var urlParams = new Dictionary<string, object> { };
-                var url = this.InterpolatePath("/sites/{site_id}/my_resources", urlParams);
+                var url = this.InterpolatePath("/my_resources", urlParams);
                 return MakeRequest<MyResource>(Method.POST, url, body, null);
             }
 
@@ -36,7 +35,7 @@ namespace Recurly.Tests
             {
                 var urlParams = new Dictionary<string, object> { { "resource_id", resourceId } };
                 var queryParams = new Dictionary<string, object> { { "param_1", param1 }, { "param_2", param2 } };
-                var url = this.InterpolatePath("/sites/{site_id}/my_resources/{resource_id}", urlParams);
+                var url = this.InterpolatePath("/my_resources/{resource_id}", urlParams);
                 return MakeRequest<MyResource>(Method.GET, url, null, queryParams);
             }
 
@@ -44,7 +43,7 @@ namespace Recurly.Tests
             {
                 var urlParams = new Dictionary<string, object> { { "resource_id", resourceId } };
                 var queryParams = new Dictionary<string, object> { { "param_1", param1 }, { "param_2", param2 } };
-                var url = this.InterpolatePath("/sites/{site_id}/my_resources/{resource_id}", urlParams);
+                var url = this.InterpolatePath("/my_resources/{resource_id}", urlParams);
                 return MakeRequestAsync<MyResource>(Method.GET, url, null, queryParams);
             }
         }
@@ -52,25 +51,16 @@ namespace Recurly.Tests
         public BaseClientTest() { }
 
         [Fact]
-        public void CantInitializeWithoutSiteIdAndApiKey()
+        public void CantInitializeWithoutApiKey()
         {
-            Assert.Throws<ArgumentException>(() => new MyClient(null, apiKey));
-            Assert.Throws<ArgumentException>(() => new MyClient("", apiKey));
-            Assert.Throws<ArgumentException>(() => new MyClient(siteId, null));
-            Assert.Throws<ArgumentException>(() => new MyClient(siteId, ""));
-        }
-
-        [Fact]
-        public void SetsTheSiteId()
-        {
-            var client = new MyClient(siteId, apiKey);
-            Assert.Equal("subdomain-mysubdomain", client.SiteId);
+            Assert.Throws<ArgumentException>(() => new MyClient(null));
+            Assert.Throws<ArgumentException>(() => new MyClient(""));
         }
 
         [Fact]
         public void RespondsWithGivenApiVersion()
         {
-            var client = new MyClient(siteId, apiKey);
+            var client = new MyClient(apiKey);
             Assert.Equal("v2018-08-09", client.ApiVersion);
         }
 
@@ -137,7 +127,7 @@ namespace Recurly.Tests
                 .Setup(x => x.ExecuteTaskAsync<MyResource>(It.IsAny<IRestRequest>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(response.Object));
 
-            return new MyClient(siteId, apiKey)
+            return new MyClient(apiKey)
             {
                 RestClient = mockIRestClient.Object
             };
@@ -157,7 +147,7 @@ namespace Recurly.Tests
                 .Setup(x => x.Execute<MyResource>(It.IsAny<IRestRequest>()))
                 .Returns(response.Object);
 
-            return new MyClient(siteId, apiKey)
+            return new MyClient(apiKey)
             {
                 RestClient = mockIRestClient.Object
             };
@@ -180,7 +170,7 @@ namespace Recurly.Tests
                 .Setup(x => x.Execute<MyResource>(It.IsAny<IRestRequest>()))
                 .Returns(response.Object);
 
-            return new MyClient(siteId, apiKey)
+            return new MyClient(apiKey)
             {
                 RestClient = mockIRestClient.Object
             };
@@ -198,7 +188,7 @@ namespace Recurly.Tests
                 .Setup(x => x.Execute<MyResource>(It.IsAny<IRestRequest>()))
                 .Returns(response.Object);
 
-            return new MyClient(siteId, apiKey)
+            return new MyClient(apiKey)
             {
                 RestClient = mockIRestClient.Object
             };

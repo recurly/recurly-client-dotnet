@@ -14,31 +14,22 @@ namespace Recurly.Tests
 {
     public class ClientTest
     {
-        private string siteId = "subdomain-mysubdomain";
         private string apiKey = "myapikey";
 
         public ClientTest() { }
 
         [Fact]
-        public void CantInitializeWithoutSiteIdAndApiKey()
+        public void CantInitializeWithoutApiKey()
         {
-            Assert.Throws<ArgumentException>(() => new Recurly.Client(null, apiKey));
-            Assert.Throws<ArgumentException>(() => new Recurly.Client("", apiKey));
-            Assert.Throws<ArgumentException>(() => new Recurly.Client(siteId, null));
-            Assert.Throws<ArgumentException>(() => new Recurly.Client(siteId, ""));
-        }
-
-        [Fact]
-        public void SetsTheSiteId()
-        {
-            var client = new Recurly.Client(siteId, apiKey);
-            Assert.Equal("subdomain-mysubdomain", client.SiteId);
+            Assert.Throws<ArgumentException>(() => new Recurly.Client(null));
+            Assert.Throws<ArgumentException>(() => new Recurly.Client(""));
+            new Recurly.Client(apiKey);
         }
 
         [Fact]
         public void RespondsWithAValidApiVersion()
         {
-            var client = new Recurly.Client(siteId, apiKey);
+            var client = new Recurly.Client(apiKey);
             Assert.Matches(new Regex("v\\d{4}-\\d{2}-\\d{2}"), client.ApiVersion);
         }
     }
