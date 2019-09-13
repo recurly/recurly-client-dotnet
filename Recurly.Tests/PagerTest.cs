@@ -139,7 +139,7 @@ namespace Recurly.Tests
                 .Returns(page1Response.Object)
                 .Returns(page2Response.Object);
 
-            return new Recurly.Client("subdomain", "myapikey")
+            return new Recurly.Client("myapikey")
             {
                 RestClient = mockIRestClient.Object
             };
@@ -163,7 +163,7 @@ namespace Recurly.Tests
                 .Setup(x => x.Execute<Pager<MyResource>>(It.IsAny<IRestRequest>()))
                 .Returns(pageResponse.Object);
 
-            return new Recurly.Client("subdomain", "myapikey")
+            return new Recurly.Client("myapikey")
             {
                 RestClient = mockIRestClient.Object
             };
