@@ -71,6 +71,11 @@ namespace Recurly
         public Delivery Delivery { get; set; }
 
         /// <summary>
+        /// An optional BillingInfo
+        /// </summary>
+        public BillingInfo BillingInfo { get; set; }
+
+        /// <summary>
         /// When the gift card was purchased.
         /// </summary>
         public DateTime CreatedAt { get; private set; }
@@ -333,6 +338,9 @@ namespace Recurly
 
             if (Delivery != null)
                 Delivery.WriteXml(xmlWriter);
+
+            if (BillingInfo != null)
+                BillingInfo.WriteXml(xmlWriter);
 
             xmlWriter.WriteEndElement(); // End: gift_card
         }
