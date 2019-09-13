@@ -140,6 +140,11 @@ namespace Recurly
 
         internal string TransactionType { get; set; }
 
+        /// <summary>
+        /// An optional BillingInfo
+        /// </summary>
+        internal BillingInfo BillingInfo { get; set; }
+
         internal const string UrlPrefix = "/invoices/";
 
         public Invoice()
@@ -254,18 +259,20 @@ namespace Recurly
         /// Attempts to collect a pending or past due invoice.
         /// </summary>
         /// <param name="transactionType">Optional transaction type. Currently accepts "moto"</param>
+        /// <param name="billingInfo">Optional BillingInfo</param>
         /// <returns>New Invoice Collection</returns>
-        public Invoice ForceCollect(string transactionType = null)
+        public Invoice ForceCollect(string transactionType = null, BillingInfo billingInfo = null)
         {
             var invoice = new Invoice();
-            if (transactionType == null) {
+            if (transactionType == null && billingInfo == null) {
               Client.Instance.PerformRequest(
                   Client.HttpRequestMethod.Put,
                   memberUrl() + "/collect",
                   invoice.ReadXml);
             } else {
               var invoiceReq = new Invoice() {
-                TransactionType = transactionType
+                TransactionType = transactionType,
+                BillingInfo = billingInfo
               };
               Client.Instance.PerformRequest(
                   Client.HttpRequestMethod.Put,
@@ -659,6 +666,8 @@ namespace Recurly
         {
             xmlWriter.WriteStartElement("invoice"); // Start: invoice
             xmlWriter.WriteElementString("transaction_type", TransactionType);
+            if (BillingInfo != null)
+              BillingInfo.WriteXml(xmlWriter);
             xmlWriter.WriteEndElement(); // End: invoice
         }
 

@@ -81,6 +81,12 @@ namespace Recurly
         public bool? ImportedTrial { get; set; }
 
         /// <summary>
+        /// An optional BillingInfo
+        /// </summary>
+        public BillingInfo BillingInfo { get; set; }
+
+
+        /// <summary>
         /// Creates a new subscription change object
         /// </summary>
         public SubscriptionChange() { }
@@ -128,6 +134,9 @@ namespace Recurly
 
             if (RenewalBillingCycles.HasValue)
                 xmlWriter.WriteElementString("renewal_billing_cycles", RenewalBillingCycles.Value.AsString());
+
+            if (BillingInfo != null)
+              BillingInfo.WriteXml(xmlWriter);
 
             xmlWriter.WriteIfCollectionHasAny("custom_fields", CustomFields);
 
