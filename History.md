@@ -1,6 +1,11 @@
 Unreleased
 ===============
 
+1.16.2 (stable) / 2019-09-13
+===============
+
+- PSD2 billing info changes [PR](https://github.com/recurly/recurly-client-net/pull/441)
+
 1.16.1 (stable) / 2019-08-21
 ===============
 
