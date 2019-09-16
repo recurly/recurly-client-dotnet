@@ -22,7 +22,8 @@ initialized clients.
 This makes multithreaded environments simpler and provides one location where every
 operation can be found (rather than having them spread out among classes).
 
-`new Recurly.Client(apiKey)` initializes a new client. It only requires an API key:
+`new Recurly.Client(apiKey)` initializes a new client. It only requires an API key
+which can be obtained on the [API Credentials Page](https://app.recurly.com/go/integrations/api_keys).
 
 ```csharp
 using Recurly;
