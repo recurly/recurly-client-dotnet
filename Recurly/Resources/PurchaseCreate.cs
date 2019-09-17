@@ -60,12 +60,8 @@ namespace Recurly.Resources
         public string PoNumber { get; set; }
 
 
-        [JsonProperty("shipping_address")]
-        public ShippingAddressCreate ShippingAddress { get; set; }
-
-        /// <value>Assign a shipping address from the account's existing shipping addresses. If this and `shipping_address` are both present, `shipping_address` will take precedence.</value>
-        [JsonProperty("shipping_address_id")]
-        public string ShippingAddressId { get; set; }
+        [JsonProperty("shipping")]
+        public ShippingPurchase Shipping { get; set; }
 
         /// <value>A list of subscriptions to be created with the purchase.</value>
         [JsonProperty("subscriptions")]
@@ -74,6 +70,10 @@ namespace Recurly.Resources
         /// <value>Terms and conditions to be put on the purchase invoice.</value>
         [JsonProperty("terms_and_conditions")]
         public string TermsAndConditions { get; set; }
+
+        /// <value>An optional type designation for the payment gateway transaction created by this request. Supports 'moto' value, which is the acronym for mail order and telephone transactions.</value>
+        [JsonProperty("transaction_type")]
+        public string TransactionType { get; set; }
 
         /// <value>VAT reverse charge notes for cross border European tax settlement.</value>
         [JsonProperty("vat_reverse_charge_notes")]

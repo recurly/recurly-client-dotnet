@@ -91,6 +91,10 @@ namespace Recurly.Resources
         [JsonProperty("expires_at")]
         public DateTime? ExpiresAt { get; set; }
 
+        /// <value>If present, this subscription's transactions will use the payment gateway with this code.</value>
+        [JsonProperty("gateway_code")]
+        public string GatewayCode { get; set; }
+
         /// <value>Subscription ID</value>
         [JsonProperty("id")]
         public string Id { get; set; }
@@ -132,8 +136,8 @@ namespace Recurly.Resources
         public int? RenewalBillingCycles { get; set; }
 
 
-        [JsonProperty("shipping_address")]
-        public ShippingAddress ShippingAddress { get; set; }
+        [JsonProperty("shipping")]
+        public SubscriptionShipping Shipping { get; set; }
 
         /// <value>State</value>
         [JsonProperty("state")]
