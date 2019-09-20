@@ -4,12 +4,17 @@
     <TargetFrameworks>netstandard2.0;netcoreapp2.1;netcoreapp2.2</TargetFrameworks>
     <PackageId>Recurly</PackageId>
     <Version>3.0.0-beta.6</Version>
-    <Authors>ben@recurly.com</Authors>
+    <Authors>dx@recurly.com</Authors>
     <Company>Recurly, Inc.</Company>
+    <Title>Recurly API Client</Title>
+    <PackageDescription>The official .NET client for Recurly's V3 API.</PackageDescription>
+    <IncludeSymbols>true</IncludeSymbols>
+    <IncludeSource>true</IncludeSource>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="restsharp" Version="106.6.9" />
-    <PackageReference Include="RestSharp.Newtonsoft.Json" Version="1.5.0" />
+    <PackageReference Include="restsharp" Version="106.6.10" />
+    <PackageReference Include="RestSharp.Newtonsoft.Json" Version="1.5.1" />
   </ItemGroup>
 </Project>
