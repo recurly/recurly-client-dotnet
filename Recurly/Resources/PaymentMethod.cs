@@ -47,5 +47,9 @@ namespace Recurly.Resources
         [JsonProperty("routing_number")]
         public string RoutingNumber { get; set; }
 
+        /// <value>The bank name of this routing number.</value>
+        [JsonProperty("routing_number_bank")]
+        public string RoutingNumberBank { get; set; }
+
     }
 }
