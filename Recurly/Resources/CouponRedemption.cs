@@ -33,7 +33,7 @@ namespace Recurly.Resources
 
         /// <value>The amount that was discounted upon the application of the coupon, formatted with the currency.</value>
         [JsonProperty("discounted")]
-        public string Discounted { get; set; }
+        public float? Discounted { get; set; }
 
         /// <value>Coupon Redemption ID</value>
         [JsonProperty("id")]
