@@ -1,7 +1,12 @@
 # Recurly
 
-This package is the dotnet client for Recurly's V3 API. It's currently Beta software
-and is not yet an official release. Documentation for the API can be [found here](https://developers.recurly.com/api/v2019-10-01/).
+This repository houses the official dotnet client for Recurly's V3 API.
+
+> *Note*:
+> If you were looking for a V2 client, we see the [master branch](https://github.com/recurly/recurly-client-net/).
+
+Documentation for the HTTP API and example code can be found
+[on our Developer Portal](https://developers.recurly.com/api/v2019-10-10/).
 
 ## Getting Started
 
