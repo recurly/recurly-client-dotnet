@@ -24,7 +24,7 @@ namespace Recurly
     public class BaseClient
     {
         private string ApiKey { get; }
-        private const string ApiUrl = "https://partner-api.recurly.com/";
+        private const string ApiUrl = "https://v3.recurly.com/";
         public virtual string ApiVersion { get; protected set; }
 
         internal IRestClient RestClient { get; set; }
