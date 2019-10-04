@@ -47,6 +47,10 @@ namespace Recurly.Resources
         [JsonProperty("quantity")]
         public int? Quantity { get; set; }
 
+
+        [JsonProperty("shipping")]
+        public SubscriptionShipping Shipping { get; set; }
+
         /// <value>The ID of the subscription that is going to be changed.</value>
         [JsonProperty("subscription_id")]
         public string SubscriptionId { get; set; }

@@ -51,13 +51,9 @@ namespace Recurly.Resources
         [JsonProperty("renewal_billing_cycles")]
         public int? RenewalBillingCycles { get; set; }
 
-        /// <value>Create a shipping address on the account and assign it to the subscription. If this and `shipping_address_id` are both present, `shipping_address_id` will take precedence.</value>
-        [JsonProperty("shipping_address")]
-        public ShippingAddressCreate ShippingAddress { get; set; }
 
-        /// <value>Assign a shipping address from the account's existing shipping addresses.</value>
-        [JsonProperty("shipping_address_id")]
-        public string ShippingAddressId { get; set; }
+        [JsonProperty("shipping")]
+        public SubscriptionShippingUpdate Shipping { get; set; }
 
         /// <value>Specify custom notes to add or override Terms and Conditions. Custom notes will stay with a subscription on all renewals.</value>
         [JsonProperty("terms_and_conditions")]
