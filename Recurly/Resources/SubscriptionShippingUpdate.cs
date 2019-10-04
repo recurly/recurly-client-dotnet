@@ -12,16 +12,16 @@ using Newtonsoft.Json;
 namespace Recurly.Resources
 {
     [ExcludeFromCodeCoverage]
-    public class CustomField : Request
+    public class SubscriptionShippingUpdate : Request
     {
 
-        /// <value>Fields must be created in the UI before values can be assigned to them.</value>
-        [JsonProperty("name")]
-        public string Name { get; set; }
 
-        /// <value>Any values that resemble a credit card number or security code (CVV/CVC) will be rejected.</value>
-        [JsonProperty("value")]
-        public string Value { get; set; }
+        [JsonProperty("address")]
+        public ShippingAddressCreate Address { get; set; }
+
+        /// <value>Assign a shipping address from the account's existing shipping addresses.</value>
+        [JsonProperty("address_id")]
+        public string AddressId { get; set; }
 
     }
 }

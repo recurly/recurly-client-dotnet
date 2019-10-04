@@ -95,6 +95,10 @@ namespace Recurly.Resources
         [JsonProperty("refundable_amount")]
         public float? RefundableAmount { get; set; }
 
+
+        [JsonProperty("shipping_address")]
+        public ShippingAddress ShippingAddress { get; set; }
+
         /// <value>Invoice state</value>
         [JsonProperty("state")]
         public string State { get; set; }

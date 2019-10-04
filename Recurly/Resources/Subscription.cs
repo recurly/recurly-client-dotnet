@@ -132,8 +132,8 @@ namespace Recurly.Resources
         public int? RenewalBillingCycles { get; set; }
 
 
-        [JsonProperty("shipping_address")]
-        public ShippingAddress ShippingAddress { get; set; }
+        [JsonProperty("shipping")]
+        public SubscriptionShipping Shipping { get; set; }
 
         /// <value>State</value>
         [JsonProperty("state")]
