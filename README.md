@@ -16,8 +16,19 @@ This package is published on Nuget under the name [Recurly](https://www.nuget.or
 We recommend using Nuget to install and maintain this dependency:
 
 ```
-dotnet add package Recurly --version 3.0.0-beta.7
+dotnet add package Recurly --version 3.*
 ```
+
+If you are specifying in your `.csproj` file:
+
+```xml
+<ItemGroup>
+  <PackageReference Include="Recurly" Version="3.*" />
+  <!-- ... -->
+</ItemGroup>
+```
+
+> *Note*: We try to follow [semantic versioning](https://semver.org/) and will only apply breaking changes to major versions.
 
 ### Creating a client
 
