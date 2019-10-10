@@ -42,7 +42,9 @@ operation can be found (rather than having them spread out among classes).
 which can be obtained on the [API Credentials Page](https://app.recurly.com/go/integrations/api_keys).
 
 ```csharp
+// Add this on the top of your file
 using Recurly;
+using Recurly.Resources;
 
 const apiKey = "83749879bbde395b5fe0cc1a5abf8e5";
 var client = new Recurly.Client(apiKey);
