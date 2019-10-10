@@ -3,7 +3,7 @@
 This repository houses the official dotnet client for Recurly's V3 API.
 
 > *Note*:
-> If you were looking for the V2 client, see the [master branch](https://github.com/recurly/recurly-client-net/).
+> If you were looking for the V2 client, see the [v2 branch](https://github.com/recurly/recurly-client-net/tree/v2).
 
 Documentation for the HTTP API and example code can be found
 [on our Developer Portal](https://developers.recurly.com/api/v2019-10-10/).
