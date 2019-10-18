@@ -27,4 +27,4 @@ A clear and concise description of what you expected to happen.
 **Your Environment**
 
 - Which version of this library are you using?
-- Which version of ruby are you using?
+- Which version of the language are you using?
