@@ -58,6 +58,11 @@ namespace Recurly
         private List<Adjustment> _adjustments;
 
         /// <summary>
+        /// Shipping address related to this purchase
+        /// </summary>
+        public ShippingAddress ShippingAddress { get; set; }
+
+        /// <summary>
         /// List of shipping fees to apply to this purchase
         /// </summary>
         public List<ShippingFee> ShippingFees
@@ -247,6 +252,9 @@ namespace Recurly
                 xmlWriter.WriteElementString("shipping_address_id", ShippingAddressId.Value.ToString());
 
             Account.WriteXml(xmlWriter);
+
+            if (ShippingAddress != null)
+                ShippingAddress.WriteXml(xmlWriter);
 
             if (Adjustments.HasAny())
             {
