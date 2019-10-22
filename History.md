@@ -1,6 +1,12 @@
 Unreleased
 ===============
 
+1.16.3 (stable) / 2019-10-22
+===============
+
+- Add shipping address to Purchase [PR] (https://github.com/recurly/recurly-client-net/pull/452)
+- Terms timeframe enum change [PR] (https://github.com/recurly/recurly-client-net/pull/436)
+
 1.16.2 (stable) / 2019-09-13
 ===============
 
