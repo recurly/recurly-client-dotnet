@@ -44,8 +44,14 @@ namespace Recurly.Resources
         public string Company { get; set; }
 
 
+        [JsonIgnore]
+        public List<CustomField> CustomFields
+        {
+            get { return _customFields ?? (_customFields = new List<CustomField>()); }
+            set { _customFields = value; }
+        }
         [JsonProperty("custom_fields")]
-        public List<CustomField> CustomFields { get; set; }
+        private List<CustomField> _customFields;
 
         /// <value>The email address used for communicating with this customer. The customer will also use this email address to log into your hosted account management pages. This value does not need to be unique.</value>
         [JsonProperty("email")]
@@ -76,12 +82,22 @@ namespace Recurly.Resources
         public string PreferredLocale { get; set; }
 
 
+        [JsonIgnore]
+        public List<ShippingAddressCreate> ShippingAddresses
+        {
+            get { return _shippingAddresses ?? (_shippingAddresses = new List<ShippingAddressCreate>()); }
+            set { _shippingAddresses = value; }
+        }
         [JsonProperty("shipping_addresses")]
-        public List<ShippingAddressCreate> ShippingAddresses { get; set; }
+        private List<ShippingAddressCreate> _shippingAddresses;
 
         /// <value>The tax status of the account. `true` exempts tax on the account, `false` applies tax on the account.</value>
         [JsonProperty("tax_exempt")]
         public bool? TaxExempt { get; set; }
+
+        /// <value>An optional type designation for the payment gateway transaction created by this request. Supports 'moto' value, which is the acronym for mail order and telephone transactions.</value>
+        [JsonProperty("transaction_type")]
+        public string TransactionType { get; set; }
 
         /// <value>A secondary value for the account.</value>
         [JsonProperty("username")]

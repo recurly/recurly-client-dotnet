@@ -24,8 +24,14 @@ namespace Recurly.Resources
         public string Code { get; set; }
 
         /// <value>Add-on pricing</value>
+        [JsonIgnore]
+        public List<AddOnPricing> Currencies
+        {
+            get { return _currencies ?? (_currencies = new List<AddOnPricing>()); }
+            set { _currencies = value; }
+        }
         [JsonProperty("currencies")]
-        public List<AddOnPricing> Currencies { get; set; }
+        private List<AddOnPricing> _currencies;
 
         /// <value>Default quantity for the hosted pages.</value>
         [JsonProperty("default_quantity")]

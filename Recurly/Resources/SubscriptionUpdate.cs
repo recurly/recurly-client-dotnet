@@ -24,8 +24,14 @@ namespace Recurly.Resources
         public string CollectionMethod { get; set; }
 
 
+        [JsonIgnore]
+        public List<CustomField> CustomFields
+        {
+            get { return _customFields ?? (_customFields = new List<CustomField>()); }
+            set { _customFields = value; }
+        }
         [JsonProperty("custom_fields")]
-        public List<CustomField> CustomFields { get; set; }
+        private List<CustomField> _customFields;
 
         /// <value>Specify custom notes to add or override Customer Notes. Custom notes will stay with a subscription on all renewals.</value>
         [JsonProperty("customer_notes")]

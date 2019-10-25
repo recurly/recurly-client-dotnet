@@ -20,8 +20,14 @@ namespace Recurly.Resources
         public string AccountingCode { get; set; }
 
         /// <value>Add Ons</value>
+        [JsonIgnore]
+        public List<AddOnCreate> AddOns
+        {
+            get { return _addOns ?? (_addOns = new List<AddOnCreate>()); }
+            set { _addOns = value; }
+        }
         [JsonProperty("add_ons")]
-        public List<AddOnCreate> AddOns { get; set; }
+        private List<AddOnCreate> _addOns;
 
         /// <value>Subscriptions will automatically inherit this value once they are active. If `auto_renew` is `true`, then a subscription will automatically renew its term at renewal. If `auto_renew` is `false`, then a subscription will expire at the end of its term. `auto_renew` can be overridden on the subscription record itself.</value>
         [JsonProperty("auto_renew")]
@@ -32,8 +38,14 @@ namespace Recurly.Resources
         public string Code { get; set; }
 
         /// <value>Pricing</value>
+        [JsonIgnore]
+        public List<PlanPricing> Currencies
+        {
+            get { return _currencies ?? (_currencies = new List<PlanPricing>()); }
+            set { _currencies = value; }
+        }
         [JsonProperty("currencies")]
-        public List<PlanPricing> Currencies { get; set; }
+        private List<PlanPricing> _currencies;
 
         /// <value>Optional description, not displayed.</value>
         [JsonProperty("description")]

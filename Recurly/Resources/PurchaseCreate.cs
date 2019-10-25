@@ -24,8 +24,14 @@ namespace Recurly.Resources
         public string CollectionMethod { get; set; }
 
         /// <value>A list of coupon_codes to be redeemed on the subscription or account during the purchase.</value>
+        [JsonIgnore]
+        public List<string> CouponCodes
+        {
+            get { return _couponCodes ?? (_couponCodes = new List<string>()); }
+            set { _couponCodes = value; }
+        }
         [JsonProperty("coupon_codes")]
-        public List<string> CouponCodes { get; set; }
+        private List<string> _couponCodes;
 
         /// <value>Notes to be put on the credit invoice resulting from credits in the purchase, if any.</value>
         [JsonProperty("credit_customer_notes")]
@@ -48,8 +54,14 @@ namespace Recurly.Resources
         public string GiftCardRedemptionCode { get; set; }
 
         /// <value>A list of one time charges or credits to be created with the purchase.</value>
+        [JsonIgnore]
+        public List<LineItemCreate> LineItems
+        {
+            get { return _lineItems ?? (_lineItems = new List<LineItemCreate>()); }
+            set { _lineItems = value; }
+        }
         [JsonProperty("line_items")]
-        public List<LineItemCreate> LineItems { get; set; }
+        private List<LineItemCreate> _lineItems;
 
         /// <value>Integer representing the number of days after an invoice's creation that the invoice will become past due. If an invoice's net terms are set to '0', it is due 'On Receipt' and will become past due 24 hours after it’s created. If an invoice is due net 30, it will become past due at 31 days exactly.</value>
         [JsonProperty("net_terms")]
@@ -64,12 +76,22 @@ namespace Recurly.Resources
         public ShippingPurchase Shipping { get; set; }
 
         /// <value>A list of subscriptions to be created with the purchase.</value>
+        [JsonIgnore]
+        public List<SubscriptionPurchase> Subscriptions
+        {
+            get { return _subscriptions ?? (_subscriptions = new List<SubscriptionPurchase>()); }
+            set { _subscriptions = value; }
+        }
         [JsonProperty("subscriptions")]
-        public List<SubscriptionPurchase> Subscriptions { get; set; }
+        private List<SubscriptionPurchase> _subscriptions;
 
         /// <value>Terms and conditions to be put on the purchase invoice.</value>
         [JsonProperty("terms_and_conditions")]
         public string TermsAndConditions { get; set; }
+
+        /// <value>An optional type designation for the payment gateway transaction created by this request. Supports 'moto' value, which is the acronym for mail order and telephone transactions.</value>
+        [JsonProperty("transaction_type")]
+        public string TransactionType { get; set; }
 
         /// <value>VAT reverse charge notes for cross border European tax settlement.</value>
         [JsonProperty("vat_reverse_charge_notes")]

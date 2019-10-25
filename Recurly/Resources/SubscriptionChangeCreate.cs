@@ -16,16 +16,28 @@ namespace Recurly.Resources
     {
 
         /// <value>If you provide a value for this field it will replace any existing add-ons. So, when adding or modifying an add-on, you need to include the existing subscription add-ons. Unchanged add-ons can be included just using the subscription add-on's ID: `{"id": "abc123"}`.</value>
+        [JsonIgnore]
+        public List<SubscriptionAddOnUpdate> AddOns
+        {
+            get { return _addOns ?? (_addOns = new List<SubscriptionAddOnUpdate>()); }
+            set { _addOns = value; }
+        }
         [JsonProperty("add_ons")]
-        public List<SubscriptionAddOnUpdate> AddOns { get; set; }
+        private List<SubscriptionAddOnUpdate> _addOns;
 
         /// <value>Collection method</value>
         [JsonProperty("collection_method")]
         public string CollectionMethod { get; set; }
 
         /// <value>A list of coupon_codes to be redeemed on the subscription during the change. Only allowed if timeframe is now and you change something about the subscription that creates an invoice.</value>
+        [JsonIgnore]
+        public List<string> CouponCodes
+        {
+            get { return _couponCodes ?? (_couponCodes = new List<string>()); }
+            set { _couponCodes = value; }
+        }
         [JsonProperty("coupon_codes")]
-        public List<string> CouponCodes { get; set; }
+        private List<string> _couponCodes;
 
         /// <value>Integer representing the number of days after an invoice's creation that the invoice will become past due. If an invoice's net terms are set to '0', it is due 'On Receipt' and will become past due 24 hours after it’s created. If an invoice is due net 30, it will become past due at 31 days exactly.</value>
         [JsonProperty("net_terms")]
@@ -54,6 +66,10 @@ namespace Recurly.Resources
         /// <value>The timeframe parameter controls when the upgrade or downgrade takes place. The subscription change can occur now, when the subscription is next billed, or when the subscription renews. Generally, if you're performing an upgrade, you will want the change to occur immediately (now). If you're performing a downgrade, you should set the timeframe to "renewal" so the change takes affect at the end of the current subscription term.</value>
         [JsonProperty("timeframe")]
         public string Timeframe { get; set; }
+
+        /// <value>An optional type designation for the payment gateway transaction created by this request. Supports 'moto' value, which is the acronym for mail order and telephone transactions.</value>
+        [JsonProperty("transaction_type")]
+        public string TransactionType { get; set; }
 
         /// <value>Optionally, sets custom pricing for the subscription, overriding the plan's default unit amount. The subscription's current currency will be used.</value>
         [JsonProperty("unit_amount")]

@@ -32,8 +32,14 @@ namespace Recurly.Resources
         public string CouponType { get; set; }
 
         /// <value>Fixed discount currencies by currency. Required if the coupon type is `fixed`. This parameter should contain the coupon discount values</value>
+        [JsonIgnore]
+        public List<CouponPricing> Currencies
+        {
+            get { return _currencies ?? (_currencies = new List<CouponPricing>()); }
+            set { _currencies = value; }
+        }
         [JsonProperty("currencies")]
-        public List<CouponPricing> Currencies { get; set; }
+        private List<CouponPricing> _currencies;
 
         /// <value>The percent of the price discounted by the coupon.  Required if `discount_type` is `percent`.</value>
         [JsonProperty("discount_percent")]
@@ -81,8 +87,14 @@ namespace Recurly.Resources
         public string Name { get; set; }
 
         /// <value>List of plan codes to which this coupon applies. See `applies_to_all_plans`</value>
+        [JsonIgnore]
+        public List<string> PlanCodes
+        {
+            get { return _planCodes ?? (_planCodes = new List<string>()); }
+            set { _planCodes = value; }
+        }
         [JsonProperty("plan_codes")]
-        public List<string> PlanCodes { get; set; }
+        private List<string> _planCodes;
 
         /// <value>The date and time the coupon will expire and can no longer be redeemed. Time is always 11:59:59, the end-of-day Pacific time.</value>
         [JsonProperty("redeem_by_date")]

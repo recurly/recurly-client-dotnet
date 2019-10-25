@@ -1356,30 +1356,32 @@ namespace Recurly
         /// Collect a pending or past due, automatic invoice <see href="https://developers.recurly.com/api/v2019-10-10#operation/collect_invoice">collect_invoice api documentation</see>
         /// </summary>
         /// <param name="invoiceId">Invoice ID or number (use prefix: `number-`, e.g. `number-1000`).</param>
+        /// <param name="body">The body of the request.</param>
         /// <returns>
         /// The updated invoice.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public Invoice CollectInvoice(string invoiceId)
+        public Invoice CollectInvoice(string invoiceId, InvoiceCollect body)
         {
             var urlParams = new Dictionary<string, object> { { "invoice_id", invoiceId } };
             var url = this.InterpolatePath("/invoices/{invoice_id}/collect", urlParams);
-            return MakeRequest<Invoice>(Method.PUT, url, null, null);
+            return MakeRequest<Invoice>(Method.PUT, url, body, null);
         }
 
         /// <summary>
         /// Collect a pending or past due, automatic invoice <see href="https://developers.recurly.com/api/v2019-10-10#operation/collect_invoice">collect_invoice api documentation</see>
         /// </summary>
         /// <param name="invoiceId">Invoice ID or number (use prefix: `number-`, e.g. `number-1000`).</param>
+        /// <param name="body">The body of the request.</param>
         /// <returns>
         /// The updated invoice.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public Task<Invoice> CollectInvoiceAsync(string invoiceId, CancellationToken cancellationToken = default(CancellationToken))
+        public Task<Invoice> CollectInvoiceAsync(string invoiceId, InvoiceCollect body, CancellationToken cancellationToken = default(CancellationToken))
         {
             var urlParams = new Dictionary<string, object> { { "invoice_id", invoiceId } };
             var url = this.InterpolatePath("/invoices/{invoice_id}/collect", urlParams);
-            return MakeRequestAsync<Invoice>(Method.PUT, url, null, null, cancellationToken);
+            return MakeRequestAsync<Invoice>(Method.PUT, url, body, null, cancellationToken);
         }
 
         /// <summary>

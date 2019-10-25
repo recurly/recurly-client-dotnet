@@ -24,8 +24,14 @@ namespace Recurly.Resources
         public string AddressId { get; set; }
 
         /// <value>A list of shipping fees to be created as charges with the purchase.</value>
+        [JsonIgnore]
+        public List<ShippingFeeCreate> Fees
+        {
+            get { return _fees ?? (_fees = new List<ShippingFeeCreate>()); }
+            set { _fees = value; }
+        }
         [JsonProperty("fees")]
-        public List<ShippingFeeCreate> Fees { get; set; }
+        private List<ShippingFeeCreate> _fees;
 
     }
 }

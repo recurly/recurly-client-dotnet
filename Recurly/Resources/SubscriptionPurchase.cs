@@ -16,16 +16,28 @@ namespace Recurly.Resources
     {
 
         /// <value>Add-ons</value>
+        [JsonIgnore]
+        public List<SubscriptionAddOnCreate> AddOns
+        {
+            get { return _addOns ?? (_addOns = new List<SubscriptionAddOnCreate>()); }
+            set { _addOns = value; }
+        }
         [JsonProperty("add_ons")]
-        public List<SubscriptionAddOnCreate> AddOns { get; set; }
+        private List<SubscriptionAddOnCreate> _addOns;
 
         /// <value>Whether the subscription renews at the end of its term.</value>
         [JsonProperty("auto_renew")]
         public bool? AutoRenew { get; set; }
 
 
+        [JsonIgnore]
+        public List<CustomField> CustomFields
+        {
+            get { return _customFields ?? (_customFields = new List<CustomField>()); }
+            set { _customFields = value; }
+        }
         [JsonProperty("custom_fields")]
-        public List<CustomField> CustomFields { get; set; }
+        private List<CustomField> _customFields;
 
         /// <value>If present, this sets the date the subscription's next billing period will start (`current_period_ends_at`). This can be used to align the subscription’s billing to a specific day of the month. The initial invoice will be prorated for the period between the subscription's activation date and the billing period end date. Subsequent periods will be based off the plan interval. For a subscription with a trial period, this will change when the trial expires.</value>
         [JsonProperty("next_bill_date")]

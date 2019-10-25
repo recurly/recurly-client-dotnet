@@ -44,8 +44,14 @@ namespace Recurly.Resources
         public ExternalRefund ExternalRefund { get; set; }
 
         /// <value>The line items to be refunded. This is required when `type=line_items`.</value>
+        [JsonIgnore]
+        public List<LineItemRefund> LineItems
+        {
+            get { return _lineItems ?? (_lineItems = new List<LineItemRefund>()); }
+            set { _lineItems = value; }
+        }
         [JsonProperty("line_items")]
-        public List<LineItemRefund> LineItems { get; set; }
+        private List<LineItemRefund> _lineItems;
 
         /// <value>
         /// Indicates how the invoice should be refunded when both a credit and transaction are present on the invoice:

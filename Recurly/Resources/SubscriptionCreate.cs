@@ -20,8 +20,14 @@ namespace Recurly.Resources
         public AccountCreate Account { get; set; }
 
         /// <value>Add-ons</value>
+        [JsonIgnore]
+        public List<SubscriptionAddOnCreate> AddOns
+        {
+            get { return _addOns ?? (_addOns = new List<SubscriptionAddOnCreate>()); }
+            set { _addOns = value; }
+        }
         [JsonProperty("add_ons")]
-        public List<SubscriptionAddOnCreate> AddOns { get; set; }
+        private List<SubscriptionAddOnCreate> _addOns;
 
         /// <value>Whether the subscription renews at the end of its term.</value>
         [JsonProperty("auto_renew")]
@@ -44,8 +50,14 @@ namespace Recurly.Resources
         public string Currency { get; set; }
 
 
+        [JsonIgnore]
+        public List<CustomField> CustomFields
+        {
+            get { return _customFields ?? (_customFields = new List<CustomField>()); }
+            set { _customFields = value; }
+        }
         [JsonProperty("custom_fields")]
-        public List<CustomField> CustomFields { get; set; }
+        private List<CustomField> _customFields;
 
         /// <value>This will default to the Customer Notes text specified on the Invoice Settings. Specify custom notes to add or override Customer Notes. Custom notes will stay with a subscription on all renewals.</value>
         [JsonProperty("customer_notes")]
@@ -94,6 +106,10 @@ namespace Recurly.Resources
         /// <value>The number of cycles/billing periods in a term. When `remaining_billing_cycles=0`, if `auto_renew=true` the subscription will renew and a new term will begin, otherwise the subscription will expire.</value>
         [JsonProperty("total_billing_cycles")]
         public int? TotalBillingCycles { get; set; }
+
+        /// <value>An optional type designation for the payment gateway transaction created by this request. Supports 'moto' value, which is the acronym for mail order and telephone transactions.</value>
+        [JsonProperty("transaction_type")]
+        public string TransactionType { get; set; }
 
         /// <value>If set, overrides the default trial behavior for the subscription. The date must be in the future.</value>
         [JsonProperty("trial_ends_at")]

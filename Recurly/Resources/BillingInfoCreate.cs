@@ -63,6 +63,10 @@ namespace Recurly.Resources
         [JsonProperty("token_id")]
         public string TokenId { get; set; }
 
+        /// <value>An optional type designation for the payment gateway transaction created by this request. Supports 'moto' value, which is the acronym for mail order and telephone transactions.</value>
+        [JsonProperty("transaction_type")]
+        public string TransactionType { get; set; }
+
         /// <value>VAT number</value>
         [JsonProperty("vat_number")]
         public string VatNumber { get; set; }
