@@ -1337,6 +1337,38 @@ namespace Recurly
         }
 
         /// <summary>
+        /// Fetch PDF of invoice 
+        /// </summary>
+        /// <param name="invoiceId">Invoice ID or number (use prefix: `number-`, e.g. `number-1000`).</param>
+        /// <returns>
+        /// An invoice.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public byte[] GetInvoicePDF(string invoiceId)
+        {
+            var urlParams = new Dictionary<string, object> { { "invoice_id", invoiceId } };
+            var url = this.InterpolatePath("/invoices/{invoice_id}", urlParams);
+            var headers = new Dictionary<string, string> { { "Accept", "application/pdf" } };
+            return DownloadData(Method.GET, url, null, null, headers);
+        }
+
+        /// <summary>
+        /// Fetch PDF of invoice 
+        /// </summary>
+        /// <param name="invoiceId">Invoice ID or number (use prefix: `number-`, e.g. `number-1000`).</param>
+        /// <returns>
+        /// An invoice.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<byte[]> GetInvoicePDFAsync(string invoiceId, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            var urlParams = new Dictionary<string, object> { { "invoice_id", invoiceId } };
+            var url = this.InterpolatePath("/invoices/{invoice_id}", urlParams);
+            var headers = new Dictionary<string, string> { { "Accept", "application/pdf" } };
+            return DownloadDataAsync(Method.GET, url, null, null, headers, cancellationToken);
+        }
+
+        /// <summary>
         /// Update an invoice <see href="https://developers.recurly.com/api/v2019-10-10#operation/put_invoice">put_invoice api documentation</see>
         /// </summary>
         /// <param name="invoiceId">Invoice ID or number (use prefix: `number-`, e.g. `number-1000`).</param>

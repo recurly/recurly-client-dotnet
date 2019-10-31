@@ -70,6 +70,24 @@ namespace Recurly
             return resp.Data;
         }
 
+        public async Task<byte[]> DownloadDataAsync(Method method, string url, Request body = null, Dictionary<string, object> queryParams = null, Dictionary<string, string> headers = null, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            Debug.WriteLine($"Calling {url}");
+            var request = BuildRequest(method, url, body, queryParams, headers);
+            var resp = await RestClient.ExecuteTaskAsync(request, cancellationToken);
+            this.HandleResponse(resp);
+            return resp.RawBytes;
+        }
+
+        public byte[] DownloadData(Method method, string url, Request body = null, Dictionary<string, object> queryParams = null, Dictionary<string, string> headers = null)
+        {
+            Debug.WriteLine($"Calling {url}");
+            var request = BuildRequest(method, url, body, queryParams, headers);
+            var resp = RestClient.Execute(request);
+            this.HandleResponse(resp);
+            return resp.RawBytes;
+        }
+
         public void _SetApiUrl(string uri)
         {
             Console.WriteLine("[SECURITY WARNING] _SetApiUrl is for testing only and not supported in production.");
@@ -83,7 +101,7 @@ namespace Recurly
             }
         }
 
-        private RestRequest BuildRequest(Method method, string url, Request body = null, Dictionary<string, object> queryParams = null)
+        private RestRequest BuildRequest(Method method, string url, Request body = null, Dictionary<string, object> queryParams = null, Dictionary<string, string> headers = null)
         {
             var request = new RestRequest(url, method);
             request.JsonSerializer = Recurly.JsonSerializer.Default;
@@ -92,6 +110,14 @@ namespace Recurly
             if (queryParams != null)
             {
                 url += Utils.QueryString(queryParams);
+            }
+
+            if (headers != null)
+            {
+                foreach (var header in headers)
+                {
+                    request.AddOrUpdateParameter(header.Key, header.Value, ParameterType.HttpHeader);
+                }
             }
 
             // If we have a body, serialize it and add it to the request
