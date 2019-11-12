@@ -15,17 +15,9 @@ namespace Recurly.Resources
     public class AccountMini : Resource
     {
 
-
-        [JsonProperty("bill_to")]
-        public string BillTo { get; set; }
-
         /// <value>The unique identifier of the account.</value>
         [JsonProperty("code")]
         public string Code { get; set; }
-
-
-        [JsonProperty("company")]
-        public string Company { get; set; }
 
         /// <value>The email address used for communicating with this customer.</value>
         [JsonProperty("email")]
@@ -42,10 +34,6 @@ namespace Recurly.Resources
 
         [JsonProperty("last_name")]
         public string LastName { get; set; }
-
-
-        [JsonProperty("parent_account_id")]
-        public string ParentAccountId { get; set; }
 
     }
 }

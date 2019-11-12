@@ -21,7 +21,7 @@ namespace Recurly.Resources
 
 
         [JsonProperty("address")]
-        public InvoiceAddress Address { get; set; }
+        public Address Address { get; set; }
 
         /// <value>The outstanding balance remaining on this invoice.</value>
         [JsonProperty("balance")]
@@ -94,10 +94,6 @@ namespace Recurly.Resources
         /// <value>The refundable amount on a charge invoice. It will be null for all other invoices.</value>
         [JsonProperty("refundable_amount")]
         public float? RefundableAmount { get; set; }
-
-
-        [JsonProperty("shipping_address")]
-        public ShippingAddress ShippingAddress { get; set; }
 
         /// <value>Invoice state</value>
         [JsonProperty("state")]

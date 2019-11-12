@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 namespace Recurly.Resources
 {
     [ExcludeFromCodeCoverage]
-    public class CustomField : Request
+    public class CustomField : Resource
     {
 
         /// <value>Fields must be created in the UI before values can be assigned to them.</value>

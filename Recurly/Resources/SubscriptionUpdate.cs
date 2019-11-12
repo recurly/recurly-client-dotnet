@@ -15,17 +15,9 @@ namespace Recurly.Resources
     public class SubscriptionUpdate : Request
     {
 
-        /// <value>Whether the subscription renews at the end of its term.</value>
-        [JsonProperty("auto_renew")]
-        public bool? AutoRenew { get; set; }
-
         /// <value>Change collection method</value>
         [JsonProperty("collection_method")]
         public string CollectionMethod { get; set; }
-
-
-        [JsonProperty("custom_fields")]
-        public List<CustomField> CustomFields { get; set; }
 
         /// <value>Specify custom notes to add or override Customer Notes. Custom notes will stay with a subscription on all renewals.</value>
         [JsonProperty("customer_notes")]
@@ -35,25 +27,25 @@ namespace Recurly.Resources
         [JsonProperty("net_terms")]
         public int? NetTerms { get; set; }
 
-        /// <value>If present, this sets the date the subscription's next billing period will start (`current_period_ends_at`). This can be used to align the subscription’s billing to a specific day of the month. For a subscription in a trial period, this will change when the trial expires.</value>
-        [JsonProperty("next_bill_date")]
-        public DateTime? NextBillDate { get; set; }
+        /// <value>For an active subscription, this will change the next renewal date. For a subscription in a trial period, modifying the renewal date will change when the trial expires.</value>
+        [JsonProperty("next_renewal_at")]
+        public DateTime? NextRenewalAt { get; set; }
 
         /// <value>For manual invoicing, this identifies the PO number associated with the subscription.</value>
         [JsonProperty("po_number")]
         public string PoNumber { get; set; }
 
-        /// <value>The remaining billing cycles in the current term.</value>
+        /// <value>Renews the subscription for a specified number of cycles, then automatically cancels.</value>
         [JsonProperty("remaining_billing_cycles")]
         public int? RemainingBillingCycles { get; set; }
 
-        /// <value>If `auto_renew=true`, when a term completes, `total_billing_cycles` takes this value as the length of subsequent terms. Defaults to the plan's `total_billing_cycles`.</value>
-        [JsonProperty("renewal_billing_cycles")]
-        public int? RenewalBillingCycles { get; set; }
+        /// <value>Create a shipping address on the account and assign it to the subscription. If this and `shipping_address_id` are both present, `shipping_address_id` will take precedence.</value>
+        [JsonProperty("shipping_address")]
+        public ShippingAddressCreate ShippingAddress { get; set; }
 
-
-        [JsonProperty("shipping")]
-        public SubscriptionShippingUpdate Shipping { get; set; }
+        /// <value>Assign a shipping address from the account's existing shipping addresses.</value>
+        [JsonProperty("shipping_address_id")]
+        public string ShippingAddressId { get; set; }
 
         /// <value>Specify custom notes to add or override Terms and Conditions. Custom notes will stay with a subscription on all renewals.</value>
         [JsonProperty("terms_and_conditions")]
