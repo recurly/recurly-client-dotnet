@@ -23,10 +23,6 @@ namespace Recurly.Resources
         [JsonProperty("add_ons")]
         public List<SubscriptionAddOnCreate> AddOns { get; set; }
 
-        /// <value>Whether the subscription renews at the end of its term.</value>
-        [JsonProperty("auto_renew")]
-        public bool? AutoRenew { get; set; }
-
         /// <value>Collection method</value>
         [JsonProperty("collection_method")]
         public string CollectionMethod { get; set; }
@@ -43,27 +39,23 @@ namespace Recurly.Resources
         [JsonProperty("currency")]
         public string Currency { get; set; }
 
-
-        [JsonProperty("custom_fields")]
-        public List<CustomField> CustomFields { get; set; }
-
         /// <value>This will default to the Customer Notes text specified on the Invoice Settings. Specify custom notes to add or override Customer Notes. Custom notes will stay with a subscription on all renewals.</value>
         [JsonProperty("customer_notes")]
         public string CustomerNotes { get; set; }
+
+        /// <value>If set,indicates when the first renewal should occur. Subsequent renewals will be offset from this date. The first invoice will be prorated appropriately so that the customer only pays for the portion of the first billing period for which the subscription applies. Useful for forcing a subscription to renew on the first of the month.</value>
+        [JsonProperty("first_renewal_date")]
+        public DateTime? FirstRenewalDate { get; set; }
 
         /// <value>Integer representing the number of days after an invoice's creation that the invoice will become past due. If an invoice's net terms are set to '0', it is due 'On Receipt' and will become past due 24 hours after it’s created. If an invoice is due net 30, it will become past due at 31 days exactly.</value>
         [JsonProperty("net_terms")]
         public int? NetTerms { get; set; }
 
-        /// <value>If present, this sets the date the subscription's next billing period will start (`current_period_ends_at`). This can be used to align the subscription’s billing to a specific day of the month. The initial invoice will be prorated for the period between the subscription's activation date and the billing period end date. Subsequent periods will be based off the plan interval. For a subscription with a trial period, this will change when the trial expires.</value>
-        [JsonProperty("next_bill_date")]
-        public DateTime? NextBillDate { get; set; }
-
-        /// <value>You must provide either a `plan_code` or `plan_id`. If both are provided the `plan_id` will be used.</value>
+        /// <value>Plan code</value>
         [JsonProperty("plan_code")]
         public string PlanCode { get; set; }
 
-        /// <value>You must provide either a `plan_code` or `plan_id`. If both are provided the `plan_id` will be used.</value>
+        /// <value>Plan ID</value>
         [JsonProperty("plan_id")]
         public string PlanId { get; set; }
 
@@ -75,13 +67,13 @@ namespace Recurly.Resources
         [JsonProperty("quantity")]
         public int? Quantity { get; set; }
 
-        /// <value>If `auto_renew=true`, when a term completes, `total_billing_cycles` takes this value as the length of subsequent terms. Defaults to the plan's `total_billing_cycles`.</value>
-        [JsonProperty("renewal_billing_cycles")]
-        public int? RenewalBillingCycles { get; set; }
-
         /// <value>Create a shipping address on the account and assign it to the subscription.</value>
-        [JsonProperty("shipping")]
-        public SubscriptionShippingCreate Shipping { get; set; }
+        [JsonProperty("shipping_address")]
+        public ShippingAddressCreate ShippingAddress { get; set; }
+
+        /// <value>Assign a shipping address from the account's existing shipping addresses. If this and `shipping_address` are both present, `shipping_address` will take precedence.</value>
+        [JsonProperty("shipping_address_id")]
+        public string ShippingAddressId { get; set; }
 
         /// <value>If set, the subscription will begin in the future on this date. The subscription will apply the setup fee and trial period, unless the plan has no trial.</value>
         [JsonProperty("starts_at")]
@@ -91,7 +83,7 @@ namespace Recurly.Resources
         [JsonProperty("terms_and_conditions")]
         public string TermsAndConditions { get; set; }
 
-        /// <value>The number of cycles/billing periods in a term. When `remaining_billing_cycles=0`, if `auto_renew=true` the subscription will renew and a new term will begin, otherwise the subscription will expire.</value>
+        /// <value>Renews the subscription for a specified number of total cycles, then automatically cancels. Defaults to the subscription renewing indefinitely.</value>
         [JsonProperty("total_billing_cycles")]
         public int? TotalBillingCycles { get; set; }
 

@@ -79,7 +79,7 @@ namespace Recurly.Resources
         /// Category to describe the role of a line item on a legacy invoice:
         /// - "charges" refers to charges being billed for on this invoice.
         /// - "credits" refers to refund or proration credits. This portion of the invoice can be considered a credit memo.
-        /// - "applied_credits" refers to previous credits applied to this invoice. See their original_line_item_id to determine where the credit first originated.
+        /// - "applied_credits" refers to previous credits applied to this invoice. See their `original_line_item_invoice_id` to determine where the credit first originated.
         /// - "carryforwards" can be ignored. They exist to consume any remaining credit balance. A new credit with the same amount will be created and placed back on the account.
         /// </value>
         [JsonProperty("legacy_category")]
@@ -149,7 +149,7 @@ namespace Recurly.Resources
         [JsonProperty("tax")]
         public float? Tax { get; set; }
 
-        /// <value>Used by Avalara, Vertex, and Recurly’s EU VAT tax feature. The tax code values are specific to each tax system. If you are using Recurly’s EU VAT feature you can use `unknown`, `physical`, or `digital`.</value>
+        /// <value>Used by Avalara, Vertex, and Recurly’s EU VAT tax feature. The tax code values are specific to each tax system. If you are using Recurly’s EU VAT feature `P0000000` is `physical`, `D0000000` is `digital`, and an empty string is `unknown`.</value>
         [JsonProperty("tax_code")]
         public string TaxCode { get; set; }
 

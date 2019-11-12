@@ -19,10 +19,6 @@ namespace Recurly.Resources
         [JsonProperty("address")]
         public Address Address { get; set; }
 
-        /// <value>An enumerable describing the billing behavior of the account, specifically whether the account is self-paying or will rely on the parent account to pay.</value>
-        [JsonProperty("bill_to")]
-        public string BillTo { get; set; }
-
 
         [JsonProperty("billing_info")]
         public BillingInfo BillingInfo { get; set; }
@@ -43,10 +39,6 @@ namespace Recurly.Resources
         [JsonProperty("created_at")]
         public DateTime? CreatedAt { get; set; }
 
-
-        [JsonProperty("custom_fields")]
-        public List<CustomField> CustomFields { get; set; }
-
         /// <value>If present, when the account was last marked inactive.</value>
         [JsonProperty("deleted_at")]
         public DateTime? DeletedAt { get; set; }
@@ -54,10 +46,6 @@ namespace Recurly.Resources
         /// <value>The email address used for communicating with this customer. The customer will also use this email address to log into your hosted account management pages. This value does not need to be unique.</value>
         [JsonProperty("email")]
         public string Email { get; set; }
-
-        /// <value>The tax exemption certificate number for the account. If the merchant has an integration for the Vertex tax provider, this optional value will be sent in any tax calculation requests for the account.</value>
-        [JsonProperty("exemption_certificate")]
-        public string ExemptionCertificate { get; set; }
 
 
         [JsonProperty("first_name")]
@@ -74,10 +62,6 @@ namespace Recurly.Resources
 
         [JsonProperty("last_name")]
         public string LastName { get; set; }
-
-        /// <value>The UUID of the parent account associated with this account.</value>
-        [JsonProperty("parent_account_id")]
-        public string ParentAccountId { get; set; }
 
         /// <value>Used to determine the language and locale of emails sent on behalf of the merchant to the customer.</value>
         [JsonProperty("preferred_locale")]

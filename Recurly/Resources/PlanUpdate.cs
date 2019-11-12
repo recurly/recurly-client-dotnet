@@ -23,10 +23,6 @@ namespace Recurly.Resources
         [JsonProperty("add_ons")]
         public List<AddOnCreate> AddOns { get; set; }
 
-        /// <value>Subscriptions will automatically inherit this value once they are active. If `auto_renew` is `true`, then a subscription will automatically renew its term at renewal. If `auto_renew` is `false`, then a subscription will expire at the end of its term. `auto_renew` can be overridden on the subscription record itself.</value>
-        [JsonProperty("auto_renew")]
-        public bool? AutoRenew { get; set; }
-
         /// <value>Unique code to identify the plan. This is used in Hosted Payment Page URLs and in the invoice exports.</value>
         [JsonProperty("code")]
         public string Code { get; set; }
@@ -46,6 +42,14 @@ namespace Recurly.Resources
         /// <value>Plan ID</value>
         [JsonProperty("id")]
         public string Id { get; set; }
+
+        /// <value>Length of the plan's billing interval in `interval_unit`.</value>
+        [JsonProperty("interval_length")]
+        public int? IntervalLength { get; set; }
+
+        /// <value>Unit for the plan's billing interval.</value>
+        [JsonProperty("interval_unit")]
+        public string IntervalUnit { get; set; }
 
         /// <value>This name describes your plan and will appear on the Hosted Payment Page and the subscriber's invoice.</value>
         [JsonProperty("name")]
