@@ -15,10 +15,6 @@ namespace Recurly.Resources
     public class LineItemCreate : Request
     {
 
-        /// <value>The reason the credit was given when line item is `type=credit`. When the Credit Invoices feature is enabled, the value can be set and will default to `general`. When the Credit Invoices feature is not enabled, the value will always be `null`.</value>
-        [JsonProperty("credit_reason_code")]
-        public string CreditReasonCode { get; set; }
-
         /// <value>3-letter ISO 4217 currency code.</value>
         [JsonProperty("currency")]
         public string Currency { get; set; }
@@ -30,10 +26,6 @@ namespace Recurly.Resources
         /// <value>If this date is provided, it indicates the end of a time range.</value>
         [JsonProperty("end_date")]
         public DateTime? EndDate { get; set; }
-
-        /// <value>Optional field to track a product code or SKU for the line item. This can be used to later reporting on product purchases. For Vertex tax calculations, this field will be used as the Vertex `product` field.</value>
-        [JsonProperty("product_code")]
-        public string ProductCode { get; set; }
 
         /// <value>This number will be multiplied by the unit amount to compute the subtotal before any discounts or taxes.</value>
         [JsonProperty("quantity")]

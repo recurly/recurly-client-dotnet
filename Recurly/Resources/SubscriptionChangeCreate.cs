@@ -15,9 +15,9 @@ namespace Recurly.Resources
     public class SubscriptionChangeCreate : Request
     {
 
-        /// <value>If you provide a value for this field it will replace any existing add-ons. So, when adding or modifying an add-on, you need to include the existing subscription add-ons. Unchanged add-ons can be included just using the subscription add-on's ID: `{"id": "abc123"}`.</value>
+        /// <value>If you set this value you include all the add-ons and their quantities and amounts. The values you include will replace the previous values entirely.</value>
         [JsonProperty("add_ons")]
-        public List<SubscriptionAddOnUpdate> AddOns { get; set; }
+        public List<SubscriptionAddOnCreate> AddOns { get; set; }
 
         /// <value>Collection method</value>
         [JsonProperty("collection_method")]
@@ -31,13 +31,9 @@ namespace Recurly.Resources
         [JsonProperty("net_terms")]
         public int? NetTerms { get; set; }
 
-        /// <value>If you want to change to a new plan, you can provide the plan's code or id. If both are provided the `plan_id` will be used.</value>
+        /// <value>The plan code.</value>
         [JsonProperty("plan_code")]
         public string PlanCode { get; set; }
-
-        /// <value>If you want to change to a new plan, you can provide the plan's code or id. If both are provided the `plan_id` will be used.</value>
-        [JsonProperty("plan_id")]
-        public string PlanId { get; set; }
 
         /// <value>For manual invoicing, this identifies the PO number associated with the subscription.</value>
         [JsonProperty("po_number")]
@@ -47,11 +43,7 @@ namespace Recurly.Resources
         [JsonProperty("quantity")]
         public int? Quantity { get; set; }
 
-
-        [JsonProperty("shipping")]
-        public SubscriptionChangeShippingCreate Shipping { get; set; }
-
-        /// <value>The timeframe parameter controls when the upgrade or downgrade takes place. The subscription change can occur now, when the subscription is next billed, or when the subscription renews. Generally, if you're performing an upgrade, you will want the change to occur immediately (now). If you're performing a downgrade, you should set the timeframe to "renewal" so the change takes affect at the end of the current subscription term.</value>
+        /// <value>The timeframe parameter controls when the upgrade or downgrade takes place. The subscription change can occur now or when the subscription renews. Generally, if you're performing an upgrade, you will want the change to occur immediately (now). If you're performing a downgrade, you should set the timeframe to "renewal" so the change takes affect at the end of the current billing cycle.</value>
         [JsonProperty("timeframe")]
         public string Timeframe { get; set; }
 

@@ -31,10 +31,6 @@ namespace Recurly.Resources
         [JsonProperty("add_ons_total")]
         public float? AddOnsTotal { get; set; }
 
-        /// <value>Whether the subscription renews at the end of its term.</value>
-        [JsonProperty("auto_renew")]
-        public bool? AutoRenew { get; set; }
-
         /// <value>Recurring subscriptions paid with ACH will have this attribute set. This timestamp is used for alerting customers to reauthorize in 3 years in accordance with NACHA rules. If a subscription becomes inactive or the billing info is no longer a bank account, this timestamp is cleared.</value>
         [JsonProperty("bank_account_authorized_at")]
         public DateTime? BankAccountAuthorizedAt { get; set; }
@@ -67,18 +63,6 @@ namespace Recurly.Resources
         [JsonProperty("current_period_started_at")]
         public DateTime? CurrentPeriodStartedAt { get; set; }
 
-        /// <value>When the term ends. This is calculated by a plan's interval and `total_billing_cycles` in a term. Subscription changes with a `timeframe=renewal` will be applied on this date.</value>
-        [JsonProperty("current_term_ends_at")]
-        public DateTime? CurrentTermEndsAt { get; set; }
-
-        /// <value>The start date of the term when the first billing period starts. The subscription term is the length of time that a customer will be committed to a subscription. A term can span multiple billing periods.</value>
-        [JsonProperty("current_term_started_at")]
-        public DateTime? CurrentTermStartedAt { get; set; }
-
-
-        [JsonProperty("custom_fields")]
-        public List<CustomField> CustomFields { get; set; }
-
         /// <value>Customer notes</value>
         [JsonProperty("customer_notes")]
         public string CustomerNotes { get; set; }
@@ -99,10 +83,6 @@ namespace Recurly.Resources
         [JsonProperty("net_terms")]
         public int? NetTerms { get; set; }
 
-        /// <value>Null unless subscription is paused or will pause at the end of the current billing period.</value>
-        [JsonProperty("paused_at")]
-        public DateTime? PausedAt { get; set; }
-
 
         [JsonProperty("pending_change")]
         public SubscriptionChange PendingChange { get; set; }
@@ -119,21 +99,13 @@ namespace Recurly.Resources
         [JsonProperty("quantity")]
         public int? Quantity { get; set; }
 
-        /// <value>The remaining billing cycles in the current term.</value>
+        /// <value>Remaining billing cycles</value>
         [JsonProperty("remaining_billing_cycles")]
         public int? RemainingBillingCycles { get; set; }
 
-        /// <value>Null unless subscription is paused or will pause at the end of the current billing period.</value>
-        [JsonProperty("remaining_pause_cycles")]
-        public int? RemainingPauseCycles { get; set; }
 
-        /// <value>If `auto_renew=true`, when a term completes, `total_billing_cycles` takes this value as the length of subsequent terms. Defaults to the plan's `total_billing_cycles`.</value>
-        [JsonProperty("renewal_billing_cycles")]
-        public int? RenewalBillingCycles { get; set; }
-
-
-        [JsonProperty("shipping")]
-        public SubscriptionShipping Shipping { get; set; }
+        [JsonProperty("shipping_address")]
+        public ShippingAddress ShippingAddress { get; set; }
 
         /// <value>State</value>
         [JsonProperty("state")]
@@ -146,10 +118,6 @@ namespace Recurly.Resources
         /// <value>Terms and conditions</value>
         [JsonProperty("terms_and_conditions")]
         public string TermsAndConditions { get; set; }
-
-        /// <value>The number of cycles/billing periods in a term. When `remaining_billing_cycles=0`, if `auto_renew=true` the subscription will renew and a new term will begin, otherwise the subscription will expire.</value>
-        [JsonProperty("total_billing_cycles")]
-        public int? TotalBillingCycles { get; set; }
 
         /// <value>Trial period ends at</value>
         [JsonProperty("trial_ends_at")]

@@ -82,10 +82,6 @@ namespace Recurly.Resources
         [JsonProperty("name")]
         public string Name { get; set; }
 
-        /// <value>A list of plans for which this coupon applies. This will be `null` if `applies_to_all_plans=true`.</value>
-        [JsonProperty("plans")]
-        public List<PlanMini> Plans { get; set; }
-
         /// <value>TODO</value>
         [JsonProperty("plans_names")]
         public List<string> PlansNames { get; set; }
@@ -109,10 +105,6 @@ namespace Recurly.Resources
         /// <value>If `duration` is "temporal" than `temporal_unit` is multiplied by `temporal_amount` to define the duration that the coupon will be applied to invoices for.</value>
         [JsonProperty("temporal_unit")]
         public string TemporalUnit { get; set; }
-
-        /// <value>On a bulk coupon, the template from which unique coupon codes are generated.</value>
-        [JsonProperty("unique_code_template")]
-        public string UniqueCodeTemplate { get; set; }
 
         /// <value>When this number reaches `max_redemptions` the coupon will no longer be redeemable.</value>
         [JsonProperty("unique_coupon_codes_count")]

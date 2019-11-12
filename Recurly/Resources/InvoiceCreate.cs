@@ -15,21 +15,17 @@ namespace Recurly.Resources
     public class InvoiceCreate : Request
     {
 
-        /// <value>This will default to the Customer Notes text specified on the Invoice Settings for charge invoices. Specify custom notes to add or override Customer Notes on charge invoices.</value>
-        [JsonProperty("charge_customer_notes")]
-        public string ChargeCustomerNotes { get; set; }
-
         /// <value>An automatic invoice means a corresponding transaction is run using the account's billing information at the same time the invoice is created. Manual invoices are created without a corresponding transaction. The merchant must enter a manual payment transaction or have the customer pay the invoice with an automatic method, like credit card, PayPal, Amazon, or ACH bank payment.</value>
         [JsonProperty("collection_method")]
         public string CollectionMethod { get; set; }
 
-        /// <value>This will default to the Customer Notes text specified on the Invoice Settings for credit invoices. Specify customer notes to add or override Customer Notes on credit invoices.</value>
-        [JsonProperty("credit_customer_notes")]
-        public string CreditCustomerNotes { get; set; }
-
         /// <value>3-letter ISO 4217 currency code.</value>
         [JsonProperty("currency")]
         public string Currency { get; set; }
+
+        /// <value>This will default to the Customer Notes text specified on the Invoice Settings. Specify custom notes to add or override Customer Notes.</value>
+        [JsonProperty("customer_notes")]
+        public string CustomerNotes { get; set; }
 
         /// <value>Integer representing the number of days after an invoice's creation that the invoice will become past due. If an invoice's net terms are set to '0', it is due 'On Receipt' and will become past due 24 hours after it’s created. If an invoice is due net 30, it will become past due at 31 days exactly.</value>
         [JsonProperty("net_terms")]

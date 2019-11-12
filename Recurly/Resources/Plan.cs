@@ -19,10 +19,6 @@ namespace Recurly.Resources
         [JsonProperty("accounting_code")]
         public string AccountingCode { get; set; }
 
-        /// <value>Subscriptions will automatically inherit this value once they are active. If `auto_renew` is `true`, then a subscription will automatically renew its term at renewal. If `auto_renew` is `false`, then a subscription will expire at the end of its term. `auto_renew` can be overridden on the subscription record itself.</value>
-        [JsonProperty("auto_renew")]
-        public bool? AutoRenew { get; set; }
-
         /// <value>Unique code to identify the plan. This is used in Hosted Payment Page URLs and in the invoice exports.</value>
         [JsonProperty("code")]
         public string Code { get; set; }
@@ -33,7 +29,7 @@ namespace Recurly.Resources
 
         /// <value>Pricing</value>
         [JsonProperty("currencies")]
-        public List<PlanPricing> Currencies { get; set; }
+        public List<Dictionary<string, string>> Currencies { get; set; }
 
         /// <value>Deleted at</value>
         [JsonProperty("deleted_at")]
@@ -67,11 +63,11 @@ namespace Recurly.Resources
         [JsonProperty("setup_fee_accounting_code")]
         public string SetupFeeAccountingCode { get; set; }
 
-        /// <value>The current state of the plan.</value>
+        /// <value>Plans can be either active or inactive.</value>
         [JsonProperty("state")]
         public string State { get; set; }
 
-        /// <value>Used by Avalara, Vertex, and Recurly’s EU VAT tax feature. The tax code values are specific to each tax system. If you are using Recurly’s EU VAT feature you can use `unknown`, `physical`, or `digital`.</value>
+        /// <value>Used by Avalara, Vertex, and Recurly’s EU VAT tax feature. The tax code values are specific to each tax system. If you are using Recurly’s EU VAT feature `P0000000` is `physical`, `D0000000` is `digital`, and an empty string is `unknown`.</value>
         [JsonProperty("tax_code")]
         public string TaxCode { get; set; }
 

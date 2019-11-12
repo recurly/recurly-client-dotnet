@@ -35,10 +35,6 @@ namespace Recurly.Resources
         [JsonProperty("collected_at")]
         public DateTime? CollectedAt { get; set; }
 
-        /// <value>The method by which the payment was collected.</value>
-        [JsonProperty("collection_method")]
-        public string CollectionMethod { get; set; }
-
         /// <value>Created at</value>
         [JsonProperty("created_at")]
         public DateTime? CreatedAt { get; set; }
@@ -91,6 +87,10 @@ namespace Recurly.Resources
         [JsonProperty("invoice")]
         public InvoiceMini Invoice { get; set; }
 
+        /// <value>If this transaction pays (`type=payment`) for or refunds (`type=refund`) an invoice, this will be the invoice's ID. It will be null for verification (`type=verify`) transactions.</value>
+        [JsonProperty("invoice_id")]
+        public string InvoiceId { get; set; }
+
         /// <value>IP address's country</value>
         [JsonProperty("ip_address_country")]
         public string IpAddressCountry { get; set; }
@@ -98,7 +98,7 @@ namespace Recurly.Resources
         /// <value>
         /// IP address provided when the billing information was collected:
         /// 
-        /// - When the customer enters billing information into the Recurly.JS or Hosted Payment Pages, Recurly records the IP address.
+        /// - When the customer enters billing information into the Recurly.js or Hosted Payment Pages, Recurly records the IP address.
         /// - When the merchant enters billing information using the API, the merchant may provide an IP address.
         /// - When the merchant enters billing information using the UI, no IP address is recorded.
         /// </value>
@@ -137,9 +137,9 @@ namespace Recurly.Resources
         [JsonProperty("status_message")]
         public string StatusMessage { get; set; }
 
-        /// <value>If the transaction is charging or refunding for one or more subscriptions, these are their IDs.</value>
-        [JsonProperty("subscription_ids")]
-        public List<string> SubscriptionIds { get; set; }
+        /// <value>If the transaction is charging or refunding for a subscription, this is its ID.</value>
+        [JsonProperty("subscription_id")]
+        public string SubscriptionId { get; set; }
 
         /// <value>Did this transaction complete successfully?</value>
         [JsonProperty("success")]
@@ -162,10 +162,6 @@ namespace Recurly.Resources
         /// <value>Voided at</value>
         [JsonProperty("voided_at")]
         public DateTime? VoidedAt { get; set; }
-
-
-        [JsonProperty("voided_by_invoice")]
-        public InvoiceMini VoidedByInvoice { get; set; }
 
     }
 }

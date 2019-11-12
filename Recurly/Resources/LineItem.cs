@@ -43,10 +43,6 @@ namespace Recurly.Resources
         [JsonProperty("credit_applied")]
         public float? CreditApplied { get; set; }
 
-        /// <value>The reason the credit was given when line item is `type=credit`.</value>
-        [JsonProperty("credit_reason_code")]
-        public string CreditReasonCode { get; set; }
-
         /// <value>3-letter ISO 4217 currency code.</value>
         [JsonProperty("currency")]
         public string Currency { get; set; }
@@ -75,19 +71,13 @@ namespace Recurly.Resources
         [JsonProperty("invoice_number")]
         public string InvoiceNumber { get; set; }
 
-        /// <value>
-        /// Category to describe the role of a line item on a legacy invoice:
-        /// - "charges" refers to charges being billed for on this invoice.
-        /// - "credits" refers to refund or proration credits. This portion of the invoice can be considered a credit memo.
-        /// - "applied_credits" refers to previous credits applied to this invoice. See their original_line_item_id to determine where the credit first originated.
-        /// - "carryforwards" can be ignored. They exist to consume any remaining credit balance. A new credit with the same amount will be created and placed back on the account.
-        /// </value>
-        [JsonProperty("legacy_category")]
-        public string LegacyCategory { get; set; }
-
         /// <value>A credit created from an original charge will have the value of the charge's origin.</value>
         [JsonProperty("origin")]
         public string Origin { get; set; }
+
+        /// <value>The line item where the credit originated. Will only have a value if the line item is a credit created from a previous credit, or if the credit was created from a charge refund. For some older invoices this may reference a carryforward charge.</value>
+        [JsonProperty("original_line_item_id")]
+        public string OriginalLineItemId { get; set; }
 
         /// <value>The invoice where the credit originated. Will only have a value if the line item is a credit created from a previous credit, or if the credit was created from a charge refund.</value>
         [JsonProperty("original_line_item_invoice_id")]
@@ -108,10 +98,6 @@ namespace Recurly.Resources
         /// <value>For plan related line items this will be the plan's code, for add-on related line items it will be the add-on's code.</value>
         [JsonProperty("product_code")]
         public string ProductCode { get; set; }
-
-        /// <value>When a line item has been prorated, this is the rate of the proration. Proration rates were made available for line items created after March 30, 2017. For line items created prior to that date, the proration rate will be `null`, even if the line item was prorated.</value>
-        [JsonProperty("proration_rate")]
-        public float? ProrationRate { get; set; }
 
         /// <value>This number will be multiplied by the unit amount to compute the subtotal before any discounts or taxes.</value>
         [JsonProperty("quantity")]
@@ -149,17 +135,13 @@ namespace Recurly.Resources
         [JsonProperty("tax")]
         public float? Tax { get; set; }
 
-        /// <value>Used by Avalara, Vertex, and Recurly’s EU VAT tax feature. The tax code values are specific to each tax system. If you are using Recurly’s EU VAT feature you can use `unknown`, `physical`, or `digital`.</value>
+        /// <value>Used by Avalara, Vertex, and Recurly’s EU VAT tax feature. The tax code values are specific to each tax system. If you are using Recurly’s EU VAT feature `P0000000` is `physical`, `D0000000` is `digital`, and an empty string is `unknown`.</value>
         [JsonProperty("tax_code")]
         public string TaxCode { get; set; }
 
         /// <value>`true` exempts tax on charges, `false` applies tax on charges. If not defined, then defaults to the Plan and Site settings. This attribute does not work for credits (negative line items). Credits are always applied post-tax. Pre-tax discounts should use the Coupons feature.</value>
         [JsonProperty("tax_exempt")]
         public bool? TaxExempt { get; set; }
-
-
-        [JsonProperty("tax_info")]
-        public TaxInfo TaxInfo { get; set; }
 
         /// <value>`true` if the line item is taxable, `false` if it is not.</value>
         [JsonProperty("taxable")]

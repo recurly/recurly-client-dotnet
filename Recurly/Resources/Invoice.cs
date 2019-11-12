@@ -21,11 +21,7 @@ namespace Recurly.Resources
 
 
         [JsonProperty("address")]
-        public InvoiceAddress Address { get; set; }
-
-        /// <value>The outstanding balance remaining on this invoice.</value>
-        [JsonProperty("balance")]
-        public float? Balance { get; set; }
+        public Address Address { get; set; }
 
         /// <value>Date invoice was marked paid or failed.</value>
         [JsonProperty("closed_at")]
@@ -39,10 +35,6 @@ namespace Recurly.Resources
         [JsonProperty("created_at")]
         public DateTime? CreatedAt { get; set; }
 
-        /// <value>Credit payments</value>
-        [JsonProperty("credit_payments")]
-        public List<CreditPayment> CreditPayments { get; set; }
-
         /// <value>3-letter ISO 4217 currency code.</value>
         [JsonProperty("currency")]
         public string Currency { get; set; }
@@ -55,6 +47,10 @@ namespace Recurly.Resources
         [JsonProperty("discount")]
         public float? Discount { get; set; }
 
+        /// <value>The outstanding balance remaining on this invoice.</value>
+        [JsonProperty("due")]
+        public float? Due { get; set; }
+
         /// <value>Date invoice is due. This is the date the net terms are reached.</value>
         [JsonProperty("due_at")]
         public DateTime? DueAt { get; set; }
@@ -63,21 +59,23 @@ namespace Recurly.Resources
         [JsonProperty("id")]
         public string Id { get; set; }
 
-
+        /// <value>Line items are grouped by the role they play.</value>
         [JsonProperty("line_items")]
-        public LineItemList LineItems { get; set; }
+        public InvoiceLineItems LineItems { get; set; }
 
-        /// <value>Integer representing the number of days after an invoice's creation that the invoice will become past due. If an invoice's net terms are set to '0', it is due 'On Receipt' and will become past due 24 hours after it’s created. If an invoice is due net 30, it will become past due at 31 days exactly.</value>
+        /// <value>
+        /// Integer representing the number of days after an invoice's creation
+        /// that the invoice will become past due. If an invoice's net terms are set
+        /// to '0', it is due 'On Receipt' and will become past due 24 hours after it’s
+        /// created. If an invoice is due net 30, it will become past due at 31 days
+        /// exactly.
+        /// </value>
         [JsonProperty("net_terms")]
         public int? NetTerms { get; set; }
 
         /// <value>If VAT taxation and the Country Invoice Sequencing feature are enabled, invoices will have country-specific invoice numbers for invoices billed to EU countries (ex: FR1001). Non-EU invoices will continue to use the site-level invoice number sequence.</value>
         [JsonProperty("number")]
         public string Number { get; set; }
-
-        /// <value>The event that created the invoice.</value>
-        [JsonProperty("origin")]
-        public string Origin { get; set; }
 
         /// <value>The total amount of successful payments transaction on this invoice.</value>
         [JsonProperty("paid")]
@@ -91,21 +89,13 @@ namespace Recurly.Resources
         [JsonProperty("previous_invoice_id")]
         public string PreviousInvoiceId { get; set; }
 
-        /// <value>The refundable amount on a charge invoice. It will be null for all other invoices.</value>
-        [JsonProperty("refundable_amount")]
-        public float? RefundableAmount { get; set; }
-
-
-        [JsonProperty("shipping_address")]
-        public ShippingAddress ShippingAddress { get; set; }
-
         /// <value>Invoice state</value>
         [JsonProperty("state")]
         public string State { get; set; }
 
-        /// <value>If the invoice is charging or refunding for one or more subscriptions, these are their IDs.</value>
-        [JsonProperty("subscription_ids")]
-        public List<string> SubscriptionIds { get; set; }
+        /// <value>If the invoice is charging or refunding for a subscription, this is its ID.</value>
+        [JsonProperty("subscription_id")]
+        public string SubscriptionId { get; set; }
 
         /// <value>The summation of charges, discounts, and credits, before tax.</value>
         [JsonProperty("subtotal")]
@@ -131,7 +121,7 @@ namespace Recurly.Resources
         [JsonProperty("transactions")]
         public List<Transaction> Transactions { get; set; }
 
-        /// <value>Invoices are either charge, credit, or legacy invoices.</value>
+        /// <value>The original invoice will have a type of `purchase`. Any refunds or voids will create a negative invoice to cancel out the original. `line_item_refund` indicates that specific line items were refunded, while `open_amount_refund` only indicates money was refunded.</value>
         [JsonProperty("type")]
         public string Type { get; set; }
 
