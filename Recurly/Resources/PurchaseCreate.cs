@@ -60,8 +60,12 @@ namespace Recurly.Resources
         public string PoNumber { get; set; }
 
 
-        [JsonProperty("shipping")]
-        public ShippingPurchase Shipping { get; set; }
+        [JsonProperty("shipping_address")]
+        public ShippingAddressCreate ShippingAddress { get; set; }
+
+        /// <value>Assign a shipping address from the account's existing shipping addresses. If this and `shipping_address` are both present, `shipping_address` will take precedence.</value>
+        [JsonProperty("shipping_address_id")]
+        public string ShippingAddressId { get; set; }
 
         /// <value>A list of subscriptions to be created with the purchase.</value>
         [JsonProperty("subscriptions")]
