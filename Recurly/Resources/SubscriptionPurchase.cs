@@ -51,6 +51,10 @@ namespace Recurly.Resources
         [JsonProperty("shipping")]
         public SubscriptionShippingPurchase Shipping { get; set; }
 
+        /// <value>If set, the subscription will begin in the future on this date. The subscription will apply the setup fee and trial period, unless the plan has no trial.</value>
+        [JsonProperty("starts_at")]
+        public DateTime? StartsAt { get; set; }
+
         /// <value>The number of cycles/billing periods in a term. When `remaining_billing_cycles=0`, if `auto_renew=true` the subscription will renew and a new term will begin, otherwise the subscription will expire.</value>
         [JsonProperty("total_billing_cycles")]
         public int? TotalBillingCycles { get; set; }

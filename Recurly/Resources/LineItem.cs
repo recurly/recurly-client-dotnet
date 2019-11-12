@@ -75,6 +75,14 @@ namespace Recurly.Resources
         [JsonProperty("invoice_number")]
         public string InvoiceNumber { get; set; }
 
+        /// <value>Unique code to identify an `Item`.</value>
+        [JsonProperty("item_code")]
+        public string ItemCode { get; set; }
+
+        /// <value>Item ID</value>
+        [JsonProperty("item_id")]
+        public string ItemId { get; set; }
+
         /// <value>
         /// Category to describe the role of a line item on a legacy invoice:
         /// - "charges" refers to charges being billed for on this invoice.
@@ -105,7 +113,7 @@ namespace Recurly.Resources
         [JsonProperty("previous_line_item_id")]
         public string PreviousLineItemId { get; set; }
 
-        /// <value>For plan related line items this will be the plan's code, for add-on related line items it will be the add-on's code.</value>
+        /// <value>For plan-related line items this will be the plan's code, for add-on related line items it will be the add-on's code. For item-related line itmes it will be the item's `external_sku`.</value>
         [JsonProperty("product_code")]
         public string ProductCode { get; set; }
 
@@ -124,6 +132,10 @@ namespace Recurly.Resources
         /// <value>For refund charges, the quantity being refunded. For non-refund charges, the total quantity refunded (possibly over multiple refunds).</value>
         [JsonProperty("refunded_quantity")]
         public int? RefundedQuantity { get; set; }
+
+        /// <value>Revenue schedule type</value>
+        [JsonProperty("revenue_schedule_type")]
+        public string RevenueScheduleType { get; set; }
 
 
         [JsonProperty("shipping_address")]
