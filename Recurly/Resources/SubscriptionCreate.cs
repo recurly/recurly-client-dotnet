@@ -59,11 +59,11 @@ namespace Recurly.Resources
         [JsonProperty("next_bill_date")]
         public DateTime? NextBillDate { get; set; }
 
-        /// <value>You must provide either a `plan_code` or `plan_id`. If both are provided the `plan_id` will be used.</value>
+        /// <value>Plan code</value>
         [JsonProperty("plan_code")]
         public string PlanCode { get; set; }
 
-        /// <value>You must provide either a `plan_code` or `plan_id`. If both are provided the `plan_id` will be used.</value>
+        /// <value>Plan ID</value>
         [JsonProperty("plan_id")]
         public string PlanId { get; set; }
 
@@ -80,8 +80,12 @@ namespace Recurly.Resources
         public int? RenewalBillingCycles { get; set; }
 
         /// <value>Create a shipping address on the account and assign it to the subscription.</value>
-        [JsonProperty("shipping")]
-        public SubscriptionShippingCreate Shipping { get; set; }
+        [JsonProperty("shipping_address")]
+        public ShippingAddressCreate ShippingAddress { get; set; }
+
+        /// <value>Assign a shipping address from the account's existing shipping addresses. If this and `shipping_address` are both present, `shipping_address` will take precedence.</value>
+        [JsonProperty("shipping_address_id")]
+        public string ShippingAddressId { get; set; }
 
         /// <value>If set, the subscription will begin in the future on this date. The subscription will apply the setup fee and trial period, unless the plan has no trial.</value>
         [JsonProperty("starts_at")]
