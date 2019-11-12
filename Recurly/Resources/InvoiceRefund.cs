@@ -36,7 +36,6 @@ namespace Recurly.Resources
         /// Required when:
         /// - refunding a manually collected charge invoice, and `refund_method` is not `all_credit`
         /// - refunding a credit invoice that refunded manually collecting invoices
-        /// - refunding a credit invoice for a partial amount
         /// 
         /// This field can only be included when the Credit Invoices feature is enabled.
         /// </value>

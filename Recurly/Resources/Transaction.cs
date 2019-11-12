@@ -98,7 +98,7 @@ namespace Recurly.Resources
         /// <value>
         /// IP address provided when the billing information was collected:
         /// 
-        /// - When the customer enters billing information into the Recurly.JS or Hosted Payment Pages, Recurly records the IP address.
+        /// - When the customer enters billing information into the Recurly.js or Hosted Payment Pages, Recurly records the IP address.
         /// - When the merchant enters billing information using the API, the merchant may provide an IP address.
         /// - When the merchant enters billing information using the UI, no IP address is recorded.
         /// </value>
@@ -162,10 +162,6 @@ namespace Recurly.Resources
         /// <value>Voided at</value>
         [JsonProperty("voided_at")]
         public DateTime? VoidedAt { get; set; }
-
-
-        [JsonProperty("voided_by_invoice")]
-        public InvoiceMini VoidedByInvoice { get; set; }
 
     }
 }

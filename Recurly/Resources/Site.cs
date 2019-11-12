@@ -27,10 +27,6 @@ namespace Recurly.Resources
         [JsonProperty("deleted_at")]
         public DateTime? DeletedAt { get; set; }
 
-        /// <value>A list of features enabled for the site.</value>
-        [JsonProperty("features")]
-        public List<string> Features { get; set; }
-
         /// <value>Site ID</value>
         [JsonProperty("id")]
         public string Id { get; set; }
@@ -38,10 +34,6 @@ namespace Recurly.Resources
         /// <value>Mode</value>
         [JsonProperty("mode")]
         public string Mode { get; set; }
-
-        /// <value>This value is used to configure RecurlyJS to submit tokenized billing information.</value>
-        [JsonProperty("public_api_key")]
-        public string PublicApiKey { get; set; }
 
 
         [JsonProperty("settings")]

@@ -21,11 +21,7 @@ namespace Recurly.Resources
 
 
         [JsonProperty("address")]
-        public InvoiceAddress Address { get; set; }
-
-        /// <value>The outstanding balance remaining on this invoice.</value>
-        [JsonProperty("balance")]
-        public float? Balance { get; set; }
+        public Address Address { get; set; }
 
         /// <value>Date invoice was marked paid or failed.</value>
         [JsonProperty("closed_at")]
@@ -54,6 +50,10 @@ namespace Recurly.Resources
         /// <value>Total discounts applied to this invoice.</value>
         [JsonProperty("discount")]
         public float? Discount { get; set; }
+
+        /// <value>The outstanding balance remaining on this invoice.</value>
+        [JsonProperty("due")]
+        public float? Due { get; set; }
 
         /// <value>Date invoice is due. This is the date the net terms are reached.</value>
         [JsonProperty("due_at")]
@@ -94,10 +94,6 @@ namespace Recurly.Resources
         /// <value>The refundable amount on a charge invoice. It will be null for all other invoices.</value>
         [JsonProperty("refundable_amount")]
         public float? RefundableAmount { get; set; }
-
-
-        [JsonProperty("shipping_address")]
-        public ShippingAddress ShippingAddress { get; set; }
 
         /// <value>Invoice state</value>
         [JsonProperty("state")]
