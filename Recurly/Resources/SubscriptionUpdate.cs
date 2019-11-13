@@ -35,7 +35,7 @@ namespace Recurly.Resources
         [JsonProperty("net_terms")]
         public int? NetTerms { get; set; }
 
-        /// <value>If present, this sets the date the subscription's next billing period will start (`current_period_ends_at`). This can be used to align the subscription’s billing to a specific day of the month. For a subscription in a trial period, this will change when the trial expires.</value>
+        /// <value>If present, this sets the date the subscription's next billing period will start (`current_period_ends_at`). This can be used to align the subscription’s billing to a specific day of the month. For a subscription in a trial period, this will change when the trial expires. This parameter is useful for postponement of a subscription to change its billing date without proration.</value>
         [JsonProperty("next_bill_date")]
         public DateTime? NextBillDate { get; set; }
 
