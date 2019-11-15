@@ -25,6 +25,7 @@ namespace Recurly
     {
         private string ApiKey { get; }
         private const string ApiUrl = "https://v3.recurly.com/";
+        private string[] BinaryTypes = { "application/pdf" };
         public virtual string ApiVersion { get; protected set; }
 
         internal IRestClient RestClient { get; set; }
@@ -42,6 +43,10 @@ namespace Recurly
             // AddDefaultHeader does not work for user-agent
             var libVersion = typeof(Recurly.Client).Assembly.GetName().Version;
             RestClient.UserAgent = $"Recurly/{libVersion}; .NET";
+
+            Array.ForEach(BinaryTypes, contentType =>
+                RestClient.AddHandler(contentType, () => { return new Recurly.FileSerializer(); })
+            );
 
             // These are the default headers to send on every request
             RestClient.AddDefaultHeader("Accept", $"application/vnd.recurly.{ApiVersion}");
