@@ -1226,13 +1226,14 @@ namespace Recurly
         /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
         /// <param name="beginTime">Filter by begin_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
         /// <param name="endTime">Filter by end_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
+        /// <param name="relatedType">Filter by related type.</param>
         /// <returns>
         /// A list of the site's custom field definitions.
         /// </returns>
-        public Pager<CustomFieldDefinition> ListCustomFieldDefinitions(string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null)
+        public Pager<CustomFieldDefinition> ListCustomFieldDefinitions(string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string relatedType = null)
         {
             var urlParams = new Dictionary<string, object> { };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime } };
+            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "related_type", relatedType } };
             var url = this.InterpolatePath("/custom_field_definitions", urlParams);
             return Pager<CustomFieldDefinition>.Build(url, queryParams, this);
         }
@@ -1266,6 +1267,180 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "custom_field_definition_id", customFieldDefinitionId } };
             var url = this.InterpolatePath("/custom_field_definitions/{custom_field_definition_id}", urlParams);
             return MakeRequestAsync<CustomFieldDefinition>(Method.GET, url, null, null, cancellationToken);
+        }
+
+        /// <summary>
+        /// List a site's items <see href="https://developers.recurly.com/api/v2019-10-10#operation/list_items">list_items api documentation</see>
+        /// </summary>
+        /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
+        /// <param name="limit">Limit number of records 1-200.</param>
+        /// <param name="order">Sort order.</param>
+        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
+        /// <param name="beginTime">Filter by begin_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
+        /// <param name="endTime">Filter by end_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
+        /// <param name="state">Filter by state.</param>
+        /// <returns>
+        /// A list of the site's items.
+        /// </returns>
+        public Pager<Item> ListItems(string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string state = null)
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "state", state } };
+            var url = this.InterpolatePath("/items", urlParams);
+            return Pager<Item>.Build(url, queryParams, this);
+        }
+
+
+        /// <summary>
+        /// Create a new item <see href="https://developers.recurly.com/api/v2019-10-10#operation/create_item">create_item api documentation</see>
+        /// </summary>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// A new item.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Item CreateItem(ItemCreate body)
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var url = this.InterpolatePath("/items", urlParams);
+            return MakeRequest<Item>(Method.POST, url, body, null);
+        }
+
+        /// <summary>
+        /// Create a new item <see href="https://developers.recurly.com/api/v2019-10-10#operation/create_item">create_item api documentation</see>
+        /// </summary>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// A new item.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<Item> CreateItemAsync(ItemCreate body, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var url = this.InterpolatePath("/items", urlParams);
+            return MakeRequestAsync<Item>(Method.POST, url, body, null, cancellationToken);
+        }
+
+        /// <summary>
+        /// Fetch an item <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_item">get_item api documentation</see>
+        /// </summary>
+        /// <param name="itemId">Item ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-red`.</param>
+        /// <returns>
+        /// An item.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Item GetItem(string itemId)
+        {
+            var urlParams = new Dictionary<string, object> { { "item_id", itemId } };
+            var url = this.InterpolatePath("/items/{item_id}", urlParams);
+            return MakeRequest<Item>(Method.GET, url, null, null);
+        }
+
+        /// <summary>
+        /// Fetch an item <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_item">get_item api documentation</see>
+        /// </summary>
+        /// <param name="itemId">Item ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-red`.</param>
+        /// <returns>
+        /// An item.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<Item> GetItemAsync(string itemId, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            var urlParams = new Dictionary<string, object> { { "item_id", itemId } };
+            var url = this.InterpolatePath("/items/{item_id}", urlParams);
+            return MakeRequestAsync<Item>(Method.GET, url, null, null, cancellationToken);
+        }
+
+        /// <summary>
+        /// Update an active item <see href="https://developers.recurly.com/api/v2019-10-10#operation/update_item">update_item api documentation</see>
+        /// </summary>
+        /// <param name="itemId">Item ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-red`.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// The updated item.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Item UpdateItem(string itemId, ItemUpdate body)
+        {
+            var urlParams = new Dictionary<string, object> { { "item_id", itemId } };
+            var url = this.InterpolatePath("/items/{item_id}", urlParams);
+            return MakeRequest<Item>(Method.PUT, url, body, null);
+        }
+
+        /// <summary>
+        /// Update an active item <see href="https://developers.recurly.com/api/v2019-10-10#operation/update_item">update_item api documentation</see>
+        /// </summary>
+        /// <param name="itemId">Item ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-red`.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// The updated item.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<Item> UpdateItemAsync(string itemId, ItemUpdate body, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            var urlParams = new Dictionary<string, object> { { "item_id", itemId } };
+            var url = this.InterpolatePath("/items/{item_id}", urlParams);
+            return MakeRequestAsync<Item>(Method.PUT, url, body, null, cancellationToken);
+        }
+
+        /// <summary>
+        /// Deactivate an item <see href="https://developers.recurly.com/api/v2019-10-10#operation/deactivate_item">deactivate_item api documentation</see>
+        /// </summary>
+        /// <param name="itemId">Item ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-red`.</param>
+        /// <returns>
+        /// An item.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Item DeactivateItem(string itemId)
+        {
+            var urlParams = new Dictionary<string, object> { { "item_id", itemId } };
+            var url = this.InterpolatePath("/items/{item_id}", urlParams);
+            return MakeRequest<Item>(Method.DELETE, url, null, null);
+        }
+
+        /// <summary>
+        /// Deactivate an item <see href="https://developers.recurly.com/api/v2019-10-10#operation/deactivate_item">deactivate_item api documentation</see>
+        /// </summary>
+        /// <param name="itemId">Item ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-red`.</param>
+        /// <returns>
+        /// An item.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<Item> DeactivateItemAsync(string itemId, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            var urlParams = new Dictionary<string, object> { { "item_id", itemId } };
+            var url = this.InterpolatePath("/items/{item_id}", urlParams);
+            return MakeRequestAsync<Item>(Method.DELETE, url, null, null, cancellationToken);
+        }
+
+        /// <summary>
+        /// Reactivate an inactive item <see href="https://developers.recurly.com/api/v2019-10-10#operation/reactivate_item">reactivate_item api documentation</see>
+        /// </summary>
+        /// <param name="itemId">Item ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-red`.</param>
+        /// <returns>
+        /// An item.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Item ReactivateItem(string itemId)
+        {
+            var urlParams = new Dictionary<string, object> { { "item_id", itemId } };
+            var url = this.InterpolatePath("/items/{item_id}/reactivate", urlParams);
+            return MakeRequest<Item>(Method.PUT, url, null, null);
+        }
+
+        /// <summary>
+        /// Reactivate an inactive item <see href="https://developers.recurly.com/api/v2019-10-10#operation/reactivate_item">reactivate_item api documentation</see>
+        /// </summary>
+        /// <param name="itemId">Item ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-red`.</param>
+        /// <returns>
+        /// An item.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<Item> ReactivateItemAsync(string itemId, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            var urlParams = new Dictionary<string, object> { { "item_id", itemId } };
+            var url = this.InterpolatePath("/items/{item_id}/reactivate", urlParams);
+            return MakeRequestAsync<Item>(Method.PUT, url, null, null, cancellationToken);
         }
 
         /// <summary>
@@ -1350,6 +1525,36 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "invoice_id", invoiceId } };
             var url = this.InterpolatePath("/invoices/{invoice_id}", urlParams);
             return MakeRequestAsync<Invoice>(Method.PUT, url, body, null, cancellationToken);
+        }
+
+        /// <summary>
+        /// Fetch an invoice as a PDF <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_invoice_pdf">get_invoice_pdf api documentation</see>
+        /// </summary>
+        /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
+        /// <returns>
+        /// An invoice as a PDF.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public BinaryFile GetInvoicePdf(string invoiceId)
+        {
+            var urlParams = new Dictionary<string, object> { { "invoice_id", invoiceId } };
+            var url = this.InterpolatePath("/invoices/{invoice_id}.pdf", urlParams);
+            return MakeRequest<BinaryFile>(Method.GET, url, null, null);
+        }
+
+        /// <summary>
+        /// Fetch an invoice as a PDF <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_invoice_pdf">get_invoice_pdf api documentation</see>
+        /// </summary>
+        /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
+        /// <returns>
+        /// An invoice as a PDF.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<BinaryFile> GetInvoicePdfAsync(string invoiceId, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            var urlParams = new Dictionary<string, object> { { "invoice_id", invoiceId } };
+            var url = this.InterpolatePath("/invoices/{invoice_id}.pdf", urlParams);
+            return MakeRequestAsync<BinaryFile>(Method.GET, url, null, null, cancellationToken);
         }
 
         /// <summary>
