@@ -5872,17 +5872,17 @@ paths:
           }
       - lang: Python
         source: |
-          try:
-              invoice = client.get_invoice_pdf(invoice_id)
-              print("Got Invoice %s" % invoice)
-              filename = "%s/pythoninvoice-%s.pdf" % (download_directory, invoice_id)
-              with open(filename, 'wb') as file:
-                  file.write(invoice.data)
-                  print("Saved Invoice PDF to %s" % filename)
-          except recurly.errors.NotFoundError:
-              # If the resource was not found, you may want to alert the user or
-              # just return nil
-              print("Resource Not Found")
+          begin
+            invoice = @client.get_invoice_pdf(invoice_id: invoice_id)
+            puts "Got invoice #{invoice}"
+            filename = "#{download_directory}/rubyinvoice-#{invoice_id}.pdf"
+            IO.write(filename, invoice.data)
+            puts "Saved Invoice PDF to #{filename}"
+          rescue Recurly::Errors::NotFoundError
+            # If the resource was not found, you may want to alert the user or
+            # just return nil
+            puts "Resource Not Found"
+          end
   "/sites/{site_id}/invoices/{invoice_id}/collect":
     put:
       tags:
