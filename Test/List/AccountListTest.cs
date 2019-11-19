@@ -39,7 +39,7 @@ namespace Recurly.Test
         {
             var acct = CreateNewAccount();
 
-            var adjustment = acct.NewAdjustment("USD", 5000, "Past Due", 1);
+            var adjustment = acct.NewAdjustment("USD", 5000, "pink_sweats", "Past Due", 1);
             adjustment.Create();
 
             acct.InvoicePendingCharges();

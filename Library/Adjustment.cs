@@ -34,6 +34,7 @@ namespace Recurly
         }
 
         public string AccountCode { get; private set; }
+        public string ItemCode { get; private set; }
         public string Uuid { get; protected set; }
         public string Description { get; set; }
         public string AccountingCode { get; set; }
@@ -89,13 +90,14 @@ namespace Recurly
             
         }
 
-        internal Adjustment(string accountCode, string description, string currency, int unitAmountInCents, int quantity, string accountingCode = "", bool taxExempt = false)
+        internal Adjustment(string accountCode, string description, string currency, int unitAmountInCents, int quantity, string itemCode = "", string accountingCode = "", bool taxExempt = false)
         {
             AccountCode = accountCode;
             Description = description;
             Currency = currency;
             UnitAmountInCents = unitAmountInCents;
             Quantity = quantity;
+            ItemCode = itemCode;
             AccountingCode = accountingCode;
             TaxExempt = taxExempt;
             State = AdjustmentState.Pending;

@@ -269,7 +269,7 @@ namespace Recurly.Test
             var adjustment1 = account.NewAdjustment("USD", 1, "Test Charge 1");
             adjustment1.Create();
 
-            var adjustment2 = account.NewAdjustment("USD", 2, "Test Charge 2", 2);
+            var adjustment2 = account.NewAdjustment("USD", 2, "pink_sweats", "Test Charge 2", 2);
             adjustment2.Create();
 
             var collection = account.InvoicePendingCharges();

@@ -397,13 +397,14 @@ namespace Recurly
         /// <param name="currency">Currency, 3-letter ISO code.</param>
         /// <param name="unitAmountInCents">Positive amount for a charge, negative amount for a credit. Max 10,000,000.</param>
         /// <param name="description">Description of the adjustment for the invoice.</param>
+        /// <param name="itemCode">Item Code
         /// <param name="quantity">Quantity, defaults to 1.</param>
         /// <param name="accountingCode">Accounting code. Max of 20 characters.</param>
         /// <param name="taxExempt"></param>
         /// <returns></returns>
-        public Adjustment NewAdjustment(string currency, int unitAmountInCents, string description = "", int quantity = 1, string accountingCode = "", bool taxExempt = false)
+        public Adjustment NewAdjustment(string currency, int unitAmountInCents, string itemCode = "", string description = "", int quantity = 1, string accountingCode = "", bool taxExempt = false)
         {
-            return new Adjustment(AccountCode, description, currency, unitAmountInCents, quantity, accountingCode, taxExempt);
+            return new Adjustment(AccountCode, description, currency, unitAmountInCents, quantity, itemCode, accountingCode, taxExempt);
         }
 
         /// <summary>

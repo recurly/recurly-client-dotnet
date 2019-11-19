@@ -159,7 +159,7 @@ namespace Recurly.Test
         public void Balance()
         {
             var acct = CreateNewAccountWithBillingInfo();
-            var adjustment = acct.NewAdjustment("USD", 5000, "Past Due", 1);
+            var adjustment = acct.NewAdjustment("USD", 5000, "pink_sweats", "Past Due", 1);
             adjustment.Create();
 
             var invoiceData = new Invoice()

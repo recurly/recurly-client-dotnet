@@ -32,7 +32,7 @@ namespace Recurly.Test
             int unitAmountInCents = 5000;
             int quantity = 2;
 
-            var adjustment = account.NewAdjustment("ABC", 1000);
+            var adjustment = account.NewAdjustment("ABC", 1000, "pink_sweats");
             adjustment.TaxExempt = true;
             adjustment.Description = desc;
             adjustment.Currency = currency;
@@ -56,10 +56,10 @@ namespace Recurly.Test
         {
             var account = CreateNewAccount();
 
-            var adjustment = account.NewAdjustment("USD", 5000, "Charge", 1);
+            var adjustment = account.NewAdjustment("USD", 5000, "pink_sweats", "Charge", 1);
             adjustment.Create();
 
-            adjustment = account.NewAdjustment("USD", -1492, "Credit", 1);
+            adjustment = account.NewAdjustment("USD", -1492, "pink_sweats", "Credit", 1);
             adjustment.Create();
 
             account.InvoicePendingCharges();
@@ -77,7 +77,7 @@ namespace Recurly.Test
         {
             var account = CreateNewAccount();
 
-            var adjustment = account.NewAdjustment("USD", 1234, "Charge", 1);
+            var adjustment = account.NewAdjustment("USD", 1234, "pink_sweats", "Charge", 1);
             adjustment.Create();
 
             adjustment = account.NewAdjustment("USD", -5678, "Credit");
@@ -95,10 +95,10 @@ namespace Recurly.Test
         {
             var account = CreateNewAccount();
 
-            var adjustment = account.NewAdjustment("USD", 3456, "Charge", 1);
+            var adjustment = account.NewAdjustment("USD", 3456, "pink_sweats", "Charge", 1);
             adjustment.Create();
 
-            adjustment = account.NewAdjustment("USD", -3456, "Charge", 1);
+            adjustment = account.NewAdjustment("USD", -3456, "pink_sweats", "Charge", 1);
             adjustment.Create();
 
             var adjustments = account.GetAdjustments(Adjustment.AdjustmentType.Credit);
@@ -111,10 +111,10 @@ namespace Recurly.Test
         {
             var account = CreateNewAccount();
 
-            var adjustment = account.NewAdjustment("USD", 1234);
+            var adjustment = account.NewAdjustment("USD", 1234, "pink_sweats");
             adjustment.Create();
 
-            adjustment = account.NewAdjustment("USD", 5678, "list adjustments", 1);
+            adjustment = account.NewAdjustment("USD", 5678, "pink_sweats", "list adjustments", 1);
             adjustment.Create();
 
             account.InvoicePendingCharges();
@@ -129,7 +129,7 @@ namespace Recurly.Test
         {
             var account = CreateNewAccount();
 
-            var adjustment = account.NewAdjustment("USD", 1234);
+            var adjustment = account.NewAdjustment("USD", 1234, "pink_sweats");
             adjustment.Create();
 
             adjustment = account.NewAdjustment("USD", -5678, "");
@@ -151,7 +151,7 @@ namespace Recurly.Test
         {
             var account = CreateNewAccountWithBillingInfo();
 
-            var adjustment = account.NewAdjustment("USD", 1234);
+            var adjustment = account.NewAdjustment("USD", 1234, "pink_sweats");
             adjustment.Create();
 
             adjustment.Uuid.Should().NotBeNullOrEmpty();
@@ -166,7 +166,7 @@ namespace Recurly.Test
         {
             var account = CreateNewAccountWithBillingInfo();
 
-            var adjustment = account.NewAdjustment("USD", 1234);
+            var adjustment = account.NewAdjustment("USD", 1234, "pink_sweats");
             adjustment.Create();
 
             adjustment.Uuid.Should().NotBeNullOrEmpty();
