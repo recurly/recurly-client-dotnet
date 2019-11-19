@@ -104,6 +104,7 @@
     <Compile Include="RecurlyFact.cs" />
     <Compile Include="SettingsFixture.cs" />
     <Compile Include="InvoiceTest.cs" />
+    <Compile Include="ItemTest.cs" />
     <Compile Include="List\AccountListTest.cs" />
     <Compile Include="List\InvoiceListTest.cs" />
     <Compile Include="List\PlanListTest.cs" />
@@ -237,6 +238,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Fixtures\invoices\show-200.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Fixtures\items\show-200.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Fixtures\notes\index-200.xml">

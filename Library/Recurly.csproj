@@ -109,10 +109,12 @@
     <Compile Include="Exception.cs" />
     <Compile Include="InvalidCredentialsException.cs" />
     <Compile Include="Invoice.cs" />
+    <Compile Include="Item.cs" />
     <Compile Include="List\AddOnList.cs" />
     <Compile Include="List\CouponList.cs" />
     <Compile Include="List\CouponRedemptionList.cs" />
     <Compile Include="List\InvoiceList.cs" />
+    <Compile Include="List\ItemList.cs" />
     <Compile Include="List\NoteList.cs" />
     <Compile Include="List\PlanList.cs" />
     <Compile Include="List\RefundList.cs" />

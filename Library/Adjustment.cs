@@ -38,6 +38,7 @@ namespace Recurly
         public string Description { get; set; }
         public string AccountingCode { get; set; }
         public string ProductCode { get; set; }
+        public string ItemCode { get; set; }
         public string Origin { get; set; }
         public int UnitAmountInCents { get; set; }
         public int Quantity { get; set; }
@@ -45,7 +46,7 @@ namespace Recurly
         public int TaxInCents { get; protected set; }
         public int TotalInCents { get; protected set; }
         public string Currency { get; set; }
-        public bool TaxExempt { get; set; }
+        public bool? TaxExempt { get; set; }
         public string TaxCode { get; set; }
         public RevenueSchedule? RevenueScheduleType { get; set; }
 
@@ -89,7 +90,7 @@ namespace Recurly
             
         }
 
-        internal Adjustment(string accountCode, string description, string currency, int unitAmountInCents, int quantity, string accountingCode = "", bool taxExempt = false)
+        internal Adjustment(string accountCode, string description, string currency, int unitAmountInCents, int quantity, string accountingCode = null, bool? taxExempt = null)
         {
             AccountCode = accountCode;
             Description = description;
@@ -174,6 +175,10 @@ namespace Recurly
 
                     case "product_code":
                         ProductCode = reader.ReadElementContentAsString();
+                        break;
+
+                    case "item_code":
+                        ItemCode = reader.ReadElementContentAsString();
                         break;
 
                     case "origin":
@@ -287,12 +292,18 @@ namespace Recurly
         internal void WriteXml(XmlTextWriter xmlWriter, bool embedded = false)
         {
             xmlWriter.WriteStartElement("adjustment"); // Start: adjustment
-            xmlWriter.WriteElementString("description", Description);
             xmlWriter.WriteElementString("unit_amount_in_cents", UnitAmountInCents.AsString());
             xmlWriter.WriteElementString("quantity", Quantity.AsString());
-            xmlWriter.WriteElementString("accounting_code", AccountingCode);
-            xmlWriter.WriteElementString("tax_exempt", TaxExempt.AsString());
-            xmlWriter.WriteElementString("product_code", ProductCode);
+            xmlWriter.WriteElementString("item_code", ItemCode);
+
+            if (Description != null)
+                xmlWriter.WriteElementString("description", Description);
+            if (ProductCode != null)
+                xmlWriter.WriteElementString("product_code", ProductCode);
+            if (AccountingCode != null)
+                xmlWriter.WriteElementString("accounting_code", AccountingCode);
+            if (TaxExempt.HasValue)
+                xmlWriter.WriteElementString("tax_exempt", TaxExempt.Value.AsString());
             if (!embedded)
                 xmlWriter.WriteElementString("currency", Currency);
             if (RevenueScheduleType.HasValue)
