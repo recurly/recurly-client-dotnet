@@ -401,7 +401,7 @@ namespace Recurly
         /// <param name="accountingCode">Accounting code. Max of 20 characters.</param>
         /// <param name="taxExempt"></param>
         /// <returns></returns>
-        public Adjustment NewAdjustment(string currency, int unitAmountInCents, string description = "", int quantity = 1, string accountingCode = "", bool taxExempt = false)
+        public Adjustment NewAdjustment(string currency, int unitAmountInCents, string description = null, int quantity = 1, string accountingCode = null, bool? taxExempt = null)
         {
             return new Adjustment(AccountCode, description, currency, unitAmountInCents, quantity, accountingCode, taxExempt);
         }

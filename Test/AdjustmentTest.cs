@@ -12,14 +12,15 @@ namespace Recurly.Test
         {
             var account = CreateNewAccount();
 
-            string desc = "Charge";
-            var adjustment = account.NewAdjustment("USD", 5000, desc);
-
+            var adjustment = account.NewAdjustment("USD", 5000);
+            adjustment.ItemCode = "pink_sweats";   
+            adjustment.StartDate = new DateTime(2019, 6, 11);
+            adjustment.EndDate = new DateTime(2045, 7, 11);
             adjustment.Create();
 
             adjustment.CreatedAt.Should().NotBe(default(DateTime));
             Assert.False(adjustment.TaxExempt);
-            Assert.Equal(desc, adjustment.Description);
+            Assert.Equal("pink_sweats", adjustment.ItemCode);
         }
 
         [RecurlyFact(TestEnvironment.Type.Integration)]

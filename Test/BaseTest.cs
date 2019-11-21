@@ -93,6 +93,15 @@ namespace Recurly.Test
             return name + " " + DateTime.Now.ToString("yyyyMMddhhmmFFFFFFF");
         }
 
+        public string GetMockItemCode(string name = "ic")
+        {
+            return name.Replace(" ", "") + DateTime.Now.ToString("yyyyMMddhhmmFFFFFFF");
+        }
+
+        public string GetMockItemName(string name = "Test Item")
+        {
+            return name + " " + DateTime.Now.ToString("yyyyMMddhhmmFFFFFFF");
+        }
         public string GetMockPlanCode(string name = "pc")
         {
             return name.Replace(" ", "") + DateTime.Now.ToString("yyyyMMddhhmmFFFFFFF");

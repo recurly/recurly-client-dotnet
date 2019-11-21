@@ -9,6 +9,7 @@ Content-Type: application/xml; charset=utf-8
   <uuid>abcdef1234567890</uuid>
   <state>invoiced</state>
   <description>$12 Annual Subscription</description>
+  <item_code></item_code>
   <accounting_code></accounting_code>
   <product_code nil="nil"></product_code>
   <origin>plan</origin>
