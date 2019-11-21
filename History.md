@@ -1,6 +1,15 @@
 Unreleased
 ===============
 
+1.17.0 (stable) / 2019-11-21
+===============
+
+- Add Item class [PR] (https://github.com/recurly/recurly-client-net/pull/461)
+
+### Upgrade Notes
+This brings us up to API version 2.24. There is one breaking change.
+- Adjustment#TaxExempt has been converted to nullable.
+
 1.16.3 (stable) / 2019-10-22
 ===============
 
