@@ -14,7 +14,7 @@ namespace Recurly.Errors
     [ExcludeFromCodeCoverage]
     public static class Factory
     {
-        public static ApiError Create(Recurly.Resources.Error err)
+        public static ApiError Create(Recurly.Resources.ErrorMayHaveTransaction err)
         {
             switch (err.Type)
             {
