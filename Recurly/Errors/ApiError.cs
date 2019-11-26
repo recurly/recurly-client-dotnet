@@ -5,7 +5,7 @@ namespace Recurly.Errors
 {
     public class ApiError : RecurlyError
     {
-        public Recurly.Resources.Error Error { get; set; }
+        public Recurly.Resources.ErrorMayHaveTransaction Error { get; set; }
 
         public ApiError() { }
         public ApiError(string message) : base(message) { }
@@ -14,6 +14,6 @@ namespace Recurly.Errors
 
     public class ApiErrorWrapper
     {
-        public Recurly.Resources.Error Error { get; set; }
+        public Recurly.Resources.ErrorMayHaveTransaction Error { get; set; }
     }
 }
