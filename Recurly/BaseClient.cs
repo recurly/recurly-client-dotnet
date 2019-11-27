@@ -47,6 +47,7 @@ namespace Recurly
             Array.ForEach(BinaryTypes, contentType =>
                 RestClient.AddHandler(contentType, () => { return new Recurly.FileSerializer(); })
             );
+            RestClient.AddHandler("application/json", () => { return new JsonSerializer(); });
 
             // These are the default headers to send on every request
             RestClient.AddDefaultHeader("Accept", $"application/vnd.recurly.{ApiVersion}");

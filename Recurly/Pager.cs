@@ -10,6 +10,7 @@ using System.Threading;
 
 namespace Recurly
 {
+    [JsonObject]
     public class Pager<T> : IEnumerator<T>, IEnumerable<T>
     {
         [JsonProperty("has_more")]
