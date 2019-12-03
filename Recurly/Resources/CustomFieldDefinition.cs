@@ -35,6 +35,10 @@ namespace Recurly.Resources
         [JsonProperty("name")]
         public string Name { get; set; }
 
+        /// <value>Object type</value>
+        [JsonProperty("object")]
+        public string Object { get; set; }
+
         /// <value>Related Recurly object type</value>
         [JsonProperty("related_type")]
         public string RelatedType { get; set; }

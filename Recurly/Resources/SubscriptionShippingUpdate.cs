@@ -23,5 +23,9 @@ namespace Recurly.Resources
         [JsonProperty("address_id")]
         public string AddressId { get; set; }
 
+        /// <value>Object type</value>
+        [JsonProperty("object")]
+        public string Object { get; set; }
+
     }
 }

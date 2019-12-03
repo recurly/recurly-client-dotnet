@@ -27,5 +27,9 @@ namespace Recurly.Resources
         [JsonProperty("next")]
         public string Next { get; set; }
 
+        /// <value>Will always be List.</value>
+        [JsonProperty("object")]
+        public string Object { get; set; }
+
     }
 }

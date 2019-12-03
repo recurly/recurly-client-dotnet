@@ -35,6 +35,10 @@ namespace Recurly.Resources
         [JsonProperty("name")]
         public string Name { get; set; }
 
+        /// <value>Object type</value>
+        [JsonProperty("object")]
+        public string Object { get; set; }
+
         /// <value>
         /// Used by Avalara, Vertex, and Recurly’s built-in tax feature. The tax
         /// code values are specific to each tax system. If you are using Recurly’s

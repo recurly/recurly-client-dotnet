@@ -5373,7 +5373,6 @@ paths:
         source: |
           begin
             invoice = @client.get_invoice_pdf(invoice_id: invoice_id)
-            require 'pry';binding.pry
             puts "Got invoice #{invoice}"
             filename = "#{download_directory}/rubyinvoice-#{invoice_id}.pdf"
             IO.write(filename, invoice.data)

@@ -93,6 +93,10 @@ namespace Recurly.Resources
         [JsonProperty("legacy_category")]
         public string LegacyCategory { get; set; }
 
+        /// <value>Object type</value>
+        [JsonProperty("object")]
+        public string Object { get; set; }
+
         /// <value>A credit created from an original charge will have the value of the charge's origin.</value>
         [JsonProperty("origin")]
         public string Origin { get; set; }

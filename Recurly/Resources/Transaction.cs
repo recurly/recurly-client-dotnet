@@ -105,6 +105,10 @@ namespace Recurly.Resources
         [JsonProperty("ip_address_v4")]
         public string IpAddressV4 { get; set; }
 
+        /// <value>Object type</value>
+        [JsonProperty("object")]
+        public string Object { get; set; }
+
         /// <value>Describes how the transaction was triggered.</value>
         [JsonProperty("origin")]
         public string Origin { get; set; }

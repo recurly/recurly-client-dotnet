@@ -23,5 +23,9 @@ namespace Recurly.Resources
         [JsonProperty("credit_invoices")]
         public List<Invoice> CreditInvoices { get; set; }
 
+        /// <value>Object type</value>
+        [JsonProperty("object")]
+        public string Object { get; set; }
+
     }
 }
