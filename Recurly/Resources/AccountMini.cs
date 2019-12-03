@@ -43,6 +43,10 @@ namespace Recurly.Resources
         [JsonProperty("last_name")]
         public string LastName { get; set; }
 
+        /// <value>Object type</value>
+        [JsonProperty("object")]
+        public string Object { get; set; }
+
 
         [JsonProperty("parent_account_id")]
         public string ParentAccountId { get; set; }

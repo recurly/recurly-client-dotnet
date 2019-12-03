@@ -31,6 +31,10 @@ namespace Recurly.Resources
         [JsonProperty("message")]
         public string Message { get; set; }
 
+        /// <value>Object type</value>
+        [JsonProperty("object")]
+        public string Object { get; set; }
+
         /// <value>Returned when 3-D Secure authentication is required for a transaction. Pass this value to Recurly.js so it can continue the challenge flow.</value>
         [JsonProperty("three_d_secure_action_token_id")]
         public string ThreeDSecureActionTokenId { get; set; }

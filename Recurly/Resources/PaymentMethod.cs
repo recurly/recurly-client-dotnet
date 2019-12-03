@@ -43,6 +43,10 @@ namespace Recurly.Resources
         [JsonProperty("last_four")]
         public string LastFour { get; set; }
 
+
+        [JsonProperty("object")]
+        public string Object { get; set; }
+
         /// <value>The bank account's routing number. Only present for ACH payment methods.</value>
         [JsonProperty("routing_number")]
         public string RoutingNumber { get; set; }

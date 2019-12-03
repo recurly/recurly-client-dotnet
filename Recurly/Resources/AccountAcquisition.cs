@@ -39,6 +39,10 @@ namespace Recurly.Resources
         [JsonProperty("id")]
         public string Id { get; set; }
 
+        /// <value>Object type</value>
+        [JsonProperty("object")]
+        public string Object { get; set; }
+
         /// <value>An arbitrary subchannel string representing a distinction/subcategory within a broader channel.</value>
         [JsonProperty("subchannel")]
         public string Subchannel { get; set; }

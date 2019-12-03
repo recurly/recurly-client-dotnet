@@ -31,6 +31,10 @@ namespace Recurly.Resources
         [JsonProperty("id")]
         public string Id { get; set; }
 
+        /// <value>Object type</value>
+        [JsonProperty("object")]
+        public string Object { get; set; }
+
         /// <value>The date and time the unique coupon code was redeemed.</value>
         [JsonProperty("redeemed_at")]
         public DateTime? RedeemedAt { get; set; }

@@ -39,6 +39,10 @@ namespace Recurly.Resources
         [JsonProperty("mode")]
         public string Mode { get; set; }
 
+        /// <value>Object type</value>
+        [JsonProperty("object")]
+        public string Object { get; set; }
+
         /// <value>This value is used to configure RecurlyJS to submit tokenized billing information.</value>
         [JsonProperty("public_api_key")]
         public string PublicApiKey { get; set; }

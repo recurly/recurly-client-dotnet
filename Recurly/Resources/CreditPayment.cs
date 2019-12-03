@@ -43,6 +43,10 @@ namespace Recurly.Resources
         [JsonProperty("id")]
         public string Id { get; set; }
 
+        /// <value>Object type</value>
+        [JsonProperty("object")]
+        public string Object { get; set; }
+
         /// <value>For credit payments with action `refund`, this is the credit payment that was refunded.</value>
         [JsonProperty("original_credit_payment_id")]
         public string OriginalCreditPaymentId { get; set; }

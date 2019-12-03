@@ -39,6 +39,10 @@ namespace Recurly.Resources
         [JsonProperty("last_name")]
         public string LastName { get; set; }
 
+        /// <value>Object type</value>
+        [JsonProperty("object")]
+        public string Object { get; set; }
+
 
         [JsonProperty("time_zone")]
         public string TimeZone { get; set; }

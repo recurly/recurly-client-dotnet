@@ -31,6 +31,10 @@ namespace Recurly.Resources
         [JsonProperty("id")]
         public string Id { get; set; }
 
+        /// <value>Will always be `coupon`.</value>
+        [JsonProperty("object")]
+        public string Object { get; set; }
+
         /// <value>Invoice state</value>
         [JsonProperty("state")]
         public string State { get; set; }

@@ -75,6 +75,10 @@ namespace Recurly.Resources
         [JsonProperty("number")]
         public string Number { get; set; }
 
+        /// <value>Object type</value>
+        [JsonProperty("object")]
+        public string Object { get; set; }
+
         /// <value>The event that created the invoice.</value>
         [JsonProperty("origin")]
         public string Origin { get; set; }

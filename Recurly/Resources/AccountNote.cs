@@ -31,6 +31,10 @@ namespace Recurly.Resources
         [JsonProperty("message")]
         public string Message { get; set; }
 
+        /// <value>Object type</value>
+        [JsonProperty("object")]
+        public string Object { get; set; }
+
 
         [JsonProperty("user")]
         public User User { get; set; }

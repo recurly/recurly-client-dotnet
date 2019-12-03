@@ -99,6 +99,10 @@ namespace Recurly.Resources
         [JsonProperty("net_terms")]
         public int? NetTerms { get; set; }
 
+        /// <value>Object type</value>
+        [JsonProperty("object")]
+        public string Object { get; set; }
+
         /// <value>Null unless subscription is paused or will pause at the end of the current billing period.</value>
         [JsonProperty("paused_at")]
         public DateTime? PausedAt { get; set; }
