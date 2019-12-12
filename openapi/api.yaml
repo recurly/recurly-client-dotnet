@@ -143,6 +143,11 @@ info:
     ## Change Log
 
     ### v2019-10-10
+
+    Support `external_gift_card` origins for Line Items
+    * Changed LineItemCreate request format:
+      * Added `origin`.
+
     Starting to add support for .pdf routes
     * Added `GET /sites/:site_id/invoices/{invoice_id}.pdf`.
     * Added BinaryFile schema
@@ -4814,6 +4819,41 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
+      x-code-samples:
+      - lang: Python
+        source: |
+          items = client.list_items(limit=200).items()
+          for item in items:
+              print(item.code)
+      - lang: Java
+        source: |
+          QueryParams params = new QueryParams();
+          params.setLimit(200); // Pull 200 records at a time
+          Pager<Item> items = client.listItems(params);
+
+          for (Item item : items) {
+              System.out.println(item.getCode());
+          }
+      - lang: ".NET"
+        source: |
+          var items = client.ListItems(limit: 200);
+          foreach(Item item in items)
+          {
+              Console.WriteLine(item.Code);
+          }
+      - lang: Node.js
+        source: |
+          const items = client.listItems({ limit: 200 })
+
+          for await (const item of items.each()) {
+            console.log(item.code)
+          }
+      - lang: Ruby
+        source: |
+          items = @client.list_items(limit: 200)
+          items.each do |item|
+            puts "Item: #{item.code}"
+          end
     post:
       tags:
       - item
@@ -4858,6 +4898,143 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
+      x-code-samples:
+      - lang: Python
+        source: |
+          try:
+              item_create = {
+                  "code": item_code,
+                  "name": "Item Name",
+                  "description": "Item Description",
+                  "external_sku": "a35JE-44",
+                  "accounting_code": "item-code-127",
+                  "revenue_schedule_type": "at_range_end",
+                  "custom_fields": [{
+                      "name": "custom-field-1",
+                      "value": "Custom Field 1 value"
+                  }]
+              }
+              item = client.create_item(item_create)
+              print("Created Item %s" % item)
+          except recurly.errors.ValidationError as e:
+              # If the request was invalid, you may want to tell your user
+              # why. You can find the invalid params and reasons in e.error.params
+              print("ValidationError: %s" % e.error.message)
+              print(e.error.params)
+      - lang: Java
+        source: |
+          try {
+              ItemCreate itemReq = new ItemCreate();
+
+              itemReq.setCode(itemCode);
+              itemReq.setName("Item Name");
+              itemReq.setDescription("Item Description");
+              itemReq.setExternalSku("a35JE-44");
+              itemReq.setAccountingCode("item-code-127");
+              itemReq.setRevenueScheduleType("at_range_end");
+
+              List<CustomField> customFields = new ArrayList<>();
+              CustomField customField = new CustomField();
+              customField.setName("custom-field-1");
+              customField.setValue("Custom Field 1 value");
+              customFields.add(customField);
+
+              itemReq.setCustomFields(customFields);
+
+
+              Item item = client.createItem(itemReq);
+              System.out.println("Created item " + item.getCode());
+          } catch (ValidationException e) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in e.getError().getParams()
+              System.out.println("Failed validation: " + e.getError().getMessage());
+          } catch (ApiException e) {
+              // Use ApiException to catch a generic error from the API
+              System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
+          }
+      - lang: ".NET"
+        source: |
+          try
+          {
+              var itemReq = new ItemCreate()
+              {
+                  Code = itemCode,
+                  Name = "Item Name",
+                  Description = "Item Description",
+                  ExternalSku = "a35JE-44",
+                  AccountingCode = "item-code-127",
+                  RevenueScheduleType = "at_range_end",
+                  CustomFields = new List<CustomField>() {
+                      new CustomField() {
+                          Name = "custom-field-1",
+                          Value = "Custom Field 1 value"
+                      }
+                  }
+              };
+              Item item = client.CreateItem(itemReq);
+              Console.WriteLine($"Created item {item.Code}");
+          }
+          catch (Recurly.Errors.Validation ex)
+          {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in ex.Error.Params
+              Console.WriteLine($"Failed validation: {ex.Error.Message}");
+          }
+          catch (Recurly.Errors.ApiError ex)
+          {
+              // Use ApiError to catch a generic error from the API
+              Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
+          }
+      - lang: Node.js
+        source: |
+          try {
+            const itemCreate = {
+              code: itemCode,
+              name: "Item Name",
+              description: "Item Description",
+              external_sku: "a35JE-44",
+              accounting_code: "item-code-127",
+              revenue_schedule_type: "at_range_end",
+              custom_fields: [{
+                name: "custom-field-1",
+                value: "Custom Field 1 value"
+              }]
+            }
+            const item = await client.createItem(itemCreate)
+            console.log('Created Item: ', item.code)
+          } catch (err) {
+            if (err instanceof recurly.errors.ValidationError) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in err.params
+              console.log('Failed validation', err.params)
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
+          }
+      - lang: Ruby
+        source: |
+          begin
+            item_create = {
+              code: item_code,
+              name: "Item Name",
+              description: "Item Description",
+              external_sku: "a35JE-44",
+              accounting_code: "item-code-127",
+              revenue_schedule_type: "at_range_end",
+              custom_fields: [{
+                name: "custom-field-1",
+                value: "Custom Field 1 value"
+              }]
+            }
+            item = @client.create_item(body: item_create)
+            puts "Created Item #{item}"
+          rescue Recurly::Errors::ValidationError => e
+            # If the request was invalid, you may want to tell your user
+            # why. You can find the invalid params and reasons in e.recurly_error.params
+            puts "ValidationError: #{e.recurly_error.params}"
+          end
   "/sites/{site_id}/items/{item_id}":
     get:
       tags:
@@ -4886,6 +5063,73 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
+      x-code-samples:
+      - lang: Python
+        source: |
+          try:
+              item = client.get_item(item_id)
+              print("Got Item %s" % item)
+          except recurly.errors.NotFoundError:
+              # If the resource was not found, you may want to alert the user or
+              # just return nil
+              print("Resource Not Found")
+      - lang: Java
+        source: |
+          try {
+              final Item item = client.getItem(itemId);
+              System.out.println("Fetched item: " + item.getCode());
+          } catch (NotFoundException e) {
+              // If the resource was not found
+              // we may want to alert the user or just return null
+              System.out.println("Resource Not Found: " + e.getError().getMessage());
+          } catch (ApiException e) {
+              // Use ApiException to catch a generic error from the API
+              System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
+          }
+      - lang: ".NET"
+        source: |
+          try
+          {
+              Item item = client.GetItem(itemId);
+              Console.WriteLine($"Fetched item {item.Code}");
+          }
+          catch (Recurly.Errors.NotFound ex)
+          {
+              // If the resource was not found
+              // we may want to alert the user or just return null
+              Console.WriteLine($"Resource Not Found: {ex.Error.Message}");
+          }
+          catch (Recurly.Errors.ApiError ex)
+          {
+              // Use ApiError to catch a generic error from the API
+              Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
+          }
+      - lang: Node.js
+        source: |
+          try {
+            const item = await client.getItem(itemId)
+            console.log('Fetched item: ', item.code)
+          } catch (err) {
+            if (err instanceof recurly.errors.NotFoundError) {
+              // If the request was not found, you may want to alert the user or
+              // just return null
+              console.log('Resource Not Found')
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
+          }
+      - lang: Ruby
+        source: |
+          begin
+            item = @client.get_item(item_id: item_id)
+            puts "Got Item #{item}"
+          rescue Recurly::Errors::NotFoundError
+            # If the resource was not found, you may want to alert the user or
+            # just return nil
+            puts "Resource Not Found"
+          end
     put:
       tags:
       - item
@@ -4931,6 +5175,100 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
+      x-code-samples:
+      - lang: Python
+        source: |
+          try:
+              item_update = {
+                  "name": "New Item Name",
+                  "description": "New Item Description",
+              }
+              item = client.update_item(item_id, item_update)
+              print("Updated Item %s" % item)
+          except recurly.errors.ValidationError as e:
+              # If the request was invalid, you may want to tell your user
+              # why. You can find the invalid params and reasons in e.error.params
+              print("ValidationError: %s" % e.error.message)
+              print(e.error.params)
+      - lang: Java
+        source: |
+          try {
+              final ItemUpdate itemUpdate = new ItemUpdate();
+              itemUpdate.setName("New Item Name");
+              itemUpdate.setDescription("New Item Description");
+
+              final Item item = client.updateItem(itemId, itemUpdate);
+              System.out.println("Updated item: " + item.getCode());
+              System.out.println(item.getName());
+              System.out.println(item.getDescription());
+          } catch (ValidationException e) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in e.getError().getParams()
+              System.out.println("Failed validation: " + e.getError().getMessage());
+          } catch (ApiException e) {
+              // Use ApiException to catch a generic error from the API
+              System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
+          }
+      - lang: ".NET"
+        source: |
+          try
+          {
+              var itemReq = new ItemUpdate() {
+                  Name = "New Item Name",
+                  Description = "New Item Description",
+              };
+              Item item = client.UpdateItem(itemId, itemReq);
+              Console.WriteLine(item.Name);
+              Console.WriteLine(item.Description);
+          }
+          catch (Recurly.Errors.Validation ex)
+          {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in ex.Error.Params
+              Console.WriteLine($"Failed validation: {ex.Error.Message}");
+          }
+          catch (Recurly.Errors.ApiError ex)
+          {
+              // Use ApiError to catch a generic error from the API
+              Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
+          }
+      - lang: Node.js
+        source: |
+          try {
+            const itemUpdate = {
+              name: 'New Item Name',
+              description: 'New Item Description'
+            }
+            const item = await client.updateItem(itemId, itemUpdate)
+            console.log('Updated item: ', item)
+          } catch (err) {
+            if (err instanceof recurly.errors.ValidationError) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in err.params
+              console.log('Failed validation', err.params)
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
+          }
+      - lang: Ruby
+        source: |
+          begin
+            item_update = {
+              name: "New Item Name",
+              description: "New Item Description"
+            }
+            item = @client.update_item(
+              item_id: item_id,
+              body: item_update
+            )
+            puts "Updated Item #{item}"
+          rescue Recurly::Errors::ValidationError => e
+            # If the request was invalid, you may want to tell your user
+            # why. You can find the invalid params and reasons in e.recurly_error.params
+            puts "ValidationError: #{e.recurly_error.params}"
+          end
     delete:
       tags:
       - item
@@ -4960,6 +5298,72 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
+      x-code-samples:
+      - lang: Python
+        source: |
+          try:
+              item = client.deactivate_item(item_id)
+              print("Deactivated Item %s" % item)
+          except recurly.errors.NotFoundError:
+              # If the resource was not found, you may want to alert the user or
+              # just return nil
+              print("Resource Not Found")
+      - lang: Java
+        source: |
+          try {
+              Item item = client.deactivateItem(itemId);
+              System.out.println("deactivated item " + item.getCode());
+          } catch (ValidationException e) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in e.getError().getParams()
+              System.out.println("Failed validation: " + e.getError().getMessage());
+          } catch (ApiException e) {
+              // Use ApiException to catch a generic error from the API
+              System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
+          }
+      - lang: ".NET"
+        source: |
+          try
+          {
+              Item item = client.DeactivateItem(itemId);
+              Console.WriteLine($"Deactivated item {item.Code}");
+          }
+          catch (Recurly.Errors.Validation ex)
+          {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in ex.Error.Params
+              Console.WriteLine($"Failed validation: {ex.Error.Message}");
+          }
+          catch (Recurly.Errors.ApiError ex)
+          {
+              // Use ApiError to catch a generic error from the API
+              Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
+          }
+      - lang: Node.js
+        source: |
+          try {
+            const item = await client.deactivateItem(itemId)
+            console.log('Deleted item: ', item.code)
+          } catch (err) {
+            if (err && err.type === 'not-found') {
+              // If the request was not found, you may want to alert the user or
+              // just return null
+              console.log('Resource Not Found')
+            }
+            // If we don't know what to do with the err, we should
+            // probably re-raise and let our web framework and logger handle it
+            throw err
+          }
+      - lang: Ruby
+        source: |
+          begin
+            item = @client.deactivate_item(item_id: item_id)
+            puts "Deactivated Item #{item}"
+          rescue Recurly::Errors::NotFoundError
+            # If the resource was not found, you may want to alert the user or
+            # just return nil
+            puts "Resource Not Found"
+          end
   "/sites/{site_id}/items/{item_id}/reactivate":
     parameters:
     - "$ref": "#/components/parameters/site_id"
@@ -4996,6 +5400,72 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
+      x-code-samples:
+      - lang: Python
+        source: |
+          try:
+              item = client.reactivate_item(item_id)
+              print("Reactivated Item %s" % item)
+          except recurly.errors.NotFoundError:
+              # If the resource was not found, you may want to alert the user or
+              # just return nil
+              print("Resource Not Found")
+      - lang: Java
+        source: |
+          try {
+              final Item item = client.reactivateItem(itemId);
+              System.out.println("Reactivated item: " + item.getCode());
+          } catch (ValidationException e) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in e.getError().getParams()
+              System.out.println("Failed validation: " + e.getError().getMessage());
+          } catch (ApiException e) {
+              // Use ApiException to catch a generic error from the API
+              System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
+          }
+      - lang: ".NET"
+        source: |
+          try
+          {
+              Item item = client.ReactivateItem(itemId);
+              Console.WriteLine($"Reactivated item {item.Code}");
+          }
+          catch (Recurly.Errors.Validation ex)
+          {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in ex.Error.Params
+              Console.WriteLine($"Failed validation: {ex.Error.Message}");
+          }
+          catch (Recurly.Errors.ApiError ex)
+          {
+              // Use ApiError to catch a generic error from the API
+              Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
+          }
+      - lang: Node.js
+        source: |
+          try {
+            const item = await client.reactivateItem(itemId)
+            console.log('Reactivated item: ', item.code)
+          } catch (err) {
+            if (err && err.type === 'not_found') {
+              // If the request was not found, you may want to alert the user or
+              // just return null
+              console.log('Resource Not Found')
+            }
+            // If we don't know what to do with the err, we should
+            // probably re-raise and let our web framework and logger handle it
+            throw err
+          }
+      - lang: Ruby
+        source: |
+          begin
+            item = @client.reactivate_item(item_id: item_id)
+            puts "Reactivated Item #{item}"
+          rescue Recurly::Errors::NotFoundError
+            # If the resource was not found, you may want to alert the user or
+            # just return nil
+            puts "Resource Not Found"
+          end
   "/sites/{site_id}/invoices":
     get:
       tags:
@@ -12659,6 +13129,15 @@ components:
             If `item_code`/`item_id` is part of the request then `product_code` must
             be absent.
           maxLength: 50
+        origin:
+          type: string
+          title: Origin
+          description: Only allowed if the Gift Cards feature is enabled on your site
+            and `type` is `credit`. Can only have a value of `external_gift_card`.
+            Set this value in order to track gift card credits from external gift
+            cards (like InComm). It also skips billing information requirements.
+          enum:
+          - external_gift_card
         start_date:
           type: string
           format: date-time
@@ -13161,6 +13640,10 @@ components:
           type: string
           title: Shipping Address ID
           maxLength: 13
+          readOnly: true
+        object:
+          type: string
+          title: Object type
           readOnly: true
         account_id:
           type: string
@@ -14705,6 +15188,9 @@ components:
         collection_method:
           type: string
           title: Collection method
+          description: Must be set to manual in order to preview a purchase for an
+            Account that does not have payment information associated with the Billing
+            Info.
           enum:
           - automatic
           - manual

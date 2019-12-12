@@ -43,6 +43,10 @@ namespace Recurly.Resources
         [JsonProperty("item_id")]
         public string ItemId { get; set; }
 
+        /// <value>Only allowed if the Gift Cards feature is enabled on your site and `type` is `credit`. Can only have a value of `external_gift_card`. Set this value in order to track gift card credits from external gift cards (like InComm). It also skips billing information requirements.</value>
+        [JsonProperty("origin")]
+        public string Origin { get; set; }
+
         /// <value>Optional field to track a product code or SKU for the line item. This can be used to later reporting on product purchases. For Vertex tax calculations, this field will be used as the Vertex `product` field. If `item_code`/`item_id` is part of the request then `product_code` must be absent.</value>
         [JsonProperty("product_code")]
         public string ProductCode { get; set; }
