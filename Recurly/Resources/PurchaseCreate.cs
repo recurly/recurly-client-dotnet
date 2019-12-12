@@ -19,7 +19,7 @@ namespace Recurly.Resources
         [JsonProperty("account")]
         public AccountPurchase Account { get; set; }
 
-        /// <value>Collection method</value>
+        /// <value>Must be set to manual in order to preview a purchase for an Account that does not have payment information associated with the Billing Info.</value>
         [JsonProperty("collection_method")]
         public string CollectionMethod { get; set; }
 
