@@ -3,3 +3,4 @@
 rm -f ./Recurly/Resources/*
 rm -f ./Recurly/Errors/ApiErrorType*.cs
 rm -f ./Recurly/Errors/ApiErrors.cs
+rm -f ./Recurly/Constants.cs
