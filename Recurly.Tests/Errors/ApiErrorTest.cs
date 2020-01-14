@@ -12,8 +12,7 @@ namespace Recurly.Tests
         {
             var err = new Recurly.Resources.ErrorMayHaveTransaction()
             {
-                Message = "Something bad happened",
-                Type = "my_api_error"
+                Message = "Something bad happened"
             };
             var ex = new MyApiError(err.Message) { Error = err };
             Assert.Equal(err.Message, ex.Message);
