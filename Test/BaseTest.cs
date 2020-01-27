@@ -73,6 +73,22 @@ namespace Recurly.Test
             return coupon;
         }
 
+        protected InvoiceCollection CreateNewCollection()
+        {
+            var account = CreateNewAccountWithBillingInfo();
+            var currency = "USD";
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName()) { Description = "Plan for Purchase Test" };
+            plan.UnitAmountInCents.Add("USD", 580);
+            plan.Create();
+
+            var purchase = new Purchase(account.AccountCode, currency);
+
+            var sub = new Subscription(plan.PlanCode);
+            purchase.Subscriptions.Add(sub);
+            var collection = Purchase.Authorize(purchase);
+            return collection;
+        }
+
         public string GetUniqueAccountCode()
         {
             return Guid.NewGuid().ToString();
