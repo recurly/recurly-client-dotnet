@@ -229,6 +229,36 @@ namespace Recurly
             return collection;
         }
 
+        /// <summary>
+        /// Allows the merchant to cancel an authorization.
+        /// </summary>
+        public static InvoiceCollection Cancel(String uuid)
+        {
+            var collection = new InvoiceCollection();
+
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
+                UrlPrefix + "transaction-uuid-" + uuid + "/cancel",
+                null,
+                collection.ReadXml);
+
+            return collection;
+        }
+
+        /// <summary>
+        /// Allows the merchants to initiate a capture transaction tied to the original authorization.
+        /// </summary>
+        public static InvoiceCollection Capture(String uuid)
+        {
+            var collection = new InvoiceCollection();
+
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
+                UrlPrefix + "transaction-uuid-" + uuid + "/capture",
+                null,
+                collection.ReadXml);
+
+            return collection;
+        }
+
         #region Read and Write XML documents
 
         internal override void WriteXml(XmlTextWriter xmlWriter)
