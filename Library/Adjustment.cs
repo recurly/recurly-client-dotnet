@@ -294,12 +294,13 @@ namespace Recurly
             xmlWriter.WriteStartElement("adjustment"); // Start: adjustment
             xmlWriter.WriteElementString("unit_amount_in_cents", UnitAmountInCents.AsString());
             xmlWriter.WriteElementString("quantity", Quantity.AsString());
-            xmlWriter.WriteElementString("item_code", ItemCode);
 
             if (Description != null)
                 xmlWriter.WriteElementString("description", Description);
             if (ProductCode != null)
                 xmlWriter.WriteElementString("product_code", ProductCode);
+            if (ItemCode != null)
+                xmlWriter.WriteElementString("item_code", ItemCode);
             if (AccountingCode != null)
                 xmlWriter.WriteElementString("accounting_code", AccountingCode);
             if (TaxExempt.HasValue)
