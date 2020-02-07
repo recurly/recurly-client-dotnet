@@ -8,19 +8,24 @@ namespace Recurly.Test
     {
 
         [RecurlyFact(TestEnvironment.Type.Integration)]
-        public void CreateAdjustment()
+        public void CreateAdjustmentWithItemCode()
         {
             var account = CreateNewAccount();
+            var item = new Item(GetMockItemCode(), GetMockItemName()) {Description = "Test Lookup"};
+            item.Description = "A test description";
+            item.ExternalSku = "tester-sku";
+            item.Create();
 
             var adjustment = account.NewAdjustment("USD", 5000);
-            adjustment.ItemCode = "pink_sweats";   
+            adjustment.ItemCode = item.ItemCode;
             adjustment.StartDate = new DateTime(2019, 6, 11);
             adjustment.EndDate = new DateTime(2045, 7, 11);
             adjustment.Create();
 
             adjustment.CreatedAt.Should().NotBe(default(DateTime));
             Assert.False(adjustment.TaxExempt);
-            Assert.Equal("pink_sweats", adjustment.ItemCode);
+            Assert.Equal(item.ItemCode, adjustment.ItemCode);
+            Assert.Equal(item.ExternalSku, adjustment.ExternalSku);
         }
 
         [RecurlyFact(TestEnvironment.Type.Integration)]

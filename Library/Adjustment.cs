@@ -39,6 +39,7 @@ namespace Recurly
         public string AccountingCode { get; set; }
         public string ProductCode { get; set; }
         public string ItemCode { get; set; }
+        public string ExternalSku { get; set; }
         public string Origin { get; set; }
         public int UnitAmountInCents { get; set; }
         public int Quantity { get; set; }
@@ -181,6 +182,10 @@ namespace Recurly
                         ItemCode = reader.ReadElementContentAsString();
                         break;
 
+                    case "external_sku":
+                        ExternalSku = reader.ReadElementContentAsString();
+                        break;
+
                     case "origin":
                         Origin = reader.ReadElementContentAsString();
                         break;
@@ -298,6 +303,8 @@ namespace Recurly
 
             if (Description != null)
                 xmlWriter.WriteElementString("description", Description);
+            if (ExternalSku != null)
+                xmlWriter.WriteElementString("external_sku", ExternalSku);
             if (ProductCode != null)
                 xmlWriter.WriteElementString("product_code", ProductCode);
             if (AccountingCode != null)
