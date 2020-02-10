@@ -43,7 +43,7 @@ namespace Recurly.Resources
         [JsonProperty("created_at")]
         public DateTime? CreatedAt { get; set; }
 
-
+        /// <value>The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.</value>
         [JsonProperty("custom_fields")]
         public List<CustomField> CustomFields { get; set; }
 
@@ -62,6 +62,30 @@ namespace Recurly.Resources
 
         [JsonProperty("first_name")]
         public string FirstName { get; set; }
+
+        /// <value>Indicates if the account has an active subscription.</value>
+        [JsonProperty("has_active_subscription")]
+        public bool? HasActiveSubscription { get; set; }
+
+        /// <value>Indicates if the account has a canceled subscription.</value>
+        [JsonProperty("has_canceled_subscription")]
+        public bool? HasCanceledSubscription { get; set; }
+
+        /// <value>Indicates if the account has a future subscription.</value>
+        [JsonProperty("has_future_subscription")]
+        public bool? HasFutureSubscription { get; set; }
+
+        /// <value>Indicates if the account has a subscription that is either active, canceled, future, or paused.</value>
+        [JsonProperty("has_live_subscription")]
+        public bool? HasLiveSubscription { get; set; }
+
+        /// <value>Indicates if the account has a past due invoice.</value>
+        [JsonProperty("has_past_due_invoice")]
+        public bool? HasPastDueInvoice { get; set; }
+
+        /// <value>Indicates if the account has a paused subscription.</value>
+        [JsonProperty("has_paused_subscription")]
+        public bool? HasPausedSubscription { get; set; }
 
         /// <value>The unique token for automatically logging the account in to the hosted management pages. You may automatically log the user into their hosted management pages by directing the user to: `https://{subdomain}.recurly.com/account/{hosted_login_token}`.</value>
         [JsonProperty("hosted_login_token")]

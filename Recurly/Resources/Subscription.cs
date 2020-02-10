@@ -15,7 +15,7 @@ namespace Recurly.Resources
     public class Subscription : Resource
     {
 
-
+        /// <value>Account mini details</value>
         [JsonProperty("account")]
         public AccountMini Account { get; set; }
 
@@ -75,7 +75,7 @@ namespace Recurly.Resources
         [JsonProperty("current_term_started_at")]
         public DateTime? CurrentTermStartedAt { get; set; }
 
-
+        /// <value>The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.</value>
         [JsonProperty("custom_fields")]
         public List<CustomField> CustomFields { get; set; }
 
@@ -107,11 +107,11 @@ namespace Recurly.Resources
         [JsonProperty("paused_at")]
         public DateTime? PausedAt { get; set; }
 
-
+        /// <value>Subscription Change</value>
         [JsonProperty("pending_change")]
         public SubscriptionChange PendingChange { get; set; }
 
-
+        /// <value>Just the important parts.</value>
         [JsonProperty("plan")]
         public PlanMini Plan { get; set; }
 
@@ -135,7 +135,7 @@ namespace Recurly.Resources
         [JsonProperty("renewal_billing_cycles")]
         public int? RenewalBillingCycles { get; set; }
 
-
+        /// <value>Subscription shipping details</value>
         [JsonProperty("shipping")]
         public SubscriptionShipping Shipping { get; set; }
 

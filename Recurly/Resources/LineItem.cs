@@ -15,7 +15,7 @@ namespace Recurly.Resources
     public class LineItem : Resource
     {
 
-
+        /// <value>Account mini details</value>
         [JsonProperty("account")]
         public AccountMini Account { get; set; }
 
@@ -62,6 +62,10 @@ namespace Recurly.Resources
         /// <value>If this date is provided, it indicates the end of a time range.</value>
         [JsonProperty("end_date")]
         public DateTime? EndDate { get; set; }
+
+        /// <value>Optional Stock Keeping Unit assigned to an item, when the Catalog feature is enabled.</value>
+        [JsonProperty("external_sku")]
+        public string ExternalSku { get; set; }
 
         /// <value>Line item ID</value>
         [JsonProperty("id")]
@@ -173,7 +177,7 @@ namespace Recurly.Resources
         [JsonProperty("tax_exempt")]
         public bool? TaxExempt { get; set; }
 
-
+        /// <value>Tax info</value>
         [JsonProperty("tax_info")]
         public TaxInfo TaxInfo { get; set; }
 

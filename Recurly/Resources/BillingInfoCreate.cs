@@ -39,6 +39,14 @@ namespace Recurly.Resources
         [JsonProperty("fraud_session_id")]
         public string FraudSessionId { get; set; }
 
+        /// <value>An identifier for a specific payment gateway. Must be used in conjunction with `gateway_token`.</value>
+        [JsonProperty("gateway_code")]
+        public string GatewayCode { get; set; }
+
+        /// <value>A token used in place of a credit card in order to perform transactions. Must be used in conjunction with `gateway_code`.</value>
+        [JsonProperty("gateway_token")]
+        public string GatewayToken { get; set; }
+
         /// <value>*STRONGLY RECOMMENDED* Customer's IP address when updating their billing information.</value>
         [JsonProperty("ip_address")]
         public string IpAddress { get; set; }

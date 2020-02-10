@@ -35,7 +35,10 @@ namespace Recurly.Resources
         [JsonProperty("created_at")]
         public DateTime? CreatedAt { get; set; }
 
-
+        /// <value>
+        /// Details of the discount a coupon applies. Will contain a `type`
+        /// property and one of the following properties: `percent`, `fixed`, `trial`.
+        /// </value>
         [JsonProperty("discount")]
         public CouponDiscount Discount { get; set; }
 

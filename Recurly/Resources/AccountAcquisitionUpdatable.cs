@@ -23,7 +23,7 @@ namespace Recurly.Resources
         [JsonProperty("channel")]
         public string Channel { get; set; }
 
-
+        /// <value>Account balance</value>
         [JsonProperty("cost")]
         public AccountAcquisitionCost Cost { get; set; }
 

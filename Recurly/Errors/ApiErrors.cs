@@ -98,6 +98,11 @@ namespace Recurly.Errors
                     {
                         Error = err
                     };
+                case "rate_limited":
+                    return new RateLimited(err.Message)
+                    {
+                        Error = err
+                    };
                 default:
                     // Explode if we are in strict mode
                     if (Utils.StrictMode)
@@ -212,5 +217,11 @@ namespace Recurly.Errors
         public MissingFeature() { }
         public MissingFeature(string message) : base(message) { }
         public MissingFeature(string message, Exception inner) : base(message, inner) { }
+    }
+    public class RateLimited : ApiError
+    {
+        public RateLimited() { }
+        public RateLimited(string message) : base(message) { }
+        public RateLimited(string message, Exception inner) : base(message, inner) { }
     }
 }

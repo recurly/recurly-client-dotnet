@@ -15,7 +15,7 @@ namespace Recurly.Resources
     public class Transaction : Resource
     {
 
-
+        /// <value>Account mini details</value>
         [JsonProperty("account")]
         public AccountMini Account { get; set; }
 
@@ -87,7 +87,7 @@ namespace Recurly.Resources
         [JsonProperty("id")]
         public string Id { get; set; }
 
-
+        /// <value>Invoice mini details</value>
         [JsonProperty("invoice")]
         public InvoiceMini Invoice { get; set; }
 
@@ -167,7 +167,7 @@ namespace Recurly.Resources
         [JsonProperty("voided_at")]
         public DateTime? VoidedAt { get; set; }
 
-
+        /// <value>Invoice mini details</value>
         [JsonProperty("voided_by_invoice")]
         public InvoiceMini VoidedByInvoice { get; set; }
 

@@ -39,6 +39,14 @@ namespace Recurly.Resources
         [JsonProperty("first_six")]
         public string FirstSix { get; set; }
 
+        /// <value>An identifier for a specific payment gateway.</value>
+        [JsonProperty("gateway_code")]
+        public string GatewayCode { get; set; }
+
+        /// <value>A token used in place of a credit card in order to perform transactions.</value>
+        [JsonProperty("gateway_token")]
+        public string GatewayToken { get; set; }
+
         /// <value>Credit card number's last four digits. Will refer to bank account if payment method is ACH.</value>
         [JsonProperty("last_four")]
         public string LastFour { get; set; }
