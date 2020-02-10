@@ -1,12 +1,6 @@
 using System;
-using System.Diagnostics;
-using System.Text.RegularExpressions;
-using System.Collections.Generic;
-using System.Linq;
-using RestSharp.Serializers;
 using RestSharp.Deserializers;
 using RestSharp;
-using System.IO;
 
 namespace Recurly
 {
