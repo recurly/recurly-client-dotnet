@@ -47,7 +47,7 @@ namespace Recurly.Resources
         [JsonProperty("quantity")]
         public int? Quantity { get; set; }
 
-
+        /// <value>The shipping address can currently only be changed immediately, using SubscriptionUpdate.</value>
         [JsonProperty("shipping")]
         public SubscriptionChangeShippingCreate Shipping { get; set; }
 

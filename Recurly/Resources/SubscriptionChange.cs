@@ -43,7 +43,7 @@ namespace Recurly.Resources
         [JsonProperty("object")]
         public string Object { get; set; }
 
-
+        /// <value>Just the important parts.</value>
         [JsonProperty("plan")]
         public PlanMini Plan { get; set; }
 
@@ -51,7 +51,7 @@ namespace Recurly.Resources
         [JsonProperty("quantity")]
         public int? Quantity { get; set; }
 
-
+        /// <value>Subscription shipping details</value>
         [JsonProperty("shipping")]
         public SubscriptionShipping Shipping { get; set; }
 

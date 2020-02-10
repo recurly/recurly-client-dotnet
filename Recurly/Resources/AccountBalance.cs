@@ -15,7 +15,7 @@ namespace Recurly.Resources
     public class AccountBalance : Resource
     {
 
-
+        /// <value>Account mini details</value>
         [JsonProperty("account")]
         public AccountMini Account { get; set; }
 

@@ -15,7 +15,7 @@ namespace Recurly.Resources
     public class AccountAcquisition : Resource
     {
 
-
+        /// <value>Account mini details</value>
         [JsonProperty("account")]
         public AccountMini Account { get; set; }
 
@@ -27,7 +27,7 @@ namespace Recurly.Resources
         [JsonProperty("channel")]
         public string Channel { get; set; }
 
-
+        /// <value>Account balance</value>
         [JsonProperty("cost")]
         public AccountAcquisitionCost Cost { get; set; }
 

@@ -15,7 +15,7 @@ namespace Recurly.Resources
     public class CreditPayment : Resource
     {
 
-
+        /// <value>Account mini details</value>
         [JsonProperty("account")]
         public AccountMini Account { get; set; }
 
@@ -27,7 +27,7 @@ namespace Recurly.Resources
         [JsonProperty("amount")]
         public float? Amount { get; set; }
 
-
+        /// <value>Invoice mini details</value>
         [JsonProperty("applied_to_invoice")]
         public InvoiceMini AppliedToInvoice { get; set; }
 
@@ -51,7 +51,7 @@ namespace Recurly.Resources
         [JsonProperty("original_credit_payment_id")]
         public string OriginalCreditPaymentId { get; set; }
 
-
+        /// <value>Invoice mini details</value>
         [JsonProperty("original_invoice")]
         public InvoiceMini OriginalInvoice { get; set; }
 

@@ -15,7 +15,7 @@ namespace Recurly.Resources
     public class SubscriptionAddOn : Resource
     {
 
-
+        /// <value>Just the important parts.</value>
         [JsonProperty("add_on")]
         public AddOnMini AddOn { get; set; }
 
