@@ -17,7 +17,7 @@ namespace Recurly.Resources
 
         /// <value>Total amount the account is past due.</value>
         [JsonProperty("amount")]
-        public float? Amount { get; set; }
+        public decimal? Amount { get; set; }
 
         /// <value>3-letter ISO 4217 currency code.</value>
         [JsonProperty("currency")]

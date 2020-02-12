@@ -29,7 +29,7 @@ namespace Recurly.Resources
 
         /// <value>Optionally, override the add-on's default unit amount.</value>
         [JsonProperty("unit_amount")]
-        public float? UnitAmount { get; set; }
+        public decimal? UnitAmount { get; set; }
 
     }
 }

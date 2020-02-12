@@ -25,7 +25,7 @@ namespace Recurly.Resources
 
         /// <value>The outstanding balance remaining on this invoice.</value>
         [JsonProperty("balance")]
-        public float? Balance { get; set; }
+        public decimal? Balance { get; set; }
 
         /// <value>Date invoice was marked paid or failed.</value>
         [JsonProperty("closed_at")]
@@ -53,7 +53,7 @@ namespace Recurly.Resources
 
         /// <value>Total discounts applied to this invoice.</value>
         [JsonProperty("discount")]
-        public float? Discount { get; set; }
+        public decimal? Discount { get; set; }
 
         /// <value>Date invoice is due. This is the date the net terms are reached.</value>
         [JsonProperty("due_at")]
@@ -85,7 +85,7 @@ namespace Recurly.Resources
 
         /// <value>The total amount of successful payments transaction on this invoice.</value>
         [JsonProperty("paid")]
-        public float? Paid { get; set; }
+        public decimal? Paid { get; set; }
 
         /// <value>For manual invoicing, this identifies the PO number associated with the subscription.</value>
         [JsonProperty("po_number")]
@@ -97,7 +97,7 @@ namespace Recurly.Resources
 
         /// <value>The refundable amount on a charge invoice. It will be null for all other invoices.</value>
         [JsonProperty("refundable_amount")]
-        public float? RefundableAmount { get; set; }
+        public decimal? RefundableAmount { get; set; }
 
 
         [JsonProperty("shipping_address")]
@@ -113,11 +113,11 @@ namespace Recurly.Resources
 
         /// <value>The summation of charges, discounts, and credits, before tax.</value>
         [JsonProperty("subtotal")]
-        public float? Subtotal { get; set; }
+        public decimal? Subtotal { get; set; }
 
         /// <value>The total tax on this invoice.</value>
         [JsonProperty("tax")]
-        public float? Tax { get; set; }
+        public decimal? Tax { get; set; }
 
         /// <value>Tax info</value>
         [JsonProperty("tax_info")]
@@ -129,7 +129,7 @@ namespace Recurly.Resources
 
         /// <value>The final total on this invoice. The summation of invoice charges, discounts, credits, and tax.</value>
         [JsonProperty("total")]
-        public float? Total { get; set; }
+        public decimal? Total { get; set; }
 
         /// <value>Transactions</value>
         [JsonProperty("transactions")]

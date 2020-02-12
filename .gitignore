@@ -35,3 +35,6 @@ msbuild.wrn
 
 coverage.*
 coverage_report/
+
+packages/
+.idea/

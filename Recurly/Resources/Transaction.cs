@@ -21,7 +21,7 @@ namespace Recurly.Resources
 
         /// <value>Total transaction amount sent to the payment gateway.</value>
         [JsonProperty("amount")]
-        public float? Amount { get; set; }
+        public decimal? Amount { get; set; }
 
         /// <value>When processed, result from checking the overall AVS on the transaction.</value>
         [JsonProperty("avs_check")]

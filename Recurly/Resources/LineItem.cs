@@ -33,7 +33,7 @@ namespace Recurly.Resources
 
         /// <value>`(quantity * unit_amount) - (discount + tax)`</value>
         [JsonProperty("amount")]
-        public float? Amount { get; set; }
+        public decimal? Amount { get; set; }
 
         /// <value>When the line item was created.</value>
         [JsonProperty("created_at")]
@@ -41,7 +41,7 @@ namespace Recurly.Resources
 
         /// <value>The amount of credit from this line item that was applied to the invoice.</value>
         [JsonProperty("credit_applied")]
-        public float? CreditApplied { get; set; }
+        public decimal? CreditApplied { get; set; }
 
         /// <value>The reason the credit was given when line item is `type=credit`.</value>
         [JsonProperty("credit_reason_code")]
@@ -57,7 +57,7 @@ namespace Recurly.Resources
 
         /// <value>The discount applied to the line item.</value>
         [JsonProperty("discount")]
-        public float? Discount { get; set; }
+        public decimal? Discount { get; set; }
 
         /// <value>If this date is provided, it indicates the end of a time range.</value>
         [JsonProperty("end_date")]
@@ -127,7 +127,7 @@ namespace Recurly.Resources
 
         /// <value>When a line item has been prorated, this is the rate of the proration. Proration rates were made available for line items created after March 30, 2017. For line items created prior to that date, the proration rate will be `null`, even if the line item was prorated.</value>
         [JsonProperty("proration_rate")]
-        public float? ProrationRate { get; set; }
+        public decimal? ProrationRate { get; set; }
 
         /// <value>This number will be multiplied by the unit amount to compute the subtotal before any discounts or taxes.</value>
         [JsonProperty("quantity")]
@@ -163,11 +163,11 @@ namespace Recurly.Resources
 
         /// <value>`quantity * unit_amount`</value>
         [JsonProperty("subtotal")]
-        public float? Subtotal { get; set; }
+        public decimal? Subtotal { get; set; }
 
         /// <value>The tax amount for the line item.</value>
         [JsonProperty("tax")]
-        public float? Tax { get; set; }
+        public decimal? Tax { get; set; }
 
         /// <value>Used by Avalara, Vertex, and Recurly’s EU VAT tax feature. The tax code values are specific to each tax system. If you are using Recurly’s EU VAT feature you can use `unknown`, `physical`, or `digital`.</value>
         [JsonProperty("tax_code")]
@@ -191,7 +191,7 @@ namespace Recurly.Resources
 
         /// <value>Positive amount for a charge, negative amount for a credit.</value>
         [JsonProperty("unit_amount")]
-        public float? UnitAmount { get; set; }
+        public decimal? UnitAmount { get; set; }
 
         /// <value>When the line item was last changed.</value>
         [JsonProperty("updated_at")]

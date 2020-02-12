@@ -45,7 +45,7 @@ namespace Recurly.Resources
 
         /// <value>This is priced in the subscription's currency.</value>
         [JsonProperty("unit_amount")]
-        public float? UnitAmount { get; set; }
+        public decimal? UnitAmount { get; set; }
 
         /// <value>Updated at</value>
         [JsonProperty("updated_at")]
