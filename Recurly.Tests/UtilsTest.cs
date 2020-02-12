@@ -26,10 +26,10 @@ namespace Recurly.Tests
             d.Add("trueBool", true);
             d.Add("falseBool", false);
             d.Add("int", 123);
-            d.Add("float", 123.456);
-            d.Add("date", new DateTime(2020, 1, 1));
+            d.Add("decimal", 123.456m);
+            d.Add("date", new DateTime(2020, 1, 1, 0, 0, 0, DateTimeKind.Utc));
             var result = Utils.QueryString(d);
-            Assert.Equal("?trueBool=true&falseBool=false&int=123&float=123.456&date=2020-01-01T00:00:00.000Z", result);
+            Assert.Equal("?trueBool=true&falseBool=false&int=123&decimal=123.456&date=2020-01-01T00:00:00.000Z", result);
         }
     }
 }
