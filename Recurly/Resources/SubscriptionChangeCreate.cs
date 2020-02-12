@@ -87,7 +87,7 @@ namespace Recurly.Resources
 
         /// <value>Optionally, sets custom pricing for the subscription, overriding the plan's default unit amount. The subscription's current currency will be used.</value>
         [JsonProperty("unit_amount")]
-        public float? UnitAmount { get; set; }
+        public decimal? UnitAmount { get; set; }
 
     }
 }

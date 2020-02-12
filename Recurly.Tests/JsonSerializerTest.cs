@@ -26,10 +26,10 @@ namespace Recurly.Tests
         public void Deserialize()
         {
             // make sure it can deserialize all primitive types and convert b/w snake and camel case
-            var json = "{\"my_string\":\"benjamin\",\"my_float\":3.14,\"my_int\": 3}";
+            var json = "{\"my_string\":\"benjamin\",\"my_decimal\":3.14,\"my_int\": 3}";
             var resource = _jsonSerializer.Deserialize<MyResource>(MockResourceResponse(json));
             Assert.Equal("benjamin", resource.MyString);
-            Assert.Equal(3.14f, resource.MyFloat);
+            Assert.Equal(3.14m, resource.MyDecimal);
             Assert.Equal(3, resource.MyInt);
         }
 
@@ -83,7 +83,7 @@ namespace Recurly.Tests
             var resource = new MyResource()
             {
                 MyString = "benjamin",
-                MyFloat = 3.14f,
+                MyDecimal = 3.14m,
                 MyInt = 3,
                 MySubResource = new MySubResource() { MyString = "subresource" },
                 MyArrayString = new List<string>() { "a", "b" },
@@ -94,7 +94,7 @@ namespace Recurly.Tests
                 }
             };
             var jsonStr = _jsonSerializer.Serialize(resource);
-            var json = "{\"my_string\":\"benjamin\",\"my_float\":3.14,\"my_int\":3,\"my_sub_resource\":{\"my_string\":\"subresource\"},\"my_array_string\":[\"a\",\"b\"],\"my_array_sub_resource\":[{\"my_string\":\"subresource1\"},{\"my_string\":\"subresource2\"}]}";
+            var json = "{\"my_string\":\"benjamin\",\"my_decimal\":3.14,\"my_int\":3,\"my_sub_resource\":{\"my_string\":\"subresource\"},\"my_array_string\":[\"a\",\"b\"],\"my_array_sub_resource\":[{\"my_string\":\"subresource1\"},{\"my_string\":\"subresource2\"}]}";
             Assert.Equal(jsonStr, json);
         }
         private RestSharp.IRestResponse MockResourceResponse(string json)

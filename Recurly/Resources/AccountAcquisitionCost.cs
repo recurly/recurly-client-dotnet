@@ -17,7 +17,7 @@ namespace Recurly.Resources
 
         /// <value>The amount of the corresponding currency used to acquire the account.</value>
         [JsonProperty("amount")]
-        public float? Amount { get; set; }
+        public decimal? Amount { get; set; }
 
         /// <value>3-letter ISO 4217 currency code.</value>
         [JsonProperty("currency")]

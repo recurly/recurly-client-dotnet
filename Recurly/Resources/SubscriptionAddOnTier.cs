@@ -21,7 +21,7 @@ namespace Recurly.Resources
 
         /// <value>Unit amount</value>
         [JsonProperty("unit_amount")]
-        public float? UnitAmount { get; set; }
+        public decimal? UnitAmount { get; set; }
 
     }
 }

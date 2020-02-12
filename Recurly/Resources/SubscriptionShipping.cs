@@ -21,7 +21,7 @@ namespace Recurly.Resources
 
         /// <value>Subscription's shipping cost</value>
         [JsonProperty("amount")]
-        public float? Amount { get; set; }
+        public decimal? Amount { get; set; }
 
 
         [JsonProperty("method")]

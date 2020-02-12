@@ -78,7 +78,7 @@ namespace Recurly.Resources
 
         /// <value>The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0. Required if `add_on_type` is usage and `usage_type` is percentage. Must be omitted otherwise. `usage_percentage` does not support tiers.</value>
         [JsonProperty("usage_percentage")]
-        public float? UsagePercentage { get; set; }
+        public decimal? UsagePercentage { get; set; }
 
     }
 }

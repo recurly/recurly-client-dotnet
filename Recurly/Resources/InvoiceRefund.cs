@@ -20,7 +20,7 @@ namespace Recurly.Resources
         /// If no amount is specified, it will default to refunding the total refundable amount on the invoice.
         /// </value>
         [JsonProperty("amount")]
-        public float? Amount { get; set; }
+        public decimal? Amount { get; set; }
 
         /// <value>
         /// Used as the Customer Notes on the credit invoice.

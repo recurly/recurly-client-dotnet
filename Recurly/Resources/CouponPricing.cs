@@ -21,7 +21,7 @@ namespace Recurly.Resources
 
         /// <value>The fixed discount (in dollars) for the corresponding currency.</value>
         [JsonProperty("discount")]
-        public float? Discount { get; set; }
+        public decimal? Discount { get; set; }
 
     }
 }

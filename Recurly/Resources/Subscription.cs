@@ -29,7 +29,7 @@ namespace Recurly.Resources
 
         /// <value>Total price of add-ons</value>
         [JsonProperty("add_ons_total")]
-        public float? AddOnsTotal { get; set; }
+        public decimal? AddOnsTotal { get; set; }
 
         /// <value>Whether the subscription renews at the end of its term.</value>
         [JsonProperty("auto_renew")]
@@ -152,7 +152,7 @@ namespace Recurly.Resources
 
         /// <value>Estimated total, before tax.</value>
         [JsonProperty("subtotal")]
-        public float? Subtotal { get; set; }
+        public decimal? Subtotal { get; set; }
 
         /// <value>Terms and conditions</value>
         [JsonProperty("terms_and_conditions")]
@@ -172,7 +172,7 @@ namespace Recurly.Resources
 
         /// <value>Subscription unit price</value>
         [JsonProperty("unit_amount")]
-        public float? UnitAmount { get; set; }
+        public decimal? UnitAmount { get; set; }
 
         /// <value>Last updated at</value>
         [JsonProperty("updated_at")]

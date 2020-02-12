@@ -112,7 +112,7 @@ namespace Recurly.Resources
 
         /// <value>Override the unit amount of the subscription plan by setting this value. If not provided, the subscription will inherit the price from the subscription plan for the provided currency.</value>
         [JsonProperty("unit_amount")]
-        public float? UnitAmount { get; set; }
+        public decimal? UnitAmount { get; set; }
 
     }
 }
