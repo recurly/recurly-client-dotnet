@@ -5,6 +5,7 @@ Unreleased
 ===============
 
 - Add 'capture' and 'cancel' to Purchase [PR](https://github.com/recurly/recurly-client-net/pull/474)
+- Repair broken tests [PR](https://github.com/recurly/recurly-client-net/pull/475)
 - Add external_sku to Adjustment [PR](https://github.com/recurly/recurly-client-net/pull/476)
 - Request will include item_code if ItemCode has a value [PR](https://github.com/recurly/recurly-client-net/pull/477)
 
