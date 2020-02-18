@@ -178,7 +178,7 @@ namespace Recurly
             ReadXml(reader);
         }
 
-        private BillingInfo()
+        internal BillingInfo()
         {
         }
 
