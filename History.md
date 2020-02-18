@@ -1,6 +1,13 @@
 Unreleased
 ===============
 
+1.17.1 (stable) / 2020-02-18
+===============
+
+- Add 'capture' and 'cancel' to Purchase [PR](https://github.com/recurly/recurly-client-net/pull/474)
+- Add external_sku to Adjustment [PR](https://github.com/recurly/recurly-client-net/pull/476)
+- Request will include item_code if ItemCode has a value [PR](https://github.com/recurly/recurly-client-net/pull/477)
+
 1.17.0 (stable) / 2019-11-21
 ===============
 
