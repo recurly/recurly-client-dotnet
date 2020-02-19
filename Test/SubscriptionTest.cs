@@ -319,13 +319,12 @@ namespace Recurly.Test
 
             var accountCode = GetUniqueAccountCode();
             var billingInfo = NewBillingInfo(accountCode);
-            billingInfo.ThreeDSecureActionResultTokenId = "token";
             var account = new Account(accountCode, billingInfo);
 
             var sub = new Subscription(account, plan, "USD");
             sub.Create();
 
-            sub.ConvertTrial(account.BillingInfo.ThreeDSecureActionResultTokenId);
+            sub.ConvertTrial("token");
             Assert.Equal(sub.TrialPeriodEndsAt, sub.CurrentPeriodStartedAt);
         }
 

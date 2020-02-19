@@ -1076,13 +1076,15 @@ namespace Recurly
         internal void WriteConvertTrialXml(XmlTextWriter xmlWriter)
         {
             xmlWriter.WriteStartElement("subscription"); // Start: subscription
-            
-            if (Account != null)
-                Account.WriteXml(xmlWriter);
-            
-            if (TransactionType != null)
+            if (TransactionType != null) {
                 xmlWriter.WriteElementString("transaction_type", TransactionType);
+            }
             
+            if (Account != null) {
+                xmlWriter.WriteStartElement("account");
+                if (Account.BillingInfo != null)
+                    Account.BillingInfo.WriteXml(xmlWriter);
+            }    
             xmlWriter.WriteEndElement(); // End: subscription
         }
 
