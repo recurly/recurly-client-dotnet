@@ -305,6 +305,78 @@ namespace Recurly.Test
         }
 
         [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void ConvertTrialWith3dsToken()
+        {
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
+            {
+                Description = "Convert Test"
+            };
+            plan.UnitAmountInCents.Add("USD", 100);
+            plan.TrialIntervalLength = 1;
+            plan.TrialIntervalUnit = Plan.IntervalUnit.Months;
+            plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
+
+            var accountCode = GetUniqueAccountCode();
+            var billingInfo = NewBillingInfo(accountCode);
+            var account = new Account(accountCode, billingInfo);
+
+            var sub = new Subscription(account, plan, "USD");
+            sub.Create();
+
+            sub.ConvertTrial("token");
+            Assert.Equal(sub.TrialPeriodEndsAt, sub.CurrentPeriodStartedAt);
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void ConvertTrial()
+        {
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
+            {
+                Description = "Convert Test"
+            };
+            plan.UnitAmountInCents.Add("USD", 100);
+            plan.TrialIntervalLength = 1;
+            plan.TrialIntervalUnit = Plan.IntervalUnit.Months;
+            plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
+
+            var accountCode = GetUniqueAccountCode();
+            var billingInfo = NewBillingInfo(accountCode);
+            var account = new Account(accountCode, billingInfo);
+
+            var sub = new Subscription(account, plan, "USD");
+            sub.Create();
+
+            sub.ConvertTrial();
+            Assert.Equal(sub.TrialPeriodEndsAt, sub.CurrentPeriodStartedAt);
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void ConvertTrialMoto()
+        {
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
+            {
+                Description = "Convert Test"
+            };
+            plan.UnitAmountInCents.Add("USD", 100);
+            plan.TrialIntervalLength = 1;
+            plan.TrialIntervalUnit = Plan.IntervalUnit.Months;
+            plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
+
+            var accountCode = GetUniqueAccountCode();
+            var account = new Account(accountCode);
+
+            var sub = new Subscription(account, plan, "USD");
+            sub.CollectionMethod = "manual";
+            sub.Create();
+
+            sub.ConvertTrialMoto();
+            Assert.Equal(sub.TrialPeriodEndsAt, sub.CurrentPeriodStartedAt);
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void TerminateSubscriptionNoRefund()
         {
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName())

@@ -54,6 +54,7 @@ namespace Recurly
         public Account Account
         {
             get { return _account ?? (_account = Accounts.Get(_accountCode)); }
+            internal set { _account = value; }
         }
 
         private string _invoiceNumber;
@@ -511,6 +512,47 @@ namespace Recurly
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
                 UrlPrefix + Uri.EscapeDataString(Uuid) + "/resume",
                 ReadXml);
+        }
+
+        private void ConvertTrial(Subscription request)
+        {
+            var url = UrlPrefix + Uri.EscapeDataString(Uuid) + "/convert_trial";
+            if (request == null)
+            {
+                Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
+                    url,
+                    ReadXml);
+            }
+            else
+            {
+                Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
+                    url,
+                    request.WriteConvertTrialXml, 
+                    ReadXml);
+            }
+        }
+            
+        public void ConvertTrialMoto() {
+            var request = new Subscription() {
+                TransactionType = "moto"
+            };  
+            ConvertTrial(request);
+        }
+
+        public void ConvertTrial(string threeDSecureActionResultTokenId = null) {
+            Subscription request = null;
+
+            if (threeDSecureActionResultTokenId != null)
+            {
+                request = new Subscription(){
+                    Account = new Account(){
+                        BillingInfo = new BillingInfo(){
+                            ThreeDSecureActionResultTokenId = threeDSecureActionResultTokenId
+                        }
+                    }
+                };
+            }
+            ConvertTrial(request);
         }
 
         public bool UpdateNotes(Dictionary<string, string> notes)
@@ -1028,6 +1070,21 @@ namespace Recurly
             if (TransactionType != null)
                 xmlWriter.WriteElementString("transaction_type", TransactionType);
 
+            xmlWriter.WriteEndElement(); // End: subscription
+        }
+
+        internal void WriteConvertTrialXml(XmlTextWriter xmlWriter)
+        {
+            xmlWriter.WriteStartElement("subscription"); // Start: subscription
+            if (TransactionType != null) {
+                xmlWriter.WriteElementString("transaction_type", TransactionType);
+            }
+            
+            if (Account != null) {
+                xmlWriter.WriteStartElement("account");
+                if (Account.BillingInfo != null)
+                    Account.BillingInfo.WriteXml(xmlWriter);
+            }    
             xmlWriter.WriteEndElement(); // End: subscription
         }
 
