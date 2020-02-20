@@ -43,9 +43,17 @@ namespace Recurly.Resources
         [JsonProperty("display_quantity")]
         public bool? DisplayQuantity { get; set; }
 
+        /// <value>Optional, stock keeping unit to link the item to other inventory systems.</value>
+        [JsonProperty("external_sku")]
+        public string ExternalSku { get; set; }
+
         /// <value>Add-on ID</value>
         [JsonProperty("id")]
         public string Id { get; set; }
+
+        /// <value>Just the important parts.</value>
+        [JsonProperty("item")]
+        public ItemMini Item { get; set; }
 
         /// <value>Describes your add-on and will appear in subscribers' invoices.</value>
         [JsonProperty("name")]
@@ -54,6 +62,10 @@ namespace Recurly.Resources
         /// <value>Object type</value>
         [JsonProperty("object")]
         public string Object { get; set; }
+
+        /// <value>Whether the add-on is optional for the customer to include in their purchase on the hosted payment page. If false, the add-on will be included when a subscription is created through the Recurly UI. However, the add-on will not be included when a subscription is created through the API.</value>
+        [JsonProperty("optional")]
+        public bool? Optional { get; set; }
 
         /// <value>Plan ID</value>
         [JsonProperty("plan_id")]

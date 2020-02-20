@@ -5,6 +5,7 @@
  * need and we will usher them to the appropriate places.
  */
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -2549,6 +2550,36 @@ namespace Recurly
         {
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
             var url = this.InterpolatePath("/subscriptions/{subscription_id}/resume", urlParams);
+            return MakeRequestAsync<Subscription>(Method.PUT, url, null, null, cancellationToken);
+        }
+
+        /// <summary>
+        /// Convert trial subscription <see href="https://developers.recurly.com/api/v2019-10-10#operation/convert_trial">convert_trial api documentation</see>
+        /// </summary>
+        /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
+        /// <returns>
+        /// A subscription.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Subscription ConvertTrial(string subscriptionId)
+        {
+            var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
+            var url = this.InterpolatePath("/subscriptions/{subscription_id}/convert_trial", urlParams);
+            return MakeRequest<Subscription>(Method.PUT, url, null, null);
+        }
+
+        /// <summary>
+        /// Convert trial subscription <see href="https://developers.recurly.com/api/v2019-10-10#operation/convert_trial">convert_trial api documentation</see>
+        /// </summary>
+        /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
+        /// <returns>
+        /// A subscription.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<Subscription> ConvertTrialAsync(string subscriptionId, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
+            var url = this.InterpolatePath("/subscriptions/{subscription_id}/convert_trial", urlParams);
             return MakeRequestAsync<Subscription>(Method.PUT, url, null, null, cancellationToken);
         }
 
