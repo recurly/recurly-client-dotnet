@@ -1,6 +1,13 @@
 Unreleased
 ===============
 
+1.17.2 (stable) / 2020-02-20
+===============
+
+This brings us up to API version 2.25. There are no breaking changes.
+
+- Add ConvertTrial() to Subscription [PR](https://github.com/recurly/recurly-client-net/pull/480)
+
 1.17.1 (stable) / 2020-02-18
 ===============
 
