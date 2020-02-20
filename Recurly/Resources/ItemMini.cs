@@ -12,36 +12,32 @@ using Newtonsoft.Json;
 namespace Recurly.Resources
 {
     [ExcludeFromCodeCoverage]
-    public class AddOnMini : Resource
+    public class ItemMini : Resource
     {
 
-        /// <value>Accounting code for invoice line items for this add-on. If no value is provided, it defaults to add-on's code.</value>
-        [JsonProperty("accounting_code")]
-        public string AccountingCode { get; set; }
-
-        /// <value>The unique identifier for the add-on within its plan.</value>
+        /// <value>Unique code to identify the item.</value>
         [JsonProperty("code")]
         public string Code { get; set; }
 
-        /// <value>Optional, stock keeping unit to link the item to other inventory systems.</value>
-        [JsonProperty("external_sku")]
-        public string ExternalSku { get; set; }
+        /// <value>Optional, description.</value>
+        [JsonProperty("description")]
+        public string Description { get; set; }
 
-        /// <value>Add-on ID</value>
+        /// <value>Item ID</value>
         [JsonProperty("id")]
         public string Id { get; set; }
 
-        /// <value>Item ID</value>
-        [JsonProperty("item_id")]
-        public string ItemId { get; set; }
-
-        /// <value>Describes your add-on and will appear in subscribers' invoices.</value>
+        /// <value>This name describes your item and will appear on the invoice when it's purchased on a one time basis.</value>
         [JsonProperty("name")]
         public string Name { get; set; }
 
         /// <value>Object type</value>
         [JsonProperty("object")]
         public string Object { get; set; }
+
+        /// <value>The current state of the item.</value>
+        [JsonProperty("state")]
+        public string State { get; set; }
 
     }
 }

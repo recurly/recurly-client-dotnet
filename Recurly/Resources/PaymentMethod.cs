@@ -51,6 +51,10 @@ namespace Recurly.Resources
         [JsonProperty("last_four")]
         public string LastFour { get; set; }
 
+        /// <value>The IBAN bank account's last two digits.</value>
+        [JsonProperty("last_two")]
+        public string LastTwo { get; set; }
+
 
         [JsonProperty("object")]
         public string Object { get; set; }

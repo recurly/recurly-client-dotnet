@@ -15,11 +15,11 @@ namespace Recurly.Resources
     public class AddOnUpdate : Request
     {
 
-        /// <value>Accounting code for invoice line items for this add-on. If no value is provided, it defaults to add-on's code.</value>
+        /// <value>Accounting code for invoice line items for this add-on. If no value is provided, it defaults to add-on's code. If an `Item` is associated to the `AddOn` then `accounting code` must be absent.</value>
         [JsonProperty("accounting_code")]
         public string AccountingCode { get; set; }
 
-        /// <value>The unique identifier for the add-on within its plan.</value>
+        /// <value>The unique identifier for the add-on within its plan. If an `Item` is associated to the `AddOn` then `code` must be absent.</value>
         [JsonProperty("code")]
         public string Code { get; set; }
 
@@ -39,11 +39,11 @@ namespace Recurly.Resources
         [JsonProperty("id")]
         public string Id { get; set; }
 
-        /// <value>Describes your add-on and will appear in subscribers' invoices.</value>
+        /// <value>Describes your add-on and will appear in subscribers' invoices. If an `Item` is associated to the `AddOn` then `name` must be absent.</value>
         [JsonProperty("name")]
         public string Name { get; set; }
 
-        /// <value>Optional field used by Avalara, Vertex, and Recurly's EU VAT tax feature to determine taxation rules. If you have your own AvaTax or Vertex account configured, use their tax codes to assign specific tax rules. If you are using Recurly's EU VAT feature, you can use values of `unknown`, `physical`, or `digital`.</value>
+        /// <value>Optional field used by Avalara, Vertex, and Recurly's EU VAT tax feature to determine taxation rules. If you have your own AvaTax or Vertex account configured, use their tax codes to assign specific tax rules. If you are using Recurly's EU VAT feature, you can use values of `unknown`, `physical`, or `digital`. If an `Item` is associated to the `AddOn` then `tax code` must be absent.</value>
         [JsonProperty("tax_code")]
         public string TaxCode { get; set; }
 
