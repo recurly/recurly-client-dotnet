@@ -14,6 +14,7 @@ namespace Recurly
 
         public string PlanCode { get; set; }
         public string AddOnCode { get; set; }
+        public string ItemCode {get; set; }
         public string Name { get; set; }
         public int? DefaultQuantity { get; set; }
         public bool? DisplayQuantityOnHostedPage { get; set; }
@@ -23,9 +24,11 @@ namespace Recurly
         public long? MeasuredUnitId { get; set; }
         public Type? AddOnType { get; set; }
         public Usage.Type? UsageType { get; set; }
+        public float? UsagePercentage {get; set; }
         public DateTime CreatedAt { get; private set; }
         public DateTime UpdatedAt { get; private set; }
         public Adjustment.RevenueSchedule? RevenueScheduleType { get; set; }
+        public string ItemState { get; set; }
 
         private Dictionary<string, int> _unitAmountInCents;
         /// <summary>
@@ -56,6 +59,12 @@ namespace Recurly
             Name = name;
         }
 
+        internal AddOn(string planCode, string itemCode)
+        {
+            PlanCode = planCode;
+            ItemCode = itemCode;
+        }
+
         #endregion
 
         /// <summary>
@@ -74,10 +83,34 @@ namespace Recurly
         /// </summary>
         public void Update()
         {
-            Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
-                UrlPrefix + Uri.EscapeDataString(PlanCode) + UrlPostfix + Uri.EscapeDataString(AddOnCode),
-                WriteXml,
-                ReadXml);
+            Plan plan = Plans.Get(this.PlanCode);
+            AddOn addon = plan.GetAddOn(this.AddOnCode);
+
+            if (this.ItemState == null) {
+                Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
+                    UrlPrefix + Uri.EscapeDataString(PlanCode) + UrlPostfix + Uri.EscapeDataString(AddOnCode),
+                    WriteXml,
+                    ReadXml);
+            } else {
+                // update item-backed add-on
+                AddOn request = new AddOn();
+                if (this.DefaultQuantity != addon.DefaultQuantity) {
+                    request.DefaultQuantity = this.DefaultQuantity;
+                }
+                if (this.UnitAmountInCents["USD"] != addon.UnitAmountInCents["USD"]) {
+                    request.UnitAmountInCents["USD"] = this.UnitAmountInCents["USD"];
+                }
+                if (this.Optional != addon.Optional) {
+                    request.Optional = this.Optional;
+                }
+                if (this.DisplayQuantityOnHostedPage != addon.DisplayQuantityOnHostedPage) {
+                    request.DisplayQuantityOnHostedPage = this.DisplayQuantityOnHostedPage;
+                }
+                Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
+                    UrlPrefix + Uri.EscapeDataString(PlanCode) + UrlPostfix + Uri.EscapeDataString(AddOnCode),
+                    request.WriteXml,
+                    ReadXml);
+            }
         }
 
         /// <summary>
@@ -121,6 +154,10 @@ namespace Recurly
                 {
                     case "add_on_code":
                         AddOnCode = reader.ReadElementContentAsString();
+                        break;
+                    
+                    case "item_code":
+                        ItemCode = reader.ReadElementContentAsString();
                         break;
 
                     case "accounting_code":
@@ -167,10 +204,18 @@ namespace Recurly
                         UsageType = reader.ReadElementContentAsString().ParseAsEnum<Usage.Type>();
                         break;
 
+                    case "usage_percentage":
+                        UsagePercentage = reader.ReadElementContentAsFloat();
+                        break;
+
                     case "revenue_schedule_type":
                         var revenueScheduleType = reader.ReadElementContentAsString();
                         if (!revenueScheduleType.IsNullOrEmpty())
                             RevenueScheduleType = revenueScheduleType.ParseAsEnum<Adjustment.RevenueSchedule>();
+                        break;
+
+                    case "item_state":
+                        ItemState = reader.ReadElementContentAsString();
                         break;
                 }
             }
@@ -179,10 +224,11 @@ namespace Recurly
         internal override void WriteXml(XmlTextWriter xmlWriter)
         {
             xmlWriter.WriteStartElement("add_on");
-
-            xmlWriter.WriteElementString("add_on_code", AddOnCode);
-            xmlWriter.WriteElementString("name", Name);
-            xmlWriter.WriteElementString("accounting_code", AccountingCode);
+            
+            xmlWriter.WriteStringIfValid("item_code", ItemCode);
+            xmlWriter.WriteStringIfValid("add_on_code", AddOnCode);
+            xmlWriter.WriteStringIfValid("name", Name);
+            xmlWriter.WriteStringIfValid("accounting_code", AccountingCode);
 
             if (DefaultQuantity.HasValue)
                 xmlWriter.WriteElementString("default_quantity", DefaultQuantity.Value.AsString());
@@ -192,6 +238,9 @@ namespace Recurly
 
             if (UsageType.HasValue)
                 xmlWriter.WriteElementString("usage_type", UsageType.Value.ToString().EnumNameToTransportCase());
+
+            if (UsagePercentage.HasValue)
+                xmlWriter.WriteElementString("usage_percentage", UsagePercentage.Value.ToString());
 
             if (MeasuredUnitId.HasValue)
                 xmlWriter.WriteElementString("measured_unit_id", MeasuredUnitId.ToString());

@@ -171,6 +171,12 @@ namespace Recurly
             return a;
         }
 
+        public AddOn NewAddOn(string itemCode)
+        {
+            var a = new AddOn(PlanCode, itemCode);
+            return a;
+        }
+
         public AddOn GetAddOn(string addOnCode)
         {
             if (string.IsNullOrWhiteSpace(addOnCode))
