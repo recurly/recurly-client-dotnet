@@ -141,6 +141,39 @@ var accounts = client.ListAccounts(
 );
 ```
 
+#### Additional Pager Methods
+
+In addition to the methods to facilitate pagination, the Pager class provides 2 helper methods:
+
+1. First
+2. Count
+
+##### First
+
+The Pager's `First` method can be used to fetch only the first resource from the endpoint for the given parameters.
+
+```csharp
+var beginTime = new DateTime(2020, 1, 1);
+var accounts = client.ListAccounts(
+    beginTime: beginTime
+);
+var account = accounts.First();
+Console.WriteLine(account.Code);
+```
+
+##### Count
+
+The Pager's `Count` method will return the total number of resources that are available at the requested endpoint for the given parameters.
+
+```csharp
+var beginTime = new DateTime(2020, 1, 1);
+var accounts = client.ListAccounts(
+    beginTime: beginTime
+);
+var total = accounts.Count();
+Console.WriteLine($"There are {total} accounts created since {beginTime}");
+```
+
 ### Creating Resources
 
 Every `Create*` or `Update*` method on the client takes a specific Request type to form the request.

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using RestSharp;
@@ -22,24 +23,48 @@ namespace Recurly
 
         internal Recurly.Client RecurlyClient { get; set; }
 
+        internal Dictionary<string, object> QueryParams { get; set; }
+
+        public string Url { get; set; }
+
         private int _index = 0;
 
         public Pager() { }
 
         internal static Pager<T> Build(string url, Dictionary<string, object> queryParams, Client client)
         {
-            if (queryParams != null)
-            {
-                url += Utils.QueryString(queryParams);
-            }
-
             return new Pager<T>()
             {
                 HasMore = true,
                 Data = null,
-                Next = url,
+                Next = null,
+                Url = url,
+                QueryParams = queryParams,
                 RecurlyClient = client,
             };
+        }
+
+        public T First()
+        {
+            Dictionary<string, object> firstParams = new Dictionary<string, object>(QueryParams);
+            firstParams["limit"] = 1;
+            var firstUrl = NextUrl(firstParams);
+            var pager = RecurlyClient.MakeRequest<Pager<T>>(Method.GET, firstUrl);
+            return pager.Data.FirstOrDefault();
+        }
+
+        public int Count()
+        {
+            return RecurlyClient.GetResourceCount(NextUrl(QueryParams));
+        }
+
+        private string NextUrl(Dictionary<string, object> queryParams)
+        {
+            if (queryParams != null)
+            {
+                return Url + Utils.QueryString(queryParams);
+            }
+            return Url;
         }
 
         public Pager<T> FetchNextPage()
@@ -65,6 +90,8 @@ namespace Recurly
             this.Next = pager.Next;
             this.Data = pager.Data;
             this.HasMore = pager.HasMore;
+            this.Url = pager.Url;
+            this.QueryParams = pager.QueryParams;
         }
 
         public T Current
@@ -91,6 +118,11 @@ namespace Recurly
 
         public bool MoveNext()
         {
+            // Next == null before we've fetched any pages
+            if (Next is null)
+            {
+                Next = NextUrl(QueryParams);
+            }
             // HasMore == true on init and when the server says there are more pages of data
             // HasMore == false only when the server says this is the last page of data
             // Data == null before we've fetched any pages
