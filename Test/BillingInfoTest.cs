@@ -88,6 +88,29 @@ namespace Recurly.Test
         }
 
         [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void CreateBillingInfoWithIban()
+        {
+            var account2 = CreateNewAccount();
+            var ibanInfo = new BillingInfo(account2)
+            {
+                NameOnAccount = "Iban account name",
+                Iban = "FR1420041010050500013M02606",
+                Address1 = "123 Test St",
+                Address2 = "The Test Cut",
+                City = "San Francisco",
+                PostalCode = "94105",
+                State = "CA",
+                Country = "US",
+            };
+            try {
+                ibanInfo.Create();
+            } catch (ValidationException exception) {
+                System.Console.WriteLine(exception);
+            }
+            account2.BillingInfo.NameOnAccount.Should().Be("Iban account name");
+        }
+            
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void LookupBillingInfo()
         {
             var accountCode = GetUniqueAccountCode();

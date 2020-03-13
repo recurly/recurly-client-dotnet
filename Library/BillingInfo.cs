@@ -112,6 +112,8 @@ namespace Recurly
         /// </summary>
         public string ThreeDSecureActionResultTokenId { get; set; }
 
+        public string Iban { get; set; }
+
         public string TransactionType { get; set; }
 
         private string _cardNumber;
@@ -346,6 +348,10 @@ namespace Recurly
                         RoutingNumber = reader.ReadElementContentAsString();
                         break;
 
+                    case "iban":
+                        Iban = reader.ReadElementContentAsString();
+                        break;
+
                     case "account_type":
 
                         var accountType = reader.ReadElementContentAsString();
@@ -414,6 +420,10 @@ namespace Recurly
                     xmlWriter.WriteElementString("account_type", AccountType.ToString().EnumNameToTransportCase());
                 }
 
+                if (!Iban.IsNullOrEmpty())
+                {
+                    xmlWriter.WriteElementString("iban", Iban);
+                }
                 if (!PaypalBillingAgreementId.IsNullOrEmpty())
                 {
                     xmlWriter.WriteElementString("paypal_billing_agreement_id", PaypalBillingAgreementId);
