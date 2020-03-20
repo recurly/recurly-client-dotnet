@@ -135,6 +135,10 @@ namespace Recurly.Resources
         [JsonProperty("renewal_billing_cycles")]
         public int? RenewalBillingCycles { get; set; }
 
+        /// <value>Revenue schedule type</value>
+        [JsonProperty("revenue_schedule_type")]
+        public string RevenueScheduleType { get; set; }
+
         /// <value>Subscription shipping details</value>
         [JsonProperty("shipping")]
         public SubscriptionShipping Shipping { get; set; }

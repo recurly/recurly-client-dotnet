@@ -27,6 +27,10 @@ namespace Recurly.Resources
         [JsonProperty("quantity")]
         public int? Quantity { get; set; }
 
+        /// <value>Revenue schedule type</value>
+        [JsonProperty("revenue_schedule_type")]
+        public string RevenueScheduleType { get; set; }
+
         /// <value>Optionally, override the add-on's default unit amount.</value>
         [JsonProperty("unit_amount")]
         public float? UnitAmount { get; set; }

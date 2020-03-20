@@ -71,6 +71,10 @@ namespace Recurly.Resources
         [JsonProperty("plan_id")]
         public string PlanId { get; set; }
 
+        /// <value>When this add-on is invoiced, the line item will use this revenue schedule. If `item_code`/`item_id` is part of the request then `revenue_schedule_type` must be absent in the request as the value will be set from the item.</value>
+        [JsonProperty("revenue_schedule_type")]
+        public string RevenueScheduleType { get; set; }
+
         /// <value>Add-ons can be either active or inactive.</value>
         [JsonProperty("state")]
         public string State { get; set; }

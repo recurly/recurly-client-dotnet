@@ -47,6 +47,10 @@ namespace Recurly.Resources
         [JsonProperty("gateway_token")]
         public string GatewayToken { get; set; }
 
+        /// <value>The International Bank Account Number, up to 34 alphanumeric characters comprising a country code; two check digits; and a number that includes the domestic bank account number, branch identifier, and potential routing information</value>
+        [JsonProperty("iban")]
+        public string Iban { get; set; }
+
         /// <value>*STRONGLY RECOMMENDED* Customer's IP address when updating their billing information.</value>
         [JsonProperty("ip_address")]
         public string IpAddress { get; set; }

@@ -67,9 +67,17 @@ namespace Recurly.Resources
         [JsonProperty("object")]
         public string Object { get; set; }
 
+        /// <value>Revenue schedule type</value>
+        [JsonProperty("revenue_schedule_type")]
+        public string RevenueScheduleType { get; set; }
+
         /// <value>Accounting code for invoice line items for the plan's setup fee. If no value is provided, it defaults to plan's accounting code.</value>
         [JsonProperty("setup_fee_accounting_code")]
         public string SetupFeeAccountingCode { get; set; }
+
+        /// <value>Setup fee revenue schedule type</value>
+        [JsonProperty("setup_fee_revenue_schedule_type")]
+        public string SetupFeeRevenueScheduleType { get; set; }
 
         /// <value>The current state of the plan.</value>
         [JsonProperty("state")]
