@@ -35,11 +35,11 @@ namespace Recurly.Resources
         [JsonProperty("end_date")]
         public DateTime? EndDate { get; set; }
 
-        /// <value>Unique code to identify an item, when the Catalog feature is enabled.</value>
+        /// <value>Unique code to identify an item. Avaliable when the Credit Invoices and Subscription Billing Terms features are enabled.</value>
         [JsonProperty("item_code")]
         public string ItemCode { get; set; }
 
-        /// <value>Available when the Catalog feature is enabled.</value>
+        /// <value>System-generated unique identifier for an item. Available when the Credit Invoices and Subscription Billing Terms features are enabled.</value>
         [JsonProperty("item_id")]
         public string ItemId { get; set; }
 
@@ -78,7 +78,8 @@ namespace Recurly.Resources
         /// <value>
         /// A positive or negative amount with `type=charge` will result in a positive `unit_amount`.
         /// A positive or negative amount with `type=credit` will result in a negative `unit_amount`.
-        /// If `item_code`/`item_id` is present, `unit_amount` can be passed in, to override the `Item`'s `unit_amount`. If `item_code`/`item_id` is not present then `unit_amount` is required.
+        /// If `item_code`/`item_id` is present, `unit_amount` can be passed in, to override the `Item`'s
+        /// `unit_amount`. If `item_code`/`item_id` is not present then `unit_amount` is required.
         /// </value>
         [JsonProperty("unit_amount")]
         public float? UnitAmount { get; set; }

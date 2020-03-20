@@ -101,6 +101,10 @@ namespace Recurly.Resources
         [JsonProperty("redeem_by")]
         public DateTime? RedeemBy { get; set; }
 
+        /// <value>The date and time the unique coupon code was redeemed. This is only present for bulk coupons.</value>
+        [JsonProperty("redeemed_at")]
+        public DateTime? RedeemedAt { get; set; }
+
         /// <value>Whether the discount is for all eligible charges on the account, or only a specific subscription.</value>
         [JsonProperty("redemption_resource")]
         public string RedemptionResource { get; set; }
