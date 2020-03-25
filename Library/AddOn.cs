@@ -26,7 +26,7 @@ namespace Recurly
         public DateTime CreatedAt { get; private set; }
         public DateTime UpdatedAt { get; private set; }
         public Adjustment.RevenueSchedule? RevenueScheduleType { get; set; }
-        public string TierType {get; set; }
+        public string TierType { get; set; }
 
         private List<Tier> _tiers; 
 
