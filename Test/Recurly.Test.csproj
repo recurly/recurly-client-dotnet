@@ -88,6 +88,7 @@
   <ItemGroup>
     <Compile Include="AccountAcquisitionTest.cs" />
     <Compile Include="AccountTest.cs" />
+    <Compile Include="AddOnTest.cs" />
     <Compile Include="AdjustmentTest.cs" />
     <Compile Include="BaseTest.cs" />
     <Compile Include="BillingInfoTest.cs" />
