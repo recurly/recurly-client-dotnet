@@ -1146,6 +1146,36 @@ namespace Recurly
         }
 
         /// <summary>
+        /// Expire a coupon <see href="https://developers.recurly.com/api/v2019-10-10#operation/deactivate_coupon">deactivate_coupon api documentation</see>
+        /// </summary>
+        /// <param name="couponId">Coupon ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-10off`.</param>
+        /// <returns>
+        /// The expired Coupon
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Coupon DeactivateCoupon(string couponId)
+        {
+            var urlParams = new Dictionary<string, object> { { "coupon_id", couponId } };
+            var url = this.InterpolatePath("/coupons/{coupon_id}", urlParams);
+            return MakeRequest<Coupon>(Method.DELETE, url, null, null);
+        }
+
+        /// <summary>
+        /// Expire a coupon <see href="https://developers.recurly.com/api/v2019-10-10#operation/deactivate_coupon">deactivate_coupon api documentation</see>
+        /// </summary>
+        /// <param name="couponId">Coupon ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-10off`.</param>
+        /// <returns>
+        /// The expired Coupon
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<Coupon> DeactivateCouponAsync(string couponId, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            var urlParams = new Dictionary<string, object> { { "coupon_id", couponId } };
+            var url = this.InterpolatePath("/coupons/{coupon_id}", urlParams);
+            return MakeRequestAsync<Coupon>(Method.DELETE, url, null, null, cancellationToken);
+        }
+
+        /// <summary>
         /// List unique coupon codes associated with a bulk coupon <see href="https://developers.recurly.com/api/v2019-10-10#operation/list_unique_coupon_codes">list_unique_coupon_codes api documentation</see>
         /// </summary>
         /// <param name="couponId">Coupon ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-10off`.</param>
