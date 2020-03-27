@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>recurly-api-client</id>
-    <version>1.17.2</version>
+    <version>1.17.3</version>
     <authors>recurly</authors>
     <owners>recurly</owners>
     <licenseUrl>https://github.com/recurly/recurly-client-net/blob/master/LICENSE.txt</licenseUrl>
