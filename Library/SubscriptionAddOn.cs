@@ -12,6 +12,7 @@ namespace Recurly
         public int Quantity { get; set; }
         public Adjustment.RevenueSchedule? RevenueScheduleType { get; set; }
         public float? UsagePercentage { get; set; }
+        public string TierType { get; set; }
 
         public SubscriptionAddOn(XmlTextReader reader)
         {
@@ -32,6 +33,14 @@ namespace Recurly
             AddOnCode = addOnCode;
             AddOnType = addOnType;
             UnitAmountInCents = unitAmountInCents;
+            Quantity = quantity;
+        }
+
+        // new constructor for tiered-pricing
+        public SubscriptionAddOn(string addOnCode, string tierType, int quantity = 1)
+        {
+            AddOnCode = addOnCode;
+            TierType = tierType;
             Quantity = quantity;
         }
 
@@ -76,6 +85,11 @@ namespace Recurly
                                 CultureInfo.InvariantCulture.NumberFormat, out float percentage))
                             UsagePercentage = percentage;
                         break;
+
+                    case "tier_type":
+                        TierType = reader.ReadElementContentAsString();
+                        break;
+
                 }
             }
         }
@@ -95,6 +109,9 @@ namespace Recurly
 
             if (UsagePercentage.HasValue)
                 writer.WriteElementString("usage_percentage", UsagePercentage.ToString());
+
+            if (TierType != null)
+                writer.WriteElementString("tier_type", TierType);
 
             writer.WriteEndElement();
         }

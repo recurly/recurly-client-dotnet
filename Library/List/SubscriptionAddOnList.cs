@@ -105,6 +105,25 @@ namespace Recurly
             base.Add(sub);
         }
 
+        /// <summary>
+        /// Adds the given tiered-pricing <see cref="T:Recurly.AddOn"/> to the current Subscription.
+        /// 
+        /// Sample usage:
+        /// <code>
+        /// sub.AddOns.Add(planAddOn, tierType, quantity)
+        /// sub.AddOns.Add(planAddOn, tierType) // default quantity = 1
+        /// </code>
+        /// </summary>
+        /// <param name="planAddOn">The <see cref="T:Recurly.AddOn"/> to add to the current Subscription.</param>
+        /// <param name="tierType">The add-on tier-type.</param>
+        /// <param name="quantity">The quantity of the add-on. Optional, default is 1.</param>
+
+        public void Add(AddOn planAddOn, string tierType, int quantity)
+        {
+            var sub = new SubscriptionAddOn(planAddOn.AddOnCode, tierType, quantity);
+            base.Add(sub);
+        }
+
         // sub.AddOns.Add(code, quantity, unitInCents);
         // sub.AddOns.Add(code, quantity); unitInCents=this.Plan.UnitAmountInCents[this.Currency]
         // sub.AddOns.Add(code); 1, unitInCents=this.Plan.UnitAmountInCents[this.Currency]
