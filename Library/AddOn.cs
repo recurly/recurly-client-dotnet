@@ -81,34 +81,16 @@ namespace Recurly
         /// <summary>
         /// Update an existing add on in Recurly
         /// </summary>
-        public void Update()
-        {
-            Plan plan = Plans.Get(this.PlanCode);
-            AddOn addon = plan.GetAddOn(this.AddOnCode);
-
+        public void Update() {
             if (this.ItemState == null) {
                 Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
                     UrlPrefix + Uri.EscapeDataString(PlanCode) + UrlPostfix + Uri.EscapeDataString(AddOnCode),
                     WriteXml,
                     ReadXml);
             } else {
-                // update item-backed add-on
-                AddOn request = new AddOn();
-                if (this.DefaultQuantity != addon.DefaultQuantity) {
-                    request.DefaultQuantity = this.DefaultQuantity;
-                }
-                if (this.UnitAmountInCents["USD"] != addon.UnitAmountInCents["USD"]) {
-                    request.UnitAmountInCents["USD"] = this.UnitAmountInCents["USD"];
-                }
-                if (this.Optional != addon.Optional) {
-                    request.Optional = this.Optional;
-                }
-                if (this.DisplayQuantityOnHostedPage != addon.DisplayQuantityOnHostedPage) {
-                    request.DisplayQuantityOnHostedPage = this.DisplayQuantityOnHostedPage;
-                }
                 Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
                     UrlPrefix + Uri.EscapeDataString(PlanCode) + UrlPostfix + Uri.EscapeDataString(AddOnCode),
-                    request.WriteXml,
+                    WriteItemBackedUpdateXml,
                     ReadXml);
             }
         }
@@ -256,6 +238,21 @@ namespace Recurly
 
             if (RevenueScheduleType.HasValue)
                 xmlWriter.WriteElementString("revenue_schedule_type", RevenueScheduleType.Value.ToString().EnumNameToTransportCase());
+
+            xmlWriter.WriteEndElement();
+        }
+
+        internal void WriteItemBackedUpdateXml(XmlTextWriter xmlWriter) {
+            xmlWriter.WriteStartElement("add_on");
+
+            if (DefaultQuantity.HasValue)
+                xmlWriter.WriteElementString("default_quantity", DefaultQuantity.Value.AsString());
+            xmlWriter.WriteIfCollectionHasAny("unit_amount_in_cents", UnitAmountInCents, pair => pair.Key,
+                pair => pair.Value.AsString());
+            if (Optional.HasValue)
+                xmlWriter.WriteElementString("optional", Optional.Value.AsString());
+            if (DisplayQuantityOnHostedPage.HasValue)
+                xmlWriter.WriteElementString("display_quantity_on_hosted_page", DisplayQuantityOnHostedPage.Value.AsString());
 
             xmlWriter.WriteEndElement();
         }
