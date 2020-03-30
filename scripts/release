@@ -21,8 +21,10 @@ dotnet nuget push "$(pwd)"/Recurly/bin/Release/Recurly."$THIS_VERSION".nupkg -s 
 hub release create -c -F $RELEASED_LOG $THIS_VERSION
 
 # Copy-pasteable messages for announcments
-echo "Dotnet $THIS_VERSION Released"
-echo "NuGet (:nuget:):  https://www.nuget.org/packages/Recurly/$THIS_VERSION"
+echo ":dotnet: Dotnet $THIS_VERSION Released :dotnet:"
+echo ":nuget: NuGet:  https://www.nuget.org/packages/Recurly/$THIS_VERSION"
 echo "Release: https://github.com/recurly/recurly-client-dotnet/releases/tag/$THIS_VERSION"
 echo "Changelog:"
+echo "\`\`\`"
 cat "$RELEASED_LOG"
+echo "\`\`\`"
