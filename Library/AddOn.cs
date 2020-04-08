@@ -86,17 +86,10 @@ namespace Recurly
         /// </summary>
         public void Update()
         {
-            if (this.TierType == "tiered") {
-                Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
-                    UrlPrefix + Uri.EscapeDataString(PlanCode) + UrlPostfix + Uri.EscapeDataString(AddOnCode),
-                    WriteTieredUpdateXml,
-                    ReadXml); 
-            } else {
-                Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
-                    UrlPrefix + Uri.EscapeDataString(PlanCode) + UrlPostfix + Uri.EscapeDataString(AddOnCode),
-                    WriteXml,
-                    ReadXml);           
-            }
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
+                UrlPrefix + Uri.EscapeDataString(PlanCode) + UrlPostfix + Uri.EscapeDataString(AddOnCode),
+                WriteXml,
+                ReadXml);
         }
 
         /// <summary>
@@ -224,43 +217,9 @@ namespace Recurly
             if (Optional.HasValue)
                 xmlWriter.WriteElementString("optional", Optional.Value.AsString());
 
-            xmlWriter.WriteIfCollectionHasAny("unit_amount_in_cents", UnitAmountInCents, pair => pair.Key,
-                pair => pair.Value.AsString());
-
-            if (RevenueScheduleType.HasValue)
-                xmlWriter.WriteElementString("revenue_schedule_type", RevenueScheduleType.Value.ToString().EnumNameToTransportCase());
-
-            if (TierType != null)
-                xmlWriter.WriteElementString("tier_type", TierType);
-
-            xmlWriter.WriteIfCollectionHasAny("tiers", Tiers);
-
-            xmlWriter.WriteEndElement();
-        }
-
-        internal void WriteTieredUpdateXml(XmlTextWriter xmlWriter) {
-            xmlWriter.WriteStartElement("add_on");
-
-            xmlWriter.WriteElementString("name", Name);
-            xmlWriter.WriteElementString("accounting_code", AccountingCode);
-
-            if (DefaultQuantity.HasValue)
-                xmlWriter.WriteElementString("default_quantity", DefaultQuantity.Value.AsString());
-
-            if (AddOnType.HasValue)
-                xmlWriter.WriteElementString("add_on_type", AddOnType.Value.ToString().EnumNameToTransportCase());
-
-            if (UsageType.HasValue)
-                xmlWriter.WriteElementString("usage_type", UsageType.Value.ToString().EnumNameToTransportCase());
-
-            if (MeasuredUnitId.HasValue)
-                xmlWriter.WriteElementString("measured_unit_id", MeasuredUnitId.ToString());
-
-            if (DisplayQuantityOnHostedPage.HasValue)
-                xmlWriter.WriteElementString("display_quantity_on_hosted_page", DisplayQuantityOnHostedPage.Value.AsString());
-
-            if (Optional.HasValue)
-                xmlWriter.WriteElementString("optional", Optional.Value.AsString());
+            if (this.TierType == "flat")
+                xmlWriter.WriteIfCollectionHasAny("unit_amount_in_cents", UnitAmountInCents, pair => pair.Key,
+                    pair => pair.Value.AsString());
 
             if (RevenueScheduleType.HasValue)
                 xmlWriter.WriteElementString("revenue_schedule_type", RevenueScheduleType.Value.ToString().EnumNameToTransportCase());
