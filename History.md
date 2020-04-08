@@ -1,6 +1,16 @@
 Unreleased
 ===============
 
+1.17.3 (stable) / 2020-03-26
+===============
+
+This brings us up to API version 2.26. There are no breaking changes.
+
+- Add IBAN attribute to BillingInfo [PR](https://github.com/recurly/recurly-client-dotnet/pull/490)
+- Tiered Pricing [PR](https://github.com/recurly/recurly-client-dotnet/pull/496)
+- Add tier_type to SubscriptionAddOn and related constructor [PR](https://github.com/recurly/recurly-client-dotnet/pull/497)
+- Add mandate_reference attribute to BillingInfo [PR](https://github.com/recurly/recurly-client-dotnet/pull/499)
+
 1.17.2 (stable) / 2020-02-20
 ===============
 

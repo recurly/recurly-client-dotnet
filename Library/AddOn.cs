@@ -29,6 +29,18 @@ namespace Recurly
         public DateTime UpdatedAt { get; private set; }
         public Adjustment.RevenueSchedule? RevenueScheduleType { get; set; }
         public string ItemState { get; set; }
+        public string TierType { get; set; }
+
+        private List<Tier> _tiers; 
+
+        /// <summary>
+        /// List of tiers for this add-on
+        /// </summary>
+        public List<Tier> Tiers
+        {
+            get {return _tiers ?? (_tiers = new List<Tier>()); }
+            set { _tiers = value; }
+        }
 
         private Dictionary<string, int> _unitAmountInCents;
         /// <summary>
@@ -103,7 +115,6 @@ namespace Recurly
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Delete,
                 UrlPrefix + Uri.EscapeDataString(PlanCode) + UrlPostfix + Uri.EscapeDataString(AddOnCode));
         }
-
 
         #region Read and Write XML documents
 
@@ -199,6 +210,10 @@ namespace Recurly
                     case "item_state":
                         ItemState = reader.ReadElementContentAsString();
                         break;
+                        
+                    case "tier_type":
+                        TierType = reader.ReadElementContentAsString();
+                        break;
                 }
             }
         }
@@ -238,6 +253,11 @@ namespace Recurly
 
             if (RevenueScheduleType.HasValue)
                 xmlWriter.WriteElementString("revenue_schedule_type", RevenueScheduleType.Value.ToString().EnumNameToTransportCase());
+
+            if (TierType != null)
+                xmlWriter.WriteElementString("tier_type", TierType);
+
+            xmlWriter.WriteIfCollectionHasAny("tiers", Tiers);
 
             xmlWriter.WriteEndElement();
         }

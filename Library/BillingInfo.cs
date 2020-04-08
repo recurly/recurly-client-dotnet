@@ -41,6 +41,7 @@ namespace Recurly
         public string AccountCode { get; private set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string MandateReference { get; set; }
         public string Address1 { get; set; }
         public string Address2 { get; set; }
         public string City { get; set; }
@@ -111,6 +112,8 @@ namespace Recurly
         /// 3DSecure Action Result Token ID
         /// </summary>
         public string ThreeDSecureActionResultTokenId { get; set; }
+
+        public string Iban { get; set; }
 
         public string TransactionType { get; set; }
 
@@ -256,6 +259,10 @@ namespace Recurly
                         LastName = reader.ReadElementContentAsString();
                         break;
 
+                    case "mandate_reference":
+                        MandateReference = reader.ReadElementContentAsString();
+                        break;
+
                     case "name_on_account":
                         NameOnAccount = reader.ReadElementContentAsString();
                         break;
@@ -346,6 +353,10 @@ namespace Recurly
                         RoutingNumber = reader.ReadElementContentAsString();
                         break;
 
+                    case "iban":
+                        Iban = reader.ReadElementContentAsString();
+                        break;
+
                     case "account_type":
 
                         var accountType = reader.ReadElementContentAsString();
@@ -381,6 +392,7 @@ namespace Recurly
             {
                 xmlWriter.WriteStringIfValid("first_name", FirstName);
                 xmlWriter.WriteStringIfValid("last_name", LastName);
+                xmlWriter.WriteStringIfValid("mandate_reference", MandateReference);
                 xmlWriter.WriteStringIfValid("company", Company);
                 xmlWriter.WriteStringIfValid("name_on_account", NameOnAccount);
                 xmlWriter.WriteStringIfValid("address1", Address1);
@@ -414,6 +426,10 @@ namespace Recurly
                     xmlWriter.WriteElementString("account_type", AccountType.ToString().EnumNameToTransportCase());
                 }
 
+                if (!Iban.IsNullOrEmpty())
+                {
+                    xmlWriter.WriteElementString("iban", Iban);
+                }
                 if (!PaypalBillingAgreementId.IsNullOrEmpty())
                 {
                     xmlWriter.WriteElementString("paypal_billing_agreement_id", PaypalBillingAgreementId);
