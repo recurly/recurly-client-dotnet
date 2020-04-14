@@ -43,6 +43,14 @@ namespace Recurly.Resources
         [JsonProperty("subscription_id")]
         public string SubscriptionId { get; set; }
 
+        /// <value>The type of tiering used by the Add-on.</value>
+        [JsonProperty("tier_type")]
+        public string TierType { get; set; }
+
+        /// <value>Empty unless `tier_type` is `tiered`, `volume`, or `stairstep`.</value>
+        [JsonProperty("tiers")]
+        public List<SubscriptionAddOnTier> Tiers { get; set; }
+
         /// <value>This is priced in the subscription's currency.</value>
         [JsonProperty("unit_amount")]
         public float? UnitAmount { get; set; }

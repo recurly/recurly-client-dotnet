@@ -31,6 +31,10 @@ namespace Recurly.Resources
         [JsonProperty("revenue_schedule_type")]
         public string RevenueScheduleType { get; set; }
 
+        /// <value>If the plan add-on's `tier_type` is `flat`, then `tiers` must be absent.</value>
+        [JsonProperty("tiers")]
+        public List<SubscriptionAddOnTier> Tiers { get; set; }
+
         /// <value>Optionally, override the add-on's default unit amount.</value>
         [JsonProperty("unit_amount")]
         public float? UnitAmount { get; set; }
