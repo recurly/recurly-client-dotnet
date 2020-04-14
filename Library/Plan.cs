@@ -167,8 +167,12 @@ namespace Recurly
         /// <returns></returns>
         public AddOn NewAddOn(string addOnCode, string name)
         {
-            var a = new AddOn(PlanCode, addOnCode, name);
-            return a;
+            return new AddOn(PlanCode, addOnCode, name);
+        }
+
+        public AddOn NewAddOn(string itemCode)
+        {
+            return new AddOn(PlanCode, itemCode);
         }
 
         public AddOn GetAddOn(string addOnCode)

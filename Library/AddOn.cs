@@ -14,6 +14,7 @@ namespace Recurly
 
         public string PlanCode { get; set; }
         public string AddOnCode { get; set; }
+        public string ItemCode {get; set; }
         public string Name { get; set; }
         public int? DefaultQuantity { get; set; }
         public bool? DisplayQuantityOnHostedPage { get; set; }
@@ -23,9 +24,11 @@ namespace Recurly
         public long? MeasuredUnitId { get; set; }
         public Type? AddOnType { get; set; }
         public Usage.Type? UsageType { get; set; }
+        public float? UsagePercentage {get; set; }
         public DateTime CreatedAt { get; private set; }
         public DateTime UpdatedAt { get; private set; }
         public Adjustment.RevenueSchedule? RevenueScheduleType { get; set; }
+        public string ItemState { get; set; }
         public string TierType { get; set; }
 
         private List<Tier> _tiers; 
@@ -68,6 +71,12 @@ namespace Recurly
             Name = name;
         }
 
+        internal AddOn(string planCode, string itemCode)
+        {
+            PlanCode = planCode;
+            ItemCode = itemCode;
+        }
+
         #endregion
 
         /// <summary>
@@ -84,12 +93,18 @@ namespace Recurly
         /// <summary>
         /// Update an existing add on in Recurly
         /// </summary>
-        public void Update()
-        {
-            Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
-                UrlPrefix + Uri.EscapeDataString(PlanCode) + UrlPostfix + Uri.EscapeDataString(AddOnCode),
-                WriteXml,
-                ReadXml);
+        public void Update() {
+            if (this.ItemState == null) {
+                Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
+                    UrlPrefix + Uri.EscapeDataString(PlanCode) + UrlPostfix + Uri.EscapeDataString(AddOnCode),
+                    WriteXml,
+                    ReadXml);
+            } else {
+                Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
+                    UrlPrefix + Uri.EscapeDataString(PlanCode) + UrlPostfix + Uri.EscapeDataString(AddOnCode),
+                    WriteItemBackedUpdateXml,
+                    ReadXml);
+            }
         }
 
         /// <summary>
@@ -132,6 +147,10 @@ namespace Recurly
                 {
                     case "add_on_code":
                         AddOnCode = reader.ReadElementContentAsString();
+                        break;
+                    
+                    case "item_code":
+                        ItemCode = reader.ReadElementContentAsString();
                         break;
 
                     case "accounting_code":
@@ -178,12 +197,20 @@ namespace Recurly
                         UsageType = reader.ReadElementContentAsString().ParseAsEnum<Usage.Type>();
                         break;
 
+                    case "usage_percentage":
+                        UsagePercentage = reader.ReadElementContentAsFloat();
+                        break;
+
                     case "revenue_schedule_type":
                         var revenueScheduleType = reader.ReadElementContentAsString();
                         if (!revenueScheduleType.IsNullOrEmpty())
                             RevenueScheduleType = revenueScheduleType.ParseAsEnum<Adjustment.RevenueSchedule>();
                         break;
 
+                    case "item_state":
+                        ItemState = reader.ReadElementContentAsString();
+                        break;
+                        
                     case "tier_type":
                         TierType = reader.ReadElementContentAsString();
                         break;
@@ -194,10 +221,11 @@ namespace Recurly
         internal override void WriteXml(XmlTextWriter xmlWriter)
         {
             xmlWriter.WriteStartElement("add_on");
-
-            xmlWriter.WriteElementString("add_on_code", AddOnCode);
-            xmlWriter.WriteElementString("name", Name);
-            xmlWriter.WriteElementString("accounting_code", AccountingCode);
+            
+            xmlWriter.WriteStringIfValid("item_code", ItemCode);
+            xmlWriter.WriteStringIfValid("add_on_code", AddOnCode);
+            xmlWriter.WriteStringIfValid("name", Name);
+            xmlWriter.WriteStringIfValid("accounting_code", AccountingCode);
 
             if (DefaultQuantity.HasValue)
                 xmlWriter.WriteElementString("default_quantity", DefaultQuantity.Value.AsString());
@@ -207,6 +235,9 @@ namespace Recurly
 
             if (UsageType.HasValue)
                 xmlWriter.WriteElementString("usage_type", UsageType.Value.ToString().EnumNameToTransportCase());
+
+            if (UsagePercentage.HasValue)
+                xmlWriter.WriteElementString("usage_percentage", UsagePercentage.Value.ToString());
 
             if (MeasuredUnitId.HasValue)
                 xmlWriter.WriteElementString("measured_unit_id", MeasuredUnitId.ToString());
@@ -228,6 +259,21 @@ namespace Recurly
                 xmlWriter.WriteElementString("tier_type", TierType);
 
             xmlWriter.WriteIfCollectionHasAny("tiers", Tiers);
+
+            xmlWriter.WriteEndElement();
+        }
+
+        internal void WriteItemBackedUpdateXml(XmlTextWriter xmlWriter) {
+            xmlWriter.WriteStartElement("add_on");
+
+            if (DefaultQuantity.HasValue)
+                xmlWriter.WriteElementString("default_quantity", DefaultQuantity.Value.AsString());
+            xmlWriter.WriteIfCollectionHasAny("unit_amount_in_cents", UnitAmountInCents, pair => pair.Key,
+                pair => pair.Value.AsString());
+            if (Optional.HasValue)
+                xmlWriter.WriteElementString("optional", Optional.Value.AsString());
+            if (DisplayQuantityOnHostedPage.HasValue)
+                xmlWriter.WriteElementString("display_quantity_on_hosted_page", DisplayQuantityOnHostedPage.Value.AsString());
 
             xmlWriter.WriteEndElement();
         }

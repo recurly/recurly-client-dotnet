@@ -75,6 +75,39 @@ namespace Recurly.Test
         }
 
         [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void CreatePlanWithAddOn()
+        {
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName());
+            plan.SetupFeeInCents.Add("USD", 500);
+            plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
+
+            var addon = plan.NewAddOn("add_on", "Add on");
+            addon.UnitAmountInCents.Add("USD", 200);
+            addon.Create();
+
+            plan.AddOns[0].AddOnCode.Should().Be(addon.AddOnCode);
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void CreatePlanWithItemBackedAddOn()
+        {
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName());
+            plan.SetupFeeInCents.Add("USD", 500);
+            plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
+
+            var item = new Item(GetMockItemCode(), GetMockItemName());
+            item.Create();
+
+            var addon = plan.NewAddOn(item.ItemCode);
+            addon.UnitAmountInCents.Add("USD", 200);
+            addon.Create();
+
+            addon.ItemCode.Should().Be(item.ItemCode);
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void UpdatePlan()
         {
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName()) {Description = "Test Update"};
