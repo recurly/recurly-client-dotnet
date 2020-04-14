@@ -217,8 +217,9 @@ namespace Recurly
             if (Optional.HasValue)
                 xmlWriter.WriteElementString("optional", Optional.Value.AsString());
 
-            xmlWriter.WriteIfCollectionHasAny("unit_amount_in_cents", UnitAmountInCents, pair => pair.Key,
-                pair => pair.Value.AsString());
+            if (this.TierType == "flat")
+                xmlWriter.WriteIfCollectionHasAny("unit_amount_in_cents", UnitAmountInCents, pair => pair.Key,
+                    pair => pair.Value.AsString());
 
             if (RevenueScheduleType.HasValue)
                 xmlWriter.WriteElementString("revenue_schedule_type", RevenueScheduleType.Value.ToString().EnumNameToTransportCase());
