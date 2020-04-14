@@ -23,7 +23,14 @@ namespace Recurly.Resources
         [JsonProperty("code")]
         public string Code { get; set; }
 
-        /// <value>If `item_code`/`item_id` is part of the request and the item has a default currency then `currencies` is optional. If the item does not have a default currency, then `currencies` is required. If `item_code`/`item_id` is not present `currencies` is required.</value>
+        /// <value>
+        /// * If `item_code`/`item_id` is part of the request and the item
+        /// has a default currency then `currencies` is optional. If the item does
+        /// not have a default currency, then `currencies` is required. If `item_code`/`item_id`
+        /// is not present `currencies` is required.
+        /// * If the add-on's `tier_type` is `tiered`, `volume`, or `stairstep`,
+        /// then `currencies` must be absent.
+        /// </value>
         [JsonProperty("currencies")]
         public List<AddOnPricing> Currencies { get; set; }
 
@@ -47,6 +54,10 @@ namespace Recurly.Resources
         [JsonProperty("name")]
         public string Name { get; set; }
 
+        /// <value>Whether the add-on is optional for the customer to include in their purchase on the hosted payment page. If false, the add-on will be included when a subscription is created through the Recurly UI. However, the add-on will not be included when a subscription is created through the API.</value>
+        [JsonProperty("optional")]
+        public bool? Optional { get; set; }
+
         /// <value>Plan ID</value>
         [JsonProperty("plan_id")]
         public string PlanId { get; set; }
@@ -58,6 +69,14 @@ namespace Recurly.Resources
         /// <value>Optional field used by Avalara, Vertex, and Recurly's EU VAT tax feature to determine taxation rules. If you have your own AvaTax or Vertex account configured, use their tax codes to assign specific tax rules. If you are using Recurly's EU VAT feature, you can use values of `unknown`, `physical`, or `digital`. If `item_code`/`item_id` is part of the request then `tax_code` must be absent.</value>
         [JsonProperty("tax_code")]
         public string TaxCode { get; set; }
+
+        /// <value>The type of tiering used by the Add-on.</value>
+        [JsonProperty("tier_type")]
+        public string TierType { get; set; }
+
+        /// <value>At least one tier is required if `tier_type` is not 'flat'.</value>
+        [JsonProperty("tiers")]
+        public List<Tier> Tiers { get; set; }
 
     }
 }

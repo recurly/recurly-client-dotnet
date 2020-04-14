@@ -83,6 +83,14 @@ namespace Recurly.Resources
         [JsonProperty("tax_code")]
         public string TaxCode { get; set; }
 
+        /// <value>The type of tiering used by the Add-on.</value>
+        [JsonProperty("tier_type")]
+        public string TierType { get; set; }
+
+        /// <value>Tiers</value>
+        [JsonProperty("tiers")]
+        public List<Tier> Tiers { get; set; }
+
         /// <value>Last updated at</value>
         [JsonProperty("updated_at")]
         public DateTime? UpdatedAt { get; set; }
