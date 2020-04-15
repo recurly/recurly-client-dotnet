@@ -1,6 +1,12 @@
 Unreleased
 ===============
 
+1.17.4 (stable) / 2020-04-15
+===============
+
+- Enable item-backed add-ons [PR](https://github.com/recurly/recurly-client-dotnet/pull/489)
+- Allow tiered add-ons to be updated [PR](https://github.com/recurly/recurly-client-dotnet/pull/503)
+
 1.17.3 (stable) / 2020-03-26
 ===============
 
