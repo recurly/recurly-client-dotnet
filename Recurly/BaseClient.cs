@@ -69,6 +69,19 @@ namespace Recurly
             return resp.Data;
         }
 
+        public int GetResourceCount(string url)
+        {
+            Debug.WriteLine($"Calling {url}");
+            var request = BuildRequest(Method.HEAD, url, null, null);
+            var resp = RestClient.Execute(request);
+            this.HandleResponse(resp);
+            var headers = resp.Headers.ToList();
+            var recordCount = headers
+                .Find(x => x.Name == "Recurly-Total-Records")
+                .Value.ToString();
+            return int.Parse(recordCount);
+        }
+
         public void _SetApiUrl(string uri)
         {
             Console.WriteLine("[SECURITY WARNING] _SetApiUrl is for testing only and not supported in production.");

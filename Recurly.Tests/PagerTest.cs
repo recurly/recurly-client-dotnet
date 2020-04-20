@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using Xunit;
@@ -102,6 +103,36 @@ namespace Recurly.Tests
             Assert.Equal(5, total);
         }
 
+        [Fact]
+        public void PagerFirstTest()
+        {
+            var queryParams = new Dictionary<string, object> {
+                { "limit", "200" },
+                { "a", "1" },
+            };
+            var clientMock = GetPagerFirstClient();
+
+            var pager = Pager<MyResource>.Build("/resources", queryParams, clientMock);
+
+            var resource = pager.First();
+            Assert.Equal("First Resource", resource.MyString);
+        }
+
+        [Fact]
+        public void PagerCountTest()
+        {
+            var queryParams = new Dictionary<string, object> {
+                { "limit", 200 },
+                { "a", 1 },
+            };
+            var clientMock = GetPagerCountClient();
+
+            var pager = Pager<MyResource>.Build("/resources", queryParams, clientMock);
+
+            var count = pager.Count();
+            Assert.Equal(42, count);
+        }
+
         private Recurly.Client GetPagerSuccessClient()
         {
             var page1 = new Pager<MyResource>()
@@ -120,6 +151,7 @@ namespace Recurly.Tests
             page1Response.Setup(_ => _.Data).Returns(page1);
 
             var page2 = new Pager<MyResource>()
+
             {
                 HasMore = false,
                 Data = new List<MyResource>()
@@ -161,6 +193,75 @@ namespace Recurly.Tests
             var mockIRestClient = new Mock<IRestClient>();
             mockIRestClient
                 .Setup(x => x.Execute<Pager<MyResource>>(It.IsAny<IRestRequest>()))
+                .Returns(pageResponse.Object);
+
+            return new Recurly.Client("myapikey")
+            {
+                RestClient = mockIRestClient.Object
+            };
+        }
+
+        private Recurly.Client GetPagerFirstClient()
+        {
+            var page = new Pager<MyResource>()
+            {
+                HasMore = true,
+                Data = new List<MyResource>()
+                {
+                    new MyResource() { MyString = "First Resource" }
+                }
+            };
+            var pageResponse = new Mock<IRestResponse<Pager<MyResource>>>();
+            pageResponse.Setup(_ => _.StatusCode).Returns(System.Net.HttpStatusCode.OK);
+            pageResponse.Setup(_ => _.Headers).Returns(new List<Parameter> { });
+            pageResponse.Setup(_ => _.Data).Returns(page);
+
+            var mockIRestClient = new Mock<IRestClient>();
+            var myParams = new List<Parameter> {
+                new RestSharp.Parameter("limit", "1", ParameterType.QueryString),
+                new RestSharp.Parameter("a", "1", ParameterType.QueryString),
+            };
+
+            // TODO: Find a better way to handle this specifically and the concept at a whole
+            Func<List<Parameter>, List<Parameter>, bool> sameParams = delegate (List<Parameter> a, List<Parameter> b)
+            {
+                var sortedA = a.OrderBy(x => x.Name).ToList();
+                var sortedB = b.OrderBy(x => x.Name).ToList();
+                int index = 0;
+                foreach (Parameter p in sortedA)
+                {
+                    var pB = sortedB.ElementAt(index);
+                    if (p.Name != pB.Name || String.Compare(p.Value.ToString(), pB.Value.ToString()) != 0)
+                    {
+                        return false;
+                    }
+                    index++;
+                }
+                return true;
+            };
+
+
+            mockIRestClient
+                .Setup(x => x.Execute<Pager<MyResource>>(It.Is<RestRequest>(r => sameParams(r.Parameters, myParams) && r.Resource == "/resources")))
+                .Returns(pageResponse.Object);
+
+            return new Recurly.Client("myapikey")
+            {
+                RestClient = mockIRestClient.Object
+            };
+        }
+
+        private Recurly.Client GetPagerCountClient()
+        {
+            var pageResponse = new Mock<IRestResponse>();
+            pageResponse.Setup(_ => _.StatusCode).Returns(System.Net.HttpStatusCode.OK);
+            pageResponse.Setup(_ => _.Headers).Returns(new List<Parameter> {
+                new RestSharp.Parameter("Recurly-Total-Records", "42", ParameterType.HttpHeader),
+            });
+            var mockIRestClient = new Mock<IRestClient>();
+
+            mockIRestClient
+                .Setup(x => x.Execute(It.Is<RestRequest>(r => r.Method == Method.HEAD)))
                 .Returns(pageResponse.Object);
 
             return new Recurly.Client("myapikey")
