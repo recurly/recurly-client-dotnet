@@ -1,5 +1,25 @@
 # Changelog
 
+## [3.5.0](https://github.com/recurly/recurly-client-dotnet/tree/HEAD)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.4.1...HEAD)
+
+**Implemented enhancements:**
+
+- Tue Apr 14 20:22:18 UTC 2020 Upgrade API version v2019-10-10 [\#505](https://github.com/recurly/recurly-client-dotnet/pull/505) ([bhelx](https://github.com/bhelx))
+- Adding \#First and \#Count methods to Pager [\#491](https://github.com/recurly/recurly-client-dotnet/pull/491) ([douglasmiller](https://github.com/douglasmiller))
+
+**Fixed bugs:**
+
+- CreateAccountAsync\(\) does not permit first\_name, last\_name [\#402](https://github.com/recurly/recurly-client-dotnet/issues/402)
+
+**Merged pull requests:**
+
+- Release 3.5.0 [\#508](https://github.com/recurly/recurly-client-dotnet/pull/508) ([douglasmiller](https://github.com/douglasmiller))
+- Included the to-be released changes in the changelog [\#504](https://github.com/recurly/recurly-client-dotnet/pull/504) ([douglasmiller](https://github.com/douglasmiller))
+- Updating release script to be uniform across all clients [\#502](https://github.com/recurly/recurly-client-dotnet/pull/502) ([douglasmiller](https://github.com/douglasmiller))
+- Thu Mar 26 20:42:11 UTC 2020 Upgrade API version v2019-10-10 [\#498](https://github.com/recurly/recurly-client-dotnet/pull/498) ([bhelx](https://github.com/bhelx))
+
 ## [3.4.1](https://github.com/recurly/recurly-client-dotnet/tree/3.4.1) (2020-03-20)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.4.0...3.4.1)
