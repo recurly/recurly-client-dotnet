@@ -95,9 +95,21 @@ namespace Recurly.Tests
         [Fact]
         public void WillValidatePathParams()
         {
-            var client = this.GetResourceSuccessClient();
+            var client = this.MockResourceClient(SuccessResponse(System.Net.HttpStatusCode.OK));
             MyResource resource = client.GetResource("benjamin", "param1", new DateTime(2020, 01, 01));
             Assert.Throws<Recurly.RecurlyError>(() => client.GetResource("", "param1", new DateTime(2020, 01, 01)));
+        }
+
+        [Fact]
+        public void WillEncodeForwardSlashesInURL()
+        {
+            Func<IRestRequest, bool> matcher = delegate (IRestRequest request)
+            {
+                Assert.Equal("/my_resources/douglas%2F", request.Resource);
+                return true;
+            };
+            var client = this.MockResourceClient(matcher, NotFoundResponse());
+            Assert.Throws<Recurly.Errors.NotFound>(() => client.GetResource("douglas/", "param1", new DateTime(2020, 01, 01)));
         }
 
         [Fact]
