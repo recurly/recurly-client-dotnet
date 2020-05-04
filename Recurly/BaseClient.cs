@@ -164,8 +164,20 @@ namespace Recurly
             }
         }
 
+        private void ValidatePathParameters(Dictionary<string, object> urlParams)
+        {
+            var invalidParams = urlParams.Where(kvp => string.IsNullOrWhiteSpace(kvp.Value.ToString()));
+            if (invalidParams.Any())
+            {
+                var invalidKeys = string.Join(", ", invalidParams.Select(x => x.Key).ToArray());
+                throw new RecurlyError($"{invalidKeys} cannot be an empty value");
+            }
+
+        }
+
         protected string InterpolatePath(string path, Dictionary<string, object> urlParams)
         {
+            ValidatePathParameters(urlParams);
             var regex = new Regex("{([A-Za-z|_]*)}");
             // TODO ToString() here might not appropriately format all data types
             // such as datetimes

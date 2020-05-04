@@ -93,6 +93,14 @@ namespace Recurly.Tests
         }
 
         [Fact]
+        public void WillValidatePathParams()
+        {
+            var client = this.GetResourceSuccessClient();
+            MyResource resource = client.GetResource("benjamin", "param1", new DateTime(2020, 01, 01));
+            Assert.Throws<Recurly.RecurlyError>(() => client.GetResource("", "param1", new DateTime(2020, 01, 01)));
+        }
+
+        [Fact]
         public void WillThrowNotFoundExceptionForNon200()
         {
             var client = this.GetResourceFailureClient();
