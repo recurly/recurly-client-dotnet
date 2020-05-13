@@ -81,7 +81,7 @@ namespace Recurly.Resources
 
         /// <value>The values in this field will vary from gateway to gateway.</value>
         [JsonProperty("gateway_response_values")]
-        public Dictionary<string, string> GatewayResponseValues { get; set; }
+        public Dictionary<string, object> GatewayResponseValues { get; set; }
 
         /// <value>Transaction ID</value>
         [JsonProperty("id")]
