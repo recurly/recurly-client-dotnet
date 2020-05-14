@@ -181,8 +181,9 @@ namespace Recurly
             var regex = new Regex("{([A-Za-z|_]*)}");
             // TODO ToString() here might not appropriately format all data types
             // such as datetimes
-            // TODO could get rid of string replaces with nicer regex matcher
-            return regex.Replace(path, m => urlParams[m.Value.Replace("{", "").Replace("}", "")].ToString());
+            // Encode forward slashes in the url components. Standard encoding will happen within
+            // the RestSharp library.
+            return regex.Replace(path, m => urlParams[m.Groups[1].Value].ToString().Replace("/", "%2F"));
         }
     }
 }
