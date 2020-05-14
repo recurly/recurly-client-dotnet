@@ -1,8 +1,37 @@
 # Changelog
 
-## [3.5.0](https://github.com/recurly/recurly-client-dotnet/tree/HEAD)
+## [3.5.1](https://github.com/recurly/recurly-client-dotnet/tree/HEAD)
 
-[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.4.1...HEAD)
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.5.0...HEAD)
+
+## Potential Breaking Change Included
+
+This release contains a bugfix which may result in a breaking change. If you are using the `GatewayResponseValues` property on the `Transaction` resource, the type has been changed from `Dictionary<string, string>` to `Dictionary<string, object>`. Look out for situations where the compiler may not help you understand that something may be wrong, example:
+
+```csharp
+// This may silently fail now that this is an object and not a string
+// casting to the expected type from `object` is the appropriate way to handle values
+if (transaction.GatewayResponseValues["key"] == "value") {
+  // take some action
+}
+```
+
+See [#512](https://github.com/recurly/recurly-client-dotnet/pull/512) for more information.
+
+**Fixed bugs:**
+
+- Bugfix: Unexpected character encountered while parsing value: "{" [\#512](https://github.com/recurly/recurly-client-dotnet/pull/512) ([bhelx](https://github.com/bhelx))
+
+**Merged pull requests:**
+
+- Release 3.5.1 [\#513](https://github.com/recurly/recurly-client-dotnet/pull/513) ([bhelx](https://github.com/bhelx))
+- Upgrade test deps [\#511](https://github.com/recurly/recurly-client-dotnet/pull/511) ([bhelx](https://github.com/bhelx))
+- Encode forward slashes in URL parameters [\#510](https://github.com/recurly/recurly-client-dotnet/pull/510) ([douglasmiller](https://github.com/douglasmiller))
+- Ensure that path parameters are not empty strings [\#509](https://github.com/recurly/recurly-client-dotnet/pull/509) ([douglasmiller](https://github.com/douglasmiller))
+
+## [3.5.0](https://github.com/recurly/recurly-client-dotnet/tree/3.5.0) (2020-04-20)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.4.1...3.5.0)
 
 **Implemented enhancements:**
 
