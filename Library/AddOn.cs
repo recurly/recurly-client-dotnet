@@ -29,7 +29,16 @@ namespace Recurly
         public DateTime UpdatedAt { get; private set; }
         public Adjustment.RevenueSchedule? RevenueScheduleType { get; set; }
         public string ItemState { get; set; }
-        public string TierType { get; set; }
+        private string _tierType;
+        public string TierType { 
+          get
+          {
+            return (_tierType == null) ? "flat" : _tierType;
+          }
+          set {
+            _tierType = value;
+          }
+        }
 
         private List<Tier> _tiers; 
 
@@ -221,7 +230,7 @@ namespace Recurly
         internal override void WriteXml(XmlTextWriter xmlWriter)
         {
             xmlWriter.WriteStartElement("add_on");
-            
+
             xmlWriter.WriteStringIfValid("item_code", ItemCode);
             xmlWriter.WriteStringIfValid("add_on_code", AddOnCode);
             xmlWriter.WriteStringIfValid("name", Name);
@@ -248,15 +257,14 @@ namespace Recurly
             if (Optional.HasValue)
                 xmlWriter.WriteElementString("optional", Optional.Value.AsString());
 
-            if (this.TierType == "flat")
+            if (TierType == "flat")
                 xmlWriter.WriteIfCollectionHasAny("unit_amount_in_cents", UnitAmountInCents, pair => pair.Key,
                     pair => pair.Value.AsString());
 
             if (RevenueScheduleType.HasValue)
                 xmlWriter.WriteElementString("revenue_schedule_type", RevenueScheduleType.Value.ToString().EnumNameToTransportCase());
 
-            if (TierType != null)
-                xmlWriter.WriteElementString("tier_type", TierType);
+            xmlWriter.WriteElementString("tier_type", TierType);
 
             xmlWriter.WriteIfCollectionHasAny("tiers", Tiers);
 
@@ -268,12 +276,15 @@ namespace Recurly
 
             if (DefaultQuantity.HasValue)
                 xmlWriter.WriteElementString("default_quantity", DefaultQuantity.Value.AsString());
-            xmlWriter.WriteIfCollectionHasAny("unit_amount_in_cents", UnitAmountInCents, pair => pair.Key,
-                pair => pair.Value.AsString());
+            if (TierType == "flat")
+                xmlWriter.WriteIfCollectionHasAny("unit_amount_in_cents", UnitAmountInCents, pair => pair.Key,
+                    pair => pair.Value.AsString());
             if (Optional.HasValue)
                 xmlWriter.WriteElementString("optional", Optional.Value.AsString());
             if (DisplayQuantityOnHostedPage.HasValue)
                 xmlWriter.WriteElementString("display_quantity_on_hosted_page", DisplayQuantityOnHostedPage.Value.AsString());
+            xmlWriter.WriteElementString("tier_type", TierType);
+            xmlWriter.WriteIfCollectionHasAny("tiers", Tiers);
 
             xmlWriter.WriteEndElement();
         }
