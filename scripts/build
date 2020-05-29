@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-set -e
 
 if ! test -f "./bin/dotnet-format"; then
   echo "Installing dotnet formatter..."
