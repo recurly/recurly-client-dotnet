@@ -29,13 +29,14 @@ namespace Recurly
         /// <param name="limit">Limit number of records 1-200.</param>
         /// <param name="order">Sort order.</param>
         /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
+        /// <param name="state">Filter by state.</param>
         /// <returns>
         /// A list of sites.
         /// </returns>
-        public Pager<Site> ListSites(string ids = null, int? limit = null, string order = null, string sort = null)
+        public Pager<Site> ListSites(string ids = null, int? limit = null, string order = null, string sort = null, string state = null)
         {
             var urlParams = new Dictionary<string, object> { };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort } };
+            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "state", state } };
             var url = this.InterpolatePath("/sites", urlParams);
             return Pager<Site>.Build(url, queryParams, this);
         }
@@ -1735,6 +1736,38 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "invoice_id", invoiceId } };
             var url = this.InterpolatePath("/invoices/{invoice_id}/void", urlParams);
             return MakeRequestAsync<Invoice>(Method.PUT, url, null, null, cancellationToken);
+        }
+
+        /// <summary>
+        /// Record an external payment for a manual invoices. <see href="https://developers.recurly.com/api/v2019-10-10#operation/record_external_transaction">record_external_transaction api documentation</see>
+        /// </summary>
+        /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// The recorded transaction.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Transaction RecordExternalTransaction(string invoiceId, ExternalTransaction body)
+        {
+            var urlParams = new Dictionary<string, object> { { "invoice_id", invoiceId } };
+            var url = this.InterpolatePath("/invoices/{invoice_id}/transactions", urlParams);
+            return MakeRequest<Transaction>(Method.POST, url, body, null);
+        }
+
+        /// <summary>
+        /// Record an external payment for a manual invoices. <see href="https://developers.recurly.com/api/v2019-10-10#operation/record_external_transaction">record_external_transaction api documentation</see>
+        /// </summary>
+        /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// The recorded transaction.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<Transaction> RecordExternalTransactionAsync(string invoiceId, ExternalTransaction body, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            var urlParams = new Dictionary<string, object> { { "invoice_id", invoiceId } };
+            var url = this.InterpolatePath("/invoices/{invoice_id}/transactions", urlParams);
+            return MakeRequestAsync<Transaction>(Method.POST, url, body, null, cancellationToken);
         }
 
         /// <summary>

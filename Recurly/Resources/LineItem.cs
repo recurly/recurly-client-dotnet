@@ -121,7 +121,7 @@ namespace Recurly.Resources
         [JsonProperty("previous_line_item_id")]
         public string PreviousLineItemId { get; set; }
 
-        /// <value>For plan-related line items this will be the plan's code, for add-on related line items it will be the add-on's code. For item-related line itmes it will be the item's `external_sku`.</value>
+        /// <value>For plan-related line items this will be the plan's code, for add-on related line items it will be the add-on's code. For item-related line items it will be the item's `external_sku`.</value>
         [JsonProperty("product_code")]
         public string ProductCode { get; set; }
 

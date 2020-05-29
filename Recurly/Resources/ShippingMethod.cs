@@ -15,6 +15,10 @@ namespace Recurly.Resources
     public class ShippingMethod : Resource
     {
 
+        /// <value>Accounting code for shipping method.</value>
+        [JsonProperty("accounting_code")]
+        public string AccountingCode { get; set; }
+
         /// <value>The internal name used identify the shipping method.</value>
         [JsonProperty("code")]
         public string Code { get; set; }
