@@ -15,11 +15,18 @@ namespace Recurly.Resources
     public class SubscriptionAddOnUpdate : Request
     {
 
-        /// <value>Add-on code</value>
+        /// <value>
+        /// If a code is provided without an id, the subscription add-on attributes
+        /// will be set to the current value for those attributes on the plan add-on
+        /// unless provided in the request.
+        /// </value>
         [JsonProperty("code")]
         public string Code { get; set; }
 
-        /// <value>Set this to include or modify an existing subscription add-on.</value>
+        /// <value>
+        /// When an id is provided, the existing subscription add-on attributes will
+        /// persist unless overridden in the request.
+        /// </value>
         [JsonProperty("id")]
         public string Id { get; set; }
 
