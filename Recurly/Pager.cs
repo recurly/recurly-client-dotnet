@@ -37,7 +37,7 @@ namespace Recurly
             {
                 HasMore = true,
                 Data = null,
-                Next = null,
+                Next = url,
                 Url = url,
                 QueryParams = queryParams,
                 RecurlyClient = client,
@@ -118,11 +118,6 @@ namespace Recurly
 
         public bool MoveNext()
         {
-            // Next == null before we've fetched any pages
-            if (Next is null)
-            {
-                Next = NextUrl(QueryParams);
-            }
             // HasMore == true on init and when the server says there are more pages of data
             // HasMore == false only when the server says this is the last page of data
             // Data == null before we've fetched any pages
