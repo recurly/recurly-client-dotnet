@@ -1,8 +1,24 @@
 # Changelog
 
-## [3.5.1](https://github.com/recurly/recurly-client-dotnet/tree/HEAD)
+## [3.6.0](https://github.com/recurly/recurly-client-dotnet/tree/HEAD)
 
-[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.5.0...HEAD)
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.5.1...HEAD)
+
+**Implemented enhancements:**
+
+- Latest Features [\#518](https://github.com/recurly/recurly-client-dotnet/pull/518) ([bhelx](https://github.com/bhelx))
+
+**Fixed bugs:**
+
+- Setting Next in Pager.Build to fix async pager requests [\#519](https://github.com/recurly/recurly-client-dotnet/pull/519) ([douglasmiller](https://github.com/douglasmiller))
+
+**Merged pull requests:**
+
+- Release 3.6.0 [\#520](https://github.com/recurly/recurly-client-dotnet/pull/520) ([bhelx](https://github.com/bhelx))
+
+## [3.5.1](https://github.com/recurly/recurly-client-dotnet/tree/3.5.1) (2020-05-14)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.5.0...3.5.1)
 
 ## Potential Breaking Change Included
 
