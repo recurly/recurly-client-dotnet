@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
-if ! test -f "./bin/dotnet-format"; then
+if ! command -v dotnet-format; then
   echo "Installing dotnet formatter..."
-  dotnet tool install --tool-path ./bin dotnet-format
+  dotnet tool install -g dotnet-format
 fi
 
 dotnet build

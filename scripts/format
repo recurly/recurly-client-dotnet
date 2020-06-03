@@ -2,7 +2,7 @@
 set -e
 
 if [ "$1" == "--check" ]; then
-  ./bin/dotnet-format --check --dry-run
+  ~/.dotnet/tools/dotnet-format --check --dry-run
 else
-  ./bin/dotnet-format
+  ~/.dotnet/tools/dotnet-format
 fi
