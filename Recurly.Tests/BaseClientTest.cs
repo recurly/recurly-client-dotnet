@@ -53,6 +53,20 @@ namespace Recurly.Tests
         }
 
         [Fact]
+        public void WillAddQueryStringParameters()
+        {
+            var date = new DateTime(2020, 01, 01);
+            var paramsMatcher = MockClient.ParameterMatcher(new Dictionary<string, object> {
+                { "param_1", "param1" },
+                { "param_2", Recurly.Utils.ISO8601(date) },
+            });
+
+            var client = MockClient.Build(paramsMatcher, SuccessResponse(System.Net.HttpStatusCode.OK));
+            MyResource resource = client.GetResource("benjamin", "param1", date);
+            Assert.Equal("benjamin", resource.MyString);
+        }
+
+        [Fact]
         public void WillValidatePathParams()
         {
             var client = MockClient.Build(SuccessResponse(System.Net.HttpStatusCode.OK));
