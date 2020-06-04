@@ -1,9 +1,9 @@
+using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using RestSharp.Serializers;
-using RestSharp.Deserializers;
 using RestSharp;
-using System.IO;
+using RestSharp.Deserializers;
+using RestSharp.Serializers;
 
 namespace Recurly
 {

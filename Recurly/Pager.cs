@@ -1,11 +1,11 @@
 using System;
-using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
-using RestSharp;
-using Newtonsoft.Json;
-using System.Threading.Tasks;
+using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using RestSharp;
 
 namespace Recurly
 {

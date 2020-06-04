@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Xunit;
-using RestSharp;
 using Moq;
+using RestSharp;
+using Xunit;
 
 namespace Recurly.Tests
 {

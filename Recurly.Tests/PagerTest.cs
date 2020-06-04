@@ -1,10 +1,10 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
-using Xunit;
+using System.Linq;
+using Moq;
 using Newtonsoft.Json;
 using RestSharp;
-using Moq;
+using Xunit;
 
 namespace Recurly.Tests
 {

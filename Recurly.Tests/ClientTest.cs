@@ -1,14 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using System.Linq;
-using Xunit;
+using System.Text.RegularExpressions;
+using Moq;
 using Recurly;
 using Recurly.Resources;
 using RestSharp;
 using RestSharp.Authenticators;
-using Moq;
+using Xunit;
 
 namespace Recurly.Tests
 {
