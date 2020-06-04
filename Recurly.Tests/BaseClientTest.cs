@@ -1,73 +1,33 @@
 using System;
-using System.Threading.Tasks;
-using System.Collections;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using System.Linq;
-using Xunit;
-using Recurly;
-using Recurly.Resources;
-using RestSharp;
-using RestSharp.Authenticators;
 using Moq;
-using System.Threading;
+using RestSharp;
+using Xunit;
 
 namespace Recurly.Tests
 {
     public class BaseClientTest
     {
-        private string apiKey = "myapikey";
-
-        internal class MyClient : BaseClient
-        {
-            public override string ApiVersion => "v2018-08-09";
-
-            public MyClient(string apiKey) : base(apiKey) { }
-
-            public MyResource CreateResource(MyResourceCreate body)
-            {
-                var urlParams = new Dictionary<string, object> { };
-                var url = this.InterpolatePath("/my_resources", urlParams);
-                return MakeRequest<MyResource>(Method.POST, url, body, null);
-            }
-
-            public MyResource GetResource(string resourceId, string param1, DateTime param2)
-            {
-                var urlParams = new Dictionary<string, object> { { "resource_id", resourceId } };
-                var queryParams = new Dictionary<string, object> { { "param_1", param1 }, { "param_2", param2 } };
-                var url = this.InterpolatePath("/my_resources/{resource_id}", urlParams);
-                return MakeRequest<MyResource>(Method.GET, url, null, queryParams);
-            }
-
-            public Task<MyResource> GetResourceAsync(string resourceId, string param1, DateTime param2)
-            {
-                var urlParams = new Dictionary<string, object> { { "resource_id", resourceId } };
-                var queryParams = new Dictionary<string, object> { { "param_1", param1 }, { "param_2", param2 } };
-                var url = this.InterpolatePath("/my_resources/{resource_id}", urlParams);
-                return MakeRequestAsync<MyResource>(Method.GET, url, null, queryParams);
-            }
-        }
-
         public BaseClientTest() { }
 
         [Fact]
         public void CantInitializeWithoutApiKey()
         {
-            Assert.Throws<ArgumentException>(() => new MyClient(null));
-            Assert.Throws<ArgumentException>(() => new MyClient(""));
+            Assert.Throws<ArgumentException>(() => new MockClient(null));
+            Assert.Throws<ArgumentException>(() => new MockClient(""));
         }
 
         [Fact]
         public void RespondsWithGivenApiVersion()
         {
-            var client = new MyClient(apiKey);
+            var client = new MockClient("myapikey");
             Assert.Equal("v2018-08-09", client.ApiVersion);
         }
 
         [Fact]
         public void CanProperlyFetchAResource()
         {
-            var client = this.MockResourceClient(SuccessResponse(System.Net.HttpStatusCode.OK));
+            var client = MockClient.Build(SuccessResponse(System.Net.HttpStatusCode.OK));
             MyResource resource = client.GetResource("benjamin", "param1", new DateTime(2020, 01, 01));
             Assert.Equal("benjamin", resource.MyString);
         }
@@ -75,7 +35,7 @@ namespace Recurly.Tests
         [Fact]
         public async void CanProperlyFetchAResourceAsync()
         {
-            var client = this.MockResourceClient(SuccessResponse(System.Net.HttpStatusCode.OK));
+            var client = MockClient.Build(SuccessResponse(System.Net.HttpStatusCode.OK));
             MyResource resource = await client.GetResourceAsync("benjamin", "param1", new DateTime(2020, 01, 01));
             Assert.Equal("benjamin", resource.MyString);
         }
@@ -83,7 +43,7 @@ namespace Recurly.Tests
         [Fact]
         public void CanProperlyCreateAResource()
         {
-            var client = this.MockResourceClient(SuccessResponse(System.Net.HttpStatusCode.Created));
+            var client = MockClient.Build(SuccessResponse(System.Net.HttpStatusCode.Created));
             var request = new MyResourceCreate()
             {
                 MyString = "benjamin"
@@ -95,7 +55,7 @@ namespace Recurly.Tests
         [Fact]
         public void WillValidatePathParams()
         {
-            var client = this.MockResourceClient(SuccessResponse(System.Net.HttpStatusCode.OK));
+            var client = MockClient.Build(SuccessResponse(System.Net.HttpStatusCode.OK));
             MyResource resource = client.GetResource("benjamin", "param1", new DateTime(2020, 01, 01));
             Assert.Throws<Recurly.RecurlyError>(() => client.GetResource("", "param1", new DateTime(2020, 01, 01)));
         }
@@ -108,21 +68,21 @@ namespace Recurly.Tests
                 Assert.Equal("/my_resources/douglas%2F", request.Resource);
                 return true;
             };
-            var client = this.MockResourceClient(matcher, NotFoundResponse());
+            var client = MockClient.Build(matcher, NotFoundResponse());
             Assert.Throws<Recurly.Errors.NotFound>(() => client.GetResource("douglas/", "param1", new DateTime(2020, 01, 01)));
         }
 
         [Fact]
         public void WillThrowNotFoundExceptionForNon200()
         {
-            var client = this.MockResourceClient(NotFoundResponse());
+            var client = MockClient.Build(NotFoundResponse());
             Assert.Throws<Recurly.Errors.NotFound>(() => client.GetResource("benjamin", "param1", new DateTime(2020, 01, 01)));
         }
 
         [Fact]
         public void WillThrowAnExceptionWhenResponseHasErrorException()
         {
-            var client = this.MockResourceClient(ErroredResponse());
+            var client = MockClient.Build(ErroredResponse());
             Assert.Throws<Recurly.RecurlyError>(() => client.GetResource("benjamin", "param1", new DateTime(2020, 01, 01)));
         }
 
@@ -161,32 +121,6 @@ namespace Recurly.Tests
             response.Setup(_ => _.Headers).Returns(new List<Parameter> { });
 
             return response;
-        }
-
-        private MyClient MockResourceClient(Mock<IRestResponse<MyResource>> response)
-        {
-            Func<IRestRequest, bool> matcher = delegate (IRestRequest request)
-            {
-                return true;
-            };
-            return MockResourceClient(matcher, response);
-        }
-
-        private MyClient MockResourceClient(Func<IRestRequest, bool> matcher, Mock<IRestResponse<MyResource>> response)
-        {
-            var mockIRestClient = new Mock<IRestClient>();
-            mockIRestClient
-                .Setup(x => x.Execute<MyResource>(It.Is<RestRequest>(r => matcher(r))))
-                .Returns(response.Object);
-
-            mockIRestClient
-                .Setup(x => x.ExecuteTaskAsync<MyResource>(It.Is<IRestRequest>(r => matcher(r)), It.IsAny<CancellationToken>()))
-                .Returns(Task.FromResult(response.Object));
-
-            return new MyClient(apiKey)
-            {
-                RestClient = mockIRestClient.Object
-            };
         }
     }
 }

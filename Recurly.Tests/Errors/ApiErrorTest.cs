@@ -1,7 +1,7 @@
-using Xunit;
-using Recurly;
-using Newtonsoft.Json;
 using System;
+using Newtonsoft.Json;
+using Recurly;
+using Xunit;
 
 namespace Recurly.Tests
 {

@@ -1,6 +1,6 @@
 using System;
-using RestSharp.Deserializers;
 using RestSharp;
+using RestSharp.Deserializers;
 
 namespace Recurly
 {

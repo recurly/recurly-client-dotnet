@@ -1,13 +1,10 @@
 using System;
-using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
-using Xunit;
-using Recurly;
-using Recurly.Resources;
+using System.Linq;
+using Moq;
 using Newtonsoft.Json;
 using RestSharp;
-using Moq;
+using Xunit;
 
 namespace Recurly.Tests
 {
@@ -22,7 +19,8 @@ namespace Recurly.Tests
         [Fact]
         public void EmptyEnumerableTest()
         {
-            var pager = Pager<MyResource>.Build("/next", new Dictionary<string, object> { }, GetEmptyPagerClient());
+            var client = MockClient.Build(PagerEmptyResponse());
+            var pager = Pager<MyResource>.Build("/resources", new Dictionary<string, object> { }, client);
 
             var i = 0;
             foreach (MyResource r in pager)
@@ -37,7 +35,8 @@ namespace Recurly.Tests
         [Fact]
         public void EnumerableTest()
         {
-            var pager = Pager<MyResource>.Build("/next", new Dictionary<string, object> { }, GetPagerSuccessClient());
+            var client = GetPagerSuccessClient();
+            var pager = Pager<MyResource>.Build("/resources", new Dictionary<string, object> { }, client);
 
             var i = 0;
             foreach (MyResource r in pager)
@@ -70,7 +69,8 @@ namespace Recurly.Tests
         [Fact]
         public void EnumerablePagesTest()
         {
-            var pager = Pager<MyResource>.Build("/next", new Dictionary<string, object> { }, GetPagerSuccessClient());
+            var client = GetPagerSuccessClient();
+            var pager = Pager<MyResource>.Build("/resources", new Dictionary<string, object> { }, client);
 
             var total = 0;
             var page = 0;
@@ -106,13 +106,17 @@ namespace Recurly.Tests
         [Fact]
         public void PagerFirstTest()
         {
+            var paramsMatcher = MockClient.ParameterMatcher(new Dictionary<string, object> {
+                { "limit", "1" },
+                { "a", "1" },
+            });
+            var client = MockClient.Build(paramsMatcher, PagerFirstResponse());
+
             var queryParams = new Dictionary<string, object> {
                 { "limit", "200" },
                 { "a", "1" },
             };
-            var clientMock = GetPagerFirstClient();
-
-            var pager = Pager<MyResource>.Build("/resources", queryParams, clientMock);
+            var pager = Pager<MyResource>.Build("/resources", queryParams, client);
 
             var resource = pager.First();
             Assert.Equal("First Resource", resource.MyString);
@@ -133,11 +137,14 @@ namespace Recurly.Tests
             Assert.Equal(42, count);
         }
 
-        private Recurly.Client GetPagerSuccessClient()
+        private Mock<IRestResponse<Pager<MyResource>>> PagerSuccessPage1Response()
         {
-            var page1 = new Pager<MyResource>()
+            // When there are no results, the server returns
+            // an empty array with HasMore == false
+            var page = new Pager<MyResource>()
             {
                 HasMore = true,
+                Next = "/next-page",
                 Data = new List<MyResource>()
                 {
                     new MyResource() { MyString = "A page 1 String" },
@@ -145,13 +152,19 @@ namespace Recurly.Tests
                     new MyResource() { MyString = "A page 1 String" },
                 }
             };
-            var page1Response = new Mock<IRestResponse<Pager<MyResource>>>();
-            page1Response.Setup(_ => _.StatusCode).Returns(System.Net.HttpStatusCode.OK);
-            page1Response.Setup(_ => _.Headers).Returns(new List<Parameter> { });
-            page1Response.Setup(_ => _.Data).Returns(page1);
+            var response = new Mock<IRestResponse<Pager<MyResource>>>();
+            response.Setup(_ => _.StatusCode).Returns(System.Net.HttpStatusCode.OK);
+            response.Setup(_ => _.Headers).Returns(new List<Parameter> { });
+            response.Setup(_ => _.Data).Returns(page);
 
-            var page2 = new Pager<MyResource>()
+            return response;
+        }
 
+        private Mock<IRestResponse<Pager<MyResource>>> PagerSuccessPage2Response()
+        {
+            // When there are no results, the server returns
+            // an empty array with HasMore == false
+            var page = new Pager<MyResource>()
             {
                 HasMore = false,
                 Data = new List<MyResource>()
@@ -160,24 +173,42 @@ namespace Recurly.Tests
                     new MyResource() { MyString = "A page 2 String" },
                 }
             };
-            var page2Response = new Mock<IRestResponse<Pager<MyResource>>>();
-            page2Response.Setup(_ => _.StatusCode).Returns(System.Net.HttpStatusCode.OK);
-            page2Response.Setup(_ => _.Headers).Returns(new List<Parameter> { });
-            page2Response.Setup(_ => _.Data).Returns(page2);
+            var response = new Mock<IRestResponse<Pager<MyResource>>>();
+            response.Setup(_ => _.StatusCode).Returns(System.Net.HttpStatusCode.OK);
+            response.Setup(_ => _.Headers).Returns(new List<Parameter> { });
+            response.Setup(_ => _.Data).Returns(page);
 
-            var mockIRestClient = new Mock<IRestClient>();
-            mockIRestClient
-                .SetupSequence(x => x.Execute<Pager<MyResource>>(It.IsAny<IRestRequest>()))
-                .Returns(page1Response.Object)
-                .Returns(page2Response.Object);
-
-            return new Recurly.Client("myapikey")
-            {
-                RestClient = mockIRestClient.Object
-            };
+            return response;
         }
 
-        private Recurly.Client GetEmptyPagerClient()
+        private MockClient GetPagerSuccessClient()
+        {
+            var page1Response = PagerSuccessPage1Response();
+            Func<IRestRequest, bool> page1Matcher = delegate (IRestRequest request)
+            {
+                if (request.Resource == "/resources")
+                {
+                    return true;
+                }
+                return false;
+            };
+            var page2Response = PagerSuccessPage2Response();
+            Func<IRestRequest, bool> page2Matcher = delegate (IRestRequest request)
+            {
+                if (request.Resource == "/next-page")
+                {
+                    return true;
+                }
+                return false;
+            };
+            var mockCollection = new Dictionary<Func<IRestRequest, bool>, Mock<IRestResponse<Pager<MyResource>>>> {
+                { page1Matcher, page1Response },
+                { page2Matcher, page2Response },
+            };
+            return MockClient.Build(mockCollection);
+        }
+
+        private Mock<IRestResponse<Pager<MyResource>>> PagerEmptyResponse()
         {
             // When there are no results, the server returns
             // an empty array with HasMore == false
@@ -186,23 +217,18 @@ namespace Recurly.Tests
                 HasMore = false,
                 Data = new List<MyResource>() { }
             };
-            var pageResponse = new Mock<IRestResponse<Pager<MyResource>>>();
-            pageResponse.Setup(_ => _.StatusCode).Returns(System.Net.HttpStatusCode.OK);
-            pageResponse.Setup(_ => _.Headers).Returns(new List<Parameter> { });
-            pageResponse.Setup(_ => _.Data).Returns(page);
-            var mockIRestClient = new Mock<IRestClient>();
-            mockIRestClient
-                .Setup(x => x.Execute<Pager<MyResource>>(It.IsAny<IRestRequest>()))
-                .Returns(pageResponse.Object);
+            var response = new Mock<IRestResponse<Pager<MyResource>>>();
+            response.Setup(_ => _.StatusCode).Returns(System.Net.HttpStatusCode.OK);
+            response.Setup(_ => _.Headers).Returns(new List<Parameter> { });
+            response.Setup(_ => _.Data).Returns(page);
 
-            return new Recurly.Client("myapikey")
-            {
-                RestClient = mockIRestClient.Object
-            };
+            return response;
         }
 
-        private Recurly.Client GetPagerFirstClient()
+        private Mock<IRestResponse<Pager<MyResource>>> PagerFirstResponse()
         {
+            // When there are no results, the server returns
+            // an empty array with HasMore == false
             var page = new Pager<MyResource>()
             {
                 HasMore = true,
@@ -211,44 +237,23 @@ namespace Recurly.Tests
                     new MyResource() { MyString = "First Resource" }
                 }
             };
-            var pageResponse = new Mock<IRestResponse<Pager<MyResource>>>();
-            pageResponse.Setup(_ => _.StatusCode).Returns(System.Net.HttpStatusCode.OK);
-            pageResponse.Setup(_ => _.Headers).Returns(new List<Parameter> { });
-            pageResponse.Setup(_ => _.Data).Returns(page);
+            var response = new Mock<IRestResponse<Pager<MyResource>>>();
+            response.Setup(_ => _.StatusCode).Returns(System.Net.HttpStatusCode.OK);
+            response.Setup(_ => _.Headers).Returns(new List<Parameter> { });
+            response.Setup(_ => _.Data).Returns(page);
 
-            var mockIRestClient = new Mock<IRestClient>();
-            var myParams = new List<Parameter> {
-                new RestSharp.Parameter("limit", "1", ParameterType.QueryString),
-                new RestSharp.Parameter("a", "1", ParameterType.QueryString),
-            };
+            return response;
+        }
 
-            // TODO: Find a better way to handle this specifically and the concept at a whole
-            Func<List<Parameter>, List<Parameter>, bool> sameParams = delegate (List<Parameter> a, List<Parameter> b)
-            {
-                var sortedA = a.OrderBy(x => x.Name).ToList();
-                var sortedB = b.OrderBy(x => x.Name).ToList();
-                int index = 0;
-                foreach (Parameter p in sortedA)
-                {
-                    var pB = sortedB.ElementAt(index);
-                    if (p.Name != pB.Name || String.Compare(p.Value.ToString(), pB.Value.ToString()) != 0)
-                    {
-                        return false;
-                    }
-                    index++;
-                }
-                return true;
-            };
+        private Mock<IRestResponse> PagerCountResponse()
+        {
+            var response = new Mock<IRestResponse>();
+            response.Setup(_ => _.StatusCode).Returns(System.Net.HttpStatusCode.OK);
+            response.Setup(_ => _.Headers).Returns(new List<Parameter> {
+                new RestSharp.Parameter("Recurly-Total-Records", "42", ParameterType.HttpHeader),
+            });
 
-
-            mockIRestClient
-                .Setup(x => x.Execute<Pager<MyResource>>(It.Is<RestRequest>(r => sameParams(r.Parameters, myParams) && r.Resource == "/resources")))
-                .Returns(pageResponse.Object);
-
-            return new Recurly.Client("myapikey")
-            {
-                RestClient = mockIRestClient.Object
-            };
+            return response;
         }
 
         private Recurly.Client GetPagerCountClient()

@@ -1,14 +1,14 @@
 using System;
-using System.Net;
-using System.Threading.Tasks;
-using System.Runtime.CompilerServices;
-using System.Diagnostics;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
+using System.Diagnostics;
 using System.Linq;
+using System.Net;
+using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
 using RestSharp;
 using RestSharp.Authenticators;
-using System.Threading;
 
 [assembly: InternalsVisibleTo("Recurly.Tests")]
 
