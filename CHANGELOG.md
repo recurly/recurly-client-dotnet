@@ -1,8 +1,25 @@
 # Changelog
 
-## [3.6.0](https://github.com/recurly/recurly-client-dotnet/tree/HEAD)
+## [3.6.1](https://github.com/recurly/recurly-client-dotnet/tree/HEAD)
 
-[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.5.1...HEAD)
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.6.0...HEAD)
+
+**Implemented enhancements:**
+
+- Updating internal scripts to use globally installed dotnet-format [\#517](https://github.com/recurly/recurly-client-dotnet/pull/517) ([douglasmiller](https://github.com/douglasmiller))
+
+**Fixed bugs:**
+
+- Applying query params to url before creating the request [\#521](https://github.com/recurly/recurly-client-dotnet/pull/521) ([douglasmiller](https://github.com/douglasmiller))
+
+**Merged pull requests:**
+
+- Release 3.6.1 [\#523](https://github.com/recurly/recurly-client-dotnet/pull/523) ([bhelx](https://github.com/bhelx))
+- Adding MockClient and refactoring tests to use it [\#522](https://github.com/recurly/recurly-client-dotnet/pull/522) ([douglasmiller](https://github.com/douglasmiller))
+
+## [3.6.0](https://github.com/recurly/recurly-client-dotnet/tree/3.6.0) (2020-06-01)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.5.1...3.6.0)
 
 **Implemented enhancements:**
 
