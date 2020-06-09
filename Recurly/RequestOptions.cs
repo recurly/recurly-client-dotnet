@@ -7,6 +7,18 @@ namespace Recurly
     {
         public Dictionary<string, string> Headers { get; private set; }
 
+        public string AcceptLanguage
+        {
+            get
+            {
+                return Headers["Accept-Language"];
+            }
+            set
+            {
+                AddHeader("Accept-Language", value);
+            }
+        }
+
         // User-Agent, Content-Type, Accept, and Authorization are not overridable.
         private readonly IList<string> RestrictedHeaders = new List<string> {
             "User-Agent",
