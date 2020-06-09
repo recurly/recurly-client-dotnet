@@ -55,14 +55,16 @@ namespace Recurly.Tests
         [Fact]
         public void WillAddQueryStringParameters()
         {
+            var options = new RequestOptions();
+            options.AddHeader("Accept-Language", "en-US");
             var date = new DateTime(2020, 01, 01);
-            var paramsMatcher = MockClient.ParameterMatcher(new Dictionary<string, object> {
+            var paramsMatcher = MockClient.QueryParameterMatcher(new Dictionary<string, object> {
                 { "param_1", "param1" },
                 { "param_2", Recurly.Utils.ISO8601(date) },
             });
 
             var client = MockClient.Build(paramsMatcher, SuccessResponse(System.Net.HttpStatusCode.OK));
-            MyResource resource = client.GetResource("benjamin", "param1", date);
+            MyResource resource = client.GetResource("benjamin", "param1", date, options);
             Assert.Equal("benjamin", resource.MyString);
         }
 
@@ -72,6 +74,18 @@ namespace Recurly.Tests
             var client = MockClient.Build(SuccessResponse(System.Net.HttpStatusCode.OK));
             MyResource resource = client.GetResource("benjamin", "param1", new DateTime(2020, 01, 01));
             Assert.Throws<Recurly.RecurlyError>(() => client.GetResource("", "param1", new DateTime(2020, 01, 01)));
+        }
+
+        [Fact]
+        public void WillIncludeCustomHeaders()
+        {
+            var options = new RequestOptions();
+            options.AddHeader("Accept-Language", "en-US");
+            var matcher = MockClient.HeaderMatcher(new Dictionary<string, object> {
+                { "Accept-Language", "en-US" },
+            });
+            var client = MockClient.Build(matcher, NotFoundResponse());
+            Assert.Throws<Recurly.Errors.NotFound>(() => client.GetResource("douglas/", "param1", new DateTime(2020, 01, 01), options));
         }
 
         [Fact]
