@@ -311,7 +311,7 @@ var eventName = doc.DocumentElement.Name;
 switch (eventName) {
     case "new_account_notification":
         // handle new account notifcation
-        var code = doc.DocumentElement.FirstChild.SelectSingleNode("//account_code");
+        var code = doc.DocumentElement.SelectSingleNode("//account/account_code")
         Console.WriteLine($"New Account Created in Recurly: {code.InnerText}");
         // prints "abc"
         break;
