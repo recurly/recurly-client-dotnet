@@ -265,6 +265,63 @@ catch (Recurly.Errors.NetworkError ex)
 }
 ```
 
+### Webhooks
+
+Recurly can send webhooks to any publicly accessible server.
+When an event in Recurly triggers a webhook (e.g., an account is opened),
+Recurly will attempt to send this notification to the endpoint(s) you specify.
+You can specify up to 10 endpoints through the application. All notifications will
+be sent to all configured endpoints for your site. 
+
+See our [product docs](https://docs.recurly.com/docs/webhooks) to learn more about webhooks
+and see our [dev docs](https://developers.recurly.com/pages/webhooks.html) to learn about what payloads
+are available.
+
+Although our API is now JSON, our webhooks are currently still in XML format. This library is not responsible for webhooks, but the quickest way to handle them now is by using the [XmlDocument class](https://docs.microsoft.com/en-us/dotnet/api/system.xml.xmldocument). This class has helpful methods for
+parsing XML and using XPath to inspect the elements. You could also look into mapping them to custom types if you want a more friendly experience. We will be supporting this in the near future.
+
+```csharp
+// XmlDocument is in System.Xml
+// using System.Xml;
+
+// This XML will arrive at the endpoint you have specified in Recurly.
+// We're putting it in a string literal here for demonstration purposes
+var xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
++ "<new_account_notification>"
++ "<account>"
++   "<account_code>abc</account_code>"
++   "<username nil=\"true\"></username>"
++   "<email>verena@example.com</email>"
++   "<first_name>Verena</first_name>"
++   "<last_name>Example</last_name>"
++   "<company_name nil=\"true\"></company_name>"
++ "</account>"
++ "</new_account_notification>";
+
+var doc = new XmlDocument();
+doc.LoadXml(xml);
+
+// This element will always contain the event name
+// see the documentation for which events are supported
+var eventName = doc.DocumentElement.Name;
+
+// delegate to the code responsible for each event
+// make sure you have a default fallback case as we may add events
+// at any time.
+switch (eventName) {
+    case "new_account_notification":
+        // handle new account notifcation
+        var code = doc.DocumentElement.SelectSingleNode("//account/account_code")
+        Console.WriteLine($"New Account Created in Recurly: {code.InnerText}");
+        // prints "abc"
+        break;
+    default:
+        Console.WriteLine($"Ignoring webhook with event name: {eventName}");
+        break;
+}
+```
+
+
 ### Contributing
 
 Please see our [Contributing Guide](CONTRIBUTING.md).
