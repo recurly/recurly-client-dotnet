@@ -98,6 +98,10 @@ namespace Recurly
 
         private RestRequest BuildRequest(Method method, string url, Request body = null, Dictionary<string, object> queryParams = null, RequestOptions options = null)
         {
+            if (options == null)
+            {
+                options = new RequestOptions();
+            }
             // If we have any query params, add them to the request
             if (queryParams != null)
             {
@@ -106,11 +110,7 @@ namespace Recurly
 
             var request = new RestRequest(url, method);
             request.JsonSerializer = Recurly.JsonSerializer.Default;
-
-            if (options != null)
-            {
-                request.AddHeaders(options.Headers);
-            }
+            request.AddHeaders(options.Headers);
 
             // If we have a body, serialize it and add it to the request
             if (body != null)
