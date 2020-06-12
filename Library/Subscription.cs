@@ -439,13 +439,14 @@ namespace Recurly
         /// </summary>
         public void Cancel(string timeframe = null)
         {
+          var url = UrlPrefix + Uri.EscapeDataString(Uuid) + "/cancel";
           if (timeframe == null) {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
-                UrlPrefix + Uri.EscapeDataString(Uuid) + "/cancel",
+                url,
                 ReadXml);
           } else {
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
-                UrlPrefix + Uri.EscapeDataString(Uuid) + "/cancel?timeframe=" + timeframe,
+                url += "?timeframe=" + timeframe,
                 ReadXml);
           }
         }
