@@ -281,6 +281,29 @@ namespace Recurly.Test
         }
 
         [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void CancelSubscriptionTimeframe()
+        {
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
+            {
+                Description = "Cancel Subscription Test with Timeframe"
+            };
+            plan.UnitAmountInCents.Add("USD", 100);
+            plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
+
+            var account = CreateNewAccountWithBillingInfo();
+
+            var sub = new Subscription(account, plan, "USD");
+            sub.TotalBillingCycles = 2;
+            sub.Create();
+
+            sub.Cancel("bill_date");
+
+            Assert.Equal(sub.ExpiresAt, sub.CurrentPeriodEndsAt);
+            sub.ExpiresAt.Should().NotBe(sub.CurrentTermEndsAt);
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void ReactivateSubscription()
         {
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
