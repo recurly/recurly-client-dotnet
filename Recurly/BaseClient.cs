@@ -42,15 +42,16 @@ namespace Recurly
             );
             RestClient.AddHandler("application/json", () => { return new JsonSerializer(); });
 
+
             // These are the default headers to send on every request
             RestClient.AddDefaultHeader("Accept", $"application/vnd.recurly.{ApiVersion}");
             RestClient.AddDefaultHeader("Content-Type", "application/json");
         }
 
-        public async Task<T> MakeRequestAsync<T>(Method method, string url, Request body = null, Dictionary<string, object> queryParams = null, CancellationToken cancellationToken = default(CancellationToken)) where T : new()
+        public async Task<T> MakeRequestAsync<T>(Method method, string url, Request body = null, Dictionary<string, object> queryParams = null, RequestOptions options = null, CancellationToken cancellationToken = default(CancellationToken)) where T : new()
         {
             Debug.WriteLine($"Calling {url}");
-            var request = BuildRequest(method, url, body, queryParams);
+            var request = BuildRequest(method, url, body, queryParams, options);
             var task = RestClient.ExecuteTaskAsync<T>(request, cancellationToken);
             return await task.ContinueWith(t =>
             {
@@ -60,10 +61,10 @@ namespace Recurly
             });
         }
 
-        public T MakeRequest<T>(Method method, string url, Request body = null, Dictionary<string, object> queryParams = null) where T : new()
+        public T MakeRequest<T>(Method method, string url, Request body = null, Dictionary<string, object> queryParams = null, RequestOptions options = null) where T : new()
         {
             Debug.WriteLine($"Calling {url}");
-            var request = BuildRequest(method, url, body, queryParams);
+            var request = BuildRequest(method, url, body, queryParams, options);
             var resp = RestClient.Execute<T>(request);
             this.HandleResponse(resp);
             return resp.Data;
@@ -95,8 +96,12 @@ namespace Recurly
             }
         }
 
-        private RestRequest BuildRequest(Method method, string url, Request body = null, Dictionary<string, object> queryParams = null)
+        private RestRequest BuildRequest(Method method, string url, Request body = null, Dictionary<string, object> queryParams = null, RequestOptions options = null)
         {
+            if (options == null)
+            {
+                options = new RequestOptions();
+            }
             // If we have any query params, add them to the request
             if (queryParams != null)
             {
@@ -105,6 +110,7 @@ namespace Recurly
 
             var request = new RestRequest(url, method);
             request.JsonSerializer = Recurly.JsonSerializer.Default;
+            request.AddHeaders(options.Headers);
 
             // If we have a body, serialize it and add it to the request
             if (body != null)

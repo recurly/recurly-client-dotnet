@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Moq;
+using Recurly;
 using RestSharp;
 using Xunit;
 
@@ -54,12 +55,32 @@ namespace Recurly.Tests
             };
         }
 
-        internal static Func<IRestRequest, bool> ParameterMatcher(Dictionary<string, object> expectedParams)
+        internal static Func<IRestRequest, bool> HeaderMatcher(Dictionary<string, object> expectedHeaders)
         {
+            Predicate<Parameter> filter = delegate (Parameter p)
+            {
+                return p.Type == ParameterType.HttpHeader;
+            };
+            return ParameterMatcher(expectedHeaders, filter);
+        }
+
+        internal static Func<IRestRequest, bool> QueryParameterMatcher(Dictionary<string, object> expectedParams)
+        {
+            Predicate<Parameter> filter = delegate (Parameter p)
+            {
+                return p.Type == ParameterType.QueryString || p.Type == ParameterType.QueryStringWithoutEncode;
+            };
+            return ParameterMatcher(expectedParams, filter);
+        }
+
+        internal static Func<IRestRequest, bool> ParameterMatcher(Dictionary<string, object> expectedParams, Predicate<Parameter> filter)
+        {
+
             return delegate (IRestRequest request)
             {
-                Assert.Equal(request.Parameters.Count, expectedParams.Count);
-                foreach (Parameter p in request.Parameters)
+                var filteredParams = request.Parameters.FindAll(filter);
+                Assert.Equal(filteredParams.Count, expectedParams.Count);
+                foreach (Parameter p in filteredParams)
                 {
                     Assert.True(expectedParams.ContainsKey(p.Name));
                     Assert.Equal(expectedParams[p.Name], p.Value);
@@ -68,27 +89,27 @@ namespace Recurly.Tests
             };
         }
 
-        public MyResource CreateResource(MyResourceCreate body)
+        public MyResource CreateResource(MyResourceCreate body, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
             var url = this.InterpolatePath("/my_resources", urlParams);
-            return MakeRequest<MyResource>(Method.POST, url, body, null);
+            return MakeRequest<MyResource>(Method.POST, url, body, null, options);
         }
 
-        public MyResource GetResource(string resourceId, string param1, DateTime param2)
+        public MyResource GetResource(string resourceId, string param1, DateTime param2, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "resource_id", resourceId } };
             var queryParams = new Dictionary<string, object> { { "param_1", param1 }, { "param_2", param2 } };
             var url = this.InterpolatePath("/my_resources/{resource_id}", urlParams);
-            return MakeRequest<MyResource>(Method.GET, url, null, queryParams);
+            return MakeRequest<MyResource>(Method.GET, url, null, queryParams, options);
         }
 
-        public Task<MyResource> GetResourceAsync(string resourceId, string param1, DateTime param2)
+        public Task<MyResource> GetResourceAsync(string resourceId, string param1, DateTime param2, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "resource_id", resourceId } };
             var queryParams = new Dictionary<string, object> { { "param_1", param1 }, { "param_2", param2 } };
             var url = this.InterpolatePath("/my_resources/{resource_id}", urlParams);
-            return MakeRequestAsync<MyResource>(Method.GET, url, null, queryParams);
+            return MakeRequestAsync<MyResource>(Method.GET, url, null, queryParams, options);
         }
     }
 }

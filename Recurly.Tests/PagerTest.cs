@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Moq;
 using Newtonsoft.Json;
 using RestSharp;
@@ -20,7 +19,7 @@ namespace Recurly.Tests
         public void EmptyEnumerableTest()
         {
             var client = MockClient.Build(PagerEmptyResponse());
-            var pager = Pager<MyResource>.Build("/resources", new Dictionary<string, object> { }, client);
+            var pager = Pager<MyResource>.Build("/resources", new Dictionary<string, object> { }, null, client);
 
             var i = 0;
             foreach (MyResource r in pager)
@@ -36,7 +35,7 @@ namespace Recurly.Tests
         public void EnumerableTest()
         {
             var client = GetPagerSuccessClient();
-            var pager = Pager<MyResource>.Build("/resources", new Dictionary<string, object> { }, client);
+            var pager = Pager<MyResource>.Build("/resources", new Dictionary<string, object> { }, null, client);
 
             var i = 0;
             foreach (MyResource r in pager)
@@ -70,7 +69,7 @@ namespace Recurly.Tests
         public void EnumerablePagesTest()
         {
             var client = GetPagerSuccessClient();
-            var pager = Pager<MyResource>.Build("/resources", new Dictionary<string, object> { }, client);
+            var pager = Pager<MyResource>.Build("/resources", new Dictionary<string, object> { }, null, client);
 
             var total = 0;
             var page = 0;
@@ -106,7 +105,7 @@ namespace Recurly.Tests
         [Fact]
         public void PagerFirstTest()
         {
-            var paramsMatcher = MockClient.ParameterMatcher(new Dictionary<string, object> {
+            var paramsMatcher = MockClient.QueryParameterMatcher(new Dictionary<string, object> {
                 { "limit", "1" },
                 { "a", "1" },
             });
@@ -116,7 +115,7 @@ namespace Recurly.Tests
                 { "limit", "200" },
                 { "a", "1" },
             };
-            var pager = Pager<MyResource>.Build("/resources", queryParams, client);
+            var pager = Pager<MyResource>.Build("/resources", queryParams, null, client);
 
             var resource = pager.First();
             Assert.Equal("First Resource", resource.MyString);
@@ -131,7 +130,7 @@ namespace Recurly.Tests
             };
             var clientMock = GetPagerCountClient();
 
-            var pager = Pager<MyResource>.Build("/resources", queryParams, clientMock);
+            var pager = Pager<MyResource>.Build("/resources", queryParams, null, clientMock);
 
             var count = pager.Count();
             Assert.Equal(42, count);

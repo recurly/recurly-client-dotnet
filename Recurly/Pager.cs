@@ -25,13 +25,15 @@ namespace Recurly
 
         internal Dictionary<string, object> QueryParams { get; set; }
 
+        internal RequestOptions Options { get; set; }
+
         public string Url { get; set; }
 
         private int _index = 0;
 
         public Pager() { }
 
-        internal static Pager<T> Build(string url, Dictionary<string, object> queryParams, BaseClient client)
+        internal static Pager<T> Build(string url, Dictionary<string, object> queryParams, RequestOptions options, BaseClient client)
         {
             return new Pager<T>()
             {
@@ -40,6 +42,7 @@ namespace Recurly
                 Next = url,
                 Url = url,
                 QueryParams = queryParams,
+                Options = options,
                 RecurlyClient = client,
             };
         }
@@ -49,7 +52,7 @@ namespace Recurly
             Dictionary<string, object> firstParams = new Dictionary<string, object>(QueryParams);
             firstParams["limit"] = 1;
             var firstUrl = NextUrl(firstParams);
-            var pager = RecurlyClient.MakeRequest<Pager<T>>(Method.GET, firstUrl);
+            var pager = RecurlyClient.MakeRequest<Pager<T>>(Method.GET, firstUrl, null, null, Options);
             return pager.Data.FirstOrDefault();
         }
 
@@ -69,14 +72,14 @@ namespace Recurly
 
         public Pager<T> FetchNextPage()
         {
-            var pager = RecurlyClient.MakeRequest<Pager<T>>(Method.GET, Next);
+            var pager = RecurlyClient.MakeRequest<Pager<T>>(Method.GET, Next, null, null, Options);
             this.Clone(pager);
             return this;
         }
 
         public async Task<Pager<T>> FetchNextPageAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
-            var task = RecurlyClient.MakeRequestAsync<Pager<T>>(Method.GET, Next, null, null, cancellationToken);
+            var task = RecurlyClient.MakeRequestAsync<Pager<T>>(Method.GET, Next, null, null, Options, cancellationToken);
             return await task.ContinueWith(t =>
             {
                 var pager = t.Result;
@@ -92,6 +95,7 @@ namespace Recurly
             this.HasMore = pager.HasMore;
             this.Url = pager.Url;
             this.QueryParams = pager.QueryParams;
+            this.Options = pager.Options;
         }
 
         public T Current
