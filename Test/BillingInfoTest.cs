@@ -90,8 +90,8 @@ namespace Recurly.Test
         [RecurlyFact(TestEnvironment.Type.Integration)]
         public void CreateBillingInfoWithIban()
         {
-            var account2 = CreateNewAccount();
-            var ibanInfo = new BillingInfo(account2)
+            var account = CreateNewAccount();
+            var ibanInfo = new BillingInfo(account)
             {
                 NameOnAccount = "Iban account name",
                 Iban = "FR1420041010050500013M02606",
