@@ -102,12 +102,15 @@ namespace Recurly.Test
                 State = "CA",
                 Country = "US",
             };
+            var threw = false;
             try {
                 ibanInfo.Create();
             } catch (ValidationException exception) {
+                threw = true;
+                exception.Errors[0].Symbol.Should().Be("card_type_not_accepted");
                 System.Console.WriteLine(exception);
             }
-            account2.BillingInfo.NameOnAccount.Should().Be("Iban account name");
+            threw.Should().Be(true);
         }
             
         [RecurlyFact(TestEnvironment.Type.Integration)]
