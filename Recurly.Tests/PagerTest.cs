@@ -34,8 +34,11 @@ namespace Recurly.Tests
         [Fact]
         public void EnumerableTest()
         {
-            var client = GetPagerSuccessClient();
-            var pager = Pager<MyResource>.Build("/resources", new Dictionary<string, object> { }, null, client);
+            var queryParams = new Dictionary<string, object> {
+                { "limit", "200" },
+            };
+            var client = GetPagerSuccessClient(queryParams);
+            var pager = Pager<MyResource>.Build("/resources", queryParams, null, client);
 
             var i = 0;
             foreach (MyResource r in pager)
@@ -68,8 +71,11 @@ namespace Recurly.Tests
         [Fact]
         public void EnumerablePagesTest()
         {
-            var client = GetPagerSuccessClient();
-            var pager = Pager<MyResource>.Build("/resources", new Dictionary<string, object> { }, null, client);
+            var queryParams = new Dictionary<string, object> {
+                { "limit", "200" },
+            };
+            var client = GetPagerSuccessClient(queryParams);
+            var pager = Pager<MyResource>.Build("/resources", queryParams, null, client);
 
             var total = 0;
             var page = 0;
@@ -180,14 +186,15 @@ namespace Recurly.Tests
             return response;
         }
 
-        private MockClient GetPagerSuccessClient()
+        private MockClient GetPagerSuccessClient(Dictionary<string, object> expectedParams)
         {
+            var paramsMatcher = MockClient.QueryParameterMatcher(expectedParams);
             var page1Response = PagerSuccessPage1Response();
             Func<IRestRequest, bool> page1Matcher = delegate (IRestRequest request)
             {
                 if (request.Resource == "/resources")
                 {
-                    return true;
+                    return paramsMatcher(request);
                 }
                 return false;
             };
