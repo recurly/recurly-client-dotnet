@@ -70,10 +70,10 @@ namespace Recurly
             return resp.Data;
         }
 
-        public int GetResourceCount(string url)
+        public int GetResourceCount(string url, Dictionary<string, object> queryParams)
         {
             Debug.WriteLine($"Calling {url}");
-            var request = BuildRequest(Method.HEAD, url, null, null);
+            var request = BuildRequest(Method.HEAD, url, null, queryParams);
             var resp = RestClient.Execute(request);
             this.HandleResponse(resp);
             var headers = resp.Headers.ToList();

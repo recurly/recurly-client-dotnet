@@ -31,6 +31,8 @@ namespace Recurly
 
         private int _index = 0;
 
+        private bool _pristine = true;
+
         public Pager() { }
 
         internal static Pager<T> Build(string url, Dictionary<string, object> queryParams, RequestOptions options, BaseClient client)
@@ -51,35 +53,27 @@ namespace Recurly
         {
             Dictionary<string, object> firstParams = new Dictionary<string, object>(QueryParams);
             firstParams["limit"] = 1;
-            var firstUrl = NextUrl(firstParams);
-            var pager = RecurlyClient.MakeRequest<Pager<T>>(Method.GET, firstUrl, null, null, Options);
+            var pager = RecurlyClient.MakeRequest<Pager<T>>(Method.GET, Url, null, firstParams, Options);
             return pager.Data.FirstOrDefault();
         }
 
         public int Count()
         {
-            return RecurlyClient.GetResourceCount(NextUrl(QueryParams));
-        }
-
-        private string NextUrl(Dictionary<string, object> queryParams)
-        {
-            if (queryParams != null)
-            {
-                return Url + Utils.QueryString(queryParams);
-            }
-            return Url;
+            return RecurlyClient.GetResourceCount(Url, QueryParams);
         }
 
         public Pager<T> FetchNextPage()
         {
-            var pager = RecurlyClient.MakeRequest<Pager<T>>(Method.GET, Next, null, null, Options);
+            Dictionary<string, object> NextParams = _pristine ? QueryParams : null;
+            var pager = RecurlyClient.MakeRequest<Pager<T>>(Method.GET, Next, null, NextParams, Options);
             this.Clone(pager);
             return this;
         }
 
         public async Task<Pager<T>> FetchNextPageAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
-            var task = RecurlyClient.MakeRequestAsync<Pager<T>>(Method.GET, Next, null, null, Options, cancellationToken);
+            Dictionary<string, object> NextParams = _pristine ? QueryParams : null;
+            var task = RecurlyClient.MakeRequestAsync<Pager<T>>(Method.GET, Next, null, NextParams, Options, cancellationToken);
             return await task.ContinueWith(t =>
             {
                 var pager = t.Result;
@@ -96,6 +90,7 @@ namespace Recurly
             this.Url = pager.Url;
             this.QueryParams = pager.QueryParams;
             this.Options = pager.Options;
+            this._pristine = false;
         }
 
         public T Current
