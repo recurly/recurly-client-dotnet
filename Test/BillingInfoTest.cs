@@ -90,8 +90,8 @@ namespace Recurly.Test
         [RecurlyFact(TestEnvironment.Type.Integration)]
         public void CreateBillingInfoWithIban()
         {
-            var account2 = CreateNewAccount();
-            var ibanInfo = new BillingInfo(account2)
+            var account = CreateNewAccount();
+            var ibanInfo = new BillingInfo(account)
             {
                 NameOnAccount = "Iban account name",
                 Iban = "FR1420041010050500013M02606",
@@ -102,12 +102,15 @@ namespace Recurly.Test
                 State = "CA",
                 Country = "US",
             };
+            var threw = false;
             try {
                 ibanInfo.Create();
             } catch (ValidationException exception) {
+                threw = true;
+                exception.Errors[0].Symbol.Should().Be("card_type_not_accepted");
                 System.Console.WriteLine(exception);
             }
-            account2.BillingInfo.NameOnAccount.Should().Be("Iban account name");
+            threw.Should().Be(true);
         }
             
         [RecurlyFact(TestEnvironment.Type.Integration)]
