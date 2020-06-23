@@ -1,8 +1,23 @@
 # Changelog
 
-## [3.6.1](https://github.com/recurly/recurly-client-dotnet/tree/HEAD)
+## [3.7.0](https://github.com/recurly/recurly-client-dotnet/tree/HEAD)
 
-[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.6.0...HEAD)
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.6.1...HEAD)
+
+**Fixed bugs:**
+
+- ListAccountSubscriptions returning expired subscriptions when specifying state="live" [\#531](https://github.com/recurly/recurly-client-dotnet/issues/531)
+- Fixing query parameter handling in the Pager class [\#532](https://github.com/recurly/recurly-client-dotnet/pull/532) ([douglasmiller](https://github.com/douglasmiller))
+
+**Merged pull requests:**
+
+- Release 3.7.0 [\#533](https://github.com/recurly/recurly-client-dotnet/pull/533) ([bhelx](https://github.com/bhelx))
+- Document a way to handle webhooks [\#526](https://github.com/recurly/recurly-client-dotnet/pull/526) ([bhelx](https://github.com/bhelx))
+- Adding RequestOptions to facilitate passing custom request headers [\#524](https://github.com/recurly/recurly-client-dotnet/pull/524) ([douglasmiller](https://github.com/douglasmiller))
+
+## [3.6.1](https://github.com/recurly/recurly-client-dotnet/tree/3.6.1) (2020-06-04)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.6.0...3.6.1)
 
 **Implemented enhancements:**
 
