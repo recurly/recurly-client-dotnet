@@ -1,8 +1,12 @@
 # Changelog
 
-## [3.7.1](https://github.com/recurly/recurly-client-dotnet/tree/HEAD)
+## [3.7.1](https://github.com/recurly/recurly-client-dotnet/tree/3.7.1) (2020-06-24)
 
-[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.7.0...HEAD)
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.7.0...3.7.1)
+
+**Fixed bugs:**
+
+- Ambiguous methods introduced in v3.7.0 [\#536](https://github.com/recurly/recurly-client-dotnet/issues/536)
 
 **Merged pull requests:**
 
@@ -119,7 +123,7 @@ See [#512](https://github.com/recurly/recurly-client-dotnet/pull/512) for more i
 
 ## [3.4.0](https://github.com/recurly/recurly-client-dotnet/tree/3.4.0) (2020-02-20)
 
-[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.3.0...3.4.0)
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.2.1...3.4.0)
 
 **Merged pull requests:**
 
@@ -131,13 +135,13 @@ See [#512](https://github.com/recurly/recurly-client-dotnet/pull/512) for more i
 - Fixing error factory bug [\#473](https://github.com/recurly/recurly-client-dotnet/pull/473) ([douglasmiller](https://github.com/douglasmiller))
 - Initial addition of code to support enum types [\#471](https://github.com/recurly/recurly-client-dotnet/pull/471) ([douglasmiller](https://github.com/douglasmiller))
 
-## [3.3.0](https://github.com/recurly/recurly-client-dotnet/tree/3.3.0) (2019-12-12)
-
-[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.2.1...3.3.0)
-
 ## [3.2.1](https://github.com/recurly/recurly-client-dotnet/tree/3.2.1) (2019-12-12)
 
-[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.2.0...3.2.1)
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.3.0...3.2.1)
+
+## [3.3.0](https://github.com/recurly/recurly-client-dotnet/tree/3.3.0) (2019-12-12)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.2.0...3.3.0)
 
 **Implemented enhancements:**
 
