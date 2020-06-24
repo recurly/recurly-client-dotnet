@@ -1,8 +1,17 @@
 # Changelog
 
-## [3.7.0](https://github.com/recurly/recurly-client-dotnet/tree/HEAD)
+## [3.7.1](https://github.com/recurly/recurly-client-dotnet/tree/HEAD)
 
-[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.6.1...HEAD)
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.7.0...HEAD)
+
+**Merged pull requests:**
+
+- Release 3.7.1 [\#538](https://github.com/recurly/recurly-client-dotnet/pull/538) ([douglasmiller](https://github.com/douglasmiller))
+- Removing overloaded Async operation methods [\#537](https://github.com/recurly/recurly-client-dotnet/pull/537) ([douglasmiller](https://github.com/douglasmiller))
+
+## [3.7.0](https://github.com/recurly/recurly-client-dotnet/tree/3.7.0) (2020-06-23)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.6.1...3.7.0)
 
 **Fixed bugs:**
 
