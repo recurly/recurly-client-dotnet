@@ -45,7 +45,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Fetch a site <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_site">get_site api documentation</see>
         /// </summary>
@@ -63,7 +62,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Fetch a site <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_site">get_site api documentation</see>
         /// </summary>
@@ -77,11 +75,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "site_id", siteId } };
             var url = this.InterpolatePath("/sites/{site_id}", urlParams);
             return MakeRequestAsync<Site>(Method.GET, url, null, null, options, cancellationToken);
-        }
-
-        public Task<Site> GetSiteAsync(string siteId, RequestOptions options = null)
-        {
-            return GetSiteAsync(siteId, default(CancellationToken), options);
         }
 
 
@@ -113,7 +106,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Create an account <see href="https://developers.recurly.com/api/v2019-10-10#operation/create_account">create_account api documentation</see>
         /// </summary>
@@ -131,7 +123,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Create an account <see href="https://developers.recurly.com/api/v2019-10-10#operation/create_account">create_account api documentation</see>
         /// </summary>
@@ -145,11 +136,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { };
             var url = this.InterpolatePath("/accounts", urlParams);
             return MakeRequestAsync<Account>(Method.POST, url, body, null, options, cancellationToken);
-        }
-
-        public Task<Account> CreateAccountAsync(AccountCreate body, RequestOptions options = null)
-        {
-            return CreateAccountAsync(body, default(CancellationToken), options);
         }
 
 
@@ -171,7 +157,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Fetch an account <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_account">get_account api documentation</see>
         /// </summary>
@@ -185,11 +170,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var url = this.InterpolatePath("/accounts/{account_id}", urlParams);
             return MakeRequestAsync<Account>(Method.GET, url, null, null, options, cancellationToken);
-        }
-
-        public Task<Account> GetAccountAsync(string accountId, RequestOptions options = null)
-        {
-            return GetAccountAsync(accountId, default(CancellationToken), options);
         }
 
 
@@ -212,7 +192,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Modify an account <see href="https://developers.recurly.com/api/v2019-10-10#operation/update_account">update_account api documentation</see>
         /// </summary>
@@ -227,11 +206,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var url = this.InterpolatePath("/accounts/{account_id}", urlParams);
             return MakeRequestAsync<Account>(Method.PUT, url, body, null, options, cancellationToken);
-        }
-
-        public Task<Account> UpdateAccountAsync(string accountId, AccountUpdate body, RequestOptions options = null)
-        {
-            return UpdateAccountAsync(accountId, body, default(CancellationToken), options);
         }
 
 
@@ -253,7 +227,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Deactivate an account <see href="https://developers.recurly.com/api/v2019-10-10#operation/deactivate_account">deactivate_account api documentation</see>
         /// </summary>
@@ -267,11 +240,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var url = this.InterpolatePath("/accounts/{account_id}", urlParams);
             return MakeRequestAsync<Account>(Method.DELETE, url, null, null, options, cancellationToken);
-        }
-
-        public Task<Account> DeactivateAccountAsync(string accountId, RequestOptions options = null)
-        {
-            return DeactivateAccountAsync(accountId, default(CancellationToken), options);
         }
 
 
@@ -293,7 +261,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Fetch an account's acquisition data <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_account_acquisition">get_account_acquisition api documentation</see>
         /// </summary>
@@ -307,11 +274,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var url = this.InterpolatePath("/accounts/{account_id}/acquisition", urlParams);
             return MakeRequestAsync<AccountAcquisition>(Method.GET, url, null, null, options, cancellationToken);
-        }
-
-        public Task<AccountAcquisition> GetAccountAcquisitionAsync(string accountId, RequestOptions options = null)
-        {
-            return GetAccountAcquisitionAsync(accountId, default(CancellationToken), options);
         }
 
 
@@ -334,7 +296,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Update an account's acquisition data <see href="https://developers.recurly.com/api/v2019-10-10#operation/update_account_acquisition">update_account_acquisition api documentation</see>
         /// </summary>
@@ -349,11 +310,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var url = this.InterpolatePath("/accounts/{account_id}/acquisition", urlParams);
             return MakeRequestAsync<AccountAcquisition>(Method.PUT, url, body, null, options, cancellationToken);
-        }
-
-        public Task<AccountAcquisition> UpdateAccountAcquisitionAsync(string accountId, AccountAcquisitionUpdatable body, RequestOptions options = null)
-        {
-            return UpdateAccountAcquisitionAsync(accountId, body, default(CancellationToken), options);
         }
 
 
@@ -375,7 +331,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Remove an account's acquisition data <see href="https://developers.recurly.com/api/v2019-10-10#operation/remove_account_acquisition">remove_account_acquisition api documentation</see>
         /// </summary>
@@ -389,11 +344,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var url = this.InterpolatePath("/accounts/{account_id}/acquisition", urlParams);
             return MakeRequestAsync<object>(Method.DELETE, url, null, null, options, cancellationToken);
-        }
-
-        public Task<object> RemoveAccountAcquisitionAsync(string accountId, RequestOptions options = null)
-        {
-            return RemoveAccountAcquisitionAsync(accountId, default(CancellationToken), options);
         }
 
 
@@ -415,7 +365,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Reactivate an inactive account <see href="https://developers.recurly.com/api/v2019-10-10#operation/reactivate_account">reactivate_account api documentation</see>
         /// </summary>
@@ -429,11 +378,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var url = this.InterpolatePath("/accounts/{account_id}/reactivate", urlParams);
             return MakeRequestAsync<Account>(Method.PUT, url, null, null, options, cancellationToken);
-        }
-
-        public Task<Account> ReactivateAccountAsync(string accountId, RequestOptions options = null)
-        {
-            return ReactivateAccountAsync(accountId, default(CancellationToken), options);
         }
 
 
@@ -455,7 +399,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Fetch an account's balance and past due status <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_account_balance">get_account_balance api documentation</see>
         /// </summary>
@@ -469,11 +412,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var url = this.InterpolatePath("/accounts/{account_id}/balance", urlParams);
             return MakeRequestAsync<AccountBalance>(Method.GET, url, null, null, options, cancellationToken);
-        }
-
-        public Task<AccountBalance> GetAccountBalanceAsync(string accountId, RequestOptions options = null)
-        {
-            return GetAccountBalanceAsync(accountId, default(CancellationToken), options);
         }
 
 
@@ -495,7 +433,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Fetch an account's billing information <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_billing_info">get_billing_info api documentation</see>
         /// </summary>
@@ -509,11 +446,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var url = this.InterpolatePath("/accounts/{account_id}/billing_info", urlParams);
             return MakeRequestAsync<BillingInfo>(Method.GET, url, null, null, options, cancellationToken);
-        }
-
-        public Task<BillingInfo> GetBillingInfoAsync(string accountId, RequestOptions options = null)
-        {
-            return GetBillingInfoAsync(accountId, default(CancellationToken), options);
         }
 
 
@@ -536,7 +468,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Set an account's billing information <see href="https://developers.recurly.com/api/v2019-10-10#operation/update_billing_info">update_billing_info api documentation</see>
         /// </summary>
@@ -551,11 +482,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var url = this.InterpolatePath("/accounts/{account_id}/billing_info", urlParams);
             return MakeRequestAsync<BillingInfo>(Method.PUT, url, body, null, options, cancellationToken);
-        }
-
-        public Task<BillingInfo> UpdateBillingInfoAsync(string accountId, BillingInfoCreate body, RequestOptions options = null)
-        {
-            return UpdateBillingInfoAsync(accountId, body, default(CancellationToken), options);
         }
 
 
@@ -577,7 +503,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Remove an account's billing information <see href="https://developers.recurly.com/api/v2019-10-10#operation/remove_billing_info">remove_billing_info api documentation</see>
         /// </summary>
@@ -591,11 +516,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var url = this.InterpolatePath("/accounts/{account_id}/billing_info", urlParams);
             return MakeRequestAsync<object>(Method.DELETE, url, null, null, options, cancellationToken);
-        }
-
-        public Task<object> RemoveBillingInfoAsync(string accountId, RequestOptions options = null)
-        {
-            return RemoveBillingInfoAsync(accountId, default(CancellationToken), options);
         }
 
 
@@ -623,7 +543,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Show the coupon redemption that is active on an account <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_active_coupon_redemption">get_active_coupon_redemption api documentation</see>
         /// </summary>
@@ -641,7 +560,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Show the coupon redemption that is active on an account <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_active_coupon_redemption">get_active_coupon_redemption api documentation</see>
         /// </summary>
@@ -655,11 +573,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var url = this.InterpolatePath("/accounts/{account_id}/coupon_redemptions/active", urlParams);
             return MakeRequestAsync<CouponRedemption>(Method.GET, url, null, null, options, cancellationToken);
-        }
-
-        public Task<CouponRedemption> GetActiveCouponRedemptionAsync(string accountId, RequestOptions options = null)
-        {
-            return GetActiveCouponRedemptionAsync(accountId, default(CancellationToken), options);
         }
 
 
@@ -682,7 +595,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Generate an active coupon redemption on an account <see href="https://developers.recurly.com/api/v2019-10-10#operation/create_coupon_redemption">create_coupon_redemption api documentation</see>
         /// </summary>
@@ -697,11 +609,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var url = this.InterpolatePath("/accounts/{account_id}/coupon_redemptions/active", urlParams);
             return MakeRequestAsync<CouponRedemption>(Method.POST, url, body, null, options, cancellationToken);
-        }
-
-        public Task<CouponRedemption> CreateCouponRedemptionAsync(string accountId, CouponRedemptionCreate body, RequestOptions options = null)
-        {
-            return CreateCouponRedemptionAsync(accountId, body, default(CancellationToken), options);
         }
 
 
@@ -723,7 +630,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Delete the active coupon redemption from an account <see href="https://developers.recurly.com/api/v2019-10-10#operation/remove_coupon_redemption">remove_coupon_redemption api documentation</see>
         /// </summary>
@@ -737,11 +643,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var url = this.InterpolatePath("/accounts/{account_id}/coupon_redemptions/active", urlParams);
             return MakeRequestAsync<CouponRedemption>(Method.DELETE, url, null, null, options, cancellationToken);
-        }
-
-        public Task<CouponRedemption> RemoveCouponRedemptionAsync(string accountId, RequestOptions options = null)
-        {
-            return RemoveCouponRedemptionAsync(accountId, default(CancellationToken), options);
         }
 
 
@@ -765,7 +666,6 @@ namespace Recurly
             var url = this.InterpolatePath("/accounts/{account_id}/credit_payments", urlParams);
             return Pager<CreditPayment>.Build(url, queryParams, options, this);
         }
-
 
 
 
@@ -797,7 +697,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Create an invoice for pending line items <see href="https://developers.recurly.com/api/v2019-10-10#operation/create_invoice">create_invoice api documentation</see>
         /// </summary>
@@ -816,7 +715,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Create an invoice for pending line items <see href="https://developers.recurly.com/api/v2019-10-10#operation/create_invoice">create_invoice api documentation</see>
         /// </summary>
@@ -831,11 +729,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var url = this.InterpolatePath("/accounts/{account_id}/invoices", urlParams);
             return MakeRequestAsync<InvoiceCollection>(Method.POST, url, body, null, options, cancellationToken);
-        }
-
-        public Task<InvoiceCollection> CreateInvoiceAsync(string accountId, InvoiceCreate body, RequestOptions options = null)
-        {
-            return CreateInvoiceAsync(accountId, body, default(CancellationToken), options);
         }
 
 
@@ -858,7 +751,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Preview new invoice for pending line items <see href="https://developers.recurly.com/api/v2019-10-10#operation/preview_invoice">preview_invoice api documentation</see>
         /// </summary>
@@ -873,11 +765,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var url = this.InterpolatePath("/accounts/{account_id}/invoices/preview", urlParams);
             return MakeRequestAsync<InvoiceCollection>(Method.POST, url, body, null, options, cancellationToken);
-        }
-
-        public Task<InvoiceCollection> PreviewInvoiceAsync(string accountId, InvoiceCreate body, RequestOptions options = null)
-        {
-            return PreviewInvoiceAsync(accountId, body, default(CancellationToken), options);
         }
 
 
@@ -910,7 +797,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Create a new line item for the account <see href="https://developers.recurly.com/api/v2019-10-10#operation/create_line_item">create_line_item api documentation</see>
         /// </summary>
@@ -929,7 +815,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Create a new line item for the account <see href="https://developers.recurly.com/api/v2019-10-10#operation/create_line_item">create_line_item api documentation</see>
         /// </summary>
@@ -944,11 +829,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var url = this.InterpolatePath("/accounts/{account_id}/line_items", urlParams);
             return MakeRequestAsync<LineItem>(Method.POST, url, body, null, options, cancellationToken);
-        }
-
-        public Task<LineItem> CreateLineItemAsync(string accountId, LineItemCreate body, RequestOptions options = null)
-        {
-            return CreateLineItemAsync(accountId, body, default(CancellationToken), options);
         }
 
 
@@ -973,7 +853,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Fetch an account note <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_account_note">get_account_note api documentation</see>
         /// </summary>
@@ -992,7 +871,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Fetch an account note <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_account_note">get_account_note api documentation</see>
         /// </summary>
@@ -1007,11 +885,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "account_id", accountId }, { "account_note_id", accountNoteId } };
             var url = this.InterpolatePath("/accounts/{account_id}/notes/{account_note_id}", urlParams);
             return MakeRequestAsync<AccountNote>(Method.GET, url, null, null, options, cancellationToken);
-        }
-
-        public Task<AccountNote> GetAccountNoteAsync(string accountId, string accountNoteId, RequestOptions options = null)
-        {
-            return GetAccountNoteAsync(accountId, accountNoteId, default(CancellationToken), options);
         }
 
 
@@ -1041,7 +914,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Create a new shipping address for the account <see href="https://developers.recurly.com/api/v2019-10-10#operation/create_shipping_address">create_shipping_address api documentation</see>
         /// </summary>
@@ -1060,7 +932,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Create a new shipping address for the account <see href="https://developers.recurly.com/api/v2019-10-10#operation/create_shipping_address">create_shipping_address api documentation</see>
         /// </summary>
@@ -1075,11 +946,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var url = this.InterpolatePath("/accounts/{account_id}/shipping_addresses", urlParams);
             return MakeRequestAsync<ShippingAddress>(Method.POST, url, body, null, options, cancellationToken);
-        }
-
-        public Task<ShippingAddress> CreateShippingAddressAsync(string accountId, ShippingAddressCreate body, RequestOptions options = null)
-        {
-            return CreateShippingAddressAsync(accountId, body, default(CancellationToken), options);
         }
 
 
@@ -1102,7 +968,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Fetch an account's shipping address <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_shipping_address">get_shipping_address api documentation</see>
         /// </summary>
@@ -1117,11 +982,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "account_id", accountId }, { "shipping_address_id", shippingAddressId } };
             var url = this.InterpolatePath("/accounts/{account_id}/shipping_addresses/{shipping_address_id}", urlParams);
             return MakeRequestAsync<ShippingAddress>(Method.GET, url, null, null, options, cancellationToken);
-        }
-
-        public Task<ShippingAddress> GetShippingAddressAsync(string accountId, string shippingAddressId, RequestOptions options = null)
-        {
-            return GetShippingAddressAsync(accountId, shippingAddressId, default(CancellationToken), options);
         }
 
 
@@ -1145,7 +1005,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Update an account's shipping address <see href="https://developers.recurly.com/api/v2019-10-10#operation/update_shipping_address">update_shipping_address api documentation</see>
         /// </summary>
@@ -1161,11 +1020,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "account_id", accountId }, { "shipping_address_id", shippingAddressId } };
             var url = this.InterpolatePath("/accounts/{account_id}/shipping_addresses/{shipping_address_id}", urlParams);
             return MakeRequestAsync<ShippingAddress>(Method.PUT, url, body, null, options, cancellationToken);
-        }
-
-        public Task<ShippingAddress> UpdateShippingAddressAsync(string accountId, string shippingAddressId, ShippingAddressUpdate body, RequestOptions options = null)
-        {
-            return UpdateShippingAddressAsync(accountId, shippingAddressId, body, default(CancellationToken), options);
         }
 
 
@@ -1188,7 +1042,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Remove an account's shipping address <see href="https://developers.recurly.com/api/v2019-10-10#operation/remove_shipping_address">remove_shipping_address api documentation</see>
         /// </summary>
@@ -1203,11 +1056,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "account_id", accountId }, { "shipping_address_id", shippingAddressId } };
             var url = this.InterpolatePath("/accounts/{account_id}/shipping_addresses/{shipping_address_id}", urlParams);
             return MakeRequestAsync<object>(Method.DELETE, url, null, null, options, cancellationToken);
-        }
-
-        public Task<object> RemoveShippingAddressAsync(string accountId, string shippingAddressId, RequestOptions options = null)
-        {
-            return RemoveShippingAddressAsync(accountId, shippingAddressId, default(CancellationToken), options);
         }
 
 
@@ -1238,7 +1086,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// List an account's transactions <see href="https://developers.recurly.com/api/v2019-10-10#operation/list_account_transactions">list_account_transactions api documentation</see>
         /// </summary>
@@ -1261,7 +1108,6 @@ namespace Recurly
             var url = this.InterpolatePath("/accounts/{account_id}/transactions", urlParams);
             return Pager<Transaction>.Build(url, queryParams, options, this);
         }
-
 
 
 
@@ -1295,7 +1141,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// List a site's account acquisition data <see href="https://developers.recurly.com/api/v2019-10-10#operation/list_account_acquisition">list_account_acquisition api documentation</see>
         /// </summary>
@@ -1315,7 +1160,6 @@ namespace Recurly
             var url = this.InterpolatePath("/acquisitions", urlParams);
             return Pager<AccountAcquisition>.Build(url, queryParams, options, this);
         }
-
 
 
 
@@ -1345,7 +1189,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Create a new coupon <see href="https://developers.recurly.com/api/v2019-10-10#operation/create_coupon">create_coupon api documentation</see>
         /// </summary>
@@ -1363,7 +1206,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Create a new coupon <see href="https://developers.recurly.com/api/v2019-10-10#operation/create_coupon">create_coupon api documentation</see>
         /// </summary>
@@ -1377,11 +1219,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { };
             var url = this.InterpolatePath("/coupons", urlParams);
             return MakeRequestAsync<Coupon>(Method.POST, url, body, null, options, cancellationToken);
-        }
-
-        public Task<Coupon> CreateCouponAsync(CouponCreate body, RequestOptions options = null)
-        {
-            return CreateCouponAsync(body, default(CancellationToken), options);
         }
 
 
@@ -1403,7 +1240,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Fetch a coupon <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_coupon">get_coupon api documentation</see>
         /// </summary>
@@ -1417,11 +1253,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "coupon_id", couponId } };
             var url = this.InterpolatePath("/coupons/{coupon_id}", urlParams);
             return MakeRequestAsync<Coupon>(Method.GET, url, null, null, options, cancellationToken);
-        }
-
-        public Task<Coupon> GetCouponAsync(string couponId, RequestOptions options = null)
-        {
-            return GetCouponAsync(couponId, default(CancellationToken), options);
         }
 
 
@@ -1444,7 +1275,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Update an active coupon <see href="https://developers.recurly.com/api/v2019-10-10#operation/update_coupon">update_coupon api documentation</see>
         /// </summary>
@@ -1459,11 +1289,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "coupon_id", couponId } };
             var url = this.InterpolatePath("/coupons/{coupon_id}", urlParams);
             return MakeRequestAsync<Coupon>(Method.PUT, url, body, null, options, cancellationToken);
-        }
-
-        public Task<Coupon> UpdateCouponAsync(string couponId, CouponUpdate body, RequestOptions options = null)
-        {
-            return UpdateCouponAsync(couponId, body, default(CancellationToken), options);
         }
 
 
@@ -1485,7 +1310,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Expire a coupon <see href="https://developers.recurly.com/api/v2019-10-10#operation/deactivate_coupon">deactivate_coupon api documentation</see>
         /// </summary>
@@ -1499,11 +1323,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "coupon_id", couponId } };
             var url = this.InterpolatePath("/coupons/{coupon_id}", urlParams);
             return MakeRequestAsync<Coupon>(Method.DELETE, url, null, null, options, cancellationToken);
-        }
-
-        public Task<Coupon> DeactivateCouponAsync(string couponId, RequestOptions options = null)
-        {
-            return DeactivateCouponAsync(couponId, default(CancellationToken), options);
         }
 
 
@@ -1533,7 +1352,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// List a site's credit payments <see href="https://developers.recurly.com/api/v2019-10-10#operation/list_credit_payments">list_credit_payments api documentation</see>
         /// </summary>
@@ -1557,7 +1375,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Fetch a credit payment <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_credit_payment">get_credit_payment api documentation</see>
         /// </summary>
@@ -1575,7 +1392,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Fetch a credit payment <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_credit_payment">get_credit_payment api documentation</see>
         /// </summary>
@@ -1589,11 +1405,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "credit_payment_id", creditPaymentId } };
             var url = this.InterpolatePath("/credit_payments/{credit_payment_id}", urlParams);
             return MakeRequestAsync<CreditPayment>(Method.GET, url, null, null, options, cancellationToken);
-        }
-
-        public Task<CreditPayment> GetCreditPaymentAsync(string creditPaymentId, RequestOptions options = null)
-        {
-            return GetCreditPaymentAsync(creditPaymentId, default(CancellationToken), options);
         }
 
 
@@ -1623,7 +1434,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Fetch an custom field definition <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_custom_field_definition">get_custom_field_definition api documentation</see>
         /// </summary>
@@ -1641,7 +1451,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Fetch an custom field definition <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_custom_field_definition">get_custom_field_definition api documentation</see>
         /// </summary>
@@ -1655,11 +1464,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "custom_field_definition_id", customFieldDefinitionId } };
             var url = this.InterpolatePath("/custom_field_definitions/{custom_field_definition_id}", urlParams);
             return MakeRequestAsync<CustomFieldDefinition>(Method.GET, url, null, null, options, cancellationToken);
-        }
-
-        public Task<CustomFieldDefinition> GetCustomFieldDefinitionAsync(string customFieldDefinitionId, RequestOptions options = null)
-        {
-            return GetCustomFieldDefinitionAsync(customFieldDefinitionId, default(CancellationToken), options);
         }
 
 
@@ -1689,7 +1493,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Create a new item <see href="https://developers.recurly.com/api/v2019-10-10#operation/create_item">create_item api documentation</see>
         /// </summary>
@@ -1707,7 +1510,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Create a new item <see href="https://developers.recurly.com/api/v2019-10-10#operation/create_item">create_item api documentation</see>
         /// </summary>
@@ -1721,11 +1523,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { };
             var url = this.InterpolatePath("/items", urlParams);
             return MakeRequestAsync<Item>(Method.POST, url, body, null, options, cancellationToken);
-        }
-
-        public Task<Item> CreateItemAsync(ItemCreate body, RequestOptions options = null)
-        {
-            return CreateItemAsync(body, default(CancellationToken), options);
         }
 
 
@@ -1747,7 +1544,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Fetch an item <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_item">get_item api documentation</see>
         /// </summary>
@@ -1761,11 +1557,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "item_id", itemId } };
             var url = this.InterpolatePath("/items/{item_id}", urlParams);
             return MakeRequestAsync<Item>(Method.GET, url, null, null, options, cancellationToken);
-        }
-
-        public Task<Item> GetItemAsync(string itemId, RequestOptions options = null)
-        {
-            return GetItemAsync(itemId, default(CancellationToken), options);
         }
 
 
@@ -1788,7 +1579,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Update an active item <see href="https://developers.recurly.com/api/v2019-10-10#operation/update_item">update_item api documentation</see>
         /// </summary>
@@ -1803,11 +1593,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "item_id", itemId } };
             var url = this.InterpolatePath("/items/{item_id}", urlParams);
             return MakeRequestAsync<Item>(Method.PUT, url, body, null, options, cancellationToken);
-        }
-
-        public Task<Item> UpdateItemAsync(string itemId, ItemUpdate body, RequestOptions options = null)
-        {
-            return UpdateItemAsync(itemId, body, default(CancellationToken), options);
         }
 
 
@@ -1829,7 +1614,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Deactivate an item <see href="https://developers.recurly.com/api/v2019-10-10#operation/deactivate_item">deactivate_item api documentation</see>
         /// </summary>
@@ -1843,11 +1627,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "item_id", itemId } };
             var url = this.InterpolatePath("/items/{item_id}", urlParams);
             return MakeRequestAsync<Item>(Method.DELETE, url, null, null, options, cancellationToken);
-        }
-
-        public Task<Item> DeactivateItemAsync(string itemId, RequestOptions options = null)
-        {
-            return DeactivateItemAsync(itemId, default(CancellationToken), options);
         }
 
 
@@ -1869,7 +1648,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Reactivate an inactive item <see href="https://developers.recurly.com/api/v2019-10-10#operation/reactivate_item">reactivate_item api documentation</see>
         /// </summary>
@@ -1883,11 +1661,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "item_id", itemId } };
             var url = this.InterpolatePath("/items/{item_id}/reactivate", urlParams);
             return MakeRequestAsync<Item>(Method.PUT, url, null, null, options, cancellationToken);
-        }
-
-        public Task<Item> ReactivateItemAsync(string itemId, RequestOptions options = null)
-        {
-            return ReactivateItemAsync(itemId, default(CancellationToken), options);
         }
 
 
@@ -1917,7 +1690,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Fetch an invoice <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_invoice">get_invoice api documentation</see>
         /// </summary>
@@ -1935,7 +1707,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Fetch an invoice <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_invoice">get_invoice api documentation</see>
         /// </summary>
@@ -1949,11 +1720,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "invoice_id", invoiceId } };
             var url = this.InterpolatePath("/invoices/{invoice_id}", urlParams);
             return MakeRequestAsync<Invoice>(Method.GET, url, null, null, options, cancellationToken);
-        }
-
-        public Task<Invoice> GetInvoiceAsync(string invoiceId, RequestOptions options = null)
-        {
-            return GetInvoiceAsync(invoiceId, default(CancellationToken), options);
         }
 
 
@@ -1976,7 +1742,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Update an invoice <see href="https://developers.recurly.com/api/v2019-10-10#operation/put_invoice">put_invoice api documentation</see>
         /// </summary>
@@ -1991,11 +1756,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "invoice_id", invoiceId } };
             var url = this.InterpolatePath("/invoices/{invoice_id}", urlParams);
             return MakeRequestAsync<Invoice>(Method.PUT, url, body, null, options, cancellationToken);
-        }
-
-        public Task<Invoice> PutInvoiceAsync(string invoiceId, InvoiceUpdatable body, RequestOptions options = null)
-        {
-            return PutInvoiceAsync(invoiceId, body, default(CancellationToken), options);
         }
 
 
@@ -2017,7 +1777,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Fetch an invoice as a PDF <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_invoice_pdf">get_invoice_pdf api documentation</see>
         /// </summary>
@@ -2031,11 +1790,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "invoice_id", invoiceId } };
             var url = this.InterpolatePath("/invoices/{invoice_id}.pdf", urlParams);
             return MakeRequestAsync<BinaryFile>(Method.GET, url, null, null, options, cancellationToken);
-        }
-
-        public Task<BinaryFile> GetInvoicePdfAsync(string invoiceId, RequestOptions options = null)
-        {
-            return GetInvoicePdfAsync(invoiceId, default(CancellationToken), options);
         }
 
 
@@ -2057,7 +1811,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Collect a pending or past due, automatic invoice <see href="https://developers.recurly.com/api/v2019-10-10#operation/collect_invoice">collect_invoice api documentation</see>
         /// </summary>
@@ -2071,11 +1824,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "invoice_id", invoiceId } };
             var url = this.InterpolatePath("/invoices/{invoice_id}/collect", urlParams);
             return MakeRequestAsync<Invoice>(Method.PUT, url, null, null, options, cancellationToken);
-        }
-
-        public Task<Invoice> CollectInvoiceAsync(string invoiceId, InvoiceCollect body = null, RequestOptions options = null)
-        {
-            return CollectInvoiceAsync(invoiceId, body, default(CancellationToken), options);
         }
 
 
@@ -2097,7 +1845,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Mark an open invoice as failed <see href="https://developers.recurly.com/api/v2019-10-10#operation/fail_invoice">fail_invoice api documentation</see>
         /// </summary>
@@ -2111,11 +1858,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "invoice_id", invoiceId } };
             var url = this.InterpolatePath("/invoices/{invoice_id}/mark_failed", urlParams);
             return MakeRequestAsync<Invoice>(Method.PUT, url, null, null, options, cancellationToken);
-        }
-
-        public Task<Invoice> FailInvoiceAsync(string invoiceId, RequestOptions options = null)
-        {
-            return FailInvoiceAsync(invoiceId, default(CancellationToken), options);
         }
 
 
@@ -2137,7 +1879,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Mark an open invoice as successful <see href="https://developers.recurly.com/api/v2019-10-10#operation/mark_invoice_successful">mark_invoice_successful api documentation</see>
         /// </summary>
@@ -2151,11 +1892,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "invoice_id", invoiceId } };
             var url = this.InterpolatePath("/invoices/{invoice_id}/mark_successful", urlParams);
             return MakeRequestAsync<Invoice>(Method.PUT, url, null, null, options, cancellationToken);
-        }
-
-        public Task<Invoice> MarkInvoiceSuccessfulAsync(string invoiceId, RequestOptions options = null)
-        {
-            return MarkInvoiceSuccessfulAsync(invoiceId, default(CancellationToken), options);
         }
 
 
@@ -2177,7 +1913,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Reopen a closed, manual invoice <see href="https://developers.recurly.com/api/v2019-10-10#operation/reopen_invoice">reopen_invoice api documentation</see>
         /// </summary>
@@ -2191,11 +1926,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "invoice_id", invoiceId } };
             var url = this.InterpolatePath("/invoices/{invoice_id}/reopen", urlParams);
             return MakeRequestAsync<Invoice>(Method.PUT, url, null, null, options, cancellationToken);
-        }
-
-        public Task<Invoice> ReopenInvoiceAsync(string invoiceId, RequestOptions options = null)
-        {
-            return ReopenInvoiceAsync(invoiceId, default(CancellationToken), options);
         }
 
 
@@ -2217,7 +1947,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Void a credit invoice. <see href="https://developers.recurly.com/api/v2019-10-10#operation/void_invoice">void_invoice api documentation</see>
         /// </summary>
@@ -2231,11 +1960,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "invoice_id", invoiceId } };
             var url = this.InterpolatePath("/invoices/{invoice_id}/void", urlParams);
             return MakeRequestAsync<Invoice>(Method.PUT, url, null, null, options, cancellationToken);
-        }
-
-        public Task<Invoice> VoidInvoiceAsync(string invoiceId, RequestOptions options = null)
-        {
-            return VoidInvoiceAsync(invoiceId, default(CancellationToken), options);
         }
 
 
@@ -2258,7 +1982,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Record an external payment for a manual invoices. <see href="https://developers.recurly.com/api/v2019-10-10#operation/record_external_transaction">record_external_transaction api documentation</see>
         /// </summary>
@@ -2273,11 +1996,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "invoice_id", invoiceId } };
             var url = this.InterpolatePath("/invoices/{invoice_id}/transactions", urlParams);
             return MakeRequestAsync<Transaction>(Method.POST, url, body, null, options, cancellationToken);
-        }
-
-        public Task<Transaction> RecordExternalTransactionAsync(string invoiceId, ExternalTransaction body, RequestOptions options = null)
-        {
-            return RecordExternalTransactionAsync(invoiceId, body, default(CancellationToken), options);
         }
 
 
@@ -2310,7 +2028,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Show the coupon redemptions applied to an invoice <see href="https://developers.recurly.com/api/v2019-10-10#operation/list_invoice_coupon_redemptions">list_invoice_coupon_redemptions api documentation</see>
         /// </summary>
@@ -2334,7 +2051,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// List an invoice's related credit or charge invoices <see href="https://developers.recurly.com/api/v2019-10-10#operation/list_related_invoices">list_related_invoices api documentation</see>
         /// </summary>
@@ -2348,7 +2064,6 @@ namespace Recurly
             var url = this.InterpolatePath("/invoices/{invoice_id}/related_invoices", urlParams);
             return Pager<Invoice>.Build(url, null, options, this);
         }
-
 
 
 
@@ -2372,7 +2087,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Refund an invoice <see href="https://developers.recurly.com/api/v2019-10-10#operation/refund_invoice">refund_invoice api documentation</see>
         /// </summary>
@@ -2387,11 +2101,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "invoice_id", invoiceId } };
             var url = this.InterpolatePath("/invoices/{invoice_id}/refund", urlParams);
             return MakeRequestAsync<Invoice>(Method.POST, url, body, null, options, cancellationToken);
-        }
-
-        public Task<Invoice> RefundInvoiceAsync(string invoiceId, InvoiceRefund body, RequestOptions options = null)
-        {
-            return RefundInvoiceAsync(invoiceId, body, default(CancellationToken), options);
         }
 
 
@@ -2423,7 +2132,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Fetch a line item <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_line_item">get_line_item api documentation</see>
         /// </summary>
@@ -2441,7 +2149,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Fetch a line item <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_line_item">get_line_item api documentation</see>
         /// </summary>
@@ -2455,11 +2162,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "line_item_id", lineItemId } };
             var url = this.InterpolatePath("/line_items/{line_item_id}", urlParams);
             return MakeRequestAsync<LineItem>(Method.GET, url, null, null, options, cancellationToken);
-        }
-
-        public Task<LineItem> GetLineItemAsync(string lineItemId, RequestOptions options = null)
-        {
-            return GetLineItemAsync(lineItemId, default(CancellationToken), options);
         }
 
 
@@ -2481,7 +2183,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Delete an uninvoiced line item <see href="https://developers.recurly.com/api/v2019-10-10#operation/remove_line_item">remove_line_item api documentation</see>
         /// </summary>
@@ -2495,11 +2196,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "line_item_id", lineItemId } };
             var url = this.InterpolatePath("/line_items/{line_item_id}", urlParams);
             return MakeRequestAsync<object>(Method.DELETE, url, null, null, options, cancellationToken);
-        }
-
-        public Task<object> RemoveLineItemAsync(string lineItemId, RequestOptions options = null)
-        {
-            return RemoveLineItemAsync(lineItemId, default(CancellationToken), options);
         }
 
 
@@ -2529,7 +2225,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Create a plan <see href="https://developers.recurly.com/api/v2019-10-10#operation/create_plan">create_plan api documentation</see>
         /// </summary>
@@ -2547,7 +2242,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Create a plan <see href="https://developers.recurly.com/api/v2019-10-10#operation/create_plan">create_plan api documentation</see>
         /// </summary>
@@ -2561,11 +2255,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { };
             var url = this.InterpolatePath("/plans", urlParams);
             return MakeRequestAsync<Plan>(Method.POST, url, body, null, options, cancellationToken);
-        }
-
-        public Task<Plan> CreatePlanAsync(PlanCreate body, RequestOptions options = null)
-        {
-            return CreatePlanAsync(body, default(CancellationToken), options);
         }
 
 
@@ -2587,7 +2276,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Fetch a plan <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_plan">get_plan api documentation</see>
         /// </summary>
@@ -2601,11 +2289,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "plan_id", planId } };
             var url = this.InterpolatePath("/plans/{plan_id}", urlParams);
             return MakeRequestAsync<Plan>(Method.GET, url, null, null, options, cancellationToken);
-        }
-
-        public Task<Plan> GetPlanAsync(string planId, RequestOptions options = null)
-        {
-            return GetPlanAsync(planId, default(CancellationToken), options);
         }
 
 
@@ -2628,7 +2311,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Update a plan <see href="https://developers.recurly.com/api/v2019-10-10#operation/update_plan">update_plan api documentation</see>
         /// </summary>
@@ -2643,11 +2325,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "plan_id", planId } };
             var url = this.InterpolatePath("/plans/{plan_id}", urlParams);
             return MakeRequestAsync<Plan>(Method.PUT, url, body, null, options, cancellationToken);
-        }
-
-        public Task<Plan> UpdatePlanAsync(string planId, PlanUpdate body, RequestOptions options = null)
-        {
-            return UpdatePlanAsync(planId, body, default(CancellationToken), options);
         }
 
 
@@ -2669,7 +2346,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Remove a plan <see href="https://developers.recurly.com/api/v2019-10-10#operation/remove_plan">remove_plan api documentation</see>
         /// </summary>
@@ -2683,11 +2359,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "plan_id", planId } };
             var url = this.InterpolatePath("/plans/{plan_id}", urlParams);
             return MakeRequestAsync<Plan>(Method.DELETE, url, null, null, options, cancellationToken);
-        }
-
-        public Task<Plan> RemovePlanAsync(string planId, RequestOptions options = null)
-        {
-            return RemovePlanAsync(planId, default(CancellationToken), options);
         }
 
 
@@ -2718,7 +2389,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Create an add-on <see href="https://developers.recurly.com/api/v2019-10-10#operation/create_plan_add_on">create_plan_add_on api documentation</see>
         /// </summary>
@@ -2737,7 +2407,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Create an add-on <see href="https://developers.recurly.com/api/v2019-10-10#operation/create_plan_add_on">create_plan_add_on api documentation</see>
         /// </summary>
@@ -2752,11 +2421,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "plan_id", planId } };
             var url = this.InterpolatePath("/plans/{plan_id}/add_ons", urlParams);
             return MakeRequestAsync<AddOn>(Method.POST, url, body, null, options, cancellationToken);
-        }
-
-        public Task<AddOn> CreatePlanAddOnAsync(string planId, AddOnCreate body, RequestOptions options = null)
-        {
-            return CreatePlanAddOnAsync(planId, body, default(CancellationToken), options);
         }
 
 
@@ -2779,7 +2443,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Fetch a plan's add-on <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_plan_add_on">get_plan_add_on api documentation</see>
         /// </summary>
@@ -2794,11 +2457,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "plan_id", planId }, { "add_on_id", addOnId } };
             var url = this.InterpolatePath("/plans/{plan_id}/add_ons/{add_on_id}", urlParams);
             return MakeRequestAsync<AddOn>(Method.GET, url, null, null, options, cancellationToken);
-        }
-
-        public Task<AddOn> GetPlanAddOnAsync(string planId, string addOnId, RequestOptions options = null)
-        {
-            return GetPlanAddOnAsync(planId, addOnId, default(CancellationToken), options);
         }
 
 
@@ -2822,7 +2480,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Update an add-on <see href="https://developers.recurly.com/api/v2019-10-10#operation/update_plan_add_on">update_plan_add_on api documentation</see>
         /// </summary>
@@ -2838,11 +2495,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "plan_id", planId }, { "add_on_id", addOnId } };
             var url = this.InterpolatePath("/plans/{plan_id}/add_ons/{add_on_id}", urlParams);
             return MakeRequestAsync<AddOn>(Method.PUT, url, body, null, options, cancellationToken);
-        }
-
-        public Task<AddOn> UpdatePlanAddOnAsync(string planId, string addOnId, AddOnUpdate body, RequestOptions options = null)
-        {
-            return UpdatePlanAddOnAsync(planId, addOnId, body, default(CancellationToken), options);
         }
 
 
@@ -2865,7 +2517,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Remove an add-on <see href="https://developers.recurly.com/api/v2019-10-10#operation/remove_plan_add_on">remove_plan_add_on api documentation</see>
         /// </summary>
@@ -2880,11 +2531,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "plan_id", planId }, { "add_on_id", addOnId } };
             var url = this.InterpolatePath("/plans/{plan_id}/add_ons/{add_on_id}", urlParams);
             return MakeRequestAsync<AddOn>(Method.DELETE, url, null, null, options, cancellationToken);
-        }
-
-        public Task<AddOn> RemovePlanAddOnAsync(string planId, string addOnId, RequestOptions options = null)
-        {
-            return RemovePlanAddOnAsync(planId, addOnId, default(CancellationToken), options);
         }
 
 
@@ -2914,7 +2560,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Fetch an add-on <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_add_on">get_add_on api documentation</see>
         /// </summary>
@@ -2932,7 +2577,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Fetch an add-on <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_add_on">get_add_on api documentation</see>
         /// </summary>
@@ -2946,11 +2590,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "add_on_id", addOnId } };
             var url = this.InterpolatePath("/add_ons/{add_on_id}", urlParams);
             return MakeRequestAsync<AddOn>(Method.GET, url, null, null, options, cancellationToken);
-        }
-
-        public Task<AddOn> GetAddOnAsync(string addOnId, RequestOptions options = null)
-        {
-            return GetAddOnAsync(addOnId, default(CancellationToken), options);
         }
 
 
@@ -2979,7 +2618,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Fetch a shipping method <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_shipping_method">get_shipping_method api documentation</see>
         /// </summary>
@@ -2997,7 +2635,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Fetch a shipping method <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_shipping_method">get_shipping_method api documentation</see>
         /// </summary>
@@ -3011,11 +2648,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "id", id } };
             var url = this.InterpolatePath("/shipping_methods/{id}", urlParams);
             return MakeRequestAsync<ShippingMethod>(Method.GET, url, null, null, options, cancellationToken);
-        }
-
-        public Task<ShippingMethod> GetShippingMethodAsync(string id, RequestOptions options = null)
-        {
-            return GetShippingMethodAsync(id, default(CancellationToken), options);
         }
 
 
@@ -3045,7 +2677,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Create a new subscription <see href="https://developers.recurly.com/api/v2019-10-10#operation/create_subscription">create_subscription api documentation</see>
         /// </summary>
@@ -3063,7 +2694,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Create a new subscription <see href="https://developers.recurly.com/api/v2019-10-10#operation/create_subscription">create_subscription api documentation</see>
         /// </summary>
@@ -3077,11 +2707,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { };
             var url = this.InterpolatePath("/subscriptions", urlParams);
             return MakeRequestAsync<Subscription>(Method.POST, url, body, null, options, cancellationToken);
-        }
-
-        public Task<Subscription> CreateSubscriptionAsync(SubscriptionCreate body, RequestOptions options = null)
-        {
-            return CreateSubscriptionAsync(body, default(CancellationToken), options);
         }
 
 
@@ -3103,7 +2728,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Fetch a subscription <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_subscription">get_subscription api documentation</see>
         /// </summary>
@@ -3117,11 +2741,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
             var url = this.InterpolatePath("/subscriptions/{subscription_id}", urlParams);
             return MakeRequestAsync<Subscription>(Method.GET, url, null, null, options, cancellationToken);
-        }
-
-        public Task<Subscription> GetSubscriptionAsync(string subscriptionId, RequestOptions options = null)
-        {
-            return GetSubscriptionAsync(subscriptionId, default(CancellationToken), options);
         }
 
 
@@ -3144,7 +2763,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Modify a subscription <see href="https://developers.recurly.com/api/v2019-10-10#operation/modify_subscription">modify_subscription api documentation</see>
         /// </summary>
@@ -3159,11 +2777,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
             var url = this.InterpolatePath("/subscriptions/{subscription_id}", urlParams);
             return MakeRequestAsync<Subscription>(Method.PUT, url, body, null, options, cancellationToken);
-        }
-
-        public Task<Subscription> ModifySubscriptionAsync(string subscriptionId, SubscriptionUpdate body, RequestOptions options = null)
-        {
-            return ModifySubscriptionAsync(subscriptionId, body, default(CancellationToken), options);
         }
 
 
@@ -3187,7 +2800,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Terminate a subscription <see href="https://developers.recurly.com/api/v2019-10-10#operation/terminate_subscription">terminate_subscription api documentation</see>
         /// </summary>
@@ -3203,11 +2815,6 @@ namespace Recurly
             var queryParams = new Dictionary<string, object> { { "refund", refund } };
             var url = this.InterpolatePath("/subscriptions/{subscription_id}", urlParams);
             return MakeRequestAsync<Subscription>(Method.DELETE, url, null, queryParams, options, cancellationToken);
-        }
-
-        public Task<Subscription> TerminateSubscriptionAsync(string subscriptionId, string refund = null, RequestOptions options = null)
-        {
-            return TerminateSubscriptionAsync(subscriptionId, refund, default(CancellationToken), options);
         }
 
 
@@ -3229,7 +2836,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Cancel a subscription <see href="https://developers.recurly.com/api/v2019-10-10#operation/cancel_subscription">cancel_subscription api documentation</see>
         /// </summary>
@@ -3243,11 +2849,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
             var url = this.InterpolatePath("/subscriptions/{subscription_id}/cancel", urlParams);
             return MakeRequestAsync<Subscription>(Method.PUT, url, null, null, options, cancellationToken);
-        }
-
-        public Task<Subscription> CancelSubscriptionAsync(string subscriptionId, SubscriptionCancel body = null, RequestOptions options = null)
-        {
-            return CancelSubscriptionAsync(subscriptionId, body, default(CancellationToken), options);
         }
 
 
@@ -3269,7 +2870,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Reactivate a canceled subscription <see href="https://developers.recurly.com/api/v2019-10-10#operation/reactivate_subscription">reactivate_subscription api documentation</see>
         /// </summary>
@@ -3283,11 +2883,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
             var url = this.InterpolatePath("/subscriptions/{subscription_id}/reactivate", urlParams);
             return MakeRequestAsync<Subscription>(Method.PUT, url, null, null, options, cancellationToken);
-        }
-
-        public Task<Subscription> ReactivateSubscriptionAsync(string subscriptionId, RequestOptions options = null)
-        {
-            return ReactivateSubscriptionAsync(subscriptionId, default(CancellationToken), options);
         }
 
 
@@ -3310,7 +2905,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Pause subscription <see href="https://developers.recurly.com/api/v2019-10-10#operation/pause_subscription">pause_subscription api documentation</see>
         /// </summary>
@@ -3325,11 +2919,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
             var url = this.InterpolatePath("/subscriptions/{subscription_id}/pause", urlParams);
             return MakeRequestAsync<Subscription>(Method.PUT, url, body, null, options, cancellationToken);
-        }
-
-        public Task<Subscription> PauseSubscriptionAsync(string subscriptionId, SubscriptionPause body, RequestOptions options = null)
-        {
-            return PauseSubscriptionAsync(subscriptionId, body, default(CancellationToken), options);
         }
 
 
@@ -3351,7 +2940,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Resume subscription <see href="https://developers.recurly.com/api/v2019-10-10#operation/resume_subscription">resume_subscription api documentation</see>
         /// </summary>
@@ -3365,11 +2953,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
             var url = this.InterpolatePath("/subscriptions/{subscription_id}/resume", urlParams);
             return MakeRequestAsync<Subscription>(Method.PUT, url, null, null, options, cancellationToken);
-        }
-
-        public Task<Subscription> ResumeSubscriptionAsync(string subscriptionId, RequestOptions options = null)
-        {
-            return ResumeSubscriptionAsync(subscriptionId, default(CancellationToken), options);
         }
 
 
@@ -3391,7 +2974,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Convert trial subscription <see href="https://developers.recurly.com/api/v2019-10-10#operation/convert_trial">convert_trial api documentation</see>
         /// </summary>
@@ -3405,11 +2987,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
             var url = this.InterpolatePath("/subscriptions/{subscription_id}/convert_trial", urlParams);
             return MakeRequestAsync<Subscription>(Method.PUT, url, null, null, options, cancellationToken);
-        }
-
-        public Task<Subscription> ConvertTrialAsync(string subscriptionId, RequestOptions options = null)
-        {
-            return ConvertTrialAsync(subscriptionId, default(CancellationToken), options);
         }
 
 
@@ -3431,7 +3008,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Fetch a subscription's pending change <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_subscription_change">get_subscription_change api documentation</see>
         /// </summary>
@@ -3445,11 +3021,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
             var url = this.InterpolatePath("/subscriptions/{subscription_id}/change", urlParams);
             return MakeRequestAsync<SubscriptionChange>(Method.GET, url, null, null, options, cancellationToken);
-        }
-
-        public Task<SubscriptionChange> GetSubscriptionChangeAsync(string subscriptionId, RequestOptions options = null)
-        {
-            return GetSubscriptionChangeAsync(subscriptionId, default(CancellationToken), options);
         }
 
 
@@ -3472,7 +3043,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Create a new subscription change <see href="https://developers.recurly.com/api/v2019-10-10#operation/create_subscription_change">create_subscription_change api documentation</see>
         /// </summary>
@@ -3487,11 +3057,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
             var url = this.InterpolatePath("/subscriptions/{subscription_id}/change", urlParams);
             return MakeRequestAsync<SubscriptionChange>(Method.POST, url, body, null, options, cancellationToken);
-        }
-
-        public Task<SubscriptionChange> CreateSubscriptionChangeAsync(string subscriptionId, SubscriptionChangeCreate body, RequestOptions options = null)
-        {
-            return CreateSubscriptionChangeAsync(subscriptionId, body, default(CancellationToken), options);
         }
 
 
@@ -3513,7 +3078,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Delete the pending subscription change <see href="https://developers.recurly.com/api/v2019-10-10#operation/remove_subscription_change">remove_subscription_change api documentation</see>
         /// </summary>
@@ -3527,11 +3091,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
             var url = this.InterpolatePath("/subscriptions/{subscription_id}/change", urlParams);
             return MakeRequestAsync<object>(Method.DELETE, url, null, null, options, cancellationToken);
-        }
-
-        public Task<object> RemoveSubscriptionChangeAsync(string subscriptionId, RequestOptions options = null)
-        {
-            return RemoveSubscriptionChangeAsync(subscriptionId, default(CancellationToken), options);
         }
 
 
@@ -3557,7 +3116,6 @@ namespace Recurly
             var url = this.InterpolatePath("/subscriptions/{subscription_id}/invoices", urlParams);
             return Pager<Invoice>.Build(url, queryParams, options, this);
         }
-
 
 
 
@@ -3591,7 +3149,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Show the coupon redemptions for a subscription <see href="https://developers.recurly.com/api/v2019-10-10#operation/list_subscription_coupon_redemptions">list_subscription_coupon_redemptions api documentation</see>
         /// </summary>
@@ -3610,7 +3167,6 @@ namespace Recurly
             var url = this.InterpolatePath("/subscriptions/{subscription_id}/coupon_redemptions", urlParams);
             return Pager<CouponRedemption>.Build(url, queryParams, options, this);
         }
-
 
 
 
@@ -3642,7 +3198,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Fetch a transaction <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_transaction">get_transaction api documentation</see>
         /// </summary>
@@ -3660,7 +3215,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Fetch a transaction <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_transaction">get_transaction api documentation</see>
         /// </summary>
@@ -3674,11 +3228,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "transaction_id", transactionId } };
             var url = this.InterpolatePath("/transactions/{transaction_id}", urlParams);
             return MakeRequestAsync<Transaction>(Method.GET, url, null, null, options, cancellationToken);
-        }
-
-        public Task<Transaction> GetTransactionAsync(string transactionId, RequestOptions options = null)
-        {
-            return GetTransactionAsync(transactionId, default(CancellationToken), options);
         }
 
 
@@ -3700,7 +3249,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Fetch a unique coupon code <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_unique_coupon_code">get_unique_coupon_code api documentation</see>
         /// </summary>
@@ -3714,11 +3262,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "unique_coupon_code_id", uniqueCouponCodeId } };
             var url = this.InterpolatePath("/unique_coupon_codes/{unique_coupon_code_id}", urlParams);
             return MakeRequestAsync<UniqueCouponCode>(Method.GET, url, null, null, options, cancellationToken);
-        }
-
-        public Task<UniqueCouponCode> GetUniqueCouponCodeAsync(string uniqueCouponCodeId, RequestOptions options = null)
-        {
-            return GetUniqueCouponCodeAsync(uniqueCouponCodeId, default(CancellationToken), options);
         }
 
 
@@ -3740,7 +3283,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Deactivate a unique coupon code <see href="https://developers.recurly.com/api/v2019-10-10#operation/deactivate_unique_coupon_code">deactivate_unique_coupon_code api documentation</see>
         /// </summary>
@@ -3754,11 +3296,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "unique_coupon_code_id", uniqueCouponCodeId } };
             var url = this.InterpolatePath("/unique_coupon_codes/{unique_coupon_code_id}", urlParams);
             return MakeRequestAsync<UniqueCouponCode>(Method.DELETE, url, null, null, options, cancellationToken);
-        }
-
-        public Task<UniqueCouponCode> DeactivateUniqueCouponCodeAsync(string uniqueCouponCodeId, RequestOptions options = null)
-        {
-            return DeactivateUniqueCouponCodeAsync(uniqueCouponCodeId, default(CancellationToken), options);
         }
 
 
@@ -3780,7 +3317,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Restore a unique coupon code <see href="https://developers.recurly.com/api/v2019-10-10#operation/reactivate_unique_coupon_code">reactivate_unique_coupon_code api documentation</see>
         /// </summary>
@@ -3794,11 +3330,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "unique_coupon_code_id", uniqueCouponCodeId } };
             var url = this.InterpolatePath("/unique_coupon_codes/{unique_coupon_code_id}/restore", urlParams);
             return MakeRequestAsync<UniqueCouponCode>(Method.PUT, url, null, null, options, cancellationToken);
-        }
-
-        public Task<UniqueCouponCode> ReactivateUniqueCouponCodeAsync(string uniqueCouponCodeId, RequestOptions options = null)
-        {
-            return ReactivateUniqueCouponCodeAsync(uniqueCouponCodeId, default(CancellationToken), options);
         }
 
 
@@ -3820,7 +3351,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Create a new purchase <see href="https://developers.recurly.com/api/v2019-10-10#operation/create_purchase">create_purchase api documentation</see>
         /// </summary>
@@ -3834,11 +3364,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { };
             var url = this.InterpolatePath("/purchases", urlParams);
             return MakeRequestAsync<InvoiceCollection>(Method.POST, url, body, null, options, cancellationToken);
-        }
-
-        public Task<InvoiceCollection> CreatePurchaseAsync(PurchaseCreate body, RequestOptions options = null)
-        {
-            return CreatePurchaseAsync(body, default(CancellationToken), options);
         }
 
 
@@ -3860,7 +3385,6 @@ namespace Recurly
 
 
 
-
         /// <summary>
         /// Preview a new purchase <see href="https://developers.recurly.com/api/v2019-10-10#operation/preview_purchase">preview_purchase api documentation</see>
         /// </summary>
@@ -3874,11 +3398,6 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { };
             var url = this.InterpolatePath("/purchases/preview", urlParams);
             return MakeRequestAsync<InvoiceCollection>(Method.POST, url, body, null, options, cancellationToken);
-        }
-
-        public Task<InvoiceCollection> PreviewPurchaseAsync(PurchaseCreate body, RequestOptions options = null)
-        {
-            return PreviewPurchaseAsync(body, default(CancellationToken), options);
         }
 
 
