@@ -112,6 +112,31 @@ namespace Recurly.Test
             }
             threw.Should().Be(true);
         }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void CreateBillingInfoWithBacs()
+        {
+            var account = CreateNewAccount();
+            var bacsInfo = new BillingInfo(account)
+            {
+                NameOnAccount = "Bacs account name",
+                Address1 = "123 Test St",
+                Address2 = "The Test Cut",
+                City = "London",
+                Country = "GB",
+                AccountNumber = "12345678",
+                SortCode = "200000",
+                Type = "bacs",
+            };
+            var threw = false;
+            try {
+                bacsInfo.Create();
+            } catch (ValidationException exception) {
+                threw = true;
+                exception.Errors[0].Symbol.Should().Be("card_type_not_accepted");
+            }
+            threw.Should().Be(true);
+        }
             
         [RecurlyFact(TestEnvironment.Type.Integration)]
         public void LookupBillingInfo()
