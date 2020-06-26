@@ -347,8 +347,18 @@ namespace Recurly.Test
             var sub = new Subscription(account, plan, "USD");
             sub.Create();
 
-            sub.ConvertTrial("token");
-            Assert.Equal(sub.TrialPeriodEndsAt, sub.CurrentPeriodStartedAt);
+            var threw = false;
+
+            try
+            {
+                sub.ConvertTrial("token");
+            }
+            catch (ValidationException exception)
+            {
+                threw = true;
+                exception.Errors[0].Symbol.Should().Be("token_invalid");
+            }
+            threw.Should().Be(true);
         }
 
         [RecurlyFact(TestEnvironment.Type.Integration)]
