@@ -2619,11 +2619,45 @@ namespace Recurly
 
 
         /// <summary>
+        /// Create a new shipping method <see href="https://developers.recurly.com/api/v2019-10-10#operation/create_shipping_method">create_shipping_method api documentation</see>
+        /// </summary>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// A new shipping method.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public ShippingMethod CreateShippingMethod(ShippingMethodCreate body, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var url = this.InterpolatePath("/shipping_methods", urlParams);
+            return MakeRequest<ShippingMethod>(Method.POST, url, body, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Create a new shipping method <see href="https://developers.recurly.com/api/v2019-10-10#operation/create_shipping_method">create_shipping_method api documentation</see>
+        /// </summary>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// A new shipping method.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<ShippingMethod> CreateShippingMethodAsync(ShippingMethodCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var url = this.InterpolatePath("/shipping_methods", urlParams);
+            return MakeRequestAsync<ShippingMethod>(Method.POST, url, body, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
         /// Fetch a shipping method <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_shipping_method">get_shipping_method api documentation</see>
         /// </summary>
         /// <param name="id">Shipping Method ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-usps_2-day`.</param>
         /// <returns>
-        /// A shipping_method.
+        /// A shipping method.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
         public ShippingMethod GetShippingMethod(string id, RequestOptions options = null)
@@ -2640,7 +2674,7 @@ namespace Recurly
         /// </summary>
         /// <param name="id">Shipping Method ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-usps_2-day`.</param>
         /// <returns>
-        /// A shipping_method.
+        /// A shipping method.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
         public Task<ShippingMethod> GetShippingMethodAsync(string id, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
@@ -2648,6 +2682,76 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "id", id } };
             var url = this.InterpolatePath("/shipping_methods/{id}", urlParams);
             return MakeRequestAsync<ShippingMethod>(Method.GET, url, null, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// Update an active Shipping Method <see href="https://developers.recurly.com/api/v2019-10-10#operation/update_shipping_method">update_shipping_method api documentation</see>
+        /// </summary>
+        /// <param name="shippingMethodId">Shipping Method ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-usps_2-day`.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// The updated shipping method.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public ShippingMethod UpdateShippingMethod(string shippingMethodId, ShippingMethodUpdate body, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "shipping_method_id", shippingMethodId } };
+            var url = this.InterpolatePath("/shipping_methods/{shipping_method_id}", urlParams);
+            return MakeRequest<ShippingMethod>(Method.PUT, url, body, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Update an active Shipping Method <see href="https://developers.recurly.com/api/v2019-10-10#operation/update_shipping_method">update_shipping_method api documentation</see>
+        /// </summary>
+        /// <param name="shippingMethodId">Shipping Method ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-usps_2-day`.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// The updated shipping method.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<ShippingMethod> UpdateShippingMethodAsync(string shippingMethodId, ShippingMethodUpdate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "shipping_method_id", shippingMethodId } };
+            var url = this.InterpolatePath("/shipping_methods/{shipping_method_id}", urlParams);
+            return MakeRequestAsync<ShippingMethod>(Method.PUT, url, body, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// Deactivate a shipping method <see href="https://developers.recurly.com/api/v2019-10-10#operation/deactivate_shipping_method">deactivate_shipping_method api documentation</see>
+        /// </summary>
+        /// <param name="shippingMethodId">Shipping Method ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-usps_2-day`.</param>
+        /// <returns>
+        /// A shipping method.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public ShippingMethod DeactivateShippingMethod(string shippingMethodId, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "shipping_method_id", shippingMethodId } };
+            var url = this.InterpolatePath("/shipping_methods/{shipping_method_id}", urlParams);
+            return MakeRequest<ShippingMethod>(Method.DELETE, url, null, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Deactivate a shipping method <see href="https://developers.recurly.com/api/v2019-10-10#operation/deactivate_shipping_method">deactivate_shipping_method api documentation</see>
+        /// </summary>
+        /// <param name="shippingMethodId">Shipping Method ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-usps_2-day`.</param>
+        /// <returns>
+        /// A shipping method.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<ShippingMethod> DeactivateShippingMethodAsync(string shippingMethodId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "shipping_method_id", shippingMethodId } };
+            var url = this.InterpolatePath("/shipping_methods/{shipping_method_id}", urlParams);
+            return MakeRequestAsync<ShippingMethod>(Method.DELETE, url, null, null, options, cancellationToken);
         }
 
 

@@ -59,8 +59,10 @@ namespace Recurly.Resources
         public string TaxCode { get; set; }
 
         /// <value>
-        /// If tiers are provided in the request, all existing tiers on the Add-on will be
-        /// removed and replaced by the tiers in the request.
+        /// If the tier_type is `flat`, then `tiers` must be absent. The `tiers` object
+        /// must include one to many tiers with `ending_quantity` and `unit_amount` for
+        /// the desired `currencies`. There must be one tier with an `ending_quantity` of
+        /// 999999999 which is the default if not provided.
         /// </value>
         [JsonProperty("tiers")]
         public List<Tier> Tiers { get; set; }

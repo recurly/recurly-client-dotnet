@@ -19,6 +19,14 @@ namespace Recurly.Resources
         [JsonProperty("accounting_code")]
         public string AccountingCode { get; set; }
 
+        /// <value>
+        /// Used to determine whether items can be assigned as add-ons to individual subscriptions.
+        /// If `true`, items can be assigned as add-ons to individual subscription add-ons.
+        /// If `false`, only plan add-ons can be used.
+        /// </value>
+        [JsonProperty("allow_any_item_on_subscriptions")]
+        public bool? AllowAnyItemOnSubscriptions { get; set; }
+
         /// <value>Subscriptions will automatically inherit this value once they are active. If `auto_renew` is `true`, then a subscription will automatically renew its term at renewal. If `auto_renew` is `false`, then a subscription will expire at the end of its term. `auto_renew` can be overridden on the subscription record itself.</value>
         [JsonProperty("auto_renew")]
         public bool? AutoRenew { get; set; }
@@ -98,6 +106,10 @@ namespace Recurly.Resources
         /// <value>Length of plan's trial period in `trial_units`. `0` means `no trial`.</value>
         [JsonProperty("trial_length")]
         public int? TrialLength { get; set; }
+
+        /// <value>Allow free trial subscriptions to be created without billing info.</value>
+        [JsonProperty("trial_requires_billing_info")]
+        public bool? TrialRequiresBillingInfo { get; set; }
 
         /// <value>Units for the plan's trial period.</value>
         [JsonProperty("trial_unit")]
