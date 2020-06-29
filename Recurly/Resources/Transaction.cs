@@ -159,6 +159,10 @@ namespace Recurly.Resources
         [JsonProperty("type")]
         public string Type { get; set; }
 
+        /// <value>Updated at</value>
+        [JsonProperty("updated_at")]
+        public DateTime? UpdatedAt { get; set; }
+
         /// <value>The UUID is useful for matching data with the CSV exports and building URLs into Recurly's UI.</value>
         [JsonProperty("uuid")]
         public string Uuid { get; set; }

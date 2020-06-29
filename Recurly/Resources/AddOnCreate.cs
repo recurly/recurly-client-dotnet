@@ -70,11 +70,19 @@ namespace Recurly.Resources
         [JsonProperty("tax_code")]
         public string TaxCode { get; set; }
 
-        /// <value>The type of tiering used by the Add-on.</value>
+        /// <value>
+        /// The pricing model for the add-on.  For more information,
+        /// [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based).
+        /// </value>
         [JsonProperty("tier_type")]
         public string TierType { get; set; }
 
-        /// <value>At least one tier is required if `tier_type` is not 'flat'.</value>
+        /// <value>
+        /// If the tier_type is `flat`, then `tiers` must be absent. The `tiers` object
+        /// must include one to many tiers with `ending_quantity` and `unit_amount` for
+        /// the desired `currencies`. There must be one tier with an `ending_quantity` of
+        /// 999999999 which is the default if not provided.
+        /// </value>
         [JsonProperty("tiers")]
         public List<Tier> Tiers { get; set; }
 
