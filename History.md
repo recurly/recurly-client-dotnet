@@ -1,6 +1,14 @@
 Unreleased
 ===============
 
+1.17.5 (stable) / 2020-06-30
+- Update serializer for item-backed add-ons to accommodate QBP [PR](https://github.com/recurly/recurly-client-dotnet/pull/515)
+- Add timeframe query params to cancel subscription endpoint [PR](https://github.com/recurly/recurly-client-dotnet/pull/525)
+- BACS support [PR](https://github.com/recurly/recurly-client-dotnet/pull/528)
+- Repair test to expect a validation exception [PR](https://github.com/recurly/recurly-client-dotnet/pull/529)
+- Expect validation exception when converting trial with fake token [PR](https://github.com/recurly/recurly-client-dotnet/pull/530)
+- Support items on subscriptions [PR](https://github.com/recurly/recurly-client-dotnet/pull/539)
+
 1.17.4 (stable) / 2020-04-15
 ===============
 
