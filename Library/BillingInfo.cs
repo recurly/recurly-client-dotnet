@@ -115,6 +115,16 @@ namespace Recurly
 
         public string Iban { get; set; }
 
+        /// <summary>
+        /// Bank identifier code for UK based banks. Required for Bacs based billing infos. (Bacs only)
+        /// </summary>
+        public string SortCode { get; set; }
+
+        /// <summary>
+        /// The payment method type for a non-credit card based billing info. The value of `bacs` is the only accepted value (Bacs only)
+        /// </summary>
+        public string Type { get; set; }
+
         public string TransactionType { get; set; }
 
         private string _cardNumber;
@@ -357,8 +367,15 @@ namespace Recurly
                         Iban = reader.ReadElementContentAsString();
                         break;
 
-                    case "account_type":
+                    case "sort_code":
+                        SortCode = reader.ReadElementContentAsString();
+                        break;
 
+                    case "type":
+                        Type = reader.ReadElementContentAsString();
+                        break;
+
+                    case "account_type":
                         var accountType = reader.ReadElementContentAsString();
                         if (!accountType.IsNullOrEmpty())
                             AccountType = accountType.ParseAsEnum<BankAccountType>();
@@ -421,9 +438,19 @@ namespace Recurly
 
                 if (!AccountNumber.IsNullOrEmpty())
                 {
-                    xmlWriter.WriteElementString("routing_number", RoutingNumber);
                     xmlWriter.WriteElementString("account_number", AccountNumber);
+                }
+
+                if (!RoutingNumber.IsNullOrEmpty())
+                {
+                    xmlWriter.WriteElementString("routing_number", RoutingNumber);
                     xmlWriter.WriteElementString("account_type", AccountType.ToString().EnumNameToTransportCase());
+                }
+
+                if (!SortCode.IsNullOrEmpty())
+                {
+                  xmlWriter.WriteElementString("sort_code", SortCode);
+                  xmlWriter.WriteElementString("type", Type);
                 }
 
                 if (!Iban.IsNullOrEmpty())

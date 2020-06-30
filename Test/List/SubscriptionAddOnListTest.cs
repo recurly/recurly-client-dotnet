@@ -72,5 +72,29 @@ namespace Recurly.Test.List
                 .Match<SubscriptionAddOn>(x => x.AddOnCode == addOnCode)
                 .And.Match<SubscriptionAddOn>(x => x.UnitAmountInCents == addOn.UnitAmountInCents[sub.Currency]);
         }
+
+        [Fact]
+        public void AddItemAddOn()
+        {
+            var item = new Item(GetMockItemCode(), GetMockItemName()) {Description = "Mock Item"};
+            item.Description = "A test description";
+            item.Create();
+
+            var account = new Account("1");
+
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName());
+            plan.UnitAmountInCents.Add(USD, 100);
+            plan.Create();
+
+            var sub = new Subscription(account, plan, USD);
+
+            sub.AddOns.Add(item.ItemCode, "item", 199, 1);
+
+            var newItemAddOn = sub.AddOns.First();
+            newItemAddOn.Should()
+                .Match<SubscriptionAddOn>(x => x.AddOnCode == item.ItemCode)
+                .And.Match<SubscriptionAddOn>(x => x.UnitAmountInCents == 199)
+                .And.Match<SubscriptionAddOn>(x => x.AddOnSource == "item");
+        }
     }
 }

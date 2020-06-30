@@ -27,6 +27,7 @@ namespace Recurly
         public bool? DisplayQuantity { get; set; }
         public bool? DisplayPhoneNumber { get; set; }
         public bool? BypassHostedConfirmation { get; set; }
+        public bool? AllowAnyItemOnSubscriptions { get; set; }
 
         public string UnitName { get; set; }
         public string PaymentPageTOSLink { get; set; }
@@ -285,6 +286,10 @@ namespace Recurly
                         BypassHostedConfirmation = reader.ReadElementContentAsBoolean();
                         break;
 
+                    case "allow_any_item_on_subscriptions":
+                        AllowAnyItemOnSubscriptions = reader.ReadElementContentAsBoolean();
+                        break;
+
                     case "unit_name":
                         UnitName = reader.ReadElementContentAsString();
                         break;
@@ -413,6 +418,9 @@ namespace Recurly
             if (BypassHostedConfirmation.HasValue)
                 xmlWriter.WriteElementString("bypass_hosted_confirmation", BypassHostedConfirmation.Value.AsString());
 
+            if (AllowAnyItemOnSubscriptions.HasValue)
+                xmlWriter.WriteElementString("allow_any_item_on_subscriptions", AllowAnyItemOnSubscriptions.Value.AsString());
+                
             if (TaxExempt.HasValue)
                 xmlWriter.WriteElementString("tax_exempt", TaxExempt.Value.AsString());
 
