@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.8.0](https://github.com/recurly/recurly-client-dotnet/tree/HEAD)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.7.1...HEAD)
+
+**Implemented enhancements:**
+
+- Mon Jun 29 17:10:49 UTC 2020 Upgrade API version v2019-10-10 [\#541](https://github.com/recurly/recurly-client-dotnet/pull/541) ([douglasmiller](https://github.com/douglasmiller))
+
+**Merged pull requests:**
+
+- Release 3.8.0 [\#542](https://github.com/recurly/recurly-client-dotnet/pull/542) ([douglasmiller](https://github.com/douglasmiller))
+
 ## [3.7.1](https://github.com/recurly/recurly-client-dotnet/tree/3.7.1) (2020-06-24)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.7.0...3.7.1)
