@@ -13,6 +13,7 @@ namespace Recurly
         public Adjustment.RevenueSchedule? RevenueScheduleType { get; set; }
         public float? UsagePercentage { get; set; }
         public string TierType { get; set; }
+        public string AddOnSource { get; set; }
 
         public SubscriptionAddOn(XmlTextReader reader)
         {
@@ -42,6 +43,15 @@ namespace Recurly
             AddOnCode = addOnCode;
             TierType = tierType;
             Quantity = quantity;
+        }
+
+        // new constructor including add-on source
+        public SubscriptionAddOn(string addOnCode, string addOnSource, int unitAmountInCents, int quantity = 1)
+        {
+          AddOnCode = addOnCode;
+          AddOnSource = addOnSource;
+          UnitAmountInCents = unitAmountInCents;
+          Quantity = quantity;
         }
 
         internal override void ReadXml(XmlTextReader reader)
@@ -90,6 +100,10 @@ namespace Recurly
                         TierType = reader.ReadElementContentAsString();
                         break;
 
+                    case "add_on_source":
+                        AddOnSource = reader.ReadElementContentAsString();
+                        break;
+
                 }
             }
         }
@@ -112,6 +126,9 @@ namespace Recurly
 
             if (TierType != null)
                 writer.WriteElementString("tier_type", TierType);
+
+            if (AddOnSource != null)
+                writer.WriteElementString("add_on_source", AddOnSource);
 
             writer.WriteEndElement();
         }

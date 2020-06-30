@@ -164,5 +164,20 @@ namespace Recurly
             var sub = new SubscriptionAddOn(planAddOnCode, addOnType, unitAmountInCents, quantity);
             base.Add(sub);
         }
+
+        // Supports item code as add-on code. Also supports plan add-on code as add-on code.
+        public void Add(string addOnCode, string addOnSource, int unitAmountInCents, int quantity = 1)
+        {
+          var sub = new SubscriptionAddOn(addOnCode, addOnSource, unitAmountInCents, quantity);
+          base.Add(sub);
+        }
+
+        public void Add(string planAddOnCode, string addOnSource, int quantity = 1)
+        {
+          var unitAmount = _subscription.Plan.AddOns.Find(ao => ao.AddOnCode == planAddOnCode).UnitAmountInCents[_subscription.Currency];
+          var sub = new SubscriptionAddOn(planAddOnCode, addOnSource, unitAmount, quantity);
+          base.Add(sub);
+        }
+
     }
 }
