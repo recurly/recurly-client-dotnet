@@ -19,6 +19,15 @@ namespace Recurly.Resources
         [JsonProperty("add_on")]
         public AddOnMini AddOn { get; set; }
 
+        /// <value>
+        /// Used to determine where the associated add-on data is pulled from. If this value is set to
+        /// `plan_add_on` or left blank, then add-on data will be pulled from the plan's add-ons. If the associated
+        /// `plan` has `allow_any_item_on_subscriptions` set to `true` and this field is set to `item`, then
+        /// the associated add-on data will be pulled from the site's item catalog.
+        /// </value>
+        [JsonProperty("add_on_source")]
+        public string AddOnSource { get; set; }
+
         /// <value>Created at</value>
         [JsonProperty("created_at")]
         public DateTime? CreatedAt { get; set; }

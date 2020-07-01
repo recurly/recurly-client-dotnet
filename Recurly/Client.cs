@@ -3200,6 +3200,42 @@ namespace Recurly
 
 
         /// <summary>
+        /// Preview a new subscription change <see href="https://developers.recurly.com/api/v2019-10-10#operation/preview_subscription_change">preview_subscription_change api documentation</see>
+        /// </summary>
+        /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// A subscription change.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public SubscriptionChangePreview PreviewSubscriptionChange(string subscriptionId, SubscriptionChangeCreate body, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
+            var url = this.InterpolatePath("/subscriptions/{subscription_id}/change/preview", urlParams);
+            return MakeRequest<SubscriptionChangePreview>(Method.POST, url, body, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Preview a new subscription change <see href="https://developers.recurly.com/api/v2019-10-10#operation/preview_subscription_change">preview_subscription_change api documentation</see>
+        /// </summary>
+        /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// A subscription change.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<SubscriptionChangePreview> PreviewSubscriptionChangeAsync(string subscriptionId, SubscriptionChangeCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
+            var url = this.InterpolatePath("/subscriptions/{subscription_id}/change/preview", urlParams);
+            return MakeRequestAsync<SubscriptionChangePreview>(Method.POST, url, body, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
         /// List a subscription's invoices <see href="https://developers.recurly.com/api/v2019-10-10#operation/list_subscription_invoices">list_subscription_invoices api documentation</see>
         /// </summary>
         /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
