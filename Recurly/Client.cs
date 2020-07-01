@@ -57,7 +57,7 @@ namespace Recurly
         {
             var urlParams = new Dictionary<string, object> { { "site_id", siteId } };
             var url = this.InterpolatePath("/sites/{site_id}", urlParams);
-            return MakeRequest<Site>(Method.GET, url, null, null, options);
+            return MakeRequestA<Site>(Method.GET, url, null, null, options);
         }
 
 

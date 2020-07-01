@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net;
 using System.Runtime.CompilerServices;
@@ -48,25 +49,29 @@ namespace Recurly
             RestClient.AddDefaultHeader("Content-Type", "application/json");
         }
 
-        public async Task<T> MakeRequestAsync<T>(Method method, string url, Request body = null, Dictionary<string, object> queryParams = null, RequestOptions options = null, CancellationToken cancellationToken = default(CancellationToken)) where T : new()
+        public async Task<T> MakeRequestAsync<T>(Method method, string url, Request body = null, Dictionary<string, object> queryParams = null, RequestOptions options = null, CancellationToken cancellationToken = default(CancellationToken)) where T : Resource
         {
             Debug.WriteLine($"Calling {url}");
             var request = BuildRequest(method, url, body, queryParams, options);
-            var task = RestClient.ExecuteTaskAsync<T>(request, cancellationToken);
+            var task = RestClient.ExecuteAsync<T>(request, cancellationToken);
             return await task.ContinueWith(t =>
             {
                 var resp = t.Result;
                 this.HandleResponse(resp);
+                if (resp.Data is object)
+                    resp.Data.Response = Response.Build(resp);
                 return resp.Data;
             });
         }
 
-        public T MakeRequest<T>(Method method, string url, Request body = null, Dictionary<string, object> queryParams = null, RequestOptions options = null) where T : new()
+        public T MakeRequest<T>(Method method, string url, Request body = null, Dictionary<string, object> queryParams = null, RequestOptions options = null) where T : Resource
         {
             Debug.WriteLine($"Calling {url}");
             var request = BuildRequest(method, url, body, queryParams, options);
             var resp = RestClient.Execute<T>(request);
             this.HandleResponse(resp);
+            if (resp.Data is object)
+                resp.Data.Response = Response.Build(resp);
             return resp.Data;
         }
 
@@ -83,6 +88,7 @@ namespace Recurly
             return int.Parse(recordCount);
         }
 
+        [ExcludeFromCodeCoverage]
         public void _SetApiUrl(string uri)
         {
             Console.WriteLine("[SECURITY WARNING] _SetApiUrl is for testing only and not supported in production.");
