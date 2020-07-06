@@ -128,96 +128,112 @@ namespace Recurly.Errors
         public BadRequest(string message) : base(message) { }
         public BadRequest(string message, Exception inner) : base(message, inner) { }
     }
+    [ExcludeFromCodeCoverage]
     public class InternalServer : ApiError
     {
         public InternalServer() { }
         public InternalServer(string message) : base(message) { }
         public InternalServer(string message, Exception inner) : base(message, inner) { }
     }
+    [ExcludeFromCodeCoverage]
     public class ImmutableSubscription : ApiError
     {
         public ImmutableSubscription() { }
         public ImmutableSubscription(string message) : base(message) { }
         public ImmutableSubscription(string message, Exception inner) : base(message, inner) { }
     }
+    [ExcludeFromCodeCoverage]
     public class InvalidApiKey : ApiError
     {
         public InvalidApiKey() { }
         public InvalidApiKey(string message) : base(message) { }
         public InvalidApiKey(string message, Exception inner) : base(message, inner) { }
     }
+    [ExcludeFromCodeCoverage]
     public class InvalidApiVersion : ApiError
     {
         public InvalidApiVersion() { }
         public InvalidApiVersion(string message) : base(message) { }
         public InvalidApiVersion(string message, Exception inner) : base(message, inner) { }
     }
+    [ExcludeFromCodeCoverage]
     public class InvalidContentType : ApiError
     {
         public InvalidContentType() { }
         public InvalidContentType(string message) : base(message) { }
         public InvalidContentType(string message, Exception inner) : base(message, inner) { }
     }
+    [ExcludeFromCodeCoverage]
     public class InvalidPermissions : ApiError
     {
         public InvalidPermissions() { }
         public InvalidPermissions(string message) : base(message) { }
         public InvalidPermissions(string message, Exception inner) : base(message, inner) { }
     }
+    [ExcludeFromCodeCoverage]
     public class InvalidToken : ApiError
     {
         public InvalidToken() { }
         public InvalidToken(string message) : base(message) { }
         public InvalidToken(string message, Exception inner) : base(message, inner) { }
     }
+    [ExcludeFromCodeCoverage]
     public class NotFound : ApiError
     {
         public NotFound() { }
         public NotFound(string message) : base(message) { }
         public NotFound(string message, Exception inner) : base(message, inner) { }
     }
+    [ExcludeFromCodeCoverage]
     public class SimultaneousRequest : ApiError
     {
         public SimultaneousRequest() { }
         public SimultaneousRequest(string message) : base(message) { }
         public SimultaneousRequest(string message, Exception inner) : base(message, inner) { }
     }
+    [ExcludeFromCodeCoverage]
     public class Transaction : ApiError
     {
         public Transaction() { }
         public Transaction(string message) : base(message) { }
         public Transaction(string message, Exception inner) : base(message, inner) { }
     }
+    [ExcludeFromCodeCoverage]
     public class Unauthorized : ApiError
     {
         public Unauthorized() { }
         public Unauthorized(string message) : base(message) { }
         public Unauthorized(string message, Exception inner) : base(message, inner) { }
     }
+    [ExcludeFromCodeCoverage]
     public class UnavailableInApiVersion : ApiError
     {
         public UnavailableInApiVersion() { }
         public UnavailableInApiVersion(string message) : base(message) { }
         public UnavailableInApiVersion(string message, Exception inner) : base(message, inner) { }
     }
+    [ExcludeFromCodeCoverage]
     public class UnknownApiVersion : ApiError
     {
         public UnknownApiVersion() { }
         public UnknownApiVersion(string message) : base(message) { }
         public UnknownApiVersion(string message, Exception inner) : base(message, inner) { }
     }
+    [ExcludeFromCodeCoverage]
     public class Validation : ApiError
     {
         public Validation() { }
         public Validation(string message) : base(message) { }
         public Validation(string message, Exception inner) : base(message, inner) { }
     }
+    [ExcludeFromCodeCoverage]
     public class MissingFeature : ApiError
     {
         public MissingFeature() { }
         public MissingFeature(string message) : base(message) { }
         public MissingFeature(string message, Exception inner) : base(message, inner) { }
     }
+    [ExcludeFromCodeCoverage]
     public class RateLimited : ApiError
     {
         public RateLimited() { }
