@@ -24,7 +24,10 @@ namespace Recurly.Resources
         [JsonProperty("add_on_source")]
         public string AddOnSource { get; set; }
 
-        /// <value>Add-on code</value>
+        /// <value>
+        /// If `add_on_source` is set to `plan_add_on` or left blank, then plan's add-on `code` should be used.
+        /// If `add_on_source` is set to `item`, then the `code` from the associated item should be used.
+        /// </value>
         [JsonProperty("code")]
         public string Code { get; set; }
 

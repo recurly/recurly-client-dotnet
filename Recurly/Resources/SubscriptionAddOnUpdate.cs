@@ -16,9 +16,20 @@ namespace Recurly.Resources
     {
 
         /// <value>
+        /// Used to determine where the associated add-on data is pulled from. If this value is set to
+        /// `plan_add_on` or left blank, then add_on data will be pulled from the plan's add-ons. If the associated
+        /// `plan` has `allow_any_item_on_subscriptions` set to `true` and this field is set to `item`, then
+        /// the associated add-on data will be pulled from the site's item catalog.
+        /// </value>
+        [JsonProperty("add_on_source")]
+        public string AddOnSource { get; set; }
+
+        /// <value>
         /// If a code is provided without an id, the subscription add-on attributes
         /// will be set to the current value for those attributes on the plan add-on
-        /// unless provided in the request.
+        /// unless provided in the request. If `add_on_source` is set to `plan_add_on`
+        /// or left blank, then plan's add-on `code` should be used. If `add_on_source`
+        /// is set to `item`, then the `code` from the associated item should be used.
         /// </value>
         [JsonProperty("code")]
         public string Code { get; set; }
