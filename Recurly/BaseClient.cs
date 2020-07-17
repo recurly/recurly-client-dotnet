@@ -58,7 +58,7 @@ namespace Recurly
             {
                 var resp = t.Result;
                 this.HandleResponse(resp);
-                if (resp.Data is object)
+                if (resp.Data is Resource)
                     resp.Data.Response = Response.Build(resp);
                 return resp.Data;
             });
@@ -70,7 +70,7 @@ namespace Recurly
             var request = BuildRequest(method, url, body, queryParams, options);
             var resp = RestClient.Execute<T>(request);
             this.HandleResponse(resp);
-            if (resp.Data is object)
+            if (resp.Data is Resource)
                 resp.Data.Response = Response.Build(resp);
             return resp.Data;
         }
