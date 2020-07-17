@@ -121,12 +121,7 @@ namespace Recurly
         public string SortCode { get; set; }
 
         /// <summary>
-        /// Bank identifier code for AU based banks. Required for Becs based billing infos. (Becs only)
-        /// </summary>
-        public string BsbCode { get; set; }
-
-        /// <summary>
-        /// The payment method type for a non-credit card based billing info. `becs` and `bacs` are the only accepted values (Bacs and Becs only)
+        /// The payment method type for a non-credit card based billing info. The value of `bacs` is the only accepted value (Bacs only)
         /// </summary>
         public string Type { get; set; }
 
@@ -376,10 +371,6 @@ namespace Recurly
                         SortCode = reader.ReadElementContentAsString();
                         break;
 
-                    case "bsb_code":
-                        BsbCode = reader.ReadElementContentAsString();
-                        break;
-
                     case "type":
                         Type = reader.ReadElementContentAsString();
                         break;
@@ -456,19 +447,10 @@ namespace Recurly
                     xmlWriter.WriteElementString("account_type", AccountType.ToString().EnumNameToTransportCase());
                 }
 
-                if (!Type.IsNullOrEmpty())
-                {
-                  xmlWriter.WriteElementString("type", Type);
-                }
-
                 if (!SortCode.IsNullOrEmpty())
                 {
                   xmlWriter.WriteElementString("sort_code", SortCode);
-                }
-
-                if (!BsbCode.IsNullOrEmpty())
-                {
-                  xmlWriter.WriteElementString("bsb_code", BsbCode);
+                  xmlWriter.WriteElementString("type", Type);
                 }
 
                 if (!Iban.IsNullOrEmpty())
