@@ -137,32 +137,7 @@ namespace Recurly.Test
             }
             threw.Should().Be(true);
         }
-
-        [RecurlyFact(TestEnvironment.Type.Integration)]
-        public void CreateBillingInfoWithBecs()
-        {
-            var account = CreateNewAccount();
-            var becsInfo = new BillingInfo(account)
-            {
-                NameOnAccount = "Becs account name",
-                Address1 = "123 Test St",
-                Address2 = "The Test Cut",
-                City = "Adelaide",
-                Country = "AU",
-                AccountNumber = "12345678",
-                BsbCode = "082-082",
-                Type = "becs",
-            };
-            var threw = false;
-            try {
-                becsInfo.Create();
-            } catch (ValidationException exception) {
-                threw = true;
-                exception.Errors[0].Symbol.Should().Be("card_type_not_accepted");
-            }
-            threw.Should().Be(true);
-        }
-
+            
         [RecurlyFact(TestEnvironment.Type.Integration)]
         public void LookupBillingInfo()
         {
