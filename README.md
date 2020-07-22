@@ -265,6 +265,20 @@ catch (Recurly.Errors.NetworkError ex)
 }
 ```
 
+### HTTP Metadata
+
+Sometimes you might want to get some additional information about the underlying HTTP request and response. Instead of returning this information directly and forcing the programmer to unwrap it, we inject this metadata into the top level resource that was returned. You can access the response by calling `GetResponse()` on any Resource.
+
+```csharp
+Account account = client.GetAccount(accountId);
+Response response = account.GetResponse();
+response.RawResponse // String body of the API response
+response.StatusCode // HTTP status code of the API response
+response.RequestId // "5b7019241a21d314-ATL"
+response.Headers // IList<Parameter> of all API response headers
+```
+
+
 ### Webhooks
 
 Recurly can send webhooks to any publicly accessible server.
