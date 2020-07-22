@@ -59,7 +59,7 @@ namespace Recurly
                 var resp = t.Result;
                 this.HandleResponse(resp);
                 if (resp.Data is Resource)
-                    resp.Data.Response = Response.Build(resp);
+                    resp.Data.SetResponse(Response.Build(resp));
                 return resp.Data;
             });
         }
@@ -71,7 +71,7 @@ namespace Recurly
             var resp = RestClient.Execute<T>(request);
             this.HandleResponse(resp);
             if (resp.Data is Resource)
-                resp.Data.Response = Response.Build(resp);
+                resp.Data.SetResponse(Response.Build(resp));
             return resp.Data;
         }
 

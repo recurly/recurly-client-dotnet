@@ -90,7 +90,7 @@ namespace Recurly
             this.Url = pager.Url;
             this.QueryParams = pager.QueryParams;
             this.Options = pager.Options;
-            this.Response = pager.Response;
+            this.SetResponse(pager.GetResponse());
             this._pristine = false;
         }
 

@@ -5,7 +5,17 @@ namespace Recurly
     [ExcludeFromCodeCoverage]
     public class Resource
     {
-        public Response Response { get; set; }
+        private Response _response;
+
+        public Response GetResponse()
+        {
+            return _response;
+        }
+
+        public void SetResponse(Response response)
+        {
+            _response = response;
+        }
 
     }
 }

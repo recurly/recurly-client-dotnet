@@ -45,9 +45,9 @@ namespace Recurly.Tests
         {
             var client = MockClient.Build(SuccessResponse(System.Net.HttpStatusCode.OK));
             MyResource resource = client.GetResource("benjamin", "param1", new DateTime(2020, 01, 01));
-            Assert.Equal(System.Net.HttpStatusCode.OK, resource.Response.StatusCode);
-            Assert.Empty(resource.Response.Headers);
-            Assert.Equal("{\"my_string\": \"benjamin\"}", resource.Response.RawResponse);
+            Assert.Equal(System.Net.HttpStatusCode.OK, resource.GetResponse().StatusCode);
+            Assert.Empty(resource.GetResponse().Headers);
+            Assert.Equal("{\"my_string\": \"benjamin\"}", resource.GetResponse().RawResponse);
         }
 
         [Fact]
