@@ -1,7 +1,16 @@
 Unreleased
 ===============
 
+1.17.6 (stable) / 2020-07-22
+===============
+This brings us up to API version 2.28. There are no breaking changes.
+
+- BECS support [PR](https://github.com/recurly/recurly-client-dotnet/pull/552)
+
 1.17.5 (stable) / 2020-06-30
+===============
+This brings us up to API version 2.27. There are no breaking changes.
+
 - Update serializer for item-backed add-ons to accommodate QBP [PR](https://github.com/recurly/recurly-client-dotnet/pull/515)
 - Add timeframe query params to cancel subscription endpoint [PR](https://github.com/recurly/recurly-client-dotnet/pull/525)
 - BACS support [PR](https://github.com/recurly/recurly-client-dotnet/pull/528)
