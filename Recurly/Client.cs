@@ -16,7 +16,7 @@ using RestSharp;
 namespace Recurly
 {
     [ExcludeFromCodeCoverage]
-    public class Client : BaseClient
+    public class Client : BaseClient, IClient
     {
         public override string ApiVersion => "v2020-01-01";
 
@@ -326,7 +326,7 @@ namespace Recurly
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var url = this.InterpolatePath("/accounts/{account_id}/acquisition", urlParams);
-            MakeRequest<object>(Method.DELETE, url, null, null, options);
+            MakeRequest<EmptyResource>(Method.DELETE, url, null, null, options);
         }
 
 
@@ -339,11 +339,11 @@ namespace Recurly
         /// Acquisition data was succesfully deleted.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public Task<object> RemoveAccountAcquisitionAsync(string accountId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        public Task<EmptyResource> RemoveAccountAcquisitionAsync(string accountId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var url = this.InterpolatePath("/accounts/{account_id}/acquisition", urlParams);
-            return MakeRequestAsync<object>(Method.DELETE, url, null, null, options, cancellationToken);
+            return MakeRequestAsync<EmptyResource>(Method.DELETE, url, null, null, options, cancellationToken);
         }
 
 
@@ -498,7 +498,7 @@ namespace Recurly
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var url = this.InterpolatePath("/accounts/{account_id}/billing_info", urlParams);
-            MakeRequest<object>(Method.DELETE, url, null, null, options);
+            MakeRequest<EmptyResource>(Method.DELETE, url, null, null, options);
         }
 
 
@@ -511,11 +511,11 @@ namespace Recurly
         /// Billing information deleted
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public Task<object> RemoveBillingInfoAsync(string accountId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        public Task<EmptyResource> RemoveBillingInfoAsync(string accountId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var url = this.InterpolatePath("/accounts/{account_id}/billing_info", urlParams);
-            return MakeRequestAsync<object>(Method.DELETE, url, null, null, options, cancellationToken);
+            return MakeRequestAsync<EmptyResource>(Method.DELETE, url, null, null, options, cancellationToken);
         }
 
 
@@ -1037,7 +1037,7 @@ namespace Recurly
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId }, { "shipping_address_id", shippingAddressId } };
             var url = this.InterpolatePath("/accounts/{account_id}/shipping_addresses/{shipping_address_id}", urlParams);
-            MakeRequest<object>(Method.DELETE, url, null, null, options);
+            MakeRequest<EmptyResource>(Method.DELETE, url, null, null, options);
         }
 
 
@@ -1051,11 +1051,11 @@ namespace Recurly
         /// Shipping address deleted.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public Task<object> RemoveShippingAddressAsync(string accountId, string shippingAddressId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        public Task<EmptyResource> RemoveShippingAddressAsync(string accountId, string shippingAddressId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId }, { "shipping_address_id", shippingAddressId } };
             var url = this.InterpolatePath("/accounts/{account_id}/shipping_addresses/{shipping_address_id}", urlParams);
-            return MakeRequestAsync<object>(Method.DELETE, url, null, null, options, cancellationToken);
+            return MakeRequestAsync<EmptyResource>(Method.DELETE, url, null, null, options, cancellationToken);
         }
 
 
@@ -2178,7 +2178,7 @@ namespace Recurly
         {
             var urlParams = new Dictionary<string, object> { { "line_item_id", lineItemId } };
             var url = this.InterpolatePath("/line_items/{line_item_id}", urlParams);
-            MakeRequest<object>(Method.DELETE, url, null, null, options);
+            MakeRequest<EmptyResource>(Method.DELETE, url, null, null, options);
         }
 
 
@@ -2191,11 +2191,11 @@ namespace Recurly
         /// Line item deleted.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public Task<object> RemoveLineItemAsync(string lineItemId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        public Task<EmptyResource> RemoveLineItemAsync(string lineItemId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "line_item_id", lineItemId } };
             var url = this.InterpolatePath("/line_items/{line_item_id}", urlParams);
-            return MakeRequestAsync<object>(Method.DELETE, url, null, null, options, cancellationToken);
+            return MakeRequestAsync<EmptyResource>(Method.DELETE, url, null, null, options, cancellationToken);
         }
 
 
@@ -3177,7 +3177,7 @@ namespace Recurly
         {
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
             var url = this.InterpolatePath("/subscriptions/{subscription_id}/change", urlParams);
-            MakeRequest<object>(Method.DELETE, url, null, null, options);
+            MakeRequest<EmptyResource>(Method.DELETE, url, null, null, options);
         }
 
 
@@ -3190,11 +3190,11 @@ namespace Recurly
         /// Subscription change was deleted.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public Task<object> RemoveSubscriptionChangeAsync(string subscriptionId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        public Task<EmptyResource> RemoveSubscriptionChangeAsync(string subscriptionId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
             var url = this.InterpolatePath("/subscriptions/{subscription_id}/change", urlParams);
-            return MakeRequestAsync<object>(Method.DELETE, url, null, null, options, cancellationToken);
+            return MakeRequestAsync<EmptyResource>(Method.DELETE, url, null, null, options, cancellationToken);
         }
 
 

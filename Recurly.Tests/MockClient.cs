@@ -45,7 +45,7 @@ namespace Recurly.Tests
                     .Returns(item.Value.Object);
 
                 mockIRestClient
-                    .Setup(x => x.ExecuteTaskAsync<T>(It.Is<IRestRequest>(r => item.Key(r)), It.IsAny<CancellationToken>()))
+                    .Setup(x => x.ExecuteAsync<T>(It.Is<IRestRequest>(r => item.Key(r)), It.IsAny<CancellationToken>()))
                     .Returns(Task.FromResult(item.Value.Object));
             }
 

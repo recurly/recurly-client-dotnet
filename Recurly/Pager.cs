@@ -10,7 +10,7 @@ using RestSharp;
 namespace Recurly
 {
     [JsonObject]
-    public class Pager<T> : IEnumerator<T>, IEnumerable<T>
+    public class Pager<T> : Resource, IEnumerator<T>, IEnumerable<T>
     {
         [JsonProperty("has_more")]
         public bool HasMore { get; set; }
@@ -90,6 +90,7 @@ namespace Recurly
             this.Url = pager.Url;
             this.QueryParams = pager.QueryParams;
             this.Options = pager.Options;
+            this.SetResponse(pager.GetResponse());
             this._pristine = false;
         }
 
