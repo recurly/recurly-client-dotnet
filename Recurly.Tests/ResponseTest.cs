@@ -9,14 +9,14 @@ namespace Recurly.Tests
 {
     public class ResponseTest
     {
-        private IList<Parameter> TestHeaders = new List<Parameter>()
+        private IList<Header> TestHeaders = new List<Header>()
         {
-            new Parameter("Content-Type", "application/value", ParameterType.HttpHeader),
-            new Parameter("X-Request-Id", "the-request-id", ParameterType.HttpHeader),
-            new Parameter("X-RateLimit-Limit", "4000", ParameterType.HttpHeader),
-            new Parameter("X-RateLimit-Remaining", "42", ParameterType.HttpHeader),
-            new Parameter("X-RateLimit-Reset", "1595451960", ParameterType.HttpHeader),
-            new Parameter("Recurly-Total-Records", "42", ParameterType.HttpHeader),
+            new Header("Content-Type", "application/value"),
+            new Header("X-Request-Id", "the-request-id"),
+            new Header("X-RateLimit-Limit", "4000"),
+            new Header("X-RateLimit-Remaining", "42"),
+            new Header("X-RateLimit-Reset", "1595451960"),
+            new Header("Recurly-Total-Records", "42"),
         };
 
         public ResponseTest() { }
@@ -75,7 +75,7 @@ namespace Recurly.Tests
         {
             var response = new Response()
             {
-                Headers = new List<Parameter>()
+                Headers = new List<Header>()
             };
             Assert.Null(response.RecordCount);
         }
@@ -85,9 +85,9 @@ namespace Recurly.Tests
         {
             var response = new Response()
             {
-                Headers = new List<Parameter>()
+                Headers = new List<Header>()
                 {
-                    new Parameter("Recurly-Total-Records", "banana", ParameterType.HttpHeader),
+                    new Header("Recurly-Total-Records", "banana"),
                 }
             };
             Assert.Null(response.RecordCount);

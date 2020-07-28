@@ -11,7 +11,7 @@ namespace Recurly
 
         public HttpStatusCode StatusCode { get; set; }
 
-        public IList<Parameter> Headers { get; set; }
+        public IList<Header> Headers { get; set; }
 
         public string RequestId { get { return GetHeader("X-Request-Id"); } }
 
@@ -29,11 +29,17 @@ namespace Recurly
 
         public static Response Build(IRestResponse resp)
         {
+            // Map List<Parameter> to List<Header>
+            var headers = new List<Header>();
+            foreach (var header in resp.Headers)
+            {
+                headers.Add(new Header(header.Name, (string)header.Value));
+            }
             return new Response()
             {
                 RawResponse = resp.Content,
                 StatusCode = resp.StatusCode,
-                Headers = resp.Headers
+                Headers = headers,
             };
         }
 
@@ -41,7 +47,7 @@ namespace Recurly
         {
             foreach (var header in Headers)
                 if (header.Name == name)
-                    return (string)header.Value;
+                    return header.Value;
             return null;
         }
 
@@ -60,5 +66,17 @@ namespace Recurly
             }
         }
 
+    }
+
+    public class Header
+    {
+        public string Name { get; set; }
+        public string Value { get; set; }
+
+        public Header(string name, string value)
+        {
+            Name = name;
+            Value = value;
+        }
     }
 }

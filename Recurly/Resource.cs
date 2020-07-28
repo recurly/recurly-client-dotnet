@@ -12,7 +12,7 @@ namespace Recurly
             return _response;
         }
 
-        public void SetResponse(Response response)
+        internal void SetResponse(Response response)
         {
             _response = response;
         }
