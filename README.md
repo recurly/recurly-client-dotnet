@@ -265,6 +265,26 @@ catch (Recurly.Errors.NetworkError ex)
 }
 ```
 
+### HTTP Metadata
+
+Sometimes you might want to get some additional information about the underlying HTTP request and response. Instead of returning this information directly and forcing the programmer to unwrap it, we inject this metadata into the top level resource that was returned. You can access the response by calling `GetResponse()` on any Resource.
+
+```csharp
+Account account = client.GetAccount(accountId);
+Response response = account.GetResponse();
+response.RawResponse // String body of the API response
+response.StatusCode // HTTP status code of the API response
+response.RequestId // "5b7019241a21d314-ATL"
+response.Headers // IList<Parameter> of all API response headers
+```
+
+Rate Limit information is also accessible on the `Response` class. These values will be `null` when the corresponding headers are absent from the response. More information can be found on the developer portal's [Rate Limits](https://developers.recurly.com/api/v2019-10-10/index.html#section/Getting-Started/Limits) section.
+```csharp
+response.RateLimit // 2000  
+response.RateLimitRemaining // 1990
+response.RateLimitReset // 1595965380
+```
+
 ### Webhooks
 
 Recurly can send webhooks to any publicly accessible server.
