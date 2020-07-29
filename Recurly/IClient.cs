@@ -210,7 +210,7 @@ namespace Recurly
         /// Acquisition data was succesfully deleted.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        Task<object> RemoveAccountAcquisitionAsync(string accountId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+        Task<EmptyResource> RemoveAccountAcquisitionAsync(string accountId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
 
         /// <summary>
         /// Reactivate an inactive account <see href="https://developers.recurly.com/api/v2019-10-10#operation/reactivate_account">reactivate_account api documentation</see>
@@ -312,7 +312,7 @@ namespace Recurly
         /// Billing information deleted
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        Task<object> RemoveBillingInfoAsync(string accountId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+        Task<EmptyResource> RemoveBillingInfoAsync(string accountId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
 
         /// <summary>
         /// Show the coupon redemptions for an account <see href="https://developers.recurly.com/api/v2019-10-10#operation/list_account_coupon_redemptions">list_account_coupon_redemptions api documentation</see>
@@ -644,7 +644,7 @@ namespace Recurly
         /// Shipping address deleted.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        Task<object> RemoveShippingAddressAsync(string accountId, string shippingAddressId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+        Task<EmptyResource> RemoveShippingAddressAsync(string accountId, string shippingAddressId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
 
         /// <summary>
         /// List an account's subscriptions <see href="https://developers.recurly.com/api/v2019-10-10#operation/list_account_subscriptions">list_account_subscriptions api documentation</see>
@@ -1337,7 +1337,7 @@ namespace Recurly
         /// Line item deleted.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        Task<object> RemoveLineItemAsync(string lineItemId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+        Task<EmptyResource> RemoveLineItemAsync(string lineItemId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
 
         /// <summary>
         /// List a site's plans <see href="https://developers.recurly.com/api/v2019-10-10#operation/list_plans">list_plans api documentation</see>
@@ -1939,7 +1939,7 @@ namespace Recurly
         /// Subscription change was deleted.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        Task<object> RemoveSubscriptionChangeAsync(string subscriptionId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+        Task<EmptyResource> RemoveSubscriptionChangeAsync(string subscriptionId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
 
         /// <summary>
         /// Preview a new subscription change <see href="https://developers.recurly.com/api/v2019-10-10#operation/preview_subscription_change">preview_subscription_change api documentation</see>
