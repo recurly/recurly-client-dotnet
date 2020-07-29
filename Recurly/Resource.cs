@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using Recurly.Http;
 
 namespace Recurly
 {
