@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using RestSharp;
 
-namespace Recurly
+namespace Recurly.Http
 {
     public class Response
     {
