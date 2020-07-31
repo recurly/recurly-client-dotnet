@@ -19,6 +19,10 @@ namespace Recurly.Resources
         [JsonProperty("accounting_code")]
         public string AccountingCode { get; set; }
 
+        /// <value>Whether the add-on type is fixed, or usage-based.</value>
+        [JsonProperty("add_on_type")]
+        public string AddOnType { get; set; }
+
         /// <value>The unique identifier for the add-on within its plan.</value>
         [JsonProperty("code")]
         public string Code { get; set; }
@@ -35,6 +39,10 @@ namespace Recurly.Resources
         [JsonProperty("item_id")]
         public string ItemId { get; set; }
 
+        /// <value>System-generated unique identifier for an measured unit associated with the add-on.</value>
+        [JsonProperty("measured_unit_id")]
+        public string MeasuredUnitId { get; set; }
+
         /// <value>Describes your add-on and will appear in subscribers' invoices.</value>
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -42,6 +50,14 @@ namespace Recurly.Resources
         /// <value>Object type</value>
         [JsonProperty("object")]
         public string Object { get; set; }
+
+        /// <value>The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0.</value>
+        [JsonProperty("usage_percentage")]
+        public float? UsagePercentage { get; set; }
+
+        /// <value>Type of usage, returns usage type if `add_on_type` is `usage`.</value>
+        [JsonProperty("usage_type")]
+        public string UsageType { get; set; }
 
     }
 }
