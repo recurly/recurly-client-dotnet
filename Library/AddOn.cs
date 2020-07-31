@@ -207,7 +207,9 @@ namespace Recurly
                         break;
 
                     case "usage_percentage":
-                        UsagePercentage = reader.ReadElementContentAsFloat();
+                        if (reader.GetAttribute("nil") == null) {
+                            UsagePercentage = reader.ReadElementContentAsFloat();
+                        }
                         break;
 
                     case "revenue_schedule_type":
