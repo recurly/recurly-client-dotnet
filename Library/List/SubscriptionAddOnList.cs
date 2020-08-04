@@ -118,9 +118,26 @@ namespace Recurly
         /// <param name="tierType">The add-on tier-type.</param>
         /// <param name="quantity">The quantity of the add-on. Optional, default is 1.</param>
 
-        public void Add(AddOn planAddOn, string tierType, int quantity)
+        public void Add(AddOn planAddOn, string tierType, int quantity=1)
         {
             var sub = new SubscriptionAddOn(planAddOn.AddOnCode, tierType, quantity);
+            base.Add(sub);
+        }
+
+        /// <summary>
+        /// Adds subscription add-on to SubscriptionChange
+        /// 
+        /// Sample usage:
+        /// <code>
+        /// var change = new SubscriptionChange {
+        ///  TimeFrame = SubscriptionChange.ChangeTimeframe.Now,
+        ///  AddOns = new SubscriptionAddOnList(subscription)
+        /// };
+        /// change.AddOns.Add(subaddon); 
+
+        public void Add(SubscriptionAddOn addOn)
+        {
+            var sub = addOn;
             base.Add(sub);
         }
 
