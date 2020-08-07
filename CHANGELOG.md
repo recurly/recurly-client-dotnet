@@ -1,8 +1,24 @@
 # Changelog
 
-## [3.10.0](https://github.com/recurly/recurly-client-dotnet/tree/HEAD)
+## [3.11.0](https://github.com/recurly/recurly-client-dotnet/tree/HEAD)
 
-[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.9.0...HEAD)
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.10.0...HEAD)
+
+**Implemented enhancements:**
+
+-  Latest Changes for 2019-10-10 \(usage, measured units, etc\) [\#557](https://github.com/recurly/recurly-client-dotnet/pull/557) ([bhelx](https://github.com/bhelx))
+- Adds IClient interface and makes Client implement it [\#554](https://github.com/recurly/recurly-client-dotnet/pull/554) ([bhelx](https://github.com/bhelx))
+- Adding Response class to Resource [\#549](https://github.com/recurly/recurly-client-dotnet/pull/549) ([douglasmiller](https://github.com/douglasmiller))
+
+**Merged pull requests:**
+
+- Release 3.11.0 [\#558](https://github.com/recurly/recurly-client-dotnet/pull/558) ([douglasmiller](https://github.com/douglasmiller))
+- Namespaces Response and Header [\#556](https://github.com/recurly/recurly-client-dotnet/pull/556) ([bhelx](https://github.com/bhelx))
+- Regenerate interface with EmptyResource changes [\#555](https://github.com/recurly/recurly-client-dotnet/pull/555) ([bhelx](https://github.com/bhelx))
+
+## [3.10.0](https://github.com/recurly/recurly-client-dotnet/tree/3.10.0) (2020-07-06)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.9.0...3.10.0)
 
 **Implemented enhancements:**
 
@@ -156,7 +172,7 @@ See [#512](https://github.com/recurly/recurly-client-dotnet/pull/512) for more i
 
 ## [3.4.0](https://github.com/recurly/recurly-client-dotnet/tree/3.4.0) (2020-02-20)
 
-[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.3.0...3.4.0)
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.2.1...3.4.0)
 
 **Merged pull requests:**
 
@@ -168,13 +184,13 @@ See [#512](https://github.com/recurly/recurly-client-dotnet/pull/512) for more i
 - Fixing error factory bug [\#473](https://github.com/recurly/recurly-client-dotnet/pull/473) ([douglasmiller](https://github.com/douglasmiller))
 - Initial addition of code to support enum types [\#471](https://github.com/recurly/recurly-client-dotnet/pull/471) ([douglasmiller](https://github.com/douglasmiller))
 
-## [3.3.0](https://github.com/recurly/recurly-client-dotnet/tree/3.3.0) (2019-12-12)
-
-[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.2.1...3.3.0)
-
 ## [3.2.1](https://github.com/recurly/recurly-client-dotnet/tree/3.2.1) (2019-12-12)
 
-[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.2.0...3.2.1)
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.3.0...3.2.1)
+
+## [3.3.0](https://github.com/recurly/recurly-client-dotnet/tree/3.3.0) (2019-12-12)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.2.0...3.3.0)
 
 **Implemented enhancements:**
 

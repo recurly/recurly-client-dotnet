@@ -19,6 +19,10 @@ namespace Recurly.Resources
         [JsonProperty("accounting_code")]
         public string AccountingCode { get; set; }
 
+        /// <value>Whether the add-on type is fixed, or usage-based.</value>
+        [JsonProperty("add_on_type")]
+        public string AddOnType { get; set; }
+
         /// <value>The unique identifier for the add-on within its plan. If `item_code`/`item_id` is part of the request then `code` must be absent. If `item_code`/`item_id` is not present `code` is required.</value>
         [JsonProperty("code")]
         public string Code { get; set; }
@@ -49,6 +53,14 @@ namespace Recurly.Resources
         /// <value>System-generated unique identifier for an item. Available when the `Credit Invoices` and `Subscription Billing Terms` features are enabled. If `item_id` and `item_code` are both present, `item_id` will be used.</value>
         [JsonProperty("item_id")]
         public string ItemId { get; set; }
+
+        /// <value>System-generated unique identifier for a measured unit to be associated with the add-on. Either `measured_unit_id` or `measured_unit_name` are required when `add_on_type` is `usage`. If `measured_unit_id` and `measured_unit_name` are both present, `measured_unit_id` will be used.</value>
+        [JsonProperty("measured_unit_id")]
+        public string MeasuredUnitId { get; set; }
+
+        /// <value>Name of a measured unit to be associated with the add-on. Either `measured_unit_id` or `measured_unit_name` are required when `add_on_type` is `usage`. If `measured_unit_id` and `measured_unit_name` are both present, `measured_unit_id` will be used.</value>
+        [JsonProperty("measured_unit_name")]
+        public string MeasuredUnitName { get; set; }
 
         /// <value>Describes your add-on and will appear in subscribers' invoices. If `item_code`/`item_id` is part of the request then `name` must be absent. If `item_code`/`item_id` is not present `name` is required.</value>
         [JsonProperty("name")]
@@ -85,6 +97,14 @@ namespace Recurly.Resources
         /// </value>
         [JsonProperty("tiers")]
         public List<Tier> Tiers { get; set; }
+
+        /// <value>The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0. Required if `add_on_type` is usage and `usage_type` is percentage. Must be omitted otherwise. `usage_percentage` does not support tiers.</value>
+        [JsonProperty("usage_percentage")]
+        public float? UsagePercentage { get; set; }
+
+        /// <value>Type of usage, required if `add_on_type` is `usage`.</value>
+        [JsonProperty("usage_type")]
+        public string UsageType { get; set; }
 
     }
 }

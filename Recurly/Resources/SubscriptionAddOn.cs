@@ -60,7 +60,10 @@ namespace Recurly.Resources
         [JsonProperty("tier_type")]
         public string TierType { get; set; }
 
-        /// <value>Empty unless `tier_type` is `tiered`, `volume`, or `stairstep`.</value>
+        /// <value>
+        /// If tiers are provided in the request, all existing tiers on the Subscription Add-on will be
+        /// removed and replaced by the tiers in the request.
+        /// </value>
         [JsonProperty("tiers")]
         public List<SubscriptionAddOnTier> Tiers { get; set; }
 
@@ -71,6 +74,10 @@ namespace Recurly.Resources
         /// <value>Updated at</value>
         [JsonProperty("updated_at")]
         public DateTime? UpdatedAt { get; set; }
+
+        /// <value>The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0. Required if add_on_type is usage and usage_type is percentage.</value>
+        [JsonProperty("usage_percentage")]
+        public float? UsagePercentage { get; set; }
 
     }
 }

@@ -2,12 +2,13 @@ using System;
 using System.Collections.Generic;
 using Moq;
 using Recurly;
+using Recurly.Http;
 using RestSharp;
 using Xunit;
 
 namespace Recurly.Tests
 {
-    public class ResponseTest
+    public class HttpTest
     {
         private IList<Header> TestHeaders = new List<Header>()
         {
@@ -19,7 +20,7 @@ namespace Recurly.Tests
             new Header("Recurly-Total-Records", "42"),
         };
 
-        public ResponseTest() { }
+        public HttpTest() { }
 
         [Fact]
         public void CanGetStatusCode()
