@@ -45,7 +45,8 @@ namespace Recurly.Resources
 
         /// <value>The current state of the measured unit.</value>
         [JsonProperty("state")]
-        public string State { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.ActiveState? State { get; set; }
 
         /// <value>Last updated at</value>
         [JsonProperty("updated_at")]

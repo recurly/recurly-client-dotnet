@@ -24,11 +24,11 @@ namespace Recurly.Resources
         public string Code { get; set; }
 
         /// <value>
-        /// If the add-on's `tier_type` is `tiered`, `volume` or `stairstep`,
-        /// then `currencies` must be absent.
+        /// If the add-on's `tier_type` is `tiered`, `volume`, or `stairstep`,
+        /// then currencies must be absent
         /// </value>
         [JsonProperty("currencies")]
-        public List<AddOnPricing> Currencies { get; set; }
+        public List<Pricing> Currencies { get; set; }
 
         /// <value>Default quantity for the hosted pages.</value>
         [JsonProperty("default_quantity")]
@@ -58,9 +58,10 @@ namespace Recurly.Resources
         [JsonProperty("optional")]
         public bool? Optional { get; set; }
 
-        /// <value>When this add-on is invoiced, the line item will use this revenue schedule. If an `Item` is associated to the `AddOn` then `revenue_schedule_type` must be absent in the request as the value will be set from the item.</value>
+        /// <value>When this add-on is invoiced, the line item will use this revenue schedule. If `item_code`/`item_id` is part of the request then `revenue_schedule_type` must be absent in the request as the value will be set from the item.</value>
         [JsonProperty("revenue_schedule_type")]
-        public string RevenueScheduleType { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.RevenueScheduleType? RevenueScheduleType { get; set; }
 
         /// <value>Optional field used by Avalara, Vertex, and Recurly's EU VAT tax feature to determine taxation rules. If you have your own AvaTax or Vertex account configured, use their tax codes to assign specific tax rules. If you are using Recurly's EU VAT feature, you can use values of `unknown`, `physical`, or `digital`. If an `Item` is associated to the `AddOn` then `tax code` must be absent.</value>
         [JsonProperty("tax_code")]
@@ -69,8 +70,8 @@ namespace Recurly.Resources
         /// <value>
         /// If the tier_type is `flat`, then `tiers` must be absent. The `tiers` object
         /// must include one to many tiers with `ending_quantity` and `unit_amount` for
-        /// the desired `currencies`. There must be one tier with an `ending_quantity` of
-        /// 999999999 which is the default if not provided.
+        /// the desired `currencies`. There must be one tier with an `ending_quantity`
+        /// of 999999999 which is the default if not provided.
         /// </value>
         [JsonProperty("tiers")]
         public List<Tier> Tiers { get; set; }

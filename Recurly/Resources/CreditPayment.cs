@@ -21,7 +21,8 @@ namespace Recurly.Resources
 
         /// <value>The action for which the credit was created.</value>
         [JsonProperty("action")]
-        public string Action { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.CreditPaymentAction? Action { get; set; }
 
         /// <value>Total credit payment amount applied to the charge invoice.</value>
         [JsonProperty("amount")]

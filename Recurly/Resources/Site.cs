@@ -29,7 +29,7 @@ namespace Recurly.Resources
 
         /// <value>A list of features enabled for the site.</value>
         [JsonProperty("features")]
-        public List<string> Features { get; set; }
+        public List<Constants.Features> Features { get; set; }
 
         /// <value>Site ID</value>
         [JsonProperty("id")]
@@ -37,7 +37,8 @@ namespace Recurly.Resources
 
         /// <value>Mode</value>
         [JsonProperty("mode")]
-        public string Mode { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.SiteMode? Mode { get; set; }
 
         /// <value>Object type</value>
         [JsonProperty("object")]

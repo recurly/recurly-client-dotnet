@@ -29,7 +29,8 @@ namespace Recurly.Resources
 
         /// <value>Whether the coupon is "single_code" or "bulk". Bulk coupons will require a `unique_code_template` and will generate unique codes through the `/generate` endpoint.</value>
         [JsonProperty("coupon_type")]
-        public string CouponType { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.CouponType? CouponType { get; set; }
 
         /// <value>Created at</value>
         [JsonProperty("created_at")]
@@ -47,7 +48,8 @@ namespace Recurly.Resources
         /// - "temporal" coupons will apply to invoices for the duration determined by the `temporal_unit` and `temporal_amount` attributes.
         /// </value>
         [JsonProperty("duration")]
-        public string Duration { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.CouponDuration? Duration { get; set; }
 
         /// <value>The date and time the coupon was expired early or reached its `max_redemptions`.</value>
         [JsonProperty("expired_at")]
@@ -59,7 +61,8 @@ namespace Recurly.Resources
 
         /// <value>Description of the unit of time the coupon is for. Used with `free_trial_amount` to determine the duration of time the coupon is for.</value>
         [JsonProperty("free_trial_unit")]
-        public string FreeTrialUnit { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.FreeTrialUnit? FreeTrialUnit { get; set; }
 
         /// <value>This description will show up when a customer redeems a coupon on your Hosted Payment Pages, or if you choose to show the description on your own checkout page.</value>
         [JsonProperty("hosted_page_description")]
@@ -107,11 +110,13 @@ namespace Recurly.Resources
 
         /// <value>Whether the discount is for all eligible charges on the account, or only a specific subscription.</value>
         [JsonProperty("redemption_resource")]
-        public string RedemptionResource { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.RedemptionResource? RedemptionResource { get; set; }
 
         /// <value>Indicates if the coupon is redeemable, and if it is not, why.</value>
         [JsonProperty("state")]
-        public string State { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.CouponState? State { get; set; }
 
         /// <value>If `duration` is "temporal" than `temporal_amount` is an integer which is multiplied by `temporal_unit` to define the duration that the coupon will be applied to invoices for.</value>
         [JsonProperty("temporal_amount")]
@@ -119,7 +124,8 @@ namespace Recurly.Resources
 
         /// <value>If `duration` is "temporal" than `temporal_unit` is multiplied by `temporal_amount` to define the duration that the coupon will be applied to invoices for.</value>
         [JsonProperty("temporal_unit")]
-        public string TemporalUnit { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.TemporalUnit? TemporalUnit { get; set; }
 
         /// <value>On a bulk coupon, the template from which unique coupon codes are generated.</value>
         [JsonProperty("unique_code_template")]

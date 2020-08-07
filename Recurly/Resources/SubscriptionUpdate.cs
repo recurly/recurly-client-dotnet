@@ -21,7 +21,8 @@ namespace Recurly.Resources
 
         /// <value>Change collection method</value>
         [JsonProperty("collection_method")]
-        public string CollectionMethod { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.CollectionMethod? CollectionMethod { get; set; }
 
         /// <value>The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.</value>
         [JsonProperty("custom_fields")]
@@ -53,7 +54,8 @@ namespace Recurly.Resources
 
         /// <value>Revenue schedule type</value>
         [JsonProperty("revenue_schedule_type")]
-        public string RevenueScheduleType { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.RevenueScheduleType? RevenueScheduleType { get; set; }
 
         /// <value>Subscription shipping details</value>
         [JsonProperty("shipping")]

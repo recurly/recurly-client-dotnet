@@ -41,7 +41,8 @@ namespace Recurly.Resources
 
         /// <value>Indicates if the unique coupon code is redeemable or why not.</value>
         [JsonProperty("state")]
-        public string State { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.CouponCodeState? State { get; set; }
 
         /// <value>Updated at</value>
         [JsonProperty("updated_at")]

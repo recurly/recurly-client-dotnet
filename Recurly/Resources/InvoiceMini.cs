@@ -29,11 +29,13 @@ namespace Recurly.Resources
 
         /// <value>Invoice state</value>
         [JsonProperty("state")]
-        public string State { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.InvoiceState? State { get; set; }
 
         /// <value>Invoice type</value>
         [JsonProperty("type")]
-        public string Type { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.InvoiceType? Type { get; set; }
 
     }
 }

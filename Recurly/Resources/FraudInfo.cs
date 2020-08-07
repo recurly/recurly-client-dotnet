@@ -17,7 +17,8 @@ namespace Recurly.Resources
 
         /// <value>Kount decision</value>
         [JsonProperty("decision")]
-        public string Decision { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.KountDecision? Decision { get; set; }
 
         /// <value>Kount rules</value>
         [JsonProperty("risk_rules_triggered")]

@@ -21,7 +21,8 @@ namespace Recurly.Resources
 
         /// <value>Whether the coupon is "single_code" or "bulk". Bulk coupons will require a `unique_code_template` and will generate unique codes through the `/generate` endpoint.</value>
         [JsonProperty("coupon_type")]
-        public string CouponType { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.CouponType? CouponType { get; set; }
 
         /// <value>
         /// Details of the discount a coupon applies. Will contain a `type`
@@ -48,7 +49,8 @@ namespace Recurly.Resources
 
         /// <value>Indicates if the coupon is redeemable, and if it is not, why.</value>
         [JsonProperty("state")]
-        public string State { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.CouponState? State { get; set; }
 
     }
 }

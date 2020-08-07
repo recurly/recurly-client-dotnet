@@ -45,7 +45,8 @@ namespace Recurly.Resources
 
         /// <value>The reason the credit was given when line item is `type=credit`.</value>
         [JsonProperty("credit_reason_code")]
-        public string CreditReasonCode { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.FullCreditReasonCode? CreditReasonCode { get; set; }
 
         /// <value>3-letter ISO 4217 currency code.</value>
         [JsonProperty("currency")]
@@ -95,7 +96,8 @@ namespace Recurly.Resources
         /// - "carryforwards" can be ignored. They exist to consume any remaining credit balance. A new credit with the same amount will be created and placed back on the account.
         /// </value>
         [JsonProperty("legacy_category")]
-        public string LegacyCategory { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.LegacyCategory? LegacyCategory { get; set; }
 
         /// <value>Object type</value>
         [JsonProperty("object")]
@@ -103,7 +105,8 @@ namespace Recurly.Resources
 
         /// <value>A credit created from an original charge will have the value of the charge's origin.</value>
         [JsonProperty("origin")]
-        public string Origin { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.LineItemOrigin? Origin { get; set; }
 
         /// <value>The invoice where the credit originated. Will only have a value if the line item is a credit created from a previous credit, or if the credit was created from a charge refund.</value>
         [JsonProperty("original_line_item_invoice_id")]
@@ -143,7 +146,8 @@ namespace Recurly.Resources
 
         /// <value>Revenue schedule type</value>
         [JsonProperty("revenue_schedule_type")]
-        public string RevenueScheduleType { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.LineItemRevenueScheduleType? RevenueScheduleType { get; set; }
 
 
         [JsonProperty("shipping_address")]
@@ -155,7 +159,8 @@ namespace Recurly.Resources
 
         /// <value>Pending line items are charges or credits on an account that have not been applied to an invoice yet. Invoiced line items will always have an `invoice_id` value.</value>
         [JsonProperty("state")]
-        public string State { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.LineItemState? State { get; set; }
 
         /// <value>If the line item is a charge or credit for a subscription, this is its ID.</value>
         [JsonProperty("subscription_id")]
@@ -187,7 +192,8 @@ namespace Recurly.Resources
 
         /// <value>Charges are positive line items that debit the account. Credits are negative line items that credit the account.</value>
         [JsonProperty("type")]
-        public string Type { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.LintItemType? Type { get; set; }
 
         /// <value>Positive amount for a charge, negative amount for a credit.</value>
         [JsonProperty("unit_amount")]

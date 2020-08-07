@@ -25,7 +25,8 @@ namespace Recurly.Resources
 
         /// <value>When processed, result from checking the overall AVS on the transaction.</value>
         [JsonProperty("avs_check")]
-        public string AvsCheck { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.AvsCheck? AvsCheck { get; set; }
 
 
         [JsonProperty("billing_address")]
@@ -37,7 +38,8 @@ namespace Recurly.Resources
 
         /// <value>The method by which the payment was collected.</value>
         [JsonProperty("collection_method")]
-        public string CollectionMethod { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.CollectionMethod? CollectionMethod { get; set; }
 
         /// <value>Created at</value>
         [JsonProperty("created_at")]
@@ -57,7 +59,8 @@ namespace Recurly.Resources
 
         /// <value>When processed, result from checking the CVV/CVC value on the transaction.</value>
         [JsonProperty("cvv_check")]
-        public string CvvCheck { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.CvvCheck? CvvCheck { get; set; }
 
         /// <value>Transaction approval code from the payment gateway.</value>
         [JsonProperty("gateway_approval_code")]
@@ -81,7 +84,7 @@ namespace Recurly.Resources
 
         /// <value>The values in this field will vary from gateway to gateway.</value>
         [JsonProperty("gateway_response_values")]
-        public Dictionary<string, object> GatewayResponseValues { get; set; }
+        public Dictionary<string, string> GatewayResponseValues { get; set; }
 
         /// <value>Transaction ID</value>
         [JsonProperty("id")]
@@ -111,7 +114,8 @@ namespace Recurly.Resources
 
         /// <value>Describes how the transaction was triggered.</value>
         [JsonProperty("origin")]
-        public string Origin { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.TransactionOrigin? Origin { get; set; }
 
         /// <value>If this transaction is a refund (`type=refund`), this will be the ID of the original transaction on the invoice being refunded.</value>
         [JsonProperty("original_transaction_id")]
@@ -131,7 +135,8 @@ namespace Recurly.Resources
 
         /// <value>The current transaction status. Note that the status may change, e.g. a `pending` transaction may become `declined` or `success` may later become `void`.</value>
         [JsonProperty("status")]
-        public string Status { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.TransactionStatus? Status { get; set; }
 
         /// <value>Status code</value>
         [JsonProperty("status_code")]
@@ -157,7 +162,8 @@ namespace Recurly.Resources
         /// - `verify` – a $0 or $1 transaction used to verify billing information which is immediately voided.
         /// </value>
         [JsonProperty("type")]
-        public string Type { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.TransactionType? Type { get; set; }
 
         /// <value>Updated at</value>
         [JsonProperty("updated_at")]

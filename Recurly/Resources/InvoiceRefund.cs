@@ -55,11 +55,13 @@ namespace Recurly.Resources
         /// - `all_transaction` – Refunds the entire amount back to transactions, using transactions from previous invoices if necessary. Only available when the Credit Invoices feature is enabled.
         /// </value>
         [JsonProperty("refund_method")]
-        public string RefundMethod { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.RefuneMethod? RefundMethod { get; set; }
 
         /// <value>The type of refund. Amount and line items cannot both be specified in the request.</value>
         [JsonProperty("type")]
-        public string Type { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.InvoiceRefundType? Type { get; set; }
 
     }
 }

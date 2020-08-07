@@ -21,7 +21,8 @@ namespace Recurly.Resources
 
         /// <value>Payment method used for external refund transaction.</value>
         [JsonProperty("payment_method")]
-        public string PaymentMethod { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.ExternalPaymentMethod? PaymentMethod { get; set; }
 
         /// <value>Date the external refund payment was made. Defaults to the current date-time.</value>
         [JsonProperty("refunded_at")]

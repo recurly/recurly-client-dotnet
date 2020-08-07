@@ -33,7 +33,8 @@ namespace Recurly.Resources
 
         /// <value>An automatic invoice means a corresponding transaction is run using the account's billing information at the same time the invoice is created. Manual invoices are created without a corresponding transaction. The merchant must enter a manual payment transaction or have the customer pay the invoice with an automatic method, like credit card, PayPal, Amazon, or ACH bank payment.</value>
         [JsonProperty("collection_method")]
-        public string CollectionMethod { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.CollectionMethod? CollectionMethod { get; set; }
 
         /// <value>Created at</value>
         [JsonProperty("created_at")]
@@ -81,7 +82,8 @@ namespace Recurly.Resources
 
         /// <value>The event that created the invoice.</value>
         [JsonProperty("origin")]
-        public string Origin { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.Origin? Origin { get; set; }
 
         /// <value>The total amount of successful payments transaction on this invoice.</value>
         [JsonProperty("paid")]
@@ -105,7 +107,8 @@ namespace Recurly.Resources
 
         /// <value>Invoice state</value>
         [JsonProperty("state")]
-        public string State { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.InvoiceState? State { get; set; }
 
         /// <value>If the invoice is charging or refunding for one or more subscriptions, these are their IDs.</value>
         [JsonProperty("subscription_ids")]
@@ -137,7 +140,8 @@ namespace Recurly.Resources
 
         /// <value>Invoices are either charge, credit, or legacy invoices.</value>
         [JsonProperty("type")]
-        public string Type { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.InvoiceType? Type { get; set; }
 
         /// <value>Last updated at</value>
         [JsonProperty("updated_at")]

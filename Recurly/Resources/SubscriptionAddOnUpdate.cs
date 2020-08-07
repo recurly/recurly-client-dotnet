@@ -17,12 +17,13 @@ namespace Recurly.Resources
 
         /// <value>
         /// Used to determine where the associated add-on data is pulled from. If this value is set to
-        /// `plan_add_on` or left blank, then add_on data will be pulled from the plan's add-ons. If the associated
+        /// `plan_add_on` or left blank, then add-on data will be pulled from the plan's add-ons. If the associated
         /// `plan` has `allow_any_item_on_subscriptions` set to `true` and this field is set to `item`, then
         /// the associated add-on data will be pulled from the site's item catalog.
         /// </value>
         [JsonProperty("add_on_source")]
-        public string AddOnSource { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.AddOnSource? AddOnSource { get; set; }
 
         /// <value>
         /// If a code is provided without an id, the subscription add-on attributes
@@ -47,7 +48,8 @@ namespace Recurly.Resources
 
         /// <value>Revenue schedule type</value>
         [JsonProperty("revenue_schedule_type")]
-        public string RevenueScheduleType { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.RevenueScheduleType? RevenueScheduleType { get; set; }
 
         /// <value>
         /// If the plan add-on's `tier_type` is `flat`, then `tiers` must be absent. The `tiers` object

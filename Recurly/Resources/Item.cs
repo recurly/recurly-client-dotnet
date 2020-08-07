@@ -61,11 +61,13 @@ namespace Recurly.Resources
 
         /// <value>Revenue schedule type</value>
         [JsonProperty("revenue_schedule_type")]
-        public string RevenueScheduleType { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.RevenueScheduleType? RevenueScheduleType { get; set; }
 
         /// <value>The current state of the item.</value>
         [JsonProperty("state")]
-        public string State { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.ActiveState? State { get; set; }
 
         /// <value>Used by Avalara, Vertex, and Recurly’s EU VAT tax feature. The tax code values are specific to each tax system. If you are using Recurly’s EU VAT feature you can use `unknown`, `physical`, or `digital`.</value>
         [JsonProperty("tax_code")]

@@ -37,7 +37,8 @@ namespace Recurly.Resources
 
         /// <value>The current state of the item.</value>
         [JsonProperty("state")]
-        public string State { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.ActiveState? State { get; set; }
 
     }
 }

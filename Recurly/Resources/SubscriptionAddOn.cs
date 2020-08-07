@@ -26,7 +26,8 @@ namespace Recurly.Resources
         /// the associated add-on data will be pulled from the site's item catalog.
         /// </value>
         [JsonProperty("add_on_source")]
-        public string AddOnSource { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.AddOnSource? AddOnSource { get; set; }
 
         /// <value>Created at</value>
         [JsonProperty("created_at")]
@@ -50,15 +51,20 @@ namespace Recurly.Resources
 
         /// <value>Revenue schedule type</value>
         [JsonProperty("revenue_schedule_type")]
-        public string RevenueScheduleType { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.RevenueScheduleType? RevenueScheduleType { get; set; }
 
         /// <value>Subscription ID</value>
         [JsonProperty("subscription_id")]
         public string SubscriptionId { get; set; }
 
-        /// <value>The type of tiering used by the Add-on.</value>
+        /// <value>
+        /// The pricing model for the add-on.  For more information,
+        /// [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based).
+        /// </value>
         [JsonProperty("tier_type")]
-        public string TierType { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.TierType? TierType { get; set; }
 
         /// <value>
         /// If tiers are provided in the request, all existing tiers on the Subscription Add-on will be

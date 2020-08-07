@@ -21,7 +21,8 @@ namespace Recurly.Resources
 
         /// <value>Must be set to manual in order to preview a purchase for an Account that does not have payment information associated with the Billing Info.</value>
         [JsonProperty("collection_method")]
-        public string CollectionMethod { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.CollectionMethod? CollectionMethod { get; set; }
 
         /// <value>A list of coupon_codes to be redeemed on the subscription or account during the purchase.</value>
         [JsonProperty("coupon_codes")]
@@ -73,7 +74,8 @@ namespace Recurly.Resources
 
         /// <value>An optional type designation for the payment gateway transaction created by this request. Supports 'moto' value, which is the acronym for mail order and telephone transactions.</value>
         [JsonProperty("transaction_type")]
-        public string TransactionType { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.GatewayTransactionType? TransactionType { get; set; }
 
         /// <value>VAT reverse charge notes for cross border European tax settlement.</value>
         [JsonProperty("vat_reverse_charge_notes")]

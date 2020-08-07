@@ -37,7 +37,8 @@ namespace Recurly.Resources
 
         /// <value>Invoice state</value>
         [JsonProperty("state")]
-        public string State { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.ActiveState? State { get; set; }
 
     }
 }

@@ -29,7 +29,8 @@ namespace Recurly.Resources
 
 
         [JsonProperty("type")]
-        public string Type { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.DiscountType? Type { get; set; }
 
     }
 }

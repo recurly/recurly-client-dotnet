@@ -21,7 +21,8 @@ namespace Recurly.Resources
 
         /// <value>Temporal unit of the free trial</value>
         [JsonProperty("unit")]
-        public string Unit { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.FreeTrialUnit? Unit { get; set; }
 
     }
 }

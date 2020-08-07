@@ -29,7 +29,8 @@ namespace Recurly.Resources
 
         /// <value>Collection method</value>
         [JsonProperty("collection_method")]
-        public string CollectionMethod { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.CollectionMethod? CollectionMethod { get; set; }
 
         /// <value>Optional coupon code to redeem on the account and discount the subscription. Please note, the subscription request will fail if the coupon is invalid.</value>
         [JsonProperty("coupon_code")]
@@ -81,7 +82,8 @@ namespace Recurly.Resources
 
         /// <value>Revenue schedule type</value>
         [JsonProperty("revenue_schedule_type")]
-        public string RevenueScheduleType { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.RevenueScheduleType? RevenueScheduleType { get; set; }
 
         /// <value>Create a shipping address on the account and assign it to the subscription.</value>
         [JsonProperty("shipping")]
@@ -101,7 +103,8 @@ namespace Recurly.Resources
 
         /// <value>An optional type designation for the payment gateway transaction created by this request. Supports 'moto' value, which is the acronym for mail order and telephone transactions.</value>
         [JsonProperty("transaction_type")]
-        public string TransactionType { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.GatewayTransactionType? TransactionType { get; set; }
 
         /// <value>If set, overrides the default trial behavior for the subscription. The date must be in the future.</value>
         [JsonProperty("trial_ends_at")]

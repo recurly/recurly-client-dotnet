@@ -21,7 +21,8 @@ namespace Recurly.Resources
 
         /// <value>Whether the add-on type is fixed, or usage-based.</value>
         [JsonProperty("add_on_type")]
-        public string AddOnType { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.AddOnType? AddOnType { get; set; }
 
         /// <value>The unique identifier for the add-on within its plan.</value>
         [JsonProperty("code")]
@@ -57,7 +58,8 @@ namespace Recurly.Resources
 
         /// <value>Type of usage, returns usage type if `add_on_type` is `usage`.</value>
         [JsonProperty("usage_type")]
-        public string UsageType { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.UsageType? UsageType { get; set; }
 
     }
 }

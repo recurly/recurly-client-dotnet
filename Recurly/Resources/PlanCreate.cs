@@ -57,7 +57,8 @@ namespace Recurly.Resources
 
         /// <value>Unit for the plan's billing interval.</value>
         [JsonProperty("interval_unit")]
-        public string IntervalUnit { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.IntervalUnit? IntervalUnit { get; set; }
 
         /// <value>This name describes your plan and will appear on the Hosted Payment Page and the subscriber's invoice.</value>
         [JsonProperty("name")]
@@ -65,7 +66,8 @@ namespace Recurly.Resources
 
         /// <value>Revenue schedule type</value>
         [JsonProperty("revenue_schedule_type")]
-        public string RevenueScheduleType { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.RevenueScheduleType? RevenueScheduleType { get; set; }
 
         /// <value>Accounting code for invoice line items for the plan's setup fee. If no value is provided, it defaults to plan's accounting code.</value>
         [JsonProperty("setup_fee_accounting_code")]
@@ -73,7 +75,8 @@ namespace Recurly.Resources
 
         /// <value>Setup fee revenue schedule type</value>
         [JsonProperty("setup_fee_revenue_schedule_type")]
-        public string SetupFeeRevenueScheduleType { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.RevenueScheduleType? SetupFeeRevenueScheduleType { get; set; }
 
         /// <value>Optional field used by Avalara, Vertex, and Recurly's EU VAT tax feature to determine taxation rules. If you have your own AvaTax or Vertex account configured, use their tax codes to assign specific tax rules. If you are using Recurly's EU VAT feature, you can use values of `unknown`, `physical`, or `digital`.</value>
         [JsonProperty("tax_code")]
@@ -97,7 +100,8 @@ namespace Recurly.Resources
 
         /// <value>Units for the plan's trial period.</value>
         [JsonProperty("trial_unit")]
-        public string TrialUnit { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.IntervalUnit? TrialUnit { get; set; }
 
     }
 }

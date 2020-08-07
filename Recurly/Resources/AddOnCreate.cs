@@ -21,7 +21,8 @@ namespace Recurly.Resources
 
         /// <value>Whether the add-on type is fixed, or usage-based.</value>
         [JsonProperty("add_on_type")]
-        public string AddOnType { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.AddOnTypeCreate? AddOnType { get; set; }
 
         /// <value>The unique identifier for the add-on within its plan. If `item_code`/`item_id` is part of the request then `code` must be absent. If `item_code`/`item_id` is not present `code` is required.</value>
         [JsonProperty("code")]
@@ -36,7 +37,7 @@ namespace Recurly.Resources
         /// then `currencies` must be absent.
         /// </value>
         [JsonProperty("currencies")]
-        public List<AddOnPricing> Currencies { get; set; }
+        public List<Pricing> Currencies { get; set; }
 
         /// <value>Default quantity for the hosted pages.</value>
         [JsonProperty("default_quantity")]
@@ -46,7 +47,7 @@ namespace Recurly.Resources
         [JsonProperty("display_quantity")]
         public bool? DisplayQuantity { get; set; }
 
-        /// <value>Unique code to identify an item. Avaliable when the `Credit Invoices` and `Subscription Billing Terms` features are enabled. If `item_id` and `item_code` are both present, `item_id` will be used.</value>
+        /// <value>Unique code to identify an item. Available when the `Credit Invoices` and `Subscription Billing Terms` features are enabled. If `item_id` and `item_code` are both present, `item_id` will be used.</value>
         [JsonProperty("item_code")]
         public string ItemCode { get; set; }
 
@@ -76,7 +77,8 @@ namespace Recurly.Resources
 
         /// <value>When this add-on is invoiced, the line item will use this revenue schedule. If `item_code`/`item_id` is part of the request then `revenue_schedule_type` must be absent in the request as the value will be set from the item.</value>
         [JsonProperty("revenue_schedule_type")]
-        public string RevenueScheduleType { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.RevenueScheduleType? RevenueScheduleType { get; set; }
 
         /// <value>Optional field used by Avalara, Vertex, and Recurly's EU VAT tax feature to determine taxation rules. If you have your own AvaTax or Vertex account configured, use their tax codes to assign specific tax rules. If you are using Recurly's EU VAT feature, you can use values of `unknown`, `physical`, or `digital`. If `item_code`/`item_id` is part of the request then `tax_code` must be absent.</value>
         [JsonProperty("tax_code")]
@@ -87,13 +89,14 @@ namespace Recurly.Resources
         /// [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based).
         /// </value>
         [JsonProperty("tier_type")]
-        public string TierType { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.TierType? TierType { get; set; }
 
         /// <value>
         /// If the tier_type is `flat`, then `tiers` must be absent. The `tiers` object
         /// must include one to many tiers with `ending_quantity` and `unit_amount` for
-        /// the desired `currencies`. There must be one tier with an `ending_quantity` of
-        /// 999999999 which is the default if not provided.
+        /// the desired `currencies`. There must be one tier with an `ending_quantity`
+        /// of 999999999 which is the default if not provided.
         /// </value>
         [JsonProperty("tiers")]
         public List<Tier> Tiers { get; set; }
@@ -104,7 +107,8 @@ namespace Recurly.Resources
 
         /// <value>Type of usage, required if `add_on_type` is `usage`.</value>
         [JsonProperty("usage_type")]
-        public string UsageType { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.UsageTypeCreate? UsageType { get; set; }
 
     }
 }

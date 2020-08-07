@@ -65,7 +65,8 @@ namespace Recurly.Resources
 
         /// <value>Unit for the plan's billing interval.</value>
         [JsonProperty("interval_unit")]
-        public string IntervalUnit { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.IntervalUnit? IntervalUnit { get; set; }
 
         /// <value>This name describes your plan and will appear on the Hosted Payment Page and the subscriber's invoice.</value>
         [JsonProperty("name")]
@@ -77,7 +78,8 @@ namespace Recurly.Resources
 
         /// <value>Revenue schedule type</value>
         [JsonProperty("revenue_schedule_type")]
-        public string RevenueScheduleType { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.RevenueScheduleType? RevenueScheduleType { get; set; }
 
         /// <value>Accounting code for invoice line items for the plan's setup fee. If no value is provided, it defaults to plan's accounting code.</value>
         [JsonProperty("setup_fee_accounting_code")]
@@ -85,11 +87,13 @@ namespace Recurly.Resources
 
         /// <value>Setup fee revenue schedule type</value>
         [JsonProperty("setup_fee_revenue_schedule_type")]
-        public string SetupFeeRevenueScheduleType { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.RevenueScheduleType? SetupFeeRevenueScheduleType { get; set; }
 
         /// <value>The current state of the plan.</value>
         [JsonProperty("state")]
-        public string State { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.ActiveState? State { get; set; }
 
         /// <value>Used by Avalara, Vertex, and Recurly’s EU VAT tax feature. The tax code values are specific to each tax system. If you are using Recurly’s EU VAT feature you can use `unknown`, `physical`, or `digital`.</value>
         [JsonProperty("tax_code")]
@@ -107,13 +111,14 @@ namespace Recurly.Resources
         [JsonProperty("trial_length")]
         public int? TrialLength { get; set; }
 
-        /// <value>Allow free trial subscriptions to be created without billing info.</value>
+        /// <value>Allow free trial subscriptions to be created without billing info. Should not be used if billing info is needed for initial invoice due to existing uninvoiced charges or setup fee.</value>
         [JsonProperty("trial_requires_billing_info")]
         public bool? TrialRequiresBillingInfo { get; set; }
 
         /// <value>Units for the plan's trial period.</value>
         [JsonProperty("trial_unit")]
-        public string TrialUnit { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.IntervalUnit? TrialUnit { get; set; }
 
         /// <value>Last updated at</value>
         [JsonProperty("updated_at")]

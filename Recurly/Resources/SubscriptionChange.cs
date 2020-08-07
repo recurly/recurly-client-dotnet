@@ -39,10 +39,6 @@ namespace Recurly.Resources
         [JsonProperty("id")]
         public string Id { get; set; }
 
-        /// <value>Invoice Collection</value>
-        [JsonProperty("invoice_collection")]
-        public InvoiceCollection InvoiceCollection { get; set; }
-
         /// <value>Object type</value>
         [JsonProperty("object")]
         public string Object { get; set; }
@@ -57,11 +53,8 @@ namespace Recurly.Resources
 
         /// <value>Revenue schedule type</value>
         [JsonProperty("revenue_schedule_type")]
-        public string RevenueScheduleType { get; set; }
-
-        /// <value>Setup fee revenue schedule type</value>
-        [JsonProperty("setup_fee_revenue_schedule_type")]
-        public string SetupFeeRevenueScheduleType { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.RevenueScheduleType? RevenueScheduleType { get; set; }
 
         /// <value>Subscription shipping details</value>
         [JsonProperty("shipping")]

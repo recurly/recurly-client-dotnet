@@ -45,7 +45,8 @@ namespace Recurly.Resources
 
         /// <value>Collection method</value>
         [JsonProperty("collection_method")]
-        public string CollectionMethod { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.CollectionMethod? CollectionMethod { get; set; }
 
         /// <value>Coupon redemptions</value>
         [JsonProperty("coupon_redemptions")]
@@ -137,7 +138,8 @@ namespace Recurly.Resources
 
         /// <value>Revenue schedule type</value>
         [JsonProperty("revenue_schedule_type")]
-        public string RevenueScheduleType { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.RevenueScheduleType? RevenueScheduleType { get; set; }
 
         /// <value>Subscription shipping details</value>
         [JsonProperty("shipping")]
@@ -145,7 +147,8 @@ namespace Recurly.Resources
 
         /// <value>State</value>
         [JsonProperty("state")]
-        public string State { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.SubscriptionState? State { get; set; }
 
         /// <value>Estimated total, before tax.</value>
         [JsonProperty("subtotal")]

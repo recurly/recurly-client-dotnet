@@ -17,7 +17,8 @@ namespace Recurly.Resources
 
         /// <value>The bank account type. Only present for ACH payment methods.</value>
         [JsonProperty("account_type")]
-        public string AccountType { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.AccountType? AccountType { get; set; }
 
         /// <value>Billing Agreement identifier. Only present for Amazon or Paypal payment methods.</value>
         [JsonProperty("billing_agreement_id")]
@@ -25,7 +26,8 @@ namespace Recurly.Resources
 
         /// <value>Visa, MasterCard, American Express, Discover, JCB, etc.</value>
         [JsonProperty("card_type")]
-        public string CardType { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.CardType? CardType { get; set; }
 
         /// <value>Expiration month.</value>
         [JsonProperty("exp_month")]
@@ -61,7 +63,8 @@ namespace Recurly.Resources
 
 
         [JsonProperty("object")]
-        public string Object { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.PaymentMethod? Object { get; set; }
 
         /// <value>The bank account's routing number. Only present for ACH payment methods.</value>
         [JsonProperty("routing_number")]

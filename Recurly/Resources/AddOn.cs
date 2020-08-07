@@ -21,7 +21,8 @@ namespace Recurly.Resources
 
         /// <value>Whether the add-on type is fixed, or usage-based.</value>
         [JsonProperty("add_on_type")]
-        public string AddOnType { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.AddOnType? AddOnType { get; set; }
 
         /// <value>The unique identifier for the add-on within its plan.</value>
         [JsonProperty("code")]
@@ -33,7 +34,7 @@ namespace Recurly.Resources
 
         /// <value>Add-on pricing</value>
         [JsonProperty("currencies")]
-        public List<AddOnPricing> Currencies { get; set; }
+        public List<Pricing> Currencies { get; set; }
 
         /// <value>Default quantity for the hosted pages.</value>
         [JsonProperty("default_quantity")]
@@ -81,19 +82,25 @@ namespace Recurly.Resources
 
         /// <value>When this add-on is invoiced, the line item will use this revenue schedule. If `item_code`/`item_id` is part of the request then `revenue_schedule_type` must be absent in the request as the value will be set from the item.</value>
         [JsonProperty("revenue_schedule_type")]
-        public string RevenueScheduleType { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.RevenueScheduleType? RevenueScheduleType { get; set; }
 
         /// <value>Add-ons can be either active or inactive.</value>
         [JsonProperty("state")]
-        public string State { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.ActiveState? State { get; set; }
 
         /// <value>Used by Avalara, Vertex, and Recurly’s EU VAT tax feature. The tax code values are specific to each tax system. If you are using Recurly’s EU VAT feature you can use `unknown`, `physical`, or `digital`.</value>
         [JsonProperty("tax_code")]
         public string TaxCode { get; set; }
 
-        /// <value>The type of tiering used by the Add-on.</value>
+        /// <value>
+        /// The pricing model for the add-on.  For more information,
+        /// [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based).
+        /// </value>
         [JsonProperty("tier_type")]
-        public string TierType { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.TierType? TierType { get; set; }
 
         /// <value>Tiers</value>
         [JsonProperty("tiers")]
@@ -109,7 +116,8 @@ namespace Recurly.Resources
 
         /// <value>Type of usage, returns usage type if `add_on_type` is `usage`.</value>
         [JsonProperty("usage_type")]
-        public string UsageType { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.UsageType? UsageType { get; set; }
 
     }
 }

@@ -33,7 +33,7 @@ namespace Recurly
         /// <returns>
         /// A list of sites.
         /// </returns>
-        public Pager<Site> ListSites(string ids = null, int? limit = null, string order = null, string sort = null, string state = null, RequestOptions options = null)
+        public Pager<Site> ListSites(string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, Constants.ActiveState? state = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
             var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "state", state } };
@@ -94,7 +94,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's accounts.
         /// </returns>
-        public Pager<Account> ListAccounts(string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string email = null, bool? subscriber = null, string pastDue = null, RequestOptions options = null)
+        public Pager<Account> ListAccounts(string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, string email = null, bool? subscriber = null, Constants.True? pastDue = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
             var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "email", email }, { "subscriber", subscriber }, { "past_due", pastDue } };
@@ -531,7 +531,7 @@ namespace Recurly
         /// <returns>
         /// A list of the the coupon redemptions on an account.
         /// </returns>
-        public Pager<CouponRedemption> ListAccountCouponRedemptions(string accountId, string ids = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, RequestOptions options = null)
+        public Pager<CouponRedemption> ListAccountCouponRedemptions(string accountId, string ids = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var queryParams = new Dictionary<string, object> { { "ids", ids }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime } };
@@ -659,7 +659,7 @@ namespace Recurly
         /// <returns>
         /// A list of the account's credit payments.
         /// </returns>
-        public Pager<CreditPayment> ListAccountCreditPayments(string accountId, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, RequestOptions options = null)
+        public Pager<CreditPayment> ListAccountCreditPayments(string accountId, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var queryParams = new Dictionary<string, object> { { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime } };
@@ -685,7 +685,7 @@ namespace Recurly
         /// <returns>
         /// A list of the account's invoices.
         /// </returns>
-        public Pager<Invoice> ListAccountInvoices(string accountId, string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string type = null, RequestOptions options = null)
+        public Pager<Invoice> ListAccountInvoices(string accountId, string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.FilterInvoiceType? type = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "type", type } };
@@ -785,7 +785,7 @@ namespace Recurly
         /// <returns>
         /// A list of the account's line items.
         /// </returns>
-        public Pager<LineItem> ListAccountLineItems(string accountId, string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string original = null, string state = null, string type = null, RequestOptions options = null)
+        public Pager<LineItem> ListAccountLineItems(string accountId, string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.True? original = null, Constants.LineItemState? state = null, Constants.LintItemType? type = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "original", original }, { "state", state }, { "type", type } };
@@ -902,7 +902,7 @@ namespace Recurly
         /// <returns>
         /// A list of an account's shipping addresses.
         /// </returns>
-        public Pager<ShippingAddress> ListShippingAddresses(string accountId, string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, RequestOptions options = null)
+        public Pager<ShippingAddress> ListShippingAddresses(string accountId, string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime } };
@@ -1074,7 +1074,7 @@ namespace Recurly
         /// <returns>
         /// A list of the account's subscriptions.
         /// </returns>
-        public Pager<Subscription> ListAccountSubscriptions(string accountId, string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string state = null, RequestOptions options = null)
+        public Pager<Subscription> ListAccountSubscriptions(string accountId, string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.FilterSubscriptionState? state = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "state", state } };
@@ -1101,7 +1101,7 @@ namespace Recurly
         /// <returns>
         /// A list of the account's transactions.
         /// </returns>
-        public Pager<Transaction> ListAccountTransactions(string accountId, string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string type = null, string success = null, RequestOptions options = null)
+        public Pager<Transaction> ListAccountTransactions(string accountId, string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.FilterTransactionType? type = null, Constants.True? success = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "type", type }, { "success", success } };
@@ -1129,7 +1129,7 @@ namespace Recurly
         /// <returns>
         /// A list of an account's child accounts.
         /// </returns>
-        public Pager<Account> ListChildAccounts(string accountId, string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string email = null, bool? subscriber = null, string pastDue = null, RequestOptions options = null)
+        public Pager<Account> ListChildAccounts(string accountId, string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, string email = null, bool? subscriber = null, Constants.True? pastDue = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "email", email }, { "subscriber", subscriber }, { "past_due", pastDue } };
@@ -1153,7 +1153,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's account acquisition data.
         /// </returns>
-        public Pager<AccountAcquisition> ListAccountAcquisition(string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, RequestOptions options = null)
+        public Pager<AccountAcquisition> ListAccountAcquisition(string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
             var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime } };
@@ -1177,7 +1177,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's coupons.
         /// </returns>
-        public Pager<Coupon> ListCoupons(string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, RequestOptions options = null)
+        public Pager<Coupon> ListCoupons(string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
             var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime } };
@@ -1294,7 +1294,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Expire a coupon <see href="https://developers.recurly.com/api/v2019-10-10#operation/deactivate_coupon">deactivate_coupon api documentation</see>
+        /// Expire a coupon <see href="https://developers.recurly.com/api/v2020-01-01#operation/deactivate_coupon">deactivate_coupon api documentation</see>
         /// </summary>
         /// <param name="couponId">Coupon ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-10off`.</param>
         /// <returns>
@@ -1311,7 +1311,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Expire a coupon <see href="https://developers.recurly.com/api/v2019-10-10#operation/deactivate_coupon">deactivate_coupon api documentation</see>
+        /// Expire a coupon <see href="https://developers.recurly.com/api/v2020-01-01#operation/deactivate_coupon">deactivate_coupon api documentation</see>
         /// </summary>
         /// <param name="couponId">Coupon ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-10off`.</param>
         /// <returns>
@@ -1340,7 +1340,7 @@ namespace Recurly
         /// <returns>
         /// A list of unique coupon codes that were generated
         /// </returns>
-        public Pager<UniqueCouponCode> ListUniqueCouponCodes(string couponId, string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, RequestOptions options = null)
+        public Pager<UniqueCouponCode> ListUniqueCouponCodes(string couponId, string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "coupon_id", couponId } };
             var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime } };
@@ -1363,7 +1363,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's credit payments.
         /// </returns>
-        public Pager<CreditPayment> ListCreditPayments(int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, RequestOptions options = null)
+        public Pager<CreditPayment> ListCreditPayments(int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
             var queryParams = new Dictionary<string, object> { { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime } };
@@ -1422,7 +1422,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's custom field definitions.
         /// </returns>
-        public Pager<CustomFieldDefinition> ListCustomFieldDefinitions(string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string relatedType = null, RequestOptions options = null)
+        public Pager<CustomFieldDefinition> ListCustomFieldDefinitions(string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.RelatedType? relatedType = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
             var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "related_type", relatedType } };
@@ -1469,7 +1469,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List a site's invoices <see href="https://developers.recurly.com/api/v2020-01-01#operation/list_invoices">list_invoices api documentation</see>
+        /// List a site's items <see href="https://developers.recurly.com/api/v2020-01-01#operation/list_items">list_items api documentation</see>
         /// </summary>
         /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
         /// <param name="limit">Limit number of records 1-200.</param>
@@ -1481,7 +1481,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's items.
         /// </returns>
-        public Pager<Item> ListItems(string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string state = null, RequestOptions options = null)
+        public Pager<Item> ListItems(string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.ActiveState? state = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
             var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "state", state } };
@@ -1494,9 +1494,9 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an invoice <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_invoice">get_invoice api documentation</see>
+        /// Create a new item <see href="https://developers.recurly.com/api/v2020-01-01#operation/create_item">create_item api documentation</see>
         /// </summary>
-        /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
+        /// <param name="body">The body of the request.</param>
         /// <returns>
         /// A new item.
         /// </returns>
@@ -1511,9 +1511,9 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an invoice <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_invoice">get_invoice api documentation</see>
+        /// Create a new item <see href="https://developers.recurly.com/api/v2020-01-01#operation/create_item">create_item api documentation</see>
         /// </summary>
-        /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
+        /// <param name="body">The body of the request.</param>
         /// <returns>
         /// A new item.
         /// </returns>
@@ -1528,10 +1528,9 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update an invoice <see href="https://developers.recurly.com/api/v2020-01-01#operation/put_invoice">put_invoice api documentation</see>
+        /// Fetch an item <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_item">get_item api documentation</see>
         /// </summary>
-        /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
-        /// <param name="body">The body of the request.</param>
+        /// <param name="itemId">Item ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-red`.</param>
         /// <returns>
         /// An item.
         /// </returns>
@@ -1546,10 +1545,9 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update an invoice <see href="https://developers.recurly.com/api/v2020-01-01#operation/put_invoice">put_invoice api documentation</see>
+        /// Fetch an item <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_item">get_item api documentation</see>
         /// </summary>
-        /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
-        /// <param name="body">The body of the request.</param>
+        /// <param name="itemId">Item ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-red`.</param>
         /// <returns>
         /// An item.
         /// </returns>
@@ -1564,14 +1562,15 @@ namespace Recurly
 
 
         /// <summary>
-        /// Collect a pending or past due, automatic invoice <see href="https://developers.recurly.com/api/v2020-01-01#operation/collect_invoice">collect_invoice api documentation</see>
+        /// Update an active item <see href="https://developers.recurly.com/api/v2020-01-01#operation/update_item">update_item api documentation</see>
         /// </summary>
-        /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
+        /// <param name="itemId">Item ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-red`.</param>
+        /// <param name="body">The body of the request.</param>
         /// <returns>
         /// The updated item.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public Invoice CollectInvoice(string invoiceId, InvoiceCollect body = null)
+        public Item UpdateItem(string itemId, ItemUpdate body, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "item_id", itemId } };
             var url = this.InterpolatePath("/items/{item_id}", urlParams);
@@ -1581,14 +1580,15 @@ namespace Recurly
 
 
         /// <summary>
-        /// Collect a pending or past due, automatic invoice <see href="https://developers.recurly.com/api/v2020-01-01#operation/collect_invoice">collect_invoice api documentation</see>
+        /// Update an active item <see href="https://developers.recurly.com/api/v2020-01-01#operation/update_item">update_item api documentation</see>
         /// </summary>
-        /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
+        /// <param name="itemId">Item ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-red`.</param>
+        /// <param name="body">The body of the request.</param>
         /// <returns>
         /// The updated item.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public Task<Invoice> CollectInvoiceAsync(string invoiceId, InvoiceCollect body = null, CancellationToken cancellationToken = default(CancellationToken))
+        public Task<Item> UpdateItemAsync(string itemId, ItemUpdate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "item_id", itemId } };
             var url = this.InterpolatePath("/items/{item_id}", urlParams);
@@ -1598,9 +1598,9 @@ namespace Recurly
 
 
         /// <summary>
-        /// Mark an open invoice as failed <see href="https://developers.recurly.com/api/v2020-01-01#operation/fail_invoice">fail_invoice api documentation</see>
+        /// Deactivate an item <see href="https://developers.recurly.com/api/v2020-01-01#operation/deactivate_item">deactivate_item api documentation</see>
         /// </summary>
-        /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
+        /// <param name="itemId">Item ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-red`.</param>
         /// <returns>
         /// An item.
         /// </returns>
@@ -1615,9 +1615,9 @@ namespace Recurly
 
 
         /// <summary>
-        /// Mark an open invoice as failed <see href="https://developers.recurly.com/api/v2020-01-01#operation/fail_invoice">fail_invoice api documentation</see>
+        /// Deactivate an item <see href="https://developers.recurly.com/api/v2020-01-01#operation/deactivate_item">deactivate_item api documentation</see>
         /// </summary>
-        /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
+        /// <param name="itemId">Item ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-red`.</param>
         /// <returns>
         /// An item.
         /// </returns>
@@ -1632,7 +1632,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Reactivate an inactive item <see href="https://developers.recurly.com/api/v2019-10-10#operation/reactivate_item">reactivate_item api documentation</see>
+        /// Reactivate an inactive item <see href="https://developers.recurly.com/api/v2020-01-01#operation/reactivate_item">reactivate_item api documentation</see>
         /// </summary>
         /// <param name="itemId">Item ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-red`.</param>
         /// <returns>
@@ -1649,7 +1649,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Reactivate an inactive item <see href="https://developers.recurly.com/api/v2019-10-10#operation/reactivate_item">reactivate_item api documentation</see>
+        /// Reactivate an inactive item <see href="https://developers.recurly.com/api/v2020-01-01#operation/reactivate_item">reactivate_item api documentation</see>
         /// </summary>
         /// <param name="itemId">Item ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-red`.</param>
         /// <returns>
@@ -1666,7 +1666,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List a site's measured units <see href="https://developers.recurly.com/api/v2019-10-10#operation/list_measured_unit">list_measured_unit api documentation</see>
+        /// List a site's measured units <see href="https://developers.recurly.com/api/v2020-01-01#operation/list_measured_unit">list_measured_unit api documentation</see>
         /// </summary>
         /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
         /// <param name="limit">Limit number of records 1-200.</param>
@@ -1678,7 +1678,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's measured units.
         /// </returns>
-        public Pager<MeasuredUnit> ListMeasuredUnit(string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string state = null, RequestOptions options = null)
+        public Pager<MeasuredUnit> ListMeasuredUnit(string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.ActiveState? state = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
             var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "state", state } };
@@ -1691,7 +1691,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create a new measured unit <see href="https://developers.recurly.com/api/v2019-10-10#operation/create_measured_unit">create_measured_unit api documentation</see>
+        /// Create a new measured unit <see href="https://developers.recurly.com/api/v2020-01-01#operation/create_measured_unit">create_measured_unit api documentation</see>
         /// </summary>
         /// <param name="body">The body of the request.</param>
         /// <returns>
@@ -1708,7 +1708,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create a new measured unit <see href="https://developers.recurly.com/api/v2019-10-10#operation/create_measured_unit">create_measured_unit api documentation</see>
+        /// Create a new measured unit <see href="https://developers.recurly.com/api/v2020-01-01#operation/create_measured_unit">create_measured_unit api documentation</see>
         /// </summary>
         /// <param name="body">The body of the request.</param>
         /// <returns>
@@ -1725,7 +1725,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a measured unit <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_measured_unit">get_measured_unit api documentation</see>
+        /// Fetch a measured unit <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_measured_unit">get_measured_unit api documentation</see>
         /// </summary>
         /// <param name="measuredUnitId">Measured unit ID or name. For ID no prefix is used e.g. `e28zov4fw0v2`. For name use prefix `name-`, e.g. `name-Storage`.</param>
         /// <returns>
@@ -1742,7 +1742,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a measured unit <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_measured_unit">get_measured_unit api documentation</see>
+        /// Fetch a measured unit <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_measured_unit">get_measured_unit api documentation</see>
         /// </summary>
         /// <param name="measuredUnitId">Measured unit ID or name. For ID no prefix is used e.g. `e28zov4fw0v2`. For name use prefix `name-`, e.g. `name-Storage`.</param>
         /// <returns>
@@ -1759,7 +1759,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update a measured unit <see href="https://developers.recurly.com/api/v2019-10-10#operation/update_measured_unit">update_measured_unit api documentation</see>
+        /// Update a measured unit <see href="https://developers.recurly.com/api/v2020-01-01#operation/update_measured_unit">update_measured_unit api documentation</see>
         /// </summary>
         /// <param name="measuredUnitId">Measured unit ID or name. For ID no prefix is used e.g. `e28zov4fw0v2`. For name use prefix `name-`, e.g. `name-Storage`.</param>
         /// <param name="body">The body of the request.</param>
@@ -1777,7 +1777,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update a measured unit <see href="https://developers.recurly.com/api/v2019-10-10#operation/update_measured_unit">update_measured_unit api documentation</see>
+        /// Update a measured unit <see href="https://developers.recurly.com/api/v2020-01-01#operation/update_measured_unit">update_measured_unit api documentation</see>
         /// </summary>
         /// <param name="measuredUnitId">Measured unit ID or name. For ID no prefix is used e.g. `e28zov4fw0v2`. For name use prefix `name-`, e.g. `name-Storage`.</param>
         /// <param name="body">The body of the request.</param>
@@ -1795,7 +1795,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Remove a measured unit <see href="https://developers.recurly.com/api/v2019-10-10#operation/remove_measured_unit">remove_measured_unit api documentation</see>
+        /// Remove a measured unit <see href="https://developers.recurly.com/api/v2020-01-01#operation/remove_measured_unit">remove_measured_unit api documentation</see>
         /// </summary>
         /// <param name="measuredUnitId">Measured unit ID or name. For ID no prefix is used e.g. `e28zov4fw0v2`. For name use prefix `name-`, e.g. `name-Storage`.</param>
         /// <returns>
@@ -1812,7 +1812,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Remove a measured unit <see href="https://developers.recurly.com/api/v2019-10-10#operation/remove_measured_unit">remove_measured_unit api documentation</see>
+        /// Remove a measured unit <see href="https://developers.recurly.com/api/v2020-01-01#operation/remove_measured_unit">remove_measured_unit api documentation</see>
         /// </summary>
         /// <param name="measuredUnitId">Measured unit ID or name. For ID no prefix is used e.g. `e28zov4fw0v2`. For name use prefix `name-`, e.g. `name-Storage`.</param>
         /// <returns>
@@ -1829,7 +1829,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List a site's invoices <see href="https://developers.recurly.com/api/v2019-10-10#operation/list_invoices">list_invoices api documentation</see>
+        /// List a site's invoices <see href="https://developers.recurly.com/api/v2020-01-01#operation/list_invoices">list_invoices api documentation</see>
         /// </summary>
         /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
         /// <param name="limit">Limit number of records 1-200.</param>
@@ -1841,7 +1841,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's invoices.
         /// </returns>
-        public Pager<Invoice> ListInvoices(string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string type = null, RequestOptions options = null)
+        public Pager<Invoice> ListInvoices(string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.FilterInvoiceType? type = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
             var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "type", type } };
@@ -1854,7 +1854,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an invoice <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_invoice">get_invoice api documentation</see>
+        /// Fetch an invoice <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_invoice">get_invoice api documentation</see>
         /// </summary>
         /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
         /// <returns>
@@ -1871,7 +1871,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an invoice <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_invoice">get_invoice api documentation</see>
+        /// Fetch an invoice <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_invoice">get_invoice api documentation</see>
         /// </summary>
         /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
         /// <returns>
@@ -1888,7 +1888,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update an invoice <see href="https://developers.recurly.com/api/v2019-10-10#operation/put_invoice">put_invoice api documentation</see>
+        /// Update an invoice <see href="https://developers.recurly.com/api/v2020-01-01#operation/put_invoice">put_invoice api documentation</see>
         /// </summary>
         /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
         /// <param name="body">The body of the request.</param>
@@ -1906,7 +1906,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update an invoice <see href="https://developers.recurly.com/api/v2019-10-10#operation/put_invoice">put_invoice api documentation</see>
+        /// Update an invoice <see href="https://developers.recurly.com/api/v2020-01-01#operation/put_invoice">put_invoice api documentation</see>
         /// </summary>
         /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
         /// <param name="body">The body of the request.</param>
@@ -1924,7 +1924,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an invoice as a PDF <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_invoice_pdf">get_invoice_pdf api documentation</see>
+        /// Fetch an invoice as a PDF <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_invoice_pdf">get_invoice_pdf api documentation</see>
         /// </summary>
         /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
         /// <returns>
@@ -1941,7 +1941,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an invoice as a PDF <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_invoice_pdf">get_invoice_pdf api documentation</see>
+        /// Fetch an invoice as a PDF <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_invoice_pdf">get_invoice_pdf api documentation</see>
         /// </summary>
         /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
         /// <returns>
@@ -1958,7 +1958,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Collect a pending or past due, automatic invoice <see href="https://developers.recurly.com/api/v2019-10-10#operation/collect_invoice">collect_invoice api documentation</see>
+        /// Collect a pending or past due, automatic invoice <see href="https://developers.recurly.com/api/v2020-01-01#operation/collect_invoice">collect_invoice api documentation</see>
         /// </summary>
         /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
         /// <returns>
@@ -1975,7 +1975,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Collect a pending or past due, automatic invoice <see href="https://developers.recurly.com/api/v2019-10-10#operation/collect_invoice">collect_invoice api documentation</see>
+        /// Collect a pending or past due, automatic invoice <see href="https://developers.recurly.com/api/v2020-01-01#operation/collect_invoice">collect_invoice api documentation</see>
         /// </summary>
         /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
         /// <returns>
@@ -1992,7 +1992,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Mark an open invoice as failed <see href="https://developers.recurly.com/api/v2019-10-10#operation/fail_invoice">fail_invoice api documentation</see>
+        /// Mark an open invoice as failed <see href="https://developers.recurly.com/api/v2020-01-01#operation/fail_invoice">fail_invoice api documentation</see>
         /// </summary>
         /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
         /// <returns>
@@ -2009,7 +2009,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Mark an open invoice as failed <see href="https://developers.recurly.com/api/v2019-10-10#operation/fail_invoice">fail_invoice api documentation</see>
+        /// Mark an open invoice as failed <see href="https://developers.recurly.com/api/v2020-01-01#operation/fail_invoice">fail_invoice api documentation</see>
         /// </summary>
         /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
         /// <returns>
@@ -2128,7 +2128,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Record an external payment for a manual invoices. <see href="https://developers.recurly.com/api/v2019-10-10#operation/record_external_transaction">record_external_transaction api documentation</see>
+        /// Record an external payment for a manual invoices. <see href="https://developers.recurly.com/api/v2020-01-01#operation/record_external_transaction">record_external_transaction api documentation</see>
         /// </summary>
         /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
         /// <param name="body">The body of the request.</param>
@@ -2146,7 +2146,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Record an external payment for a manual invoices. <see href="https://developers.recurly.com/api/v2019-10-10#operation/record_external_transaction">record_external_transaction api documentation</see>
+        /// Record an external payment for a manual invoices. <see href="https://developers.recurly.com/api/v2020-01-01#operation/record_external_transaction">record_external_transaction api documentation</see>
         /// </summary>
         /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
         /// <param name="body">The body of the request.</param>
@@ -2179,7 +2179,7 @@ namespace Recurly
         /// <returns>
         /// A list of the invoice's line items.
         /// </returns>
-        public Pager<LineItem> ListInvoiceLineItems(string invoiceId, string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string original = null, string state = null, string type = null, RequestOptions options = null)
+        public Pager<LineItem> ListInvoiceLineItems(string invoiceId, string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.True? original = null, Constants.LineItemState? state = null, Constants.LintItemType? type = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "invoice_id", invoiceId } };
             var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "original", original }, { "state", state }, { "type", type } };
@@ -2202,7 +2202,7 @@ namespace Recurly
         /// <returns>
         /// A list of the the coupon redemptions associated with the invoice.
         /// </returns>
-        public Pager<CouponRedemption> ListInvoiceCouponRedemptions(string invoiceId, string ids = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, RequestOptions options = null)
+        public Pager<CouponRedemption> ListInvoiceCouponRedemptions(string invoiceId, string ids = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "invoice_id", invoiceId } };
             var queryParams = new Dictionary<string, object> { { "ids", ids }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime } };
@@ -2283,7 +2283,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's line items.
         /// </returns>
-        public Pager<LineItem> ListLineItems(string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string original = null, string state = null, string type = null, RequestOptions options = null)
+        public Pager<LineItem> ListLineItems(string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.True? original = null, Constants.LineItemState? state = null, Constants.LintItemType? type = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
             var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "original", original }, { "state", state }, { "type", type } };
@@ -2376,7 +2376,7 @@ namespace Recurly
         /// <returns>
         /// A list of plans.
         /// </returns>
-        public Pager<Plan> ListPlans(string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string state = null, RequestOptions options = null)
+        public Pager<Plan> ListPlans(string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.ActiveState? state = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
             var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "state", state } };
@@ -2540,7 +2540,7 @@ namespace Recurly
         /// <returns>
         /// A list of add-ons.
         /// </returns>
-        public Pager<AddOn> ListPlanAddOns(string planId, string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string state = null, RequestOptions options = null)
+        public Pager<AddOn> ListPlanAddOns(string planId, string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.ActiveState? state = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "plan_id", planId } };
             var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "state", state } };
@@ -2711,7 +2711,7 @@ namespace Recurly
         /// <returns>
         /// A list of add-ons.
         /// </returns>
-        public Pager<AddOn> ListAddOns(string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string state = null, RequestOptions options = null)
+        public Pager<AddOn> ListAddOns(string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.ActiveState? state = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
             var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "state", state } };
@@ -2769,7 +2769,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's shipping methods.
         /// </returns>
-        public Pager<ShippingMethod> ListShippingMethods(string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, RequestOptions options = null)
+        public Pager<ShippingMethod> ListShippingMethods(string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
             var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime } };
@@ -2782,7 +2782,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create a new shipping method <see href="https://developers.recurly.com/api/v2019-10-10#operation/create_shipping_method">create_shipping_method api documentation</see>
+        /// Create a new shipping method <see href="https://developers.recurly.com/api/v2020-01-01#operation/create_shipping_method">create_shipping_method api documentation</see>
         /// </summary>
         /// <param name="body">The body of the request.</param>
         /// <returns>
@@ -2799,7 +2799,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create a new shipping method <see href="https://developers.recurly.com/api/v2019-10-10#operation/create_shipping_method">create_shipping_method api documentation</see>
+        /// Create a new shipping method <see href="https://developers.recurly.com/api/v2020-01-01#operation/create_shipping_method">create_shipping_method api documentation</see>
         /// </summary>
         /// <param name="body">The body of the request.</param>
         /// <returns>
@@ -2818,15 +2818,15 @@ namespace Recurly
         /// <summary>
         /// Fetch a shipping method <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_shipping_method">get_shipping_method api documentation</see>
         /// </summary>
-        /// <param name="id">Shipping Method ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-usps_2-day`.</param>
+        /// <param name="shippingMethodId">Shipping Method ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-usps_2-day`.</param>
         /// <returns>
         /// A shipping method.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public ShippingMethod GetShippingMethod(string id, RequestOptions options = null)
+        public ShippingMethod GetShippingMethod(string shippingMethodId, RequestOptions options = null)
         {
-            var urlParams = new Dictionary<string, object> { { "id", id } };
-            var url = this.InterpolatePath("/shipping_methods/{id}", urlParams);
+            var urlParams = new Dictionary<string, object> { { "shipping_method_id", shippingMethodId } };
+            var url = this.InterpolatePath("/shipping_methods/{shipping_method_id}", urlParams);
             return MakeRequest<ShippingMethod>(Method.GET, url, null, null, options);
         }
 
@@ -2835,22 +2835,22 @@ namespace Recurly
         /// <summary>
         /// Fetch a shipping method <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_shipping_method">get_shipping_method api documentation</see>
         /// </summary>
-        /// <param name="id">Shipping Method ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-usps_2-day`.</param>
+        /// <param name="shippingMethodId">Shipping Method ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-usps_2-day`.</param>
         /// <returns>
         /// A shipping method.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public Task<ShippingMethod> GetShippingMethodAsync(string id, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        public Task<ShippingMethod> GetShippingMethodAsync(string shippingMethodId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
         {
-            var urlParams = new Dictionary<string, object> { { "id", id } };
-            var url = this.InterpolatePath("/shipping_methods/{id}", urlParams);
+            var urlParams = new Dictionary<string, object> { { "shipping_method_id", shippingMethodId } };
+            var url = this.InterpolatePath("/shipping_methods/{shipping_method_id}", urlParams);
             return MakeRequestAsync<ShippingMethod>(Method.GET, url, null, null, options, cancellationToken);
         }
 
 
 
         /// <summary>
-        /// Update an active Shipping Method <see href="https://developers.recurly.com/api/v2019-10-10#operation/update_shipping_method">update_shipping_method api documentation</see>
+        /// Update an active Shipping Method <see href="https://developers.recurly.com/api/v2020-01-01#operation/update_shipping_method">update_shipping_method api documentation</see>
         /// </summary>
         /// <param name="shippingMethodId">Shipping Method ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-usps_2-day`.</param>
         /// <param name="body">The body of the request.</param>
@@ -2868,7 +2868,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update an active Shipping Method <see href="https://developers.recurly.com/api/v2019-10-10#operation/update_shipping_method">update_shipping_method api documentation</see>
+        /// Update an active Shipping Method <see href="https://developers.recurly.com/api/v2020-01-01#operation/update_shipping_method">update_shipping_method api documentation</see>
         /// </summary>
         /// <param name="shippingMethodId">Shipping Method ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-usps_2-day`.</param>
         /// <param name="body">The body of the request.</param>
@@ -2886,7 +2886,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Deactivate a shipping method <see href="https://developers.recurly.com/api/v2019-10-10#operation/deactivate_shipping_method">deactivate_shipping_method api documentation</see>
+        /// Deactivate a shipping method <see href="https://developers.recurly.com/api/v2020-01-01#operation/deactivate_shipping_method">deactivate_shipping_method api documentation</see>
         /// </summary>
         /// <param name="shippingMethodId">Shipping Method ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-usps_2-day`.</param>
         /// <returns>
@@ -2903,7 +2903,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Deactivate a shipping method <see href="https://developers.recurly.com/api/v2019-10-10#operation/deactivate_shipping_method">deactivate_shipping_method api documentation</see>
+        /// Deactivate a shipping method <see href="https://developers.recurly.com/api/v2020-01-01#operation/deactivate_shipping_method">deactivate_shipping_method api documentation</see>
         /// </summary>
         /// <param name="shippingMethodId">Shipping Method ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-usps_2-day`.</param>
         /// <returns>
@@ -2932,7 +2932,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's subscriptions.
         /// </returns>
-        public Pager<Subscription> ListSubscriptions(string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string state = null, RequestOptions options = null)
+        public Pager<Subscription> ListSubscriptions(string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.FilterSubscriptionState? state = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
             var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "state", state } };
@@ -3057,7 +3057,7 @@ namespace Recurly
         /// An expired subscription.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public Subscription TerminateSubscription(string subscriptionId, string refund = null, RequestOptions options = null)
+        public Subscription TerminateSubscription(string subscriptionId, Constants.RefundType? refund = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
             var queryParams = new Dictionary<string, object> { { "refund", refund } };
@@ -3076,7 +3076,7 @@ namespace Recurly
         /// An expired subscription.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public Task<Subscription> TerminateSubscriptionAsync(string subscriptionId, string refund = null, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        public Task<Subscription> TerminateSubscriptionAsync(string subscriptionId, Constants.RefundType? refund = null, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
             var queryParams = new Dictionary<string, object> { { "refund", refund } };
@@ -3094,7 +3094,7 @@ namespace Recurly
         /// A canceled or failed subscription.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public Subscription CancelSubscription(string subscriptionId, SubscriptionCancel body = null)
+        public Subscription CancelSubscription(string subscriptionId, SubscriptionCancel body = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
             var url = this.InterpolatePath("/subscriptions/{subscription_id}/cancel", urlParams);
@@ -3111,7 +3111,7 @@ namespace Recurly
         /// A canceled or failed subscription.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public Task<Subscription> CancelSubscriptionAsync(string subscriptionId, SubscriptionCancel body = null, CancellationToken cancellationToken = default(CancellationToken))
+        public Task<Subscription> CancelSubscriptionAsync(string subscriptionId, SubscriptionCancel body = null, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
             var url = this.InterpolatePath("/subscriptions/{subscription_id}/cancel", urlParams);
@@ -3225,7 +3225,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Convert trial subscription <see href="https://developers.recurly.com/api/v2019-10-10#operation/convert_trial">convert_trial api documentation</see>
+        /// Convert trial subscription <see href="https://developers.recurly.com/api/v2020-01-01#operation/convert_trial">convert_trial api documentation</see>
         /// </summary>
         /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
         /// <returns>
@@ -3242,7 +3242,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Convert trial subscription <see href="https://developers.recurly.com/api/v2019-10-10#operation/convert_trial">convert_trial api documentation</see>
+        /// Convert trial subscription <see href="https://developers.recurly.com/api/v2020-01-01#operation/convert_trial">convert_trial api documentation</see>
         /// </summary>
         /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
         /// <returns>
@@ -3363,7 +3363,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Preview a new subscription change <see href="https://developers.recurly.com/api/v2019-10-10#operation/preview_subscription_change">preview_subscription_change api documentation</see>
+        /// Preview a new subscription change <see href="https://developers.recurly.com/api/v2020-01-01#operation/preview_subscription_change">preview_subscription_change api documentation</see>
         /// </summary>
         /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
         /// <param name="body">The body of the request.</param>
@@ -3371,17 +3371,17 @@ namespace Recurly
         /// A subscription change.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public SubscriptionChangePreview PreviewSubscriptionChange(string subscriptionId, SubscriptionChangeCreate body, RequestOptions options = null)
+        public SubscriptionChange PreviewSubscriptionChange(string subscriptionId, SubscriptionChangeCreate body, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
             var url = this.InterpolatePath("/subscriptions/{subscription_id}/change/preview", urlParams);
-            return MakeRequest<SubscriptionChangePreview>(Method.POST, url, body, null, options);
+            return MakeRequest<SubscriptionChange>(Method.POST, url, body, null, options);
         }
 
 
 
         /// <summary>
-        /// Preview a new subscription change <see href="https://developers.recurly.com/api/v2019-10-10#operation/preview_subscription_change">preview_subscription_change api documentation</see>
+        /// Preview a new subscription change <see href="https://developers.recurly.com/api/v2020-01-01#operation/preview_subscription_change">preview_subscription_change api documentation</see>
         /// </summary>
         /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
         /// <param name="body">The body of the request.</param>
@@ -3389,11 +3389,11 @@ namespace Recurly
         /// A subscription change.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public Task<SubscriptionChangePreview> PreviewSubscriptionChangeAsync(string subscriptionId, SubscriptionChangeCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        public Task<SubscriptionChange> PreviewSubscriptionChangeAsync(string subscriptionId, SubscriptionChangeCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
             var url = this.InterpolatePath("/subscriptions/{subscription_id}/change/preview", urlParams);
-            return MakeRequestAsync<SubscriptionChangePreview>(Method.POST, url, body, null, options, cancellationToken);
+            return MakeRequestAsync<SubscriptionChange>(Method.POST, url, body, null, options, cancellationToken);
         }
 
 
@@ -3412,7 +3412,7 @@ namespace Recurly
         /// <returns>
         /// A list of the subscription's invoices.
         /// </returns>
-        public Pager<Invoice> ListSubscriptionInvoices(string subscriptionId, string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string type = null, RequestOptions options = null)
+        public Pager<Invoice> ListSubscriptionInvoices(string subscriptionId, string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.FilterInvoiceType? type = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
             var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "type", type } };
@@ -3440,7 +3440,7 @@ namespace Recurly
         /// <returns>
         /// A list of the subscription's line items.
         /// </returns>
-        public Pager<LineItem> ListSubscriptionLineItems(string subscriptionId, string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string original = null, string state = null, string type = null, RequestOptions options = null)
+        public Pager<LineItem> ListSubscriptionLineItems(string subscriptionId, string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.True? original = null, Constants.LineItemState? state = null, Constants.LintItemType? type = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
             var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "original", original }, { "state", state }, { "type", type } };
@@ -3463,7 +3463,7 @@ namespace Recurly
         /// <returns>
         /// A list of the the coupon redemptions on a subscription.
         /// </returns>
-        public Pager<CouponRedemption> ListSubscriptionCouponRedemptions(string subscriptionId, string ids = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, RequestOptions options = null)
+        public Pager<CouponRedemption> ListSubscriptionCouponRedemptions(string subscriptionId, string ids = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
             var queryParams = new Dictionary<string, object> { { "ids", ids }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime } };
@@ -3472,6 +3472,175 @@ namespace Recurly
         }
 
 
+
+
+
+        /// <summary>
+        /// List a subscription add-on's usage records <see href="https://developers.recurly.com/api/v2020-01-01#operation/list_usage">list_usage api documentation</see>
+        /// </summary>
+        /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
+        /// <param name="addOnId">Add-on ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-gold`.</param>
+        /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
+        /// <param name="limit">Limit number of records 1-200.</param>
+        /// <param name="order">Sort order.</param>
+        /// <param name="sort">Sort field. You *really* only want to sort by `usage_timestamp` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
+        /// <param name="beginTime">Inclusively filter by begin_time when `sort=usage_timestamp` or `sort=recorded_timestamp`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
+        /// <param name="endTime">Inclusively filter by end_time when `sort=usage_timestamp` or `sort=recorded_timestamp`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
+        /// <param name="billingStatus">Filter by usage record's billing status</param>
+        /// <returns>
+        /// A list of the subscription add-on's usage records.
+        /// </returns>
+        public Pager<Usage> ListUsage(string subscriptionId, string addOnId, string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.UsageSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.BillingStatus? billingStatus = null, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId }, { "add_on_id", addOnId } };
+            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "billing_status", billingStatus } };
+            var url = this.InterpolatePath("/subscriptions/{subscription_id}/add_ons/{add_on_id}/usage", urlParams);
+            return Pager<Usage>.Build(url, queryParams, options, this);
+        }
+
+
+
+
+
+        /// <summary>
+        /// Log a usage record on this subscription add-on <see href="https://developers.recurly.com/api/v2020-01-01#operation/create_usage">create_usage api documentation</see>
+        /// </summary>
+        /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
+        /// <param name="addOnId">Add-on ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-gold`.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// The created usage record.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Usage CreateUsage(string subscriptionId, string addOnId, UsageCreate body, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId }, { "add_on_id", addOnId } };
+            var url = this.InterpolatePath("/subscriptions/{subscription_id}/add_ons/{add_on_id}/usage", urlParams);
+            return MakeRequest<Usage>(Method.POST, url, body, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Log a usage record on this subscription add-on <see href="https://developers.recurly.com/api/v2020-01-01#operation/create_usage">create_usage api documentation</see>
+        /// </summary>
+        /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
+        /// <param name="addOnId">Add-on ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-gold`.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// The created usage record.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<Usage> CreateUsageAsync(string subscriptionId, string addOnId, UsageCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId }, { "add_on_id", addOnId } };
+            var url = this.InterpolatePath("/subscriptions/{subscription_id}/add_ons/{add_on_id}/usage", urlParams);
+            return MakeRequestAsync<Usage>(Method.POST, url, body, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// Get a usage record <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_usage">get_usage api documentation</see>
+        /// </summary>
+        /// <param name="usageId">Usage Record ID.</param>
+        /// <returns>
+        /// The usage record.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Usage GetUsage(string usageId, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "usage_id", usageId } };
+            var url = this.InterpolatePath("/usage/{usage_id}", urlParams);
+            return MakeRequest<Usage>(Method.GET, url, null, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Get a usage record <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_usage">get_usage api documentation</see>
+        /// </summary>
+        /// <param name="usageId">Usage Record ID.</param>
+        /// <returns>
+        /// The usage record.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<Usage> GetUsageAsync(string usageId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "usage_id", usageId } };
+            var url = this.InterpolatePath("/usage/{usage_id}", urlParams);
+            return MakeRequestAsync<Usage>(Method.GET, url, null, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// Update a usage record <see href="https://developers.recurly.com/api/v2020-01-01#operation/update_usage">update_usage api documentation</see>
+        /// </summary>
+        /// <param name="usageId">Usage Record ID.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// The updated usage record.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Usage UpdateUsage(string usageId, UsageCreate body, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "usage_id", usageId } };
+            var url = this.InterpolatePath("/usage/{usage_id}", urlParams);
+            return MakeRequest<Usage>(Method.PUT, url, body, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Update a usage record <see href="https://developers.recurly.com/api/v2020-01-01#operation/update_usage">update_usage api documentation</see>
+        /// </summary>
+        /// <param name="usageId">Usage Record ID.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// The updated usage record.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<Usage> UpdateUsageAsync(string usageId, UsageCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "usage_id", usageId } };
+            var url = this.InterpolatePath("/usage/{usage_id}", urlParams);
+            return MakeRequestAsync<Usage>(Method.PUT, url, body, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// Delete a usage record. <see href="https://developers.recurly.com/api/v2020-01-01#operation/remove_usage">remove_usage api documentation</see>
+        /// </summary>
+        /// <param name="usageId">Usage Record ID.</param>
+        /// <returns>
+        /// Usage was successfully deleted.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public void RemoveUsage(string usageId, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "usage_id", usageId } };
+            var url = this.InterpolatePath("/usage/{usage_id}", urlParams);
+            MakeRequest<EmptyResource>(Method.DELETE, url, null, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Delete a usage record. <see href="https://developers.recurly.com/api/v2020-01-01#operation/remove_usage">remove_usage api documentation</see>
+        /// </summary>
+        /// <param name="usageId">Usage Record ID.</param>
+        /// <returns>
+        /// Usage was successfully deleted.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<EmptyResource> RemoveUsageAsync(string usageId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "usage_id", usageId } };
+            var url = this.InterpolatePath("/usage/{usage_id}", urlParams);
+            return MakeRequestAsync<EmptyResource>(Method.DELETE, url, null, null, options, cancellationToken);
+        }
 
 
 
@@ -3489,7 +3658,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's transactions.
         /// </returns>
-        public Pager<Transaction> ListTransactions(string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string type = null, string success = null, RequestOptions options = null)
+        public Pager<Transaction> ListTransactions(string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.FilterTransactionType? type = null, Constants.True? success = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
             var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "type", type }, { "success", success } };

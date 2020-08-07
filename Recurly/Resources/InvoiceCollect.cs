@@ -21,7 +21,8 @@ namespace Recurly.Resources
 
         /// <value>An optional type designation for the payment gateway transaction created by this request. Supports 'moto' value, which is the acronym for mail order and telephone transactions.</value>
         [JsonProperty("transaction_type")]
-        public string TransactionType { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.GatewayTransactionType? TransactionType { get; set; }
 
     }
 }

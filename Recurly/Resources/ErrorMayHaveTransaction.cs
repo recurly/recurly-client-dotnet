@@ -29,7 +29,8 @@ namespace Recurly.Resources
 
         /// <value>Type</value>
         [JsonProperty("type")]
-        public string Type { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.ErrorType? Type { get; set; }
 
     }
 }

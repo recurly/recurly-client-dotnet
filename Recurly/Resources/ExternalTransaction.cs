@@ -27,9 +27,10 @@ namespace Recurly.Resources
         [JsonProperty("description")]
         public string Description { get; set; }
 
-        /// <value>Payment method used for the external transaction.</value>
+        /// <value>Payment method used for external transaction.</value>
         [JsonProperty("payment_method")]
-        public string PaymentMethod { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.ExternalPaymentMethod? PaymentMethod { get; set; }
 
     }
 }

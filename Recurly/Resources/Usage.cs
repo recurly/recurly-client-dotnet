@@ -52,7 +52,8 @@ namespace Recurly.Resources
         /// [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based).
         /// </value>
         [JsonProperty("tier_type")]
-        public string TierType { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.TierType? TierType { get; set; }
 
         /// <value>The tiers and prices of the subscription based on the usage_timestamp. If tier_type = flat, tiers = null</value>
         [JsonProperty("tiers")]
@@ -68,7 +69,8 @@ namespace Recurly.Resources
 
         /// <value>Type of usage, returns usage type if `add_on_type` is `usage`.</value>
         [JsonProperty("usage_type")]
-        public string UsageType { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.UsageType? UsageType { get; set; }
 
     }
 }

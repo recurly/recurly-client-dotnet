@@ -21,7 +21,8 @@ namespace Recurly.Resources
 
         /// <value>The reason the credit was given when line item is `type=credit`. When the Credit Invoices feature is enabled, the value can be set and will default to `general`. When the Credit Invoices feature is not enabled, the value will always be `null`.</value>
         [JsonProperty("credit_reason_code")]
-        public string CreditReasonCode { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.PartialCreditReasonCode? CreditReasonCode { get; set; }
 
         /// <value>3-letter ISO 4217 currency code. If `item_code`/`item_id` is part of the request then `currency` is optional, if the site has a single default currency. `currency` is required if `item_code`/`item_id` is present, and there are multiple currencies defined on the site. If `item_code`/`item_id` is not present `currency` is required.</value>
         [JsonProperty("currency")]
@@ -35,7 +36,7 @@ namespace Recurly.Resources
         [JsonProperty("end_date")]
         public DateTime? EndDate { get; set; }
 
-        /// <value>Unique code to identify an item. Avaliable when the Credit Invoices and Subscription Billing Terms features are enabled.</value>
+        /// <value>Unique code to identify an item. Available when the Credit Invoices and Subscription Billing Terms features are enabled.</value>
         [JsonProperty("item_code")]
         public string ItemCode { get; set; }
 
@@ -45,7 +46,8 @@ namespace Recurly.Resources
 
         /// <value>Only allowed if the Gift Cards feature is enabled on your site and `type` is `credit`. Can only have a value of `external_gift_card`. Set this value in order to track gift card credits from external gift cards (like InComm). It also skips billing information requirements.</value>
         [JsonProperty("origin")]
-        public string Origin { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.GiftCodeOrigin? Origin { get; set; }
 
         /// <value>Optional field to track a product code or SKU for the line item. This can be used to later reporting on product purchases. For Vertex tax calculations, this field will be used as the Vertex `product` field. If `item_code`/`item_id` is part of the request then `product_code` must be absent.</value>
         [JsonProperty("product_code")]
@@ -57,7 +59,8 @@ namespace Recurly.Resources
 
         /// <value>Revenue schedule type</value>
         [JsonProperty("revenue_schedule_type")]
-        public string RevenueScheduleType { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.LineItemRevenueScheduleType? RevenueScheduleType { get; set; }
 
         /// <value>If an end date is present, this is value indicates the beginning of a billing time range. If no end date is present it indicates billing for a specific date. Defaults to the current date-time.</value>
         [JsonProperty("start_date")]
@@ -73,13 +76,14 @@ namespace Recurly.Resources
 
         /// <value>Line item type. If `item_code`/`item_id` is present then `type` should not be present. If `item_code`/`item_id` is not present then `type` is required.</value>
         [JsonProperty("type")]
-        public string Type { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.LintItemType? Type { get; set; }
 
         /// <value>
         /// A positive or negative amount with `type=charge` will result in a positive `unit_amount`.
         /// A positive or negative amount with `type=credit` will result in a negative `unit_amount`.
-        /// If `item_code`/`item_id` is present, `unit_amount` can be passed in, to override the `Item`'s
-        /// `unit_amount`. If `item_code`/`item_id` is not present then `unit_amount` is required.
+        /// If `item_code`/`item_id` is present, `unit_amount` can be passed in, to override the
+        /// `Item`'s `unit_amount`. If `item_code`/`item_id` is not present then `unit_amount` is required.
         /// </value>
         [JsonProperty("unit_amount")]
         public float? UnitAmount { get; set; }

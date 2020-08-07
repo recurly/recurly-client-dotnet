@@ -41,7 +41,8 @@ namespace Recurly.Resources
 
         /// <value>Related Recurly object type</value>
         [JsonProperty("related_type")]
-        public string RelatedType { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.RelatedType? RelatedType { get; set; }
 
         /// <value>Displayed as a tooltip when editing the field in the Recurly admin UI.</value>
         [JsonProperty("tooltip")]
@@ -59,7 +60,8 @@ namespace Recurly.Resources
         /// - `write` - Users with the Customers role will be able to view and edit this field's data via the admin UI.
         /// </value>
         [JsonProperty("user_access")]
-        public string UserAccess { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.UserAccess? UserAccess { get; set; }
 
     }
 }

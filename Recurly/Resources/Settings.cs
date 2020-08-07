@@ -26,7 +26,8 @@ namespace Recurly.Resources
         /// - none:      No Address
         /// </value>
         [JsonProperty("billing_address_requirement")]
-        public string BillingAddressRequirement { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.AddressRequirement? BillingAddressRequirement { get; set; }
 
         /// <value>The default 3-letter ISO 4217 currency code.</value>
         [JsonProperty("default_currency")]

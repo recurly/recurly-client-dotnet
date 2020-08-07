@@ -21,7 +21,8 @@ namespace Recurly.Resources
 
         /// <value>The channel through which the account was acquired.</value>
         [JsonProperty("channel")]
-        public string Channel { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.Channel? Channel { get; set; }
 
         /// <value>Account balance</value>
         [JsonProperty("cost")]

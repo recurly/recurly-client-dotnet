@@ -18,88 +18,88 @@ namespace Recurly.Errors
         {
             switch (err.Type)
             {
-                case "bad_request":
+                case Constants.ErrorType.BadRequest:
                     return new BadRequest(err.Message)
                     {
                         Error = err
                     };
-                case "internal_server_error":
-                    return new InternalServer(err.Message)
-                    {
-                        Error = err
-                    };
-                case "immutable_subscription":
+                case Constants.ErrorType.ImmutableSubscription:
                     return new ImmutableSubscription(err.Message)
                     {
                         Error = err
                     };
-                case "invalid_api_key":
+                case Constants.ErrorType.InternalServerError:
+                    return new InternalServer(err.Message)
+                    {
+                        Error = err
+                    };
+                case Constants.ErrorType.InvalidApiKey:
                     return new InvalidApiKey(err.Message)
                     {
                         Error = err
                     };
-                case "invalid_api_version":
+                case Constants.ErrorType.InvalidApiVersion:
                     return new InvalidApiVersion(err.Message)
                     {
                         Error = err
                     };
-                case "invalid_content_type":
+                case Constants.ErrorType.InvalidContentType:
                     return new InvalidContentType(err.Message)
                     {
                         Error = err
                     };
-                case "invalid_permissions":
+                case Constants.ErrorType.InvalidPermissions:
                     return new InvalidPermissions(err.Message)
                     {
                         Error = err
                     };
-                case "invalid_token":
+                case Constants.ErrorType.InvalidToken:
                     return new InvalidToken(err.Message)
                     {
                         Error = err
                     };
-                case "not_found":
-                    return new NotFound(err.Message)
-                    {
-                        Error = err
-                    };
-                case "simultaneous_request":
-                    return new SimultaneousRequest(err.Message)
-                    {
-                        Error = err
-                    };
-                case "transaction":
-                    return new Transaction(err.Message)
-                    {
-                        Error = err
-                    };
-                case "unauthorized":
-                    return new Unauthorized(err.Message)
-                    {
-                        Error = err
-                    };
-                case "unavailable_in_api_version":
-                    return new UnavailableInApiVersion(err.Message)
-                    {
-                        Error = err
-                    };
-                case "unknown_api_version":
-                    return new UnknownApiVersion(err.Message)
-                    {
-                        Error = err
-                    };
-                case "validation":
-                    return new Validation(err.Message)
-                    {
-                        Error = err
-                    };
-                case "missing_feature":
+                case Constants.ErrorType.MissingFeature:
                     return new MissingFeature(err.Message)
                     {
                         Error = err
                     };
-                case "rate_limited":
+                case Constants.ErrorType.NotFound:
+                    return new NotFound(err.Message)
+                    {
+                        Error = err
+                    };
+                case Constants.ErrorType.RateLimited:
                     return new RateLimited(err.Message)
+                    {
+                        Error = err
+                    };
+                case Constants.ErrorType.SimultaneousRequest:
+                    return new SimultaneousRequest(err.Message)
+                    {
+                        Error = err
+                    };
+                case Constants.ErrorType.Transaction:
+                    return new Transaction(err.Message)
+                    {
+                        Error = err
+                    };
+                case Constants.ErrorType.Unauthorized:
+                    return new Unauthorized(err.Message)
+                    {
+                        Error = err
+                    };
+                case Constants.ErrorType.UnavailableInApiVersion:
+                    return new UnavailableInApiVersion(err.Message)
+                    {
+                        Error = err
+                    };
+                case Constants.ErrorType.UnknownApiVersion:
+                    return new UnknownApiVersion(err.Message)
+                    {
+                        Error = err
+                    };
+                case Constants.ErrorType.Validation:
+                    return new Validation(err.Message)
                     {
                         Error = err
                     };
@@ -129,18 +129,18 @@ namespace Recurly.Errors
         public BadRequest(string message, Exception inner) : base(message, inner) { }
     }
     [ExcludeFromCodeCoverage]
-    public class InternalServer : ApiError
-    {
-        public InternalServer() { }
-        public InternalServer(string message) : base(message) { }
-        public InternalServer(string message, Exception inner) : base(message, inner) { }
-    }
-    [ExcludeFromCodeCoverage]
     public class ImmutableSubscription : ApiError
     {
         public ImmutableSubscription() { }
         public ImmutableSubscription(string message) : base(message) { }
         public ImmutableSubscription(string message, Exception inner) : base(message, inner) { }
+    }
+    [ExcludeFromCodeCoverage]
+    public class InternalServer : ApiError
+    {
+        public InternalServer() { }
+        public InternalServer(string message) : base(message) { }
+        public InternalServer(string message, Exception inner) : base(message, inner) { }
     }
     [ExcludeFromCodeCoverage]
     public class InvalidApiKey : ApiError
@@ -178,11 +178,25 @@ namespace Recurly.Errors
         public InvalidToken(string message, Exception inner) : base(message, inner) { }
     }
     [ExcludeFromCodeCoverage]
+    public class MissingFeature : ApiError
+    {
+        public MissingFeature() { }
+        public MissingFeature(string message) : base(message) { }
+        public MissingFeature(string message, Exception inner) : base(message, inner) { }
+    }
+    [ExcludeFromCodeCoverage]
     public class NotFound : ApiError
     {
         public NotFound() { }
         public NotFound(string message) : base(message) { }
         public NotFound(string message, Exception inner) : base(message, inner) { }
+    }
+    [ExcludeFromCodeCoverage]
+    public class RateLimited : ApiError
+    {
+        public RateLimited() { }
+        public RateLimited(string message) : base(message) { }
+        public RateLimited(string message, Exception inner) : base(message, inner) { }
     }
     [ExcludeFromCodeCoverage]
     public class SimultaneousRequest : ApiError
@@ -225,19 +239,5 @@ namespace Recurly.Errors
         public Validation() { }
         public Validation(string message) : base(message) { }
         public Validation(string message, Exception inner) : base(message, inner) { }
-    }
-    [ExcludeFromCodeCoverage]
-    public class MissingFeature : ApiError
-    {
-        public MissingFeature() { }
-        public MissingFeature(string message) : base(message) { }
-        public MissingFeature(string message, Exception inner) : base(message, inner) { }
-    }
-    [ExcludeFromCodeCoverage]
-    public class RateLimited : ApiError
-    {
-        public RateLimited() { }
-        public RateLimited(string message) : base(message) { }
-        public RateLimited(string message, Exception inner) : base(message, inner) { }
     }
 }

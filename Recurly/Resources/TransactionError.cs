@@ -17,11 +17,13 @@ namespace Recurly.Resources
 
         /// <value>Category</value>
         [JsonProperty("category")]
-        public string Category { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.ErrorCategory? Category { get; set; }
 
         /// <value>Code</value>
         [JsonProperty("code")]
-        public string Code { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.ErrorCode? Code { get; set; }
 
         /// <value>Merchant message</value>
         [JsonProperty("merchant_advice")]
@@ -30,6 +32,10 @@ namespace Recurly.Resources
         /// <value>Customer message</value>
         [JsonProperty("message")]
         public string Message { get; set; }
+
+        /// <value>Object type</value>
+        [JsonProperty("object")]
+        public string Object { get; set; }
 
         /// <value>Returned when 3-D Secure authentication is required for a transaction. Pass this value to Recurly.js so it can continue the challenge flow.</value>
         [JsonProperty("three_d_secure_action_token_id")]

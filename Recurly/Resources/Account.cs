@@ -21,7 +21,8 @@ namespace Recurly.Resources
 
         /// <value>An enumerable describing the billing behavior of the account, specifically whether the account is self-paying or will rely on the parent account to pay.</value>
         [JsonProperty("bill_to")]
-        public string BillTo { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.BillTo? BillTo { get; set; }
 
 
         [JsonProperty("billing_info")]
@@ -109,7 +110,8 @@ namespace Recurly.Resources
 
         /// <value>Used to determine the language and locale of emails sent on behalf of the merchant to the customer.</value>
         [JsonProperty("preferred_locale")]
-        public string PreferredLocale { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.PreferredLocale? PreferredLocale { get; set; }
 
         /// <value>The shipping addresses on the account.</value>
         [JsonProperty("shipping_addresses")]
@@ -117,7 +119,8 @@ namespace Recurly.Resources
 
         /// <value>Accounts can be either active or inactive.</value>
         [JsonProperty("state")]
-        public string State { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.ActiveState? State { get; set; }
 
         /// <value>The tax status of the account. `true` exempts tax on the account, `false` applies tax on the account.</value>
         [JsonProperty("tax_exempt")]

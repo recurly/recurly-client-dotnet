@@ -25,7 +25,8 @@ namespace Recurly.Resources
 
         /// <value>An enumerable describing the billing behavior of the account, specifically whether the account is self-paying or will rely on the parent account to pay.</value>
         [JsonProperty("bill_to")]
-        public string BillTo { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.BillTo? BillTo { get; set; }
 
 
         [JsonProperty("billing_info")]
@@ -73,7 +74,8 @@ namespace Recurly.Resources
 
         /// <value>Used to determine the language and locale of emails sent on behalf of the merchant to the customer. The list of locales is restricted to those the merchant has enabled on the site.</value>
         [JsonProperty("preferred_locale")]
-        public string PreferredLocale { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.PreferredLocale? PreferredLocale { get; set; }
 
 
         [JsonProperty("shipping_addresses")]
@@ -85,7 +87,8 @@ namespace Recurly.Resources
 
         /// <value>An optional type designation for the payment gateway transaction created by this request. Supports 'moto' value, which is the acronym for mail order and telephone transactions.</value>
         [JsonProperty("transaction_type")]
-        public string TransactionType { get; set; }
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.GatewayTransactionType? TransactionType { get; set; }
 
         /// <value>A secondary value for the account.</value>
         [JsonProperty("username")]
