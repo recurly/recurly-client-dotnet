@@ -10,8 +10,8 @@ namespace Recurly.Tests
         [JsonProperty("my_string")]
         public string MyString { get; set; }
 
-        [JsonProperty("my_float")]
-        public float? MyFloat { get; set; }
+        [JsonProperty("my_decimal")]
+        public decimal? MyDecimal { get; set; }
 
         [JsonProperty("my_int")]
         public int? MyInt { get; set; }

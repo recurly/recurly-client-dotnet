@@ -26,7 +26,7 @@ namespace Recurly.Resources
 
         /// <value>Total credit payment amount applied to the charge invoice.</value>
         [JsonProperty("amount")]
-        public float? Amount { get; set; }
+        public decimal? Amount { get; set; }
 
         /// <value>Invoice mini details</value>
         [JsonProperty("applied_to_invoice")]

@@ -17,7 +17,7 @@ namespace Recurly.Resources
 
         /// <value>Assigns the subscription's shipping cost. If this is greater than zero then a `method_id` or `method_code` is required.</value>
         [JsonProperty("amount")]
-        public float? Amount { get; set; }
+        public decimal? Amount { get; set; }
 
         /// <value>The code of the shipping method used to deliver the subscription. If `method_id` and `method_code` are both present, `method_id` will be used.</value>
         [JsonProperty("method_code")]

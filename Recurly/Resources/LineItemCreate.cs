@@ -86,7 +86,7 @@ namespace Recurly.Resources
         /// `Item`'s `unit_amount`. If `item_code`/`item_id` is not present then `unit_amount` is required.
         /// </value>
         [JsonProperty("unit_amount")]
-        public float? UnitAmount { get; set; }
+        public decimal? UnitAmount { get; set; }
 
     }
 }

@@ -17,7 +17,7 @@ namespace Recurly.Resources
 
         /// <value>The total amount of the transcaction. Cannot excceed the invoice total.</value>
         [JsonProperty("amount")]
-        public float? Amount { get; set; }
+        public decimal? Amount { get; set; }
 
         /// <value>Datetime that the external payment was collected. Defaults to current datetime.</value>
         [JsonProperty("collected_at")]

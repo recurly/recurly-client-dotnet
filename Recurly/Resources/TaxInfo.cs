@@ -17,7 +17,7 @@ namespace Recurly.Resources
 
         /// <value>Rate</value>
         [JsonProperty("rate")]
-        public float? Rate { get; set; }
+        public decimal? Rate { get; set; }
 
         /// <value>Provides the tax region applied on an invoice. For U.S. Sales Tax, this will be the 2 letter state code. For EU VAT this will be the 2 letter country code. For all country level tax types, this will display the regional tax, like VAT, GST, or PST.</value>
         [JsonProperty("region")]
