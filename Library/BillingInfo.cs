@@ -132,6 +132,16 @@ namespace Recurly
 
         public string TransactionType { get; set; }
 
+        /// <summary>
+        /// Tax identifier is required if adding a billing info that is a consumer card in Brazil.
+        /// </summary>
+        public string TaxIdentifier { get; set; }
+
+        /// <summary>
+        /// This field and a value of 'cpf' are required if adding a billing info that is an elo or hipercard type in Brazil.
+        /// </summary>
+        public string TaxIdentifierType { get; set; }
+
         private string _cardNumber;
 
         /// <summary>
@@ -384,6 +394,14 @@ namespace Recurly
                         Type = reader.ReadElementContentAsString();
                         break;
 
+                    case "tax_identifier":
+                        TaxIdentifier = reader.ReadElementContentAsString();
+                        break;
+
+                    case "tax_identifier_type":
+                        TaxIdentifierType = reader.ReadElementContentAsString();
+                        break;
+
                     case "account_type":
                         var accountType = reader.ReadElementContentAsString();
                         if (!accountType.IsNullOrEmpty())
@@ -430,6 +448,8 @@ namespace Recurly
                 xmlWriter.WriteStringIfValid("phone", PhoneNumber);
                 xmlWriter.WriteStringIfValid("vat_number", VatNumber);
                 xmlWriter.WriteStringIfValid("currency", Currency);
+                xmlWriter.WriteStringIfValid("tax_identifier", TaxIdentifier);
+                xmlWriter.WriteStringIfValid("tax_identifier_type", TaxIdentifierType);
 
                 if (!IpAddress.IsNullOrEmpty())
                     xmlWriter.WriteElementString("ip_address", IpAddress);
