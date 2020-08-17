@@ -322,11 +322,11 @@ namespace Recurly
         /// Acquisition data was succesfully deleted.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public void RemoveAccountAcquisition(string accountId, RequestOptions options = null)
+        public EmptyResource RemoveAccountAcquisition(string accountId, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var url = this.InterpolatePath("/accounts/{account_id}/acquisition", urlParams);
-            MakeRequest<EmptyResource>(Method.DELETE, url, null, null, options);
+            return MakeRequest<EmptyResource>(Method.DELETE, url, null, null, options);
         }
 
 
@@ -494,11 +494,11 @@ namespace Recurly
         /// Billing information deleted
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public void RemoveBillingInfo(string accountId, RequestOptions options = null)
+        public EmptyResource RemoveBillingInfo(string accountId, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var url = this.InterpolatePath("/accounts/{account_id}/billing_info", urlParams);
-            MakeRequest<EmptyResource>(Method.DELETE, url, null, null, options);
+            return MakeRequest<EmptyResource>(Method.DELETE, url, null, null, options);
         }
 
 
@@ -1033,11 +1033,11 @@ namespace Recurly
         /// Shipping address deleted.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public void RemoveShippingAddress(string accountId, string shippingAddressId, RequestOptions options = null)
+        public EmptyResource RemoveShippingAddress(string accountId, string shippingAddressId, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId }, { "shipping_address_id", shippingAddressId } };
             var url = this.InterpolatePath("/accounts/{account_id}/shipping_addresses/{shipping_address_id}", urlParams);
-            MakeRequest<EmptyResource>(Method.DELETE, url, null, null, options);
+            return MakeRequest<EmptyResource>(Method.DELETE, url, null, null, options);
         }
 
 
@@ -2337,11 +2337,11 @@ namespace Recurly
         /// Line item deleted.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public void RemoveLineItem(string lineItemId, RequestOptions options = null)
+        public EmptyResource RemoveLineItem(string lineItemId, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "line_item_id", lineItemId } };
             var url = this.InterpolatePath("/line_items/{line_item_id}", urlParams);
-            MakeRequest<EmptyResource>(Method.DELETE, url, null, null, options);
+            return MakeRequest<EmptyResource>(Method.DELETE, url, null, null, options);
         }
 
 
@@ -3336,11 +3336,11 @@ namespace Recurly
         /// Subscription change was deleted.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public void RemoveSubscriptionChange(string subscriptionId, RequestOptions options = null)
+        public EmptyResource RemoveSubscriptionChange(string subscriptionId, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
             var url = this.InterpolatePath("/subscriptions/{subscription_id}/change", urlParams);
-            MakeRequest<EmptyResource>(Method.DELETE, url, null, null, options);
+            return MakeRequest<EmptyResource>(Method.DELETE, url, null, null, options);
         }
 
 
@@ -3618,11 +3618,11 @@ namespace Recurly
         /// Usage was successfully deleted.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public void RemoveUsage(string usageId, RequestOptions options = null)
+        public EmptyResource RemoveUsage(string usageId, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "usage_id", usageId } };
             var url = this.InterpolatePath("/usage/{usage_id}", urlParams);
-            MakeRequest<EmptyResource>(Method.DELETE, url, null, null, options);
+            return MakeRequest<EmptyResource>(Method.DELETE, url, null, null, options);
         }
 
 
