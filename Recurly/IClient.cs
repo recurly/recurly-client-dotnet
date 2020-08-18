@@ -200,7 +200,7 @@ namespace Recurly
         /// Acquisition data was succesfully deleted.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        void RemoveAccountAcquisition(string accountId, RequestOptions options = null);
+        EmptyResource RemoveAccountAcquisition(string accountId, RequestOptions options = null);
 
         /// <summary>
         /// Remove an account's acquisition data <see href="https://developers.recurly.com/api/v2020-01-01#operation/remove_account_acquisition">remove_account_acquisition api documentation</see>
@@ -302,7 +302,7 @@ namespace Recurly
         /// Billing information deleted
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        void RemoveBillingInfo(string accountId, RequestOptions options = null);
+        EmptyResource RemoveBillingInfo(string accountId, RequestOptions options = null);
 
         /// <summary>
         /// Remove an account's billing information <see href="https://developers.recurly.com/api/v2020-01-01#operation/remove_billing_info">remove_billing_info api documentation</see>
@@ -633,7 +633,7 @@ namespace Recurly
         /// Shipping address deleted.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        void RemoveShippingAddress(string accountId, string shippingAddressId, RequestOptions options = null);
+        EmptyResource RemoveShippingAddress(string accountId, string shippingAddressId, RequestOptions options = null);
 
         /// <summary>
         /// Remove an account's shipping address <see href="https://developers.recurly.com/api/v2020-01-01#operation/remove_shipping_address">remove_shipping_address api documentation</see>
@@ -1425,7 +1425,7 @@ namespace Recurly
         /// Line item deleted.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        void RemoveLineItem(string lineItemId, RequestOptions options = null);
+        EmptyResource RemoveLineItem(string lineItemId, RequestOptions options = null);
 
         /// <summary>
         /// Delete an uninvoiced line item <see href="https://developers.recurly.com/api/v2020-01-01#operation/remove_line_item">remove_line_item api documentation</see>
@@ -2027,7 +2027,7 @@ namespace Recurly
         /// Subscription change was deleted.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        void RemoveSubscriptionChange(string subscriptionId, RequestOptions options = null);
+        EmptyResource RemoveSubscriptionChange(string subscriptionId, RequestOptions options = null);
 
         /// <summary>
         /// Delete the pending subscription change <see href="https://developers.recurly.com/api/v2020-01-01#operation/remove_subscription_change">remove_subscription_change api documentation</see>
@@ -2203,7 +2203,7 @@ namespace Recurly
         /// Usage was successfully deleted.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        void RemoveUsage(string usageId, RequestOptions options = null);
+        EmptyResource RemoveUsage(string usageId, RequestOptions options = null);
 
         /// <summary>
         /// Delete a usage record. <see href="https://developers.recurly.com/api/v2020-01-01#operation/remove_usage">remove_usage api documentation</see>
