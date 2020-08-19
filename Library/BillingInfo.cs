@@ -430,6 +430,14 @@ namespace Recurly
                 xmlWriter.WriteStringIfValid("phone", PhoneNumber);
                 xmlWriter.WriteStringIfValid("vat_number", VatNumber);
                 xmlWriter.WriteStringIfValid("currency", Currency);
+                xmlWriter.WriteStringIfValid("account_number", AccountNumber);
+                xmlWriter.WriteStringIfValid("type", Type);
+                xmlWriter.WriteStringIfValid("sort_code", SortCode);
+                xmlWriter.WriteStringIfValid("bsb_code", BsbCode);
+                xmlWriter.WriteStringIfValid("iban", Iban);
+                xmlWriter.WriteStringIfValid("paypal_billing_agreement_id", PaypalBillingAgreementId);
+                xmlWriter.WriteStringIfValid("amazon_billing_agreement_id", AmazonBillingAgreementId);
+                xmlWriter.WriteStringIfValid("amazon_region", AmazonRegion);
 
                 if (!IpAddress.IsNullOrEmpty())
                     xmlWriter.WriteElementString("ip_address", IpAddress);
@@ -445,55 +453,15 @@ namespace Recurly
                     xmlWriter.WriteStringIfValid("verification_value", VerificationValue);
                 }
 
-                if (!AccountNumber.IsNullOrEmpty())
-                {
-                    xmlWriter.WriteElementString("account_number", AccountNumber);
-                }
-
                 if (!RoutingNumber.IsNullOrEmpty())
                 {
                     xmlWriter.WriteElementString("routing_number", RoutingNumber);
                     xmlWriter.WriteElementString("account_type", AccountType.ToString().EnumNameToTransportCase());
                 }
 
-                if (!Type.IsNullOrEmpty())
-                {
-                  xmlWriter.WriteElementString("type", Type);
-                }
-
-                if (!SortCode.IsNullOrEmpty())
-                {
-                  xmlWriter.WriteElementString("sort_code", SortCode);
-                }
-
-                if (!BsbCode.IsNullOrEmpty())
-                {
-                  xmlWriter.WriteElementString("bsb_code", BsbCode);
-                }
-
-                if (!Iban.IsNullOrEmpty())
-                {
-                    xmlWriter.WriteElementString("iban", Iban);
-                }
-                if (!PaypalBillingAgreementId.IsNullOrEmpty())
-                {
-                    xmlWriter.WriteElementString("paypal_billing_agreement_id", PaypalBillingAgreementId);
-                }
-
-                if (!AmazonBillingAgreementId.IsNullOrEmpty())
-                {
-                    xmlWriter.WriteElementString("amazon_billing_agreement_id", AmazonBillingAgreementId);
-                }
-
-                if (!AmazonRegion.IsNullOrEmpty())
-                {
-                    xmlWriter.WriteElementString("amazon_region", AmazonRegion);
-                }
-
                 if (ExternalHppType.HasValue)
                 {
                     xmlWriter.WriteElementString("external_hpp_type", ExternalHppType.Value.ToString().EnumNameToTransportCase());
-
                 }
 
                 if (!GatewayCode.IsNullOrEmpty())
