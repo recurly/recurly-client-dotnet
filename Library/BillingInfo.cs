@@ -422,7 +422,7 @@ namespace Recurly
                 xmlWriter.WriteStringIfValid("company", Company);
                 xmlWriter.WriteStringIfValid("name_on_account", NameOnAccount);
                 xmlWriter.WriteStringIfValid("address1", Address1);
-                xmlWriter.WriteStringIfValid("address2", Address2);
+                if (Address2 != null) xmlWriter.WriteElementString("address2", Address2);
                 xmlWriter.WriteStringIfValid("city", City);
                 xmlWriter.WriteStringIfValid("state", State);
                 xmlWriter.WriteStringIfValid("zip", PostalCode);
