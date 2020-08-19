@@ -119,8 +119,7 @@ namespace Recurly
                         {
                             if (reader.Name == "tiers" && reader.NodeType == XmlNodeType.EndElement)
                                 break;
-
-                            if (reader.NodeType == XmlNodeType.Element && reader.Name == "tier")
+                            else if (reader.NodeType == XmlNodeType.Element && reader.Name == "tier")
                             {
                                 Tiers.Add(new Tier(reader));
                             }
