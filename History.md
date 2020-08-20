@@ -3,7 +3,7 @@ Unreleased
 
 1.17.7 (stable) / 2020-08-20
 ===============
-This brings up to API version 2.29. There are no breaking changes.
+This brings us up to API version 2.29. There are no breaking changes.
 
 - Account for when usage_percentage is null [PR](https://github.com/recurly/recurly-client-dotnet/pull/559)
 - Add tax identifier fields to billing info [PR](https://github.com/recurly/recurly-client-dotnet/pull/563)
