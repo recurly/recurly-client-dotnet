@@ -1,6 +1,15 @@
 Unreleased
 ===============
 
+1.17.7 (stable) / 2020-08-20
+===============
+This brings us up to API version 2.29. There are no breaking changes.
+
+- Account for when usage_percentage is null [PR](https://github.com/recurly/recurly-client-dotnet/pull/559)
+- Add tax identifier fields to billing info [PR](https://github.com/recurly/recurly-client-dotnet/pull/563)
+- Apply level of abstraction to xml writers by using WriteStringIfValid() [PR](https://github.com/recurly/recurly-client-dotnet/pull/564)
+- Write xml for address2 field as long as it is not null [PR](https://github.com/recurly/recurly-client-dotnet/pull/566)
+
 1.17.6 (stable) / 2020-07-22
 ===============
 This brings us up to API version 2.28. There are no breaking changes.
