@@ -35,6 +35,14 @@ namespace Recurly.Resources
         [JsonProperty("amount")]
         public float? Amount { get; set; }
 
+        /// <value>Used by Avalara for Communications taxes. The transaction type in combination with the service type describe how the line item is taxed. Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types) for more available t/s types.</value>
+        [JsonProperty("avalara_service_type")]
+        public int? AvalaraServiceType { get; set; }
+
+        /// <value>Used by Avalara for Communications taxes. The transaction type in combination with the service type describe how the line item is taxed. Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types) for more available t/s types.</value>
+        [JsonProperty("avalara_transaction_type")]
+        public int? AvalaraTransactionType { get; set; }
+
         /// <value>When the line item was created.</value>
         [JsonProperty("created_at")]
         public DateTime? CreatedAt { get; set; }

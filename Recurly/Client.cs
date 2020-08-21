@@ -3480,6 +3480,7 @@ namespace Recurly
         /// </summary>
         /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
         /// <param name="addOnId">Add-on ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-gold`.</param>
+        /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
         /// <param name="limit">Limit number of records 1-200.</param>
         /// <param name="order">Sort order.</param>
         /// <param name="sort">Sort field. You *really* only want to sort by `usage_timestamp` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
@@ -3489,10 +3490,10 @@ namespace Recurly
         /// <returns>
         /// A list of the subscription add-on's usage records.
         /// </returns>
-        public Pager<Usage> ListUsage(string subscriptionId, string addOnId, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string billingStatus = null, RequestOptions options = null)
+        public Pager<Usage> ListUsage(string subscriptionId, string addOnId, string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string billingStatus = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId }, { "add_on_id", addOnId } };
-            var queryParams = new Dictionary<string, object> { { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "billing_status", billingStatus } };
+            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "billing_status", billingStatus } };
             var url = this.InterpolatePath("/subscriptions/{subscription_id}/add_ons/{add_on_id}/usage", urlParams);
             return Pager<Usage>.Build(url, queryParams, options, this);
         }

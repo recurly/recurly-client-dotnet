@@ -23,6 +23,14 @@ namespace Recurly.Resources
         [JsonProperty("add_on_type")]
         public string AddOnType { get; set; }
 
+        /// <value>Used by Avalara for Communications taxes. The transaction type in combination with the service type describe how the add-on is taxed. Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types) for more available t/s types.</value>
+        [JsonProperty("avalara_service_type")]
+        public int? AvalaraServiceType { get; set; }
+
+        /// <value>Used by Avalara for Communications taxes. The transaction type in combination with the service type describe how the add-on is taxed. Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types) for more available t/s types.</value>
+        [JsonProperty("avalara_transaction_type")]
+        public int? AvalaraTransactionType { get; set; }
+
         /// <value>The unique identifier for the add-on within its plan.</value>
         [JsonProperty("code")]
         public string Code { get; set; }
