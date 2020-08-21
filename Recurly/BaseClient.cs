@@ -154,7 +154,17 @@ namespace Recurly
             // has likely occurred
             if (resp.ErrorException != null)
             {
-                throw new RecurlyError(resp.ErrorMessage);
+                var message = !resp.ErrorException.Equals(null) ? resp.ErrorMessage : $"Unexpected {resp.StatusCode} Error.";
+                if (resp.Headers.Any(t => t.Name == "X-Request-ID"))
+                {
+                    var requestId = resp.Headers.ToList().Find(x => x.Name == "X-Request-ID").Value.ToString();
+                    message += $" Recurly Request Id: {requestId}";
+                }
+                var error = new Recurly.Resources.ErrorMayHaveTransaction()
+                {
+                    Message = message
+                };
+                throw Errors.Factory.Create(resp, message, error);
             }
             else if (status < 200 || status >= 300)
             {
