@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Xml;
 using System.Globalization;
+using System.Collections.Generic;
 
 namespace Recurly
 {
@@ -13,6 +14,18 @@ namespace Recurly
         public Adjustment.RevenueSchedule? RevenueScheduleType { get; set; }
         public float? UsagePercentage { get; set; }
         public string TierType { get; set; }
+
+        private List<Tier> _tiers; 
+
+        /// <summary>
+        /// List of tiers for this add-on
+        /// </summary>
+        public List<Tier> Tiers
+        {
+            get {return _tiers ?? (_tiers = new List<Tier>()); }
+            set { _tiers = value; }
+        }
+
         public string AddOnSource { get; set; }
 
         public SubscriptionAddOn(XmlTextReader reader)
@@ -100,6 +113,19 @@ namespace Recurly
                         TierType = reader.ReadElementContentAsString();
                         break;
 
+                    case "tiers":
+                        Tiers = new List<Tier>();
+                        while (reader.Read())
+                        {
+                            if (reader.Name == "tiers" && reader.NodeType == XmlNodeType.EndElement)
+                                break;
+                            else if (reader.NodeType == XmlNodeType.Element && reader.Name == "tier")
+                            {
+                                Tiers.Add(new Tier(reader));
+                            }
+                        }
+                        break;
+
                     case "add_on_source":
                         AddOnSource = reader.ReadElementContentAsString();
                         break;
@@ -126,6 +152,8 @@ namespace Recurly
 
             if (TierType != null)
                 writer.WriteElementString("tier_type", TierType);
+
+            writer.WriteIfCollectionHasAny("tiers", Tiers);
 
             if (AddOnSource != null)
                 writer.WriteElementString("add_on_source", AddOnSource);
