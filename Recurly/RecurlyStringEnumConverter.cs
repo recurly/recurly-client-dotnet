@@ -18,6 +18,8 @@ namespace Recurly
             }
             catch
             {
+                if (objectType.GetGenericTypeDefinition() == typeof(Nullable<>))
+                    objectType = Nullable.GetUnderlyingType(objectType);
                 return Enum.Parse(objectType, "Undefined");
             }
         }
