@@ -5,9 +5,9 @@
  * need and we will usher them to the appropriate places.
  */
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.Diagnostics.CodeAnalysis;
 using RestSharp;
 
 namespace Recurly.Errors
@@ -16,44 +16,80 @@ namespace Recurly.Errors
     [ExcludeFromCodeCoverage]
     public static class Factory
     {
-        public static RecurlyError Create(IRestResponse resp)
+        public static RecurlyError Create(IRestResponse resp, string message, Recurly.Resources.ErrorMayHaveTransaction nestedError)
         {
-            var message = !resp.ErrorException.Equals(null) ? resp.ErrorMessage : $"Unexpected {resp.StatusCode} Error.";
-            if (resp.Headers.Any(t => t.Name == "X-Request-ID"))
-            {
-                var requestId = resp.Headers.ToList().Find(x => x.Name == "X-Request-ID").Value.ToString();
-                message += $" Recurly Request Id: {requestId}";
-            }
             switch ((int)resp.StatusCode)
             {
                 case 500:
-                    return new InternalServer(message);
+                    return new InternalServer(message)
+                    {
+                        Error = nestedError
+                    };
                 case 502:
-                    return new BadGateway(message);
+                    return new BadGateway(message)
+                    {
+                        Error = nestedError
+                    };
                 case 503:
-                    return new ServiceUnavailable(message);
+                    return new ServiceUnavailable(message)
+                    {
+                        Error = nestedError
+                    };
                 case 504:
-                    return new Timeout(message);
+                    return new Timeout(message)
+                    {
+                        Error = nestedError
+                    };
                 case 304:
-                    return new NotModified(message);
+                    return new NotModified(message)
+                    {
+                        Error = nestedError
+                    };
                 case 400:
-                    return new BadRequest(message);
+                    return new BadRequest(message)
+                    {
+                        Error = nestedError
+                    };
                 case 401:
-                    return new Unauthorized(message);
+                    return new Unauthorized(message)
+                    {
+                        Error = nestedError
+                    };
                 case 402:
-                    return new PaymentRequired(message);
+                    return new PaymentRequired(message)
+                    {
+                        Error = nestedError
+                    };
                 case 403:
-                    return new Forbidden(message);
+                    return new Forbidden(message)
+                    {
+                        Error = nestedError
+                    };
                 case 404:
-                    return new NotFound(message);
+                    return new NotFound(message)
+                    {
+                        Error = nestedError
+                    };
                 case 406:
-                    return new NotAcceptable(message);
+                    return new NotAcceptable(message)
+                    {
+                        Error = nestedError
+                    };
                 case 412:
-                    return new PreconditionFailed(message);
+                    return new PreconditionFailed(message)
+                    {
+                        Error = nestedError
+                    };
                 case 422:
-                    return new UnprocessableEntity(message);
+                    return new UnprocessableEntity(message)
+                    {
+                        Error = nestedError
+                    };
                 case 429:
-                    return new TooManyRequests(message);
+                    return new TooManyRequests(message)
+                    {
+                        Error = nestedError
+                    };
                 default:
                     return new RecurlyError(resp.ErrorMessage);
             }
