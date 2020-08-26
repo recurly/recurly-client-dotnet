@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 namespace Recurly.Tests
@@ -27,6 +28,10 @@ namespace Recurly.Tests
 
         [JsonProperty("my_array_sub_resource")]
         public List<MySubResource> MyArraySubResource { get; set; }
+
+        [JsonProperty("enum_value")]
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Recurly.Tests.Constants.EnumValue? EnumValue { get; set; }
     }
 
     public class MySubResource : Resource
@@ -46,6 +51,19 @@ namespace Recurly.Tests
         public MyApiError() { }
         public MyApiError(string message) : base(message) { }
         public MyApiError(string message, Exception inner) : base(message, inner) { }
+    }
+
+    namespace Constants
+    {
+
+        public enum EnumValue
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "allowed_enum")]
+            AllowedEnum,
+
+        };
     }
 
 }

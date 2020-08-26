@@ -77,6 +77,24 @@ namespace Recurly.Tests
         }
 
         [Fact]
+        public void DeserializeWithDefinedEnumValue()
+        {
+            var json = "{\"my_string\":\"benjamin\",\"enum_value\":\"allowed_enum\"}";
+            var resource = _jsonSerializer.Deserialize<MyResource>(MockResourceResponse(json));
+            // It should ignore the the unrecognized new field but still parse other properties
+            Assert.Equal(Recurly.Tests.Constants.EnumValue.AllowedEnum, resource.EnumValue);
+        }
+
+        [Fact]
+        public void DeserializeWithUndefinedEnumValue()
+        {
+            var json = "{\"my_string\":\"benjamin\",\"enum_value\":\"undefined_enum\"}";
+            var resource = _jsonSerializer.Deserialize<MyResource>(MockResourceResponse(json));
+            // It should ignore the the unrecognized new field but still parse other properties
+            Assert.Equal(Recurly.Tests.Constants.EnumValue.Undefined, resource.EnumValue);
+        }
+
+        [Fact]
         public void Serialize()
         {
             // make sure it can serialize all primitive types and convert b/w snake and camel case
@@ -91,10 +109,11 @@ namespace Recurly.Tests
                 {
                     new MySubResource() { MyString = "subresource1" },
                     new MySubResource() { MyString = "subresource2" },
-                }
+                },
+                EnumValue = Recurly.Tests.Constants.EnumValue.AllowedEnum
             };
             var jsonStr = _jsonSerializer.Serialize(resource);
-            var json = "{\"my_string\":\"benjamin\",\"my_decimal\":3.14,\"my_int\":3,\"my_sub_resource\":{\"my_string\":\"subresource\"},\"my_array_string\":[\"a\",\"b\"],\"my_array_sub_resource\":[{\"my_string\":\"subresource1\"},{\"my_string\":\"subresource2\"}]}";
+            var json = "{\"my_string\":\"benjamin\",\"my_decimal\":3.14,\"my_int\":3,\"my_sub_resource\":{\"my_string\":\"subresource\"},\"my_array_string\":[\"a\",\"b\"],\"my_array_sub_resource\":[{\"my_string\":\"subresource1\"},{\"my_string\":\"subresource2\"}],\"enum_value\":\"allowed_enum\"}";
             Assert.Equal(jsonStr, json);
         }
         private RestSharp.IRestResponse MockResourceResponse(string json)
