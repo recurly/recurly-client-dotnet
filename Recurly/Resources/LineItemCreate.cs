@@ -19,6 +19,14 @@ namespace Recurly.Resources
         [JsonProperty("accounting_code")]
         public string AccountingCode { get; set; }
 
+        /// <value>Used by Avalara for Communications taxes. The transaction type in combination with the service type describe how the line item is taxed. Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types) for more available t/s types. If an `Item` is associated to the `LineItem`, then the `avalara_service_type` must be absent.</value>
+        [JsonProperty("avalara_service_type")]
+        public int? AvalaraServiceType { get; set; }
+
+        /// <value>Used by Avalara for Communications taxes. The transaction type in combination with the service type describe how the line item is taxed. Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types) for more available t/s types. If an `Item` is associated to the `LineItem`, then the `avalara_transaction_type` must be absent.</value>
+        [JsonProperty("avalara_transaction_type")]
+        public int? AvalaraTransactionType { get; set; }
+
         /// <value>The reason the credit was given when line item is `type=credit`. When the Credit Invoices feature is enabled, the value can be set and will default to `general`. When the Credit Invoices feature is not enabled, the value will always be `null`.</value>
         [JsonProperty("credit_reason_code")]
         public string CreditReasonCode { get; set; }

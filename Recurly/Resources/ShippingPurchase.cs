@@ -19,7 +19,7 @@ namespace Recurly.Resources
         [JsonProperty("address")]
         public ShippingAddressCreate Address { get; set; }
 
-        /// <value>Assign a shipping address from the account's existing shipping addresses. If this and `shipping_address` are both present, `shipping_address` will take precedence.</value>
+        /// <value>Assign a shipping address from the account's existing shipping addresses. If this and `address` are both present, `address` will take precedence.</value>
         [JsonProperty("address_id")]
         public string AddressId { get; set; }
 
