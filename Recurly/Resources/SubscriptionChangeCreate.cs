@@ -44,6 +44,10 @@ namespace Recurly.Resources
         [JsonProperty("coupon_codes")]
         public List<string> CouponCodes { get; set; }
 
+        /// <value>The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.</value>
+        [JsonProperty("custom_fields")]
+        public List<CustomField> CustomFields { get; set; }
+
         /// <value>Integer representing the number of days after an invoice's creation that the invoice will become past due. If an invoice's net terms are set to '0', it is due 'On Receipt' and will become past due 24 hours after it’s created. If an invoice is due net 30, it will become past due at 31 days exactly.</value>
         [JsonProperty("net_terms")]
         public int? NetTerms { get; set; }
