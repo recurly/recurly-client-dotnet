@@ -1,8 +1,29 @@
 # Changelog
 
-## [3.11.0](https://github.com/recurly/recurly-client-dotnet/tree/HEAD)
+## [3.12.0](https://github.com/recurly/recurly-client-dotnet/tree/HEAD)
 
-[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.10.0...HEAD)
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.11.0...HEAD)
+
+## Potential Breaking Change Included
+
+This update introduces a potentially breaking change to the `ListUsage` method if you are not using `Named Arguments`.
+
+We do not guarantee the ordering of parameters for client operations, so please use `Named Arguments` to avoid any issues.
+
+**Implemented enhancements:**
+
+- Mon Aug 31 19:45:47 UTC 2020 Upgrade API version v2019-10-10 [\#573](https://github.com/recurly/recurly-client-dotnet/pull/573) ([douglasmiller](https://github.com/douglasmiller))
+- Fri Aug 21 16:21:53 UTC 2020 Upgrade API version v2019-10-10 [\#568](https://github.com/recurly/recurly-client-dotnet/pull/568) ([douglasmiller](https://github.com/douglasmiller))
+
+**Merged pull requests:**
+
+- Release 3.12.0 [\#574](https://github.com/recurly/recurly-client-dotnet/pull/574) ([douglasmiller](https://github.com/douglasmiller))
+- Code of Conduct [\#572](https://github.com/recurly/recurly-client-dotnet/pull/572) ([bhelx](https://github.com/bhelx))
+- Client Event Handlers [\#560](https://github.com/recurly/recurly-client-dotnet/pull/560) ([bhelx](https://github.com/bhelx))
+
+## [3.11.0](https://github.com/recurly/recurly-client-dotnet/tree/3.11.0) (2020-07-31)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.10.0...3.11.0)
 
 **Implemented enhancements:**
 

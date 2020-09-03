@@ -5,8 +5,19 @@ using RestSharp;
 
 namespace Recurly.Http
 {
+    public class Request
+    {
+        public Method Method { get; set; }
+
+        public string Url { get; set; }
+
+        public Recurly.Request Body { get; set; }
+    }
+
     public class Response
     {
+        public Request Request { get; set; }
+
         public string RawResponse { get; set; }
 
         public HttpStatusCode StatusCode { get; set; }
@@ -27,7 +38,7 @@ namespace Recurly.Http
 
         public Response() { }
 
-        public static Response Build(IRestResponse resp)
+        internal static Response Build(IRestResponse resp, Request request)
         {
             // Map List<Parameter> to List<Header>
             var headers = new List<Header>();
@@ -37,6 +48,7 @@ namespace Recurly.Http
             }
             return new Response()
             {
+                Request = request,
                 RawResponse = resp.Content,
                 StatusCode = resp.StatusCode,
                 Headers = headers,

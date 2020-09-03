@@ -1,5 +1,8 @@
 # Recurly
 
+[![Nuget](https://img.shields.io/static/v1?label=nuget&message=recurly&color=purple)](https://www.nuget.org/packages/Recurly/)
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](CODE_OF_CONDUCT.md)
+
 This repository houses the official dotnet client for Recurly's V3 API.
 
 > *Note*:

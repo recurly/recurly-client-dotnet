@@ -20,6 +20,7 @@ namespace Recurly
         private string ApiKey { get; }
         private const string ApiUrl = "https://v3.recurly.com/";
         private string[] BinaryTypes = { "application/pdf" };
+        private List<IEventHandler> EventHandlers = new List<IEventHandler>();
         public virtual string ApiVersion { get; protected set; }
 
         internal IRestClient RestClient { get; set; }
@@ -52,27 +53,55 @@ namespace Recurly
         public async Task<T> MakeRequestAsync<T>(Method method, string url, Request body = null, Dictionary<string, object> queryParams = null, RequestOptions options = null, CancellationToken cancellationToken = default(CancellationToken)) where T : Resource
         {
             Debug.WriteLine($"Calling {url}");
-            var request = BuildRequest(method, url, body, queryParams, options);
-            var task = RestClient.ExecuteAsync<T>(request, cancellationToken);
+            var httpRequest = new Http.Request()
+            {
+                Method = method,
+                Url = url,
+                Body = body
+            };
+            var restRequest = BuildRequest(method, url, body, queryParams, options);
+            var task = RestClient.ExecuteAsync<T>(restRequest, cancellationToken);
             return await task.ContinueWith(t =>
             {
-                var resp = t.Result;
-                this.HandleResponse(resp);
-                if (resp.Data is Resource)
-                    resp.Data.SetResponse(Http.Response.Build(resp));
-                return resp.Data;
+                var restResponse = t.Result;
+                this.HandleResponse(restResponse);
+                var httpResponse = Http.Response.Build(restResponse, httpRequest);
+                if (restResponse.Data is Resource)
+                    restResponse.Data.SetResponse(httpResponse);
+                return restResponse.Data;
             });
         }
 
         public T MakeRequest<T>(Method method, string url, Request body = null, Dictionary<string, object> queryParams = null, RequestOptions options = null) where T : Resource
         {
             Debug.WriteLine($"Calling {url}");
-            var request = BuildRequest(method, url, body, queryParams, options);
-            var resp = RestClient.Execute<T>(request);
-            this.HandleResponse(resp);
-            if (resp.Data is Resource)
-                resp.Data.SetResponse(Http.Response.Build(resp));
-            return resp.Data;
+            var httpRequest = new Http.Request()
+            {
+                Method = method,
+                Url = url,
+                Body = body
+            };
+            var restRequest = BuildRequest(method, url, body, queryParams, options);
+
+            foreach (var handler in this.EventHandlers)
+            {
+                handler.OnRequest(httpRequest);
+            }
+
+            var restResponse = RestClient.Execute<T>(restRequest);
+            var httpResponse = Http.Response.Build(restResponse, httpRequest);
+
+            foreach (var handler in this.EventHandlers)
+            {
+                handler.OnResponse(httpResponse);
+            }
+
+            this.HandleResponse(restResponse);
+
+            if (restResponse.Data is Resource)
+                restResponse.Data.SetResponse(httpResponse);
+
+            return restResponse.Data;
         }
 
         public int GetResourceCount(string url, Dictionary<string, object> queryParams)
@@ -86,6 +115,11 @@ namespace Recurly
                 .Find(x => x.Name == "Recurly-Total-Records")
                 .Value.ToString();
             return int.Parse(recordCount);
+        }
+
+        public void AddEventHandler(IEventHandler handler)
+        {
+            this.EventHandlers.Add(handler);
         }
 
         [ExcludeFromCodeCoverage]
