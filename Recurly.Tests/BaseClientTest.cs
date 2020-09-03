@@ -118,10 +118,17 @@ namespace Recurly.Tests
         }
 
         [Fact]
-        public void WillThrowAnExceptionWhenResponseHasErrorException()
+        public void WillThrowARecurlyErrorForUnknownErrors()
         {
-            var client = MockClient.Build(ErroredResponse());
+            var client = MockClient.Build(ErrorResponse((System.Net.HttpStatusCode)999));
             Assert.Throws<Recurly.RecurlyError>(() => client.GetResource("benjamin", "param1", new DateTime(2020, 01, 01)));
+        }
+
+        [Fact]
+        public void WillThrowABadRequestError()
+        {
+            var client = MockClient.Build(ErrorResponse(System.Net.HttpStatusCode.BadRequest));
+            Assert.Throws<Recurly.Errors.BadRequest>(() => client.GetResource("benjamin", "param1", new DateTime(2020, 01, 01)));
         }
 
         [Fact]
@@ -153,14 +160,25 @@ namespace Recurly.Tests
             return response;
         }
 
-        private Mock<IRestResponse<MyResource>> ErroredResponse()
+        private Mock<IRestResponse<MyResource>> ErrorResponse(System.Net.HttpStatusCode statusCode)
         {
             var response = new Mock<IRestResponse<MyResource>>();
-            response.Setup(_ => _.StatusCode).Returns(System.Net.HttpStatusCode.Created);
-            response.Setup(_ => _.Content).Returns("{\"code\": 123}");
+            response.Setup(_ => _.StatusCode).Returns(statusCode);
+            response.Setup(_ => _.Content).Returns("<html>parsing error</html>");
             response.Setup(_ => _.Headers).Returns(new List<Parameter> { });
+            response.Setup(_ => _.ContentType).Returns("text/html");
             response.Setup(_ => _.ErrorException).Returns(new Exception("parsing error"));
             response.Setup(_ => _.ErrorMessage).Returns("parsing error");
+
+            return response;
+        }
+
+        private Mock<IRestResponse<MyResource>> InvalidContentTypeResponse()
+        {
+            var response = new Mock<IRestResponse<MyResource>>();
+            response.Setup(_ => _.StatusCode).Returns(System.Net.HttpStatusCode.BadRequest);
+            response.Setup(_ => _.Content).Returns("{\"error\":{ \"type\": \"invalid_content_type\", \"message\": \"MyResource not found\"}}");
+            response.Setup(_ => _.Headers).Returns(new List<Parameter> { });
 
             return response;
         }
