@@ -58,9 +58,17 @@ namespace Recurly.Resources
         [JsonProperty("tiers")]
         public List<SubscriptionAddOnTier> Tiers { get; set; }
 
+        /// <value>Unit price</value>
+        [JsonProperty("unit_amount")]
+        public float? UnitAmount { get; set; }
+
         /// <value>When the usage record was billed on an invoice.</value>
         [JsonProperty("updated_at")]
         public DateTime? UpdatedAt { get; set; }
+
+        /// <value>The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0.</value>
+        [JsonProperty("usage_percentage")]
+        public float? UsagePercentage { get; set; }
 
         /// <value>When the usage actually happened. This will define the line item dates this usage is billed under and is important for revenue recognition.</value>
         [JsonProperty("usage_timestamp")]
