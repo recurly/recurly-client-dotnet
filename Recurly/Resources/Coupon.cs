@@ -23,6 +23,14 @@ namespace Recurly.Resources
         [JsonProperty("applies_to_non_plan_charges")]
         public bool? AppliesToNonPlanCharges { get; set; }
 
+        /// <value>The Coupon code of the parent Bulk Coupon</value>
+        [JsonProperty("bulk_coupon_code")]
+        public string BulkCouponCode { get; set; }
+
+        /// <value>The Coupon ID of the parent Bulk Coupon</value>
+        [JsonProperty("bulk_coupon_id")]
+        public string BulkCouponId { get; set; }
+
         /// <value>The code the customer enters to redeem the coupon.</value>
         [JsonProperty("code")]
         public string Code { get; set; }

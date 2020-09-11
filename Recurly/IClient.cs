@@ -2351,5 +2351,43 @@ namespace Recurly
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
         Task<InvoiceCollection> PreviewPurchaseAsync(PurchaseCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// List the dates that have an available export to download. <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_export_dates">get_export_dates api documentation</see>
+        /// </summary>
+        /// <returns>
+        /// Returns a list of dates.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        ExportDates GetExportDates(RequestOptions options = null);
+
+        /// <summary>
+        /// List the dates that have an available export to download. <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_export_dates">get_export_dates api documentation</see>
+        /// </summary>
+        /// <returns>
+        /// Returns a list of dates.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<ExportDates> GetExportDatesAsync(CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// List of the export files that are available to download. <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_export_files">get_export_files api documentation</see>
+        /// </summary>
+        /// <param name="exportDate">Date for which to get a list of available automated export files. Date must be in YYYY-MM-DD format.</param>
+        /// <returns>
+        /// Returns a list of export files to download.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        ExportFiles GetExportFiles(string exportDate, RequestOptions options = null);
+
+        /// <summary>
+        /// List of the export files that are available to download. <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_export_files">get_export_files api documentation</see>
+        /// </summary>
+        /// <param name="exportDate">Date for which to get a list of available automated export files. Date must be in YYYY-MM-DD format.</param>
+        /// <returns>
+        /// Returns a list of export files to download.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<ExportFiles> GetExportFilesAsync(string exportDate, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
     }
 }

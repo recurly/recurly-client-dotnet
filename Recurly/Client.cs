@@ -3873,5 +3873,71 @@ namespace Recurly
         }
 
 
+
+        /// <summary>
+        /// List the dates that have an available export to download. <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_export_dates">get_export_dates api documentation</see>
+        /// </summary>
+        /// <returns>
+        /// Returns a list of dates.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public ExportDates GetExportDates(RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var url = this.InterpolatePath("/export_dates", urlParams);
+            return MakeRequest<ExportDates>(Method.GET, url, null, null, options);
+        }
+
+
+
+        /// <summary>
+        /// List the dates that have an available export to download. <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_export_dates">get_export_dates api documentation</see>
+        /// </summary>
+        /// <returns>
+        /// Returns a list of dates.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<ExportDates> GetExportDatesAsync(CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var url = this.InterpolatePath("/export_dates", urlParams);
+            return MakeRequestAsync<ExportDates>(Method.GET, url, null, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// List of the export files that are available to download. <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_export_files">get_export_files api documentation</see>
+        /// </summary>
+        /// <param name="exportDate">Date for which to get a list of available automated export files. Date must be in YYYY-MM-DD format.</param>
+        /// <returns>
+        /// Returns a list of export files to download.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public ExportFiles GetExportFiles(string exportDate, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "export_date", exportDate } };
+            var url = this.InterpolatePath("/export_dates/{export_date}/export_files", urlParams);
+            return MakeRequest<ExportFiles>(Method.GET, url, null, null, options);
+        }
+
+
+
+        /// <summary>
+        /// List of the export files that are available to download. <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_export_files">get_export_files api documentation</see>
+        /// </summary>
+        /// <param name="exportDate">Date for which to get a list of available automated export files. Date must be in YYYY-MM-DD format.</param>
+        /// <returns>
+        /// Returns a list of export files to download.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<ExportFiles> GetExportFilesAsync(string exportDate, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "export_date", exportDate } };
+            var url = this.InterpolatePath("/export_dates/{export_date}/export_files", urlParams);
+            return MakeRequestAsync<ExportFiles>(Method.GET, url, null, null, options, cancellationToken);
+        }
+
+
     }
 }
