@@ -250,6 +250,28 @@ namespace Recurly
                 ReadXml);
         }
 
+        /// <summary>
+        /// Verify billing info gateway
+        /// </summary>
+        /// <param name="gatewayCode"></param>
+        public void Verify(string gatewayCode = null)
+        {
+          var verify = new VerifyGateway(gatewayCode);
+          if (gatewayCode.IsNullOrEmpty())
+          {
+              Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
+                  BillingInfoUrl(AccountCode) + "/verify",
+                  verify.ReadXml
+              );
+          } else {
+              Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
+                  BillingInfoUrl(AccountCode) + "/verify",
+                  verify.WriteXml,
+                  verify.ReadXml
+              );
+          };
+        }
+
         private static string BillingInfoUrl(string accountCode)
         {
             return UrlPrefix + Uri.EscapeDataString(accountCode) + UrlPostfix;

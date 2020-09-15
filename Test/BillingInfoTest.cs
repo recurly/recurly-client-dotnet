@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using FluentAssertions;
 using Xunit;
 using Xunit.Extensions;
@@ -161,6 +162,20 @@ namespace Recurly.Test
                 exception.Errors[0].Symbol.Should().Be("card_type_not_accepted");
             }
             threw.Should().Be(true);
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void VerifyBillingInfo()
+        {
+          var accountCode = GetUniqueAccountCode();
+          var info = NewBillingInfo(accountCode);
+          var account = new Account(accountCode, info);
+          account.Create();
+
+          info.Verify();
+          var transaction = Transactions.List().First();
+          Assert.Equal(transaction.Action, Recurly.Transaction.TransactionType.Verify);
+          Assert.Equal(transaction.Origin, "api_verify_card");
         }
 
         [RecurlyFact(TestEnvironment.Type.Integration)]
