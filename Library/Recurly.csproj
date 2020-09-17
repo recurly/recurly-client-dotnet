@@ -140,6 +140,7 @@
     <Compile Include="ValidationException.cs" />
     <Compile Include="Extensions\XmlWriterExtensions.cs" />
     <Compile Include="Tier.cs" />
+    <Compile Include="VerifyBillingInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

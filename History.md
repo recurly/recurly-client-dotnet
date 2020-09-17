@@ -1,6 +1,10 @@
 Unreleased
 ===============
 
+1.17.8 (stable) / 2020-09-17
+===============
+- New endpoint to verify an account's billing information [PR](https://github.com/recurly/recurly-client-dotnet/pull/577)
+
 1.17.7 (stable) / 2020-08-20
 ===============
 This brings us up to API version 2.29. There are no breaking changes.
