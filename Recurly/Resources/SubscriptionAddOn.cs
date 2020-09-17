@@ -60,7 +60,9 @@ namespace Recurly.Resources
 
         /// <value>
         /// The pricing model for the add-on.  For more information,
-        /// [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based).
+        /// [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based). See our
+        /// [Guide](https://developers.recurly.com/guides/item-addon-guide.html) for an overview of how
+        /// to configure quantity-based pricing models.
         /// </value>
         [JsonProperty("tier_type")]
         [JsonConverter(typeof(RecurlyStringEnumConverter))]

@@ -24,6 +24,14 @@ namespace Recurly.Resources
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
         public Constants.AddOnType? AddOnType { get; set; }
 
+        /// <value>Used by Avalara for Communications taxes. The transaction type in combination with the service type describe how the add-on is taxed. Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types) for more available t/s types.</value>
+        [JsonProperty("avalara_service_type")]
+        public int? AvalaraServiceType { get; set; }
+
+        /// <value>Used by Avalara for Communications taxes. The transaction type in combination with the service type describe how the add-on is taxed. Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types) for more available t/s types.</value>
+        [JsonProperty("avalara_transaction_type")]
+        public int? AvalaraTransactionType { get; set; }
+
         /// <value>The unique identifier for the add-on within its plan.</value>
         [JsonProperty("code")]
         public string Code { get; set; }
@@ -96,7 +104,9 @@ namespace Recurly.Resources
 
         /// <value>
         /// The pricing model for the add-on.  For more information,
-        /// [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based).
+        /// [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based). See our
+        /// [Guide](https://developers.recurly.com/guides/item-addon-guide.html) for an overview of how
+        /// to configure quantity-based pricing models.
         /// </value>
         [JsonProperty("tier_type")]
         [JsonConverter(typeof(RecurlyStringEnumConverter))]

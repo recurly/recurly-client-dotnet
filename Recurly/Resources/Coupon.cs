@@ -15,7 +15,7 @@ namespace Recurly.Resources
     public class Coupon : Resource
     {
 
-        /// <value>The coupon is valid for all plans if true. If false then `plans` and `plans_names` will list the applicable plans.</value>
+        /// <value>The coupon is valid for all plans if true. If false then `plans` will list the applicable plans.</value>
         [JsonProperty("applies_to_all_plans")]
         public bool? AppliesToAllPlans { get; set; }
 
@@ -96,17 +96,9 @@ namespace Recurly.Resources
         [JsonProperty("plans")]
         public List<PlanMini> Plans { get; set; }
 
-        /// <value>TODO</value>
-        [JsonProperty("plans_names")]
-        public List<string> PlansNames { get; set; }
-
         /// <value>The date and time the coupon will expire and can no longer be redeemed. Time is always 11:59:59, the end-of-day Pacific time.</value>
         [JsonProperty("redeem_by")]
         public DateTime? RedeemBy { get; set; }
-
-        /// <value>The date and time the unique coupon code was redeemed. This is only present for bulk coupons.</value>
-        [JsonProperty("redeemed_at")]
-        public DateTime? RedeemedAt { get; set; }
 
         /// <value>Whether the discount is for all eligible charges on the account, or only a specific subscription.</value>
         [JsonProperty("redemption_resource")]
@@ -130,6 +122,10 @@ namespace Recurly.Resources
         /// <value>On a bulk coupon, the template from which unique coupon codes are generated.</value>
         [JsonProperty("unique_code_template")]
         public string UniqueCodeTemplate { get; set; }
+
+        /// <value>Will be populated when the Coupon being returned is a `UniqueCouponCode`.</value>
+        [JsonProperty("unique_coupon_code")]
+        public Dictionary<string, string> UniqueCouponCode { get; set; }
 
         /// <value>When this number reaches `max_redemptions` the coupon will no longer be redeemable.</value>
         [JsonProperty("unique_coupon_codes_count")]

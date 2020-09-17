@@ -32,9 +32,9 @@ namespace Recurly.Resources
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
         public Constants.CollectionMethod? CollectionMethod { get; set; }
 
-        /// <value>Optional coupon code to redeem on the account and discount the subscription. Please note, the subscription request will fail if the coupon is invalid.</value>
-        [JsonProperty("coupon_code")]
-        public string CouponCode { get; set; }
+        /// <value>A list of coupon_codes to be redeemed on the subscription or account during the purchase.</value>
+        [JsonProperty("coupon_codes")]
+        public List<string> CouponCodes { get; set; }
 
         /// <value>If there are pending credits on the account that will be invoiced during the subscription creation, these will be used as the Customer Notes on the credit invoice.</value>
         [JsonProperty("credit_customer_notes")]

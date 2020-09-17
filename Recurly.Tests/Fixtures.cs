@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
+using Recurly;
 
 namespace Recurly.Tests
 {
@@ -51,6 +52,21 @@ namespace Recurly.Tests
         public MyApiError() { }
         public MyApiError(string message) : base(message) { }
         public MyApiError(string message, Exception inner) : base(message, inner) { }
+    }
+
+    public class ListResourcesParams : OptionalParams
+    {
+        [JsonProperty("ids")]
+        public string Ids { get; set; }
+
+        [JsonProperty("limit")]
+        public int? Limit { get; set; }
+
+        [JsonProperty("allowed")]
+        public Constants.EnumValue? Allowed { get; set; }
+
+        [JsonProperty("begin_time")]
+        public DateTime? BeginTime { get; set; }
     }
 
     namespace Constants

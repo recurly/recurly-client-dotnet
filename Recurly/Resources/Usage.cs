@@ -49,7 +49,9 @@ namespace Recurly.Resources
 
         /// <value>
         /// The pricing model for the add-on.  For more information,
-        /// [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based).
+        /// [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based). See our
+        /// [Guide](https://developers.recurly.com/guides/item-addon-guide.html) for an overview of how
+        /// to configure quantity-based pricing models.
         /// </value>
         [JsonProperty("tier_type")]
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
@@ -59,9 +61,17 @@ namespace Recurly.Resources
         [JsonProperty("tiers")]
         public List<SubscriptionAddOnTier> Tiers { get; set; }
 
+        /// <value>Unit price</value>
+        [JsonProperty("unit_amount")]
+        public decimal? UnitAmount { get; set; }
+
         /// <value>When the usage record was billed on an invoice.</value>
         [JsonProperty("updated_at")]
         public DateTime? UpdatedAt { get; set; }
+
+        /// <value>The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0.</value>
+        [JsonProperty("usage_percentage")]
+        public decimal? UsagePercentage { get; set; }
 
         /// <value>When the usage actually happened. This will define the line item dates this usage is billed under and is important for revenue recognition.</value>
         [JsonProperty("usage_timestamp")]

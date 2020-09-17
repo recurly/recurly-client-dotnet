@@ -159,6 +159,7 @@ x-tagGroups:
   - shipping_address
   - purchase
   - usage
+  - automated_exports
 - name: Products and Promotions
   tags:
   - item
@@ -283,6 +284,9 @@ tags:
 - name: shipping_method
   x-displayName: Shipping Method
   description: Shipping methods offered to send products to customers.
+- name: automated_exports
+  x-displayName: Automated Exports
+  description: Automated exports of customer data.
 paths:
   "/sites":
     get:
@@ -329,12 +333,17 @@ paths:
           }
       - lang: Python
         source: |
-          sites = client.list_sites(limit=200).items()
+          params = {"limit": 200}
+          sites = client.list_sites(params=params).items()
           for site in sites:
               print(site.subdomain)
       - lang: ".NET"
         source: |
-          var sites = client.ListSites(limit: 200);
+          var optionalParams = new ListSitesParams()
+          {
+              Limit = 200
+          };
+          var sites = client.ListSites(optionalParams);
           foreach(Site site in sites)
           {
               Console.WriteLine(site.Subdomain);
@@ -545,12 +554,17 @@ paths:
           }
       - lang: Python
         source: |
-          accounts = client.list_accounts(limit=200).items()
+          params = {"limit": 200}
+          accounts = client.list_accounts(params=params).items()
           for account in accounts:
               print(account.code)
       - lang: ".NET"
         source: |
-          var accounts = client.ListAccounts(limit: 200);
+          var optionalParams = new ListAccountsParams()
+          {
+              Limit = 200
+          };
+          var accounts = client.ListAccounts(optionalParams);
           foreach(Account account in accounts)
           {
               Console.WriteLine(account.Code);
@@ -1427,7 +1441,7 @@ paths:
               var acquisitionReq = new AccountAcquisitionUpdatable()
               {
                   Campaign = "big-event-campaign",
-                  Channel = "social_media",
+                  Channel = Channel.SocialMedia,
                   Subchannel = "twitter"
               };
               AccountAcquisition accountAcquisition = client.UpdateAccountAcquisition(accountId, acquisitionReq);
@@ -2304,7 +2318,8 @@ paths:
           }
       - lang: Python
         source: |
-          redemptions = client.list_account_coupon_redemptions(account_id, limit=200).items()
+          params = {"limit": 200}
+          redemptions = client.list_account_coupon_redemptions(account_id, params=params).items()
           for redemption in redemptions:
               print(redemption.id)
       - lang: ".NET"
@@ -2360,18 +2375,20 @@ paths:
       tags:
       - account
       - coupon_redemption
-      operationId: get_active_coupon_redemption
-      summary: Show the coupon redemption that is active on an account
+      operationId: list_active_coupon_redemptions
+      summary: Show the coupon redemptions that are active on an account
+      description: See the [Pagination Guide](/guides/pagination.html) to learn how
+        to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
       responses:
         '200':
-          description: An active coupon redemption on an account.
+          description: Active coupon redemptions on an account.
           content:
             application/json:
               schema:
-                "$ref": "#/components/schemas/CouponRedemption"
+                "$ref": "#/components/schemas/CouponRedemptionList"
         '404':
           description: Incorrect site or account ID.
           content:
@@ -2384,95 +2401,7 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
-      x-code-samples:
-      - lang: Node.js
-        source: |
-          try {
-            const redemption = await client.getActiveCouponRedemption(accountId)
-            console.log('Fetched coupon redemption: ', redemption.id)
-          } catch (err) {
-            if (err instanceof recurly.errors.NotFoundError) {
-              // If the request was not found, you may want to alert the user or
-              // just return null
-              console.log('Resource Not Found')
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
-      - lang: Python
-        source: |
-          try:
-              redemption = client.get_active_coupon_redemption(account_id)
-              print("Got Redemption %s" % redemption)
-          except recurly.errors.NotFoundError:
-              # If the resource was not found, you may want to alert the user or
-              # just return nil
-              print("Resource Not Found")
-      - lang: ".NET"
-        source: |
-          try
-          {
-              CouponRedemption redemption = client.GetActiveCouponRedemption(accountId);
-              Console.WriteLine($"Fetched coupon redemption {redemption.Id}");
-          }
-          catch (Recurly.Errors.NotFound ex)
-          {
-              // If the resource was not found
-              // we may want to alert the user or just return null
-              Console.WriteLine($"Resource Not Found: {ex.Error.Message}");
-          }
-          catch (Recurly.Errors.ApiError ex)
-          {
-              // Use ApiError to catch a generic error from the API
-              Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
-          }
-      - lang: Ruby
-        source: |
-          begin
-            redemption = @client.get_active_coupon_redemption(account_id: account_id)
-            puts "Got CouponRedemption #{redemption}"
-          rescue Recurly::Errors::NotFoundError
-            # If the resource was not found, you may want to alert the user or
-            # just return nil
-            puts "Resource Not Found"
-          end
-      - lang: Java
-        source: |
-          try {
-              final CouponRedemption redemption = client.getActiveCouponRedemption(accountId);
-              System.out.println("Fetched coupon redemption " + redemption.getId());
-          } catch (NotFoundException e) {
-              // If the resource was not found
-              // we may want to alert the user or just return null
-              System.out.println("Resource Not Found: " + e.getError().getMessage());
-          } catch (ApiException e) {
-              // Use ApiException to catch a generic error from the API
-              System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
-          }
-      - lang: PHP
-        source: |
-          try {
-              $redemption = $client->getActiveCouponRedemption($account_id);
-
-              echo 'Got Redemption:' . PHP_EOL;
-              var_dump($redemption);
-          } catch (\Recurly\Errors\NotFound $e) {
-              // Could not find the resource, you may want to inform the user
-              // or just return a NULL
-              echo 'Could not find resource.' . PHP_EOL;
-              var_dump($e);
-          } catch (\Recurly\RecurlyError $e) {
-              // Something bad happened... tell the user so that they can fix it?
-              echo 'Some unexpected Recurly error happened. Try again later.' . PHP_EOL;
-          }
-      - lang: Go
-        source: "couponRedemption, err := client.GetActiveCouponRedemption(accountID)\nif
-          e, ok := err.(*recurly.Error); ok {\n\tif e.Type == recurly.ErrorTypeNotFound
-          {\n\t\tfmt.Printf(\"Resource not found: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
-          Recurly error: %v\", e)\n\treturn nil, err\n}\n\nfmt.Printf(\"Fetched Active
-          Coupon Redemption: %v\", couponRedemption.Id)"
+      x-code-samples: []
     post:
       tags:
       - account
@@ -2772,12 +2701,17 @@ paths:
           }
       - lang: Python
         source: |
-          payments = client.list_account_credit_payments(account_id, limit=200).items()
+          params = {"limit": 200}
+          payments = client.list_account_credit_payments(account_id, params=params).items()
           for payment in payments:
               print(payment.id)
       - lang: ".NET"
         source: |
-          var payments = client.ListAccountCreditPayments(accountId, limit: 200);
+          var optionalParams = new ListAccountCreditPaymentsParams()
+          {
+              Limit = 200
+          };
+          var payments = client.ListAccountCreditPayments(accountId, optionalParams);
           foreach(CreditPayment payment in payments)
           {
               Console.WriteLine(payment.Uuid);
@@ -2877,7 +2811,8 @@ paths:
           }
       - lang: Python
         source: |
-          invoices = client.list_account_invoices(account_id, limit=200).items()
+          params = {"limit": 200}
+          invoices = client.list_account_invoices(account_id, params=params).items()
           for invoice in invoices:
               print(invoice.number)
       - lang: ".NET"
@@ -3016,7 +2951,7 @@ paths:
               var collection = client.CreateInvoice(accountId, new InvoiceCreate()
               {
                   Currency = "USD",
-                  CollectionMethod = "automatic"
+                  CollectionMethod = CollectionMethod.Automatic
               });
               Console.WriteLine("Created Invoice");
               Console.WriteLine(collection.ChargeInvoice);
@@ -3187,7 +3122,7 @@ paths:
               var collection = client.PreviewInvoice(accountId, new InvoiceCreate()
               {
                   Currency = "USD",
-                  CollectionMethod = "automatic"
+                  CollectionMethod = CollectionMethod.Automatic
               });
               Console.WriteLine($"Previewed invoice DueAt {collection.ChargeInvoice.DueAt}");
               Console.WriteLine(collection.ChargeInvoice);
@@ -3325,7 +3260,8 @@ paths:
           }
       - lang: Python
         source: |
-          line_items = client.list_account_line_items(account_id, limit=200).items()
+          params = {"limit": 200}
+          line_items = client.list_account_line_items(account_id, params=params).items()
           for line_item in line_items:
               print(line_item.id)
       - lang: ".NET"
@@ -3462,7 +3398,7 @@ paths:
               {
                   Currency = "USD",
                   UnitAmount = 1000,
-                  Type = "charge" // choose "credit" for a credit
+                  Type = LintItemType.Charge // choose "credit" for a credit
               };
               LineItem lineItem = client.CreateLineItem(accountId, lineItemReq);
               Console.WriteLine($"Created line item {lineItem.Uuid}");
@@ -3587,7 +3523,8 @@ paths:
           }
       - lang: Python
         source: |
-          line_items = client.list_account_line_items(account_id, limit=200).items()
+          params = {"limit": 200}
+          line_items = client.list_account_line_items(account_id, params=params).items()
           for line_item in line_items:
               print(line_item.id)
       - lang: ".NET"
@@ -4507,7 +4444,8 @@ paths:
           }
       - lang: Python
         source: |
-          subscriptions = client.list_account_subscriptions(account.id, limit=200).items()
+          params = {"limit": 200}
+          subscriptions = client.list_account_subscriptions(account.id, params=params).items()
           for subscription in subscriptions:
               print(subscription.uuid)
       - lang: ".NET"
@@ -4612,7 +4550,8 @@ paths:
           }
       - lang: Python
         source: |
-          transactions = client.list_account_transactions(account_id, limit=200).items()
+          params = {"limit": 200}
+          transactions = client.list_account_transactions(account_id, params=params).items()
           for transaction in transactions:
               print("Transaction %s" % transaction.id)
       - lang: ".NET"
@@ -4711,7 +4650,8 @@ paths:
       x-code-samples:
       - lang: Python
         source: |
-          child_accounts = client.list_child_accounts(account_id, limit=200).items()
+          params = {"limit": 200}
+          child_accounts = client.list_child_accounts(account_id, params=params).items()
           for account in child_accounts:
               print("Child Account %s" % account.code)
       - lang: Ruby
@@ -4796,7 +4736,8 @@ paths:
           }
       - lang: Python
         source: |
-          acquisitions = client.list_account_acquisition(limit=200).items()
+          params = {"limit": 200}
+          acquisitions = client.list_account_acquisition(params=params).items()
           for acquisition in acquisitions:
               print(acquisition.id)
       - lang: ".NET"
@@ -4895,12 +4836,17 @@ paths:
           }
       - lang: Python
         source: |
-          coupons = client.list_coupons(limit=200).items()
+          params = {"limit": 200}
+          coupons = client.list_coupons(params=params).items()
           for coupon in coupons:
               print(coupon.code)
       - lang: ".NET"
         source: |
-          var coupons = client.ListCoupons(limit: 200);
+          var optionalParams = new ListCouponsParams()
+          {
+              Limit = 200
+          };
+          var coupons = client.ListCoupons(optionalParams);
           foreach(Coupon coupon in coupons)
           {
               Console.WriteLine(coupon.Code);
@@ -5032,7 +4978,7 @@ paths:
               {
                   Name = "Promotional Coupon",
                   Code = couponCode,
-                  DiscountType = "fixed",
+                  DiscountType = DiscountType.Fixed,
                   Currencies = new List<CouponPricing>() {
                     new CouponPricing() {
                       Currency = "USD",
@@ -5647,12 +5593,17 @@ paths:
           }
       - lang: Python
         source: |
-          payments = client.list_credit_payments(limit=200).items()
+          params = {"limit": 200}
+          payments = client.list_credit_payments(params=params).items()
           for payment in payments:
               print("Credit Payment %s" % payment.id)
       - lang: ".NET"
         source: |
-          var payments = client.ListCreditPayments(limit: 200);
+          var optionalParams = new ListCreditPaymentsParams()
+          {
+              Limit = 200
+          };
+          var payments = client.ListCreditPayments(optionalParams);
           foreach(CreditPayment payment in payments)
           {
               Console.WriteLine(payment.Uuid);
@@ -5779,12 +5730,17 @@ paths:
           }
       - lang: Python
         source: |
-          custom_fields = client.list_custom_field_definitions(limit=200).items()
+          params = {"limit": 200}
+          custom_fields = client.list_custom_field_definitions(params=params).items()
           for custom_field in custom_fields:
               print(custom_field.name)
       - lang: ".NET"
         source: |
-          var fields = client.ListCustomFieldDefinitions(limit: 200);
+          var optionalParams = new ListCustomFieldDefinitionsParams()
+          {
+              Limit = 200
+          };
+          var fields = client.ListCustomFieldDefinitions(optionalParams);
           foreach(CustomFieldDefinition def in fields)
           {
               Console.WriteLine(def.DisplayName);
@@ -5996,12 +5952,17 @@ paths:
           }
       - lang: Python
         source: |
-          items = client.list_items(limit=200).items()
+          params = {"limit": 200}
+          items = client.list_items(params=params).items()
           for item in items:
               print(item.code)
       - lang: ".NET"
         source: |
-          var items = client.ListItems(limit: 200);
+          var optionalParams = new ListItemsParams()
+          {
+              Limit = 200
+          };
+          var items = client.ListItems(optionalParams);
           foreach(Item item in items)
           {
               Console.WriteLine(item.Code);
@@ -6148,7 +6109,7 @@ paths:
                   Description = "Item Description",
                   ExternalSku = "a35JE-44",
                   AccountingCode = "item-code-127",
-                  RevenueScheduleType = "at_range_end",
+                  RevenueScheduleType = RevenueScheduleType.AtRangeEnd,
                   CustomFields = new List<CustomField>() {
                       new CustomField() {
                           Name = "custom-field-1",
@@ -7017,12 +6978,17 @@ paths:
           }
       - lang: Python
         source: |
-          invoices = client.list_invoices(limit=200).items()
+          params = {"limit": 200}
+          invoices = client.list_invoices(params=params).items()
           for invoice in invoices:
               print(invoice.number)
       - lang: ".NET"
         source: |
-          var invoices = client.ListInvoices(limit: 200);
+          var optionalParams = new ListInvoicesParams()
+          {
+              Limit = 200
+          };
+          var invoices = client.ListInvoices(optionalParams);
           foreach(Invoice invoice in invoices)
           {
               Console.WriteLine(invoice.Number);
@@ -7786,7 +7752,8 @@ paths:
       - lang: Python
         source: |
           try:
-              invoice = client.mark_invoice_successful(invoice_id)
+              params = {"limit": 200}
+              invoice = client.mark_invoice_successful(invoice_id, params=params)
               print("Marked Invoice successful %s" % invoice)
           except recurly.errors.ValidationError as e:
               # If the request was invalid, you may want to tell your user
@@ -8209,9 +8176,10 @@ paths:
       - lang: Python
         source: |
           try:
-              line_items = client.list_invoice_line_items(invoice_id, limit=200).items()
+              params = {"limit": 200}
+              line_items = client.list_invoice_line_items(invoice_id, params=params).items()
               for item in line_items:
-                print("Invoice Line Items %s" % item.id)
+                  print("Invoice Line Items %s" % item.id)
           except recurly.errors.NotFoundError:
               # If the resource was not found, you may want to alert the user or
               # just return nil
@@ -8307,14 +8275,10 @@ paths:
           }
       - lang: Python
         source: |
-          try:
-              redemptions = client.list_invoice_coupon_redemptions(invoice_id, limit=200).items()
-              for redemption in redemptions:
-                print("Invoice Coupon Redemption %s" % redemption)
-          except recurly.errors.NotFoundError:
-              # If the resource was not found, you may want to alert the user or
-              # just return nil
-              print("Resource Not Found")
+          params = {"limit": 200}
+          redemptions = client.list_invoice_coupon_redemptions(invoice_id, params=params).items()
+          for redemption in redemptions:
+              print("Invoice Coupon Redemption %s" % redemption)
       - lang: ".NET"
         source: |
           var couponRedemptions = client.ListInvoiceCouponRedemptions(invoiceId);
@@ -8408,9 +8372,10 @@ paths:
       - lang: Python
         source: |
           try:
-              related_invoices = client.list_related_invoices(invoice_id, limit=200).items()
+              params = {"limit": 200}
+              related_invoices = client.list_related_invoices(invoice_id, params=params).items()
               for invoice in related_invoices:
-                print("Related invoice %s" % invoice.id)
+                  print("Related invoice %s" % invoice.id)
           except recurly.errors.NotFoundError:
               # If the resource was not found, you may want to alert the user or
               # just return nil
@@ -8540,7 +8505,7 @@ paths:
           {
               var refundReq = new InvoiceRefund() {
                   CreditCustomerNotes = "Notes on credits",
-                  Type = "amount", // could also be "line_items"
+                  Type = InvoiceRefundType.Amount, // could also be "line_items"
                   Amount = 100
               };
               Invoice invoice = client.RefundInvoice(invoiceId, refundReq);
@@ -8674,12 +8639,17 @@ paths:
           }
       - lang: Python
         source: |
-          line_items = client.list_line_items(limit=200).items()
+          params = {"limit": 200}
+          line_items = client.list_line_items(params=params).items()
           for line_item in line_items:
               print(line_item.id)
       - lang: ".NET"
         source: |
-          var lineItems = client.ListLineItems(limit: 200);
+          var optionalParams = new ListLineItemsParams()
+          {
+              Limit = 200
+          };
+          var lineItems = client.ListLineItems(optionalParams);
           foreach(LineItem item in lineItems)
           {
               Console.WriteLine($"Item {item.Uuid} for {item.Amount}");
@@ -9009,12 +8979,17 @@ paths:
           }
       - lang: Python
         source: |
-          plans = client.list_plans(limit=200).items()
+          params = {"limit": 200}
+          plans = client.list_plans(params=params).items()
           for plan in plans:
               print(plan.code)
       - lang: ".NET"
         source: |
-          var plans = client.ListPlans(limit: 200);
+          var optionalParams = new ListPlansParams()
+          {
+              Limit = 200
+          };
+          var plans = client.ListPlans(optionalParams);
           foreach(Plan plan in plans)
           {
               Console.WriteLine(plan.Code);
@@ -9679,7 +9654,8 @@ paths:
           }
       - lang: Python
         source: |
-          add_ons = client.list_plan_add_ons(plan_id).items()
+          params = {"limit": 200}
+          add_ons = client.list_plan_add_ons(plan_id, params=params).items()
           for add_on in add_ons:
               print(add_on.code)
       - lang: ".NET"
@@ -9822,8 +9798,8 @@ paths:
                   Code = "coffee_grinder",
                   Name = "A quality grinder for your beans",
                   DefaultQuantity = 1,
-                  Currencies = new List<AddOnPricing>() {
-                      new AddOnPricing() {
+                  Currencies = new List<Pricing>() {
+                      new Pricing() {
                           Currency = "USD",
                           UnitAmount = 10000
                       }
@@ -10351,7 +10327,8 @@ paths:
           }
       - lang: Python
         source: |
-          add_ons = client.list_add_ons().items()
+          params = {"limit": 200}
+          add_ons = client.list_add_ons(params=params).items()
           for add_on in add_ons:
               print("Add-On %s" % add_on.code)
       - lang: ".NET"
@@ -10567,9 +10544,10 @@ paths:
           }
       - lang: Python
         source: |
-          shipping_methods = client.list_shipping_methods(limit=200).items()
+          params = {"limit": 200}
+          shipping_methods = client.list_shipping_methods(params=params).items()
           for shipping_method in shipping_methods:
-            print("Shipping Method %s" % shipping_method.code)
+              print("Shipping Method %s" % shipping_method.code)
       - lang: ".NET"
         source: |
           var shippingMethods = client.ListShippingMethods();
@@ -10819,12 +10797,17 @@ paths:
           }
       - lang: Python
         source: |
-          subscriptions = client.list_subscriptions(limit=200).items()
+          params = {"limit": 200}
+          subscriptions = client.list_subscriptions(params=params).items()
           for subscription in subscriptions:
               print(subscription.uuid)
       - lang: ".NET"
         source: |
-          var subscriptions = client.ListSubscriptions(limit: 200);
+          var optionalParams = new ListSubscriptionsParams()
+          {
+              Limit = 200
+          };
+          var subscriptions = client.ListSubscriptions(optionalParams);
           foreach(Subscription subscription in subscriptions)
           {
               Console.WriteLine(subscription.Uuid);
@@ -12271,7 +12254,7 @@ paths:
               var changeReq = new SubscriptionChangeCreate()
               {
                   PlanCode = newPlanCode,
-                  Timeframe = "now" // choose "now" or "renewal"
+                  Timeframe = ChangeTimeframe.Now // choose "now" or "renewal"
               };
               SubscriptionChange change = client.CreateSubscriptionChange(subscriptionId, changeReq);
               Console.WriteLine($"Created subscription change {change.Id}");
@@ -12563,7 +12546,8 @@ paths:
           }
       - lang: Python
         source: |
-          invoices = client.list_subscription_invoices(subscription_id).items()
+          params = {"limit": 200}
+          invoices = client.list_subscription_invoices(subscription_id, params=params).items()
           for invoice in invoices:
               print(invoice.number)
       - lang: ".NET"
@@ -12669,7 +12653,8 @@ paths:
           }
       - lang: Python
         source: |
-          line_items = client.list_subscription_line_items(subscription_id).items()
+          params = {"limit": 200}
+          line_items = client.list_subscription_line_items(subscription_id, params=params).items()
           for line_item in line_items:
               print(line_item.id)
       - lang: ".NET"
@@ -12765,7 +12750,10 @@ paths:
           }
       - lang: Python
         source: |
-          redemptions = client.list_subscription_coupon_redemptions(subscription_id).items()
+          params = {"limit": 200}
+          redemptions = client.list_subscription_coupon_redemptions(
+              subscription_id, params=params
+          ).items()
           for redemption in redemptions:
               print(redemption.uuid)
       - lang: ".NET"
@@ -13085,12 +13073,17 @@ paths:
           }
       - lang: Python
         source: |
-          transactions = client.list_transactions(limit=200).items()
+          params = {"limit": 200}
+          transactions = client.list_transactions(params=params).items()
           for transaction in transactions:
               print(transaction.uuid)
       - lang: ".NET"
         source: |
-          var transactions = client.ListTransactions(limit: 200);
+          var optionalParams = new ListTransactionsParams()
+          {
+              Limit = 200
+          };
+          var transactions = client.ListTransactions(optionalParams);
           foreach(Transaction transaction in transactions)
           {
               Console.WriteLine(transaction.Uuid);
@@ -13811,6 +13804,231 @@ paths:
           {\n\t\tfmt.Printf(\"Failed validation: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Preview Charge
           Invoice %v\", collection.ChargeInvoice)"
+  "/sites/{site_id}/export_dates":
+    parameters:
+    - "$ref": "#/components/parameters/site_id"
+    get:
+      tags:
+      - automated_exports
+      operationId: get_export_dates
+      summary: List the dates that have an available export to download.
+      description: Returns a list of dates for which export files are available for
+        download.
+      responses:
+        '200':
+          description: Returns a list of dates.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ExportDates"
+        '400':
+          description: Invalid or unpermitted parameter.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Incorrect site ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples:
+      - lang: Node.js
+        source: |
+          try {
+            const export_dates = await client.getExportDates()
+            export_dates.dates.forEach(date => {
+              console.log(`Exports are available for: ${date}`)
+            })
+          } catch (err) {
+            if (err instanceof recurly.ApiError) {
+              console.log('Unexpected error', err)
+            }
+          }
+      - lang: Python
+        source: |
+          try:
+              export_dates = client.get_export_dates()
+              for date in export_dates.dates:
+                  print( "Exports are available for: %s" % date)
+          except recurly.errors.NotFoundError:
+              # If the resource was not found, you may want to alert the user or
+              # just return nil
+              print("Resource Not Found")
+      - lang: ".NET"
+        source: |
+          try
+          {
+              ExportDates exportDates = client.GetExportDates();
+              foreach (var date in exportDates.Dates)
+              {
+                  System.Console.WriteLine($"Exports are available for: {date}");
+              }
+          }
+          catch (Recurly.Errors.ApiError ex)
+          {
+              // Use ApiError to catch a generic error from the API
+              Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
+          }
+      - lang: Ruby
+        source: |
+          begin
+            export_dates = @client.get_export_dates()
+            export_dates.dates.each do |date|
+              puts "Exports are available for: #{date}"
+            end
+          rescue Recurly::Errors::NotFoundError
+            # If the resource was not found, you may want to alert the user or
+            # just return nil
+            puts "Resource Not Found"
+          end
+      - lang: Java
+        source: |
+          try {
+              ExportDates exportDates = client.getExportDates();
+              for (String date : exportDates.getDates()) {
+                  System.out.println("Exports are available for: " + date);
+              }
+          } catch (ApiException e) {
+              // Use ApiException to catch a generic error from the API
+              System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
+          }
+      - lang: PHP
+        source: |
+          try {
+              $export_dates = $client->getExportDates();
+              foreach($export_dates->getDates() as $date)
+              {
+                  echo "Exports are available for: {$date}" . PHP_EOL;
+              }
+          } catch (\Recurly\RecurlyError $e) {
+              echo 'Some unexpected Recurly error happened. Try again later.' . PHP_EOL;
+          }
+      - lang: Go
+        source: "exportDates, err := client.GetExportDates()\nif e, ok := err.(*recurly.Error);
+          ok {\n\tfmt.Printf(\"Unexpected Recurly error: %v\", e)\n\treturn nil, err\n}\n\nfor
+          _, date := range exportDates.Dates {\n\tfmt.Println(\"Exports are available
+          for: \", date)\n}"
+  "/sites/{site_id}/export_dates/{export_date}/export_files":
+    parameters:
+    - "$ref": "#/components/parameters/site_id"
+    - "$ref": "#/components/parameters/export_date"
+    get:
+      tags:
+      - automated_exports
+      operationId: get_export_files
+      summary: List of the export files that are available to download.
+      description: Returns a list of presigned URLs to download export files for the
+        given date, with their MD5 sums.
+      responses:
+        '200':
+          description: Returns a list of export files to download.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ExportFiles"
+        '400':
+          description: Invalid or unpermitted parameter.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Incorrect site ID or date.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples:
+      - lang: Node.js
+        source: |
+          try {
+            const export_files = await client.getExportFiles(export_date)
+            export_files.files.forEach(file => {
+              console.log(`Export file download URL: ${file.href}`)
+            })
+          } catch (err) {
+            if (err instanceof recurly.ApiError) {
+              console.log('Unexpected error', err)
+            }
+          }
+      - lang: Python
+        source: |
+          try:
+              export_files = client.get_export_files(export_date)
+              for file in export_files.files:
+                  print( "Export file download URL: %s" % file.href)
+          except recurly.errors.NotFoundError:
+              # If the resource was not found, you may want to alert the user or
+              # just return nil
+              print("Resource Not Found")
+      - lang: ".NET"
+        source: |
+          try
+          {
+              ExportFiles exportFiles = client.GetExportFiles(exportDate: exportDate);
+              foreach (var file in exportFiles.Files)
+              {
+                  System.Console.WriteLine($"Export file download URL: {file.Href}");
+              }
+          }
+          catch (Recurly.Errors.ApiError ex)
+          {
+              // Use ApiError to catch a generic error from the API
+              Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
+          }
+      - lang: Ruby
+        source: |
+          begin
+            export_files = @client.get_export_files(export_date: export_date)
+            export_files.files.each do |file|
+              puts "Export file download URL: #{file.href}"
+            end
+          rescue Recurly::Errors::NotFoundError
+            # If the resource was not found, you may want to alert the user or
+            # just return nil
+            puts "Resource Not Found"
+          end
+      - lang: Java
+        source: |
+          try {
+              ExportFiles exportFiles = client.getExportFiles(exportDate);
+              for (ExportFile file : exportFiles.getFiles()) {
+                  System.out.println("Export file download URL: " + file.getHref());
+              }
+          } catch (ApiException e) {
+              // Use ApiException to catch a generic error from the API
+              System.out.println("Unexpected Recurly Error: " + e.getError());
+          }
+      - lang: PHP
+        source: |
+          try {
+              $export_files = $client->getExportFiles($export_date);
+              foreach($export_files->getFiles() as $file)
+              {
+                  echo "Export file download URL: {$file->getHref()}" . PHP_EOL;
+              }
+          } catch (\Recurly\RecurlyError $e) {
+              echo 'Some unexpected Recurly error happened. Try again later.' . PHP_EOL;
+          }
+      - lang: Go
+        source: "exportFiles, err := client.GetExportFiles(exportDate)\nif e, ok :=
+          err.(*recurly.Error); ok {\n\tfmt.Printf(\"Unexpected Recurly error: %v\",
+          e)\n\treturn nil, err\n}\n\nfor _, file := range exportFiles.Files {\n\tfmt.Println(\"Export
+          file download URL: \", file.Href)\n}"
 servers:
 - url: https://v3.recurly.com
 components:
@@ -14128,6 +14346,14 @@ components:
         - `type=legacy`, only legacy invoices will be returned.
       schema:
         "$ref": "#/components/schemas/FilterInvoiceTypeEnum"
+    export_date:
+      name: export_date
+      in: path
+      description: Date for which to get a list of available automated export files.
+        Date must be in YYYY-MM-DD format.
+      required: true
+      schema:
+        type: string
   securitySchemes:
     api_key:
       type: http
@@ -15001,6 +15227,22 @@ components:
             schedule. If `item_code`/`item_id` is part of the request then `revenue_schedule_type`
             must be absent in the request as the value will be set from the item.
           "$ref": "#/components/schemas/RevenueScheduleTypeEnum"
+        avalara_transaction_type:
+          type: integer
+          title: Avalara Transaction Type
+          description: Used by Avalara for Communications taxes. The transaction type
+            in combination with the service type describe how the add-on is taxed.
+            Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types)
+            for more available t/s types.
+          minimum: 0
+        avalara_service_type:
+          type: integer
+          title: Avalara Service Type
+          description: Used by Avalara for Communications taxes. The transaction type
+            in combination with the service type describe how the add-on is taxed.
+            Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types)
+            for more available t/s types.
+          minimum: 0
         tax_code:
           type: string
           title: Tax code
@@ -15168,6 +15410,24 @@ components:
             be included when a subscription is created through the Recurly UI. However,
             the add-on will not be included when a subscription is created through
             the API.
+        avalara_transaction_type:
+          type: integer
+          title: Avalara Transaction Type
+          description: Used by Avalara for Communications taxes. The transaction type
+            in combination with the service type describe how the add-on is taxed.
+            Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types)
+            for more available t/s types. If an `Item` is associated to the `AddOn`,
+            then the `avalara_transaction_type` must be absent.
+          minimum: 0
+        avalara_service_type:
+          type: integer
+          title: Avalara Service Type
+          description: Used by Avalara for Communications taxes. The transaction type
+            in combination with the service type describe how the add-on is taxed.
+            Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types)
+            for more available t/s types. If an `Item` is associated to the `AddOn`,
+            then the `avalara_service_type` must be absent.
+          minimum: 0
         tax_code:
           type: string
           title: Tax code
@@ -15266,6 +15526,24 @@ components:
             schedule. If `item_code`/`item_id` is part of the request then `revenue_schedule_type`
             must be absent in the request as the value will be set from the item.
           "$ref": "#/components/schemas/RevenueScheduleTypeEnum"
+        avalara_transaction_type:
+          type: integer
+          title: Avalara Transaction Type
+          description: Used by Avalara for Communications taxes. The transaction type
+            in combination with the service type describe how the add-on is taxed.
+            Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types)
+            for more available t/s types. If an `Item` is associated to the `AddOn`,
+            then the `avalara_transaction_type` must be absent.
+          minimum: 0
+        avalara_service_type:
+          type: integer
+          title: Avalara Service Type
+          description: Used by Avalara for Communications taxes. The transaction type
+            in combination with the service type describe how the add-on is taxed.
+            Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types)
+            for more available t/s types. If an `Item` is associated to the `AddOn`,
+            then the `avalara_service_type` must be absent.
+          minimum: 0
         tax_code:
           type: string
           title: Tax code
@@ -15471,7 +15749,7 @@ components:
           maxLength: 22
         iban:
           type: string
-          maxLengh: 34
+          maxLength: 34
           description: The International Bank Account Number, up to 34 alphanumeric
             characters comprising a country code; two check digits; and a number that
             includes the domestic bank account number, branch identifier, and potential
@@ -15522,6 +15800,11 @@ components:
           title: Unique code template
           description: On a bulk coupon, the template from which unique coupon codes
             are generated.
+        unique_coupon_code:
+          allOf:
+          - "$ref": "#/components/schemas/UniqueCouponCode"
+          type: object
+          description: Will be populated when the Coupon being returned is a `UniqueCouponCode`.
         duration:
           title: Duration
           description: |
@@ -15555,19 +15838,13 @@ components:
           type: boolean
           title: Applies to all plans?
           description: The coupon is valid for all plans if true. If false then `plans`
-            and `plans_names` will list the applicable plans.
+            will list the applicable plans.
           default: true
         applies_to_non_plan_charges:
           type: boolean
           title: Applied to all non-plan charges?
           description: The coupon is valid for one-time, non-plan charges if true.
           default: false
-        plans_names:
-          type: array
-          title: 'Plan names (TODO: decide if this duplicates `plans`)'
-          description: TODO
-          items:
-            type: string
         plans:
           type: array
           title: Plans
@@ -15606,13 +15883,6 @@ components:
           description: The date and time the coupon will expire and can no longer
             be redeemed. Time is always 11:59:59, the end-of-day Pacific time.
           format: date-time
-        redeemed_at:
-          type: string
-          title: Redeemed at
-          description: The date and time the unique coupon code was redeemed. This
-            is only present for bulk coupons.
-          format: date-time
-          readOnly: true
         created_at:
           type: string
           title: Created at
@@ -15677,12 +15947,15 @@ components:
             type: boolean
             title: Applies to all plans?
             description: The coupon is valid for all plans if true. If false then
-              `plans` and `plans_names` will list the applicable plans.
+              `plans` will list the applicable plans.
             default: true
           plan_codes:
             type: array
             title: Plan codes
-            description: List of plan codes to which this coupon applies. See `applies_to_all_plans`
+            description: |
+              List of plan codes to which this coupon applies. Required
+              if `applies_to_all_plans` is false. Overrides `applies_to_all_plans`
+              when `applies_to_all_plans` is true.
             items:
               type: string
           duration:
@@ -16192,6 +16465,22 @@ components:
         revenue_schedule_type:
           title: Revenue schedule type
           "$ref": "#/components/schemas/RevenueScheduleTypeEnum"
+        avalara_transaction_type:
+          type: integer
+          title: Avalara Transaction Type
+          description: Used by Avalara for Communications taxes. The transaction type
+            in combination with the service type describe how the item is taxed. Refer
+            to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types)
+            for more available t/s types.
+          minimum: 0
+        avalara_service_type:
+          type: integer
+          title: Avalara Service Type
+          description: Used by Avalara for Communications taxes. The transaction type
+            in combination with the service type describe how the item is taxed. Refer
+            to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types)
+            for more available t/s types.
+          minimum: 0
         tax_code:
           type: string
           title: Tax code
@@ -16260,6 +16549,22 @@ components:
         revenue_schedule_type:
           title: Revenue schedule type
           "$ref": "#/components/schemas/RevenueScheduleTypeEnum"
+        avalara_transaction_type:
+          type: integer
+          title: Avalara Transaction Type
+          description: Used by Avalara for Communications taxes. The transaction type
+            in combination with the service type describe how the item is taxed. Refer
+            to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types)
+            for more available t/s types.
+          minimum: 0
+        avalara_service_type:
+          type: integer
+          title: Avalara Service Type
+          description: Used by Avalara for Communications taxes. The transaction type
+            in combination with the service type describe how the item is taxed. Refer
+            to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types)
+            for more available t/s types.
+          minimum: 0
         tax_code:
           type: string
           title: Tax code
@@ -16316,6 +16621,22 @@ components:
         revenue_schedule_type:
           title: Revenue schedule type
           "$ref": "#/components/schemas/RevenueScheduleTypeEnum"
+        avalara_transaction_type:
+          type: integer
+          title: Avalara Transaction Type
+          description: Used by Avalara for Communications taxes. The transaction type
+            in combination with the service type describe how the item is taxed. Refer
+            to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types)
+            for more available t/s types.
+          minimum: 0
+        avalara_service_type:
+          type: integer
+          title: Avalara Service Type
+          description: Used by Avalara for Communications taxes. The transaction type
+            in combination with the service type describe how the item is taxed. Refer
+            to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types)
+            for more available t/s types.
+          minimum: 0
         tax_code:
           type: string
           title: Tax code
@@ -17013,6 +17334,22 @@ components:
             If not defined, then defaults to the Plan and Site settings. This attribute
             does not work for credits (negative line items). Credits are always applied
             post-tax. Pre-tax discounts should use the Coupons feature."
+        avalara_transaction_type:
+          type: integer
+          title: Avalara Transaction Type
+          description: Used by Avalara for Communications taxes. The transaction type
+            in combination with the service type describe how the line item is taxed.
+            Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types)
+            for more available t/s types.
+          minimum: 0
+        avalara_service_type:
+          type: integer
+          title: Avalara Service Type
+          description: Used by Avalara for Communications taxes. The transaction type
+            in combination with the service type describe how the line item is taxed.
+            Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types)
+            for more available t/s types.
+          minimum: 0
         tax_code:
           type: string
           title: Tax code
@@ -17165,6 +17502,24 @@ components:
             If not defined, then defaults to the Plan and Site settings. This attribute
             does not work for credits (negative line items). Credits are always applied
             post-tax. Pre-tax discounts should use the Coupons feature."
+        avalara_transaction_type:
+          type: integer
+          title: Avalara Transaction Type
+          description: Used by Avalara for Communications taxes. The transaction type
+            in combination with the service type describe how the line item is taxed.
+            Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types)
+            for more available t/s types. If an `Item` is associated to the `LineItem`,
+            then the `avalara_transaction_type` must be absent.
+          minimum: 0
+        avalara_service_type:
+          type: integer
+          title: Avalara Service Type
+          description: Used by Avalara for Communications taxes. The transaction type
+            in combination with the service type describe how the line item is taxed.
+            Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types)
+            for more available t/s types. If an `Item` is associated to the `LineItem`,
+            then the `avalara_service_type` must be absent.
+          minimum: 0
         tax_code:
           type: string
           title: Tax code
@@ -17185,11 +17540,14 @@ components:
           maxLength: 50
         origin:
           title: Origin
-          description: Only allowed if the Gift Cards feature is enabled on your site
-            and `type` is `credit`. Can only have a value of `external_gift_card`.
-            Set this value in order to track gift card credits from external gift
-            cards (like InComm). It also skips billing information requirements.
-          "$ref": "#/components/schemas/GiftCodeOriginEnum"
+          description: Origin `external_gift_card` is allowed if the Gift Cards feature
+            is enabled on your site and `type` is `credit`. Set this value in order
+            to track gift card credits from external gift cards (like InComm). It
+            also skips billing information requirements.  Origin `prepayment` is only
+            allowed if `type` is `charge` and `tax_exempt` is left blank or set to
+            true.  This origin creates a charge and opposite credit on the account
+            to be used for future invoices.
+          "$ref": "#/components/schemas/LineItemCreateOriginEnum"
         start_date:
           type: string
           format: date-time
@@ -17334,6 +17692,22 @@ components:
             fee. If no value is provided, it defaults to plan's accounting code.
           pattern: "/^[a-z0-9_+-]+$/"
           maxLength: 20
+        avalara_transaction_type:
+          type: integer
+          title: Avalara Transaction Type
+          description: Used by Avalara for Communications taxes. The transaction type
+            in combination with the service type describe how the plan is taxed. Refer
+            to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types)
+            for more available t/s types.
+          minimum: 0
+        avalara_service_type:
+          type: integer
+          title: Avalara Service Type
+          description: Used by Avalara for Communications taxes. The transaction type
+            in combination with the service type describe how the plan is taxed. Refer
+            to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types)
+            for more available t/s types.
+          minimum: 0
         tax_code:
           type: string
           title: Tax code
@@ -17466,6 +17840,22 @@ components:
             fee. If no value is provided, it defaults to plan's accounting code.
           pattern: "/^[a-z0-9_+-]+$/"
           maxLength: 20
+        avalara_transaction_type:
+          type: integer
+          title: Avalara Transaction Type
+          description: Used by Avalara for Communications taxes. The transaction type
+            in combination with the service type describe how the plan is taxed. Refer
+            to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types)
+            for more available t/s types.
+          minimum: 0
+        avalara_service_type:
+          type: integer
+          title: Avalara Service Type
+          description: Used by Avalara for Communications taxes. The transaction type
+            in combination with the service type describe how the plan is taxed. Refer
+            to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types)
+            for more available t/s types.
+          minimum: 0
         tax_code:
           type: string
           title: Tax code
@@ -17632,6 +18022,22 @@ components:
             fee. If no value is provided, it defaults to plan's accounting code.
           pattern: "/^[a-z0-9_+-]+$/"
           maxLength: 20
+        avalara_transaction_type:
+          type: integer
+          title: Avalara Transaction Type
+          description: Used by Avalara for Communications taxes. The transaction type
+            in combination with the service type describe how the plan is taxed. Refer
+            to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types)
+            for more available t/s types.
+          minimum: 0
+        avalara_service_type:
+          type: integer
+          title: Avalara Service Type
+          description: Used by Avalara for Communications taxes. The transaction type
+            in combination with the service type describe how the plan is taxed. Refer
+            to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types)
+            for more available t/s types.
+          minimum: 0
         tax_code:
           type: string
           title: Tax code
@@ -18422,7 +18828,8 @@ components:
             If the plan add-on's `tier_type` is `flat`, then `tiers` must be absent. The `tiers` object
             must include one to many tiers with `ending_quantity` and `unit_amount`.
             There must be one tier with an `ending_quantity` of 999999999 which is the
-            default if not provided.
+            default if not provided. See our [Guide](https://developers.recurly.com/guides/item-addon-guide.html)
+            for an overview of how to configure quantity-based pricing models.
         usage_percentage:
           type: number
           format: float
@@ -18430,7 +18837,8 @@ components:
           description: The percentage taken of the monetary amount of usage tracked.
             This can be up to 4 decimal places. A value between 0.0 and 100.0. Required
             if `add_on_type` is usage and `usage_type` is percentage. Must be omitted
-            otherwise. `usage_percentage` does not support tiers.
+            otherwise. `usage_percentage` does not support tiers. See our [Guide](https://developers.recurly.com/guides/usage-based-billing-guide.html)
+            for an overview of how to configure usage add-ons.
         revenue_schedule_type:
           title: Revenue schedule type
           "$ref": "#/components/schemas/RevenueScheduleTypeEnum"
@@ -18560,6 +18968,11 @@ components:
         revenue_schedule_type:
           title: Revenue schedule type
           "$ref": "#/components/schemas/RevenueScheduleTypeEnum"
+        invoice_collection:
+          title: Invoice Collection
+          "$ref": "#/components/schemas/InvoiceCollection"
+        custom_fields:
+          "$ref": "#/components/schemas/CustomFields"
         created_at:
           type: string
           format: date-time
@@ -18656,6 +19069,8 @@ components:
         revenue_schedule_type:
           title: Revenue schedule type
           "$ref": "#/components/schemas/RevenueScheduleTypeEnum"
+        custom_fields:
+          "$ref": "#/components/schemas/CustomFields"
         po_number:
           type: string
           title: Purchase order number
@@ -18753,12 +19168,13 @@ components:
           title: Add-ons
           items:
             "$ref": "#/components/schemas/SubscriptionAddOnCreate"
-        coupon_code:
-          type: string
-          title: Redeem a coupon and discount the subscription
-          description: Optional coupon code to redeem on the account and discount
-            the subscription. Please note, the subscription request will fail if the
-            coupon is invalid.
+        coupon_codes:
+          type: array
+          title: Coupon codes
+          description: A list of coupon_codes to be redeemed on the subscription or
+            account during the purchase.
+          items:
+            type: string
         custom_fields:
           "$ref": "#/components/schemas/CustomFields"
         trial_ends_at:
@@ -19313,6 +19729,7 @@ components:
             to current datetime.
     UniqueCouponCode:
       type: object
+      description: A unique coupon code for a bulk coupon.
       properties:
         id:
           type: string
@@ -19330,6 +19747,15 @@ components:
           title: State
           description: Indicates if the unique coupon code is redeemable or why not.
           "$ref": "#/components/schemas/CouponCodeStateEnum"
+        bulk_coupon_id:
+          type: string
+          title: Bulk Coupon ID
+          description: The Coupon ID of the parent Bulk Coupon
+          readOnly: true
+        bulk_coupon_code:
+          type: string
+          title: Bulk Coupon code
+          description: The Coupon code of the parent Bulk Coupon
         created_at:
           type: string
           title: Created at
@@ -19413,6 +19839,16 @@ components:
           format: date-time
           description: When the usage actually happened. This will define the line
             item dates this usage is billed under and is important for revenue recognition.
+        usage_percentage:
+          type: number
+          format: float
+          title: Usage Percentage
+          description: The percentage taken of the monetary amount of usage tracked.
+            This can be up to 4 decimal places. A value between 0.0 and 100.0.
+        unit_amount:
+          type: number
+          format: float
+          title: Unit price
         billed_at:
           type: string
           format: date-time
@@ -19559,8 +19995,8 @@ components:
               type: string
               title: Shipping address ID
               description: Assign a shipping address from the account's existing shipping
-                addresses. If this and `shipping_address` are both present, `shipping_address`
-                will take precedence.
+                addresses. If this and `address` are both present, `address` will
+                take precedence.
               maxLength: 13
             address:
               "$ref": "#/components/schemas/ShippingAddressCreate"
@@ -19929,13 +20365,18 @@ components:
       - price
       - percentage
       title: Usage Type
-      description: Type of usage, required if `add_on_type` is `usage`.
+      description: |
+        Type of usage, required if `add_on_type` is `usage`. See our
+        [Guide](https://developers.recurly.com/guides/usage-based-billing-guide.html) for an
+        overview of how to configure usage add-ons.
     TierTypeEnum:
       type: string
       title: Tier type
       description: |
         The pricing model for the add-on.  For more information,
-        [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based).
+        [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based). See our
+        [Guide](https://developers.recurly.com/guides/item-addon-guide.html) for an overview of how
+        to configure quantity-based pricing models.
       default: flat
       enum:
       - flat
@@ -19980,6 +20421,7 @@ components:
       - renewal
       - termination
       - write_off
+      - prepayment
     InvoiceStateEnum:
       type: string
       enum:
@@ -20051,6 +20493,7 @@ components:
       - plan
       - plan_trial
       - setup_fee
+      - prepayment
     FullCreditReasonCodeEnum:
       type: string
       enum:
@@ -20066,10 +20509,11 @@ components:
       - general
       - promotional
       - service
-    GiftCodeOriginEnum:
+    LineItemCreateOriginEnum:
       type: string
       enum:
       - external_gift_card
+      - prepayment
     IntervalUnitEnum:
       type: string
       enum:
@@ -20398,3 +20842,41 @@ components:
       - unknown
       - vaultly_service_unavailable
       - zero_dollar_auth_not_supported
+    ExportDates:
+      type: object
+      properties:
+        object:
+          type: string
+          title: Object type
+          readOnly: true
+        dates:
+          type: array
+          items:
+            type: string
+          title: An array of dates that have available exports.
+    ExportFiles:
+      type: object
+      properties:
+        object:
+          type: string
+          title: Object type
+          readOnly: true
+        files:
+          type: array
+          items:
+            "$ref": "#/components/schemas/ExportFile"
+    ExportFile:
+      type: object
+      properties:
+        name:
+          type: string
+          title: Filename
+          description: Name of the export file.
+        md5sum:
+          type: string
+          title: MD5 hash of the export file
+          description: MD5 hash of the export file.
+        href:
+          type: string
+          title: A link to the export file
+          description: A presigned link to download the export file.
