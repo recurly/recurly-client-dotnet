@@ -19,5 +19,9 @@ namespace Recurly.Resources
         [JsonProperty("dates")]
         public List<string> Dates { get; set; }
 
+        /// <value>Object type</value>
+        [JsonProperty("object")]
+        public string Object { get; set; }
+
     }
 }
