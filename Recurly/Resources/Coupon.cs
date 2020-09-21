@@ -101,7 +101,7 @@ namespace Recurly.Resources
         [JsonProperty("plans")]
         public List<PlanMini> Plans { get; set; }
 
-        /// <value>TODO</value>
+        /// <value>A list of plan names for which this coupon applies.</value>
         [JsonProperty("plans_names")]
         public List<string> PlansNames { get; set; }
 

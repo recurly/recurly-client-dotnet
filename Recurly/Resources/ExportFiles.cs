@@ -19,5 +19,9 @@ namespace Recurly.Resources
         [JsonProperty("files")]
         public List<ExportFile> Files { get; set; }
 
+        /// <value>Object type</value>
+        [JsonProperty("object")]
+        public string Object { get; set; }
+
     }
 }
