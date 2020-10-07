@@ -72,7 +72,7 @@ namespace Recurly
             });
         }
 
-        public T MakeRequest<T>(Method method, string url, Request body = null, Dictionary<string, object> queryParams = null, RequestOptions options = null) where T : Resource
+        public T MakeRequest<T>(Method method, string url, Request body = null, Dictionary<string, object> queryParams = null, RequestOptions options = null) where T : Resource, new()
         {
             Debug.WriteLine($"Calling {url}");
             var httpRequest = new Http.Request()
@@ -97,6 +97,13 @@ namespace Recurly
             }
 
             this.HandleResponse(restResponse);
+
+            if (typeof(T).Equals(typeof(EmptyResource)))
+            {
+                var empty = new T();
+                empty.SetResponse(httpResponse);
+                return empty;
+            }
 
             if (restResponse.Data is Resource)
                 restResponse.Data.SetResponse(httpResponse);

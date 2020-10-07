@@ -134,9 +134,9 @@ namespace Recurly.Tests
                 { "limit", 200 },
                 { "a", 1 },
             };
-            var clientMock = GetPagerCountClient();
+            var client = MockClient.Build(PagerCountResponse());
 
-            var pager = Pager<MyResource>.Build("/resources", queryParams, null, clientMock);
+            var pager = Pager<MyResource>.Build("/resources", queryParams, null, client);
 
             var count = pager.Count();
             Assert.Equal(42, count);
@@ -251,34 +251,15 @@ namespace Recurly.Tests
             return response;
         }
 
-        private Mock<IRestResponse> PagerCountResponse()
+        private Mock<IRestResponse<EmptyResource>> PagerCountResponse()
         {
-            var response = new Mock<IRestResponse>();
+            var response = new Mock<IRestResponse<EmptyResource>>();
             response.Setup(_ => _.StatusCode).Returns(System.Net.HttpStatusCode.OK);
             response.Setup(_ => _.Headers).Returns(new List<Parameter> {
                 new RestSharp.Parameter("Recurly-Total-Records", "42", ParameterType.HttpHeader),
             });
 
             return response;
-        }
-
-        private Recurly.Client GetPagerCountClient()
-        {
-            var pageResponse = new Mock<IRestResponse>();
-            pageResponse.Setup(_ => _.StatusCode).Returns(System.Net.HttpStatusCode.OK);
-            pageResponse.Setup(_ => _.Headers).Returns(new List<Parameter> {
-                new RestSharp.Parameter("Recurly-Total-Records", "42", ParameterType.HttpHeader),
-            });
-            var mockIRestClient = new Mock<IRestClient>();
-
-            mockIRestClient
-                .Setup(x => x.Execute(It.Is<RestRequest>(r => r.Method == Method.HEAD)))
-                .Returns(pageResponse.Object);
-
-            return new Recurly.Client("myapikey")
-            {
-                RestClient = mockIRestClient.Object
-            };
         }
     }
 }
