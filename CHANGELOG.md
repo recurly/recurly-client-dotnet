@@ -1,8 +1,20 @@
 # Changelog
 
-## [3.13.0](https://github.com/recurly/recurly-client-dotnet/tree/HEAD)
+## [3.13.1](https://github.com/recurly/recurly-client-dotnet/tree/HEAD)
 
-[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.12.0...HEAD)
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.13.0...HEAD)
+
+**Fixed bugs:**
+
+- Updating client to be compliant with RFC 2616: case-insensitive headers [\#581](https://github.com/recurly/recurly-client-dotnet/pull/581) ([douglasmiller](https://github.com/douglasmiller))
+
+**Merged pull requests:**
+
+- Release 3.13.1 [\#583](https://github.com/recurly/recurly-client-dotnet/pull/583) ([douglasmiller](https://github.com/douglasmiller))
+
+## [3.13.0](https://github.com/recurly/recurly-client-dotnet/tree/3.13.0) (2020-09-22)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.12.0...3.13.0)
 
 **Implemented enhancements:**
 
