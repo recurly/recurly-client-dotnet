@@ -33,10 +33,10 @@ namespace Recurly
         /// <returns>
         /// A list of sites.
         /// </returns>
-        public Pager<Site> ListSites(string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, Constants.ActiveState? state = null, RequestOptions options = null)
+        public Pager<Site> ListSites(ListSitesParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "state", state } };
+            var queryParams = (optionalParams ?? new ListSitesParams()).ToDictionary();
             var url = this.InterpolatePath("/sites", urlParams);
             return Pager<Site>.Build(url, queryParams, options, this);
         }
@@ -94,10 +94,10 @@ namespace Recurly
         /// <returns>
         /// A list of the site's accounts.
         /// </returns>
-        public Pager<Account> ListAccounts(string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, string email = null, bool? subscriber = null, Constants.True? pastDue = null, RequestOptions options = null)
+        public Pager<Account> ListAccounts(ListAccountsParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "email", email }, { "subscriber", subscriber }, { "past_due", pastDue } };
+            var queryParams = (optionalParams ?? new ListAccountsParams()).ToDictionary();
             var url = this.InterpolatePath("/accounts", urlParams);
             return Pager<Account>.Build(url, queryParams, options, this);
         }
@@ -531,10 +531,10 @@ namespace Recurly
         /// <returns>
         /// A list of the the coupon redemptions on an account.
         /// </returns>
-        public Pager<CouponRedemption> ListAccountCouponRedemptions(string accountId, string ids = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, RequestOptions options = null)
+        public Pager<CouponRedemption> ListAccountCouponRedemptions(string accountId, ListAccountCouponRedemptionsParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime } };
+            var queryParams = (optionalParams ?? new ListAccountCouponRedemptionsParams()).ToDictionary();
             var url = this.InterpolatePath("/accounts/{account_id}/coupon_redemptions", urlParams);
             return Pager<CouponRedemption>.Build(url, queryParams, options, this);
         }
@@ -544,36 +544,20 @@ namespace Recurly
 
 
         /// <summary>
-        /// Show the coupon redemption that is active on an account <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_active_coupon_redemption">get_active_coupon_redemption api documentation</see>
+        /// Show the coupon redemptions that are active on an account <see href="https://developers.recurly.com/api/v2020-01-01#operation/list_active_coupon_redemptions">list_active_coupon_redemptions api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <returns>
-        /// An active coupon redemption on an account.
+        /// Active coupon redemptions on an account.
         /// </returns>
-        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public CouponRedemption GetActiveCouponRedemption(string accountId, RequestOptions options = null)
+        public Pager<CouponRedemption> ListActiveCouponRedemptions(string accountId, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var url = this.InterpolatePath("/accounts/{account_id}/coupon_redemptions/active", urlParams);
-            return MakeRequest<CouponRedemption>(Method.GET, url, null, null, options);
+            return Pager<CouponRedemption>.Build(url, null, options, this);
         }
 
 
-
-        /// <summary>
-        /// Show the coupon redemption that is active on an account <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_active_coupon_redemption">get_active_coupon_redemption api documentation</see>
-        /// </summary>
-        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
-        /// <returns>
-        /// An active coupon redemption on an account.
-        /// </returns>
-        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public Task<CouponRedemption> GetActiveCouponRedemptionAsync(string accountId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
-        {
-            var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
-            var url = this.InterpolatePath("/accounts/{account_id}/coupon_redemptions/active", urlParams);
-            return MakeRequestAsync<CouponRedemption>(Method.GET, url, null, null, options, cancellationToken);
-        }
 
 
 
@@ -659,10 +643,10 @@ namespace Recurly
         /// <returns>
         /// A list of the account's credit payments.
         /// </returns>
-        public Pager<CreditPayment> ListAccountCreditPayments(string accountId, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, RequestOptions options = null)
+        public Pager<CreditPayment> ListAccountCreditPayments(string accountId, ListAccountCreditPaymentsParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
-            var queryParams = new Dictionary<string, object> { { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime } };
+            var queryParams = (optionalParams ?? new ListAccountCreditPaymentsParams()).ToDictionary();
             var url = this.InterpolatePath("/accounts/{account_id}/credit_payments", urlParams);
             return Pager<CreditPayment>.Build(url, queryParams, options, this);
         }
@@ -685,10 +669,10 @@ namespace Recurly
         /// <returns>
         /// A list of the account's invoices.
         /// </returns>
-        public Pager<Invoice> ListAccountInvoices(string accountId, string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.FilterInvoiceType? type = null, RequestOptions options = null)
+        public Pager<Invoice> ListAccountInvoices(string accountId, ListAccountInvoicesParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "type", type } };
+            var queryParams = (optionalParams ?? new ListAccountInvoicesParams()).ToDictionary();
             var url = this.InterpolatePath("/accounts/{account_id}/invoices", urlParams);
             return Pager<Invoice>.Build(url, queryParams, options, this);
         }
@@ -785,10 +769,10 @@ namespace Recurly
         /// <returns>
         /// A list of the account's line items.
         /// </returns>
-        public Pager<LineItem> ListAccountLineItems(string accountId, string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.True? original = null, Constants.LineItemState? state = null, Constants.LintItemType? type = null, RequestOptions options = null)
+        public Pager<LineItem> ListAccountLineItems(string accountId, ListAccountLineItemsParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "original", original }, { "state", state }, { "type", type } };
+            var queryParams = (optionalParams ?? new ListAccountLineItemsParams()).ToDictionary();
             var url = this.InterpolatePath("/accounts/{account_id}/line_items", urlParams);
             return Pager<LineItem>.Build(url, queryParams, options, this);
         }
@@ -841,10 +825,10 @@ namespace Recurly
         /// <returns>
         /// A list of an account's notes.
         /// </returns>
-        public Pager<AccountNote> ListAccountNotes(string accountId, string ids = null, RequestOptions options = null)
+        public Pager<AccountNote> ListAccountNotes(string accountId, ListAccountNotesParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
-            var queryParams = new Dictionary<string, object> { { "ids", ids } };
+            var queryParams = (optionalParams ?? new ListAccountNotesParams()).ToDictionary();
             var url = this.InterpolatePath("/accounts/{account_id}/notes", urlParams);
             return Pager<AccountNote>.Build(url, queryParams, options, this);
         }
@@ -902,10 +886,10 @@ namespace Recurly
         /// <returns>
         /// A list of an account's shipping addresses.
         /// </returns>
-        public Pager<ShippingAddress> ListShippingAddresses(string accountId, string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, RequestOptions options = null)
+        public Pager<ShippingAddress> ListShippingAddresses(string accountId, ListShippingAddressesParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime } };
+            var queryParams = (optionalParams ?? new ListShippingAddressesParams()).ToDictionary();
             var url = this.InterpolatePath("/accounts/{account_id}/shipping_addresses", urlParams);
             return Pager<ShippingAddress>.Build(url, queryParams, options, this);
         }
@@ -1074,10 +1058,10 @@ namespace Recurly
         /// <returns>
         /// A list of the account's subscriptions.
         /// </returns>
-        public Pager<Subscription> ListAccountSubscriptions(string accountId, string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.FilterSubscriptionState? state = null, RequestOptions options = null)
+        public Pager<Subscription> ListAccountSubscriptions(string accountId, ListAccountSubscriptionsParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "state", state } };
+            var queryParams = (optionalParams ?? new ListAccountSubscriptionsParams()).ToDictionary();
             var url = this.InterpolatePath("/accounts/{account_id}/subscriptions", urlParams);
             return Pager<Subscription>.Build(url, queryParams, options, this);
         }
@@ -1101,10 +1085,10 @@ namespace Recurly
         /// <returns>
         /// A list of the account's transactions.
         /// </returns>
-        public Pager<Transaction> ListAccountTransactions(string accountId, string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.FilterTransactionType? type = null, Constants.True? success = null, RequestOptions options = null)
+        public Pager<Transaction> ListAccountTransactions(string accountId, ListAccountTransactionsParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "type", type }, { "success", success } };
+            var queryParams = (optionalParams ?? new ListAccountTransactionsParams()).ToDictionary();
             var url = this.InterpolatePath("/accounts/{account_id}/transactions", urlParams);
             return Pager<Transaction>.Build(url, queryParams, options, this);
         }
@@ -1129,10 +1113,10 @@ namespace Recurly
         /// <returns>
         /// A list of an account's child accounts.
         /// </returns>
-        public Pager<Account> ListChildAccounts(string accountId, string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, string email = null, bool? subscriber = null, Constants.True? pastDue = null, RequestOptions options = null)
+        public Pager<Account> ListChildAccounts(string accountId, ListChildAccountsParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "email", email }, { "subscriber", subscriber }, { "past_due", pastDue } };
+            var queryParams = (optionalParams ?? new ListChildAccountsParams()).ToDictionary();
             var url = this.InterpolatePath("/accounts/{account_id}/accounts", urlParams);
             return Pager<Account>.Build(url, queryParams, options, this);
         }
@@ -1153,10 +1137,10 @@ namespace Recurly
         /// <returns>
         /// A list of the site's account acquisition data.
         /// </returns>
-        public Pager<AccountAcquisition> ListAccountAcquisition(string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, RequestOptions options = null)
+        public Pager<AccountAcquisition> ListAccountAcquisition(ListAccountAcquisitionParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime } };
+            var queryParams = (optionalParams ?? new ListAccountAcquisitionParams()).ToDictionary();
             var url = this.InterpolatePath("/acquisitions", urlParams);
             return Pager<AccountAcquisition>.Build(url, queryParams, options, this);
         }
@@ -1177,10 +1161,10 @@ namespace Recurly
         /// <returns>
         /// A list of the site's coupons.
         /// </returns>
-        public Pager<Coupon> ListCoupons(string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, RequestOptions options = null)
+        public Pager<Coupon> ListCoupons(ListCouponsParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime } };
+            var queryParams = (optionalParams ?? new ListCouponsParams()).ToDictionary();
             var url = this.InterpolatePath("/coupons", urlParams);
             return Pager<Coupon>.Build(url, queryParams, options, this);
         }
@@ -1340,10 +1324,10 @@ namespace Recurly
         /// <returns>
         /// A list of unique coupon codes that were generated
         /// </returns>
-        public Pager<UniqueCouponCode> ListUniqueCouponCodes(string couponId, string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, RequestOptions options = null)
+        public Pager<UniqueCouponCode> ListUniqueCouponCodes(string couponId, ListUniqueCouponCodesParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "coupon_id", couponId } };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime } };
+            var queryParams = (optionalParams ?? new ListUniqueCouponCodesParams()).ToDictionary();
             var url = this.InterpolatePath("/coupons/{coupon_id}/unique_coupon_codes", urlParams);
             return Pager<UniqueCouponCode>.Build(url, queryParams, options, this);
         }
@@ -1363,10 +1347,10 @@ namespace Recurly
         /// <returns>
         /// A list of the site's credit payments.
         /// </returns>
-        public Pager<CreditPayment> ListCreditPayments(int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, RequestOptions options = null)
+        public Pager<CreditPayment> ListCreditPayments(ListCreditPaymentsParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
-            var queryParams = new Dictionary<string, object> { { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime } };
+            var queryParams = (optionalParams ?? new ListCreditPaymentsParams()).ToDictionary();
             var url = this.InterpolatePath("/credit_payments", urlParams);
             return Pager<CreditPayment>.Build(url, queryParams, options, this);
         }
@@ -1422,10 +1406,10 @@ namespace Recurly
         /// <returns>
         /// A list of the site's custom field definitions.
         /// </returns>
-        public Pager<CustomFieldDefinition> ListCustomFieldDefinitions(string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.RelatedType? relatedType = null, RequestOptions options = null)
+        public Pager<CustomFieldDefinition> ListCustomFieldDefinitions(ListCustomFieldDefinitionsParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "related_type", relatedType } };
+            var queryParams = (optionalParams ?? new ListCustomFieldDefinitionsParams()).ToDictionary();
             var url = this.InterpolatePath("/custom_field_definitions", urlParams);
             return Pager<CustomFieldDefinition>.Build(url, queryParams, options, this);
         }
@@ -1481,10 +1465,10 @@ namespace Recurly
         /// <returns>
         /// A list of the site's items.
         /// </returns>
-        public Pager<Item> ListItems(string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.ActiveState? state = null, RequestOptions options = null)
+        public Pager<Item> ListItems(ListItemsParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "state", state } };
+            var queryParams = (optionalParams ?? new ListItemsParams()).ToDictionary();
             var url = this.InterpolatePath("/items", urlParams);
             return Pager<Item>.Build(url, queryParams, options, this);
         }
@@ -1678,10 +1662,10 @@ namespace Recurly
         /// <returns>
         /// A list of the site's measured units.
         /// </returns>
-        public Pager<MeasuredUnit> ListMeasuredUnit(string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.ActiveState? state = null, RequestOptions options = null)
+        public Pager<MeasuredUnit> ListMeasuredUnit(ListMeasuredUnitParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "state", state } };
+            var queryParams = (optionalParams ?? new ListMeasuredUnitParams()).ToDictionary();
             var url = this.InterpolatePath("/measured_units", urlParams);
             return Pager<MeasuredUnit>.Build(url, queryParams, options, this);
         }
@@ -1841,10 +1825,10 @@ namespace Recurly
         /// <returns>
         /// A list of the site's invoices.
         /// </returns>
-        public Pager<Invoice> ListInvoices(string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.FilterInvoiceType? type = null, RequestOptions options = null)
+        public Pager<Invoice> ListInvoices(ListInvoicesParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "type", type } };
+            var queryParams = (optionalParams ?? new ListInvoicesParams()).ToDictionary();
             var url = this.InterpolatePath("/invoices", urlParams);
             return Pager<Invoice>.Build(url, queryParams, options, this);
         }
@@ -2179,10 +2163,10 @@ namespace Recurly
         /// <returns>
         /// A list of the invoice's line items.
         /// </returns>
-        public Pager<LineItem> ListInvoiceLineItems(string invoiceId, string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.True? original = null, Constants.LineItemState? state = null, Constants.LintItemType? type = null, RequestOptions options = null)
+        public Pager<LineItem> ListInvoiceLineItems(string invoiceId, ListInvoiceLineItemsParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "invoice_id", invoiceId } };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "original", original }, { "state", state }, { "type", type } };
+            var queryParams = (optionalParams ?? new ListInvoiceLineItemsParams()).ToDictionary();
             var url = this.InterpolatePath("/invoices/{invoice_id}/line_items", urlParams);
             return Pager<LineItem>.Build(url, queryParams, options, this);
         }
@@ -2202,10 +2186,10 @@ namespace Recurly
         /// <returns>
         /// A list of the the coupon redemptions associated with the invoice.
         /// </returns>
-        public Pager<CouponRedemption> ListInvoiceCouponRedemptions(string invoiceId, string ids = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, RequestOptions options = null)
+        public Pager<CouponRedemption> ListInvoiceCouponRedemptions(string invoiceId, ListInvoiceCouponRedemptionsParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "invoice_id", invoiceId } };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime } };
+            var queryParams = (optionalParams ?? new ListInvoiceCouponRedemptionsParams()).ToDictionary();
             var url = this.InterpolatePath("/invoices/{invoice_id}/coupon_redemptions", urlParams);
             return Pager<CouponRedemption>.Build(url, queryParams, options, this);
         }
@@ -2283,10 +2267,10 @@ namespace Recurly
         /// <returns>
         /// A list of the site's line items.
         /// </returns>
-        public Pager<LineItem> ListLineItems(string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.True? original = null, Constants.LineItemState? state = null, Constants.LintItemType? type = null, RequestOptions options = null)
+        public Pager<LineItem> ListLineItems(ListLineItemsParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "original", original }, { "state", state }, { "type", type } };
+            var queryParams = (optionalParams ?? new ListLineItemsParams()).ToDictionary();
             var url = this.InterpolatePath("/line_items", urlParams);
             return Pager<LineItem>.Build(url, queryParams, options, this);
         }
@@ -2376,10 +2360,10 @@ namespace Recurly
         /// <returns>
         /// A list of plans.
         /// </returns>
-        public Pager<Plan> ListPlans(string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.ActiveState? state = null, RequestOptions options = null)
+        public Pager<Plan> ListPlans(ListPlansParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "state", state } };
+            var queryParams = (optionalParams ?? new ListPlansParams()).ToDictionary();
             var url = this.InterpolatePath("/plans", urlParams);
             return Pager<Plan>.Build(url, queryParams, options, this);
         }
@@ -2540,10 +2524,10 @@ namespace Recurly
         /// <returns>
         /// A list of add-ons.
         /// </returns>
-        public Pager<AddOn> ListPlanAddOns(string planId, string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.ActiveState? state = null, RequestOptions options = null)
+        public Pager<AddOn> ListPlanAddOns(string planId, ListPlanAddOnsParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "plan_id", planId } };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "state", state } };
+            var queryParams = (optionalParams ?? new ListPlanAddOnsParams()).ToDictionary();
             var url = this.InterpolatePath("/plans/{plan_id}/add_ons", urlParams);
             return Pager<AddOn>.Build(url, queryParams, options, this);
         }
@@ -2711,10 +2695,10 @@ namespace Recurly
         /// <returns>
         /// A list of add-ons.
         /// </returns>
-        public Pager<AddOn> ListAddOns(string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.ActiveState? state = null, RequestOptions options = null)
+        public Pager<AddOn> ListAddOns(ListAddOnsParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "state", state } };
+            var queryParams = (optionalParams ?? new ListAddOnsParams()).ToDictionary();
             var url = this.InterpolatePath("/add_ons", urlParams);
             return Pager<AddOn>.Build(url, queryParams, options, this);
         }
@@ -2769,10 +2753,10 @@ namespace Recurly
         /// <returns>
         /// A list of the site's shipping methods.
         /// </returns>
-        public Pager<ShippingMethod> ListShippingMethods(string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, RequestOptions options = null)
+        public Pager<ShippingMethod> ListShippingMethods(ListShippingMethodsParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime } };
+            var queryParams = (optionalParams ?? new ListShippingMethodsParams()).ToDictionary();
             var url = this.InterpolatePath("/shipping_methods", urlParams);
             return Pager<ShippingMethod>.Build(url, queryParams, options, this);
         }
@@ -2932,10 +2916,10 @@ namespace Recurly
         /// <returns>
         /// A list of the site's subscriptions.
         /// </returns>
-        public Pager<Subscription> ListSubscriptions(string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.FilterSubscriptionState? state = null, RequestOptions options = null)
+        public Pager<Subscription> ListSubscriptions(ListSubscriptionsParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "state", state } };
+            var queryParams = (optionalParams ?? new ListSubscriptionsParams()).ToDictionary();
             var url = this.InterpolatePath("/subscriptions", urlParams);
             return Pager<Subscription>.Build(url, queryParams, options, this);
         }
@@ -3057,10 +3041,10 @@ namespace Recurly
         /// An expired subscription.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public Subscription TerminateSubscription(string subscriptionId, Constants.RefundType? refund = null, RequestOptions options = null)
+        public Subscription TerminateSubscription(string subscriptionId, TerminateSubscriptionParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
-            var queryParams = new Dictionary<string, object> { { "refund", refund } };
+            var queryParams = (optionalParams ?? new TerminateSubscriptionParams()).ToDictionary();
             var url = this.InterpolatePath("/subscriptions/{subscription_id}", urlParams);
             return MakeRequest<Subscription>(Method.DELETE, url, null, queryParams, options);
         }
@@ -3076,10 +3060,10 @@ namespace Recurly
         /// An expired subscription.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public Task<Subscription> TerminateSubscriptionAsync(string subscriptionId, Constants.RefundType? refund = null, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        public Task<Subscription> TerminateSubscriptionAsync(string subscriptionId, TerminateSubscriptionParams optionalParams = null, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
-            var queryParams = new Dictionary<string, object> { { "refund", refund } };
+            var queryParams = (optionalParams ?? new TerminateSubscriptionParams()).ToDictionary();
             var url = this.InterpolatePath("/subscriptions/{subscription_id}", urlParams);
             return MakeRequestAsync<Subscription>(Method.DELETE, url, null, queryParams, options, cancellationToken);
         }
@@ -3412,10 +3396,10 @@ namespace Recurly
         /// <returns>
         /// A list of the subscription's invoices.
         /// </returns>
-        public Pager<Invoice> ListSubscriptionInvoices(string subscriptionId, string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.FilterInvoiceType? type = null, RequestOptions options = null)
+        public Pager<Invoice> ListSubscriptionInvoices(string subscriptionId, ListSubscriptionInvoicesParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "type", type } };
+            var queryParams = (optionalParams ?? new ListSubscriptionInvoicesParams()).ToDictionary();
             var url = this.InterpolatePath("/subscriptions/{subscription_id}/invoices", urlParams);
             return Pager<Invoice>.Build(url, queryParams, options, this);
         }
@@ -3440,10 +3424,10 @@ namespace Recurly
         /// <returns>
         /// A list of the subscription's line items.
         /// </returns>
-        public Pager<LineItem> ListSubscriptionLineItems(string subscriptionId, string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.True? original = null, Constants.LineItemState? state = null, Constants.LintItemType? type = null, RequestOptions options = null)
+        public Pager<LineItem> ListSubscriptionLineItems(string subscriptionId, ListSubscriptionLineItemsParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "original", original }, { "state", state }, { "type", type } };
+            var queryParams = (optionalParams ?? new ListSubscriptionLineItemsParams()).ToDictionary();
             var url = this.InterpolatePath("/subscriptions/{subscription_id}/line_items", urlParams);
             return Pager<LineItem>.Build(url, queryParams, options, this);
         }
@@ -3463,10 +3447,10 @@ namespace Recurly
         /// <returns>
         /// A list of the the coupon redemptions on a subscription.
         /// </returns>
-        public Pager<CouponRedemption> ListSubscriptionCouponRedemptions(string subscriptionId, string ids = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, RequestOptions options = null)
+        public Pager<CouponRedemption> ListSubscriptionCouponRedemptions(string subscriptionId, ListSubscriptionCouponRedemptionsParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime } };
+            var queryParams = (optionalParams ?? new ListSubscriptionCouponRedemptionsParams()).ToDictionary();
             var url = this.InterpolatePath("/subscriptions/{subscription_id}/coupon_redemptions", urlParams);
             return Pager<CouponRedemption>.Build(url, queryParams, options, this);
         }
@@ -3490,10 +3474,10 @@ namespace Recurly
         /// <returns>
         /// A list of the subscription add-on's usage records.
         /// </returns>
-        public Pager<Usage> ListUsage(string subscriptionId, string addOnId, string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.UsageSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.BillingStatus? billingStatus = null, RequestOptions options = null)
+        public Pager<Usage> ListUsage(string subscriptionId, string addOnId, ListUsageParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId }, { "add_on_id", addOnId } };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "billing_status", billingStatus } };
+            var queryParams = (optionalParams ?? new ListUsageParams()).ToDictionary();
             var url = this.InterpolatePath("/subscriptions/{subscription_id}/add_ons/{add_on_id}/usage", urlParams);
             return Pager<Usage>.Build(url, queryParams, options, this);
         }
@@ -3658,10 +3642,10 @@ namespace Recurly
         /// <returns>
         /// A list of the site's transactions.
         /// </returns>
-        public Pager<Transaction> ListTransactions(string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.FilterTransactionType? type = null, Constants.True? success = null, RequestOptions options = null)
+        public Pager<Transaction> ListTransactions(ListTransactionsParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "type", type }, { "success", success } };
+            var queryParams = (optionalParams ?? new ListTransactionsParams()).ToDictionary();
             var url = this.InterpolatePath("/transactions", urlParams);
             return Pager<Transaction>.Build(url, queryParams, options, this);
         }
@@ -3870,6 +3854,72 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { };
             var url = this.InterpolatePath("/purchases/preview", urlParams);
             return MakeRequestAsync<InvoiceCollection>(Method.POST, url, body, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// List the dates that have an available export to download. <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_export_dates">get_export_dates api documentation</see>
+        /// </summary>
+        /// <returns>
+        /// Returns a list of dates.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public ExportDates GetExportDates(RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var url = this.InterpolatePath("/export_dates", urlParams);
+            return MakeRequest<ExportDates>(Method.GET, url, null, null, options);
+        }
+
+
+
+        /// <summary>
+        /// List the dates that have an available export to download. <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_export_dates">get_export_dates api documentation</see>
+        /// </summary>
+        /// <returns>
+        /// Returns a list of dates.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<ExportDates> GetExportDatesAsync(CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var url = this.InterpolatePath("/export_dates", urlParams);
+            return MakeRequestAsync<ExportDates>(Method.GET, url, null, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// List of the export files that are available to download. <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_export_files">get_export_files api documentation</see>
+        /// </summary>
+        /// <param name="exportDate">Date for which to get a list of available automated export files. Date must be in YYYY-MM-DD format.</param>
+        /// <returns>
+        /// Returns a list of export files to download.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public ExportFiles GetExportFiles(string exportDate, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "export_date", exportDate } };
+            var url = this.InterpolatePath("/export_dates/{export_date}/export_files", urlParams);
+            return MakeRequest<ExportFiles>(Method.GET, url, null, null, options);
+        }
+
+
+
+        /// <summary>
+        /// List of the export files that are available to download. <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_export_files">get_export_files api documentation</see>
+        /// </summary>
+        /// <param name="exportDate">Date for which to get a list of available automated export files. Date must be in YYYY-MM-DD format.</param>
+        /// <returns>
+        /// Returns a list of export files to download.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<ExportFiles> GetExportFilesAsync(string exportDate, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "export_date", exportDate } };
+            var url = this.InterpolatePath("/export_dates/{export_date}/export_files", urlParams);
+            return MakeRequestAsync<ExportFiles>(Method.GET, url, null, null, options, cancellationToken);
         }
 
 

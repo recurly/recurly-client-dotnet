@@ -24,6 +24,14 @@ namespace Recurly.Resources
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
         public Constants.AddOnTypeCreate? AddOnType { get; set; }
 
+        /// <value>Used by Avalara for Communications taxes. The transaction type in combination with the service type describe how the add-on is taxed. Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types) for more available t/s types. If an `Item` is associated to the `AddOn`, then the `avalara_service_type` must be absent.</value>
+        [JsonProperty("avalara_service_type")]
+        public int? AvalaraServiceType { get; set; }
+
+        /// <value>Used by Avalara for Communications taxes. The transaction type in combination with the service type describe how the add-on is taxed. Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types) for more available t/s types. If an `Item` is associated to the `AddOn`, then the `avalara_transaction_type` must be absent.</value>
+        [JsonProperty("avalara_transaction_type")]
+        public int? AvalaraTransactionType { get; set; }
+
         /// <value>The unique identifier for the add-on within its plan. If `item_code`/`item_id` is part of the request then `code` must be absent. If `item_code`/`item_id` is not present `code` is required.</value>
         [JsonProperty("code")]
         public string Code { get; set; }
@@ -86,7 +94,9 @@ namespace Recurly.Resources
 
         /// <value>
         /// The pricing model for the add-on.  For more information,
-        /// [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based).
+        /// [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based). See our
+        /// [Guide](https://developers.recurly.com/guides/item-addon-guide.html) for an overview of how
+        /// to configure quantity-based pricing models.
         /// </value>
         [JsonProperty("tier_type")]
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
@@ -105,7 +115,11 @@ namespace Recurly.Resources
         [JsonProperty("usage_percentage")]
         public decimal? UsagePercentage { get; set; }
 
-        /// <value>Type of usage, required if `add_on_type` is `usage`.</value>
+        /// <value>
+        /// Type of usage, required if `add_on_type` is `usage`. See our
+        /// [Guide](https://developers.recurly.com/guides/usage-based-billing-guide.html) for an
+        /// overview of how to configure usage add-ons.
+        /// </value>
         [JsonProperty("usage_type")]
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
         public Constants.UsageTypeCreate? UsageType { get; set; }

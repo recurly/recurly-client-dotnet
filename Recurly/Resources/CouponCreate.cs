@@ -15,7 +15,7 @@ namespace Recurly.Resources
     public class CouponCreate : Request
     {
 
-        /// <value>The coupon is valid for all plans if true. If false then `plans` and `plans_names` will list the applicable plans.</value>
+        /// <value>The coupon is valid for all plans if true. If false then `plans` will list the applicable plans.</value>
         [JsonProperty("applies_to_all_plans")]
         public bool? AppliesToAllPlans { get; set; }
 
@@ -84,7 +84,11 @@ namespace Recurly.Resources
         [JsonProperty("name")]
         public string Name { get; set; }
 
-        /// <value>List of plan codes to which this coupon applies. See `applies_to_all_plans`</value>
+        /// <value>
+        /// List of plan codes to which this coupon applies. Required
+        /// if `applies_to_all_plans` is false. Overrides `applies_to_all_plans`
+        /// when `applies_to_all_plans` is true.
+        /// </value>
         [JsonProperty("plan_codes")]
         public List<string> PlanCodes { get; set; }
 

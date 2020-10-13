@@ -27,7 +27,7 @@ namespace Recurly
         /// <returns>
         /// A list of sites.
         /// </returns>
-        Pager<Site> ListSites(string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, Constants.ActiveState? state = null, RequestOptions options = null);
+        Pager<Site> ListSites(ListSitesParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's accounts.
         /// </returns>
-        Pager<Account> ListAccounts(string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, string email = null, bool? subscriber = null, Constants.True? pastDue = null, RequestOptions options = null);
+        Pager<Account> ListAccounts(ListAccountsParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -325,28 +325,18 @@ namespace Recurly
         /// <returns>
         /// A list of the the coupon redemptions on an account.
         /// </returns>
-        Pager<CouponRedemption> ListAccountCouponRedemptions(string accountId, string ids = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, RequestOptions options = null);
+        Pager<CouponRedemption> ListAccountCouponRedemptions(string accountId, ListAccountCouponRedemptionsParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
-        /// Show the coupon redemption that is active on an account <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_active_coupon_redemption">get_active_coupon_redemption api documentation</see>
+        /// Show the coupon redemptions that are active on an account <see href="https://developers.recurly.com/api/v2020-01-01#operation/list_active_coupon_redemptions">list_active_coupon_redemptions api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <returns>
-        /// An active coupon redemption on an account.
+        /// Active coupon redemptions on an account.
         /// </returns>
-        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        CouponRedemption GetActiveCouponRedemption(string accountId, RequestOptions options = null);
+        Pager<CouponRedemption> ListActiveCouponRedemptions(string accountId, RequestOptions options = null);
 
-        /// <summary>
-        /// Show the coupon redemption that is active on an account <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_active_coupon_redemption">get_active_coupon_redemption api documentation</see>
-        /// </summary>
-        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
-        /// <returns>
-        /// An active coupon redemption on an account.
-        /// </returns>
-        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        Task<CouponRedemption> GetActiveCouponRedemptionAsync(string accountId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
 
         /// <summary>
         /// Generate an active coupon redemption on an account <see href="https://developers.recurly.com/api/v2020-01-01#operation/create_coupon_redemption">create_coupon_redemption api documentation</see>
@@ -402,7 +392,7 @@ namespace Recurly
         /// <returns>
         /// A list of the account's credit payments.
         /// </returns>
-        Pager<CreditPayment> ListAccountCreditPayments(string accountId, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, RequestOptions options = null);
+        Pager<CreditPayment> ListAccountCreditPayments(string accountId, ListAccountCreditPaymentsParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -419,7 +409,7 @@ namespace Recurly
         /// <returns>
         /// A list of the account's invoices.
         /// </returns>
-        Pager<Invoice> ListAccountInvoices(string accountId, string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.FilterInvoiceType? type = null, RequestOptions options = null);
+        Pager<Invoice> ListAccountInvoices(string accountId, ListAccountInvoicesParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -482,7 +472,7 @@ namespace Recurly
         /// <returns>
         /// A list of the account's line items.
         /// </returns>
-        Pager<LineItem> ListAccountLineItems(string accountId, string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.True? original = null, Constants.LineItemState? state = null, Constants.LintItemType? type = null, RequestOptions options = null);
+        Pager<LineItem> ListAccountLineItems(string accountId, ListAccountLineItemsParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -515,7 +505,7 @@ namespace Recurly
         /// <returns>
         /// A list of an account's notes.
         /// </returns>
-        Pager<AccountNote> ListAccountNotes(string accountId, string ids = null, RequestOptions options = null);
+        Pager<AccountNote> ListAccountNotes(string accountId, ListAccountNotesParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -553,7 +543,7 @@ namespace Recurly
         /// <returns>
         /// A list of an account's shipping addresses.
         /// </returns>
-        Pager<ShippingAddress> ListShippingAddresses(string accountId, string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, RequestOptions options = null);
+        Pager<ShippingAddress> ListShippingAddresses(string accountId, ListShippingAddressesParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -660,7 +650,7 @@ namespace Recurly
         /// <returns>
         /// A list of the account's subscriptions.
         /// </returns>
-        Pager<Subscription> ListAccountSubscriptions(string accountId, string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.FilterSubscriptionState? state = null, RequestOptions options = null);
+        Pager<Subscription> ListAccountSubscriptions(string accountId, ListAccountSubscriptionsParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -678,7 +668,7 @@ namespace Recurly
         /// <returns>
         /// A list of the account's transactions.
         /// </returns>
-        Pager<Transaction> ListAccountTransactions(string accountId, string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.FilterTransactionType? type = null, Constants.True? success = null, RequestOptions options = null);
+        Pager<Transaction> ListAccountTransactions(string accountId, ListAccountTransactionsParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -697,7 +687,7 @@ namespace Recurly
         /// <returns>
         /// A list of an account's child accounts.
         /// </returns>
-        Pager<Account> ListChildAccounts(string accountId, string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, string email = null, bool? subscriber = null, Constants.True? pastDue = null, RequestOptions options = null);
+        Pager<Account> ListChildAccounts(string accountId, ListChildAccountsParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -712,7 +702,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's account acquisition data.
         /// </returns>
-        Pager<AccountAcquisition> ListAccountAcquisition(string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, RequestOptions options = null);
+        Pager<AccountAcquisition> ListAccountAcquisition(ListAccountAcquisitionParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -727,7 +717,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's coupons.
         /// </returns>
-        Pager<Coupon> ListCoupons(string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, RequestOptions options = null);
+        Pager<Coupon> ListCoupons(ListCouponsParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -825,7 +815,7 @@ namespace Recurly
         /// <returns>
         /// A list of unique coupon codes that were generated
         /// </returns>
-        Pager<UniqueCouponCode> ListUniqueCouponCodes(string couponId, string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, RequestOptions options = null);
+        Pager<UniqueCouponCode> ListUniqueCouponCodes(string couponId, ListUniqueCouponCodesParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -839,7 +829,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's credit payments.
         /// </returns>
-        Pager<CreditPayment> ListCreditPayments(int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, RequestOptions options = null);
+        Pager<CreditPayment> ListCreditPayments(ListCreditPaymentsParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -875,7 +865,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's custom field definitions.
         /// </returns>
-        Pager<CustomFieldDefinition> ListCustomFieldDefinitions(string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.RelatedType? relatedType = null, RequestOptions options = null);
+        Pager<CustomFieldDefinition> ListCustomFieldDefinitions(ListCustomFieldDefinitionsParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -911,7 +901,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's items.
         /// </returns>
-        Pager<Item> ListItems(string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.ActiveState? state = null, RequestOptions options = null);
+        Pager<Item> ListItems(ListItemsParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -1029,7 +1019,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's measured units.
         /// </returns>
-        Pager<MeasuredUnit> ListMeasuredUnit(string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.ActiveState? state = null, RequestOptions options = null);
+        Pager<MeasuredUnit> ListMeasuredUnit(ListMeasuredUnitParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -1127,7 +1117,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's invoices.
         /// </returns>
-        Pager<Invoice> ListInvoices(string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.FilterInvoiceType? type = null, RequestOptions options = null);
+        Pager<Invoice> ListInvoices(ListInvoicesParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -1330,7 +1320,7 @@ namespace Recurly
         /// <returns>
         /// A list of the invoice's line items.
         /// </returns>
-        Pager<LineItem> ListInvoiceLineItems(string invoiceId, string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.True? original = null, Constants.LineItemState? state = null, Constants.LintItemType? type = null, RequestOptions options = null);
+        Pager<LineItem> ListInvoiceLineItems(string invoiceId, ListInvoiceLineItemsParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -1344,7 +1334,7 @@ namespace Recurly
         /// <returns>
         /// A list of the the coupon redemptions associated with the invoice.
         /// </returns>
-        Pager<CouponRedemption> ListInvoiceCouponRedemptions(string invoiceId, string ids = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, RequestOptions options = null);
+        Pager<CouponRedemption> ListInvoiceCouponRedemptions(string invoiceId, ListInvoiceCouponRedemptionsParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -1394,7 +1384,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's line items.
         /// </returns>
-        Pager<LineItem> ListLineItems(string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.True? original = null, Constants.LineItemState? state = null, Constants.LintItemType? type = null, RequestOptions options = null);
+        Pager<LineItem> ListLineItems(ListLineItemsParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -1450,7 +1440,7 @@ namespace Recurly
         /// <returns>
         /// A list of plans.
         /// </returns>
-        Pager<Plan> ListPlans(string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.ActiveState? state = null, RequestOptions options = null);
+        Pager<Plan> ListPlans(ListPlansParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -1549,7 +1539,7 @@ namespace Recurly
         /// <returns>
         /// A list of add-ons.
         /// </returns>
-        Pager<AddOn> ListPlanAddOns(string planId, string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.ActiveState? state = null, RequestOptions options = null);
+        Pager<AddOn> ListPlanAddOns(string planId, ListPlanAddOnsParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -1655,7 +1645,7 @@ namespace Recurly
         /// <returns>
         /// A list of add-ons.
         /// </returns>
-        Pager<AddOn> ListAddOns(string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.ActiveState? state = null, RequestOptions options = null);
+        Pager<AddOn> ListAddOns(ListAddOnsParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -1690,7 +1680,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's shipping methods.
         /// </returns>
-        Pager<ShippingMethod> ListShippingMethods(string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, RequestOptions options = null);
+        Pager<ShippingMethod> ListShippingMethods(ListShippingMethodsParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -1788,7 +1778,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's subscriptions.
         /// </returns>
-        Pager<Subscription> ListSubscriptions(string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.FilterSubscriptionState? state = null, RequestOptions options = null);
+        Pager<Subscription> ListSubscriptions(ListSubscriptionsParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -1862,7 +1852,7 @@ namespace Recurly
         /// An expired subscription.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        Subscription TerminateSubscription(string subscriptionId, Constants.RefundType? refund = null, RequestOptions options = null);
+        Subscription TerminateSubscription(string subscriptionId, TerminateSubscriptionParams optionalParams = null, RequestOptions options = null);
 
         /// <summary>
         /// Terminate a subscription <see href="https://developers.recurly.com/api/v2020-01-01#operation/terminate_subscription">terminate_subscription api documentation</see>
@@ -1873,7 +1863,7 @@ namespace Recurly
         /// An expired subscription.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        Task<Subscription> TerminateSubscriptionAsync(string subscriptionId, Constants.RefundType? refund = null, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+        Task<Subscription> TerminateSubscriptionAsync(string subscriptionId, TerminateSubscriptionParams optionalParams = null, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
 
         /// <summary>
         /// Cancel a subscription <see href="https://developers.recurly.com/api/v2020-01-01#operation/cancel_subscription">cancel_subscription api documentation</see>
@@ -2075,7 +2065,7 @@ namespace Recurly
         /// <returns>
         /// A list of the subscription's invoices.
         /// </returns>
-        Pager<Invoice> ListSubscriptionInvoices(string subscriptionId, string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.FilterInvoiceType? type = null, RequestOptions options = null);
+        Pager<Invoice> ListSubscriptionInvoices(string subscriptionId, ListSubscriptionInvoicesParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -2094,7 +2084,7 @@ namespace Recurly
         /// <returns>
         /// A list of the subscription's line items.
         /// </returns>
-        Pager<LineItem> ListSubscriptionLineItems(string subscriptionId, string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.True? original = null, Constants.LineItemState? state = null, Constants.LintItemType? type = null, RequestOptions options = null);
+        Pager<LineItem> ListSubscriptionLineItems(string subscriptionId, ListSubscriptionLineItemsParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -2108,7 +2098,7 @@ namespace Recurly
         /// <returns>
         /// A list of the the coupon redemptions on a subscription.
         /// </returns>
-        Pager<CouponRedemption> ListSubscriptionCouponRedemptions(string subscriptionId, string ids = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, RequestOptions options = null);
+        Pager<CouponRedemption> ListSubscriptionCouponRedemptions(string subscriptionId, ListSubscriptionCouponRedemptionsParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -2126,7 +2116,7 @@ namespace Recurly
         /// <returns>
         /// A list of the subscription add-on's usage records.
         /// </returns>
-        Pager<Usage> ListUsage(string subscriptionId, string addOnId, string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.UsageSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.BillingStatus? billingStatus = null, RequestOptions options = null);
+        Pager<Usage> ListUsage(string subscriptionId, string addOnId, ListUsageParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -2229,7 +2219,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's transactions.
         /// </returns>
-        Pager<Transaction> ListTransactions(string ids = null, int? limit = null, Constants.AlphanumericSort? order = null, Constants.TimestampSort? sort = null, DateTime? beginTime = null, DateTime? endTime = null, Constants.FilterTransactionType? type = null, Constants.True? success = null, RequestOptions options = null);
+        Pager<Transaction> ListTransactions(ListTransactionsParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -2351,5 +2341,43 @@ namespace Recurly
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
         Task<InvoiceCollection> PreviewPurchaseAsync(PurchaseCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// List the dates that have an available export to download. <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_export_dates">get_export_dates api documentation</see>
+        /// </summary>
+        /// <returns>
+        /// Returns a list of dates.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        ExportDates GetExportDates(RequestOptions options = null);
+
+        /// <summary>
+        /// List the dates that have an available export to download. <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_export_dates">get_export_dates api documentation</see>
+        /// </summary>
+        /// <returns>
+        /// Returns a list of dates.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<ExportDates> GetExportDatesAsync(CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// List of the export files that are available to download. <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_export_files">get_export_files api documentation</see>
+        /// </summary>
+        /// <param name="exportDate">Date for which to get a list of available automated export files. Date must be in YYYY-MM-DD format.</param>
+        /// <returns>
+        /// Returns a list of export files to download.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        ExportFiles GetExportFiles(string exportDate, RequestOptions options = null);
+
+        /// <summary>
+        /// List of the export files that are available to download. <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_export_files">get_export_files api documentation</see>
+        /// </summary>
+        /// <param name="exportDate">Date for which to get a list of available automated export files. Date must be in YYYY-MM-DD format.</param>
+        /// <returns>
+        /// Returns a list of export files to download.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<ExportFiles> GetExportFilesAsync(string exportDate, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
     }
 }

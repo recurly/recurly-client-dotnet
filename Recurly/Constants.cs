@@ -639,6 +639,9 @@ namespace Recurly
             [EnumMember(Value = "write_off")]
             WriteOff,
 
+            [EnumMember(Value = "prepayment")]
+            Prepayment,
+
         };
 
         public enum InvoiceState
@@ -828,6 +831,9 @@ namespace Recurly
             [EnumMember(Value = "setup_fee")]
             SetupFee,
 
+            [EnumMember(Value = "prepayment")]
+            Prepayment,
+
         };
 
         public enum FullCreditReasonCode
@@ -869,12 +875,15 @@ namespace Recurly
 
         };
 
-        public enum GiftCodeOrigin
+        public enum LineItemCreateOrigin
         {
             Undefined = 0,
 
             [EnumMember(Value = "external_gift_card")]
             ExternalGiftCard,
+
+            [EnumMember(Value = "prepayment")]
+            Prepayment,
 
         };
 
