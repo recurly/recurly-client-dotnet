@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Reflection;
 using Newtonsoft.Json;
 
 namespace Recurly
@@ -20,9 +22,28 @@ namespace Recurly
                         name = jsonAttr.PropertyName;
                     }
                 }
-                queryParams.Add(name, x.GetValue(this, null));
+                var value = x.GetValue(this, null);
+                if (x.PropertyType.IsGenericType && x.PropertyType.GetGenericTypeDefinition() == typeof(IList<>))
+                    value = ConvertList(x.PropertyType, value);
+                queryParams.Add(name, value);
             }
             return queryParams;
+        }
+
+        private Object ConvertList(Type type, Object value)
+        {
+            if (value is null)
+                return value;
+            if (type.GenericTypeArguments.Length > 0)
+            {
+                var genericType = type.GenericTypeArguments[0];
+                if (genericType == typeof(string))
+                    return string.Join(",", (IList<string>)value);
+                // More types can be added over time as necessary
+            }
+
+            // Return the original value if the type is now known
+            return value;
         }
     }
 }

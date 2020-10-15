@@ -57,7 +57,7 @@ namespace Recurly.Tests
     public class ListResourcesParams : OptionalParams
     {
         [JsonProperty("ids")]
-        public string Ids { get; set; }
+        public IList<string> Ids { get; set; }
 
         [JsonProperty("limit")]
         public int? Limit { get; set; }
