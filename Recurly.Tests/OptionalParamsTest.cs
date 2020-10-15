@@ -11,7 +11,7 @@ namespace Recurly.Tests
         public OptionalParamsTest() { }
 
         [Fact]
-        public void CanDoSomething()
+        public void CanConvertToDictionary()
         {
             var optionalParams = new ListResourcesParams()
             {
@@ -26,6 +26,20 @@ namespace Recurly.Tests
                 Assert.Contains(key, paramsDict.Keys);
             }
             Assert.Equal(200, paramsDict["limit"]);
+        }
+
+        [Fact]
+        public void CanConvertStringLists()
+        {
+            var optionalParams = new ListResourcesParams()
+            {
+                Ids = new List<string>() { "one", "two", "three" }
+            };
+            var paramsDict = optionalParams.ToDictionary();
+
+            Assert.IsType<Dictionary<string, object>>(paramsDict);
+            Assert.Contains("ids", paramsDict.Keys);
+            Assert.Equal("one,two,three", paramsDict["ids"]);
         }
     }
 }

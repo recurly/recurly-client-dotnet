@@ -5,6 +5,7 @@
  * need and we will usher them to the appropriate places.
  */
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 
@@ -16,7 +17,7 @@ namespace Recurly.Resources
     {
 
         [JsonProperty("ids")]
-        public string Ids { get; set; }
+        public IList<string> Ids { get; set; }
 
     }
 }
