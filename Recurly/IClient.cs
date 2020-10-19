@@ -813,6 +813,28 @@ namespace Recurly
         Task<Coupon> DeactivateCouponAsync(string couponId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
 
         /// <summary>
+        /// Restore an inactive coupon <see href="https://developers.recurly.com/api/v2019-10-10#operation/restore_coupon">restore_coupon api documentation</see>
+        /// </summary>
+        /// <param name="couponId">Coupon ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-10off`.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// The restored coupon.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Coupon RestoreCoupon(string couponId, CouponUpdate body, RequestOptions options = null);
+
+        /// <summary>
+        /// Restore an inactive coupon <see href="https://developers.recurly.com/api/v2019-10-10#operation/restore_coupon">restore_coupon api documentation</see>
+        /// </summary>
+        /// <param name="couponId">Coupon ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-10off`.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// The restored coupon.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<Coupon> RestoreCouponAsync(string couponId, CouponUpdate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
         /// List unique coupon codes associated with a bulk coupon <see href="https://developers.recurly.com/api/v2019-10-10#operation/list_unique_coupon_codes">list_unique_coupon_codes api documentation</see>
         /// </summary>
         /// <param name="couponId">Coupon ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-10off`.</param>
