@@ -1328,6 +1328,42 @@ namespace Recurly
 
 
         /// <summary>
+        /// Restore an inactive coupon <see href="https://developers.recurly.com/api/v2019-10-10#operation/restore_coupon">restore_coupon api documentation</see>
+        /// </summary>
+        /// <param name="couponId">Coupon ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-10off`.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// The restored coupon.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Coupon RestoreCoupon(string couponId, CouponUpdate body, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "coupon_id", couponId } };
+            var url = this.InterpolatePath("/coupons/{coupon_id}/restore", urlParams);
+            return MakeRequest<Coupon>(Method.PUT, url, body, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Restore an inactive coupon <see href="https://developers.recurly.com/api/v2019-10-10#operation/restore_coupon">restore_coupon api documentation</see>
+        /// </summary>
+        /// <param name="couponId">Coupon ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-10off`.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// The restored coupon.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<Coupon> RestoreCouponAsync(string couponId, CouponUpdate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "coupon_id", couponId } };
+            var url = this.InterpolatePath("/coupons/{coupon_id}/restore", urlParams);
+            return MakeRequestAsync<Coupon>(Method.PUT, url, body, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
         /// List unique coupon codes associated with a bulk coupon <see href="https://developers.recurly.com/api/v2019-10-10#operation/list_unique_coupon_codes">list_unique_coupon_codes api documentation</see>
         /// </summary>
         /// <param name="couponId">Coupon ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-10off`.</param>
