@@ -37,6 +37,14 @@ namespace Recurly.Errors
     }
 
     [ExcludeFromCodeCoverage]
+    public class ServiceNotAvailable : InternalServer
+    {
+        public ServiceNotAvailable() { }
+        public ServiceNotAvailable(string message) : base(message) { }
+        public ServiceNotAvailable(string message, Exception inner) : base(message, inner) { }
+    }
+
+    [ExcludeFromCodeCoverage]
     public class BadGateway : Server
     {
         public BadGateway() { }
