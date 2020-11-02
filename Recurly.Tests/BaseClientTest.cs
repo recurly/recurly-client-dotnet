@@ -125,6 +125,15 @@ namespace Recurly.Tests
         }
 
         [Fact]
+        public void WillThrowAnApiErrorForUnknownErrorType()
+        {
+            var client = MockClient.Build(UnknownTypeResponse());
+            // Instead of disabling strict mode, test with ArgumentException as proxy
+            var exception = Assert.Throws<System.ArgumentException>(() => client.GetResource("benjamin", "param1", new DateTime(2020, 01, 01)));
+            Assert.Matches("no valid exception class", exception.Message);
+        }
+
+        [Fact]
         public void WillThrowABadRequestError()
         {
             var client = MockClient.Build(ErrorResponse(System.Net.HttpStatusCode.BadRequest));
@@ -188,6 +197,16 @@ namespace Recurly.Tests
             var response = new Mock<IRestResponse<MyResource>>();
             response.Setup(_ => _.StatusCode).Returns(System.Net.HttpStatusCode.NotFound);
             response.Setup(_ => _.Content).Returns("{\"error\":{ \"type\": \"not_found\", \"message\": \"MyResource not found\"}}");
+            response.Setup(_ => _.Headers).Returns(new List<Parameter> { });
+
+            return response;
+        }
+
+        private Mock<IRestResponse<MyResource>> UnknownTypeResponse()
+        {
+            var response = new Mock<IRestResponse<MyResource>>();
+            response.Setup(_ => _.StatusCode).Returns(System.Net.HttpStatusCode.BadRequest);
+            response.Setup(_ => _.Content).Returns("{\"error\":{ \"type\": \"not_in_spec\", \"message\": \"MyResource not found\"}}");
             response.Setup(_ => _.Headers).Returns(new List<Parameter> { });
 
             return response;

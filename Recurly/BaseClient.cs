@@ -195,7 +195,7 @@ namespace Recurly
             // has likely occurred
             if (resp.ErrorException != null)
             {
-                var message = !resp.ErrorException.Equals(null) ? resp.ErrorMessage : $"Unexpected {resp.StatusCode} Error.";
+                var message = resp.ErrorMessage;
                 if (resp.Headers.Any(t => t.Name == "X-Request-ID"))
                 {
                     var requestId = resp.Headers.ToList().Find(x => x.Name == "X-Request-ID").Value.ToString();
