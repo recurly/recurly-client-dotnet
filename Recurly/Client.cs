@@ -521,7 +521,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Get the list of billing information associated with an account <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_billing_infos">get_billing_infos api documentation</see>
+        /// Get the list of billing information associated with an account <see href="https://developers.recurly.com/api/v2019-10-10#operation/list_billing_infos">list_billing_infos api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
@@ -531,7 +531,7 @@ namespace Recurly
         /// <returns>
         /// A list of the the billing information for an account's
         /// </returns>
-        public Pager<BillingInfo> GetBillingInfos(string accountId, string ids = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, RequestOptions options = null)
+        public Pager<BillingInfo> ListBillingInfos(string accountId, string ids = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var queryParams = new Dictionary<string, object> { { "ids", ids }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime } };
@@ -654,7 +654,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Remove an account's billing information <see href="https://developers.recurly.com/api/v2019-10-10#operation/remove_one_billing_info">remove_one_billing_info api documentation</see>
+        /// Remove an account's billing information <see href="https://developers.recurly.com/api/v2019-10-10#operation/remove_a_billing_info">remove_a_billing_info api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <param name="billingInfoId">Billing Info ID.</param>
@@ -662,7 +662,7 @@ namespace Recurly
         /// Billing information deleted
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public void RemoveOneBillingInfo(string accountId, string billingInfoId, RequestOptions options = null)
+        public void RemoveABillingInfo(string accountId, string billingInfoId, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId }, { "billing_info_id", billingInfoId } };
             var url = this.InterpolatePath("/accounts/{account_id}/billing_infos/{billing_info_id}", urlParams);
@@ -672,7 +672,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Remove an account's billing information <see href="https://developers.recurly.com/api/v2019-10-10#operation/remove_one_billing_info">remove_one_billing_info api documentation</see>
+        /// Remove an account's billing information <see href="https://developers.recurly.com/api/v2019-10-10#operation/remove_a_billing_info">remove_a_billing_info api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <param name="billingInfoId">Billing Info ID.</param>
@@ -680,7 +680,7 @@ namespace Recurly
         /// Billing information deleted
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public Task<EmptyResource> RemoveOneBillingInfoAsync(string accountId, string billingInfoId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        public Task<EmptyResource> RemoveABillingInfoAsync(string accountId, string billingInfoId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId }, { "billing_info_id", billingInfoId } };
             var url = this.InterpolatePath("/accounts/{account_id}/billing_infos/{billing_info_id}", urlParams);
