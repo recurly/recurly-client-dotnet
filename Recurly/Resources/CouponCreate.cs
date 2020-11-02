@@ -16,6 +16,16 @@ namespace Recurly.Resources
     {
 
         /// <value>
+        /// To apply coupon to Items in your Catalog, include a list
+        /// of `item_codes` in the request that the coupon will apply to. Or set value
+        /// to true to apply to all Items in your Catalog. The following values
+        /// are not permitted when `applies_to_all_items` is included: `free_trial_amount`
+        /// and `free_trial_unit`.
+        /// </value>
+        [JsonProperty("applies_to_all_items")]
+        public bool? AppliesToAllItems { get; set; }
+
+        /// <value>
         /// The coupon is valid for all plans if true. If false then
         /// `plans` and `plans_names` will list the applicable plans.
         /// </value>
@@ -70,6 +80,15 @@ namespace Recurly.Resources
         /// <value>Description of the coupon on the invoice.</value>
         [JsonProperty("invoice_description")]
         public string InvoiceDescription { get; set; }
+
+        /// <value>
+        /// List of item codes to which this coupon applies. Sending
+        /// `item_codes` is only permitted when `applies_to_all_items` is set to false.
+        /// The following values are not permitted when `item_codes` is included:
+        /// `free_trial_amount` and `free_trial_unit`.
+        /// </value>
+        [JsonProperty("item_codes")]
+        public List<string> ItemCodes { get; set; }
 
         /// <value>A maximum number of redemptions for the coupon. The coupon will expire when it hits its maximum redemptions.</value>
         [JsonProperty("max_redemptions")]

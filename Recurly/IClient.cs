@@ -315,6 +315,110 @@ namespace Recurly
         Task<EmptyResource> RemoveBillingInfoAsync(string accountId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
 
         /// <summary>
+        /// Get the list of billing information associated with an account <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_billing_infos">get_billing_infos api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
+        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
+        /// <param name="beginTime">Inclusively filter by begin_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
+        /// <param name="endTime">Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
+        /// <returns>
+        /// A list of the the billing information for an account's
+        /// </returns>
+        Pager<BillingInfo> GetBillingInfos(string accountId, string ids = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, RequestOptions options = null);
+
+
+        /// <summary>
+        /// Set an account's billing information when the wallet feature is enabled <see href="https://developers.recurly.com/api/v2019-10-10#operation/create_billing_info">create_billing_info api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// Updated billing information.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        BillingInfo CreateBillingInfo(string accountId, BillingInfoCreate body, RequestOptions options = null);
+
+        /// <summary>
+        /// Set an account's billing information when the wallet feature is enabled <see href="https://developers.recurly.com/api/v2019-10-10#operation/create_billing_info">create_billing_info api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// Updated billing information.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<BillingInfo> CreateBillingInfoAsync(string accountId, BillingInfoCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// Fetch a billing info <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_a_billing_info">get_a_billing_info api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="billingInfoId">Billing Info ID.</param>
+        /// <returns>
+        /// A billing info.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        BillingInfo GetABillingInfo(string accountId, string billingInfoId, RequestOptions options = null);
+
+        /// <summary>
+        /// Fetch a billing info <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_a_billing_info">get_a_billing_info api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="billingInfoId">Billing Info ID.</param>
+        /// <returns>
+        /// A billing info.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<BillingInfo> GetABillingInfoAsync(string accountId, string billingInfoId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// Update an account's billing information <see href="https://developers.recurly.com/api/v2019-10-10#operation/update_a_billing_info">update_a_billing_info api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="billingInfoId">Billing Info ID.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// Updated billing information.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        BillingInfo UpdateABillingInfo(string accountId, string billingInfoId, BillingInfoCreate body, RequestOptions options = null);
+
+        /// <summary>
+        /// Update an account's billing information <see href="https://developers.recurly.com/api/v2019-10-10#operation/update_a_billing_info">update_a_billing_info api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="billingInfoId">Billing Info ID.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// Updated billing information.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<BillingInfo> UpdateABillingInfoAsync(string accountId, string billingInfoId, BillingInfoCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// Remove an account's billing information <see href="https://developers.recurly.com/api/v2019-10-10#operation/remove_one_billing_info">remove_one_billing_info api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="billingInfoId">Billing Info ID.</param>
+        /// <returns>
+        /// Billing information deleted
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        void RemoveOneBillingInfo(string accountId, string billingInfoId, RequestOptions options = null);
+
+        /// <summary>
+        /// Remove an account's billing information <see href="https://developers.recurly.com/api/v2019-10-10#operation/remove_one_billing_info">remove_one_billing_info api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="billingInfoId">Billing Info ID.</param>
+        /// <returns>
+        /// Billing information deleted
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<EmptyResource> RemoveOneBillingInfoAsync(string accountId, string billingInfoId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
         /// Show the coupon redemptions for an account <see href="https://developers.recurly.com/api/v2019-10-10#operation/list_account_coupon_redemptions">list_account_coupon_redemptions api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>

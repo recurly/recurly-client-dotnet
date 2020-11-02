@@ -83,6 +83,10 @@ namespace Recurly.Resources
         [JsonProperty("paypal_billing_agreement_id")]
         public string PaypalBillingAgreementId { get; set; }
 
+        /// <value>The `primary_payment_method` indicator is used to designate the primary billing info on the account. The first billing info created on an account will always become primary. Adding additional billing infos provides the flexibility to mark another billing info as primary, or adding additional non-primary billing infos. This can be accomplished by passing the `primary_payment_method` indicator. When adding billing infos via the billing_info and /accounts endpoints, this value is not permitted, and will return an error if provided.</value>
+        [JsonProperty("primary_payment_method")]
+        public bool? PrimaryPaymentMethod { get; set; }
+
         /// <value>The bank's rounting number. (ACH only)</value>
         [JsonProperty("routing_number")]
         public string RoutingNumber { get; set; }

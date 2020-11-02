@@ -39,6 +39,10 @@ namespace Recurly.Resources
         [JsonProperty("bank_account_authorized_at")]
         public DateTime? BankAccountAuthorizedAt { get; set; }
 
+        /// <value>Billing Info ID.</value>
+        [JsonProperty("billing_info_id")]
+        public string BillingInfoId { get; set; }
+
         /// <value>Canceled at</value>
         [JsonProperty("canceled_at")]
         public DateTime? CanceledAt { get; set; }
