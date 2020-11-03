@@ -160,6 +160,25 @@ namespace Recurly.Test
         }
 
         [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void CreateCouponItem()
+        {
+            var item = new Item(GetMockItemCode("coupon item"), "Coupon Item");
+            item.Create();
+
+            var anotherItem = new Item(GetMockItemCode("another item"), "Another Item");
+            anotherItem.Create();
+
+            var coupon = new Coupon(GetMockCouponCode(), GetMockCouponName(), new Dictionary<string, int>());
+            coupon.DiscountInCents.Add("USD", 200);
+            coupon.Items.Add(item.ItemCode);
+            coupon.Items.Add(anotherItem.ItemCode);
+
+            Action a = coupon.Create;
+            a.ShouldNotThrow();
+            Assert.Equal(2, coupon.Items.Count);
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void DeactivateCoupon()
         {
             var discounts = new Dictionary<string, int> { { "USD", 100 }, { "EUR", 50 } };
