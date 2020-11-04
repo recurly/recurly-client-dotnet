@@ -170,11 +170,13 @@ namespace Recurly.Test
 
             var coupon = new Coupon(GetMockCouponCode(), GetMockCouponName(), new Dictionary<string, int>());
             coupon.DiscountInCents.Add("USD", 200);
+            coupon.AppliesToAllItems = false;
             coupon.Items.Add(item.ItemCode);
             coupon.Items.Add(anotherItem.ItemCode);
 
             Action a = coupon.Create;
             a.ShouldNotThrow();
+            Assert.False(coupon.AppliesToAllItems);
             Assert.Equal(2, coupon.Items.Count);
         }
 
