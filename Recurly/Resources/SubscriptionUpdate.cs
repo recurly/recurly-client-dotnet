@@ -19,6 +19,10 @@ namespace Recurly.Resources
         [JsonProperty("auto_renew")]
         public bool? AutoRenew { get; set; }
 
+        /// <value>The `billing_info_id` is the value that represents a specific billing info for an end customer. When `billing_info_id` is used to assign billing info to the subscription, all future billing events for the subscription will bill to the specified billing info.</value>
+        [JsonProperty("billing_info_id")]
+        public string BillingInfoId { get; set; }
+
         /// <value>Change collection method</value>
         [JsonProperty("collection_method")]
         public string CollectionMethod { get; set; }
