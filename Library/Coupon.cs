@@ -68,6 +68,7 @@ namespace Recurly
         public int? MaxRedemptions { get; set; }
         public bool? AppliesToAllPlans { get; set; }
         public bool? AppliesToNonPlanCharges { get; set; }
+        public bool? AppliesToAllItems { get; set; }
         public int? MaxRedemptionsPerAccount { get; set; }
         public string UniqueCodeTemplate { get; set; }
         public int? FreeTrialAmount { get; set; }
@@ -103,6 +104,13 @@ namespace Recurly
         public List<string> Plans
         {
             get { return _plans ?? (_plans = new List<string>()); }
+        }
+
+        private List<string> _items;
+
+        public List<string> Items
+        {
+            get {return _items ?? (_items = new List<string>()); }
         }
 
         #region Constructors
@@ -308,6 +316,10 @@ namespace Recurly
                         AppliesToNonPlanCharges = reader.ReadElementContentAsBoolean();
                         break;
 
+                    case "applies_to_all_items":
+                        AppliesToAllItems = reader.ReadElementContentAsBoolean();
+                        break;
+
                     case "max_redemptions_per_account":
                         if (int.TryParse(reader.ReadElementContentAsString(), out m))
                             MaxRedemptionsPerAccount = m;
@@ -343,6 +355,10 @@ namespace Recurly
                         ReadXmlPlanCodes(reader);
                         break;
 
+                    case "item_codes":
+                        ReadXmlItemCodes(reader);
+                        break;
+
                     case "discount_in_cents":
                         ReadXmlDiscounts(reader);
                         break;
@@ -376,10 +392,29 @@ namespace Recurly
                     case "plan_code":
                         Plans.Add(reader.ReadElementContentAsString());
                         break;
-
                 }
             }
         }
+
+        internal void ReadXmlItemCodes(XmlTextReader reader)
+        {
+            Items.Clear();
+
+            while (reader.Read())
+            {
+                if (reader.Name == "item_codes" && reader.NodeType == XmlNodeType.EndElement)
+                    break;
+
+                if (reader.NodeType != XmlNodeType.Element) continue;
+                switch (reader.Name)
+                {
+                    case "item_code":
+                        Items.Add(reader.ReadElementContentAsString());
+                        break;
+                }
+            }
+        }
+
 
         internal void ReadXmlDiscounts(XmlTextReader reader)
         {
@@ -427,6 +462,9 @@ namespace Recurly
             if (AppliesToNonPlanCharges.HasValue)
                 xmlWriter.WriteElementString("applies_to_non_plan_charges", AppliesToNonPlanCharges.Value.AsString());
 
+            if (AppliesToAllItems.HasValue)
+                xmlWriter.WriteElementString("applies_to_all_items", AppliesToAllItems.Value.AsString());
+
             if (MaxRedemptions.HasValue)
                 xmlWriter.WriteElementString("max_redemptions", MaxRedemptions.Value.AsString());
 
@@ -452,6 +490,8 @@ namespace Recurly
             }
 
             xmlWriter.WriteIfCollectionHasAny("plan_codes", Plans, s => "plan_code", s => s);
+
+            xmlWriter.WriteIfCollectionHasAny("item_codes", Items, s => "item_code", s => s);
 
             if (FreeTrialAmount.HasValue)
                 xmlWriter.WriteElementString("free_trial_amount", FreeTrialAmount.Value.AsString());
