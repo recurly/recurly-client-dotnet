@@ -1,6 +1,10 @@
 Unreleased
 ===============
 
+1.17.9 (stable) / 2020-11-05
+===============
+- Support item-specific coupons [PR](https://github.com/recurly/recurly-client-dotnet/pull/588)
+
 1.17.8 (stable) / 2020-09-17
 ===============
 - New endpoint to verify an account's billing information [PR](https://github.com/recurly/recurly-client-dotnet/pull/577)
