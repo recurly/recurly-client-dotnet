@@ -1,8 +1,21 @@
 # Changelog
 
-## [3.14.0](https://github.com/recurly/recurly-client-dotnet/tree/HEAD)
+## [3.15.0](https://github.com/recurly/recurly-client-dotnet/tree/HEAD)
 
-[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.13.1...HEAD)
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.14.0...HEAD)
+
+**Implemented enhancements:**
+
+- Latest Changes for 2019-10-10 \(Wallet, Item Coupons\) [\#589](https://github.com/recurly/recurly-client-dotnet/pull/589) ([douglasmiller](https://github.com/douglasmiller))
+
+**Merged pull requests:**
+
+- Release 3.15.0 [\#591](https://github.com/recurly/recurly-client-dotnet/pull/591) ([douglasmiller](https://github.com/douglasmiller))
+- Add test coverage for unknown error types [\#587](https://github.com/recurly/recurly-client-dotnet/pull/587) ([jguidry-recurly](https://github.com/jguidry-recurly))
+
+## [3.14.0](https://github.com/recurly/recurly-client-dotnet/tree/3.14.0) (2020-10-20)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.13.1...3.14.0)
 
 **Implemented enhancements:**
 
