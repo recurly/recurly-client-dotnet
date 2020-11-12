@@ -94,21 +94,17 @@ namespace Recurly.Test
             var account = CreateNewAccount();
             var ibanInfo = new BillingInfo(account)
             {
-                NameOnAccount = "Iban account name",
+                NameOnAccount = "IBAN account name",
                 Iban = "FR1420041010050500013M02606",
-                Address1 = "123 Test St",
-                Address2 = "The Test Cut",
-                City = "San Francisco",
-                PostalCode = "94105",
-                State = "CA",
-                Country = "US",
+                Country = "FR",
+                Currency = "USD", // should be "EUR" but test environment does not support multi-currency
             };
             var threw = false;
             try {
                 ibanInfo.Create();
             } catch (ValidationException exception) {
                 threw = true;
-                exception.Errors[0].Symbol.Should().Be("card_type_not_accepted");
+                exception.Errors[0].Symbol.Should().Be("direct_debit_type_not_accepted");
                 System.Console.WriteLine(exception);
             }
             threw.Should().Be(true);
