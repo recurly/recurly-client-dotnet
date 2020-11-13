@@ -116,6 +116,11 @@ namespace Recurly
         public string Iban { get; set; }
 
         /// <summary>
+        /// IBAN, last two digits
+        /// </summary>
+        public string LastTwo { get; private set; }
+
+        /// <summary>
         /// Bank identifier code for UK based banks. Required for Bacs based billing infos. (Bacs only)
         /// </summary>
         public string SortCode { get; set; }
@@ -374,6 +379,10 @@ namespace Recurly
 
                     case "last_four":
                         LastFour = reader.ReadElementContentAsString();
+                        break;
+
+                    case "last_two":
+                        LastTwo = reader.ReadElementContentAsString();
                         break;
 
                     case "paypal_billing_agreement_id":
