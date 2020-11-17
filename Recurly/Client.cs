@@ -697,13 +697,14 @@ namespace Recurly
         /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
         /// <param name="beginTime">Inclusively filter by begin_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
         /// <param name="endTime">Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
+        /// <param name="state">Filter by state.</param>
         /// <returns>
         /// A list of the the coupon redemptions on an account.
         /// </returns>
-        public Pager<CouponRedemption> ListAccountCouponRedemptions(string accountId, string ids = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, RequestOptions options = null)
+        public Pager<CouponRedemption> ListAccountCouponRedemptions(string accountId, string ids = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string state = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime } };
+            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "state", state } };
             var url = this.InterpolatePath("/accounts/{account_id}/coupon_redemptions", urlParams);
             return Pager<CouponRedemption>.Build(url, queryParams, options, this);
         }
@@ -3258,14 +3259,15 @@ namespace Recurly
         /// </summary>
         /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
         /// <param name="refund">The type of refund to perform:    * `full` - Performs a full refund of the last invoice for the current subscription term.  * `partial` - Prorates a refund based on the amount of time remaining in the current bill cycle.  * `none` - Terminates the subscription without a refund.    In the event that the most recent invoice is a $0 invoice paid entirely by credit, Recurly will apply the credit back to the customer’s account.    You may also terminate a subscription with no refund and then manually refund specific invoices.  </param>
+        /// <param name="charge">Applicable only if the subscription has usage based add-ons and unbilled usage logged for the current billing cycle. If true, current billing cycle unbilled usage is billed on the final invoice. If false, Recurly will create a negative usage record for current billing cycle usage that will zero out the final invoice line items.</param>
         /// <returns>
         /// An expired subscription.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public Subscription TerminateSubscription(string subscriptionId, string refund = null, RequestOptions options = null)
+        public Subscription TerminateSubscription(string subscriptionId, string refund = null, bool? charge = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
-            var queryParams = new Dictionary<string, object> { { "refund", refund } };
+            var queryParams = new Dictionary<string, object> { { "refund", refund }, { "charge", charge } };
             var url = this.InterpolatePath("/subscriptions/{subscription_id}", urlParams);
             return MakeRequest<Subscription>(Method.DELETE, url, null, queryParams, options);
         }
@@ -3277,14 +3279,15 @@ namespace Recurly
         /// </summary>
         /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
         /// <param name="refund">The type of refund to perform:    * `full` - Performs a full refund of the last invoice for the current subscription term.  * `partial` - Prorates a refund based on the amount of time remaining in the current bill cycle.  * `none` - Terminates the subscription without a refund.    In the event that the most recent invoice is a $0 invoice paid entirely by credit, Recurly will apply the credit back to the customer’s account.    You may also terminate a subscription with no refund and then manually refund specific invoices.  </param>
+        /// <param name="charge">Applicable only if the subscription has usage based add-ons and unbilled usage logged for the current billing cycle. If true, current billing cycle unbilled usage is billed on the final invoice. If false, Recurly will create a negative usage record for current billing cycle usage that will zero out the final invoice line items.</param>
         /// <returns>
         /// An expired subscription.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public Task<Subscription> TerminateSubscriptionAsync(string subscriptionId, string refund = null, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        public Task<Subscription> TerminateSubscriptionAsync(string subscriptionId, string refund = null, bool? charge = null, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
-            var queryParams = new Dictionary<string, object> { { "refund", refund } };
+            var queryParams = new Dictionary<string, object> { { "refund", refund }, { "charge", charge } };
             var url = this.InterpolatePath("/subscriptions/{subscription_id}", urlParams);
             return MakeRequestAsync<Subscription>(Method.DELETE, url, null, queryParams, options, cancellationToken);
         }
