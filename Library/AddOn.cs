@@ -16,6 +16,7 @@ namespace Recurly
         public string AddOnCode { get; set; }
         public string ItemCode {get; set; }
         public string Name { get; set; }
+        public string ExternalSku { get; private set; }
         public int? DefaultQuantity { get; set; }
         public bool? DisplayQuantityOnHostedPage { get; set; }
         public string TaxCode { get; set; }
@@ -28,7 +29,7 @@ namespace Recurly
         public DateTime CreatedAt { get; private set; }
         public DateTime UpdatedAt { get; private set; }
         public Adjustment.RevenueSchedule? RevenueScheduleType { get; set; }
-        public string ItemState { get; set; }
+        public string ItemState { get; private set; }
         private string _tierType;
         public string TierType { 
           get
@@ -220,6 +221,10 @@ namespace Recurly
 
                     case "item_state":
                         ItemState = reader.ReadElementContentAsString();
+                        break;
+
+                    case "external_sku":
+                        ExternalSku = reader.ReadElementContentAsString();
                         break;
                         
                     case "tier_type":
