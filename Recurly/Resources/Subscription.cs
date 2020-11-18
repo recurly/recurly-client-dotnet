@@ -51,7 +51,7 @@ namespace Recurly.Resources
         [JsonProperty("collection_method")]
         public string CollectionMethod { get; set; }
 
-        /// <value>Coupon redemptions</value>
+        /// <value>Returns subscription level coupon redemptions that are tied to this subscription.</value>
         [JsonProperty("coupon_redemptions")]
         public List<CouponRedemptionMini> CouponRedemptions { get; set; }
 
