@@ -17,7 +17,7 @@ namespace Recurly.Resources
 
 
         [JsonProperty("account")]
-        public AccountCreate Account { get; set; }
+        public Dictionary<string, string> Account { get; set; }
 
         /// <value>Add-ons</value>
         [JsonProperty("add_ons")]
