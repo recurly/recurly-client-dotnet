@@ -19,10 +19,6 @@ namespace Recurly.Resources
         [JsonProperty("accounting_code")]
         public string AccountingCode { get; set; }
 
-        /// <value>Add Ons</value>
-        [JsonProperty("add_ons")]
-        public List<AddOnCreate> AddOns { get; set; }
-
         /// <value>
         /// Used to determine whether items can be assigned as add-ons to individual subscriptions.
         /// If `true`, items can be assigned as add-ons to individual subscription add-ons.
