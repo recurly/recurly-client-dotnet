@@ -288,6 +288,10 @@ response.RateLimitRemaining // 1990
 response.RateLimitReset // 1595965380
 ```
 
+### A Note on Headers
+
+In accordance with [section 4.2 of RFC 2616](https://www.ietf.org/rfc/rfc2616.txt), HTTP header fields are case-insensitive.
+
 ### Webhooks
 
 Recurly can send webhooks to any publicly accessible server.
