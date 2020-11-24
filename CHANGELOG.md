@@ -1,8 +1,22 @@
 # Changelog
 
-## [3.15.0](https://github.com/recurly/recurly-client-dotnet/tree/HEAD)
+## [3.16.0](https://github.com/recurly/recurly-client-dotnet/tree/HEAD)
 
-[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.14.0...HEAD)
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.15.0...HEAD)
+
+**Implemented enhancements:**
+
+- Latest Changes for 2019-10-10 \(tax\_identifier / tax\_identifier\_type\) [\#597](https://github.com/recurly/recurly-client-dotnet/pull/597) ([douglasmiller](https://github.com/douglasmiller))
+- Latest Changes for 2019-10-10 [\#594](https://github.com/recurly/recurly-client-dotnet/pull/594) ([douglasmiller](https://github.com/douglasmiller))
+
+**Merged pull requests:**
+
+- Release 3.16.0 [\#598](https://github.com/recurly/recurly-client-dotnet/pull/598) ([douglasmiller](https://github.com/douglasmiller))
+- Update readme to include memo on headers [\#595](https://github.com/recurly/recurly-client-dotnet/pull/595) ([joannasese](https://github.com/joannasese))
+
+## [3.15.0](https://github.com/recurly/recurly-client-dotnet/tree/3.15.0) (2020-11-06)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.14.0...3.15.0)
 
 **Implemented enhancements:**
 
