@@ -19,6 +19,10 @@ namespace Recurly.Resources
         [JsonProperty("account")]
         public AccountPurchase Account { get; set; }
 
+        /// <value>The `billing_info_id` is the value that represents a specific billing info for an end customer. When `billing_info_id` is used to assign billing info to the subscription, all future billing events for the subscription will bill to the specified billing info.</value>
+        [JsonProperty("billing_info_id")]
+        public string BillingInfoId { get; set; }
+
         /// <value>Must be set to manual in order to preview a purchase for an Account that does not have payment information associated with the Billing Info.</value>
         [JsonProperty("collection_method")]
         public string CollectionMethod { get; set; }
