@@ -51,6 +51,10 @@ namespace Recurly.Resources
         [JsonProperty("state")]
         public string State { get; set; }
 
+        /// <value>Subscription ID</value>
+        [JsonProperty("subscription_id")]
+        public string SubscriptionId { get; set; }
+
         /// <value>Last updated at</value>
         [JsonProperty("updated_at")]
         public DateTime? UpdatedAt { get; set; }
