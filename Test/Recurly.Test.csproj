@@ -94,6 +94,7 @@
     <Compile Include="BillingInfoTest.cs" />
     <Compile Include="CouponRedemptionTest.cs" />
     <Compile Include="CouponTest.cs" />
+    <Compile Include="CreditPaymentTest.cs" />
     <Compile Include="EnumTest.cs" />
     <Compile Include="ExtensionTest.cs" />
     <Compile Include="FixtureImporterTests.cs" />
