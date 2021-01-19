@@ -15,14 +15,14 @@ namespace Recurly
         public float? UsagePercentage { get; set; }
         public string TierType { get; set; }
 
-        private List<Tier> _tiers; 
+        private List<SubscriptionAddOnTier> _tiers; 
 
         /// <summary>
         /// List of tiers for this add-on
         /// </summary>
-        public List<Tier> Tiers
+        public List<SubscriptionAddOnTier> Tiers
         {
-            get {return _tiers ?? (_tiers = new List<Tier>()); }
+            get {return _tiers ?? (_tiers = new List<SubscriptionAddOnTier>()); }
             set { _tiers = value; }
         }
 
@@ -114,14 +114,14 @@ namespace Recurly
                         break;
 
                     case "tiers":
-                        Tiers = new List<Tier>();
+                        Tiers = new List<SubscriptionAddOnTier>();
                         while (reader.Read())
                         {
                             if (reader.Name == "tiers" && reader.NodeType == XmlNodeType.EndElement)
                                 break;
                             else if (reader.NodeType == XmlNodeType.Element && reader.Name == "tier")
                             {
-                                Tiers.Add(new Tier(reader));
+                                Tiers.Add(new SubscriptionAddOnTier(reader));
                             }
                         }
                         break;
