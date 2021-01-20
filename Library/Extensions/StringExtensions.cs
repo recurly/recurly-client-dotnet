@@ -181,6 +181,11 @@ namespace Recurly
                 type = BillingInfo.CreditCardType.MasterCard;
                 return card.Length == 16 && card.PassesLuhnsTest();
             }
+            if (firstTwo == 62 && card.Length >= 16 && card.Length <= 19)
+            {
+                type = BillingInfo.CreditCardType.UnionPay;
+                return card.PassesLuhnsTest();
+            }
 
             var firstFour = Int32.Parse(card.Substring(0, 4));
             var firstThree = Int32.Parse(card.Substring(0, 3));

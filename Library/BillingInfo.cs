@@ -21,7 +21,8 @@ namespace Recurly
             Forbrugsforeningen,
             Laser,
             Unknown,
-            DinersClub
+            DinersClub,
+            UnionPay
         }
 
         public enum HppType : short
