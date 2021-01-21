@@ -23,5 +23,9 @@ namespace Recurly.Resources
         [JsonProperty("currency")]
         public string Currency { get; set; }
 
+        /// <value>Subscription ID</value>
+        [JsonProperty("subscription_id")]
+        public string SubscriptionId { get; set; }
+
     }
 }
