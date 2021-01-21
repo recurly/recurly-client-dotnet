@@ -116,6 +116,7 @@
     <Compile Include="PurchaseTest.cs" />
     <Compile Include="SettingsManagerTest.cs" />
     <Compile Include="SubscriptionTest.cs" />
+    <Compile Include="SubscriptionAddOnTest.cs" />
     <Compile Include="SystemTest.cs" />
     <Compile Include="TestCreditCardNumbers.cs" />
     <Compile Include="TestEnvironment.cs" />

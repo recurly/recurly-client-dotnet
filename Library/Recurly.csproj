@@ -139,6 +139,7 @@
     <Compile Include="List\TransactionList.cs" />
     <Compile Include="ValidationException.cs" />
     <Compile Include="Extensions\XmlWriterExtensions.cs" />
+    <Compile Include="SubscriptionAddOnTier.cs" />
     <Compile Include="Tier.cs" />
     <Compile Include="VerifyBillingInfo.cs" />
   </ItemGroup>
