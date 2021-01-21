@@ -246,6 +246,7 @@ namespace Recurly.Test
          InlineData(TestCreditCardNumbers.MasterCard2, true, CreditCardType.MasterCard),
          InlineData(TestCreditCardNumbers.JCB1, true, CreditCardType.JCB),
          InlineData(TestCreditCardNumbers.JCB2, true, CreditCardType.JCB),
+         InlineData(TestCreditCardNumbers.UnionPay1, true, CreditCardType.UnionPay),
          InlineData("not a card number", false, CreditCardType.Invalid),
          InlineData("1801 1234 1234 1234", false, CreditCardType.Invalid),
          InlineData("too short", false, CreditCardType.Invalid),

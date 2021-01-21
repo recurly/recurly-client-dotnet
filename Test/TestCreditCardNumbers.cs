@@ -20,5 +20,7 @@ namespace Recurly.Test
         public const string Visa1 = "4111111111111111";
         public const string Visa2 = "4012888888881881";
         public const string Visa3 = "4222222222222";
+
+        public const string UnionPay1 = "6221261111113245";
     }
 }
