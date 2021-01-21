@@ -10,7 +10,9 @@ namespace Recurly
     {
         public string Uuid { get; set; }
         public string Action { get; set; }
+        [Obsolete("Deprecated, please use AmountInCents")] 
         public int UnitAmountInCents { get; set; }
+        public int AmountInCents { get; set; }
         public string AppliedToInvoice { get; set; }
         public string Currency { get; set; }
         public DateTime CreatedAt { get; set; }
@@ -48,9 +50,14 @@ namespace Recurly
                     case "uuid":
                         Uuid = reader.ReadElementContentAsString();
                         break;
-        
+
+                    // Deprecated, please use AmountInCents" 
                     case "unit_amount_in_cents":
                         UnitAmountInCents = reader.ReadElementContentAsInt();
+                        break;
+        
+                    case "amount_in_cents":
+                        AmountInCents = reader.ReadElementContentAsInt();
                         break;
    
                     case "currency":
@@ -109,7 +116,7 @@ namespace Recurly
 
             var creditPayment = new CreditPayment();
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
-                "/credit_payment/" + Uri.EscapeDataString(uuid),
+                "/credit_payments/" + Uri.EscapeDataString(uuid),
                 creditPayment.ReadXml);
             return creditPayment;
         }
