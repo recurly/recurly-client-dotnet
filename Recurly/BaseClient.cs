@@ -50,6 +50,13 @@ namespace Recurly
             RestClient.AddDefaultHeader("Content-Type", "application/json");
         }
 
+        /// <value>Timeout in milliseconds to be used for the request</value>
+        public int Timeout
+        {
+            get { return RestClient.Timeout; }
+            set { RestClient.Timeout = value; }
+        }
+
         public async Task<T> MakeRequestAsync<T>(Method method, string url, Request body = null, Dictionary<string, object> queryParams = null, RequestOptions options = null, CancellationToken cancellationToken = default(CancellationToken)) where T : Resource
         {
             Debug.WriteLine($"Calling {url}");

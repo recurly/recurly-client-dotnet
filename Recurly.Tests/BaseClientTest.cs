@@ -17,6 +17,17 @@ namespace Recurly.Tests
             Assert.Throws<ArgumentException>(() => new MockClient(""));
         }
 
+        /*
+         * Assert that Timeout can be set and retrieved. Take on faith for now
+         * that RestSharp timeouts are well-behaved.
+         */
+        [Fact]
+        public void CanInitializeWithATimeout()
+        {
+            var client = new Recurly.Client("myapikey") { Timeout = 124 };
+            Assert.Equal(124, client.Timeout);
+        }
+
         [Fact]
         public void RespondsWithGivenApiVersion()
         {
