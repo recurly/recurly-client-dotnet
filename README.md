@@ -54,6 +54,12 @@ var client = new Recurly.Client(apiKey);
 var sub = client.GetSubscription("uuid-abcd123456")
 ```
 
+Optional arguments can be provided through object initializers.
+
+```csharp
+var client = new Recurly.Client(apiKey) { Timeout = 5000 }
+```
+
 ### Operations
 
 The `Recurly.Client` contains every `operation` you can perform on the site as a list of methods. Each method is documented explaining
