@@ -272,7 +272,7 @@ namespace Recurly
             return new UsageList(UrlPrefix(subscriptionUuid, subscriptionAddOnCode) + "?" + parameters.ToString());
         }
 
-        public static Usage Get(string subscriptionUuid, string subscriptionAddOnCode, long usageId)
+        public static Usage Get(string subscriptionUuid, string subscriptionAddOnCode, long? usageId)
         {
             if (string.IsNullOrWhiteSpace(subscriptionUuid) || string.IsNullOrWhiteSpace(subscriptionAddOnCode))
             {
