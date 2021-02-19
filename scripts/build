@@ -3,7 +3,7 @@ set -e
 
 if ! command -v dotnet-format; then
   echo "Installing dotnet formatter..."
-  dotnet tool install -g dotnet-format
+  dotnet tool install -g dotnet-format --version 4.0.0
 fi
 
 dotnet build
