@@ -1,6 +1,13 @@
 Unreleased
 ===============
 
+1.17.10 (stable) / 2021-02-22
+- Fix test: create billing info (IBAN) [PR](https://github.com/recurly/recurly-client-dotnet/pull/592)
+- Expose fields in response xml to developer [PR](https://github.com/recurly/recurly-client-dotnet/pull/593)
+- Repair Lookup Credit Payment endpoint [PR](https://github.com/recurly/recurly-client-dotnet/pull/602)
+- Repair PUT /subscriptions/:subscription_id [PR](https://github.com/recurly/recurly-client-dotnet/pull/604)
+- Add missing UnionPay enum to BillingInfo [PR](https://github.com/recurly/recurly-client-dotnet/pull/605)
+
 1.17.9 (stable) / 2020-11-05
 ===============
 - Support item-specific coupons [PR](https://github.com/recurly/recurly-client-dotnet/pull/588)
