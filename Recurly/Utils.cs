@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace Recurly
@@ -58,6 +59,26 @@ namespace Recurly
                     if (param.Value.GetType() == typeof(DateTime))
                     {
                         stringRepr = ISO8601((DateTime)param.Value);
+                    }
+                    else if (param.Value is Enum)
+                    {
+                        // Use the string value by default
+                        stringRepr = param.Value.ToString();
+
+                        var type = param.Value.GetType();
+                        Console.WriteLine($"TYPE {type}");
+                        var memInfos = type.GetMember(param.Value.ToString());
+                        foreach (var memInfo in memInfos)
+                            foreach (var attr in memInfo.GetCustomAttributes(true))
+                            {
+                                EnumMemberAttribute enumAttr = attr as EnumMemberAttribute;
+                                if (enumAttr != null)
+                                {
+                                    // Use the EnumMember Value if it exists
+                                    stringRepr = enumAttr.Value;
+                                }
+                            }
+
                     }
                     else if (param.Value is bool)
                     {
