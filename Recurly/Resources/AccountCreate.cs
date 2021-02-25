@@ -17,7 +17,7 @@ namespace Recurly.Resources
 
 
         [JsonProperty("acquisition")]
-        public AccountAcquisitionUpdatable Acquisition { get; set; }
+        public AccountAcquisitionUpdate Acquisition { get; set; }
 
 
         [JsonProperty("address")]

@@ -154,6 +154,11 @@ namespace Recurly.Errors
                     {
                         Error = err
                     };
+                case Constants.ErrorType.ServiceNotAvailable:
+                    return new ServiceNotAvailable(err.Message)
+                    {
+                        Error = err
+                    };
                 case Constants.ErrorType.SimultaneousRequest:
                     return new SimultaneousRequest(err.Message)
                     {

@@ -18,12 +18,12 @@ namespace Recurly
     [ExcludeFromCodeCoverage]
     public class Client : BaseClient, IClient
     {
-        public override string ApiVersion => "v2020-01-01";
+        public override string ApiVersion => "v2021-02-25";
 
         public Client(string apiKey) : base(apiKey) { }
 
         /// <summary>
-        /// List sites <see href="https://developers.recurly.com/api/v2020-01-01#operation/list_sites">list_sites api documentation</see>
+        /// List sites <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_sites">list_sites api documentation</see>
         /// </summary>
         /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
         /// <param name="limit">Limit number of records 1-200.</param>
@@ -46,7 +46,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a site <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_site">get_site api documentation</see>
+        /// Fetch a site <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_site">get_site api documentation</see>
         /// </summary>
         /// <param name="siteId">Site ID or subdomain. For ID no prefix is used e.g. `e28zov4fw0v2`. For subdomain use prefix `subdomain-`, e.g. `subdomain-recurly`.</param>
         /// <returns>
@@ -63,7 +63,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a site <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_site">get_site api documentation</see>
+        /// Fetch a site <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_site">get_site api documentation</see>
         /// </summary>
         /// <param name="siteId">Site ID or subdomain. For ID no prefix is used e.g. `e28zov4fw0v2`. For subdomain use prefix `subdomain-`, e.g. `subdomain-recurly`.</param>
         /// <returns>
@@ -80,7 +80,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List a site's accounts <see href="https://developers.recurly.com/api/v2020-01-01#operation/list_accounts">list_accounts api documentation</see>
+        /// List a site's accounts <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_accounts">list_accounts api documentation</see>
         /// </summary>
         /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
         /// <param name="limit">Limit number of records 1-200.</param>
@@ -107,7 +107,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create an account <see href="https://developers.recurly.com/api/v2020-01-01#operation/create_account">create_account api documentation</see>
+        /// Create an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_account">create_account api documentation</see>
         /// </summary>
         /// <param name="body">The body of the request.</param>
         /// <returns>
@@ -124,7 +124,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create an account <see href="https://developers.recurly.com/api/v2020-01-01#operation/create_account">create_account api documentation</see>
+        /// Create an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_account">create_account api documentation</see>
         /// </summary>
         /// <param name="body">The body of the request.</param>
         /// <returns>
@@ -141,7 +141,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an account <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_account">get_account api documentation</see>
+        /// Fetch an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_account">get_account api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <returns>
@@ -158,7 +158,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an account <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_account">get_account api documentation</see>
+        /// Fetch an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_account">get_account api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <returns>
@@ -175,7 +175,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Modify an account <see href="https://developers.recurly.com/api/v2020-01-01#operation/update_account">update_account api documentation</see>
+        /// Update an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_account">update_account api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <param name="body">The body of the request.</param>
@@ -193,7 +193,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Modify an account <see href="https://developers.recurly.com/api/v2020-01-01#operation/update_account">update_account api documentation</see>
+        /// Update an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_account">update_account api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <param name="body">The body of the request.</param>
@@ -211,7 +211,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Deactivate an account <see href="https://developers.recurly.com/api/v2020-01-01#operation/deactivate_account">deactivate_account api documentation</see>
+        /// Deactivate an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/deactivate_account">deactivate_account api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <returns>
@@ -228,7 +228,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Deactivate an account <see href="https://developers.recurly.com/api/v2020-01-01#operation/deactivate_account">deactivate_account api documentation</see>
+        /// Deactivate an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/deactivate_account">deactivate_account api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <returns>
@@ -245,7 +245,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an account's acquisition data <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_account_acquisition">get_account_acquisition api documentation</see>
+        /// Fetch an account's acquisition data <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_account_acquisition">get_account_acquisition api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <returns>
@@ -262,7 +262,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an account's acquisition data <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_account_acquisition">get_account_acquisition api documentation</see>
+        /// Fetch an account's acquisition data <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_account_acquisition">get_account_acquisition api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <returns>
@@ -279,7 +279,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update an account's acquisition data <see href="https://developers.recurly.com/api/v2020-01-01#operation/update_account_acquisition">update_account_acquisition api documentation</see>
+        /// Update an account's acquisition data <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_account_acquisition">update_account_acquisition api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <param name="body">The body of the request.</param>
@@ -287,7 +287,7 @@ namespace Recurly
         /// An account's updated acquisition data.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public AccountAcquisition UpdateAccountAcquisition(string accountId, AccountAcquisitionUpdatable body, RequestOptions options = null)
+        public AccountAcquisition UpdateAccountAcquisition(string accountId, AccountAcquisitionUpdate body, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var url = this.InterpolatePath("/accounts/{account_id}/acquisition", urlParams);
@@ -297,7 +297,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update an account's acquisition data <see href="https://developers.recurly.com/api/v2020-01-01#operation/update_account_acquisition">update_account_acquisition api documentation</see>
+        /// Update an account's acquisition data <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_account_acquisition">update_account_acquisition api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <param name="body">The body of the request.</param>
@@ -305,7 +305,7 @@ namespace Recurly
         /// An account's updated acquisition data.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public Task<AccountAcquisition> UpdateAccountAcquisitionAsync(string accountId, AccountAcquisitionUpdatable body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        public Task<AccountAcquisition> UpdateAccountAcquisitionAsync(string accountId, AccountAcquisitionUpdate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var url = this.InterpolatePath("/accounts/{account_id}/acquisition", urlParams);
@@ -315,7 +315,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Remove an account's acquisition data <see href="https://developers.recurly.com/api/v2020-01-01#operation/remove_account_acquisition">remove_account_acquisition api documentation</see>
+        /// Remove an account's acquisition data <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_account_acquisition">remove_account_acquisition api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <returns>
@@ -332,7 +332,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Remove an account's acquisition data <see href="https://developers.recurly.com/api/v2020-01-01#operation/remove_account_acquisition">remove_account_acquisition api documentation</see>
+        /// Remove an account's acquisition data <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_account_acquisition">remove_account_acquisition api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <returns>
@@ -349,7 +349,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Reactivate an inactive account <see href="https://developers.recurly.com/api/v2020-01-01#operation/reactivate_account">reactivate_account api documentation</see>
+        /// Reactivate an inactive account <see href="https://developers.recurly.com/api/v2021-02-25#operation/reactivate_account">reactivate_account api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <returns>
@@ -366,7 +366,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Reactivate an inactive account <see href="https://developers.recurly.com/api/v2020-01-01#operation/reactivate_account">reactivate_account api documentation</see>
+        /// Reactivate an inactive account <see href="https://developers.recurly.com/api/v2021-02-25#operation/reactivate_account">reactivate_account api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <returns>
@@ -383,7 +383,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an account's balance and past due status <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_account_balance">get_account_balance api documentation</see>
+        /// Fetch an account's balance and past due status <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_account_balance">get_account_balance api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <returns>
@@ -400,7 +400,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an account's balance and past due status <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_account_balance">get_account_balance api documentation</see>
+        /// Fetch an account's balance and past due status <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_account_balance">get_account_balance api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <returns>
@@ -417,7 +417,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an account's billing information <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_billing_info">get_billing_info api documentation</see>
+        /// Fetch an account's billing information <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_billing_info">get_billing_info api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <returns>
@@ -434,7 +434,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an account's billing information <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_billing_info">get_billing_info api documentation</see>
+        /// Fetch an account's billing information <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_billing_info">get_billing_info api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <returns>
@@ -451,7 +451,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Set an account's billing information <see href="https://developers.recurly.com/api/v2020-01-01#operation/update_billing_info">update_billing_info api documentation</see>
+        /// Set an account's billing information <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_billing_info">update_billing_info api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <param name="body">The body of the request.</param>
@@ -469,7 +469,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Set an account's billing information <see href="https://developers.recurly.com/api/v2020-01-01#operation/update_billing_info">update_billing_info api documentation</see>
+        /// Set an account's billing information <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_billing_info">update_billing_info api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <param name="body">The body of the request.</param>
@@ -487,7 +487,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Remove an account's billing information <see href="https://developers.recurly.com/api/v2020-01-01#operation/remove_billing_info">remove_billing_info api documentation</see>
+        /// Remove an account's billing information <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_billing_info">remove_billing_info api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <returns>
@@ -504,7 +504,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Remove an account's billing information <see href="https://developers.recurly.com/api/v2020-01-01#operation/remove_billing_info">remove_billing_info api documentation</see>
+        /// Remove an account's billing information <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_billing_info">remove_billing_info api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <returns>
@@ -521,13 +521,183 @@ namespace Recurly
 
 
         /// <summary>
-        /// Show the coupon redemptions for an account <see href="https://developers.recurly.com/api/v2020-01-01#operation/list_account_coupon_redemptions">list_account_coupon_redemptions api documentation</see>
+        /// Get the list of billing information associated with an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_billing_infos">list_billing_infos api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
         /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
         /// <param name="beginTime">Inclusively filter by begin_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
         /// <param name="endTime">Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
+        /// <returns>
+        /// A list of the the billing information for an account's
+        /// </returns>
+        public Pager<BillingInfo> ListBillingInfos(string accountId, ListBillingInfosParams optionalParams = null, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
+            var queryParams = (optionalParams ?? new ListBillingInfosParams()).ToDictionary();
+            var url = this.InterpolatePath("/accounts/{account_id}/billing_infos", urlParams);
+            return Pager<BillingInfo>.Build(url, queryParams, options, this);
+        }
+
+
+
+
+
+        /// <summary>
+        /// Set an account's billing information when the wallet feature is enabled <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_billing_info">create_billing_info api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// Updated billing information.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public BillingInfo CreateBillingInfo(string accountId, BillingInfoCreate body, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
+            var url = this.InterpolatePath("/accounts/{account_id}/billing_infos", urlParams);
+            return MakeRequest<BillingInfo>(Method.POST, url, body, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Set an account's billing information when the wallet feature is enabled <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_billing_info">create_billing_info api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// Updated billing information.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<BillingInfo> CreateBillingInfoAsync(string accountId, BillingInfoCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
+            var url = this.InterpolatePath("/accounts/{account_id}/billing_infos", urlParams);
+            return MakeRequestAsync<BillingInfo>(Method.POST, url, body, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// Fetch a billing info <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_a_billing_info">get_a_billing_info api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="billingInfoId">Billing Info ID.</param>
+        /// <returns>
+        /// A billing info.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public BillingInfo GetABillingInfo(string accountId, string billingInfoId, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId }, { "billing_info_id", billingInfoId } };
+            var url = this.InterpolatePath("/accounts/{account_id}/billing_infos/{billing_info_id}", urlParams);
+            return MakeRequest<BillingInfo>(Method.GET, url, null, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Fetch a billing info <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_a_billing_info">get_a_billing_info api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="billingInfoId">Billing Info ID.</param>
+        /// <returns>
+        /// A billing info.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<BillingInfo> GetABillingInfoAsync(string accountId, string billingInfoId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId }, { "billing_info_id", billingInfoId } };
+            var url = this.InterpolatePath("/accounts/{account_id}/billing_infos/{billing_info_id}", urlParams);
+            return MakeRequestAsync<BillingInfo>(Method.GET, url, null, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// Update an account's billing information <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_a_billing_info">update_a_billing_info api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="billingInfoId">Billing Info ID.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// Updated billing information.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public BillingInfo UpdateABillingInfo(string accountId, string billingInfoId, BillingInfoCreate body, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId }, { "billing_info_id", billingInfoId } };
+            var url = this.InterpolatePath("/accounts/{account_id}/billing_infos/{billing_info_id}", urlParams);
+            return MakeRequest<BillingInfo>(Method.PUT, url, body, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Update an account's billing information <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_a_billing_info">update_a_billing_info api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="billingInfoId">Billing Info ID.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// Updated billing information.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<BillingInfo> UpdateABillingInfoAsync(string accountId, string billingInfoId, BillingInfoCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId }, { "billing_info_id", billingInfoId } };
+            var url = this.InterpolatePath("/accounts/{account_id}/billing_infos/{billing_info_id}", urlParams);
+            return MakeRequestAsync<BillingInfo>(Method.PUT, url, body, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// Remove an account's billing information <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_a_billing_info">remove_a_billing_info api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="billingInfoId">Billing Info ID.</param>
+        /// <returns>
+        /// Billing information deleted
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public EmptyResource RemoveABillingInfo(string accountId, string billingInfoId, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId }, { "billing_info_id", billingInfoId } };
+            var url = this.InterpolatePath("/accounts/{account_id}/billing_infos/{billing_info_id}", urlParams);
+            return MakeRequest<EmptyResource>(Method.DELETE, url, null, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Remove an account's billing information <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_a_billing_info">remove_a_billing_info api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="billingInfoId">Billing Info ID.</param>
+        /// <returns>
+        /// Billing information deleted
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<EmptyResource> RemoveABillingInfoAsync(string accountId, string billingInfoId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId }, { "billing_info_id", billingInfoId } };
+            var url = this.InterpolatePath("/accounts/{account_id}/billing_infos/{billing_info_id}", urlParams);
+            return MakeRequestAsync<EmptyResource>(Method.DELETE, url, null, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// Show the coupon redemptions for an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_account_coupon_redemptions">list_account_coupon_redemptions api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
+        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
+        /// <param name="beginTime">Inclusively filter by begin_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
+        /// <param name="endTime">Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
+        /// <param name="state">Filter by state.</param>
         /// <returns>
         /// A list of the the coupon redemptions on an account.
         /// </returns>
@@ -544,7 +714,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Show the coupon redemptions that are active on an account <see href="https://developers.recurly.com/api/v2020-01-01#operation/list_active_coupon_redemptions">list_active_coupon_redemptions api documentation</see>
+        /// Show the coupon redemptions that are active on an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_active_coupon_redemptions">list_active_coupon_redemptions api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <returns>
@@ -562,7 +732,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Generate an active coupon redemption on an account <see href="https://developers.recurly.com/api/v2020-01-01#operation/create_coupon_redemption">create_coupon_redemption api documentation</see>
+        /// Generate an active coupon redemption on an account or subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_coupon_redemption">create_coupon_redemption api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <param name="body">The body of the request.</param>
@@ -580,7 +750,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Generate an active coupon redemption on an account <see href="https://developers.recurly.com/api/v2020-01-01#operation/create_coupon_redemption">create_coupon_redemption api documentation</see>
+        /// Generate an active coupon redemption on an account or subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_coupon_redemption">create_coupon_redemption api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <param name="body">The body of the request.</param>
@@ -598,7 +768,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Delete the active coupon redemption from an account <see href="https://developers.recurly.com/api/v2020-01-01#operation/remove_coupon_redemption">remove_coupon_redemption api documentation</see>
+        /// Delete the active coupon redemption from an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_coupon_redemption">remove_coupon_redemption api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <returns>
@@ -615,7 +785,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Delete the active coupon redemption from an account <see href="https://developers.recurly.com/api/v2020-01-01#operation/remove_coupon_redemption">remove_coupon_redemption api documentation</see>
+        /// Delete the active coupon redemption from an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_coupon_redemption">remove_coupon_redemption api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <returns>
@@ -632,7 +802,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List an account's credit payments <see href="https://developers.recurly.com/api/v2020-01-01#operation/list_account_credit_payments">list_account_credit_payments api documentation</see>
+        /// List an account's credit payments <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_account_credit_payments">list_account_credit_payments api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <param name="limit">Limit number of records 1-200.</param>
@@ -656,7 +826,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List an account's invoices <see href="https://developers.recurly.com/api/v2020-01-01#operation/list_account_invoices">list_account_invoices api documentation</see>
+        /// List an account's invoices <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_account_invoices">list_account_invoices api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
@@ -682,7 +852,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create an invoice for pending line items <see href="https://developers.recurly.com/api/v2020-01-01#operation/create_invoice">create_invoice api documentation</see>
+        /// Create an invoice for pending line items <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_invoice">create_invoice api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <param name="body">The body of the request.</param>
@@ -700,7 +870,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create an invoice for pending line items <see href="https://developers.recurly.com/api/v2020-01-01#operation/create_invoice">create_invoice api documentation</see>
+        /// Create an invoice for pending line items <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_invoice">create_invoice api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <param name="body">The body of the request.</param>
@@ -718,7 +888,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Preview new invoice for pending line items <see href="https://developers.recurly.com/api/v2020-01-01#operation/preview_invoice">preview_invoice api documentation</see>
+        /// Preview new invoice for pending line items <see href="https://developers.recurly.com/api/v2021-02-25#operation/preview_invoice">preview_invoice api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <param name="body">The body of the request.</param>
@@ -736,7 +906,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Preview new invoice for pending line items <see href="https://developers.recurly.com/api/v2020-01-01#operation/preview_invoice">preview_invoice api documentation</see>
+        /// Preview new invoice for pending line items <see href="https://developers.recurly.com/api/v2021-02-25#operation/preview_invoice">preview_invoice api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <param name="body">The body of the request.</param>
@@ -754,7 +924,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List an account's line items <see href="https://developers.recurly.com/api/v2020-01-01#operation/list_account_line_items">list_account_line_items api documentation</see>
+        /// List an account's line items <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_account_line_items">list_account_line_items api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
@@ -782,7 +952,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create a new line item for the account <see href="https://developers.recurly.com/api/v2020-01-01#operation/create_line_item">create_line_item api documentation</see>
+        /// Create a new line item for the account <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_line_item">create_line_item api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <param name="body">The body of the request.</param>
@@ -800,7 +970,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create a new line item for the account <see href="https://developers.recurly.com/api/v2020-01-01#operation/create_line_item">create_line_item api documentation</see>
+        /// Create a new line item for the account <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_line_item">create_line_item api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <param name="body">The body of the request.</param>
@@ -818,7 +988,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a list of an account's notes <see href="https://developers.recurly.com/api/v2020-01-01#operation/list_account_notes">list_account_notes api documentation</see>
+        /// Fetch a list of an account's notes <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_account_notes">list_account_notes api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
@@ -838,7 +1008,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an account note <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_account_note">get_account_note api documentation</see>
+        /// Fetch an account note <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_account_note">get_account_note api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <param name="accountNoteId">Account Note ID.</param>
@@ -856,7 +1026,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an account note <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_account_note">get_account_note api documentation</see>
+        /// Fetch an account note <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_account_note">get_account_note api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <param name="accountNoteId">Account Note ID.</param>
@@ -874,7 +1044,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a list of an account's shipping addresses <see href="https://developers.recurly.com/api/v2020-01-01#operation/list_shipping_addresses">list_shipping_addresses api documentation</see>
+        /// Fetch a list of an account's shipping addresses <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_shipping_addresses">list_shipping_addresses api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
@@ -899,7 +1069,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create a new shipping address for the account <see href="https://developers.recurly.com/api/v2020-01-01#operation/create_shipping_address">create_shipping_address api documentation</see>
+        /// Create a new shipping address for the account <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_shipping_address">create_shipping_address api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <param name="body">The body of the request.</param>
@@ -917,7 +1087,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create a new shipping address for the account <see href="https://developers.recurly.com/api/v2020-01-01#operation/create_shipping_address">create_shipping_address api documentation</see>
+        /// Create a new shipping address for the account <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_shipping_address">create_shipping_address api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <param name="body">The body of the request.</param>
@@ -935,7 +1105,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an account's shipping address <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_shipping_address">get_shipping_address api documentation</see>
+        /// Fetch an account's shipping address <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_shipping_address">get_shipping_address api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <param name="shippingAddressId">Shipping Address ID.</param>
@@ -953,7 +1123,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an account's shipping address <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_shipping_address">get_shipping_address api documentation</see>
+        /// Fetch an account's shipping address <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_shipping_address">get_shipping_address api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <param name="shippingAddressId">Shipping Address ID.</param>
@@ -971,7 +1141,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update an account's shipping address <see href="https://developers.recurly.com/api/v2020-01-01#operation/update_shipping_address">update_shipping_address api documentation</see>
+        /// Update an account's shipping address <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_shipping_address">update_shipping_address api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <param name="shippingAddressId">Shipping Address ID.</param>
@@ -990,7 +1160,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update an account's shipping address <see href="https://developers.recurly.com/api/v2020-01-01#operation/update_shipping_address">update_shipping_address api documentation</see>
+        /// Update an account's shipping address <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_shipping_address">update_shipping_address api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <param name="shippingAddressId">Shipping Address ID.</param>
@@ -1009,7 +1179,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Remove an account's shipping address <see href="https://developers.recurly.com/api/v2020-01-01#operation/remove_shipping_address">remove_shipping_address api documentation</see>
+        /// Remove an account's shipping address <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_shipping_address">remove_shipping_address api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <param name="shippingAddressId">Shipping Address ID.</param>
@@ -1027,7 +1197,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Remove an account's shipping address <see href="https://developers.recurly.com/api/v2020-01-01#operation/remove_shipping_address">remove_shipping_address api documentation</see>
+        /// Remove an account's shipping address <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_shipping_address">remove_shipping_address api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <param name="shippingAddressId">Shipping Address ID.</param>
@@ -1045,7 +1215,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List an account's subscriptions <see href="https://developers.recurly.com/api/v2020-01-01#operation/list_account_subscriptions">list_account_subscriptions api documentation</see>
+        /// List an account's subscriptions <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_account_subscriptions">list_account_subscriptions api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
@@ -1071,7 +1241,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List an account's transactions <see href="https://developers.recurly.com/api/v2020-01-01#operation/list_account_transactions">list_account_transactions api documentation</see>
+        /// List an account's transactions <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_account_transactions">list_account_transactions api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
@@ -1098,7 +1268,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List an account's child accounts <see href="https://developers.recurly.com/api/v2020-01-01#operation/list_child_accounts">list_child_accounts api documentation</see>
+        /// List an account's child accounts <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_child_accounts">list_child_accounts api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
@@ -1126,7 +1296,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List a site's account acquisition data <see href="https://developers.recurly.com/api/v2020-01-01#operation/list_account_acquisition">list_account_acquisition api documentation</see>
+        /// List a site's account acquisition data <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_account_acquisition">list_account_acquisition api documentation</see>
         /// </summary>
         /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
         /// <param name="limit">Limit number of records 1-200.</param>
@@ -1150,7 +1320,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List a site's coupons <see href="https://developers.recurly.com/api/v2020-01-01#operation/list_coupons">list_coupons api documentation</see>
+        /// List a site's coupons <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_coupons">list_coupons api documentation</see>
         /// </summary>
         /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
         /// <param name="limit">Limit number of records 1-200.</param>
@@ -1174,7 +1344,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create a new coupon <see href="https://developers.recurly.com/api/v2020-01-01#operation/create_coupon">create_coupon api documentation</see>
+        /// Create a new coupon <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_coupon">create_coupon api documentation</see>
         /// </summary>
         /// <param name="body">The body of the request.</param>
         /// <returns>
@@ -1191,7 +1361,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create a new coupon <see href="https://developers.recurly.com/api/v2020-01-01#operation/create_coupon">create_coupon api documentation</see>
+        /// Create a new coupon <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_coupon">create_coupon api documentation</see>
         /// </summary>
         /// <param name="body">The body of the request.</param>
         /// <returns>
@@ -1208,7 +1378,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a coupon <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_coupon">get_coupon api documentation</see>
+        /// Fetch a coupon <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_coupon">get_coupon api documentation</see>
         /// </summary>
         /// <param name="couponId">Coupon ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-10off`.</param>
         /// <returns>
@@ -1225,7 +1395,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a coupon <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_coupon">get_coupon api documentation</see>
+        /// Fetch a coupon <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_coupon">get_coupon api documentation</see>
         /// </summary>
         /// <param name="couponId">Coupon ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-10off`.</param>
         /// <returns>
@@ -1242,7 +1412,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update an active coupon <see href="https://developers.recurly.com/api/v2020-01-01#operation/update_coupon">update_coupon api documentation</see>
+        /// Update an active coupon <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_coupon">update_coupon api documentation</see>
         /// </summary>
         /// <param name="couponId">Coupon ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-10off`.</param>
         /// <param name="body">The body of the request.</param>
@@ -1260,7 +1430,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update an active coupon <see href="https://developers.recurly.com/api/v2020-01-01#operation/update_coupon">update_coupon api documentation</see>
+        /// Update an active coupon <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_coupon">update_coupon api documentation</see>
         /// </summary>
         /// <param name="couponId">Coupon ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-10off`.</param>
         /// <param name="body">The body of the request.</param>
@@ -1278,7 +1448,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Expire a coupon <see href="https://developers.recurly.com/api/v2020-01-01#operation/deactivate_coupon">deactivate_coupon api documentation</see>
+        /// Expire a coupon <see href="https://developers.recurly.com/api/v2021-02-25#operation/deactivate_coupon">deactivate_coupon api documentation</see>
         /// </summary>
         /// <param name="couponId">Coupon ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-10off`.</param>
         /// <returns>
@@ -1295,7 +1465,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Expire a coupon <see href="https://developers.recurly.com/api/v2020-01-01#operation/deactivate_coupon">deactivate_coupon api documentation</see>
+        /// Expire a coupon <see href="https://developers.recurly.com/api/v2021-02-25#operation/deactivate_coupon">deactivate_coupon api documentation</see>
         /// </summary>
         /// <param name="couponId">Coupon ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-10off`.</param>
         /// <returns>
@@ -1312,7 +1482,79 @@ namespace Recurly
 
 
         /// <summary>
-        /// List unique coupon codes associated with a bulk coupon <see href="https://developers.recurly.com/api/v2020-01-01#operation/list_unique_coupon_codes">list_unique_coupon_codes api documentation</see>
+        /// Generate unique coupon codes <see href="https://developers.recurly.com/api/v2021-02-25#operation/generate_unique_coupon_codes">generate_unique_coupon_codes api documentation</see>
+        /// </summary>
+        /// <param name="couponId">Coupon ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-10off`.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// A set of parameters that can be passed to the `list_unique_coupon_codes` endpoint to obtain only the newly generated `UniqueCouponCodes`. 
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public UniqueCouponCodeParams GenerateUniqueCouponCodes(string couponId, CouponBulkCreate body, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "coupon_id", couponId } };
+            var url = this.InterpolatePath("/coupons/{coupon_id}/generate", urlParams);
+            return MakeRequest<UniqueCouponCodeParams>(Method.POST, url, body, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Generate unique coupon codes <see href="https://developers.recurly.com/api/v2021-02-25#operation/generate_unique_coupon_codes">generate_unique_coupon_codes api documentation</see>
+        /// </summary>
+        /// <param name="couponId">Coupon ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-10off`.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// A set of parameters that can be passed to the `list_unique_coupon_codes` endpoint to obtain only the newly generated `UniqueCouponCodes`. 
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<UniqueCouponCodeParams> GenerateUniqueCouponCodesAsync(string couponId, CouponBulkCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "coupon_id", couponId } };
+            var url = this.InterpolatePath("/coupons/{coupon_id}/generate", urlParams);
+            return MakeRequestAsync<UniqueCouponCodeParams>(Method.POST, url, body, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// Restore an inactive coupon <see href="https://developers.recurly.com/api/v2021-02-25#operation/restore_coupon">restore_coupon api documentation</see>
+        /// </summary>
+        /// <param name="couponId">Coupon ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-10off`.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// The restored coupon.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Coupon RestoreCoupon(string couponId, CouponUpdate body, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "coupon_id", couponId } };
+            var url = this.InterpolatePath("/coupons/{coupon_id}/restore", urlParams);
+            return MakeRequest<Coupon>(Method.PUT, url, body, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Restore an inactive coupon <see href="https://developers.recurly.com/api/v2021-02-25#operation/restore_coupon">restore_coupon api documentation</see>
+        /// </summary>
+        /// <param name="couponId">Coupon ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-10off`.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// The restored coupon.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<Coupon> RestoreCouponAsync(string couponId, CouponUpdate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "coupon_id", couponId } };
+            var url = this.InterpolatePath("/coupons/{coupon_id}/restore", urlParams);
+            return MakeRequestAsync<Coupon>(Method.PUT, url, body, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// List unique coupon codes associated with a bulk coupon <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_unique_coupon_codes">list_unique_coupon_codes api documentation</see>
         /// </summary>
         /// <param name="couponId">Coupon ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-10off`.</param>
         /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
@@ -1337,7 +1579,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List a site's credit payments <see href="https://developers.recurly.com/api/v2020-01-01#operation/list_credit_payments">list_credit_payments api documentation</see>
+        /// List a site's credit payments <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_credit_payments">list_credit_payments api documentation</see>
         /// </summary>
         /// <param name="limit">Limit number of records 1-200.</param>
         /// <param name="order">Sort order.</param>
@@ -1360,7 +1602,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a credit payment <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_credit_payment">get_credit_payment api documentation</see>
+        /// Fetch a credit payment <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_credit_payment">get_credit_payment api documentation</see>
         /// </summary>
         /// <param name="creditPaymentId">Credit Payment ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
         /// <returns>
@@ -1377,7 +1619,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a credit payment <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_credit_payment">get_credit_payment api documentation</see>
+        /// Fetch a credit payment <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_credit_payment">get_credit_payment api documentation</see>
         /// </summary>
         /// <param name="creditPaymentId">Credit Payment ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
         /// <returns>
@@ -1394,7 +1636,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List a site's custom field definitions <see href="https://developers.recurly.com/api/v2020-01-01#operation/list_custom_field_definitions">list_custom_field_definitions api documentation</see>
+        /// List a site's custom field definitions <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_custom_field_definitions">list_custom_field_definitions api documentation</see>
         /// </summary>
         /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
         /// <param name="limit">Limit number of records 1-200.</param>
@@ -1419,7 +1661,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an custom field definition <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_custom_field_definition">get_custom_field_definition api documentation</see>
+        /// Fetch an custom field definition <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_custom_field_definition">get_custom_field_definition api documentation</see>
         /// </summary>
         /// <param name="customFieldDefinitionId">Custom Field Definition ID</param>
         /// <returns>
@@ -1436,7 +1678,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an custom field definition <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_custom_field_definition">get_custom_field_definition api documentation</see>
+        /// Fetch an custom field definition <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_custom_field_definition">get_custom_field_definition api documentation</see>
         /// </summary>
         /// <param name="customFieldDefinitionId">Custom Field Definition ID</param>
         /// <returns>
@@ -1453,7 +1695,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List a site's items <see href="https://developers.recurly.com/api/v2020-01-01#operation/list_items">list_items api documentation</see>
+        /// List a site's items <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_items">list_items api documentation</see>
         /// </summary>
         /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
         /// <param name="limit">Limit number of records 1-200.</param>
@@ -1478,7 +1720,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create a new item <see href="https://developers.recurly.com/api/v2020-01-01#operation/create_item">create_item api documentation</see>
+        /// Create a new item <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_item">create_item api documentation</see>
         /// </summary>
         /// <param name="body">The body of the request.</param>
         /// <returns>
@@ -1495,7 +1737,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create a new item <see href="https://developers.recurly.com/api/v2020-01-01#operation/create_item">create_item api documentation</see>
+        /// Create a new item <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_item">create_item api documentation</see>
         /// </summary>
         /// <param name="body">The body of the request.</param>
         /// <returns>
@@ -1512,7 +1754,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an item <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_item">get_item api documentation</see>
+        /// Fetch an item <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_item">get_item api documentation</see>
         /// </summary>
         /// <param name="itemId">Item ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-red`.</param>
         /// <returns>
@@ -1529,7 +1771,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an item <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_item">get_item api documentation</see>
+        /// Fetch an item <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_item">get_item api documentation</see>
         /// </summary>
         /// <param name="itemId">Item ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-red`.</param>
         /// <returns>
@@ -1546,7 +1788,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update an active item <see href="https://developers.recurly.com/api/v2020-01-01#operation/update_item">update_item api documentation</see>
+        /// Update an active item <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_item">update_item api documentation</see>
         /// </summary>
         /// <param name="itemId">Item ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-red`.</param>
         /// <param name="body">The body of the request.</param>
@@ -1564,7 +1806,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update an active item <see href="https://developers.recurly.com/api/v2020-01-01#operation/update_item">update_item api documentation</see>
+        /// Update an active item <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_item">update_item api documentation</see>
         /// </summary>
         /// <param name="itemId">Item ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-red`.</param>
         /// <param name="body">The body of the request.</param>
@@ -1582,7 +1824,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Deactivate an item <see href="https://developers.recurly.com/api/v2020-01-01#operation/deactivate_item">deactivate_item api documentation</see>
+        /// Deactivate an item <see href="https://developers.recurly.com/api/v2021-02-25#operation/deactivate_item">deactivate_item api documentation</see>
         /// </summary>
         /// <param name="itemId">Item ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-red`.</param>
         /// <returns>
@@ -1599,7 +1841,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Deactivate an item <see href="https://developers.recurly.com/api/v2020-01-01#operation/deactivate_item">deactivate_item api documentation</see>
+        /// Deactivate an item <see href="https://developers.recurly.com/api/v2021-02-25#operation/deactivate_item">deactivate_item api documentation</see>
         /// </summary>
         /// <param name="itemId">Item ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-red`.</param>
         /// <returns>
@@ -1616,7 +1858,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Reactivate an inactive item <see href="https://developers.recurly.com/api/v2020-01-01#operation/reactivate_item">reactivate_item api documentation</see>
+        /// Reactivate an inactive item <see href="https://developers.recurly.com/api/v2021-02-25#operation/reactivate_item">reactivate_item api documentation</see>
         /// </summary>
         /// <param name="itemId">Item ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-red`.</param>
         /// <returns>
@@ -1633,7 +1875,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Reactivate an inactive item <see href="https://developers.recurly.com/api/v2020-01-01#operation/reactivate_item">reactivate_item api documentation</see>
+        /// Reactivate an inactive item <see href="https://developers.recurly.com/api/v2021-02-25#operation/reactivate_item">reactivate_item api documentation</see>
         /// </summary>
         /// <param name="itemId">Item ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-red`.</param>
         /// <returns>
@@ -1650,7 +1892,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List a site's measured units <see href="https://developers.recurly.com/api/v2020-01-01#operation/list_measured_unit">list_measured_unit api documentation</see>
+        /// List a site's measured units <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_measured_unit">list_measured_unit api documentation</see>
         /// </summary>
         /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
         /// <param name="limit">Limit number of records 1-200.</param>
@@ -1675,7 +1917,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create a new measured unit <see href="https://developers.recurly.com/api/v2020-01-01#operation/create_measured_unit">create_measured_unit api documentation</see>
+        /// Create a new measured unit <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_measured_unit">create_measured_unit api documentation</see>
         /// </summary>
         /// <param name="body">The body of the request.</param>
         /// <returns>
@@ -1692,7 +1934,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create a new measured unit <see href="https://developers.recurly.com/api/v2020-01-01#operation/create_measured_unit">create_measured_unit api documentation</see>
+        /// Create a new measured unit <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_measured_unit">create_measured_unit api documentation</see>
         /// </summary>
         /// <param name="body">The body of the request.</param>
         /// <returns>
@@ -1709,7 +1951,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a measured unit <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_measured_unit">get_measured_unit api documentation</see>
+        /// Fetch a measured unit <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_measured_unit">get_measured_unit api documentation</see>
         /// </summary>
         /// <param name="measuredUnitId">Measured unit ID or name. For ID no prefix is used e.g. `e28zov4fw0v2`. For name use prefix `name-`, e.g. `name-Storage`.</param>
         /// <returns>
@@ -1726,7 +1968,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a measured unit <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_measured_unit">get_measured_unit api documentation</see>
+        /// Fetch a measured unit <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_measured_unit">get_measured_unit api documentation</see>
         /// </summary>
         /// <param name="measuredUnitId">Measured unit ID or name. For ID no prefix is used e.g. `e28zov4fw0v2`. For name use prefix `name-`, e.g. `name-Storage`.</param>
         /// <returns>
@@ -1743,7 +1985,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update a measured unit <see href="https://developers.recurly.com/api/v2020-01-01#operation/update_measured_unit">update_measured_unit api documentation</see>
+        /// Update a measured unit <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_measured_unit">update_measured_unit api documentation</see>
         /// </summary>
         /// <param name="measuredUnitId">Measured unit ID or name. For ID no prefix is used e.g. `e28zov4fw0v2`. For name use prefix `name-`, e.g. `name-Storage`.</param>
         /// <param name="body">The body of the request.</param>
@@ -1761,7 +2003,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update a measured unit <see href="https://developers.recurly.com/api/v2020-01-01#operation/update_measured_unit">update_measured_unit api documentation</see>
+        /// Update a measured unit <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_measured_unit">update_measured_unit api documentation</see>
         /// </summary>
         /// <param name="measuredUnitId">Measured unit ID or name. For ID no prefix is used e.g. `e28zov4fw0v2`. For name use prefix `name-`, e.g. `name-Storage`.</param>
         /// <param name="body">The body of the request.</param>
@@ -1779,7 +2021,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Remove a measured unit <see href="https://developers.recurly.com/api/v2020-01-01#operation/remove_measured_unit">remove_measured_unit api documentation</see>
+        /// Remove a measured unit <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_measured_unit">remove_measured_unit api documentation</see>
         /// </summary>
         /// <param name="measuredUnitId">Measured unit ID or name. For ID no prefix is used e.g. `e28zov4fw0v2`. For name use prefix `name-`, e.g. `name-Storage`.</param>
         /// <returns>
@@ -1796,7 +2038,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Remove a measured unit <see href="https://developers.recurly.com/api/v2020-01-01#operation/remove_measured_unit">remove_measured_unit api documentation</see>
+        /// Remove a measured unit <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_measured_unit">remove_measured_unit api documentation</see>
         /// </summary>
         /// <param name="measuredUnitId">Measured unit ID or name. For ID no prefix is used e.g. `e28zov4fw0v2`. For name use prefix `name-`, e.g. `name-Storage`.</param>
         /// <returns>
@@ -1813,7 +2055,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List a site's invoices <see href="https://developers.recurly.com/api/v2020-01-01#operation/list_invoices">list_invoices api documentation</see>
+        /// List a site's invoices <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_invoices">list_invoices api documentation</see>
         /// </summary>
         /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
         /// <param name="limit">Limit number of records 1-200.</param>
@@ -1838,7 +2080,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an invoice <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_invoice">get_invoice api documentation</see>
+        /// Fetch an invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_invoice">get_invoice api documentation</see>
         /// </summary>
         /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
         /// <returns>
@@ -1855,7 +2097,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an invoice <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_invoice">get_invoice api documentation</see>
+        /// Fetch an invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_invoice">get_invoice api documentation</see>
         /// </summary>
         /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
         /// <returns>
@@ -1872,7 +2114,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update an invoice <see href="https://developers.recurly.com/api/v2020-01-01#operation/put_invoice">put_invoice api documentation</see>
+        /// Update an invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_invoice">update_invoice api documentation</see>
         /// </summary>
         /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
         /// <param name="body">The body of the request.</param>
@@ -1880,7 +2122,7 @@ namespace Recurly
         /// An invoice.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public Invoice PutInvoice(string invoiceId, InvoiceUpdatable body, RequestOptions options = null)
+        public Invoice UpdateInvoice(string invoiceId, InvoiceUpdate body, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "invoice_id", invoiceId } };
             var url = this.InterpolatePath("/invoices/{invoice_id}", urlParams);
@@ -1890,7 +2132,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update an invoice <see href="https://developers.recurly.com/api/v2020-01-01#operation/put_invoice">put_invoice api documentation</see>
+        /// Update an invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_invoice">update_invoice api documentation</see>
         /// </summary>
         /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
         /// <param name="body">The body of the request.</param>
@@ -1898,7 +2140,7 @@ namespace Recurly
         /// An invoice.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public Task<Invoice> PutInvoiceAsync(string invoiceId, InvoiceUpdatable body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        public Task<Invoice> UpdateInvoiceAsync(string invoiceId, InvoiceUpdate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "invoice_id", invoiceId } };
             var url = this.InterpolatePath("/invoices/{invoice_id}", urlParams);
@@ -1908,7 +2150,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an invoice as a PDF <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_invoice_pdf">get_invoice_pdf api documentation</see>
+        /// Fetch an invoice as a PDF <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_invoice_pdf">get_invoice_pdf api documentation</see>
         /// </summary>
         /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
         /// <returns>
@@ -1925,7 +2167,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an invoice as a PDF <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_invoice_pdf">get_invoice_pdf api documentation</see>
+        /// Fetch an invoice as a PDF <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_invoice_pdf">get_invoice_pdf api documentation</see>
         /// </summary>
         /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
         /// <returns>
@@ -1942,7 +2184,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Collect a pending or past due, automatic invoice <see href="https://developers.recurly.com/api/v2020-01-01#operation/collect_invoice">collect_invoice api documentation</see>
+        /// Collect a pending or past due, automatic invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/collect_invoice">collect_invoice api documentation</see>
         /// </summary>
         /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
         /// <returns>
@@ -1959,7 +2201,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Collect a pending or past due, automatic invoice <see href="https://developers.recurly.com/api/v2020-01-01#operation/collect_invoice">collect_invoice api documentation</see>
+        /// Collect a pending or past due, automatic invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/collect_invoice">collect_invoice api documentation</see>
         /// </summary>
         /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
         /// <returns>
@@ -1976,14 +2218,14 @@ namespace Recurly
 
 
         /// <summary>
-        /// Mark an open invoice as failed <see href="https://developers.recurly.com/api/v2020-01-01#operation/fail_invoice">fail_invoice api documentation</see>
+        /// Mark an open invoice as failed <see href="https://developers.recurly.com/api/v2021-02-25#operation/mark_invoice_failed">mark_invoice_failed api documentation</see>
         /// </summary>
         /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
         /// <returns>
         /// The updated invoice.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public Invoice FailInvoice(string invoiceId, RequestOptions options = null)
+        public Invoice MarkInvoiceFailed(string invoiceId, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "invoice_id", invoiceId } };
             var url = this.InterpolatePath("/invoices/{invoice_id}/mark_failed", urlParams);
@@ -1993,14 +2235,14 @@ namespace Recurly
 
 
         /// <summary>
-        /// Mark an open invoice as failed <see href="https://developers.recurly.com/api/v2020-01-01#operation/fail_invoice">fail_invoice api documentation</see>
+        /// Mark an open invoice as failed <see href="https://developers.recurly.com/api/v2021-02-25#operation/mark_invoice_failed">mark_invoice_failed api documentation</see>
         /// </summary>
         /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
         /// <returns>
         /// The updated invoice.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public Task<Invoice> FailInvoiceAsync(string invoiceId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        public Task<Invoice> MarkInvoiceFailedAsync(string invoiceId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "invoice_id", invoiceId } };
             var url = this.InterpolatePath("/invoices/{invoice_id}/mark_failed", urlParams);
@@ -2010,7 +2252,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Mark an open invoice as successful <see href="https://developers.recurly.com/api/v2020-01-01#operation/mark_invoice_successful">mark_invoice_successful api documentation</see>
+        /// Mark an open invoice as successful <see href="https://developers.recurly.com/api/v2021-02-25#operation/mark_invoice_successful">mark_invoice_successful api documentation</see>
         /// </summary>
         /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
         /// <returns>
@@ -2027,7 +2269,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Mark an open invoice as successful <see href="https://developers.recurly.com/api/v2020-01-01#operation/mark_invoice_successful">mark_invoice_successful api documentation</see>
+        /// Mark an open invoice as successful <see href="https://developers.recurly.com/api/v2021-02-25#operation/mark_invoice_successful">mark_invoice_successful api documentation</see>
         /// </summary>
         /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
         /// <returns>
@@ -2044,7 +2286,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Reopen a closed, manual invoice <see href="https://developers.recurly.com/api/v2020-01-01#operation/reopen_invoice">reopen_invoice api documentation</see>
+        /// Reopen a closed, manual invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/reopen_invoice">reopen_invoice api documentation</see>
         /// </summary>
         /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
         /// <returns>
@@ -2061,7 +2303,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Reopen a closed, manual invoice <see href="https://developers.recurly.com/api/v2020-01-01#operation/reopen_invoice">reopen_invoice api documentation</see>
+        /// Reopen a closed, manual invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/reopen_invoice">reopen_invoice api documentation</see>
         /// </summary>
         /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
         /// <returns>
@@ -2078,7 +2320,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Void a credit invoice. <see href="https://developers.recurly.com/api/v2020-01-01#operation/void_invoice">void_invoice api documentation</see>
+        /// Void a credit invoice. <see href="https://developers.recurly.com/api/v2021-02-25#operation/void_invoice">void_invoice api documentation</see>
         /// </summary>
         /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
         /// <returns>
@@ -2095,7 +2337,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Void a credit invoice. <see href="https://developers.recurly.com/api/v2020-01-01#operation/void_invoice">void_invoice api documentation</see>
+        /// Void a credit invoice. <see href="https://developers.recurly.com/api/v2021-02-25#operation/void_invoice">void_invoice api documentation</see>
         /// </summary>
         /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
         /// <returns>
@@ -2112,7 +2354,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Record an external payment for a manual invoices. <see href="https://developers.recurly.com/api/v2020-01-01#operation/record_external_transaction">record_external_transaction api documentation</see>
+        /// Record an external payment for a manual invoices. <see href="https://developers.recurly.com/api/v2021-02-25#operation/record_external_transaction">record_external_transaction api documentation</see>
         /// </summary>
         /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
         /// <param name="body">The body of the request.</param>
@@ -2130,7 +2372,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Record an external payment for a manual invoices. <see href="https://developers.recurly.com/api/v2020-01-01#operation/record_external_transaction">record_external_transaction api documentation</see>
+        /// Record an external payment for a manual invoices. <see href="https://developers.recurly.com/api/v2021-02-25#operation/record_external_transaction">record_external_transaction api documentation</see>
         /// </summary>
         /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
         /// <param name="body">The body of the request.</param>
@@ -2148,7 +2390,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List an invoice's line items <see href="https://developers.recurly.com/api/v2020-01-01#operation/list_invoice_line_items">list_invoice_line_items api documentation</see>
+        /// List an invoice's line items <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_invoice_line_items">list_invoice_line_items api documentation</see>
         /// </summary>
         /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
         /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
@@ -2176,7 +2418,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Show the coupon redemptions applied to an invoice <see href="https://developers.recurly.com/api/v2020-01-01#operation/list_invoice_coupon_redemptions">list_invoice_coupon_redemptions api documentation</see>
+        /// Show the coupon redemptions applied to an invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_invoice_coupon_redemptions">list_invoice_coupon_redemptions api documentation</see>
         /// </summary>
         /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
         /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
@@ -2199,7 +2441,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List an invoice's related credit or charge invoices <see href="https://developers.recurly.com/api/v2020-01-01#operation/list_related_invoices">list_related_invoices api documentation</see>
+        /// List an invoice's related credit or charge invoices <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_related_invoices">list_related_invoices api documentation</see>
         /// </summary>
         /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
         /// <returns>
@@ -2217,7 +2459,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Refund an invoice <see href="https://developers.recurly.com/api/v2020-01-01#operation/refund_invoice">refund_invoice api documentation</see>
+        /// Refund an invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/refund_invoice">refund_invoice api documentation</see>
         /// </summary>
         /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
         /// <param name="body">The body of the request.</param>
@@ -2235,7 +2477,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Refund an invoice <see href="https://developers.recurly.com/api/v2020-01-01#operation/refund_invoice">refund_invoice api documentation</see>
+        /// Refund an invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/refund_invoice">refund_invoice api documentation</see>
         /// </summary>
         /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
         /// <param name="body">The body of the request.</param>
@@ -2253,7 +2495,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List a site's line items <see href="https://developers.recurly.com/api/v2020-01-01#operation/list_line_items">list_line_items api documentation</see>
+        /// List a site's line items <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_line_items">list_line_items api documentation</see>
         /// </summary>
         /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
         /// <param name="limit">Limit number of records 1-200.</param>
@@ -2280,7 +2522,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a line item <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_line_item">get_line_item api documentation</see>
+        /// Fetch a line item <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_line_item">get_line_item api documentation</see>
         /// </summary>
         /// <param name="lineItemId">Line Item ID.</param>
         /// <returns>
@@ -2297,7 +2539,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a line item <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_line_item">get_line_item api documentation</see>
+        /// Fetch a line item <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_line_item">get_line_item api documentation</see>
         /// </summary>
         /// <param name="lineItemId">Line Item ID.</param>
         /// <returns>
@@ -2314,7 +2556,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Delete an uninvoiced line item <see href="https://developers.recurly.com/api/v2020-01-01#operation/remove_line_item">remove_line_item api documentation</see>
+        /// Delete an uninvoiced line item <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_line_item">remove_line_item api documentation</see>
         /// </summary>
         /// <param name="lineItemId">Line Item ID.</param>
         /// <returns>
@@ -2331,7 +2573,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Delete an uninvoiced line item <see href="https://developers.recurly.com/api/v2020-01-01#operation/remove_line_item">remove_line_item api documentation</see>
+        /// Delete an uninvoiced line item <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_line_item">remove_line_item api documentation</see>
         /// </summary>
         /// <param name="lineItemId">Line Item ID.</param>
         /// <returns>
@@ -2348,7 +2590,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List a site's plans <see href="https://developers.recurly.com/api/v2020-01-01#operation/list_plans">list_plans api documentation</see>
+        /// List a site's plans <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_plans">list_plans api documentation</see>
         /// </summary>
         /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
         /// <param name="limit">Limit number of records 1-200.</param>
@@ -2373,7 +2615,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create a plan <see href="https://developers.recurly.com/api/v2020-01-01#operation/create_plan">create_plan api documentation</see>
+        /// Create a plan <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_plan">create_plan api documentation</see>
         /// </summary>
         /// <param name="body">The body of the request.</param>
         /// <returns>
@@ -2390,7 +2632,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create a plan <see href="https://developers.recurly.com/api/v2020-01-01#operation/create_plan">create_plan api documentation</see>
+        /// Create a plan <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_plan">create_plan api documentation</see>
         /// </summary>
         /// <param name="body">The body of the request.</param>
         /// <returns>
@@ -2407,7 +2649,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a plan <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_plan">get_plan api documentation</see>
+        /// Fetch a plan <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_plan">get_plan api documentation</see>
         /// </summary>
         /// <param name="planId">Plan ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-gold`.</param>
         /// <returns>
@@ -2424,7 +2666,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a plan <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_plan">get_plan api documentation</see>
+        /// Fetch a plan <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_plan">get_plan api documentation</see>
         /// </summary>
         /// <param name="planId">Plan ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-gold`.</param>
         /// <returns>
@@ -2441,7 +2683,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update a plan <see href="https://developers.recurly.com/api/v2020-01-01#operation/update_plan">update_plan api documentation</see>
+        /// Update a plan <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_plan">update_plan api documentation</see>
         /// </summary>
         /// <param name="planId">Plan ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-gold`.</param>
         /// <param name="body">The body of the request.</param>
@@ -2459,7 +2701,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update a plan <see href="https://developers.recurly.com/api/v2020-01-01#operation/update_plan">update_plan api documentation</see>
+        /// Update a plan <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_plan">update_plan api documentation</see>
         /// </summary>
         /// <param name="planId">Plan ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-gold`.</param>
         /// <param name="body">The body of the request.</param>
@@ -2477,7 +2719,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Remove a plan <see href="https://developers.recurly.com/api/v2020-01-01#operation/remove_plan">remove_plan api documentation</see>
+        /// Remove a plan <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_plan">remove_plan api documentation</see>
         /// </summary>
         /// <param name="planId">Plan ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-gold`.</param>
         /// <returns>
@@ -2494,7 +2736,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Remove a plan <see href="https://developers.recurly.com/api/v2020-01-01#operation/remove_plan">remove_plan api documentation</see>
+        /// Remove a plan <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_plan">remove_plan api documentation</see>
         /// </summary>
         /// <param name="planId">Plan ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-gold`.</param>
         /// <returns>
@@ -2511,7 +2753,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List a plan's add-ons <see href="https://developers.recurly.com/api/v2020-01-01#operation/list_plan_add_ons">list_plan_add_ons api documentation</see>
+        /// List a plan's add-ons <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_plan_add_ons">list_plan_add_ons api documentation</see>
         /// </summary>
         /// <param name="planId">Plan ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-gold`.</param>
         /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
@@ -2537,7 +2779,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create an add-on <see href="https://developers.recurly.com/api/v2020-01-01#operation/create_plan_add_on">create_plan_add_on api documentation</see>
+        /// Create an add-on <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_plan_add_on">create_plan_add_on api documentation</see>
         /// </summary>
         /// <param name="planId">Plan ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-gold`.</param>
         /// <param name="body">The body of the request.</param>
@@ -2555,7 +2797,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create an add-on <see href="https://developers.recurly.com/api/v2020-01-01#operation/create_plan_add_on">create_plan_add_on api documentation</see>
+        /// Create an add-on <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_plan_add_on">create_plan_add_on api documentation</see>
         /// </summary>
         /// <param name="planId">Plan ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-gold`.</param>
         /// <param name="body">The body of the request.</param>
@@ -2573,7 +2815,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a plan's add-on <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_plan_add_on">get_plan_add_on api documentation</see>
+        /// Fetch a plan's add-on <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_plan_add_on">get_plan_add_on api documentation</see>
         /// </summary>
         /// <param name="planId">Plan ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-gold`.</param>
         /// <param name="addOnId">Add-on ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-gold`.</param>
@@ -2591,7 +2833,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a plan's add-on <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_plan_add_on">get_plan_add_on api documentation</see>
+        /// Fetch a plan's add-on <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_plan_add_on">get_plan_add_on api documentation</see>
         /// </summary>
         /// <param name="planId">Plan ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-gold`.</param>
         /// <param name="addOnId">Add-on ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-gold`.</param>
@@ -2609,7 +2851,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update an add-on <see href="https://developers.recurly.com/api/v2020-01-01#operation/update_plan_add_on">update_plan_add_on api documentation</see>
+        /// Update an add-on <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_plan_add_on">update_plan_add_on api documentation</see>
         /// </summary>
         /// <param name="planId">Plan ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-gold`.</param>
         /// <param name="addOnId">Add-on ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-gold`.</param>
@@ -2628,7 +2870,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update an add-on <see href="https://developers.recurly.com/api/v2020-01-01#operation/update_plan_add_on">update_plan_add_on api documentation</see>
+        /// Update an add-on <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_plan_add_on">update_plan_add_on api documentation</see>
         /// </summary>
         /// <param name="planId">Plan ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-gold`.</param>
         /// <param name="addOnId">Add-on ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-gold`.</param>
@@ -2647,7 +2889,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Remove an add-on <see href="https://developers.recurly.com/api/v2020-01-01#operation/remove_plan_add_on">remove_plan_add_on api documentation</see>
+        /// Remove an add-on <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_plan_add_on">remove_plan_add_on api documentation</see>
         /// </summary>
         /// <param name="planId">Plan ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-gold`.</param>
         /// <param name="addOnId">Add-on ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-gold`.</param>
@@ -2665,7 +2907,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Remove an add-on <see href="https://developers.recurly.com/api/v2020-01-01#operation/remove_plan_add_on">remove_plan_add_on api documentation</see>
+        /// Remove an add-on <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_plan_add_on">remove_plan_add_on api documentation</see>
         /// </summary>
         /// <param name="planId">Plan ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-gold`.</param>
         /// <param name="addOnId">Add-on ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-gold`.</param>
@@ -2683,7 +2925,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List a site's add-ons <see href="https://developers.recurly.com/api/v2020-01-01#operation/list_add_ons">list_add_ons api documentation</see>
+        /// List a site's add-ons <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_add_ons">list_add_ons api documentation</see>
         /// </summary>
         /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
         /// <param name="limit">Limit number of records 1-200.</param>
@@ -2708,7 +2950,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an add-on <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_add_on">get_add_on api documentation</see>
+        /// Fetch an add-on <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_add_on">get_add_on api documentation</see>
         /// </summary>
         /// <param name="addOnId">Add-on ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-gold`.</param>
         /// <returns>
@@ -2725,7 +2967,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an add-on <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_add_on">get_add_on api documentation</see>
+        /// Fetch an add-on <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_add_on">get_add_on api documentation</see>
         /// </summary>
         /// <param name="addOnId">Add-on ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-gold`.</param>
         /// <returns>
@@ -2742,7 +2984,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List a site's shipping methods <see href="https://developers.recurly.com/api/v2020-01-01#operation/list_shipping_methods">list_shipping_methods api documentation</see>
+        /// List a site's shipping methods <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_shipping_methods">list_shipping_methods api documentation</see>
         /// </summary>
         /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
         /// <param name="limit">Limit number of records 1-200.</param>
@@ -2766,7 +3008,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create a new shipping method <see href="https://developers.recurly.com/api/v2020-01-01#operation/create_shipping_method">create_shipping_method api documentation</see>
+        /// Create a new shipping method <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_shipping_method">create_shipping_method api documentation</see>
         /// </summary>
         /// <param name="body">The body of the request.</param>
         /// <returns>
@@ -2783,7 +3025,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create a new shipping method <see href="https://developers.recurly.com/api/v2020-01-01#operation/create_shipping_method">create_shipping_method api documentation</see>
+        /// Create a new shipping method <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_shipping_method">create_shipping_method api documentation</see>
         /// </summary>
         /// <param name="body">The body of the request.</param>
         /// <returns>
@@ -2800,7 +3042,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a shipping method <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_shipping_method">get_shipping_method api documentation</see>
+        /// Fetch a shipping method <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_shipping_method">get_shipping_method api documentation</see>
         /// </summary>
         /// <param name="shippingMethodId">Shipping Method ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-usps_2-day`.</param>
         /// <returns>
@@ -2817,7 +3059,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a shipping method <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_shipping_method">get_shipping_method api documentation</see>
+        /// Fetch a shipping method <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_shipping_method">get_shipping_method api documentation</see>
         /// </summary>
         /// <param name="shippingMethodId">Shipping Method ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-usps_2-day`.</param>
         /// <returns>
@@ -2834,7 +3076,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update an active Shipping Method <see href="https://developers.recurly.com/api/v2020-01-01#operation/update_shipping_method">update_shipping_method api documentation</see>
+        /// Update an active Shipping Method <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_shipping_method">update_shipping_method api documentation</see>
         /// </summary>
         /// <param name="shippingMethodId">Shipping Method ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-usps_2-day`.</param>
         /// <param name="body">The body of the request.</param>
@@ -2852,7 +3094,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update an active Shipping Method <see href="https://developers.recurly.com/api/v2020-01-01#operation/update_shipping_method">update_shipping_method api documentation</see>
+        /// Update an active Shipping Method <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_shipping_method">update_shipping_method api documentation</see>
         /// </summary>
         /// <param name="shippingMethodId">Shipping Method ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-usps_2-day`.</param>
         /// <param name="body">The body of the request.</param>
@@ -2870,7 +3112,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Deactivate a shipping method <see href="https://developers.recurly.com/api/v2020-01-01#operation/deactivate_shipping_method">deactivate_shipping_method api documentation</see>
+        /// Deactivate a shipping method <see href="https://developers.recurly.com/api/v2021-02-25#operation/deactivate_shipping_method">deactivate_shipping_method api documentation</see>
         /// </summary>
         /// <param name="shippingMethodId">Shipping Method ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-usps_2-day`.</param>
         /// <returns>
@@ -2887,7 +3129,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Deactivate a shipping method <see href="https://developers.recurly.com/api/v2020-01-01#operation/deactivate_shipping_method">deactivate_shipping_method api documentation</see>
+        /// Deactivate a shipping method <see href="https://developers.recurly.com/api/v2021-02-25#operation/deactivate_shipping_method">deactivate_shipping_method api documentation</see>
         /// </summary>
         /// <param name="shippingMethodId">Shipping Method ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-usps_2-day`.</param>
         /// <returns>
@@ -2904,7 +3146,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List a site's subscriptions <see href="https://developers.recurly.com/api/v2020-01-01#operation/list_subscriptions">list_subscriptions api documentation</see>
+        /// List a site's subscriptions <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_subscriptions">list_subscriptions api documentation</see>
         /// </summary>
         /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
         /// <param name="limit">Limit number of records 1-200.</param>
@@ -2929,7 +3171,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create a new subscription <see href="https://developers.recurly.com/api/v2020-01-01#operation/create_subscription">create_subscription api documentation</see>
+        /// Create a new subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_subscription">create_subscription api documentation</see>
         /// </summary>
         /// <param name="body">The body of the request.</param>
         /// <returns>
@@ -2946,7 +3188,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create a new subscription <see href="https://developers.recurly.com/api/v2020-01-01#operation/create_subscription">create_subscription api documentation</see>
+        /// Create a new subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_subscription">create_subscription api documentation</see>
         /// </summary>
         /// <param name="body">The body of the request.</param>
         /// <returns>
@@ -2963,7 +3205,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a subscription <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_subscription">get_subscription api documentation</see>
+        /// Fetch a subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_subscription">get_subscription api documentation</see>
         /// </summary>
         /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
         /// <returns>
@@ -2980,7 +3222,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a subscription <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_subscription">get_subscription api documentation</see>
+        /// Fetch a subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_subscription">get_subscription api documentation</see>
         /// </summary>
         /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
         /// <returns>
@@ -2997,7 +3239,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Modify a subscription <see href="https://developers.recurly.com/api/v2020-01-01#operation/modify_subscription">modify_subscription api documentation</see>
+        /// Update a subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_subscription">update_subscription api documentation</see>
         /// </summary>
         /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
         /// <param name="body">The body of the request.</param>
@@ -3005,7 +3247,7 @@ namespace Recurly
         /// A subscription.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public Subscription ModifySubscription(string subscriptionId, SubscriptionUpdate body, RequestOptions options = null)
+        public Subscription UpdateSubscription(string subscriptionId, SubscriptionUpdate body, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
             var url = this.InterpolatePath("/subscriptions/{subscription_id}", urlParams);
@@ -3015,7 +3257,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Modify a subscription <see href="https://developers.recurly.com/api/v2020-01-01#operation/modify_subscription">modify_subscription api documentation</see>
+        /// Update a subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_subscription">update_subscription api documentation</see>
         /// </summary>
         /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
         /// <param name="body">The body of the request.</param>
@@ -3023,7 +3265,7 @@ namespace Recurly
         /// A subscription.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public Task<Subscription> ModifySubscriptionAsync(string subscriptionId, SubscriptionUpdate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        public Task<Subscription> UpdateSubscriptionAsync(string subscriptionId, SubscriptionUpdate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
             var url = this.InterpolatePath("/subscriptions/{subscription_id}", urlParams);
@@ -3033,10 +3275,11 @@ namespace Recurly
 
 
         /// <summary>
-        /// Terminate a subscription <see href="https://developers.recurly.com/api/v2020-01-01#operation/terminate_subscription">terminate_subscription api documentation</see>
+        /// Terminate a subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/terminate_subscription">terminate_subscription api documentation</see>
         /// </summary>
         /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
         /// <param name="refund">The type of refund to perform:    * `full` - Performs a full refund of the last invoice for the current subscription term.  * `partial` - Prorates a refund based on the amount of time remaining in the current bill cycle.  * `none` - Terminates the subscription without a refund.    In the event that the most recent invoice is a $0 invoice paid entirely by credit, Recurly will apply the credit back to the customer’s account.    You may also terminate a subscription with no refund and then manually refund specific invoices.  </param>
+        /// <param name="charge">Applicable only if the subscription has usage based add-ons and unbilled usage logged for the current billing cycle. If true, current billing cycle unbilled usage is billed on the final invoice. If false, Recurly will create a negative usage record for current billing cycle usage that will zero out the final invoice line items.</param>
         /// <returns>
         /// An expired subscription.
         /// </returns>
@@ -3052,10 +3295,11 @@ namespace Recurly
 
 
         /// <summary>
-        /// Terminate a subscription <see href="https://developers.recurly.com/api/v2020-01-01#operation/terminate_subscription">terminate_subscription api documentation</see>
+        /// Terminate a subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/terminate_subscription">terminate_subscription api documentation</see>
         /// </summary>
         /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
         /// <param name="refund">The type of refund to perform:    * `full` - Performs a full refund of the last invoice for the current subscription term.  * `partial` - Prorates a refund based on the amount of time remaining in the current bill cycle.  * `none` - Terminates the subscription without a refund.    In the event that the most recent invoice is a $0 invoice paid entirely by credit, Recurly will apply the credit back to the customer’s account.    You may also terminate a subscription with no refund and then manually refund specific invoices.  </param>
+        /// <param name="charge">Applicable only if the subscription has usage based add-ons and unbilled usage logged for the current billing cycle. If true, current billing cycle unbilled usage is billed on the final invoice. If false, Recurly will create a negative usage record for current billing cycle usage that will zero out the final invoice line items.</param>
         /// <returns>
         /// An expired subscription.
         /// </returns>
@@ -3071,7 +3315,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Cancel a subscription <see href="https://developers.recurly.com/api/v2020-01-01#operation/cancel_subscription">cancel_subscription api documentation</see>
+        /// Cancel a subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/cancel_subscription">cancel_subscription api documentation</see>
         /// </summary>
         /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
         /// <returns>
@@ -3088,7 +3332,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Cancel a subscription <see href="https://developers.recurly.com/api/v2020-01-01#operation/cancel_subscription">cancel_subscription api documentation</see>
+        /// Cancel a subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/cancel_subscription">cancel_subscription api documentation</see>
         /// </summary>
         /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
         /// <returns>
@@ -3105,7 +3349,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Reactivate a canceled subscription <see href="https://developers.recurly.com/api/v2020-01-01#operation/reactivate_subscription">reactivate_subscription api documentation</see>
+        /// Reactivate a canceled subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/reactivate_subscription">reactivate_subscription api documentation</see>
         /// </summary>
         /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
         /// <returns>
@@ -3122,7 +3366,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Reactivate a canceled subscription <see href="https://developers.recurly.com/api/v2020-01-01#operation/reactivate_subscription">reactivate_subscription api documentation</see>
+        /// Reactivate a canceled subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/reactivate_subscription">reactivate_subscription api documentation</see>
         /// </summary>
         /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
         /// <returns>
@@ -3139,7 +3383,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Pause subscription <see href="https://developers.recurly.com/api/v2020-01-01#operation/pause_subscription">pause_subscription api documentation</see>
+        /// Pause subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/pause_subscription">pause_subscription api documentation</see>
         /// </summary>
         /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
         /// <param name="body">The body of the request.</param>
@@ -3157,7 +3401,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Pause subscription <see href="https://developers.recurly.com/api/v2020-01-01#operation/pause_subscription">pause_subscription api documentation</see>
+        /// Pause subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/pause_subscription">pause_subscription api documentation</see>
         /// </summary>
         /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
         /// <param name="body">The body of the request.</param>
@@ -3175,7 +3419,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Resume subscription <see href="https://developers.recurly.com/api/v2020-01-01#operation/resume_subscription">resume_subscription api documentation</see>
+        /// Resume subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/resume_subscription">resume_subscription api documentation</see>
         /// </summary>
         /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
         /// <returns>
@@ -3192,7 +3436,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Resume subscription <see href="https://developers.recurly.com/api/v2020-01-01#operation/resume_subscription">resume_subscription api documentation</see>
+        /// Resume subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/resume_subscription">resume_subscription api documentation</see>
         /// </summary>
         /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
         /// <returns>
@@ -3209,7 +3453,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Convert trial subscription <see href="https://developers.recurly.com/api/v2020-01-01#operation/convert_trial">convert_trial api documentation</see>
+        /// Convert trial subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/convert_trial">convert_trial api documentation</see>
         /// </summary>
         /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
         /// <returns>
@@ -3226,7 +3470,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Convert trial subscription <see href="https://developers.recurly.com/api/v2020-01-01#operation/convert_trial">convert_trial api documentation</see>
+        /// Convert trial subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/convert_trial">convert_trial api documentation</see>
         /// </summary>
         /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
         /// <returns>
@@ -3243,7 +3487,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a subscription's pending change <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_subscription_change">get_subscription_change api documentation</see>
+        /// Fetch a subscription's pending change <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_subscription_change">get_subscription_change api documentation</see>
         /// </summary>
         /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
         /// <returns>
@@ -3260,7 +3504,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a subscription's pending change <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_subscription_change">get_subscription_change api documentation</see>
+        /// Fetch a subscription's pending change <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_subscription_change">get_subscription_change api documentation</see>
         /// </summary>
         /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
         /// <returns>
@@ -3277,7 +3521,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create a new subscription change <see href="https://developers.recurly.com/api/v2020-01-01#operation/create_subscription_change">create_subscription_change api documentation</see>
+        /// Create a new subscription change <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_subscription_change">create_subscription_change api documentation</see>
         /// </summary>
         /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
         /// <param name="body">The body of the request.</param>
@@ -3295,7 +3539,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create a new subscription change <see href="https://developers.recurly.com/api/v2020-01-01#operation/create_subscription_change">create_subscription_change api documentation</see>
+        /// Create a new subscription change <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_subscription_change">create_subscription_change api documentation</see>
         /// </summary>
         /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
         /// <param name="body">The body of the request.</param>
@@ -3313,7 +3557,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Delete the pending subscription change <see href="https://developers.recurly.com/api/v2020-01-01#operation/remove_subscription_change">remove_subscription_change api documentation</see>
+        /// Delete the pending subscription change <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_subscription_change">remove_subscription_change api documentation</see>
         /// </summary>
         /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
         /// <returns>
@@ -3330,7 +3574,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Delete the pending subscription change <see href="https://developers.recurly.com/api/v2020-01-01#operation/remove_subscription_change">remove_subscription_change api documentation</see>
+        /// Delete the pending subscription change <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_subscription_change">remove_subscription_change api documentation</see>
         /// </summary>
         /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
         /// <returns>
@@ -3347,7 +3591,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Preview a new subscription change <see href="https://developers.recurly.com/api/v2020-01-01#operation/preview_subscription_change">preview_subscription_change api documentation</see>
+        /// Preview a new subscription change <see href="https://developers.recurly.com/api/v2021-02-25#operation/preview_subscription_change">preview_subscription_change api documentation</see>
         /// </summary>
         /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
         /// <param name="body">The body of the request.</param>
@@ -3365,7 +3609,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Preview a new subscription change <see href="https://developers.recurly.com/api/v2020-01-01#operation/preview_subscription_change">preview_subscription_change api documentation</see>
+        /// Preview a new subscription change <see href="https://developers.recurly.com/api/v2021-02-25#operation/preview_subscription_change">preview_subscription_change api documentation</see>
         /// </summary>
         /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
         /// <param name="body">The body of the request.</param>
@@ -3383,7 +3627,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List a subscription's invoices <see href="https://developers.recurly.com/api/v2020-01-01#operation/list_subscription_invoices">list_subscription_invoices api documentation</see>
+        /// List a subscription's invoices <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_subscription_invoices">list_subscription_invoices api documentation</see>
         /// </summary>
         /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
         /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
@@ -3409,7 +3653,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List a subscription's line items <see href="https://developers.recurly.com/api/v2020-01-01#operation/list_subscription_line_items">list_subscription_line_items api documentation</see>
+        /// List a subscription's line items <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_subscription_line_items">list_subscription_line_items api documentation</see>
         /// </summary>
         /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
         /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
@@ -3437,7 +3681,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Show the coupon redemptions for a subscription <see href="https://developers.recurly.com/api/v2020-01-01#operation/list_subscription_coupon_redemptions">list_subscription_coupon_redemptions api documentation</see>
+        /// Show the coupon redemptions for a subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_subscription_coupon_redemptions">list_subscription_coupon_redemptions api documentation</see>
         /// </summary>
         /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
         /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
@@ -3460,7 +3704,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List a subscription add-on's usage records <see href="https://developers.recurly.com/api/v2020-01-01#operation/list_usage">list_usage api documentation</see>
+        /// List a subscription add-on's usage records <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_usage">list_usage api documentation</see>
         /// </summary>
         /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
         /// <param name="addOnId">Add-on ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-gold`.</param>
@@ -3487,7 +3731,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Log a usage record on this subscription add-on <see href="https://developers.recurly.com/api/v2020-01-01#operation/create_usage">create_usage api documentation</see>
+        /// Log a usage record on this subscription add-on <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_usage">create_usage api documentation</see>
         /// </summary>
         /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
         /// <param name="addOnId">Add-on ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-gold`.</param>
@@ -3506,7 +3750,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Log a usage record on this subscription add-on <see href="https://developers.recurly.com/api/v2020-01-01#operation/create_usage">create_usage api documentation</see>
+        /// Log a usage record on this subscription add-on <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_usage">create_usage api documentation</see>
         /// </summary>
         /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
         /// <param name="addOnId">Add-on ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-gold`.</param>
@@ -3525,7 +3769,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Get a usage record <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_usage">get_usage api documentation</see>
+        /// Get a usage record <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_usage">get_usage api documentation</see>
         /// </summary>
         /// <param name="usageId">Usage Record ID.</param>
         /// <returns>
@@ -3542,7 +3786,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Get a usage record <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_usage">get_usage api documentation</see>
+        /// Get a usage record <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_usage">get_usage api documentation</see>
         /// </summary>
         /// <param name="usageId">Usage Record ID.</param>
         /// <returns>
@@ -3559,7 +3803,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update a usage record <see href="https://developers.recurly.com/api/v2020-01-01#operation/update_usage">update_usage api documentation</see>
+        /// Update a usage record <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_usage">update_usage api documentation</see>
         /// </summary>
         /// <param name="usageId">Usage Record ID.</param>
         /// <param name="body">The body of the request.</param>
@@ -3577,7 +3821,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update a usage record <see href="https://developers.recurly.com/api/v2020-01-01#operation/update_usage">update_usage api documentation</see>
+        /// Update a usage record <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_usage">update_usage api documentation</see>
         /// </summary>
         /// <param name="usageId">Usage Record ID.</param>
         /// <param name="body">The body of the request.</param>
@@ -3595,7 +3839,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Delete a usage record. <see href="https://developers.recurly.com/api/v2020-01-01#operation/remove_usage">remove_usage api documentation</see>
+        /// Delete a usage record. <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_usage">remove_usage api documentation</see>
         /// </summary>
         /// <param name="usageId">Usage Record ID.</param>
         /// <returns>
@@ -3612,7 +3856,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Delete a usage record. <see href="https://developers.recurly.com/api/v2020-01-01#operation/remove_usage">remove_usage api documentation</see>
+        /// Delete a usage record. <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_usage">remove_usage api documentation</see>
         /// </summary>
         /// <param name="usageId">Usage Record ID.</param>
         /// <returns>
@@ -3629,7 +3873,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List a site's transactions <see href="https://developers.recurly.com/api/v2020-01-01#operation/list_transactions">list_transactions api documentation</see>
+        /// List a site's transactions <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_transactions">list_transactions api documentation</see>
         /// </summary>
         /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
         /// <param name="limit">Limit number of records 1-200.</param>
@@ -3655,7 +3899,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a transaction <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_transaction">get_transaction api documentation</see>
+        /// Fetch a transaction <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_transaction">get_transaction api documentation</see>
         /// </summary>
         /// <param name="transactionId">Transaction ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
         /// <returns>
@@ -3672,7 +3916,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a transaction <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_transaction">get_transaction api documentation</see>
+        /// Fetch a transaction <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_transaction">get_transaction api documentation</see>
         /// </summary>
         /// <param name="transactionId">Transaction ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
         /// <returns>
@@ -3689,7 +3933,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a unique coupon code <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_unique_coupon_code">get_unique_coupon_code api documentation</see>
+        /// Fetch a unique coupon code <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_unique_coupon_code">get_unique_coupon_code api documentation</see>
         /// </summary>
         /// <param name="uniqueCouponCodeId">Unique Coupon Code ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-abc-8dh2-def`.</param>
         /// <returns>
@@ -3706,7 +3950,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a unique coupon code <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_unique_coupon_code">get_unique_coupon_code api documentation</see>
+        /// Fetch a unique coupon code <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_unique_coupon_code">get_unique_coupon_code api documentation</see>
         /// </summary>
         /// <param name="uniqueCouponCodeId">Unique Coupon Code ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-abc-8dh2-def`.</param>
         /// <returns>
@@ -3723,7 +3967,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Deactivate a unique coupon code <see href="https://developers.recurly.com/api/v2020-01-01#operation/deactivate_unique_coupon_code">deactivate_unique_coupon_code api documentation</see>
+        /// Deactivate a unique coupon code <see href="https://developers.recurly.com/api/v2021-02-25#operation/deactivate_unique_coupon_code">deactivate_unique_coupon_code api documentation</see>
         /// </summary>
         /// <param name="uniqueCouponCodeId">Unique Coupon Code ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-abc-8dh2-def`.</param>
         /// <returns>
@@ -3740,7 +3984,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Deactivate a unique coupon code <see href="https://developers.recurly.com/api/v2020-01-01#operation/deactivate_unique_coupon_code">deactivate_unique_coupon_code api documentation</see>
+        /// Deactivate a unique coupon code <see href="https://developers.recurly.com/api/v2021-02-25#operation/deactivate_unique_coupon_code">deactivate_unique_coupon_code api documentation</see>
         /// </summary>
         /// <param name="uniqueCouponCodeId">Unique Coupon Code ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-abc-8dh2-def`.</param>
         /// <returns>
@@ -3757,7 +4001,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Restore a unique coupon code <see href="https://developers.recurly.com/api/v2020-01-01#operation/reactivate_unique_coupon_code">reactivate_unique_coupon_code api documentation</see>
+        /// Restore a unique coupon code <see href="https://developers.recurly.com/api/v2021-02-25#operation/reactivate_unique_coupon_code">reactivate_unique_coupon_code api documentation</see>
         /// </summary>
         /// <param name="uniqueCouponCodeId">Unique Coupon Code ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-abc-8dh2-def`.</param>
         /// <returns>
@@ -3774,7 +4018,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Restore a unique coupon code <see href="https://developers.recurly.com/api/v2020-01-01#operation/reactivate_unique_coupon_code">reactivate_unique_coupon_code api documentation</see>
+        /// Restore a unique coupon code <see href="https://developers.recurly.com/api/v2021-02-25#operation/reactivate_unique_coupon_code">reactivate_unique_coupon_code api documentation</see>
         /// </summary>
         /// <param name="uniqueCouponCodeId">Unique Coupon Code ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-abc-8dh2-def`.</param>
         /// <returns>
@@ -3791,7 +4035,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create a new purchase <see href="https://developers.recurly.com/api/v2020-01-01#operation/create_purchase">create_purchase api documentation</see>
+        /// Create a new purchase <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_purchase">create_purchase api documentation</see>
         /// </summary>
         /// <param name="body">The body of the request.</param>
         /// <returns>
@@ -3808,7 +4052,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create a new purchase <see href="https://developers.recurly.com/api/v2020-01-01#operation/create_purchase">create_purchase api documentation</see>
+        /// Create a new purchase <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_purchase">create_purchase api documentation</see>
         /// </summary>
         /// <param name="body">The body of the request.</param>
         /// <returns>
@@ -3825,7 +4069,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Preview a new purchase <see href="https://developers.recurly.com/api/v2020-01-01#operation/preview_purchase">preview_purchase api documentation</see>
+        /// Preview a new purchase <see href="https://developers.recurly.com/api/v2021-02-25#operation/preview_purchase">preview_purchase api documentation</see>
         /// </summary>
         /// <param name="body">The body of the request.</param>
         /// <returns>
@@ -3842,7 +4086,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Preview a new purchase <see href="https://developers.recurly.com/api/v2020-01-01#operation/preview_purchase">preview_purchase api documentation</see>
+        /// Preview a new purchase <see href="https://developers.recurly.com/api/v2021-02-25#operation/preview_purchase">preview_purchase api documentation</see>
         /// </summary>
         /// <param name="body">The body of the request.</param>
         /// <returns>
@@ -3859,7 +4103,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List the dates that have an available export to download. <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_export_dates">get_export_dates api documentation</see>
+        /// List the dates that have an available export to download. <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_export_dates">get_export_dates api documentation</see>
         /// </summary>
         /// <returns>
         /// Returns a list of dates.
@@ -3875,7 +4119,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List the dates that have an available export to download. <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_export_dates">get_export_dates api documentation</see>
+        /// List the dates that have an available export to download. <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_export_dates">get_export_dates api documentation</see>
         /// </summary>
         /// <returns>
         /// Returns a list of dates.
@@ -3891,7 +4135,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List of the export files that are available to download. <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_export_files">get_export_files api documentation</see>
+        /// List of the export files that are available to download. <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_export_files">get_export_files api documentation</see>
         /// </summary>
         /// <param name="exportDate">Date for which to get a list of available automated export files. Date must be in YYYY-MM-DD format.</param>
         /// <returns>
@@ -3908,7 +4152,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List of the export files that are available to download. <see href="https://developers.recurly.com/api/v2020-01-01#operation/get_export_files">get_export_files api documentation</see>
+        /// List of the export files that are available to download. <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_export_files">get_export_files api documentation</see>
         /// </summary>
         /// <param name="exportDate">Date for which to get a list of available automated export files. Date must be in YYYY-MM-DD format.</param>
         /// <returns>

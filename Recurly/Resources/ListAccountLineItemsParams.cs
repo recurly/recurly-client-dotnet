@@ -41,7 +41,7 @@ namespace Recurly.Resources
         public Constants.LineItemState? State { get; set; }
 
         [JsonProperty("type")]
-        public Constants.LintItemType? Type { get; set; }
+        public Constants.LineItemType? Type { get; set; }
 
     }
 }

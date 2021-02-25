@@ -27,6 +27,10 @@ namespace Recurly.Resources
         [JsonProperty("balance")]
         public decimal? Balance { get; set; }
 
+        /// <value>The `billing_info_id` is the value that represents a specific billing info for an end customer. When `billing_info_id` is used to assign billing info to the subscription, all future billing events for the subscription will bill to the specified billing info.</value>
+        [JsonProperty("billing_info_id")]
+        public string BillingInfoId { get; set; }
+
         /// <value>Date invoice was marked paid or failed.</value>
         [JsonProperty("closed_at")]
         public DateTime? ClosedAt { get; set; }
@@ -60,13 +64,17 @@ namespace Recurly.Resources
         [JsonProperty("due_at")]
         public DateTime? DueAt { get; set; }
 
+        /// <value>Identifies if the invoice has more line items than are returned in `line_items`. If `has_more_line_items` is `true`, then a request needs to be made to the `list_invoice_line_items` endpoint.</value>
+        [JsonProperty("has_more_line_items")]
+        public bool? HasMoreLineItems { get; set; }
+
         /// <value>Invoice ID</value>
         [JsonProperty("id")]
         public string Id { get; set; }
 
-
+        /// <value>Line Items</value>
         [JsonProperty("line_items")]
-        public LineItemList LineItems { get; set; }
+        public List<LineItem> LineItems { get; set; }
 
         /// <value>Integer representing the number of days after an invoice's creation that the invoice will become past due. If an invoice's net terms are set to '0', it is due 'On Receipt' and will become past due 24 hours after it’s created. If an invoice is due net 30, it will become past due at 31 days exactly.</value>
         [JsonProperty("net_terms")]

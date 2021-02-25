@@ -201,11 +201,15 @@ namespace Recurly.Resources
         /// <value>Charges are positive line items that debit the account. Credits are negative line items that credit the account.</value>
         [JsonProperty("type")]
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
-        public Constants.LintItemType? Type { get; set; }
+        public Constants.LineItemType? Type { get; set; }
 
         /// <value>Positive amount for a charge, negative amount for a credit.</value>
         [JsonProperty("unit_amount")]
         public decimal? UnitAmount { get; set; }
+
+        /// <value>Positive amount for a charge, negative amount for a credit.</value>
+        [JsonProperty("unit_amount_decimal")]
+        public string UnitAmountDecimal { get; set; }
 
         /// <value>When the line item was last changed.</value>
         [JsonProperty("updated_at")]

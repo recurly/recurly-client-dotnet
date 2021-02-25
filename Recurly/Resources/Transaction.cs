@@ -30,7 +30,7 @@ namespace Recurly.Resources
 
 
         [JsonProperty("billing_address")]
-        public Address BillingAddress { get; set; }
+        public AddressWithName BillingAddress { get; set; }
 
         /// <value>Collected at, or if not collected yet, the time the transaction was created.</value>
         [JsonProperty("collected_at")]

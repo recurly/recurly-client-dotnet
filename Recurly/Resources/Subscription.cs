@@ -39,6 +39,10 @@ namespace Recurly.Resources
         [JsonProperty("bank_account_authorized_at")]
         public DateTime? BankAccountAuthorizedAt { get; set; }
 
+        /// <value>Billing Info ID.</value>
+        [JsonProperty("billing_info_id")]
+        public string BillingInfoId { get; set; }
+
         /// <value>Canceled at</value>
         [JsonProperty("canceled_at")]
         public DateTime? CanceledAt { get; set; }
@@ -48,7 +52,7 @@ namespace Recurly.Resources
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
         public Constants.CollectionMethod? CollectionMethod { get; set; }
 
-        /// <value>Coupon redemptions</value>
+        /// <value>Returns subscription level coupon redemptions that are tied to this subscription.</value>
         [JsonProperty("coupon_redemptions")]
         public List<CouponRedemptionMini> CouponRedemptions { get; set; }
 

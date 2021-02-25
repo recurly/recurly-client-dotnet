@@ -85,7 +85,7 @@ namespace Recurly.Resources
         /// <value>Line item type. If `item_code`/`item_id` is present then `type` should not be present. If `item_code`/`item_id` is not present then `type` is required.</value>
         [JsonProperty("type")]
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
-        public Constants.LintItemType? Type { get; set; }
+        public Constants.LineItemType? Type { get; set; }
 
         /// <value>
         /// A positive or negative amount with `type=charge` will result in a positive `unit_amount`.

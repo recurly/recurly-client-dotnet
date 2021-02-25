@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 namespace Recurly.Resources
 {
     [ExcludeFromCodeCoverage]
-    public class Address : Request
+    public class AddressWithName : Resource
     {
 
         /// <value>City</value>
@@ -22,6 +22,14 @@ namespace Recurly.Resources
         /// <value>Country, 2-letter ISO code.</value>
         [JsonProperty("country")]
         public string Country { get; set; }
+
+        /// <value>First name</value>
+        [JsonProperty("first_name")]
+        public string FirstName { get; set; }
+
+        /// <value>Last name</value>
+        [JsonProperty("last_name")]
+        public string LastName { get; set; }
 
         /// <value>Phone number</value>
         [JsonProperty("phone")]

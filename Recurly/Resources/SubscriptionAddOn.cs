@@ -75,9 +75,13 @@ namespace Recurly.Resources
         [JsonProperty("tiers")]
         public List<SubscriptionAddOnTier> Tiers { get; set; }
 
-        /// <value>This is priced in the subscription's currency.</value>
+        /// <value>Supports up to 2 decimal places.</value>
         [JsonProperty("unit_amount")]
         public decimal? UnitAmount { get; set; }
+
+        /// <value>Supports up to 9 decimal places.</value>
+        [JsonProperty("unit_amount_decimal")]
+        public string UnitAmountDecimal { get; set; }
 
         /// <value>Updated at</value>
         [JsonProperty("updated_at")]

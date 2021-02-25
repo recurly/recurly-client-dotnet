@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 namespace Recurly.Resources
 {
     [ExcludeFromCodeCoverage]
-    public class InvoiceUpdatable : Request
+    public class InvoiceUpdate : Request
     {
 
 

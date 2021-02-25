@@ -19,9 +19,16 @@ namespace Recurly.Resources
         [JsonProperty("ending_quantity")]
         public int? EndingQuantity { get; set; }
 
-        /// <value>Unit amount</value>
+        /// <value>Allows up to 2 decimal places. Optionally, override the tiers' default unit amount.</value>
         [JsonProperty("unit_amount")]
         public decimal? UnitAmount { get; set; }
+
+        /// <value>
+        /// Allows up to 9 decimal places.  Optionally, override tiers' default unit amount.
+        /// If `unit_amount_decimal` is provided, `unit_amount` cannot be provided.
+        /// </value>
+        [JsonProperty("unit_amount_decimal")]
+        public string UnitAmountDecimal { get; set; }
 
     }
 }

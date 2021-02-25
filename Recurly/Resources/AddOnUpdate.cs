@@ -33,10 +33,11 @@ namespace Recurly.Resources
 
         /// <value>
         /// If the add-on's `tier_type` is `tiered`, `volume`, or `stairstep`,
-        /// then currencies must be absent
+        /// then currencies must be absent. Must also be absent if `add_on_type` is
+        /// `usage` and `usage_type` is `percentage`.
         /// </value>
         [JsonProperty("currencies")]
-        public List<Pricing> Currencies { get; set; }
+        public List<AddOnPricing> Currencies { get; set; }
 
         /// <value>Default quantity for the hosted pages.</value>
         [JsonProperty("default_quantity")]

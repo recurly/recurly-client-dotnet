@@ -12,20 +12,23 @@ using Newtonsoft.Json;
 namespace Recurly.Resources
 {
     [ExcludeFromCodeCoverage]
-    public class CouponRedemptionCreate : Request
+    public class AddOnPricing : Request
     {
-
-        /// <value>Coupon ID</value>
-        [JsonProperty("coupon_id")]
-        public string CouponId { get; set; }
 
         /// <value>3-letter ISO 4217 currency code.</value>
         [JsonProperty("currency")]
         public string Currency { get; set; }
 
-        /// <value>Subscription ID</value>
-        [JsonProperty("subscription_id")]
-        public string SubscriptionId { get; set; }
+        /// <value>Allows up to 2 decimal places. Required unless `unit_amount_decimal` is provided.</value>
+        [JsonProperty("unit_amount")]
+        public decimal? UnitAmount { get; set; }
+
+        /// <value>
+        /// Allows up to 9 decimal places. Only supported when `add_on_type` = `usage`.
+        /// If `unit_amount_decimal` is provided, `unit_amount` cannot be provided.
+        /// </value>
+        [JsonProperty("unit_amount_decimal")]
+        public string UnitAmountDecimal { get; set; }
 
     }
 }

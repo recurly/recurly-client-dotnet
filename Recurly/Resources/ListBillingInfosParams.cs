@@ -11,17 +11,23 @@ using Newtonsoft.Json;
 
 namespace Recurly.Resources
 {
+
     [ExcludeFromCodeCoverage]
-    public class Tier : Request
+    public class ListBillingInfosParams : OptionalParams
     {
 
-        /// <value>Tier pricing</value>
-        [JsonProperty("currencies")]
-        public List<TierPricing> Currencies { get; set; }
+        [JsonProperty("ids")]
+        public IList<string> Ids { get; set; }
 
-        /// <value>Ending quantity</value>
-        [JsonProperty("ending_quantity")]
-        public int? EndingQuantity { get; set; }
+        [JsonProperty("sort")]
+        public Constants.TimestampSort? Sort { get; set; }
+
+        [JsonProperty("begin_time")]
+        public DateTime? BeginTime { get; set; }
+
+        [JsonProperty("end_time")]
+        public DateTime? EndTime { get; set; }
 
     }
 }
+

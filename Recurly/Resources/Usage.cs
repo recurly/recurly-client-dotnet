@@ -65,6 +65,10 @@ namespace Recurly.Resources
         [JsonProperty("unit_amount")]
         public decimal? UnitAmount { get; set; }
 
+        /// <value>Unit price that can optionally support a sub-cent value.</value>
+        [JsonProperty("unit_amount_decimal")]
+        public string UnitAmountDecimal { get; set; }
+
         /// <value>When the usage record was billed on an invoice.</value>
         [JsonProperty("updated_at")]
         public DateTime? UpdatedAt { get; set; }

@@ -19,6 +19,9 @@ namespace Recurly.Resources
         [JsonProperty("refund")]
         public Constants.RefundType? Refund { get; set; }
 
+        [JsonProperty("charge")]
+        public bool? Charge { get; set; }
+
     }
 }
 

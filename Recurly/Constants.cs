@@ -164,7 +164,7 @@ namespace Recurly
 
         };
 
-        public enum LintItemType
+        public enum LineItemType
         {
             Undefined = 0,
 
@@ -1371,6 +1371,9 @@ namespace Recurly
             [EnumMember(Value = "rate_limited")]
             RateLimited,
 
+            [EnumMember(Value = "service_not_available")]
+            ServiceNotAvailable,
+
             [EnumMember(Value = "simultaneous_request")]
             SimultaneousRequest,
 
@@ -1811,6 +1814,15 @@ namespace Recurly
 
             [EnumMember(Value = "zero_dollar_auth_not_supported")]
             ZeroDollarAuthNotSupported,
+
+        };
+
+        public enum TaxIdentifierType
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "cpf")]
+            Cpf,
 
         };
 

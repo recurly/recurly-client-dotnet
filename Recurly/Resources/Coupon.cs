@@ -15,6 +15,13 @@ namespace Recurly.Resources
     public class Coupon : Resource
     {
 
+        /// <value>
+        /// The coupon is valid for all items if true. If false then `items`
+        /// will list the applicable items.
+        /// </value>
+        [JsonProperty("applies_to_all_items")]
+        public bool? AppliesToAllItems { get; set; }
+
         /// <value>The coupon is valid for all plans if true. If false then `plans` will list the applicable plans.</value>
         [JsonProperty("applies_to_all_plans")]
         public bool? AppliesToAllPlans { get; set; }
@@ -75,6 +82,13 @@ namespace Recurly.Resources
         /// <value>Description of the coupon on the invoice.</value>
         [JsonProperty("invoice_description")]
         public string InvoiceDescription { get; set; }
+
+        /// <value>
+        /// A list of items for which this coupon applies. This will be
+        /// `null` if `applies_to_all_items=true`.
+        /// </value>
+        [JsonProperty("items")]
+        public List<ItemMini> Items { get; set; }
 
         /// <value>A maximum number of redemptions for the coupon. The coupon will expire when it hits its maximum redemptions.</value>
         [JsonProperty("max_redemptions")]

@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 namespace Recurly.Resources
 {
     [ExcludeFromCodeCoverage]
-    public class AccountAcquisitionUpdatable : Request
+    public class AccountAcquisitionUpdate : Request
     {
 
         /// <value>An arbitrary identifier for the marketing campaign that led to the acquisition of this account.</value>
