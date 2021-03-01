@@ -1,8 +1,101 @@
 # Changelog
 
-## [3.12.0](https://github.com/recurly/recurly-client-dotnet/tree/HEAD)
+## [4.0.0](https://github.com/recurly/recurly-client-dotnet/tree/4.0.0) (2021-03-01)
 
-[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.11.0...HEAD)
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.18.0...4.0.0)
+
+# Major Version Release
+
+The 4.x major version of the client pairs with the `v2021-02-25` API version. This version of the client and the API contain breaking changes that should be considered before upgrading your integration.
+
+## Breaking Changes in the API
+All changes to the core API are documented in the [Developer Portal changelog](https://developers.recurly.com/api/changelog.html#v2021-02-25---current-ga-version)
+
+## Breaking Changes in Client
+
+- Convert float to decimal [[#562](https://github.com/recurly/recurly-client-dotnet/pull/562)]
+- Return the `Empty` response object over void [[#565](https://github.com/recurly/recurly-client-dotnet/pull/565)]
+- Fix deserialization of unknown enum values [[#571](https://github.com/recurly/recurly-client-dotnet/pull/571)]
+- Add `OptionalParams` and per-operation implementations [[#582](https://github.com/recurly/recurly-client-dotnet/pull/582)]
+    ### 3.x
+    ```c#
+    var accounts = client.ListAccounts(limit: 200);
+    ```
+
+    ### 4.x
+    ```c#
+    var optionalParams = new ListAccountsParams()
+    {
+        Limit = 200
+    };
+    var accounts = client.ListAccounts(optionalParams);
+    ```
+- Add support for List types in optional query params instead of needing to generate a comma separated string. [[#584](https://github.com/recurly/recurly-client-dotnet/pull/584)]
+
+    ### 3.x
+    ```c#
+    var accounts = client.ListAccounts(ids: "account-id-1,account-id-2,account-id-3");
+    ```
+
+    ### 4.x
+    ```c#
+    var optionalParams = new ListAccountsParams()
+    {
+        Ids = new List<string>() {
+          "account-id-1",
+          "account-id-2",
+          "account-id-3",
+        }
+    };
+    var accounts = client.ListAccounts(optionalParams);
+    ```
+
+**Implemented enhancements:**
+
+- Adding support for List types in optional query params [\#584](https://github.com/recurly/recurly-client-dotnet/pull/584) ([douglasmiller](https://github.com/douglasmiller))
+- Adding OptionalParams and per-operation implementations [\#582](https://github.com/recurly/recurly-client-dotnet/pull/582) ([douglasmiller](https://github.com/douglasmiller))
+- Adding hierarchical errors and moving the error factory [\#569](https://github.com/recurly/recurly-client-dotnet/pull/569) ([douglasmiller](https://github.com/douglasmiller))
+- Return EmptyResource [\#565](https://github.com/recurly/recurly-client-dotnet/pull/565) ([bhelx](https://github.com/bhelx))
+- Convert float to decimal [\#562](https://github.com/recurly/recurly-client-dotnet/pull/562) ([joannasese](https://github.com/joannasese))
+
+**Merged pull requests:**
+
+- Release 4.0.0 [\#617](https://github.com/recurly/recurly-client-dotnet/pull/617) ([douglasmiller](https://github.com/douglasmiller))
+- Convert query string enums to their EnumMember Value [\#615](https://github.com/recurly/recurly-client-dotnet/pull/615) ([douglasmiller](https://github.com/douglasmiller))
+- Updating changelog script and changelog generator config for 4.x release [\#612](https://github.com/recurly/recurly-client-dotnet/pull/612) ([douglasmiller](https://github.com/douglasmiller))
+- Fixes deserialization of unknown enum values [\#571](https://github.com/recurly/recurly-client-dotnet/pull/571) ([douglasmiller](https://github.com/douglasmiller))
+
+## [3.18.0](https://github.com/recurly/recurly-client-dotnet/tree/3.18.0) (2021-01-22)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.17.0...3.18.0)
+
+## [3.17.0](https://github.com/recurly/recurly-client-dotnet/tree/3.17.0) (2020-12-09)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.16.0...3.17.0)
+
+## [3.16.0](https://github.com/recurly/recurly-client-dotnet/tree/3.16.0) (2020-11-24)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.15.0...3.16.0)
+
+## [3.15.0](https://github.com/recurly/recurly-client-dotnet/tree/3.15.0) (2020-11-06)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.14.0...3.15.0)
+
+## [3.14.0](https://github.com/recurly/recurly-client-dotnet/tree/3.14.0) (2020-10-20)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.13.1...3.14.0)
+
+## [3.13.1](https://github.com/recurly/recurly-client-dotnet/tree/3.13.1) (2020-10-08)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.13.0...3.13.1)
+
+## [3.13.0](https://github.com/recurly/recurly-client-dotnet/tree/3.13.0) (2020-09-22)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.12.0...3.13.0)
+
+## [3.12.0](https://github.com/recurly/recurly-client-dotnet/tree/3.12.0) (2020-08-31)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.11.0...3.12.0)
 
 ## Potential Breaking Change Included
 
@@ -193,7 +286,7 @@ See [#512](https://github.com/recurly/recurly-client-dotnet/pull/512) for more i
 
 ## [3.4.0](https://github.com/recurly/recurly-client-dotnet/tree/3.4.0) (2020-02-20)
 
-[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.2.1...3.4.0)
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.3.0...3.4.0)
 
 **Merged pull requests:**
 
@@ -204,10 +297,6 @@ See [#512](https://github.com/recurly/recurly-client-dotnet/pull/512) for more i
 - Cleanup unused imports [\#478](https://github.com/recurly/recurly-client-dotnet/pull/478) ([bhelx](https://github.com/bhelx))
 - Fixing error factory bug [\#473](https://github.com/recurly/recurly-client-dotnet/pull/473) ([douglasmiller](https://github.com/douglasmiller))
 - Initial addition of code to support enum types [\#471](https://github.com/recurly/recurly-client-dotnet/pull/471) ([douglasmiller](https://github.com/douglasmiller))
-
-## [3.2.1](https://github.com/recurly/recurly-client-dotnet/tree/3.2.1) (2019-12-12)
-
-[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.3.0...3.2.1)
 
 ## [3.3.0](https://github.com/recurly/recurly-client-dotnet/tree/3.3.0) (2019-12-12)
 
@@ -309,7 +398,7 @@ See [#512](https://github.com/recurly/recurly-client-dotnet/pull/512) for more i
 
 ## [3.0.0-beta.3](https://github.com/recurly/recurly-client-dotnet/tree/3.0.0-beta.3) (2019-05-22)
 
-[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.0.0-beta.2...3.0.0-beta.3)
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.0.0.beta.4...3.0.0-beta.3)
 
 **Merged pull requests:**
 
@@ -317,6 +406,10 @@ See [#512](https://github.com/recurly/recurly-client-dotnet/pull/512) for more i
 - Dotnet Async Operations [\#392](https://github.com/recurly/recurly-client-dotnet/pull/392) ([bhelx](https://github.com/bhelx))
 - Allow targeting individual exceptions [\#391](https://github.com/recurly/recurly-client-dotnet/pull/391) ([bhelx](https://github.com/bhelx))
 - Allow configurable api url [\#390](https://github.com/recurly/recurly-client-dotnet/pull/390) ([bhelx](https://github.com/bhelx))
+
+## [3.0.0.beta.4](https://github.com/recurly/recurly-client-dotnet/tree/3.0.0.beta.4) (2019-05-21)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.0.0-beta.2...3.0.0.beta.4)
 
 
 
