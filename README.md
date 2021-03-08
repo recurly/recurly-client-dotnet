@@ -54,6 +54,12 @@ var client = new Recurly.Client(apiKey);
 var sub = client.GetSubscription("uuid-abcd123456")
 ```
 
+Optional arguments can be provided through object initializers.
+
+```csharp
+var client = new Recurly.Client(apiKey) { Timeout = 5000 }
+```
+
 ### Operations
 
 The `Recurly.Client` contains every `operation` you can perform on the site as a list of methods. Each method is documented explaining
@@ -287,6 +293,10 @@ response.RateLimit // 2000
 response.RateLimitRemaining // 1990
 response.RateLimitReset // 1595965380
 ```
+
+### A Note on Headers
+
+In accordance with [section 4.2 of RFC 2616](https://www.ietf.org/rfc/rfc2616.txt), HTTP header fields are case-insensitive.
 
 ### Webhooks
 

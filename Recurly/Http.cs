@@ -24,17 +24,17 @@ namespace Recurly.Http
 
         public IList<Header> Headers { get; set; }
 
-        public string RequestId { get { return GetHeader("X-Request-Id"); } }
+        public string RequestId { get { return GetHeader("x-request-id"); } }
 
-        public int? RateLimit { get { return GetIntHeader("X-RateLimit-Limit"); } }
+        public int? RateLimit { get { return GetIntHeader("x-ratelimit-limit"); } }
 
-        public int? RateLimitRemaining { get { return GetIntHeader("X-RateLimit-Remaining"); } }
+        public int? RateLimitRemaining { get { return GetIntHeader("x-ratelimit-remaining"); } }
 
-        public int? RateLimitReset { get { return GetIntHeader("X-RateLimit-Reset"); } }
+        public int? RateLimitReset { get { return GetIntHeader("x-ratelimit-reset"); } }
 
-        public string ContentType { get { return GetHeader("Content-Type"); } }
+        public string ContentType { get { return GetHeader("content-type"); } }
 
-        public int? RecordCount { get { return GetIntHeader("Recurly-Total-Records"); } }
+        public int? RecordCount { get { return GetIntHeader("recurly-total-records"); } }
 
         public Response() { }
 
@@ -55,10 +55,10 @@ namespace Recurly.Http
             };
         }
 
-        private string GetHeader(string name)
+        public string GetHeader(string name)
         {
             foreach (var header in Headers)
-                if (header.Name == name)
+                if (header.Name == name.ToLower())
                     return header.Value;
             return null;
         }
@@ -87,7 +87,7 @@ namespace Recurly.Http
 
         public Header(string name, string value)
         {
-            Name = name;
+            Name = name.ToLower();
             Value = value;
         }
     }
