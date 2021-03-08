@@ -50,6 +50,13 @@ namespace Recurly
             RestClient.AddDefaultHeader("Content-Type", "application/json");
         }
 
+        /// <value>Timeout in milliseconds to be used for the request</value>
+        public int Timeout
+        {
+            get { return RestClient.Timeout; }
+            set { RestClient.Timeout = value; }
+        }
+
         public async Task<T> MakeRequestAsync<T>(Method method, string url, Request body = null, Dictionary<string, object> queryParams = null, RequestOptions options = null, CancellationToken cancellationToken = default(CancellationToken)) where T : Resource
         {
             Debug.WriteLine($"Calling {url}");
@@ -72,7 +79,7 @@ namespace Recurly
             });
         }
 
-        public T MakeRequest<T>(Method method, string url, Request body = null, Dictionary<string, object> queryParams = null, RequestOptions options = null) where T : Resource
+        public T MakeRequest<T>(Method method, string url, Request body = null, Dictionary<string, object> queryParams = null, RequestOptions options = null) where T : Resource, new()
         {
             Debug.WriteLine($"Calling {url}");
             var httpRequest = new Http.Request()
@@ -97,6 +104,13 @@ namespace Recurly
             }
 
             this.HandleResponse(restResponse);
+
+            if (typeof(T).Equals(typeof(EmptyResource)))
+            {
+                var empty = new T();
+                empty.SetResponse(httpResponse);
+                return empty;
+            }
 
             if (restResponse.Data is Resource)
                 restResponse.Data.SetResponse(httpResponse);
@@ -188,7 +202,7 @@ namespace Recurly
             // has likely occurred
             if (resp.ErrorException != null)
             {
-                var message = !resp.ErrorException.Equals(null) ? resp.ErrorMessage : $"Unexpected {resp.StatusCode} Error.";
+                var message = resp.ErrorMessage;
                 if (resp.Headers.Any(t => t.Name == "X-Request-ID"))
                 {
                     var requestId = resp.Headers.ToList().Find(x => x.Name == "X-Request-ID").Value.ToString();

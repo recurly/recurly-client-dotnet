@@ -59,7 +59,13 @@ namespace Recurly
 
         public int Count()
         {
-            return RecurlyClient.GetResourceCount(Url, QueryParams);
+            var empty = RecurlyClient.MakeRequest<EmptyResource>(Method.HEAD, Url, null, QueryParams, Options);
+
+            var meta = empty.GetResponse();
+            if (meta.RecordCount is null)
+                throw new RecurlyError($"Invalid value for recurly-total-records header: {meta.GetHeader("recurly-total-records")}");
+
+            return (int)meta.RecordCount;
         }
 
         public Pager<T> FetchNextPage()
