@@ -19,14 +19,14 @@ This package is published on Nuget under the name [Recurly](https://www.nuget.or
 We recommend using Nuget to install and maintain this dependency:
 
 ```
-dotnet add package Recurly --version 3.*
+dotnet add package Recurly --version 4.*
 ```
 
 If you are specifying in your `.csproj` file:
 
 ```xml
 <ItemGroup>
-  <PackageReference Include="Recurly" Version="3.*" />
+  <PackageReference Include="Recurly" Version="4.*" />
   <!-- ... -->
 </ItemGroup>
 ```
