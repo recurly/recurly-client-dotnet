@@ -19,9 +19,13 @@ namespace Recurly.Resources
         [JsonProperty("currencies")]
         public List<TierPricing> Currencies { get; set; }
 
-        /// <value>Ending quantity</value>
+        /// <value>Ending quantity for the tier.  This represents a unit amount for unit-priced add ons, but for percentage type usage add ons, represents the site default currency in its minimum divisible unit.</value>
         [JsonProperty("ending_quantity")]
         public int? EndingQuantity { get; set; }
+
+        /// <value>Decimal usage percentage.</value>
+        [JsonProperty("usage_percentage")]
+        public string UsagePercentage { get; set; }
 
     }
 }
