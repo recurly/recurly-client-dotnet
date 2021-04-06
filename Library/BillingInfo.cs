@@ -40,6 +40,7 @@ namespace Recurly
         /// Account Code or unique ID for the account in Recurly
         /// </summary>
         public string AccountCode { get; private set; }
+        public string Id { get; private set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string MandateReference { get; set; }
@@ -212,7 +213,7 @@ namespace Recurly
             ReadXml(reader);
         }
 
-        internal BillingInfo()
+        public BillingInfo()
         {
         }
 
@@ -294,6 +295,10 @@ namespace Recurly
                     case "account":
                         var href = reader.GetAttribute("href");
                         AccountCode = Uri.UnescapeDataString(href.Substring(href.LastIndexOf("/") + 1));
+                        break;
+
+                    case "uuid":
+                        Id = reader.ReadElementContentAsString();
                         break;
 
                     case "first_name":

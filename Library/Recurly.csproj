@@ -101,6 +101,7 @@
     <Compile Include="Adjustment.cs" />
     <Compile Include="List\AdjustmentList.cs" />
     <Compile Include="BillingInfo.cs" />
+    <Compile Include="List\BillingInfoList.cs" />
     <Compile Include="Client.cs" />
     <Compile Include="Configuration\Section.cs" />
     <Compile Include="Coupon.cs" />

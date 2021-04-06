@@ -18,6 +18,11 @@ namespace Recurly
         public Account Account { get; set; }
 
         /// <summary>
+        /// The uuid for the billing info used for this purchase
+        /// </summary>
+        public string BillingInfoUuid { get; set; }
+
+        /// <summary>
         /// The 3 letter currency code for the invoice transactions.
         /// </summary>
         public string Currency { get; set; }
@@ -282,6 +287,8 @@ namespace Recurly
                 xmlWriter.WriteElementString("shipping_address_id", ShippingAddressId.Value.ToString());
 
             Account.WriteXml(xmlWriter);
+
+            xmlWriter.WriteStringIfValid("billing_info_uuid", BillingInfoUuid);
 
             if (ShippingAddress != null)
                 ShippingAddress.WriteXml(xmlWriter);

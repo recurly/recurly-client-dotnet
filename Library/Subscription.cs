@@ -111,6 +111,8 @@ namespace Recurly
 
         public string Uuid { get; private set; }
 
+        public string BillingInfoUuid { get; set; }
+
         public SubscriptionState State { get; private set; }
 
         /// <summary>
@@ -701,6 +703,10 @@ namespace Recurly
                         Uuid = reader.ReadElementContentAsString();
                         break;
 
+                    case "billing_info_uuid":
+                        BillingInfoUuid = reader.ReadElementContentAsString();
+                        break;
+
                     case "state":
                         State = reader.ReadElementContentAsString().ParseAsEnum<SubscriptionState>();
                         break;
@@ -996,6 +1002,7 @@ namespace Recurly
                 xmlWriter.WriteElementString("terms_and_conditions", TermsAndConditions);
                 xmlWriter.WriteElementString("vat_reverse_charge_notes", VatReverseChargeNotes);
                 xmlWriter.WriteElementString("po_number", PoNumber);
+                xmlWriter.WriteStringIfValid("billing_info_uuid", BillingInfoUuid);
             }
 
             xmlWriter.WriteIfCollectionHasAny("subscription_add_ons", AddOns);

@@ -20,6 +20,8 @@ namespace Recurly
 
         public ChangeTimeframe TimeFrame { get; set; }
 
+        public string BillingInfoUuid { get; set; }
+
         public string PlanCode { get; set; }
 
         /// <summary>
@@ -101,6 +103,8 @@ namespace Recurly
 
             if (Quantity.HasValue)
                 xmlWriter.WriteElementString("quantity", Quantity.ToString());
+
+            xmlWriter.WriteStringIfValid("billing_info_uuid", BillingInfoUuid);
 
             xmlWriter.WriteStringIfValid("plan_code", PlanCode);
 
