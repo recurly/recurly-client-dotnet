@@ -1,30 +1,14 @@
 #!/usr/bin/env bash
+
 set -e
 
-# TODO this file could be gone
-RELEASED_LOG="/tmp/dotnet-pending-changes.md"
-THIS_VERSION=$(./scripts/bump --this-version)
-
-# Generate the changelog with changes in this release
-./scripts/changelog --release-tag "$THIS_VERSION"
-git add CHANGELOG.md
-git commit -m "Update Changelog for Release $THIS_VERSION"
-git push origin master
+# Usage
+#
+# ./release
+#
 
 #publish
 dotnet pack -c Release
 dotnet build -c Release
 dotnet nuget push "$(pwd)"/Recurly/bin/Release/Recurly."$THIS_VERSION".nupkg -s https://api.nuget.org/v3/index.json -k "$NUGET_TOKEN"
 
-
-# create release
-hub release create -c -F $RELEASED_LOG $THIS_VERSION
-
-# Copy-pasteable messages for announcments
-echo ":dotnet: Dotnet $THIS_VERSION Released :dotnet:"
-echo ":nuget: NuGet:  https://www.nuget.org/packages/Recurly/$THIS_VERSION"
-echo "Release: https://github.com/recurly/recurly-client-dotnet/releases/tag/$THIS_VERSION"
-echo "Changelog:"
-echo "\`\`\`"
-cat "$RELEASED_LOG"
-echo "\`\`\`"
