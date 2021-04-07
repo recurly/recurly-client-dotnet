@@ -115,6 +115,8 @@ namespace Recurly
         /// </summary>
         public string ThreeDSecureActionResultTokenId { get; set; }
 
+        public bool? PrimaryPaymentMethod { get; set; }
+
         public string Iban { get; set; }
 
         /// <summary>
@@ -441,6 +443,10 @@ namespace Recurly
                         ExternalHppType = reader.ReadElementContentAsString().ParseAsEnum<HppType>();
                         break;
 
+                    case "primary_payment_method":
+                        PrimaryPaymentMethod = reader.ReadElementContentAsBoolean();
+                        break;
+
                     case "updated_at":
                         DateTime d;
                         if (DateTime.TryParse(reader.ReadElementContentAsString(), out d))
@@ -533,6 +539,9 @@ namespace Recurly
 
             xmlWriter.WriteStringIfValid("token_id", TokenId);
             xmlWriter.WriteStringIfValid("three_d_secure_action_result_token_id", ThreeDSecureActionResultTokenId);
+            
+            if (PrimaryPaymentMethod.HasValue)
+                xmlWriter.WriteElementString("primary_payment_method", PrimaryPaymentMethod.Value.AsString());
 
             xmlWriter.WriteEndElement(); // End: billing_info
         }
