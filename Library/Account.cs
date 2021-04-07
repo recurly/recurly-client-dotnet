@@ -93,8 +93,8 @@ namespace Recurly
         {
             get
             {
-                if (null != _billingInfo)
-
+                if (null != _billingInfo && null == _billingInfos)
+                    return _billingInfo;
                 try
                 {
                     _billingInfo = BillingInfo.Get(AccountCode);
@@ -477,7 +477,7 @@ namespace Recurly
         public ShippingAddress CreateShippingAddress(ShippingAddress shippingAddress)
         {
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
-                UrlPrefix + Uri.EscapeDataString(AccountCode) + "/shipping_addresses",
+                UrlPrefix + Uri.EscapeDataString(AccountCode) + "/shipping_addresses/",
                 shippingAddress.WriteXml,
                 shippingAddress.ReadXml);
 

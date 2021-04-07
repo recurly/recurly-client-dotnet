@@ -103,6 +103,46 @@ namespace Recurly.Test
         }
 
         [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void CreateSubscriptionWithWallet()
+        {
+            try {
+                var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
+                {
+                    Description = "Create Subscription With Billing Info Uuid Test"
+                };
+                plan.UnitAmountInCents.Add("USD", 100);
+                plan.Create();
+                PlansToDeactivateOnDispose.Add(plan);
+
+                var account = CreateNewAccountWithWallet();
+                var address = new Address();
+                address.FirstName = "Jackie";
+                address.LastName = "Daytona";
+                address.Address1 = "680 Ladder Lane";
+                address.City = "Shreveport";
+                address.State = "CA";
+                address.Zip = "90210";
+                address.Country = "US";
+                account.Address = address;
+                account.Update();
+
+                var binfos = account.GetBillingInfos();           
+                var sub = new Subscription(account, plan, "USD");
+                sub.BillingInfoUuid = binfos[1].Id;
+                sub.Create();
+
+                var sub1 = Subscriptions.Get(sub.Uuid);
+                Assert.NotNull(sub1.BillingInfoUuid);
+            }
+            catch (ValidationException e)
+            {
+                foreach (var err in e.Errors) {
+                    Console.WriteLine(err);
+                  }
+            }
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void CreateSubscription_TrialRequiresBillingInfo()
         {
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
@@ -247,7 +287,8 @@ namespace Recurly.Test
 
             var subChange = new SubscriptionChange()
             {
-                PlanCode = plan2.PlanCode
+                PlanCode = plan2.PlanCode,
+                BillingInfoUuid = account.GetBillingInfos()[0].Id
             };
 
             Subscription.ChangeSubscription(sub.Uuid, subChange);
