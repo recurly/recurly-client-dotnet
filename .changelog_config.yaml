@@ -1,0 +1,11 @@
+---
+owner: recurly
+repo: recurly-client-dotnet
+tag_matcher: ^1\..*
+required_issue_labels:
+  - V2
+exclude_labels:
+  - bug?
+  - internal
+  - duplicate
+  - question
