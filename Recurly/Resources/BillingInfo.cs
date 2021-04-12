@@ -23,6 +23,10 @@ namespace Recurly.Resources
         [JsonProperty("address")]
         public Address Address { get; set; }
 
+        /// <value>The `backup_payment_method` indicator is used to designate a billing info as a backup on the account that will be tried if the billing info marked `primary_payment_method` fails.</value>
+        [JsonProperty("backup_payment_method")]
+        public bool? BackupPaymentMethod { get; set; }
+
 
         [JsonProperty("company")]
         public string Company { get; set; }

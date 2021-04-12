@@ -23,6 +23,10 @@ namespace Recurly.Resources
         [JsonProperty("amazon_billing_agreement_id")]
         public string AmazonBillingAgreementId { get; set; }
 
+        /// <value>The `backup_payment_method` indicator is used to designate a billing info as a backup on the account that will be tried if the billing info marked `primary_payment_method` fails. All payment methods, including the billing info marked `primary_payment_method` can be set as a backup. An account can have a maximum of 1 backup, if a user sets a different payment method as a backup, the existing backup will no longer be marked as such.</value>
+        [JsonProperty("backup_payment_method")]
+        public bool? BackupPaymentMethod { get; set; }
+
         /// <value>Company name</value>
         [JsonProperty("company")]
         public string Company { get; set; }
