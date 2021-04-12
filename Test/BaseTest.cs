@@ -38,8 +38,8 @@ namespace Recurly.Test
             account.LastName = "Melon";
             account.Create();
 
-            var binfo = NewBillingInfo(account);
-            binfo.Create();
+            var binfo0 = NewBillingInfo(account);
+            binfo0.Create();
 
             var binfo1 = new BillingInfo();
             binfo1.FirstName = "Pineapple";
@@ -54,6 +54,7 @@ namespace Recurly.Test
             binfo1.ExpirationYear = DateTime.Now.Year + 1;
             binfo1.VerificationValue = "123";
             binfo1.PrimaryPaymentMethod = false;
+            binfo1.BackupPaymentMethod = true;
             account.CreateBillingInfo(binfo1);
 
             var binfo2 = new BillingInfo();
@@ -69,6 +70,7 @@ namespace Recurly.Test
             binfo2.ExpirationYear = DateTime.Now.Year + 1;
             binfo2.VerificationValue = "456";
             binfo2.PrimaryPaymentMethod = true;
+            binfo2.BackupPaymentMethod = false;
             account.CreateBillingInfo(binfo2);
 
             return account;

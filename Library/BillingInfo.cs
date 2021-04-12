@@ -117,6 +117,8 @@ namespace Recurly
 
         public bool? PrimaryPaymentMethod { get; set; }
 
+        public bool? BackupPaymentMethod { get; set; }
+
         public string Iban { get; set; }
 
         /// <summary>
@@ -447,6 +449,10 @@ namespace Recurly
                         PrimaryPaymentMethod = reader.ReadElementContentAsBoolean();
                         break;
 
+                    case "backup_payment_method":
+                        BackupPaymentMethod = reader.ReadElementContentAsBoolean();
+                        break;
+
                     case "updated_at":
                         DateTime d;
                         if (DateTime.TryParse(reader.ReadElementContentAsString(), out d))
@@ -542,6 +548,10 @@ namespace Recurly
             
             if (PrimaryPaymentMethod.HasValue)
                 xmlWriter.WriteElementString("primary_payment_method", PrimaryPaymentMethod.Value.AsString());
+
+            if (BackupPaymentMethod.HasValue)
+                xmlWriter.WriteElementString("backup_payment_method", BackupPaymentMethod.Value.AsString());
+
 
             xmlWriter.WriteEndElement(); // End: billing_info
         }

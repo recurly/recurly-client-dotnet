@@ -127,8 +127,10 @@ namespace Recurly.Test
                 Assert.True(billingInfos.Count == 3);
                 billingInfos[0].FirstName.Should().Be("Papaya");
                 Assert.True(billingInfos[0].PrimaryPaymentMethod);
+                Assert.False(billingInfos[0].BackupPaymentMethod);
                 billingInfos[1].FirstName.Should().Be("Pineapple");
                 Assert.False(billingInfos[1].PrimaryPaymentMethod);
+                Assert.True(billingInfos[1].BackupPaymentMethod);
             }
             catch (ValidationException e)
             {
