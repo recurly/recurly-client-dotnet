@@ -358,6 +358,20 @@ namespace Recurly
         }
 
         /// <summary>
+        /// Gets a billing info from wallet
+        /// </summary>
+        /// <returns>BillingInfo</returns>
+        public  BillingInfo GetBillingInfo(string billingInfoUuid)
+        {
+            var billingInfo = new BillingInfo(this);
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
+                UrlPrefix + Uri.EscapeDataString(AccountCode) + "/billing_infos/" + billingInfoUuid,
+                billingInfo.ReadXml);
+
+            return statusCode == HttpStatusCode.NotFound ? null : billingInfo;
+        }
+
+        /// <summary>
         /// Returns a list of invoices for this account
         /// </summary>
         /// <returns></returns>
