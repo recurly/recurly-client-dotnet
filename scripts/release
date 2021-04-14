@@ -19,5 +19,5 @@ rm -rf "$(pwd)"/Recurly/bin/
 #publish
 dotnet pack -c Release
 dotnet build -c Release
-dotnet nuget push "$(pwd)"/Recurly/bin/Release/Recurly.*.nupkg -s https://api.nuget.org/v3/index.json -k "$NUGET_TOKEN"
+dotnet nuget push "$(pwd)"/Recurly/bin/Release/Recurly.*.nupkg -s https://api.nuget.org/v3/index.json
 
