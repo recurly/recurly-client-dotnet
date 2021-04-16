@@ -337,7 +337,7 @@ namespace Recurly
         {
             var shippingAddresses = new ShippingAddressList(this);
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
-                UrlPrefix + Uri.EscapeDataString(AccountCode) + "/shipping_addresses",
+                UrlPrefix + Uri.EscapeDataString(AccountCode) + "/shipping_addresses/",
                 shippingAddresses.ReadXmlList);
 
             return statusCode == HttpStatusCode.NotFound ? null : shippingAddresses;
@@ -532,7 +532,7 @@ namespace Recurly
       {
         // v2/accounts/:account_code/billing_infos
           var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
-              UrlPrefix + Uri.EscapeDataString(AccountCode) + "/billing_infos",
+              UrlPrefix + Uri.EscapeDataString(AccountCode) + "/billing_infos/",
               billingInfo.WriteXml,
               billingInfo.ReadXml);
 
