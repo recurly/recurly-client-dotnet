@@ -31,6 +31,51 @@ namespace Recurly.Test
             return account;
         }
 
+        protected Account CreateNewAccountWithWallet()
+        {
+            var account = new Account(GetUniqueAccountCode());
+            account.FirstName = "Winter";
+            account.LastName = "Melon";
+            account.Create();
+
+            var binfo0 = NewBillingInfo(account);
+            binfo0.Create();
+
+            var binfo1 = new BillingInfo();
+            binfo1.FirstName = "Pineapple";
+            binfo1.LastName = "Berete";
+            binfo1.Address1 = "123 Main St";
+            binfo1.City = "New Orleans";
+            binfo1.State = "LA";
+            binfo1.Country = "US";
+            binfo1.PostalCode = "70212";
+            binfo1.CreditCardNumber = "4111111111111111";
+            binfo1.ExpirationMonth = 02;
+            binfo1.ExpirationYear = DateTime.Now.Year + 1;
+            binfo1.VerificationValue = "123";
+            binfo1.PrimaryPaymentMethod = false;
+            binfo1.BackupPaymentMethod = true;
+            account.CreateBillingInfo(binfo1);
+
+            var binfo2 = new BillingInfo();
+            binfo2.FirstName = "Papaya";
+            binfo2.LastName = "Berete";
+            binfo2.Address1 = "123 Main St";
+            binfo2.City = "New Orleans";
+            binfo2.State = "LA";
+            binfo2.Country = "US";
+            binfo2.PostalCode = "70212";
+            binfo2.CreditCardNumber = "4111111111111111";
+            binfo2.ExpirationMonth = 06;
+            binfo2.ExpirationYear = DateTime.Now.Year + 1;
+            binfo2.VerificationValue = "456";
+            binfo2.PrimaryPaymentMethod = true;
+            binfo2.BackupPaymentMethod = false;
+            account.CreateBillingInfo(binfo2);
+
+            return account;
+        }
+
         protected Account CreateNewAccountWithACHBillingInfo()
         {
             var code = GetUniqueAccountCode();

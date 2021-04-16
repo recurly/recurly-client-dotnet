@@ -75,6 +75,7 @@ namespace Recurly
         }
 
         public string AccountCode { get; private set; }
+        public string BillingInfoUuid { get; set; }
         public int OriginalInvoiceNumber { get; private set; }
         public string OriginalInvoiceNumberPrefix { get; private set; }
         public string Uuid { get; protected set; }
@@ -481,6 +482,10 @@ namespace Recurly
                         AccountCode = Uri.UnescapeDataString(accountHref.Substring(accountHref.LastIndexOf("/") + 1));
                         break;
 
+                    case "billing_info_uuid":
+                        BillingInfoUuid = reader.ReadElementContentAsString();
+                        break;
+
                     case "original_invoice":
                         var originalInvoiceHref = reader.GetAttribute("href");
                         var invoiceNumber = Uri.UnescapeDataString(originalInvoiceHref.Substring(originalInvoiceHref.LastIndexOf("/") + 1));
@@ -668,6 +673,7 @@ namespace Recurly
             xmlWriter.WriteElementString("transaction_type", TransactionType);
             if (BillingInfo != null)
               BillingInfo.WriteXml(xmlWriter);
+            xmlWriter.WriteStringIfValid("billing_info_uuid", BillingInfoUuid);
             xmlWriter.WriteEndElement(); // End: invoice
         }
 

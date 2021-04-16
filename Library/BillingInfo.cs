@@ -40,6 +40,7 @@ namespace Recurly
         /// Account Code or unique ID for the account in Recurly
         /// </summary>
         public string AccountCode { get; private set; }
+        public string Id { get; private set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string MandateReference { get; set; }
@@ -113,6 +114,10 @@ namespace Recurly
         /// 3DSecure Action Result Token ID
         /// </summary>
         public string ThreeDSecureActionResultTokenId { get; set; }
+
+        public bool? PrimaryPaymentMethod { get; set; }
+
+        public bool? BackupPaymentMethod { get; set; }
 
         public string Iban { get; set; }
 
@@ -212,7 +217,7 @@ namespace Recurly
             ReadXml(reader);
         }
 
-        internal BillingInfo()
+        public BillingInfo()
         {
         }
 
@@ -294,6 +299,10 @@ namespace Recurly
                     case "account":
                         var href = reader.GetAttribute("href");
                         AccountCode = Uri.UnescapeDataString(href.Substring(href.LastIndexOf("/") + 1));
+                        break;
+
+                    case "uuid":
+                        Id = reader.ReadElementContentAsString();
                         break;
 
                     case "first_name":
@@ -436,6 +445,14 @@ namespace Recurly
                         ExternalHppType = reader.ReadElementContentAsString().ParseAsEnum<HppType>();
                         break;
 
+                    case "primary_payment_method":
+                        PrimaryPaymentMethod = reader.ReadElementContentAsBoolean();
+                        break;
+
+                    case "backup_payment_method":
+                        BackupPaymentMethod = reader.ReadElementContentAsBoolean();
+                        break;
+
                     case "updated_at":
                         DateTime d;
                         if (DateTime.TryParse(reader.ReadElementContentAsString(), out d))
@@ -528,6 +545,13 @@ namespace Recurly
 
             xmlWriter.WriteStringIfValid("token_id", TokenId);
             xmlWriter.WriteStringIfValid("three_d_secure_action_result_token_id", ThreeDSecureActionResultTokenId);
+            
+            if (PrimaryPaymentMethod.HasValue)
+                xmlWriter.WriteElementString("primary_payment_method", PrimaryPaymentMethod.Value.AsString());
+
+            if (BackupPaymentMethod.HasValue)
+                xmlWriter.WriteElementString("backup_payment_method", BackupPaymentMethod.Value.AsString());
+
 
             xmlWriter.WriteEndElement(); // End: billing_info
         }

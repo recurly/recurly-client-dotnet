@@ -63,6 +63,7 @@ namespace Recurly.Test
             get.BillingInfo.CardType.Should().Be(info.CardType);
             get.BillingInfo.FirstSix.Should().Be(info.CreditCardNumber.Substring(0, 6));
             get.BillingInfo.LastFour.Should().Be(info.CreditCardNumber.Last(4));
+            Assert.True(get.BillingInfo.PrimaryPaymentMethod);
         }
 
         [RecurlyFact(TestEnvironment.Type.Integration)]
@@ -229,6 +230,22 @@ namespace Recurly.Test
 
             var fromNetwork = Accounts.Get(account.AccountCode);
             fromNetwork.BillingInfo.Should().BeNull();
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void DeleteBillingInfoFromWallet()
+        {
+            var account = CreateNewAccountWithWallet();
+
+            var billingInfos = account.GetBillingInfos();
+            var acct = Accounts.Get(account.AccountCode);
+
+            Assert.True(acct.GetBillingInfos().Count == 3);
+
+            var deleted = billingInfos[1];
+            account.DeleteBillingInfo(deleted.Id);
+
+            Assert.True(acct.GetBillingInfos().Count == 2);
         }
 
         [Theory,

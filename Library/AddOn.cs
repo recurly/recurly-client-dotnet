@@ -48,7 +48,7 @@ namespace Recurly
         /// </summary>
         public List<Tier> Tiers
         {
-            get {return _tiers ?? (_tiers = new List<Tier>()); }
+            get { return _tiers ?? (_tiers = new List<Tier>()); }
             set { _tiers = value; }
         }
 

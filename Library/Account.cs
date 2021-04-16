@@ -79,15 +79,22 @@ namespace Recurly
             }
         }
 
+        public List<BillingInfo> BillingInfos
+        {
+            get { return _billingInfos ?? (_billingInfos = new List<BillingInfo>()); }
+            set { _billingInfos = value; }
+        }
+
+        private List<BillingInfo> _billingInfos;
+
         private BillingInfo _billingInfo;
 
         public BillingInfo BillingInfo
         {
             get
             {
-                if (null != _billingInfo)
+                if (null != _billingInfo && null == _billingInfos)
                     return _billingInfo;
-
                 try
                 {
                     _billingInfo = BillingInfo.Get(AccountCode);
@@ -337,6 +344,34 @@ namespace Recurly
         }
 
         /// <summary>
+        /// Gets all billing infos
+        /// </summary>
+        /// <returns>BillingInfoList</returns>
+        public RecurlyList<BillingInfo> GetBillingInfos()
+        {
+            var billingInfos = new BillingInfoList(this);
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
+                UrlPrefix + Uri.EscapeDataString(AccountCode) + "/billing_infos/",
+                billingInfos.ReadXmlList);
+
+            return statusCode == HttpStatusCode.NotFound ? null : billingInfos;
+        }
+
+        /// <summary>
+        /// Gets a billing info from wallet
+        /// </summary>
+        /// <returns>BillingInfo</returns>
+        public  BillingInfo GetBillingInfo(string billingInfoUuid)
+        {
+            var billingInfo = new BillingInfo(this);
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
+                UrlPrefix + Uri.EscapeDataString(AccountCode) + "/billing_infos/" + billingInfoUuid,
+                billingInfo.ReadXml);
+
+            return statusCode == HttpStatusCode.NotFound ? null : billingInfo;
+        }
+
+        /// <summary>
         /// Returns a list of invoices for this account
         /// </summary>
         /// <returns></returns>
@@ -456,7 +491,7 @@ namespace Recurly
         public ShippingAddress CreateShippingAddress(ShippingAddress shippingAddress)
         {
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
-                UrlPrefix + Uri.EscapeDataString(AccountCode) + "/shipping_addresses",
+                UrlPrefix + Uri.EscapeDataString(AccountCode) + "/shipping_addresses/",
                 shippingAddress.WriteXml,
                 shippingAddress.ReadXml);
 
@@ -464,7 +499,7 @@ namespace Recurly
         }
 
         /// <summary>
-        /// Gets all shipping addresses
+        /// Updates a shipping address
         /// </summary>
         /// <param name="shippingAddress"></param>
         /// <returns>ShippingAddress object</returns>
@@ -487,6 +522,47 @@ namespace Recurly
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Delete,
                 UrlPrefix + Uri.EscapeDataString(AccountCode) + "/shipping_addresses/" + shippingAddressId);
         }
+
+      /// <summary>
+      /// Creates a billing info in wallet
+      /// </summary>
+      /// <param name="billingInfo"></param>
+      /// <returns>BillingInfo object</returns>
+      public BillingInfo CreateBillingInfo(BillingInfo billingInfo)
+      {
+        // v2/accounts/:account_code/billing_infos
+          var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
+              UrlPrefix + Uri.EscapeDataString(AccountCode) + "/billing_infos/",
+              billingInfo.WriteXml,
+              billingInfo.ReadXml);
+
+          return statusCode == HttpStatusCode.Created ? billingInfo : null;
+      }
+
+      /// <summary>
+      /// Updates a billing info in wallet
+      /// </summary>
+      /// <param name="billingInfo"></param>
+      /// <returns>BillingInfo object</returns>
+      public BillingInfo UpdateBillingInfo(BillingInfo billingInfo)
+      {
+          var billingInfoId = billingInfo.Id;
+          var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
+              UrlPrefix + Uri.EscapeDataString(AccountCode) + "/billing_infos/" + billingInfoId,
+              billingInfo.WriteXml,
+              billingInfo.ReadXml);
+
+          return statusCode == HttpStatusCode.OK ? billingInfo : null;
+      }
+
+      /// <summary>
+      /// Deletes a billing info from wallet
+      /// </summary>
+      public void DeleteBillingInfo(string billingInfoId)
+      {
+          var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Delete,
+              UrlPrefix + Uri.EscapeDataString(AccountCode) + "/billing_infos/" + billingInfoId);
+      }
 
         #region Read and Write XML documents
 
@@ -518,12 +594,12 @@ namespace Recurly
                         break;
 
                     case "billing_info":
-                       var href = reader.GetAttribute("href");
-                       if (null == href)
-                       {
-                           BillingInfo = new BillingInfo(reader);
-                       }    
-                       break;
+                        var href = reader.GetAttribute("href");
+                        if (null == href)
+                        {
+                            BillingInfo = new BillingInfo(reader);
+                        }
+                        break;
 
                     case "state":
                         // TODO investigate in case of incoming data representing multiple states, as https://dev.recurly.com/docs/get-account says is possible
@@ -674,6 +750,7 @@ namespace Recurly
             xmlWriter.WriteStringIfValid("cc_emails", CcEmails);
             xmlWriter.WriteStringIfValid("preferred_locale", PreferredLocale);
 
+            xmlWriter.WriteIfCollectionHasAny("billing_infos", BillingInfos);
             xmlWriter.WriteIfCollectionHasAny("shipping_addresses", ShippingAddresses);
             xmlWriter.WriteIfCollectionHasAny("custom_fields", CustomFields);
 
