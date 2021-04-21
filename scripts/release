@@ -1,10 +1,23 @@
 #!/usr/bin/env bash
 set -e
 
+if [ -f ~/.nuget-token ]; then
+  api_token=$(cat ~/.nuget-token)
+fi
+# NUGET_TOKEN env var has precedence over ~/.nuget-token
+api_token=${NUGET_TOKEN:-$api_token}
+
+# Environment verification
+if [ -z "$api_token" ]; then
+  echo "API token must be set in ~/.nuget-token or NUGET_TOKEN environment variable. Aborting."
+  exit 1
+fi
+
+
 ./scripts/clean
 ./scripts/build Release
 mkdir -p ./dist/lib/net47
 cp ./Library/bin/Release/* ./dist/lib/net47/
 cd dist
-nuget pack recurly.nuspec
-nuget push recurly-api-client.*.nupkg -Source https://api.nuget.org/v3/index.json
+dotnet nuget pack recurly.nuspec
+dotnet nuget push recurly-api-client.*.nupkg -Source https://api.nuget.org/v3/index.json -k "$api_token'
