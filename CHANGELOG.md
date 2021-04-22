@@ -1,835 +1,1539 @@
-Unreleased
-===============
+# Changelog
 
-1.17.10 (stable) / 2021-02-22
-- Fix test: create billing info (IBAN) [PR](https://github.com/recurly/recurly-client-dotnet/pull/592)
-- Expose fields in response xml to developer [PR](https://github.com/recurly/recurly-client-dotnet/pull/593)
-- Repair Lookup Credit Payment endpoint [PR](https://github.com/recurly/recurly-client-dotnet/pull/602)
-- Repair PUT /subscriptions/:subscription_id [PR](https://github.com/recurly/recurly-client-dotnet/pull/604)
-- Add missing UnionPay enum to BillingInfo [PR](https://github.com/recurly/recurly-client-dotnet/pull/605)
+## [1.17.11](https://github.com/recurly/recurly-client-dotnet/tree/1.17.11) (2021-04-22)
 
-1.17.9 (stable) / 2020-11-05
-===============
-- Support item-specific coupons [PR](https://github.com/recurly/recurly-client-dotnet/pull/588)
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.10...1.17.11)
 
-1.17.8 (stable) / 2020-09-17
-===============
-- New endpoint to verify an account's billing information [PR](https://github.com/recurly/recurly-client-dotnet/pull/577)
 
-1.17.7 (stable) / 2020-08-20
-===============
-This brings us up to API version 2.29. There are no breaking changes.
+**Merged Pull Requests**
 
-- Account for when usage_percentage is null [PR](https://github.com/recurly/recurly-client-dotnet/pull/559)
-- Add tax identifier fields to billing info [PR](https://github.com/recurly/recurly-client-dotnet/pull/563)
-- Apply level of abstraction to xml writers by using WriteStringIfValid() [PR](https://github.com/recurly/recurly-client-dotnet/pull/564)
-- Write xml for address2 field as long as it is not null [PR](https://github.com/recurly/recurly-client-dotnet/pull/566)
+- Wallet and Backup Payment [#626](https://github.com/recurly/recurly-client-dotnet/pull/626) ([joannasese](https://github.com/joannasese))
 
-1.17.6 (stable) / 2020-07-22
-===============
-This brings us up to API version 2.28. There are no breaking changes.
 
-- BECS support [PR](https://github.com/recurly/recurly-client-dotnet/pull/552)
 
-1.17.5 (stable) / 2020-06-30
-===============
-This brings us up to API version 2.27. There are no breaking changes.
+## [1.17.10](https://github.com/recurly/recurly-client-dotnet/tree/1.17.10) (2021-02-22)
 
-- Update serializer for item-backed add-ons to accommodate QBP [PR](https://github.com/recurly/recurly-client-dotnet/pull/515)
-- Add timeframe query params to cancel subscription endpoint [PR](https://github.com/recurly/recurly-client-dotnet/pull/525)
-- BACS support [PR](https://github.com/recurly/recurly-client-dotnet/pull/528)
-- Repair test to expect a validation exception [PR](https://github.com/recurly/recurly-client-dotnet/pull/529)
-- Expect validation exception when converting trial with fake token [PR](https://github.com/recurly/recurly-client-dotnet/pull/530)
-- Support items on subscriptions [PR](https://github.com/recurly/recurly-client-dotnet/pull/539)
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.9...1.17.10)
 
-1.17.4 (stable) / 2020-04-15
-===============
 
-- Enable item-backed add-ons [PR](https://github.com/recurly/recurly-client-dotnet/pull/489)
-- Allow tiered add-ons to be updated [PR](https://github.com/recurly/recurly-client-dotnet/pull/503)
+**Merged Pull Requests**
 
-1.17.3 (stable) / 2020-03-26
-===============
+- Bump to dotnet client library version 1.17.10 and update history [#614](https://github.com/recurly/recurly-client-dotnet/pull/614) ([joannasese](https://github.com/joannasese))
+- Add missing UnionPay enum to BillingInfo [#605](https://github.com/recurly/recurly-client-dotnet/pull/605) ([joannasese](https://github.com/joannasese))
+- Repair PUT /subscriptions/:subscription_id [#604](https://github.com/recurly/recurly-client-dotnet/pull/604) ([joannasese](https://github.com/joannasese))
+- Repair Lookup Credit Payment endpoint [#602](https://github.com/recurly/recurly-client-dotnet/pull/602) ([joannasese](https://github.com/joannasese))
+- Expose fields in response xml to developer [#593](https://github.com/recurly/recurly-client-dotnet/pull/593) ([joannasese](https://github.com/joannasese))
+- Fix test: create billing info (IBAN) [#592](https://github.com/recurly/recurly-client-dotnet/pull/592) ([joannasese](https://github.com/joannasese))
 
-This brings us up to API version 2.26. There are no breaking changes.
 
-- Add IBAN attribute to BillingInfo [PR](https://github.com/recurly/recurly-client-dotnet/pull/490)
-- Tiered Pricing [PR](https://github.com/recurly/recurly-client-dotnet/pull/496)
-- Add tier_type to SubscriptionAddOn and related constructor [PR](https://github.com/recurly/recurly-client-dotnet/pull/497)
-- Add mandate_reference attribute to BillingInfo [PR](https://github.com/recurly/recurly-client-dotnet/pull/499)
 
-1.17.2 (stable) / 2020-02-20
-===============
+## [1.17.9](https://github.com/recurly/recurly-client-dotnet/tree/1.17.9) (2020-11-05)
 
-This brings us up to API version 2.25. There are no breaking changes.
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.8...1.17.9)
 
-- Add ConvertTrial() to Subscription [PR](https://github.com/recurly/recurly-client-net/pull/480)
 
-1.17.1 (stable) / 2020-02-18
-===============
+**Merged Pull Requests**
 
-- Add 'capture' and 'cancel' to Purchase [PR](https://github.com/recurly/recurly-client-net/pull/474)
-- Repair broken tests [PR](https://github.com/recurly/recurly-client-net/pull/475)
-- Add external_sku to Adjustment [PR](https://github.com/recurly/recurly-client-net/pull/476)
-- Request will include item_code if ItemCode has a value [PR](https://github.com/recurly/recurly-client-net/pull/477)
+- Release 1.17.9 [#590](https://github.com/recurly/recurly-client-dotnet/pull/590) ([joannasese](https://github.com/joannasese))
+- Support item-specific coupons [#588](https://github.com/recurly/recurly-client-dotnet/pull/588) ([joannasese](https://github.com/joannasese))
 
-1.17.0 (stable) / 2019-11-21
-===============
 
-- Add Item class [PR](https://github.com/recurly/recurly-client-net/pull/461)
 
-### Upgrade Notes
-This brings us up to API version 2.24. There is one breaking change.
-- Adjustment#TaxExempt has been converted to nullable.
+## [1.17.8](https://github.com/recurly/recurly-client-dotnet/tree/1.17.8) (2020-09-17)
 
-1.16.3 (stable) / 2019-10-22
-===============
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.7...1.17.8)
 
-- Add shipping address to Purchase [PR](https://github.com/recurly/recurly-client-net/pull/452)
-- Terms timeframe enum change [PR](https://github.com/recurly/recurly-client-net/pull/436)
 
-1.16.2 (stable) / 2019-09-13
-===============
+**Merged Pull Requests**
 
-- PSD2 billing info changes [PR](https://github.com/recurly/recurly-client-net/pull/441)
+- Release 1.17.8 [#578](https://github.com/recurly/recurly-client-dotnet/pull/578) ([joannasese](https://github.com/joannasese))
+- New endpoint to verify an account's billing information [#577](https://github.com/recurly/recurly-client-dotnet/pull/577) ([joannasese](https://github.com/joannasese))
+- To enable updating QBP sub add-ons, add Tiers to SubscriptionAddOn [#561](https://github.com/recurly/recurly-client-dotnet/pull/561) ([joannasese](https://github.com/joannasese))
 
-1.16.1 (stable) / 2019-08-21
-===============
 
-This brings us up to API version 2.22. There are no breaking changes.
 
-- MOTO transactions [PR](https://github.com/recurly/recurly-client-net/pull/437)
+## [1.17.7](https://github.com/recurly/recurly-client-dotnet/tree/1.17.7) (2020-08-20)
 
-1.16.0 (stable) / 2019-07-16
-===============
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.6...1.17.7)
 
-* Fix timeoutMilliseconds when using config file [PR](https://github.com/recurly/recurly-client-net/pull/420)
-* Only send Address object if Address properties were changed [PR](https://github.com/recurly/recurly-client-net/pull/426)
-* Add missing properties to XML serializer for Adjustment class  [PR](https://github.com/recurly/recurly-client-net/pull/427)
 
-### Upgrade Notes
-This release contains one breaking change:
+**Merged Pull Requests**
 
-When updating an Invoice, the embedded Address object is only sent to the API if explicitly set on the object, and the following fields require an empty string to clear values:
-- CustomerNotes
-- TermsAndConditions
-- VatReverseChargeNotes
-- GatewayCode
-- PoNumber
+- Release 1.17.7 [#567](https://github.com/recurly/recurly-client-dotnet/pull/567) ([joannasese](https://github.com/joannasese))
+- Write xml for address2 field as long as it is not null [#566](https://github.com/recurly/recurly-client-dotnet/pull/566) ([joannasese](https://github.com/joannasese))
+- Apply level of abstraction to xml writers by using WriteStringIfValid() [#564](https://github.com/recurly/recurly-client-dotnet/pull/564) ([joannasese](https://github.com/joannasese))
+- Add tax identifier fields to billing info [#563](https://github.com/recurly/recurly-client-dotnet/pull/563) ([joannasese](https://github.com/joannasese))
+- Account for when usage_percentage is null [#559](https://github.com/recurly/recurly-client-dotnet/pull/559) ([joannasese](https://github.com/joannasese))
 
-In the past, if you were to leave a value such as `CustomerNotes` null, it would nullify it via the API.
-Now, you must explicitly nullify it by setting it to empty string `""`. See [this conversation](https://github.com/recurly/recurly-client-net/pull/368#discussion_r246890848) for an example.
 
-1.15.8 (stable) / 2019-06-27
-===============
 
-* Support 3DS authentication [PR](https://github.com/recurly/recurly-client-net/pull/415)
-* Accomodate null value in Bank Account Type [PR](https://github.com/recurly/recurly-client-net/pull/422)
+## [1.17.6](https://github.com/recurly/recurly-client-dotnet/tree/1.17.6) (2020-07-22)
 
-1.15.7 (stable) / 2019-06-18
-===============
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.5...1.17.6)
 
-* Allow programmer to change the PlanCode [PR](https://github.com/recurly/recurly-client-net/pull/414)
 
-1.15.6 (stable) / 2019-05-21
-===============
+**Merged Pull Requests**
 
-This release brings us up to API version 2.20. There are no breaking changes.
+- Release 1.17.6 [#553](https://github.com/recurly/recurly-client-dotnet/pull/553) ([joannasese](https://github.com/joannasese))
+- BECS support [#552](https://github.com/recurly/recurly-client-dotnet/pull/552) ([joannasese](https://github.com/joannasese))
+- BECS support [#550](https://github.com/recurly/recurly-client-dotnet/pull/550) ([joannasese](https://github.com/joannasese))
 
-* Add Default Request Timeout Setting [PR](https://github.com/recurly/recurly-client-net/pull/395)
-* Add Shipping Fees [PR](https://github.com/recurly/recurly-client-net/pull/396)
-* Allow updating a subscription at next bill date [PR](https://github.com/recurly/recurly-client-net/pull/397)
 
-1.15.5 (stable) / 2019-04-30
-===============
 
-* Add ForceCollect to Invoice [PR](https://github.com/recurly/recurly-client-net/pull/393)
+## [1.17.5](https://github.com/recurly/recurly-client-dotnet/tree/1.17.5) (2020-06-30)
 
-1.15.4 (stable) / 2019-03-19
-===============
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.4...1.17.5)
 
-* Fix XML for GiftCard Personal Message [PR](https://github.com/recurly/recurly-client-net/pull/386)
 
-1.15.3 (stable) / 2019-03-12
-===============
+**Merged Pull Requests**
 
-This release brings us up to API version 2.19. There are no breaking changes.
+- Release 1.17.5 [#544](https://github.com/recurly/recurly-client-dotnet/pull/544) ([joannasese](https://github.com/joannasese))
+- Merge v2.27 features into v2 branch for release [#543](https://github.com/recurly/recurly-client-dotnet/pull/543) ([joannasese](https://github.com/joannasese))
+- Support items on subscriptions [#539](https://github.com/recurly/recurly-client-dotnet/pull/539) ([joannasese](https://github.com/joannasese))
+- Expect validation exception when converting trial with fake token [#530](https://github.com/recurly/recurly-client-dotnet/pull/530) ([joannasese](https://github.com/joannasese))
+- Repair test to expect a validation exception [#529](https://github.com/recurly/recurly-client-dotnet/pull/529) ([joannasese](https://github.com/joannasese))
+- BACS support [#528](https://github.com/recurly/recurly-client-dotnet/pull/528) ([joannasese](https://github.com/joannasese))
+- Add timeframe query params to cancel subscription endpoint [#525](https://github.com/recurly/recurly-client-dotnet/pull/525) ([joannasese](https://github.com/joannasese))
+- Update serializer for item-backed add-ons to accommodate QBP [#515](https://github.com/recurly/recurly-client-dotnet/pull/515) ([joannasese](https://github.com/joannasese))
 
-* Add support for Account Hierarchy [PR](https://github.com/recurly/recurly-client-net/pull/367)
-* Fix issues with AddOns in Subscription Change [PR](https://github.com/recurly/recurly-client-net/pull/381)
 
-1.15.2 (stable) / 2019-02-19
-===============
 
-This release brings us up to API version 2.18
+## [1.17.4](https://github.com/recurly/recurly-client-dotnet/tree/1.17.4) (2020-04-15)
 
-* Add support for Amazon Region [PR](https://github.com/recurly/recurly-client-net/pull/369)
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.3...1.17.4)
 
-1.15.1 (stable) / 2019-02-07
-===============
 
-* Fix bug when SubscriptionAddOn.UsagePercentage is null [PR](https://github.com/recurly/recurly-client-net/pull/376)
+**Merged Pull Requests**
 
-1.15.0 (stable) / 2019-02-05
-===============
+- Release 1.17.4 [#506](https://github.com/recurly/recurly-client-dotnet/pull/506) ([joannasese](https://github.com/joannasese))
+- Allow tiered add-ons to be updated [#503](https://github.com/recurly/recurly-client-dotnet/pull/503) ([joannasese](https://github.com/joannasese))
+- Enable item-backed add-ons [#489](https://github.com/recurly/recurly-client-dotnet/pull/489) ([joannasese](https://github.com/joannasese))
 
-Note: this release contains a bug in SubscriptionAddoOn. Please use version 1.15.1 or higher instead.
 
-* Bug fixes [PR](https://github.com/recurly/recurly-client-net/pull/368)
-* Remove broken test [PR](https://github.com/recurly/recurly-client-net/pull/365)
-* Add SubscriptionChange class [PR](https://github.com/recurly/recurly-client-net/pull/363)
-* Update the User Agent [PR](https://github.com/recurly/recurly-client-net/pull/361)
-* Add TransactionError property to Transaction class [PR](https://github.com/recurly/recurly-client-net/pull/372)
 
-### Upgrade Notes
-This release contains two breaking changes:
+## [1.17.3](https://github.com/recurly/recurly-client-dotnet/tree/1.17.3) (2020-03-27)
 
-#### 1. Subscription Change Objects
-To update a subscription, a SubscriptionChange object must be passed into the `ChangeSubscription()` method.
-See the C# example in our [dev docs](https://dev.recurly.com/docs/update-subscription).
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.2...1.17.3)
 
-#### 2. Address requires empty string to clear values
-In the past, if you were to leave a value such as `FirstName` null, it would nullify it via the API.
-Now, you must explicitly nullify it by setting it to empty string `""`. See [this conversation](https://github.com/recurly/recurly-client-net/pull/368#discussion_r246890848) for an example.
 
-1.14.1 (stable) / 2018-12-11
-===============
+**Merged Pull Requests**
 
-This release brings us up to API version 2.17
+- Release 1.17.3 [#501](https://github.com/recurly/recurly-client-dotnet/pull/501) ([joannasese](https://github.com/joannasese))
+- Merge v2.26 features into v2 branch for release [#500](https://github.com/recurly/recurly-client-dotnet/pull/500) ([joannasese](https://github.com/joannasese))
+- Add mandate_reference attribute to BillingInfo [#499](https://github.com/recurly/recurly-client-dotnet/pull/499) ([joannasese](https://github.com/joannasese))
+- Add tier_type to SubscriptionAddOn and related constructor [#497](https://github.com/recurly/recurly-client-dotnet/pull/497) ([joannasese](https://github.com/joannasese))
+- Tiered Pricing [#496](https://github.com/recurly/recurly-client-dotnet/pull/496) ([joannasese](https://github.com/joannasese))
+- Add IBAN attribute to BillingInfo [#490](https://github.com/recurly/recurly-client-dotnet/pull/490) ([joannasese](https://github.com/joannasese))
 
-* Add public constructors to error classes [PR](https://github.com/recurly/recurly-client-net/pull/350)
-* Add missing values to WriteSubscriptionXml() [PR](https://github.com/recurly/recurly-client-net/pull/352)
-* Add `GatewayCode` to Subscription for notes and Invoice [PR](https://github.com/recurly/recurly-client-net/pull/355)
-* Add `ExemptionCertificate` attribute to Account [PR](https://github.com/recurly/recurly-client-net/pull/356)
-* Remove examples.md [PR](https://github.com/recurly/recurly-client-net/pull/357)
-* Add Custom Fields to WriteSubscriptionXml() [PR](https://github.com/recurly/recurly-client-net/pull/358)
-* Add EnterOfflinePayment method to Invoice [PR](https://github.com/recurly/recurly-client-net/pull/359)
-* Add methods for working with Shipping Addresses [PR](https://github.com/recurly/recurly-client-net/pull/360)
-* Make UTC explicit in Subscription.Postpone [PR](https://github.com/recurly/recurly-client-net/pull/362)
 
-1.14.0 (stable) / 2018-10-30
-===============
 
-* Made Gift Card RedeemedAt, DeliveredAt and CanceledAt nullable [PR](https://github.com/recurly/recurly-client-net/pull/343)
-* Change Usage dates to UTC [PR](https://github.com/recurly/recurly-client-net/pull/345)
-* Standardize line endings [PR](https://github.com/recurly/recurly-client-net/pull/346)
-* Changed Invoice Refunds for Credit Memo API changes [PR](https://github.com/recurly/recurly-client-net/pull/347)
-* Fixed tests based on credit memo changes [PR](https://github.com/recurly/recurly-client-net/pull/349)
+## [1.17.2](https://github.com/recurly/recurly-client-dotnet/tree/1.17.2) (2020-02-20)
 
-### Upgrade Notes
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.1...1.17.2)
 
-This release brings us up to API version 2.16.
-The properties RedeemedAt and DeliveredAt of the GiftCard class are now nullable.
 
-1.13.1 (stable) / 2018-09-25
-===============
+**Merged Pull Requests**
 
-* Added clean and release scripts [PR](https://github.com/recurly/recurly-client-net/pull/336)
-* Updated README with config and .Net target instructions [PR](https://github.com/recurly/recurly-client-net/pull/337)
-* Fixed release script [PR](https://github.com/recurly/recurly-client-net/pull/339)
-* Escape user supplied input [commit](https://github.com/recurly/recurly-client-net/commit/7a516e77c43f6993bc8b4d62a21336eed6e6bd6c)
-* Check for empty and null strings [commit](https://github.com/recurly/recurly-client-net/commit/3823d7a0b0d68e6f7877eaca7bc87f784fc105ce)
-* Fix compiler warnings [PR](https://github.com/recurly/recurly-client-net/pull/341)
+- Release 1.17.2 [#486](https://github.com/recurly/recurly-client-dotnet/pull/486) ([joannasese](https://github.com/joannasese))
+- Add ConvertTrial() to Subscription [#480](https://github.com/recurly/recurly-client-dotnet/pull/480) ([joannasese](https://github.com/joannasese))
 
-1.13.0 (stable) / 2018-09-11
-===============
 
-* Allow updating custom fields through /notes endpoint
-* Add ability to update an invoice
-* Remove reference to unused ruleset
-* Upgrade .NET 4.7 and scripts folder
-* Allow test script to run a single method
-* Fix integration tests so they all pass
 
-### Upgrade Notes
+## [1.17.1](https://github.com/recurly/recurly-client-dotnet/tree/1.17.1) (2020-02-18)
 
-This release brings us up to API version 2.14. The build now targets .NET v4.7.
-Please make sure that you update your application appropriately.
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.0...1.17.1)
 
-1.12.5 (stable) / 2018-07-30
-===============
 
-* Upgrade mono to fix TLS issue 
-* 2.13 Custom Fields Support
-* Add PoNumber to Purchases Serializer
+**Merged Pull Requests**
 
-1.12.4 (stable) / 2018-07-06
-===============
+- Release 1.17.1 [#483](https://github.com/recurly/recurly-client-dotnet/pull/483) ([joannasese](https://github.com/joannasese))
+- Request will include item_code if ItemCode has a value. [#477](https://github.com/recurly/recurly-client-dotnet/pull/477) ([joannasese](https://github.com/joannasese))
+- Add external_sku to Adjustment [#476](https://github.com/recurly/recurly-client-dotnet/pull/476) ([joannasese](https://github.com/joannasese))
+- Repair broken tests [#475](https://github.com/recurly/recurly-client-dotnet/pull/475) ([joannasese](https://github.com/joannasese))
+- Add 'capture' and 'cancel' to Purchase [#474](https://github.com/recurly/recurly-client-dotnet/pull/474) ([joannasese](https://github.com/joannasese))
+- Update History.md [#472](https://github.com/recurly/recurly-client-dotnet/pull/472) ([joannasese](https://github.com/joannasese))
 
-* Allow nulls in BillingInfo
 
-1.12.3 (stable) / 2018-06-26
-===============
 
-Fixes a regression issue introduced in 1.12.1
+## [1.17.0](https://github.com/recurly/recurly-client-dotnet/tree/1.17.0) (2019-11-21)
 
-* Issue parsing Account#billing_info
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.16.3...1.17.0)
 
-1.12.2 (stable) / 2018-06-26
-===============
 
-This release brings us to API version 2.13 but does not have any breaking changes.
+**Merged Pull Requests**
 
-* Allow programmer to set gateway code per purchase
-* Add link to all_transactions on Invoice
-* Subscription Terms
-* Subscription.Coupon throws an ArgumentNullException if couponCode is null. Now returns null.
+- Release 1.17.0 [#463](https://github.com/recurly/recurly-client-dotnet/pull/463) ([joannasese](https://github.com/joannasese))
+- Add Item class [#461](https://github.com/recurly/recurly-client-dotnet/pull/461) ([joannasese](https://github.com/joannasese))
 
-1.12.1 (stable) / 2018-06-22
-===============
 
-* Fix Usages Id parsing bug
-* Transaction should parse embedded account
-* Make Subscription#RemainingBillingCycles writeable
-* Use EnumTransportCase for RefundMethod
 
-1.12.0 (stable) / 2018-05-29
-===============
+## [1.16.3](https://github.com/recurly/recurly-client-dotnet/tree/1.16.3) (2019-10-22)
 
-* Fix unit amount in cents for usage add ons
-* Expose subs accountcode to avoid unnecessary api requests
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.16.2...1.16.3)
 
-###Upgrade Notes
 
-SubscriptionAddOn#UnitAmountInCents was changed to nullable type. If you do not read this value, no change is needed.
+**Merged Pull Requests**
 
+- Release 1.16.3 [#454](https://github.com/recurly/recurly-client-dotnet/pull/454) ([joannasese](https://github.com/joannasese))
+- Add shipping address to Purchase [#452](https://github.com/recurly/recurly-client-dotnet/pull/452) ([joannasese](https://github.com/joannasese))
 
-1.11.4 (stable) / 2018-05-16
-===============
 
-* API v2.12 changes
 
-1.11.2 (stable) / 2018-04-03
-===============
+## [1.16.2](https://github.com/recurly/recurly-client-dotnet/tree/1.16.2) (2019-09-13)
 
-* Fix typo in Subscription#Pause
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.16.1...1.16.2)
 
-1.11.1 (stable) / 2018-04-02
-===============
 
-* Add missing RevenueScheduleType values
-* API v2.11 Changes
-* Fix InvoiceCollection#credit_invoices parsing
+**Merged Pull Requests**
 
+- Release 1.16.2 [#442](https://github.com/recurly/recurly-client-dotnet/pull/442) ([bhelx](https://github.com/bhelx))
+- PSD2 billing info changes [#441](https://github.com/recurly/recurly-client-dotnet/pull/441) ([bhelx](https://github.com/bhelx))
 
-1.11.0 (stable) / 2018-03-11
-===============
 
-- API v2.10 changes
 
-### Upgrade Notes
+## [1.16.1](https://github.com/recurly/recurly-client-dotnet/tree/1.16.1) (2019-08-21)
 
-This version brings us up to API version 2.10. There are quite a few breaking changes:
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.16.0...1.16.1)
 
-#### 1. InvoiceCollection
 
-When creating or failing invoices, we now return an InvoiceCollection object rather than an Invoice. If you wish to upgrade your application without changing functionality, we recommend that you use the `ChargeInvoice` property on the InvoiceCollection to get the charge Invoice. Example:
+**Merged Pull Requests**
 
-```csharp
-// Change this:
-var invoice = account.InvoicePendingCharges();
+- Release 1.16.1 / API version 2.22 [#438](https://github.com/recurly/recurly-client-dotnet/pull/438) ([bhelx](https://github.com/bhelx))
+- MOTO transactions [#437](https://github.com/recurly/recurly-client-dotnet/pull/437) ([bhelx](https://github.com/bhelx))
 
-// To this
-var invoiceCollection = account.InvoicePendingCharges();
-var invoice = invoiceCollection.ChargeInvoice;
 
-// Invoice.MarkFailed now returns a new collection
-// Change this
-invoice.MarkFailed();
 
-// To this
-var invoiceCollection = invoice.MarkFailed();
-var failedInvoice = invoiceCollection.ChargeInvoice;
-```
+## [1.16.0](https://github.com/recurly/recurly-client-dotnet/tree/1.16.0) (2019-07-16)
 
-#### 2. Invoice `Subtotal*` changes
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.15.8...1.16.0)
 
-If you want to preserve functionality, change any use of `Invoice#SubtotalAfterDiscountInCents` to `Invoice#SubtotalInCents`. If you were previously using `Invoice#SubtotalInCents`, this has been changed to `Invoice#SubtotalBeforeDiscountInCents`.
 
-#### 3. Invoice Refund -- `refund_apply_order` changed to `refund_method`
+**Merged Pull Requests**
 
-The `RefundOrderPriority` enum was changed to `RefundMethod`. Change use of `RefundOrderPriority.Credit` to `RefundMethod.CreditFirst` and `RefundOrderPriority.Transaction` to `RefundMethod.TransactionFirst`.
+- Bump to version 1.16.0 [#431](https://github.com/recurly/recurly-client-dotnet/pull/431) ([aaron-suarez](https://github.com/aaron-suarez))
+- Add missing properties to XML serializer for Adjustment class [#427](https://github.com/recurly/recurly-client-dotnet/pull/427) ([aaron-suarez](https://github.com/aaron-suarez))
+- Only send Address object if Address properties were changed [#426](https://github.com/recurly/recurly-client-dotnet/pull/426) ([aaron-suarez](https://github.com/aaron-suarez))
+- Fix timeoutMilliseconds when using config file [#420](https://github.com/recurly/recurly-client-dotnet/pull/420) ([aaron-suarez](https://github.com/aaron-suarez))
 
+**Closed Issues**
 
-#### 4. Invoice States
+- Recurly client legacy configuration issue [#417](https://github.com/recurly/recurly-client-dotnet/issues/417)
 
-If you are checking `Invoice#State` anywhere, you will want to check that you have the new correct values. `collected` has changed to `paid` and `open` has changed to `pending`. Example:
 
-```csharp
-// Change this
-if (invoice.State == Invoice.InvoiceState.Collected) {
-// To this
-if (invoice.State == Invoice.InvoiceState.Paid) {
+## [1.15.8](https://github.com/recurly/recurly-client-dotnet/tree/1.15.8) (2019-06-27)
 
-// Change this
-if (invoice.State == Invoice.InvoiceState.Open) {
-// To this
-if (invoice.State == Invoice.InvoiceState.Pending) {
-```
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.15.7...1.15.8)
 
-#### 5. Invoices on Subscription Previews
 
-If you are using `Subscription#Invoice` on subscription previews, you will need to change this to use `Subscription#InvoiceCollection`. To keep functionality the same:
+**Merged Pull Requests**
 
-```csharp
-// Change this
-subscription.Preview();
-var invoice = subscription.Invoice;
+- Release version 1.15.8 [#423](https://github.com/recurly/recurly-client-dotnet/pull/423) ([aaron-suarez](https://github.com/aaron-suarez))
+- Accommodate null value in Bank Account Type [#422](https://github.com/recurly/recurly-client-dotnet/pull/422) ([tardomatic](https://github.com/tardomatic))
+- Add 3DS tokens to transaction error and billing info [#415](https://github.com/recurly/recurly-client-dotnet/pull/415) ([aaron-suarez](https://github.com/aaron-suarez))
 
-// To this
-subscription.Preview();
-var invoice = subscription.InvoiceCollection.ChargeInvoice;
-```
 
-1.10.0 (stable) / 2018-03-06
-===============
 
-- Fix unit amounts exceptions when using percentage addons
-- Add filter to InvoiceList, redemption updated_at
-- Changed Coupon.Id from int to long
-- Implement Account Acquisition
+## [1.15.7](https://github.com/recurly/recurly-client-dotnet/tree/1.15.7) (2019-06-18)
 
-### Upgrade Notes
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.15.6...1.15.7)
 
-There is one very small breaking change. Coupon.Id changed from an `int` to a `long`. Your code will require a change if you explicitly reference it as an int.
 
-1.9.1 (stable) / 2018-01-22
-===============
+**Merged Pull Requests**
 
-- Set errors variable to a default instance of the Errors class
-- Handle empty revenue_schedule_type
+- Bump to version 1.15.7 [#416](https://github.com/recurly/recurly-client-dotnet/pull/416) ([aaron-suarez](https://github.com/aaron-suarez))
+- Allow programmer to change the PlanCode [#414](https://github.com/recurly/recurly-client-dotnet/pull/414) ([bhelx](https://github.com/bhelx))
 
-1.9.0 (stable) / 2017-10-26
-===============
 
-- Add missing 'DinersClub' credit card type
-- Fix creation of an empty invoice when InvoiceList is empty
-- Make optional ints nullable
-- API v2.9 changes
-- Fix revenue_schedule_type spelling
 
-### Upgrade Notes
+## [1.15.6](https://github.com/recurly/recurly-client-dotnet/tree/1.15.6) (2019-05-21)
 
-This version brings us up to API version 2.9. There is a small set of breaking changes coming from PR #263. These properties have been converted to nullable so you may have to unwrap them to use them:
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.15.5...1.15.6)
 
-- AddOn#DefaultQuantity
-- Plan#PlanIntervalLength
-- Plan#TrialIntervalLength
-- GiftCard#BalanceInCents
 
+**Merged Pull Requests**
 
+- Release version 1.15.6 [#400](https://github.com/recurly/recurly-client-dotnet/pull/400) ([aaron-suarez](https://github.com/aaron-suarez))
+- Add a Timeout Configuration. [#395](https://github.com/recurly/recurly-client-dotnet/pull/395) ([caleb-conner](https://github.com/caleb-conner))
 
-1.8.0 (stable) / 2017-10-26
-===============
 
-* Adds giftcard redeem endpoint
-* Update the README with `Overview` section
-* Make TrialRequiresBillingInfo an optional
-* Implements missing `revenue_schedule_type`
 
-### Upgrade Notes
+## [1.15.5](https://github.com/recurly/recurly-client-dotnet/tree/1.15.5) (2019-04-30)
 
-There is one small breaking change in this API version. `TrialRequiresBillingInfo` is now an optional so you will have to unwrap it to use it.
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.15.4...1.15.5)
 
 
-1.7.0 (stable) / 2017-10-17
-===============
+**Merged Pull Requests**
 
-This release will upgrade us to API version 2.8.
+- Bump to version 1.15.5 [#394](https://github.com/recurly/recurly-client-dotnet/pull/394) ([aaron-suarez](https://github.com/aaron-suarez))
+- Add ForceCollect [#393](https://github.com/recurly/recurly-client-dotnet/pull/393) ([aaron-suarez](https://github.com/aaron-suarez))
+- Update issue templates [#389](https://github.com/recurly/recurly-client-dotnet/pull/389) ([bhelx](https://github.com/bhelx))
 
-* ImportedTrial flag on Subscription
-* Purchases Notes Changes
 
-### Upgrade Notes
 
-There are two breaking changes in this API version you must consider. 
+## [1.15.4](https://github.com/recurly/recurly-client-dotnet/tree/1.15.4) (2019-03-19)
 
-#### Country Codes
-All `Country` fields must now contain valid [2 letter ISO 3166 country codes](https://www.iso.org/iso-3166-country-codes.html). If your country code fails validation, you will receive a validation error. This affects any endpoint where an address is collected.
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.15.3...1.15.4)
 
-#### Purchase Currency
-The purchases endpoint can create and invoice multiple adjustments at once but our invoices can only contain items in one currency. To make this explicit the currency can no longer be provided on an adjustment, it must be set once for the entire purchase:
 
-```csharp
-// You must set the currency here
-var purchase = new Purchase(accountCode, currency);
+**Merged Pull Requests**
 
-var adj = new Adjustment(4000, "HD Camera", 5);
-// You can no longer set the currency on the adjustment level
-adj.Currency = currency;
-purchase.Adjustments.Add(adj);
-```
+- Bump to version 1.15.4 [#387](https://github.com/recurly/recurly-client-dotnet/pull/387) ([aaron-suarez](https://github.com/aaron-suarez))
+- Add PersonalMessage to XML read and write [#386](https://github.com/recurly/recurly-client-dotnet/pull/386) ([aaron-suarez](https://github.com/aaron-suarez))
 
-1.6.1 (stable) / 2017-10-04
-===============
 
-* Fix Subscription#Postpone datetime format bug
 
+## [1.15.3](https://github.com/recurly/recurly-client-dotnet/tree/1.15.3) (2019-03-12)
 
-1.6.0 (stable) / 2017-09-06
-===============
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.15.2...1.15.3)
 
-* Gift Card Support
-* Purchases Endpoint Support
 
-### Upgrade Notes
+**Merged Pull Requests**
 
-This release will upgrade us to API version 2.7. There is only 1 breaking change in this library.
+- Release version 1.15.3 / API version 2.19 [#382](https://github.com/recurly/recurly-client-dotnet/pull/382) ([aaron-suarez](https://github.com/aaron-suarez))
+- Fix Subscription Change issues regarding AddOns [#381](https://github.com/recurly/recurly-client-dotnet/pull/381) ([aaron-suarez](https://github.com/aaron-suarez))
 
-`Invoice` will now use an enum for the `CollectionMethod` property instead of a string. The enum has 2 values (Automatic and Manual). Example:
+**Closed Issues**
 
-```csharp
-// Setting
-invoice.CollectionMethod = Invoice.Collection.Manual;
+- Subscription change issue [#379](https://github.com/recurly/recurly-client-dotnet/issues/379)
 
-// Getting
-if (invoice.CollectionMethod == Invoice.Collection.Automatic)
-{
-  // do something
-}
-```
 
-1.5.1 (stable) / 2017-06-27
-===============
+## [1.15.2](https://github.com/recurly/recurly-client-dotnet/tree/1.15.2) (2019-02-19)
 
-* Fixed NullReference error on List() when page size = 1
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.15.1...1.15.2)
 
-1.5.0 (stable) / 2017-06-07
-===============
 
-* Added account balance endpoint
-* Added plan and subscription changes
-* Fixing NullReferenceException in List() functions
-* Fixed a probable NRE in Plans.List()
-* Remove X-Records Header and RecurlyList #Capacity method
+**Merged Pull Requests**
 
-### Upgrade Notes
+- Release version 1.15.2 / API version 2.18 [#378](https://github.com/recurly/recurly-client-dotnet/pull/378) ([aaron-suarez](https://github.com/aaron-suarez))
 
-This release will upgrade us to API version 2.6. There are two breaking changes:
 
-1. To speed up your listing requests we’re no longer automatically computing the record counts for each requests. For our larger sites this could halve the response time. So in this release, we are removing the `RecurlyList#Capacity` method.
-to be cached for you. For more info see [PR #324](https://github.com/recurly/recurly-client-ruby/pull/324).
-2. For `POST /v2/subscriptions` Sending `null` for `total_billing_cycles` attribute will now override plan `total_billing_cycles` setting and will make subscription renew forever.
-Omitting the attribute will cause the setting to default to the value of plan `total_billing_cycles`.
 
+## [1.15.1](https://github.com/recurly/recurly-client-dotnet/tree/1.15.1) (2019-02-07)
 
-1.4.13 (stable) / 2017-05-04
-===============
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.15.0...1.15.1)
 
-* Removing `trial_requires_billing_info` from Plan (which is in api 2.6)
 
-1.4.12 (stable) / 2017-04-06
-===============
+**Merged Pull Requests**
 
-* API 2.5 additions
-* Sorting and Filtering parameters
-* Refactored Invoice/PreviewPendingCharges to be able to specify notes 
+- Release version 1.15.1 [#377](https://github.com/recurly/recurly-client-dotnet/pull/377) ([aaron-suarez](https://github.com/aaron-suarez))
+- Fix issue when usage_percentage is null [#376](https://github.com/recurly/recurly-client-dotnet/pull/376) ([aaron-suarez](https://github.com/aaron-suarez))
 
-1.4.11 (stable) / 2017-02-16
-===============
+**Closed Issues**
 
-* Automated export feature #221
-* Modified overridden gethashcode to work on null references #220
+- Release 1.15.0 GetSubscriptions() Throws Error When There's A Usage Based Add-On of Type "Price" [#375](https://github.com/recurly/recurly-client-dotnet/issues/375)
 
-1.4.10 (stable) / 2017-02-06
-===============
 
-* Add missing enum values #215
+## [1.15.0](https://github.com/recurly/recurly-client-dotnet/tree/1.15.0) (2019-02-05)
 
-1.4.9 (stable) / 2017-01-20
-===============
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.14.1...1.15.0)
 
-* Write amazon_billing_agreement_id #209
-* Added support for new invoice and transactions states for ACH billing #212
 
-1.4.7 (stable) / 2017-01-11
-===============
+**Merged Pull Requests**
 
-Fixes a bug in 1.4.6. Please prefer this release.
+- Release Version 1.15.0 [#374](https://github.com/recurly/recurly-client-dotnet/pull/374) ([aaron-suarez](https://github.com/aaron-suarez))
+- Fix upgrade notes for version 1.14.0 [#373](https://github.com/recurly/recurly-client-dotnet/pull/373) ([aaron-suarez](https://github.com/aaron-suarez))
+- Transaction error [#372](https://github.com/recurly/recurly-client-dotnet/pull/372) ([PashaSk](https://github.com/PashaSk))
+- Fix extra written elements and add error details to RecurlyException [#368](https://github.com/recurly/recurly-client-dotnet/pull/368) ([aaron-suarez](https://github.com/aaron-suarez))
+- Remove broken test for ExemptionCertificate [#365](https://github.com/recurly/recurly-client-dotnet/pull/365) ([aaron-suarez](https://github.com/aaron-suarez))
+- Add SubscriptionChange class [#363](https://github.com/recurly/recurly-client-dotnet/pull/363) ([aaron-suarez](https://github.com/aaron-suarez))
+- Add Framework and OS to user agent [#361](https://github.com/recurly/recurly-client-dotnet/pull/361) ([aaron-suarez](https://github.com/aaron-suarez))
 
-* Fix TotalBillingCycles nil value #206
+**Closed Issues**
 
-1.4.6 (stable) / 2017-01-09
-===============
+- Transaction does not contain data about TransactionError [#371](https://github.com/recurly/recurly-client-dotnet/issues/371)
+- Problem with Postpone [#214](https://github.com/recurly/recurly-client-dotnet/issues/214)
+- BLOCKER wrong request are send on change subscription [#157](https://github.com/recurly/recurly-client-dotnet/issues/157)
 
-* Fix null Datetime Xml reading for Adjustment StartDate and UpdatedAt #199 
-* Parse transaction_error #200 
-* Updated test project to use latest version of Xunit #202
-* Add total_billing_cycles reader #203
 
+## [1.14.1](https://github.com/recurly/recurly-client-dotnet/tree/1.14.1) (2018-12-11)
 
-1.4.5 (stable) / 2016-12-06
-===============
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.14.0...1.14.1)
 
-* allow addresses to be null, and don't force-create one when fetching #186
-* Update BillingInfo.cs (Adding PayPal) #191
-* Add Invoice Create and Preview data #193
-* Make PoNumber always available to write on Subscription #194
 
-1.4.4 (stable) / 2016-11-17
-===============
+**Merged Pull Requests**
 
-* fixed; Allow skip trial period by setting date in the past
-* added; Add .vscode to gitignore
-* added; UsageList class
+- Release version 2.14.1 / API version 2.17 [#364](https://github.com/recurly/recurly-client-dotnet/pull/364) ([aaron-suarez](https://github.com/aaron-suarez))
+- Make UTC explicit in Subscription.Postpone [#362](https://github.com/recurly/recurly-client-dotnet/pull/362) ([aaron-suarez](https://github.com/aaron-suarez))
+- Add methods for working with Shipping Addresses [#360](https://github.com/recurly/recurly-client-dotnet/pull/360) ([aaron-suarez](https://github.com/aaron-suarez))
+- Add EnterOfflinePayment method to Invoice [#359](https://github.com/recurly/recurly-client-dotnet/pull/359) ([aaron-suarez](https://github.com/aaron-suarez))
+- Add custom fields to WriteChangeSubscriptionXml [#358](https://github.com/recurly/recurly-client-dotnet/pull/358) ([aaron-suarez](https://github.com/aaron-suarez))
+- Remove examples.md file [#357](https://github.com/recurly/recurly-client-dotnet/pull/357) ([aaron-suarez](https://github.com/aaron-suarez))
+- Add missing values to WriteChangeSubscriptionXml() [#352](https://github.com/recurly/recurly-client-dotnet/pull/352) ([aaron-suarez](https://github.com/aaron-suarez))
+- modified Error classes to have at least one public constructor [#350](https://github.com/recurly/recurly-client-dotnet/pull/350) ([stweedie](https://github.com/stweedie))
 
-1.4.3 (stable) / 2016-10-21
-===============
+**Closed Issues**
 
-* fixed; NetTerms null exception for manual subscriptions
-* added; Subscription.SubscriptionState.Failed
-* added; Support for free trial coupons
+- Provide mock-ability for exceptions in testing [#348](https://github.com/recurly/recurly-client-dotnet/issues/348)
+- Problem with Postpone [#214](https://github.com/recurly/recurly-client-dotnet/issues/214)
+- Remove examples.md? [#146](https://github.com/recurly/recurly-client-dotnet/issues/146)
 
-1.4.2 (stable) / 2016-10-03
-==================
 
-* added; Allow `UsageTimestamp` to be null (defaults to server time)
+## [1.14.0](https://github.com/recurly/recurly-client-dotnet/tree/1.14.0) (2018-10-30)
 
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.13.1...1.14.0)
 
-1.4.1 (stable) / 2016-09-21
-==================
 
-* fixed; nil parsing error on usage creation
+**Merged Pull Requests**
 
+- Bump to version 1.14.0 / API version 2.16 [#351](https://github.com/recurly/recurly-client-dotnet/pull/351) ([aaron-suarez](https://github.com/aaron-suarez))
+- Update integration tests to for credit memos [#349](https://github.com/recurly/recurly-client-dotnet/pull/349) ([bhelx](https://github.com/bhelx))
+- Changes to Invoice Refunds needed for credit memos [#347](https://github.com/recurly/recurly-client-dotnet/pull/347) ([bhelx](https://github.com/bhelx))
+- Change line endings [#346](https://github.com/recurly/recurly-client-dotnet/pull/346) ([aaron-suarez](https://github.com/aaron-suarez))
+- Change formatting of Usage dates in WriteXML to match Recurly format [#345](https://github.com/recurly/recurly-client-dotnet/pull/345) ([aaron-suarez](https://github.com/aaron-suarez))
+- Make GiftCard RedeemedAt, DeliveredAt and CanceledAt nullable [#343](https://github.com/recurly/recurly-client-dotnet/pull/343) ([aaron-suarez](https://github.com/aaron-suarez))
 
-1.4.0 (stable) / 2016-09-19
-==================
+**Closed Issues**
 
-This release brings us to API version 2.3
+- Error when updating with the PlanIntervalUnit = IntervalUnit.Days [#344](https://github.com/recurly/recurly-client-dotnet/issues/344)
+- Datetime Parsing not utc [#338](https://github.com/recurly/recurly-client-dotnet/issues/338)
+- ArgumentException parsing enum in Billing Info [#331](https://github.com/recurly/recurly-client-dotnet/issues/331)
+- BalanceInCents is 0 after redeeming [#261](https://github.com/recurly/recurly-client-dotnet/issues/261)
+- Change Update and Delete methods to use href [#142](https://github.com/recurly/recurly-client-dotnet/issues/142)
+- Add 'async' methods where applicable [#119](https://github.com/recurly/recurly-client-dotnet/issues/119)
 
-* added; `PlanCode` public reader on Subscription
-* fixed; bug with updating an AddOn
-* fixed; TLS preferences missing constants
-* added; `cc_emails` to `Account`
-* fixed; `Adjustment#Get` and related tests
-* added; `Currency` attribute on `BillingInfo`
-* added; Changes for API v2.2
-* added; `PaymentMethod` attribute on `Transaction`
-* added; new optional config loading with `SettingsManager`
-* added; error case for http status code 400
-* added; Usage based billing support
 
-1.3.1 (stable) / 2015-11-19
-==================
+## [1.13.1](https://github.com/recurly/recurly-client-dotnet/tree/1.13.1) (2018-09-25)
 
-* fixed; invoice reader on `Subscription`
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.13.0...1.13.1)
 
-1.3.0 (stable) / 2015-11-18
-==================
 
-* Retargeting to .NET version 4.5 for TLS headers
-* added; explicit TLS 1.2 and 1.1 settings
-* fixed; `Add(planAddOnCode, quantity)` method of `SubscriptionAddOnList`
+**Merged Pull Requests**
 
-1.2.7 (stable) / 2015-11-17
-==================
+- Bump to version 1.13.1 / API version 2.15 [#342](https://github.com/recurly/recurly-client-dotnet/pull/342) ([aaron-suarez](https://github.com/aaron-suarez))
+- Fix Compiler Warnings [#341](https://github.com/recurly/recurly-client-dotnet/pull/341) ([aaron-suarez](https://github.com/aaron-suarez))
+- We don't really need this versioned. Let us finally remove it [#340](https://github.com/recurly/recurly-client-dotnet/pull/340) ([bhelx](https://github.com/bhelx))
+- Ensure that net47 folder exists [#339](https://github.com/recurly/recurly-client-dotnet/pull/339) ([aaron-suarez](https://github.com/aaron-suarez))
+- Add tokenization support for billing info [#335](https://github.com/recurly/recurly-client-dotnet/pull/335) ([aaron-suarez](https://github.com/aaron-suarez))
 
-* added; `Open` state to `Subscription`
-* fixed; Subscription Pending integration test
-* fixed; referencing an `Invoice` from a `Subscription` returns the invoice
+**Closed Issues**
 
-1.2.6 (stable) / 2015-11-04
-==================
+- Add support for ASP.NET Core [#152](https://github.com/recurly/recurly-client-dotnet/issues/152)
 
-* Fixes bad build
 
-1.2.5 (stable) / 2015-11-03
-==================
+## [1.13.0](https://github.com/recurly/recurly-client-dotnet/tree/1.13.0) (2018-09-12)
 
-* added; multiple redemption support `GetRedemptions` for `Invoice`
-* added; description readers to `Coupon` ReadXml
-* added; `PreviewChange` method for `Subscription`
-* added; `Update()` and `Restore()` paths to `Coupon`
-* added; Bulk and Unique Coupons support
-* added; Coupon default to SingleCode
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.12.5...1.13.0)
 
 
-1.2.4 (stable) / 2015-09-15
-==================
+**Merged Pull Requests**
 
-* added; `SetupFeeAccountingCode` to `Plan`
-* added; `SubscriptionUuid` to `CouponRedemption`
-* added; `AppliesToNonPlanCharges` attribute `Coupon`
-* added; `Coupons` to `Subscription`
-* added; `uuid` to `CouponRedemption`
-* added; `GetActiveRedemptions` to `Account`
-* added; `X-Api-Version` to `2.1`
-* added; `RedemptionResource` to `Coupon`
-* added; `MaxRedemptionsPerAccount` to `Coupon`
-* fixed; `AddOn.GetHashCode()` exception
-* fixed; Don't send billing info when token present
+- Update readme with new config and .net target instructions [#337](https://github.com/recurly/recurly-client-dotnet/pull/337) ([bhelx](https://github.com/bhelx))
+- Add clean and release scripts [#336](https://github.com/recurly/recurly-client-dotnet/pull/336) ([bhelx](https://github.com/bhelx))
+- API version 2.14 changes [#334](https://github.com/recurly/recurly-client-dotnet/pull/334) ([bhelx](https://github.com/bhelx))
+- Bump 1.13.0 [#333](https://github.com/recurly/recurly-client-dotnet/pull/333) ([bhelx](https://github.com/bhelx))
+- Fix integration tests so they all pass [#332](https://github.com/recurly/recurly-client-dotnet/pull/332) ([aaron-suarez](https://github.com/aaron-suarez))
+- Allow test script to run a single method [#330](https://github.com/recurly/recurly-client-dotnet/pull/330) ([aaron-suarez](https://github.com/aaron-suarez))
+- Add ability to update an invoice [#329](https://github.com/recurly/recurly-client-dotnet/pull/329) ([aaron-suarez](https://github.com/aaron-suarez))
+- Allow updating custom fields through /notes endpoint [#328](https://github.com/recurly/recurly-client-dotnet/pull/328) ([aaron-suarez](https://github.com/aaron-suarez))
+- Upgrade .NET 4.7 and scripts folder [#327](https://github.com/recurly/recurly-client-dotnet/pull/327) ([bhelx](https://github.com/bhelx))
+- Remove reference to unused ruleset [#326](https://github.com/recurly/recurly-client-dotnet/pull/326) ([aaron-suarez](https://github.com/aaron-suarez))
 
 
-1.2.3 (stable) / 2015-08-14
-==================
 
-* added; `Duration` to `Coupon`
-* added; `TemporalUnit` to `Coupon`
-* added; `TemporalAmount` to `Coupon`
-* fixed; Parse embedded invoice on subscription/preview
+## [1.12.5](https://github.com/recurly/recurly-client-dotnet/tree/1.12.5) (2018-07-30)
 
-1.2.2 (stable) / 2015-07-06
-==================
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.12.4...1.12.5)
 
-* added; `bulk` param to `Postpone` call on `Subscription`
-* fixed; no content returning from the server will no longer throw "Root element is missing"
-* added; `TaxRegion` to `Invoice`
-* added; `ProductCode` to `Adjustment`
-* added; ability to specify either credit or transaction priority on refunds
-* added; ability to give a `Transaction` a `Description`
-* added; `TaxExempt`, `TaxCode`, `AccountingCode` to `Transaction`
 
-1.2.1 (stable) / 2015-05-26
-==================
+**Merged Pull Requests**
 
-* added; `BankAccountAuthorizedAt` to `Subscription`
-* added; `IpAddress` to `Transaction`
+- Bump 1.12.5 [#325](https://github.com/recurly/recurly-client-dotnet/pull/325) ([bhelx](https://github.com/bhelx))
+- Add PoNumber to Purchases Serializer [#324](https://github.com/recurly/recurly-client-dotnet/pull/324) ([bhelx](https://github.com/bhelx))
+- 2.13 Custom Fields Support [#322](https://github.com/recurly/recurly-client-dotnet/pull/322) ([bhelx](https://github.com/bhelx))
+- Upgrade mono to fix TLS issue [#321](https://github.com/recurly/recurly-client-dotnet/pull/321) ([bhelx](https://github.com/bhelx))
 
-1.2.0 (stable) / 2015-04-28
-==================
 
-* added; bank account fields to `BillingInfo`
- * `AccountType` (`Checking` or `Savings`)
- * `RoutingNumber`
- * `AccountNumber`
- * `LastFour`
- * `NameOnAccount`
-* added; `invoice.InvoiceNumberPrefix` and `invoice.InvoiceNumberWithPrefix()`
-* added; `transaction.GetInvoice()`
-* added; `invoice.GetOriginalInvoice()`
-* added; `TaxType`, `TaxRate`, `TaxRegion` on Adjustment
 
-1.1.9 (stable) / 2015-04-01
-==================
+## [1.12.4](https://github.com/recurly/recurly-client-dotnet/tree/1.12.4) (2018-07-06)
 
-* fixed; nil VatLocationValid on Account would throw a parse error
-* added; `subscription.UpdateNotes` will update the subscription's notes
-* added; `subscription.CustomerNotes`, `subscription.TermsAndConditions`, `subscription.VatReverseChargeNotes`
-* added; `invoice.CustomerNotes`, `invoice.TermsAndConditions`, `invoice.VatReverseChargeNotes`
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.12.3...1.12.4)
 
-1.1.8 (stable) / 2015-01-26
-==================
 
-* added; invoice address on previews
-* added; `invoice.OriginalInvoiceNumber`
-* added; VatLocationValid to Account
-* fixed; clearing subscription addons from subscription
-* added; Open Amount Refunds to Invoice
+**Merged Pull Requests**
 
-1.1.7 (stable) / 2014-12-19
-==================
+- Bump 1.12.4 [#320](https://github.com/recurly/recurly-client-dotnet/pull/320) ([bhelx](https://github.com/bhelx))
+- Allow more nulls in BillingInfo [#319](https://github.com/recurly/recurly-client-dotnet/pull/319) ([bhelx](https://github.com/bhelx))
 
- * added; invoice previews
- * added; subscription address on previews
 
-1.1.6 (stable) / 2014-09-18
-==================
 
- * added; entity use code on accounts
- * added; amazon and paypal billing agreement id support
+## [1.12.3](https://github.com/recurly/recurly-client-dotnet/tree/1.12.3) (2018-06-27)
 
-1.1.5 (stable) / 2014-07-30
-==================
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.12.2...1.12.3)
 
- * fixed; keep add on unit amount when adding to a subscription
 
-1.1.4 (stable) / 2014-07-23
-==================
+**Merged Pull Requests**
 
- * updated; make the List.Clear() and List.RemoveAt() methods public
+- Bump 1.12.3 [#317](https://github.com/recurly/recurly-client-dotnet/pull/317) ([bhelx](https://github.com/bhelx))
+- Fix Account's BillingInfo parser [#316](https://github.com/recurly/recurly-client-dotnet/pull/316) ([bhelx](https://github.com/bhelx))
 
-1.1.3 (stable) / 2014-07-22
-==================
+**Closed Issues**
 
- * fixed; change subscription to Manual if Automatic collecting when posting a Subscription
- * fixed; Subscription.postpone() now sends the correct date/time format
+- Issue parsing Account#billing_info [#315](https://github.com/recurly/recurly-client-dotnet/issues/315)
 
-1.1.2 (stable) / 2014-06-26
-==================
 
- * fixed; change subscription to Manual if Automatic collecting
+## [1.12.2](https://github.com/recurly/recurly-client-dotnet/tree/1.12.2) (2018-06-26)
 
-1.1.1 (stable) / 2014-05-01
-==================
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.12.1...1.12.2)
 
- * fixed; SubscriptionAddOnList.Add is now public https://github.com/recurly/recurly-client-net/pull/27
- * docs; added BillingInfo TokenId example
 
-1.1.0 (stable) / 2014-04-30
-==================
+**Merged Pull Requests**
 
- * fixed; creating accounts w/o address
- * updated; user agent
- * updated; handle more error details
- * added; support for BillingInfo tokens
- * tests; Updates UpdateBillingInfoWithToken test to expect a 404
- * tests; add missing fixtures
+- Bump 1.12.2 [#314](https://github.com/recurly/recurly-client-dotnet/pull/314) ([bhelx](https://github.com/bhelx))
+- #312 - Subscription.Coupon throws an ArgumentNullException, if _couponCode is null [#313](https://github.com/recurly/recurly-client-dotnet/pull/313) ([jamesbar2](https://github.com/jamesbar2))
+- Subscription Terms [#311](https://github.com/recurly/recurly-client-dotnet/pull/311) ([bhelx](https://github.com/bhelx))
+- Allow programmer to set gateway per purchase [#303](https://github.com/recurly/recurly-client-dotnet/pull/303) ([bhelx](https://github.com/bhelx))
+- Add link to all transactions [#302](https://github.com/recurly/recurly-client-dotnet/pull/302) ([bhelx](https://github.com/bhelx))
 
-1.0.0 (stable) / 2014-04-22
-===========================
+**Closed Issues**
 
- * docs; add NuGet instructions
+- Subscription.Coupon throws an ArgumentNullException, if _couponCode is null. [#312](https://github.com/recurly/recurly-client-dotnet/issues/312)
+- RefundMethod enums should be serialized using transport case. [#308](https://github.com/recurly/recurly-client-dotnet/issues/308)
+- usage id on Get usage [#304](https://github.com/recurly/recurly-client-dotnet/issues/304)
 
-1.0.0-rc1 / 2014-04-14
-==================
 
- * removed; account.CreateAdjustment(). use account.NewAdjustment() instead
- * changed; Recurly.Exception -> Recurly.RecurlyException #21
- * changed; Invoice#Refund() now returns a new Invoice object
- * changed; Invoice.CreateAt is now nullable
- * changed; plan.CreateAddOn() -> plan.NewAddOn()
- * fixed; duplicate Coupon.Plans triggered by API response
- * fixed; missing plan error
- * fixed; Invoice.Transactions duplicates triggered by API response
- * fixed; RecurlyList.Capacity when no Items exist
- * fixed; Invoices.List() returning all invoices
- * added; more List methods to RecurlyList
- * added; Subscription#Addons.Add now supports more handy overloads
- * added; support for multiple Refunds
- * added; more flexible Refund constructors
- * added; more support for returned properties in Invoice API responses
- * added; make Now the default timeframe for Subscription#ChangeSubsciption()
- * added; Subscription.Preview() support
- * added; Invoice.TaxRate
- * added; Invoice.TaxType
- * added; Subscription.TaxType
- * added; Subscription.TaxRate
- * added; Subscription.TaxInCents
- * added; Vat and TaxExempt Account properties
- * added; permit setting Adjustment properties on the instance
- * added; account.NewAdjustment()
- * added; allow users to set Adjustment.TaxExempt
- * docs; update examples
- * docs; subscription.AddOns.Add() overloads
- * docs; fix configSection
- * tests; remove redundant test
- * tests; wait for API to respond
- * tests; added for multiple refunds
- * tests; added for Subscription#Preview()
- * tests; updating Account with tax & vat
+## [1.12.1](https://github.com/recurly/recurly-client-dotnet/tree/1.12.1) (2018-06-22)
 
-1.0.0-beta3 / 2014-03-31
-==================
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.12.0...1.12.1)
 
- * subscription; fix total_billing_cycles retrieval
- * subscription addons; fixed Create & Update
- * tests; Subscription w/ Coupons
- * tests; subscription update improvements
- * docs; updated intellisense
 
-1.0.0-beta2 / 2014-03-19
-==================
+**Merged Pull Requests**
 
- * changed; AddOn.UnitAmountInCents Dictionary now implicit
- * fixed; Subscription; duplicate <account> info written to xml
- * fixed; AddOn add_on_code in generated xml
- * fixed; AddOn.Create with UnitAmountInCents
- * fixed; AddOn.Create url
- * docs; updated
- * tests; added Subscription create with Plan & change
+- Bump 1.12.1 [#310](https://github.com/recurly/recurly-client-dotnet/pull/310) ([bhelx](https://github.com/bhelx))
+- Use EnumTransportCase for RefundMethod [#309](https://github.com/recurly/recurly-client-dotnet/pull/309) ([bhelx](https://github.com/bhelx))
+- Make Subscription#RemainingBillingCycles writeable [#307](https://github.com/recurly/recurly-client-dotnet/pull/307) ([bhelx](https://github.com/bhelx))
+- Transaction should parse embedded account [#306](https://github.com/recurly/recurly-client-dotnet/pull/306) ([bhelx](https://github.com/bhelx))
+- Fix usages Id parsing bug [#305](https://github.com/recurly/recurly-client-dotnet/pull/305) ([bhelx](https://github.com/bhelx))
 
-1.0.0-beta1 / 2014-03-01
-========================
+**Closed Issues**
 
-  * complete rewrite
-  * added; API v2 support
+- RefundMethod enums should be serialized using transport case. [#308](https://github.com/recurly/recurly-client-dotnet/issues/308)
+- usage id on Get usage [#304](https://github.com/recurly/recurly-client-dotnet/issues/304)
+
+
+## [1.12.0](https://github.com/recurly/recurly-client-dotnet/tree/1.12.0) (2018-05-29)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.11.4...1.12.0)
+
+
+**Merged Pull Requests**
+
+- Bump 1.12.0 [#301](https://github.com/recurly/recurly-client-dotnet/pull/301) ([bhelx](https://github.com/bhelx))
+- Fix unit amount in cents for usage add ons [#298](https://github.com/recurly/recurly-client-dotnet/pull/298) ([danips5150](https://github.com/danips5150))
+- Issue#296 - Expose subs accountcode to avoid unnecessary api requests [#297](https://github.com/recurly/recurly-client-dotnet/pull/297) ([PaulPower1](https://github.com/PaulPower1))
+
+**Closed Issues**
+
+- Sandbox Rate limit being exceeded when making unnecessary api requests to get "AccountCode" for each subscription [#296](https://github.com/recurly/recurly-client-dotnet/issues/296)
+
+
+## [1.11.4](https://github.com/recurly/recurly-client-dotnet/tree/1.11.4) (2018-05-16)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.11.2...1.11.4)
+
+
+**Merged Pull Requests**
+
+- Bump 1.11.4 [#300](https://github.com/recurly/recurly-client-dotnet/pull/300) ([bhelx](https://github.com/bhelx))
+- API Version 2.12 [#299](https://github.com/recurly/recurly-client-dotnet/pull/299) ([bhelx](https://github.com/bhelx))
+- Fixes some small issues [#293](https://github.com/recurly/recurly-client-dotnet/pull/293) ([bhelx](https://github.com/bhelx))
+- Fix missing `company` field when updating `BillingInfo` instances [#291](https://github.com/recurly/recurly-client-dotnet/pull/291) ([davidgeary](https://github.com/davidgeary))
+
+**Closed Issues**
+
+- Add a Transaction.GetSubscription() (nullable) method [#294](https://github.com/recurly/recurly-client-dotnet/issues/294)
+- Updating a BillingInfo instance ignores the Company value [#292](https://github.com/recurly/recurly-client-dotnet/issues/292)
+- Account 'closed_at' property not found [#285](https://github.com/recurly/recurly-client-dotnet/issues/285)
+- Unable to set the product_code field when creating adjustment object [#267](https://github.com/recurly/recurly-client-dotnet/issues/267)
+
+
+## [1.11.2](https://github.com/recurly/recurly-client-dotnet/tree/1.11.2) (2018-04-03)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.11.1...1.11.2)
+
+
+**Merged Pull Requests**
+
+- Bump 1.11.2 [#290](https://github.com/recurly/recurly-client-dotnet/pull/290) ([bhelx](https://github.com/bhelx))
+- fix typo in Subscription#pause [#289](https://github.com/recurly/recurly-client-dotnet/pull/289) ([oktaras](https://github.com/oktaras))
+
+
+
+## [1.11.1](https://github.com/recurly/recurly-client-dotnet/tree/1.11.1) (2018-04-02)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.11.0...1.11.1)
+
+
+**Merged Pull Requests**
+
+- Bump 1.11.1 [#288](https://github.com/recurly/recurly-client-dotnet/pull/288) ([bhelx](https://github.com/bhelx))
+- Add missing RevenueScheduleType values [#287](https://github.com/recurly/recurly-client-dotnet/pull/287) ([bhelx](https://github.com/bhelx))
+- API Version 2.11 [#286](https://github.com/recurly/recurly-client-dotnet/pull/286) ([bhelx](https://github.com/bhelx))
+- Fix InvoiceCollection#credit_invoices parsing [#283](https://github.com/recurly/recurly-client-dotnet/pull/283) ([bhelx](https://github.com/bhelx))
+
+**Closed Issues**
+
+- Missing enum value for Revenue_schedule_type in Adjustment.cs:  "at_invoice" [#256](https://github.com/recurly/recurly-client-dotnet/issues/256)
+
+
+## [1.11.0](https://github.com/recurly/recurly-client-dotnet/tree/1.11.0) (2018-03-13)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.10.0...1.11.0)
+
+
+**Merged Pull Requests**
+
+- Bump 1.11.0 [#282](https://github.com/recurly/recurly-client-dotnet/pull/282) ([bhelx](https://github.com/bhelx))
+- API v2.10 [#281](https://github.com/recurly/recurly-client-dotnet/pull/281) ([bhelx](https://github.com/bhelx))
+
+
+
+## [1.10.0](https://github.com/recurly/recurly-client-dotnet/tree/1.10.0) (2018-03-06)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.9.1...1.10.0)
+
+
+**Merged Pull Requests**
+
+- Bump 1.10.0 [#280](https://github.com/recurly/recurly-client-dotnet/pull/280) ([bhelx](https://github.com/bhelx))
+- introduce Account Acquisition [#279](https://github.com/recurly/recurly-client-dotnet/pull/279) ([pshastov](https://github.com/pshastov))
+- Change Coupon.Id from int to long [#278](https://github.com/recurly/recurly-client-dotnet/pull/278) ([bhelx](https://github.com/bhelx))
+- Add filter to InvoiceList, redemption updated_at [#277](https://github.com/recurly/recurly-client-dotnet/pull/277) ([bhelx](https://github.com/bhelx))
+- fix unit amounts exceptions when using percentage addons [#268](https://github.com/recurly/recurly-client-dotnet/pull/268) ([danips5150](https://github.com/danips5150))
+
+**Closed Issues**
+
+-  Account Acquisition [#276](https://github.com/recurly/recurly-client-dotnet/issues/276)
+- Invoice's List method is not provided with FilterCriteria parameter [#275](https://github.com/recurly/recurly-client-dotnet/issues/275)
+- Issue in Coupon's 'Id' property [#274](https://github.com/recurly/recurly-client-dotnet/issues/274)
+- Issue in CouponRedemption's 'UpdatedAt' property  [#273](https://github.com/recurly/recurly-client-dotnet/issues/273)
+- No way to redeem gift cards? [#249](https://github.com/recurly/recurly-client-dotnet/issues/249)
+
+
+## [1.9.1](https://github.com/recurly/recurly-client-dotnet/tree/1.9.1) (2018-01-23)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.9.0...1.9.1)
+
+
+**Merged Pull Requests**
+
+- Bump 1.9.1 [#272](https://github.com/recurly/recurly-client-dotnet/pull/272) ([bhelx](https://github.com/bhelx))
+- Set Errors variable to a default instance of the Errors class. [#271](https://github.com/recurly/recurly-client-dotnet/pull/271) ([andrewg187](https://github.com/andrewg187))
+- Handle empty revenue schedule type for adjustments [#270](https://github.com/recurly/recurly-client-dotnet/pull/270) ([igor-shevchenko](https://github.com/igor-shevchenko))
+- Usage records query improvements [#262](https://github.com/recurly/recurly-client-dotnet/pull/262) ([danips5150](https://github.com/danips5150))
+
+**Closed Issues**
+
+- Bug with creating an adjustment [#269](https://github.com/recurly/recurly-client-dotnet/issues/269)
+
+
+## [1.9.0](https://github.com/recurly/recurly-client-dotnet/tree/1.9.0) (2017-12-01)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.8.1...1.9.0)
+
+
+**Merged Pull Requests**
+
+- Bump 1.9.0 [#266](https://github.com/recurly/recurly-client-dotnet/pull/266) ([bhelx](https://github.com/bhelx))
+- Fix revenue_schedule_type spelling [#265](https://github.com/recurly/recurly-client-dotnet/pull/265) ([bhelx](https://github.com/bhelx))
+- API v2.9 [#264](https://github.com/recurly/recurly-client-dotnet/pull/264) ([bhelx](https://github.com/bhelx))
+- Make optional ints nullable [#263](https://github.com/recurly/recurly-client-dotnet/pull/263) ([bhelx](https://github.com/bhelx))
+- Fix creation of an empty invoice when InvoiceList is empty [#260](https://github.com/recurly/recurly-client-dotnet/pull/260) ([igor-shevchenko](https://github.com/igor-shevchenko))
+- Add missing 'DinersClub' credit card type [#258](https://github.com/recurly/recurly-client-dotnet/pull/258) ([igor-shevchenko](https://github.com/igor-shevchenko))
+
+**Closed Issues**
+
+- revenue_schedule_type spelled incorrectly [#259](https://github.com/recurly/recurly-client-dotnet/issues/259)
+- 'DinersClub' credit card type missing from enum [#255](https://github.com/recurly/recurly-client-dotnet/issues/255)
+
+
+## [1.8.1](https://github.com/recurly/recurly-client-dotnet/tree/1.8.1) (2017-11-08)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.5.3...1.8.1)
+
+
+**Merged Pull Requests**
+
+- Bump 1.8.0 [#254](https://github.com/recurly/recurly-client-dotnet/pull/254) ([bhelx](https://github.com/bhelx))
+- Implements missing `revenue_schedule_type` [#253](https://github.com/recurly/recurly-client-dotnet/pull/253) ([bhelx](https://github.com/bhelx))
+- Make TrialRequiresBillingInfo an optional [#252](https://github.com/recurly/recurly-client-dotnet/pull/252) ([bhelx](https://github.com/bhelx))
+- Update the README with `Overview` section [#251](https://github.com/recurly/recurly-client-dotnet/pull/251) ([bhelx](https://github.com/bhelx))
+- Adds giftcard redeem endpoint [#250](https://github.com/recurly/recurly-client-dotnet/pull/250) ([bhelx](https://github.com/bhelx))
+- Bump 1.7.0 [#248](https://github.com/recurly/recurly-client-dotnet/pull/248) ([bhelx](https://github.com/bhelx))
+- ImportedTrial flag on Subscription [#247](https://github.com/recurly/recurly-client-dotnet/pull/247) ([bhelx](https://github.com/bhelx))
+- Purchases Notes Changes [#246](https://github.com/recurly/recurly-client-dotnet/pull/246) ([bhelx](https://github.com/bhelx))
+- Bump 1.6.1 [#245](https://github.com/recurly/recurly-client-dotnet/pull/245) ([bhelx](https://github.com/bhelx))
+- update postpone timestring for 24-hour formatting [#244](https://github.com/recurly/recurly-client-dotnet/pull/244) ([elliottbernstein](https://github.com/elliottbernstein))
+- Bump 1.6.0 [#243](https://github.com/recurly/recurly-client-dotnet/pull/243) ([bhelx](https://github.com/bhelx))
+- Gift Card Support [#241](https://github.com/recurly/recurly-client-dotnet/pull/241) ([bhelx](https://github.com/bhelx))
+- Bump API v2.7 / purchases endpoint [#240](https://github.com/recurly/recurly-client-dotnet/pull/240) ([bhelx](https://github.com/bhelx))
+- Fix readxmlListDelegate usage and Bump to 1.5.1 [#239](https://github.com/recurly/recurly-client-dotnet/pull/239) ([bhelx](https://github.com/bhelx))
+
+**Closed Issues**
+
+- NullReferenceException when trying to GetSubscriptions() [#238](https://github.com/recurly/recurly-client-dotnet/issues/238)
+- Error in readme sample [#237](https://github.com/recurly/recurly-client-dotnet/issues/237)
+
+
+## [1.5.3](https://github.com/recurly/recurly-client-dotnet/tree/1.5.3) (2017-11-09)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.7.1...1.5.3)
+
+
+
+
+
+## [1.7.1](https://github.com/recurly/recurly-client-dotnet/tree/1.7.1) (2017-11-08)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.6.2...1.7.1)
+
+
+**Merged Pull Requests**
+
+- Bump 1.7.0 [#248](https://github.com/recurly/recurly-client-dotnet/pull/248) ([bhelx](https://github.com/bhelx))
+- ImportedTrial flag on Subscription [#247](https://github.com/recurly/recurly-client-dotnet/pull/247) ([bhelx](https://github.com/bhelx))
+- Purchases Notes Changes [#246](https://github.com/recurly/recurly-client-dotnet/pull/246) ([bhelx](https://github.com/bhelx))
+
+
+
+## [1.6.2](https://github.com/recurly/recurly-client-dotnet/tree/1.6.2) (2017-11-08)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.4.14...1.6.2)
+
+
+**Merged Pull Requests**
+
+- Bump 1.6.1 [#245](https://github.com/recurly/recurly-client-dotnet/pull/245) ([bhelx](https://github.com/bhelx))
+- update postpone timestring for 24-hour formatting [#244](https://github.com/recurly/recurly-client-dotnet/pull/244) ([elliottbernstein](https://github.com/elliottbernstein))
+- Bump 1.6.0 [#243](https://github.com/recurly/recurly-client-dotnet/pull/243) ([bhelx](https://github.com/bhelx))
+- Gift Card Support [#241](https://github.com/recurly/recurly-client-dotnet/pull/241) ([bhelx](https://github.com/bhelx))
+- Bump API v2.7 / purchases endpoint [#240](https://github.com/recurly/recurly-client-dotnet/pull/240) ([bhelx](https://github.com/bhelx))
+- Fix readxmlListDelegate usage and Bump to 1.5.1 [#239](https://github.com/recurly/recurly-client-dotnet/pull/239) ([bhelx](https://github.com/bhelx))
+- Bump 1.5.0 [#235](https://github.com/recurly/recurly-client-dotnet/pull/235) ([bhelx](https://github.com/bhelx))
+- Added account balance endpoint [#234](https://github.com/recurly/recurly-client-dotnet/pull/234) ([1TheMuffinMan](https://github.com/1TheMuffinMan))
+- added plan and subscription changes [#232](https://github.com/recurly/recurly-client-dotnet/pull/232) ([1TheMuffinMan](https://github.com/1TheMuffinMan))
+- Fixing NullReferenceException in List() functions [#231](https://github.com/recurly/recurly-client-dotnet/pull/231) ([jakenuts](https://github.com/jakenuts))
+- Fixed a probable NRE in Plans.List() [#230](https://github.com/recurly/recurly-client-dotnet/pull/230) ([CodingGorilla](https://github.com/CodingGorilla))
+
+**Closed Issues**
+
+- NullReferenceException when trying to GetSubscriptions() [#238](https://github.com/recurly/recurly-client-dotnet/issues/238)
+- Error in readme sample [#237](https://github.com/recurly/recurly-client-dotnet/issues/237)
+- Account Balance call to the API is not available in the C# client [#233](https://github.com/recurly/recurly-client-dotnet/issues/233)
+- Calling 'Plans.List()' will always throw a `NullReferenceException` [#229](https://github.com/recurly/recurly-client-dotnet/issues/229)
+
+
+## [1.4.14](https://github.com/recurly/recurly-client-dotnet/tree/1.4.14) (2017-11-08)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.3.2...1.4.14)
+
+
+**Merged Pull Requests**
+
+- Bump 1.4.13 [#228](https://github.com/recurly/recurly-client-dotnet/pull/228) ([bhelx](https://github.com/bhelx))
+- Remove trial_requires_billing_info, it's actually in 2.6 [#227](https://github.com/recurly/recurly-client-dotnet/pull/227) ([bhelx](https://github.com/bhelx))
+- Bump 1.4.12 [#225](https://github.com/recurly/recurly-client-dotnet/pull/225) ([bhelx](https://github.com/bhelx))
+- API v2.5 additions [#224](https://github.com/recurly/recurly-client-dotnet/pull/224) ([1TheMuffinMan](https://github.com/1TheMuffinMan))
+- Bump 1.4.11 [#223](https://github.com/recurly/recurly-client-dotnet/pull/223) ([bhelx](https://github.com/bhelx))
+- Refactored Invoice/PreviewPendingCharges to be able to specify notes [#222](https://github.com/recurly/recurly-client-dotnet/pull/222) ([1TheMuffinMan](https://github.com/1TheMuffinMan))
+- Automated export feature [#221](https://github.com/recurly/recurly-client-dotnet/pull/221) ([1TheMuffinMan](https://github.com/1TheMuffinMan))
+- Modified overridden gethashcode to work on null references [#220](https://github.com/recurly/recurly-client-dotnet/pull/220) ([1TheMuffinMan](https://github.com/1TheMuffinMan))
+- Sorting and Filtering parameters [#217](https://github.com/recurly/recurly-client-dotnet/pull/217) ([bhelx](https://github.com/bhelx))
+- Bump 1.4.10 [#216](https://github.com/recurly/recurly-client-dotnet/pull/216) ([bhelx](https://github.com/bhelx))
+- Add missing enum values [#215](https://github.com/recurly/recurly-client-dotnet/pull/215) ([bhelx](https://github.com/bhelx))
+- Bump 1.4.8 [#213](https://github.com/recurly/recurly-client-dotnet/pull/213) ([bhelx](https://github.com/bhelx))
+- Added support for new invoice and transactions states for ACH billing [#212](https://github.com/recurly/recurly-client-dotnet/pull/212) ([1TheMuffinMan](https://github.com/1TheMuffinMan))
+- Write amazon_billing_agreement_id [#209](https://github.com/recurly/recurly-client-dotnet/pull/209) ([bhelx](https://github.com/bhelx))
+- Bump 1.4.7 [#207](https://github.com/recurly/recurly-client-dotnet/pull/207) ([bhelx](https://github.com/bhelx))
+- Fix TotalBillingCycles nil value [#206](https://github.com/recurly/recurly-client-dotnet/pull/206) ([bhelx](https://github.com/bhelx))
+- Bump 1.4.6 [#204](https://github.com/recurly/recurly-client-dotnet/pull/204) ([bhelx](https://github.com/bhelx))
+- Add total_billing_cycles reader [#203](https://github.com/recurly/recurly-client-dotnet/pull/203) ([bhelx](https://github.com/bhelx))
+- Updated test project to use latest version of Xunit [#202](https://github.com/recurly/recurly-client-dotnet/pull/202) ([1TheMuffinMan](https://github.com/1TheMuffinMan))
+- Parse transaction_error [#200](https://github.com/recurly/recurly-client-dotnet/pull/200) ([bhelx](https://github.com/bhelx))
+- Fix null Datetime Xml reading for Adjustment StartDate and UpdatedAt [#199](https://github.com/recurly/recurly-client-dotnet/pull/199) ([thiagodpaz](https://github.com/thiagodpaz))
+- Bump 1.4.5 [#195](https://github.com/recurly/recurly-client-dotnet/pull/195) ([bhelx](https://github.com/bhelx))
+- Make po_number always available to write on Subscription [#194](https://github.com/recurly/recurly-client-dotnet/pull/194) ([bhelx](https://github.com/bhelx))
+- Add Invoice Create and Preview data [#193](https://github.com/recurly/recurly-client-dotnet/pull/193) ([bhelx](https://github.com/bhelx))
+- Update BillingInfo.cs (Adding PayPal) [#191](https://github.com/recurly/recurly-client-dotnet/pull/191) ([aknazhansk](https://github.com/aknazhansk))
+- Bump 1.4.4 [#190](https://github.com/recurly/recurly-client-dotnet/pull/190) ([bhelx](https://github.com/bhelx))
+- Add UsageList class [#188](https://github.com/recurly/recurly-client-dotnet/pull/188) ([bhelx](https://github.com/bhelx))
+- allow addresses to be null, and don't force-create one when fetching … [#186](https://github.com/recurly/recurly-client-dotnet/pull/186) ([Donnotron666](https://github.com/Donnotron666))
+- ignore vscode files [#185](https://github.com/recurly/recurly-client-dotnet/pull/185) ([Donnotron666](https://github.com/Donnotron666))
+- Allow to skip trial period by setting date in past [#183](https://github.com/recurly/recurly-client-dotnet/pull/183) ([skynet2](https://github.com/skynet2))
+- Bump 1.4.3 [#182](https://github.com/recurly/recurly-client-dotnet/pull/182) ([bhelx](https://github.com/bhelx))
+- Support Free Trial Coupons [#181](https://github.com/recurly/recurly-client-dotnet/pull/181) ([bhelx](https://github.com/bhelx))
+- Allow null NetTerms [#178](https://github.com/recurly/recurly-client-dotnet/pull/178) ([bhelx](https://github.com/bhelx))
+- Add SubscriptionState.Failed [#177](https://github.com/recurly/recurly-client-dotnet/pull/177) ([bhelx](https://github.com/bhelx))
+- Bump 1.4.2 [#176](https://github.com/recurly/recurly-client-dotnet/pull/176) ([bhelx](https://github.com/bhelx))
+- Allow null UsageTimestamp (defaults to server time) [#175](https://github.com/recurly/recurly-client-dotnet/pull/175) ([bhelx](https://github.com/bhelx))
+- Shipping Addresses [#174](https://github.com/recurly/recurly-client-dotnet/pull/174) ([bhelx](https://github.com/bhelx))
+- Bump 1.4.1 [#171](https://github.com/recurly/recurly-client-dotnet/pull/171) ([bhelx](https://github.com/bhelx))
+- Do not parse nil usage_percentage [#169](https://github.com/recurly/recurly-client-dotnet/pull/169) ([bhelx](https://github.com/bhelx))
+- Bump 1.4.0 [#167](https://github.com/recurly/recurly-client-dotnet/pull/167) ([bhelx](https://github.com/bhelx))
+- Usage Based Billing Support [#165](https://github.com/recurly/recurly-client-dotnet/pull/165) ([bhelx](https://github.com/bhelx))
+- Add error case for 400 status code [#164](https://github.com/recurly/recurly-client-dotnet/pull/164) ([bhelx](https://github.com/bhelx))
+- Update to config with API Access [#162](https://github.com/recurly/recurly-client-dotnet/pull/162) ([BenjaminGibbs](https://github.com/BenjaminGibbs))
+- Adding `PaymentMethod` attribute on `Transaction` [#159](https://github.com/recurly/recurly-client-dotnet/pull/159) ([csmb](https://github.com/csmb))
+- Update to API version 2.2 [#154](https://github.com/recurly/recurly-client-dotnet/pull/154) ([bhelx](https://github.com/bhelx))
+- Add Currency attribute to BillingInfo [#151](https://github.com/recurly/recurly-client-dotnet/pull/151) ([bhelx](https://github.com/bhelx))
+- Fixed Get Adjustment and related test [#150](https://github.com/recurly/recurly-client-dotnet/pull/150) ([1TheMuffinMan](https://github.com/1TheMuffinMan))
+- Adding cc_emails attribute to Account class [#147](https://github.com/recurly/recurly-client-dotnet/pull/147) ([bhelx](https://github.com/bhelx))
+- Fix TLS preferences for releases [#143](https://github.com/recurly/recurly-client-dotnet/pull/143) ([bhelx](https://github.com/bhelx))
+
+**Closed Issues**
+
+- NullReferenceException when trying to GetSubscriptions() [#238](https://github.com/recurly/recurly-client-dotnet/issues/238)
+- Error in readme sample [#237](https://github.com/recurly/recurly-client-dotnet/issues/237)
+- Account Balance call to the API is not available in the C# client [#233](https://github.com/recurly/recurly-client-dotnet/issues/233)
+- Calling 'Plans.List()' will always throw a `NullReferenceException` [#229](https://github.com/recurly/recurly-client-dotnet/issues/229)
+- Cannot create plan [#226](https://github.com/recurly/recurly-client-dotnet/issues/226)
+- Requested value 'Processing' was not found. [#211](https://github.com/recurly/recurly-client-dotnet/issues/211)
+- Error in iFrame??? [#210](https://github.com/recurly/recurly-client-dotnet/issues/210)
+- Exception creating BillingInfo with AmazonBillingAgreementId [#208](https://github.com/recurly/recurly-client-dotnet/issues/208)
+- Exception when calling `Plan.Get(string)` [#205](https://github.com/recurly/recurly-client-dotnet/issues/205)
+- Subscription Postpone Date/Time is + 7hrs off of API input (local time) [#198](https://github.com/recurly/recurly-client-dotnet/issues/198)
+- No way to get a human-readable error message [#197](https://github.com/recurly/recurly-client-dotnet/issues/197)
+- Multiples API Keys and multithreading [#189](https://github.com/recurly/recurly-client-dotnet/issues/189)
+- Get subscription addon usage [#187](https://github.com/recurly/recurly-client-dotnet/issues/187)
+- How do I get off this notification stream?  [#184](https://github.com/recurly/recurly-client-dotnet/issues/184)
+- Cannot work with Free Trial Coupons [#180](https://github.com/recurly/recurly-client-dotnet/issues/180)
+- Serializing empty address [#179](https://github.com/recurly/recurly-client-dotnet/issues/179)
+- Zip Code validation [#173](https://github.com/recurly/recurly-client-dotnet/issues/173)
+- UsageTimestamp won't let you post in the future. [#170](https://github.com/recurly/recurly-client-dotnet/issues/170)
+- Usage Logging crashing when calling Create. [#168](https://github.com/recurly/recurly-client-dotnet/issues/168)
+- InvoicePendingCharges and invoice notes [#166](https://github.com/recurly/recurly-client-dotnet/issues/166)
+- Error creating a subscription via API with Add-Ons [#163](https://github.com/recurly/recurly-client-dotnet/issues/163)
+- Usage-based billing in .NET client [#161](https://github.com/recurly/recurly-client-dotnet/issues/161)
+- Setting Api Keys without using Config Files [#160](https://github.com/recurly/recurly-client-dotnet/issues/160)
+- No PaymentMethod property on the Transaction object [#158](https://github.com/recurly/recurly-client-dotnet/issues/158)
+- System.ArgumentException: Requested value 'Failed' was not found. [#156](https://github.com/recurly/recurly-client-dotnet/issues/156)
+- net_terms required when collection_method="manual" [#155](https://github.com/recurly/recurly-client-dotnet/issues/155)
+- Adjustments.Get returns uninitialized object [#149](https://github.com/recurly/recurly-client-dotnet/issues/149)
+- Injectable Recurly API keys [#148](https://github.com/recurly/recurly-client-dotnet/issues/148)
+- Add currency attribute on BillingInfo [#145](https://github.com/recurly/recurly-client-dotnet/issues/145)
+- Add cc_emails attribute to the Account class [#144](https://github.com/recurly/recurly-client-dotnet/issues/144)
+- Update Plan Addon - throw exception [#140](https://github.com/recurly/recurly-client-dotnet/issues/140)
+- Discount coupon not being applied when form is submitted [#137](https://github.com/recurly/recurly-client-dotnet/issues/137)
+- No way to post a description to a Invoice Refund [#136](https://github.com/recurly/recurly-client-dotnet/issues/136)
+- Add Webhooks support [#117](https://github.com/recurly/recurly-client-dotnet/issues/117)
+- Can we refactor Subscription.UpdateNotes method? [#107](https://github.com/recurly/recurly-client-dotnet/issues/107)
+- Client doesn't properly handle Bad Request responses [#106](https://github.com/recurly/recurly-client-dotnet/issues/106)
+
+
+## [1.3.2](https://github.com/recurly/recurly-client-dotnet/tree/1.3.2) (2017-11-08)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.2.8...1.3.2)
+
+
+
+**Closed Issues**
+
+- NullReferenceException when trying to GetSubscriptions() [#238](https://github.com/recurly/recurly-client-dotnet/issues/238)
+- Error in readme sample [#237](https://github.com/recurly/recurly-client-dotnet/issues/237)
+- Account Balance call to the API is not available in the C# client [#233](https://github.com/recurly/recurly-client-dotnet/issues/233)
+- Calling 'Plans.List()' will always throw a `NullReferenceException` [#229](https://github.com/recurly/recurly-client-dotnet/issues/229)
+- Cannot create plan [#226](https://github.com/recurly/recurly-client-dotnet/issues/226)
+- Requested value 'Processing' was not found. [#211](https://github.com/recurly/recurly-client-dotnet/issues/211)
+- Error in iFrame??? [#210](https://github.com/recurly/recurly-client-dotnet/issues/210)
+- Exception creating BillingInfo with AmazonBillingAgreementId [#208](https://github.com/recurly/recurly-client-dotnet/issues/208)
+- Exception when calling `Plan.Get(string)` [#205](https://github.com/recurly/recurly-client-dotnet/issues/205)
+- Subscription Postpone Date/Time is + 7hrs off of API input (local time) [#198](https://github.com/recurly/recurly-client-dotnet/issues/198)
+- No way to get a human-readable error message [#197](https://github.com/recurly/recurly-client-dotnet/issues/197)
+- Multiples API Keys and multithreading [#189](https://github.com/recurly/recurly-client-dotnet/issues/189)
+- Get subscription addon usage [#187](https://github.com/recurly/recurly-client-dotnet/issues/187)
+- How do I get off this notification stream?  [#184](https://github.com/recurly/recurly-client-dotnet/issues/184)
+- Cannot work with Free Trial Coupons [#180](https://github.com/recurly/recurly-client-dotnet/issues/180)
+- Serializing empty address [#179](https://github.com/recurly/recurly-client-dotnet/issues/179)
+- Zip Code validation [#173](https://github.com/recurly/recurly-client-dotnet/issues/173)
+- UsageTimestamp won't let you post in the future. [#170](https://github.com/recurly/recurly-client-dotnet/issues/170)
+- Usage Logging crashing when calling Create. [#168](https://github.com/recurly/recurly-client-dotnet/issues/168)
+- InvoicePendingCharges and invoice notes [#166](https://github.com/recurly/recurly-client-dotnet/issues/166)
+- Error creating a subscription via API with Add-Ons [#163](https://github.com/recurly/recurly-client-dotnet/issues/163)
+- Usage-based billing in .NET client [#161](https://github.com/recurly/recurly-client-dotnet/issues/161)
+- Setting Api Keys without using Config Files [#160](https://github.com/recurly/recurly-client-dotnet/issues/160)
+- No PaymentMethod property on the Transaction object [#158](https://github.com/recurly/recurly-client-dotnet/issues/158)
+- System.ArgumentException: Requested value 'Failed' was not found. [#156](https://github.com/recurly/recurly-client-dotnet/issues/156)
+- net_terms required when collection_method="manual" [#155](https://github.com/recurly/recurly-client-dotnet/issues/155)
+- Adjustments.Get returns uninitialized object [#149](https://github.com/recurly/recurly-client-dotnet/issues/149)
+- Injectable Recurly API keys [#148](https://github.com/recurly/recurly-client-dotnet/issues/148)
+- Add currency attribute on BillingInfo [#145](https://github.com/recurly/recurly-client-dotnet/issues/145)
+- Add cc_emails attribute to the Account class [#144](https://github.com/recurly/recurly-client-dotnet/issues/144)
+- Update Plan Addon - throw exception [#140](https://github.com/recurly/recurly-client-dotnet/issues/140)
+- Discount coupon not being applied when form is submitted [#137](https://github.com/recurly/recurly-client-dotnet/issues/137)
+- No way to post a description to a Invoice Refund [#136](https://github.com/recurly/recurly-client-dotnet/issues/136)
+- InvoicePreview removed when Previewing a Subscription [#131](https://github.com/recurly/recurly-client-dotnet/issues/131)
+- Add Webhooks support [#117](https://github.com/recurly/recurly-client-dotnet/issues/117)
+- Can we refactor Subscription.UpdateNotes method? [#107](https://github.com/recurly/recurly-client-dotnet/issues/107)
+- Client doesn't properly handle Bad Request responses [#106](https://github.com/recurly/recurly-client-dotnet/issues/106)
+
+
+## [1.2.8](https://github.com/recurly/recurly-client-dotnet/tree/1.2.8) (2017-11-08)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.1.10...1.2.8)
+
+
+
+**Closed Issues**
+
+- NullReferenceException when trying to GetSubscriptions() [#238](https://github.com/recurly/recurly-client-dotnet/issues/238)
+- Error in readme sample [#237](https://github.com/recurly/recurly-client-dotnet/issues/237)
+- Account Balance call to the API is not available in the C# client [#233](https://github.com/recurly/recurly-client-dotnet/issues/233)
+- Calling 'Plans.List()' will always throw a `NullReferenceException` [#229](https://github.com/recurly/recurly-client-dotnet/issues/229)
+- Cannot create plan [#226](https://github.com/recurly/recurly-client-dotnet/issues/226)
+- Requested value 'Processing' was not found. [#211](https://github.com/recurly/recurly-client-dotnet/issues/211)
+- Error in iFrame??? [#210](https://github.com/recurly/recurly-client-dotnet/issues/210)
+- Exception creating BillingInfo with AmazonBillingAgreementId [#208](https://github.com/recurly/recurly-client-dotnet/issues/208)
+- Exception when calling `Plan.Get(string)` [#205](https://github.com/recurly/recurly-client-dotnet/issues/205)
+- Subscription Postpone Date/Time is + 7hrs off of API input (local time) [#198](https://github.com/recurly/recurly-client-dotnet/issues/198)
+- No way to get a human-readable error message [#197](https://github.com/recurly/recurly-client-dotnet/issues/197)
+- Multiples API Keys and multithreading [#189](https://github.com/recurly/recurly-client-dotnet/issues/189)
+- Get subscription addon usage [#187](https://github.com/recurly/recurly-client-dotnet/issues/187)
+- How do I get off this notification stream?  [#184](https://github.com/recurly/recurly-client-dotnet/issues/184)
+- Cannot work with Free Trial Coupons [#180](https://github.com/recurly/recurly-client-dotnet/issues/180)
+- Serializing empty address [#179](https://github.com/recurly/recurly-client-dotnet/issues/179)
+- Zip Code validation [#173](https://github.com/recurly/recurly-client-dotnet/issues/173)
+- UsageTimestamp won't let you post in the future. [#170](https://github.com/recurly/recurly-client-dotnet/issues/170)
+- Usage Logging crashing when calling Create. [#168](https://github.com/recurly/recurly-client-dotnet/issues/168)
+- InvoicePendingCharges and invoice notes [#166](https://github.com/recurly/recurly-client-dotnet/issues/166)
+- Error creating a subscription via API with Add-Ons [#163](https://github.com/recurly/recurly-client-dotnet/issues/163)
+- Usage-based billing in .NET client [#161](https://github.com/recurly/recurly-client-dotnet/issues/161)
+- Setting Api Keys without using Config Files [#160](https://github.com/recurly/recurly-client-dotnet/issues/160)
+- No PaymentMethod property on the Transaction object [#158](https://github.com/recurly/recurly-client-dotnet/issues/158)
+- System.ArgumentException: Requested value 'Failed' was not found. [#156](https://github.com/recurly/recurly-client-dotnet/issues/156)
+- net_terms required when collection_method="manual" [#155](https://github.com/recurly/recurly-client-dotnet/issues/155)
+- Adjustments.Get returns uninitialized object [#149](https://github.com/recurly/recurly-client-dotnet/issues/149)
+- Injectable Recurly API keys [#148](https://github.com/recurly/recurly-client-dotnet/issues/148)
+- Add currency attribute on BillingInfo [#145](https://github.com/recurly/recurly-client-dotnet/issues/145)
+- Add cc_emails attribute to the Account class [#144](https://github.com/recurly/recurly-client-dotnet/issues/144)
+- Update Plan Addon - throw exception [#140](https://github.com/recurly/recurly-client-dotnet/issues/140)
+- Discount coupon not being applied when form is submitted [#137](https://github.com/recurly/recurly-client-dotnet/issues/137)
+- No way to post a description to a Invoice Refund [#136](https://github.com/recurly/recurly-client-dotnet/issues/136)
+- InvoicePreview removed when Previewing a Subscription [#131](https://github.com/recurly/recurly-client-dotnet/issues/131)
+- You already have a subscription to this plan.  [#124](https://github.com/recurly/recurly-client-dotnet/issues/124)
+- RecurlyServerUri is incorrect in NuGet package 1.2.5 [#122](https://github.com/recurly/recurly-client-dotnet/issues/122)
+- account.Create() when no BillingInfo. [#118](https://github.com/recurly/recurly-client-dotnet/issues/118)
+- Add Webhooks support [#117](https://github.com/recurly/recurly-client-dotnet/issues/117)
+- Upcoming multiple coupons [#112](https://github.com/recurly/recurly-client-dotnet/issues/112)
+- Get Tests and CI running [#110](https://github.com/recurly/recurly-client-dotnet/issues/110)
+- Can we refactor Subscription.UpdateNotes method? [#107](https://github.com/recurly/recurly-client-dotnet/issues/107)
+- Client doesn't properly handle Bad Request responses [#106](https://github.com/recurly/recurly-client-dotnet/issues/106)
+- No way to change a plan code [#99](https://github.com/recurly/recurly-client-dotnet/issues/99)
+- Subscription Preview method is broken [#95](https://github.com/recurly/recurly-client-dotnet/issues/95)
+- Subscription Constructor is missing bulk flag [#88](https://github.com/recurly/recurly-client-dotnet/issues/88)
+- Connection times out to Recurly api server on Recurly.Plans.List() [#82](https://github.com/recurly/recurly-client-dotnet/issues/82)
+- Changing Private Api Key at Runtime [#77](https://github.com/recurly/recurly-client-dotnet/issues/77)
+- Getting AddOns from Plan -> Addons doesn't populate PlanCode for add on [#75](https://github.com/recurly/recurly-client-dotnet/issues/75)
+- Update billing info with token not working [#73](https://github.com/recurly/recurly-client-dotnet/issues/73)
+- The price is not changed on a subscription when the subscription plan is changed [#70](https://github.com/recurly/recurly-client-dotnet/issues/70)
+- Invoices are broken - API calls using this project are crashing getting invoices [#68](https://github.com/recurly/recurly-client-dotnet/issues/68)
+- Unable to add description when submitting a one-off transation [#57](https://github.com/recurly/recurly-client-dotnet/issues/57)
+- "Root Element is missing" exception in Transaction.ReadXml [#51](https://github.com/recurly/recurly-client-dotnet/issues/51)
+- Invoice.cs missing property [#50](https://github.com/recurly/recurly-client-dotnet/issues/50)
+- Read XML Missing Coupon Description [#48](https://github.com/recurly/recurly-client-dotnet/issues/48)
+- ChangeSubscription with Addon removal doesn't update subscription addon quantity [#47](https://github.com/recurly/recurly-client-dotnet/issues/47)
+- Transactions Get By Start DateTime [#44](https://github.com/recurly/recurly-client-dotnet/issues/44)
+- merchant reported listing account subscriptions only provides active subscriptions [#42](https://github.com/recurly/recurly-client-dotnet/issues/42)
+- 'System.Net.WebException' occurred in Recurly.dll [#31](https://github.com/recurly/recurly-client-dotnet/issues/31)
+- Product code not available in C# API? [#29](https://github.com/recurly/recurly-client-dotnet/issues/29)
+- Lists handling impovements suggestion [#28](https://github.com/recurly/recurly-client-dotnet/issues/28)
+
+
+## [1.1.10](https://github.com/recurly/recurly-client-dotnet/tree/1.1.10) (2017-11-08)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.0.1...1.1.10)
+
+
+
+**Closed Issues**
+
+- NullReferenceException when trying to GetSubscriptions() [#238](https://github.com/recurly/recurly-client-dotnet/issues/238)
+- Error in readme sample [#237](https://github.com/recurly/recurly-client-dotnet/issues/237)
+- Account Balance call to the API is not available in the C# client [#233](https://github.com/recurly/recurly-client-dotnet/issues/233)
+- Calling 'Plans.List()' will always throw a `NullReferenceException` [#229](https://github.com/recurly/recurly-client-dotnet/issues/229)
+- Cannot create plan [#226](https://github.com/recurly/recurly-client-dotnet/issues/226)
+- Requested value 'Processing' was not found. [#211](https://github.com/recurly/recurly-client-dotnet/issues/211)
+- Error in iFrame??? [#210](https://github.com/recurly/recurly-client-dotnet/issues/210)
+- Exception creating BillingInfo with AmazonBillingAgreementId [#208](https://github.com/recurly/recurly-client-dotnet/issues/208)
+- Exception when calling `Plan.Get(string)` [#205](https://github.com/recurly/recurly-client-dotnet/issues/205)
+- Subscription Postpone Date/Time is + 7hrs off of API input (local time) [#198](https://github.com/recurly/recurly-client-dotnet/issues/198)
+- No way to get a human-readable error message [#197](https://github.com/recurly/recurly-client-dotnet/issues/197)
+- Multiples API Keys and multithreading [#189](https://github.com/recurly/recurly-client-dotnet/issues/189)
+- Get subscription addon usage [#187](https://github.com/recurly/recurly-client-dotnet/issues/187)
+- How do I get off this notification stream?  [#184](https://github.com/recurly/recurly-client-dotnet/issues/184)
+- Cannot work with Free Trial Coupons [#180](https://github.com/recurly/recurly-client-dotnet/issues/180)
+- Serializing empty address [#179](https://github.com/recurly/recurly-client-dotnet/issues/179)
+- Zip Code validation [#173](https://github.com/recurly/recurly-client-dotnet/issues/173)
+- UsageTimestamp won't let you post in the future. [#170](https://github.com/recurly/recurly-client-dotnet/issues/170)
+- Usage Logging crashing when calling Create. [#168](https://github.com/recurly/recurly-client-dotnet/issues/168)
+- InvoicePendingCharges and invoice notes [#166](https://github.com/recurly/recurly-client-dotnet/issues/166)
+- Error creating a subscription via API with Add-Ons [#163](https://github.com/recurly/recurly-client-dotnet/issues/163)
+- Usage-based billing in .NET client [#161](https://github.com/recurly/recurly-client-dotnet/issues/161)
+- Setting Api Keys without using Config Files [#160](https://github.com/recurly/recurly-client-dotnet/issues/160)
+- No PaymentMethod property on the Transaction object [#158](https://github.com/recurly/recurly-client-dotnet/issues/158)
+- System.ArgumentException: Requested value 'Failed' was not found. [#156](https://github.com/recurly/recurly-client-dotnet/issues/156)
+- net_terms required when collection_method="manual" [#155](https://github.com/recurly/recurly-client-dotnet/issues/155)
+- Adjustments.Get returns uninitialized object [#149](https://github.com/recurly/recurly-client-dotnet/issues/149)
+- Injectable Recurly API keys [#148](https://github.com/recurly/recurly-client-dotnet/issues/148)
+- Add currency attribute on BillingInfo [#145](https://github.com/recurly/recurly-client-dotnet/issues/145)
+- Add cc_emails attribute to the Account class [#144](https://github.com/recurly/recurly-client-dotnet/issues/144)
+- Update Plan Addon - throw exception [#140](https://github.com/recurly/recurly-client-dotnet/issues/140)
+- Discount coupon not being applied when form is submitted [#137](https://github.com/recurly/recurly-client-dotnet/issues/137)
+- No way to post a description to a Invoice Refund [#136](https://github.com/recurly/recurly-client-dotnet/issues/136)
+- InvoicePreview removed when Previewing a Subscription [#131](https://github.com/recurly/recurly-client-dotnet/issues/131)
+- You already have a subscription to this plan.  [#124](https://github.com/recurly/recurly-client-dotnet/issues/124)
+- RecurlyServerUri is incorrect in NuGet package 1.2.5 [#122](https://github.com/recurly/recurly-client-dotnet/issues/122)
+- account.Create() when no BillingInfo. [#118](https://github.com/recurly/recurly-client-dotnet/issues/118)
+- Add Webhooks support [#117](https://github.com/recurly/recurly-client-dotnet/issues/117)
+- Upcoming multiple coupons [#112](https://github.com/recurly/recurly-client-dotnet/issues/112)
+- Get Tests and CI running [#110](https://github.com/recurly/recurly-client-dotnet/issues/110)
+- Can we refactor Subscription.UpdateNotes method? [#107](https://github.com/recurly/recurly-client-dotnet/issues/107)
+- Client doesn't properly handle Bad Request responses [#106](https://github.com/recurly/recurly-client-dotnet/issues/106)
+- No way to change a plan code [#99](https://github.com/recurly/recurly-client-dotnet/issues/99)
+- Subscription Preview method is broken [#95](https://github.com/recurly/recurly-client-dotnet/issues/95)
+- Subscription Constructor is missing bulk flag [#88](https://github.com/recurly/recurly-client-dotnet/issues/88)
+- Connection times out to Recurly api server on Recurly.Plans.List() [#82](https://github.com/recurly/recurly-client-dotnet/issues/82)
+- Changing Private Api Key at Runtime [#77](https://github.com/recurly/recurly-client-dotnet/issues/77)
+- Getting AddOns from Plan -> Addons doesn't populate PlanCode for add on [#75](https://github.com/recurly/recurly-client-dotnet/issues/75)
+- Update billing info with token not working [#73](https://github.com/recurly/recurly-client-dotnet/issues/73)
+- Customer notes support for invoices missing? [#71](https://github.com/recurly/recurly-client-dotnet/issues/71)
+- The price is not changed on a subscription when the subscription plan is changed [#70](https://github.com/recurly/recurly-client-dotnet/issues/70)
+- Invoices are broken - API calls using this project are crashing getting invoices [#68](https://github.com/recurly/recurly-client-dotnet/issues/68)
+- Add-on Clear and Add-on Remove is not working [#62](https://github.com/recurly/recurly-client-dotnet/issues/62)
+- Unable to add description when submitting a one-off transation [#57](https://github.com/recurly/recurly-client-dotnet/issues/57)
+- Transaction object missing description property [#53](https://github.com/recurly/recurly-client-dotnet/issues/53)
+- "Root Element is missing" exception in Transaction.ReadXml [#51](https://github.com/recurly/recurly-client-dotnet/issues/51)
+- Invoice.cs missing property [#50](https://github.com/recurly/recurly-client-dotnet/issues/50)
+- Read XML Missing Coupon Description [#48](https://github.com/recurly/recurly-client-dotnet/issues/48)
+- ChangeSubscription with Addon removal doesn't update subscription addon quantity [#47](https://github.com/recurly/recurly-client-dotnet/issues/47)
+- Transactions Get By Start DateTime [#44](https://github.com/recurly/recurly-client-dotnet/issues/44)
+- merchant reported listing account subscriptions only provides active subscriptions [#42](https://github.com/recurly/recurly-client-dotnet/issues/42)
+- Changing Collection Method from manual to automatic fails [#39](https://github.com/recurly/recurly-client-dotnet/issues/39)
+- Subscription.Postpone should not trim time from Date [#38](https://github.com/recurly/recurly-client-dotnet/issues/38)
+- Addon UnitPriceInCents overriden by subscription plan UnitPriceInCents [#37](https://github.com/recurly/recurly-client-dotnet/issues/37)
+- Recurly API docs don't match the code - can't clear AddOns [#32](https://github.com/recurly/recurly-client-dotnet/issues/32)
+- 'System.Net.WebException' occurred in Recurly.dll [#31](https://github.com/recurly/recurly-client-dotnet/issues/31)
+- Product code not available in C# API? [#29](https://github.com/recurly/recurly-client-dotnet/issues/29)
+- Lists handling impovements suggestion [#28](https://github.com/recurly/recurly-client-dotnet/issues/28)
+- Missing test files [#23](https://github.com/recurly/recurly-client-dotnet/issues/23)
+
+
+## [1.0.1](https://github.com/recurly/recurly-client-dotnet/tree/1.0.1) (2017-11-08)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.8.0...1.0.1)
+
+
+
+
+
+## [1.8.0](https://github.com/recurly/recurly-client-dotnet/tree/1.8.0) (2017-10-27)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.7.0...1.8.0)
+
+
+**Merged Pull Requests**
+
+- Bump 1.8.0 [#254](https://github.com/recurly/recurly-client-dotnet/pull/254) ([bhelx](https://github.com/bhelx))
+- Implements missing `revenue_schedule_type` [#253](https://github.com/recurly/recurly-client-dotnet/pull/253) ([bhelx](https://github.com/bhelx))
+- Make TrialRequiresBillingInfo an optional [#252](https://github.com/recurly/recurly-client-dotnet/pull/252) ([bhelx](https://github.com/bhelx))
+- Update the README with `Overview` section [#251](https://github.com/recurly/recurly-client-dotnet/pull/251) ([bhelx](https://github.com/bhelx))
+- Adds giftcard redeem endpoint [#250](https://github.com/recurly/recurly-client-dotnet/pull/250) ([bhelx](https://github.com/bhelx))
+
+
+
+## [1.7.0](https://github.com/recurly/recurly-client-dotnet/tree/1.7.0) (2017-10-18)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.6.1...1.7.0)
+
+
+**Merged Pull Requests**
+
+- Bump 1.7.0 [#248](https://github.com/recurly/recurly-client-dotnet/pull/248) ([bhelx](https://github.com/bhelx))
+- ImportedTrial flag on Subscription [#247](https://github.com/recurly/recurly-client-dotnet/pull/247) ([bhelx](https://github.com/bhelx))
+- Purchases Notes Changes [#246](https://github.com/recurly/recurly-client-dotnet/pull/246) ([bhelx](https://github.com/bhelx))
+
+
+
+## [1.6.1](https://github.com/recurly/recurly-client-dotnet/tree/1.6.1) (2017-10-04)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.6.0...1.6.1)
+
+
+**Merged Pull Requests**
+
+- Bump 1.6.1 [#245](https://github.com/recurly/recurly-client-dotnet/pull/245) ([bhelx](https://github.com/bhelx))
+- update postpone timestring for 24-hour formatting [#244](https://github.com/recurly/recurly-client-dotnet/pull/244) ([elliottbernstein](https://github.com/elliottbernstein))
+
+
+
+## [1.6.0](https://github.com/recurly/recurly-client-dotnet/tree/1.6.0) (2017-09-06)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.5.0...1.6.0)
+
+
+**Merged Pull Requests**
+
+- Bump 1.6.0 [#243](https://github.com/recurly/recurly-client-dotnet/pull/243) ([bhelx](https://github.com/bhelx))
+- Gift Card Support [#241](https://github.com/recurly/recurly-client-dotnet/pull/241) ([bhelx](https://github.com/bhelx))
+- Bump API v2.7 / purchases endpoint [#240](https://github.com/recurly/recurly-client-dotnet/pull/240) ([bhelx](https://github.com/bhelx))
+- Fix readxmlListDelegate usage and Bump to 1.5.1 [#239](https://github.com/recurly/recurly-client-dotnet/pull/239) ([bhelx](https://github.com/bhelx))
+
+**Closed Issues**
+
+- NullReferenceException when trying to GetSubscriptions() [#238](https://github.com/recurly/recurly-client-dotnet/issues/238)
+- Error in readme sample [#237](https://github.com/recurly/recurly-client-dotnet/issues/237)
+
+
+## [1.5.0](https://github.com/recurly/recurly-client-dotnet/tree/1.5.0) (2017-06-07)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.4.13...1.5.0)
+
+
+**Merged Pull Requests**
+
+- Bump 1.5.0 [#235](https://github.com/recurly/recurly-client-dotnet/pull/235) ([bhelx](https://github.com/bhelx))
+- Added account balance endpoint [#234](https://github.com/recurly/recurly-client-dotnet/pull/234) ([1TheMuffinMan](https://github.com/1TheMuffinMan))
+- added plan and subscription changes [#232](https://github.com/recurly/recurly-client-dotnet/pull/232) ([1TheMuffinMan](https://github.com/1TheMuffinMan))
+- Fixing NullReferenceException in List() functions [#231](https://github.com/recurly/recurly-client-dotnet/pull/231) ([jakenuts](https://github.com/jakenuts))
+- Fixed a probable NRE in Plans.List() [#230](https://github.com/recurly/recurly-client-dotnet/pull/230) ([CodingGorilla](https://github.com/CodingGorilla))
+
+**Closed Issues**
+
+- Account Balance call to the API is not available in the C# client [#233](https://github.com/recurly/recurly-client-dotnet/issues/233)
+- Calling 'Plans.List()' will always throw a `NullReferenceException` [#229](https://github.com/recurly/recurly-client-dotnet/issues/229)
+
+
+## [1.4.13](https://github.com/recurly/recurly-client-dotnet/tree/1.4.13) (2017-05-04)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.4.12...1.4.13)
+
+
+**Merged Pull Requests**
+
+- Bump 1.4.13 [#228](https://github.com/recurly/recurly-client-dotnet/pull/228) ([bhelx](https://github.com/bhelx))
+- Remove trial_requires_billing_info, it's actually in 2.6 [#227](https://github.com/recurly/recurly-client-dotnet/pull/227) ([bhelx](https://github.com/bhelx))
+
+**Closed Issues**
+
+- Cannot create plan [#226](https://github.com/recurly/recurly-client-dotnet/issues/226)
+
+
+## [1.4.12](https://github.com/recurly/recurly-client-dotnet/tree/1.4.12) (2017-04-06)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.4.11...1.4.12)
+
+
+**Merged Pull Requests**
+
+- Bump 1.4.12 [#225](https://github.com/recurly/recurly-client-dotnet/pull/225) ([bhelx](https://github.com/bhelx))
+- API v2.5 additions [#224](https://github.com/recurly/recurly-client-dotnet/pull/224) ([1TheMuffinMan](https://github.com/1TheMuffinMan))
+- Refactored Invoice/PreviewPendingCharges to be able to specify notes [#222](https://github.com/recurly/recurly-client-dotnet/pull/222) ([1TheMuffinMan](https://github.com/1TheMuffinMan))
+- Sorting and Filtering parameters [#217](https://github.com/recurly/recurly-client-dotnet/pull/217) ([bhelx](https://github.com/bhelx))
+
+**Closed Issues**
+
+- InvoicePendingCharges and invoice notes [#166](https://github.com/recurly/recurly-client-dotnet/issues/166)
+
+
+## [1.4.11](https://github.com/recurly/recurly-client-dotnet/tree/1.4.11) (2017-02-17)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.4.10...1.4.11)
+
+
+**Merged Pull Requests**
+
+- Bump 1.4.11 [#223](https://github.com/recurly/recurly-client-dotnet/pull/223) ([bhelx](https://github.com/bhelx))
+- Automated export feature [#221](https://github.com/recurly/recurly-client-dotnet/pull/221) ([1TheMuffinMan](https://github.com/1TheMuffinMan))
+- Modified overridden gethashcode to work on null references [#220](https://github.com/recurly/recurly-client-dotnet/pull/220) ([1TheMuffinMan](https://github.com/1TheMuffinMan))
+
+**Closed Issues**
+
+- Subscription Postpone Date/Time is + 7hrs off of API input (local time) [#198](https://github.com/recurly/recurly-client-dotnet/issues/198)
+- Discount coupon not being applied when form is submitted [#137](https://github.com/recurly/recurly-client-dotnet/issues/137)
+- No way to post a description to a Invoice Refund [#136](https://github.com/recurly/recurly-client-dotnet/issues/136)
+- Can we refactor Subscription.UpdateNotes method? [#107](https://github.com/recurly/recurly-client-dotnet/issues/107)
+
+
+## [1.4.10](https://github.com/recurly/recurly-client-dotnet/tree/1.4.10) (2017-02-06)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.4.9...1.4.10)
+
+
+**Merged Pull Requests**
+
+- Bump 1.4.10 [#216](https://github.com/recurly/recurly-client-dotnet/pull/216) ([bhelx](https://github.com/bhelx))
+- Add missing enum values [#215](https://github.com/recurly/recurly-client-dotnet/pull/215) ([bhelx](https://github.com/bhelx))
+
+
+
+## [1.4.9](https://github.com/recurly/recurly-client-dotnet/tree/1.4.9) (2017-01-20)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.4.7...1.4.9)
+
+
+**Merged Pull Requests**
+
+- Bump 1.4.8 [#213](https://github.com/recurly/recurly-client-dotnet/pull/213) ([bhelx](https://github.com/bhelx))
+- Added support for new invoice and transactions states for ACH billing [#212](https://github.com/recurly/recurly-client-dotnet/pull/212) ([1TheMuffinMan](https://github.com/1TheMuffinMan))
+- Write amazon_billing_agreement_id [#209](https://github.com/recurly/recurly-client-dotnet/pull/209) ([bhelx](https://github.com/bhelx))
+
+**Closed Issues**
+
+- Requested value 'Processing' was not found. [#211](https://github.com/recurly/recurly-client-dotnet/issues/211)
+- Error in iFrame??? [#210](https://github.com/recurly/recurly-client-dotnet/issues/210)
+- Exception creating BillingInfo with AmazonBillingAgreementId [#208](https://github.com/recurly/recurly-client-dotnet/issues/208)
+
+
+## [1.4.7](https://github.com/recurly/recurly-client-dotnet/tree/1.4.7) (2017-01-11)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.4.6...1.4.7)
+
+
+**Merged Pull Requests**
+
+- Bump 1.4.7 [#207](https://github.com/recurly/recurly-client-dotnet/pull/207) ([bhelx](https://github.com/bhelx))
+- Fix TotalBillingCycles nil value [#206](https://github.com/recurly/recurly-client-dotnet/pull/206) ([bhelx](https://github.com/bhelx))
+
+
+
+## [1.4.6](https://github.com/recurly/recurly-client-dotnet/tree/1.4.6) (2017-01-09)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.4.5...1.4.6)
+
+
+**Merged Pull Requests**
+
+- Bump 1.4.6 [#204](https://github.com/recurly/recurly-client-dotnet/pull/204) ([bhelx](https://github.com/bhelx))
+- Add total_billing_cycles reader [#203](https://github.com/recurly/recurly-client-dotnet/pull/203) ([bhelx](https://github.com/bhelx))
+- Updated test project to use latest version of Xunit [#202](https://github.com/recurly/recurly-client-dotnet/pull/202) ([1TheMuffinMan](https://github.com/1TheMuffinMan))
+- Parse transaction_error [#200](https://github.com/recurly/recurly-client-dotnet/pull/200) ([bhelx](https://github.com/bhelx))
+- Fix null Datetime Xml reading for Adjustment StartDate and UpdatedAt [#199](https://github.com/recurly/recurly-client-dotnet/pull/199) ([thiagodpaz](https://github.com/thiagodpaz))
+
+
+
+## [1.4.5](https://github.com/recurly/recurly-client-dotnet/tree/1.4.5) (2016-12-06)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.4.4...1.4.5)
+
+
+**Merged Pull Requests**
+
+- Bump 1.4.5 [#195](https://github.com/recurly/recurly-client-dotnet/pull/195) ([bhelx](https://github.com/bhelx))
+- Make po_number always available to write on Subscription [#194](https://github.com/recurly/recurly-client-dotnet/pull/194) ([bhelx](https://github.com/bhelx))
+- Add Invoice Create and Preview data [#193](https://github.com/recurly/recurly-client-dotnet/pull/193) ([bhelx](https://github.com/bhelx))
+- Update BillingInfo.cs (Adding PayPal) [#191](https://github.com/recurly/recurly-client-dotnet/pull/191) ([aknazhansk](https://github.com/aknazhansk))
+- allow addresses to be null, and don't force-create one when fetching … [#186](https://github.com/recurly/recurly-client-dotnet/pull/186) ([Donnotron666](https://github.com/Donnotron666))
+
+**Closed Issues**
+
+- Get subscription addon usage [#187](https://github.com/recurly/recurly-client-dotnet/issues/187)
+- Serializing empty address [#179](https://github.com/recurly/recurly-client-dotnet/issues/179)
+
+
+## [1.4.4](https://github.com/recurly/recurly-client-dotnet/tree/1.4.4) (2016-11-17)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.4.3...1.4.4)
+
+
+**Merged Pull Requests**
+
+- Bump 1.4.4 [#190](https://github.com/recurly/recurly-client-dotnet/pull/190) ([bhelx](https://github.com/bhelx))
+- Add UsageList class [#188](https://github.com/recurly/recurly-client-dotnet/pull/188) ([bhelx](https://github.com/bhelx))
+- ignore vscode files [#185](https://github.com/recurly/recurly-client-dotnet/pull/185) ([Donnotron666](https://github.com/Donnotron666))
+- Allow to skip trial period by setting date in past [#183](https://github.com/recurly/recurly-client-dotnet/pull/183) ([skynet2](https://github.com/skynet2))
+
+**Closed Issues**
+
+- Get subscription addon usage [#187](https://github.com/recurly/recurly-client-dotnet/issues/187)
+- How do I get off this notification stream?  [#184](https://github.com/recurly/recurly-client-dotnet/issues/184)
+- System.ArgumentException: Requested value 'Failed' was not found. [#156](https://github.com/recurly/recurly-client-dotnet/issues/156)
+
+
+## [1.4.3](https://github.com/recurly/recurly-client-dotnet/tree/1.4.3) (2016-10-21)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.4.2...1.4.3)
+
+
+**Merged Pull Requests**
+
+- Bump 1.4.3 [#182](https://github.com/recurly/recurly-client-dotnet/pull/182) ([bhelx](https://github.com/bhelx))
+- Support Free Trial Coupons [#181](https://github.com/recurly/recurly-client-dotnet/pull/181) ([bhelx](https://github.com/bhelx))
+- Allow null NetTerms [#178](https://github.com/recurly/recurly-client-dotnet/pull/178) ([bhelx](https://github.com/bhelx))
+- Add SubscriptionState.Failed [#177](https://github.com/recurly/recurly-client-dotnet/pull/177) ([bhelx](https://github.com/bhelx))
+- Shipping Addresses [#174](https://github.com/recurly/recurly-client-dotnet/pull/174) ([bhelx](https://github.com/bhelx))
+
+**Closed Issues**
+
+- Cannot work with Free Trial Coupons [#180](https://github.com/recurly/recurly-client-dotnet/issues/180)
+- Zip Code validation [#173](https://github.com/recurly/recurly-client-dotnet/issues/173)
+- UsageTimestamp won't let you post in the future. [#170](https://github.com/recurly/recurly-client-dotnet/issues/170)
+- Error creating a subscription via API with Add-Ons [#163](https://github.com/recurly/recurly-client-dotnet/issues/163)
+- net_terms required when collection_method="manual" [#155](https://github.com/recurly/recurly-client-dotnet/issues/155)
+
+
+## [1.4.2](https://github.com/recurly/recurly-client-dotnet/tree/1.4.2) (2016-10-03)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.4.1...1.4.2)
+
+
+**Merged Pull Requests**
+
+- Bump 1.4.2 [#176](https://github.com/recurly/recurly-client-dotnet/pull/176) ([bhelx](https://github.com/bhelx))
+- Allow null UsageTimestamp (defaults to server time) [#175](https://github.com/recurly/recurly-client-dotnet/pull/175) ([bhelx](https://github.com/bhelx))
+
+**Closed Issues**
+
+- Error creating a subscription via API with Add-Ons [#163](https://github.com/recurly/recurly-client-dotnet/issues/163)
+
+
+## [1.4.1](https://github.com/recurly/recurly-client-dotnet/tree/1.4.1) (2016-09-21)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.4.0...1.4.1)
+
+
+**Merged Pull Requests**
+
+- Bump 1.4.1 [#171](https://github.com/recurly/recurly-client-dotnet/pull/171) ([bhelx](https://github.com/bhelx))
+- Do not parse nil usage_percentage [#169](https://github.com/recurly/recurly-client-dotnet/pull/169) ([bhelx](https://github.com/bhelx))
+
+
+
+## [1.4.0](https://github.com/recurly/recurly-client-dotnet/tree/1.4.0) (2016-09-19)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.3.1...1.4.0)
+
+
+**Merged Pull Requests**
+
+- Bump 1.4.0 [#167](https://github.com/recurly/recurly-client-dotnet/pull/167) ([bhelx](https://github.com/bhelx))
+- Usage Based Billing Support [#165](https://github.com/recurly/recurly-client-dotnet/pull/165) ([bhelx](https://github.com/bhelx))
+- Add error case for 400 status code [#164](https://github.com/recurly/recurly-client-dotnet/pull/164) ([bhelx](https://github.com/bhelx))
+- Update to config with API Access [#162](https://github.com/recurly/recurly-client-dotnet/pull/162) ([BenjaminGibbs](https://github.com/BenjaminGibbs))
+- Adding `PaymentMethod` attribute on `Transaction` [#159](https://github.com/recurly/recurly-client-dotnet/pull/159) ([csmb](https://github.com/csmb))
+- Update to API version 2.2 [#154](https://github.com/recurly/recurly-client-dotnet/pull/154) ([bhelx](https://github.com/bhelx))
+- Add Currency attribute to BillingInfo [#151](https://github.com/recurly/recurly-client-dotnet/pull/151) ([bhelx](https://github.com/bhelx))
+- Fixed Get Adjustment and related test [#150](https://github.com/recurly/recurly-client-dotnet/pull/150) ([1TheMuffinMan](https://github.com/1TheMuffinMan))
+- Adding cc_emails attribute to Account class [#147](https://github.com/recurly/recurly-client-dotnet/pull/147) ([bhelx](https://github.com/bhelx))
+- Fix TLS preferences for releases [#143](https://github.com/recurly/recurly-client-dotnet/pull/143) ([bhelx](https://github.com/bhelx))
+
+**Closed Issues**
+
+- Setting Api Keys without using Config Files [#160](https://github.com/recurly/recurly-client-dotnet/issues/160)
+- Adjustments.Get returns uninitialized object [#149](https://github.com/recurly/recurly-client-dotnet/issues/149)
+- Injectable Recurly API keys [#148](https://github.com/recurly/recurly-client-dotnet/issues/148)
+- Add currency attribute on BillingInfo [#145](https://github.com/recurly/recurly-client-dotnet/issues/145)
+- Add cc_emails attribute to the Account class [#144](https://github.com/recurly/recurly-client-dotnet/issues/144)
+- Add Webhooks support [#117](https://github.com/recurly/recurly-client-dotnet/issues/117)
+
+
+## [1.3.1](https://github.com/recurly/recurly-client-dotnet/tree/1.3.1) (2015-11-19)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.3.0...1.3.1)
+
+
+
+
+
+## [1.3.0](https://github.com/recurly/recurly-client-dotnet/tree/1.3.0) (2015-11-19)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.2.7...1.3.0)
+
+
+
+
+
+## [1.2.7](https://github.com/recurly/recurly-client-dotnet/tree/1.2.7) (2015-11-17)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.2.6...1.2.7)
+
+
+
+**Closed Issues**
+
+- You already have a subscription to this plan.  [#124](https://github.com/recurly/recurly-client-dotnet/issues/124)
+- Get Tests and CI running [#110](https://github.com/recurly/recurly-client-dotnet/issues/110)
+
+
+## [1.2.6](https://github.com/recurly/recurly-client-dotnet/tree/1.2.6) (2015-11-04)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.2.5...1.2.6)
+
+
+
+
+
+## [1.2.5](https://github.com/recurly/recurly-client-dotnet/tree/1.2.5) (2015-11-03)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.2.2...1.2.5)
+
+
+
+**Closed Issues**
+
+- account.Create() when no BillingInfo. [#118](https://github.com/recurly/recurly-client-dotnet/issues/118)
+- Upcoming multiple coupons [#112](https://github.com/recurly/recurly-client-dotnet/issues/112)
+- No way to change a plan code [#99](https://github.com/recurly/recurly-client-dotnet/issues/99)
+- Subscription Preview method is broken [#95](https://github.com/recurly/recurly-client-dotnet/issues/95)
+- Getting AddOns from Plan -> Addons doesn't populate PlanCode for add on [#75](https://github.com/recurly/recurly-client-dotnet/issues/75)
+- Update billing info with token not working [#73](https://github.com/recurly/recurly-client-dotnet/issues/73)
+- The price is not changed on a subscription when the subscription plan is changed [#70](https://github.com/recurly/recurly-client-dotnet/issues/70)
+- Unable to add description when submitting a one-off transation [#57](https://github.com/recurly/recurly-client-dotnet/issues/57)
+- "Root Element is missing" exception in Transaction.ReadXml [#51](https://github.com/recurly/recurly-client-dotnet/issues/51)
+- Read XML Missing Coupon Description [#48](https://github.com/recurly/recurly-client-dotnet/issues/48)
+- ChangeSubscription with Addon removal doesn't update subscription addon quantity [#47](https://github.com/recurly/recurly-client-dotnet/issues/47)
+- Transactions Get By Start DateTime [#44](https://github.com/recurly/recurly-client-dotnet/issues/44)
+- merchant reported listing account subscriptions only provides active subscriptions [#42](https://github.com/recurly/recurly-client-dotnet/issues/42)
+- 'System.Net.WebException' occurred in Recurly.dll [#31](https://github.com/recurly/recurly-client-dotnet/issues/31)
+- Lists handling impovements suggestion [#28](https://github.com/recurly/recurly-client-dotnet/issues/28)
+
+
+## [1.2.2](https://github.com/recurly/recurly-client-dotnet/tree/1.2.2) (2015-07-06)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.2.1...1.2.2)
+
+
+
+**Closed Issues**
+
+- Subscription Constructor is missing bulk flag [#88](https://github.com/recurly/recurly-client-dotnet/issues/88)
+- Connection times out to Recurly api server on Recurly.Plans.List() [#82](https://github.com/recurly/recurly-client-dotnet/issues/82)
+- Changing Private Api Key at Runtime [#77](https://github.com/recurly/recurly-client-dotnet/issues/77)
+- Invoices are broken - API calls using this project are crashing getting invoices [#68](https://github.com/recurly/recurly-client-dotnet/issues/68)
+- Invoice.cs missing property [#50](https://github.com/recurly/recurly-client-dotnet/issues/50)
+- Product code not available in C# API? [#29](https://github.com/recurly/recurly-client-dotnet/issues/29)
+
+
+## [1.2.1](https://github.com/recurly/recurly-client-dotnet/tree/1.2.1) (2015-05-26)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.2.0...1.2.1)
+
+
+
+
+
+## [1.2.0](https://github.com/recurly/recurly-client-dotnet/tree/1.2.0) (2015-04-28)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.1.9...1.2.0)
+
+
+
+
+
+## [1.1.9](https://github.com/recurly/recurly-client-dotnet/tree/1.1.9) (2015-04-01)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.1.8...1.1.9)
+
+
+
+
+
+## [1.1.8](https://github.com/recurly/recurly-client-dotnet/tree/1.1.8) (2015-01-27)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.1.7...1.1.8)
+
+
+
+**Closed Issues**
+
+- Add-on Clear and Add-on Remove is not working [#62](https://github.com/recurly/recurly-client-dotnet/issues/62)
+
+
+## [1.1.7](https://github.com/recurly/recurly-client-dotnet/tree/1.1.7) (2014-12-19)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.1.6...1.1.7)
+
+
+
+
+
+## [1.1.6](https://github.com/recurly/recurly-client-dotnet/tree/1.1.6) (2014-09-18)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.1.5...1.1.6)
+
+
+
+
+
+## [1.1.5](https://github.com/recurly/recurly-client-dotnet/tree/1.1.5) (2014-07-31)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.1.4...1.1.5)
+
+
+
+
+
+## [1.1.4](https://github.com/recurly/recurly-client-dotnet/tree/1.1.4) (2014-07-23)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.1.1...1.1.4)
+
+
+
+**Closed Issues**
+
+- Changing Collection Method from manual to automatic fails [#39](https://github.com/recurly/recurly-client-dotnet/issues/39)
+- Subscription.Postpone should not trim time from Date [#38](https://github.com/recurly/recurly-client-dotnet/issues/38)
+
+
+## [1.1.1](https://github.com/recurly/recurly-client-dotnet/tree/1.1.1) (2014-05-01)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.1.0...1.1.1)
+
+
+
+
+
+## [1.1.0](https://github.com/recurly/recurly-client-dotnet/tree/1.1.0) (2014-05-01)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.0.0...1.1.0)
+
+
+
+**Closed Issues**
+
+- Missing test files [#23](https://github.com/recurly/recurly-client-dotnet/issues/23)
+
+
+## [1.0.0](https://github.com/recurly/recurly-client-dotnet/tree/1.0.0) (2014-04-22)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.0.0-rc1...1.0.0)
+
+
+
+**Closed Issues**
+
+- Please rename Recurly.Exception! [#21](https://github.com/recurly/recurly-client-dotnet/issues/21)
+- Enumerations inside instance type [#20](https://github.com/recurly/recurly-client-dotnet/issues/20)
+
+
+## [1.0.0-rc1](https://github.com/recurly/recurly-client-dotnet/tree/1.0.0-rc1) (2014-04-15)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.0.0-beta3...1.0.0-rc1)
+
+
+
+**Closed Issues**
+
+- Please rename Recurly.Exception! [#21](https://github.com/recurly/recurly-client-dotnet/issues/21)
+- Enumerations inside instance type [#20](https://github.com/recurly/recurly-client-dotnet/issues/20)
+- Type RecurlySection doesn't exist [#19](https://github.com/recurly/recurly-client-dotnet/issues/19)
+
+
+## [1.0.0-beta3](https://github.com/recurly/recurly-client-dotnet/tree/1.0.0-beta3) (2014-03-31)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.0.0-beta2...1.0.0-beta3)
+
+
+
+
+
+## [1.0.0-beta2](https://github.com/recurly/recurly-client-dotnet/tree/1.0.0-beta2) (2014-03-19)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.0.0-beta1...1.0.0-beta2)
+
+
+
+
+
+## [1.0.0-beta1](https://github.com/recurly/recurly-client-dotnet/tree/1.0.0-beta1) (2014-03-01)
+
+
+
+
