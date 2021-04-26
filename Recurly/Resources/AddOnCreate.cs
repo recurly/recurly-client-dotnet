@@ -42,6 +42,7 @@ namespace Recurly.Resources
         /// is not present `currencies` is required.
         /// * If the add-on's `tier_type` is `tiered`, `volume`, or `stairstep`,
         /// then `currencies` must be absent.
+        /// * Must be absent if `add_on_type` is `usage` and `usage_type` is `percentage`.
         /// </value>
         [JsonProperty("currencies")]
         public List<AddOnPricing> Currencies { get; set; }
