@@ -12,22 +12,22 @@ using Newtonsoft.Json;
 namespace Recurly.Resources
 {
     [ExcludeFromCodeCoverage]
-    public class TaxInfo : Resource
+    public class TaxDetail : Resource
     {
 
-        /// <value>Rate</value>
+        /// <value>Provides the tax rate for the region.</value>
         [JsonProperty("rate")]
         public decimal? Rate { get; set; }
 
-        /// <value>Provides the tax region applied on an invoice. For U.S. Sales Tax, this will be the 2 letter state code. For EU VAT this will be the 2 letter country code. For all country level tax types, this will display the regional tax, like VAT, GST, or PST.</value>
+        /// <value>Provides the tax region applied on an invoice. For Canadian Sales Tax, this will be either the 2 letter province code or country code.</value>
         [JsonProperty("region")]
         public string Region { get; set; }
 
+        /// <value>The total tax applied for this tax type.</value>
+        [JsonProperty("tax")]
+        public decimal? Tax { get; set; }
 
-        [JsonProperty("tax_details")]
-        public List<TaxDetail> TaxDetails { get; set; }
-
-        /// <value>Provides the tax type as "vat" for EU VAT, "usst" for U.S. Sales Tax, or the 2 letter country code for country level tax types like Canada, Australia, New Zealand, Israel, and all non-EU European countries.</value>
+        /// <value>Provides the tax type for the region. For Canadian Sales Tax, this will be GST, HST, QST or PST.</value>
         [JsonProperty("type")]
         public string Type { get; set; }
 
