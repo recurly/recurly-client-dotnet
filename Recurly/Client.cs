@@ -503,6 +503,40 @@ namespace Recurly
 
 
         /// <summary>
+        /// Verify an account's credit card billing information <see href="https://developers.recurly.com/api/v2021-02-25#operation/verify_billing_info">verify_billing_info api documentation</see>
+        /// </summary>
+        /// <param name="VerifyBillingInfoParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Transaction information from verify.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Transaction VerifyBillingInfo(string accountId, BillingInfoVerify body = null, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
+            var url = this.InterpolatePath("/accounts/{account_id}/billing_info/verify", urlParams);
+            return MakeRequest<Transaction>(Method.POST, url, null, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Verify an account's credit card billing information <see href="https://developers.recurly.com/api/v2021-02-25#operation/verify_billing_info">verify_billing_info api documentation</see>
+        /// </summary>
+        /// <param name="VerifyBillingInfoParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Transaction information from verify.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<Transaction> VerifyBillingInfoAsync(string accountId, BillingInfoVerify body = null, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
+            var url = this.InterpolatePath("/accounts/{account_id}/billing_info/verify", urlParams);
+            return MakeRequestAsync<Transaction>(Method.POST, url, null, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
         /// Get the list of billing information associated with an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_billing_infos">list_billing_infos api documentation</see>
         /// </summary>
         /// <param name="ListBillingInfosParams">Optional Parameters for the request</param>
@@ -522,7 +556,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Set an account's billing information when the wallet feature is enabled <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_billing_info">create_billing_info api documentation</see>
+        /// Add new billing information on an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_billing_info">create_billing_info api documentation</see>
         /// </summary>
         /// <param name="CreateBillingInfoParams">Optional Parameters for the request</param>
         /// <returns>
@@ -539,7 +573,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Set an account's billing information when the wallet feature is enabled <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_billing_info">create_billing_info api documentation</see>
+        /// Add new billing information on an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_billing_info">create_billing_info api documentation</see>
         /// </summary>
         /// <param name="CreateBillingInfoParams">Optional Parameters for the request</param>
         /// <returns>
