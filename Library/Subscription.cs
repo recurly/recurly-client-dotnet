@@ -496,7 +496,10 @@ namespace Recurly
         /// <summary>
         /// For an active subscription, this will pause the subscription until the specified date.
         /// </summary>
-        /// <param name="nextRenewalDate">The specified time the subscription will be postponed</param>
+        /// <param name="nextRenewalDate">The specified time the subscription will be postponed.
+        /// Although next_renewal_date is deprecated and has been replaced with next_bill_date,
+        /// we have opted to maintain the param name nextRenewalDate to keep compatibility with named arguments.
+        /// </param>
         /// <param name="bulk">bulk = false (default) or true to bypass the 60 second wait while postponing</param>
         public void Postpone(DateTime nextRenewalDate, bool bulk = false)
         {
