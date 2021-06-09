@@ -77,9 +77,9 @@ namespace Recurly.Configuration
             private set { _requestTimeoutMilliseconds = value; }
         }
 
-        protected const string RecurlyServerUri = "https://{0}.recurly.com/v2{1}";
+        protected const string RecurlyServerUri = "https://{0}.recurly.dev:3000/v2{1}";
         public const string RecurlyApiVersion = "2.29";
-        public const string ValidDomain = ".recurly.com";
+        public const string ValidDomain = ".recurly.dev";
 
         // static, unlikely to change
         public string UserAgent

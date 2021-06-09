@@ -121,6 +121,8 @@ namespace Recurly
         public string TaxRegion { get; private set; }
         public decimal? TaxRate { get; private set; }
 
+        public RecurlyList<TaxDetail> TaxDetails { get; private set; }
+
         public RecurlyList<Adjustment> Adjustments { get; private set; }
         public RecurlyList<Transaction> Transactions { get; private set; }
 
@@ -150,6 +152,7 @@ namespace Recurly
 
         public Invoice()
         {
+            TaxDetails = new TaxDetailList();
             Adjustments = new AdjustmentList();
             Transactions = new TransactionList();
         }
@@ -490,12 +493,12 @@ namespace Recurly
                         var originalInvoiceHref = reader.GetAttribute("href");
                         var invoiceNumber = Uri.UnescapeDataString(originalInvoiceHref.Substring(originalInvoiceHref.LastIndexOf("/") + 1));
                         MatchCollection matches = Regex.Matches(invoiceNumber, "([^\\d]{2})(\\d+)");
-                        
-                        if (matches.Count == 1) 
+
+                        if (matches.Count == 1)
                         {
                             OriginalInvoiceNumberPrefix = matches[0].Groups[1].Value;
                             OriginalInvoiceNumber = int.Parse(matches[0].Groups[2].Value);
-                        } 
+                        }
                         else
                         {
                             OriginalInvoiceNumber = int.Parse(invoiceNumber);
@@ -508,7 +511,7 @@ namespace Recurly
 
                     case "state":
                         var state = reader.ReadElementContentAsString();
-                        if (!state.IsNullOrEmpty()) 
+                        if (!state.IsNullOrEmpty())
                             State = state.ParseAsEnum<InvoiceState>();
                         break;
 
@@ -553,7 +556,7 @@ namespace Recurly
                     case "updated_at":
                         if (DateTime.TryParse(reader.ReadElementContentAsString(), out dt))
                             UpdatedAt = dt;
-                        break;                    
+                        break;
 
                     case "closed_at":
                         if (DateTime.TryParse(reader.ReadElementContentAsString(), out dt))
@@ -611,6 +614,12 @@ namespace Recurly
                         // overrite existing value with the Recurly API response
                         Transactions = new TransactionList();
                         Transactions.ReadXml(reader);
+                        break;
+
+                    case "tax_details":
+                        // overrite existing value with the Recurly API response
+                        TaxDetails = new TaxDetailList();
+                        TaxDetails.ReadXml(reader);
                         break;
 
                     case "address":
@@ -697,7 +706,7 @@ namespace Recurly
             {
                 xmlWriter.WriteElementString("collection_method", "automatic");
             }
-           
+
             xmlWriter.WriteEndElement(); // End: invoice
         }
 
@@ -811,7 +820,7 @@ namespace Recurly
             var invoice = new Invoice();
 
             var escapedInvoiceNumber = Uri.EscapeDataString(invoiceNumberWithPrefix);
-            
+
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
                 Invoice.UrlPrefix + escapedInvoiceNumber,
                 invoice.ReadXml);
@@ -825,7 +834,7 @@ namespace Recurly
         /// </summary>
         /// <param name="accountCode">Account code</param>
         /// <returns></returns>
-        [Obsolete("Deprecated, please use the Create instance method on the Invoice object")] 
+        [Obsolete("Deprecated, please use the Create instance method on the Invoice object")]
         public static Invoice Create(string accountCode)
         {
             if (string.IsNullOrWhiteSpace(accountCode))
