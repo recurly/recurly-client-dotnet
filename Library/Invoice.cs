@@ -122,7 +122,6 @@ namespace Recurly
         public decimal? TaxRate { get; private set; }
 
         public RecurlyList<TaxDetail> TaxDetails { get; private set; }
-
         public RecurlyList<Adjustment> Adjustments { get; private set; }
         public RecurlyList<Transaction> Transactions { get; private set; }
 

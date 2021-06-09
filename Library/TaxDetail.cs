@@ -17,7 +17,6 @@ namespace Recurly
     public string TaxType { get; set; }
     public string TaxRegion { get; set; }
 
-
     #region Constructors
 
     public TaxDetail() {
