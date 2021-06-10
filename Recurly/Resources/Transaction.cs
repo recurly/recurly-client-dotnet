@@ -27,6 +27,10 @@ namespace Recurly.Resources
         [JsonProperty("avs_check")]
         public string AvsCheck { get; set; }
 
+        /// <value>Indicates if the transaction was completed using a backup payment</value>
+        [JsonProperty("backup_payment_method_used")]
+        public bool? BackupPaymentMethodUsed { get; set; }
+
 
         [JsonProperty("billing_address")]
         public Address BillingAddress { get; set; }
