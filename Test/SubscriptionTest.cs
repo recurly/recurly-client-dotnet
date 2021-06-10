@@ -539,7 +539,7 @@ namespace Recurly.Test
         {
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
             {
-                Description = "Postpone Subscription Test"
+                Description = "Update Notes Subscription Test"
             };
             plan.UnitAmountInCents.Add("USD", 100);
             plan.Create();

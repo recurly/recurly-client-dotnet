@@ -496,14 +496,17 @@ namespace Recurly
         /// <summary>
         /// For an active subscription, this will pause the subscription until the specified date.
         /// </summary>
-        /// <param name="nextRenewalDate">The specified time the subscription will be postponed</param>
+        /// <param name="nextRenewalDate">The specified time the subscription will be postponed.
+        /// Although next_renewal_date is deprecated and has been replaced with next_bill_date,
+        /// we have opted to maintain the param name nextRenewalDate to keep compatibility with named arguments.
+        /// </param>
         /// <param name="bulk">bulk = false (default) or true to bypass the 60 second wait while postponing</param>
         public void Postpone(DateTime nextRenewalDate, bool bulk = false)
         {
             var dateString = nextRenewalDate.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ");
 
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
-                UrlPrefix + Uri.EscapeDataString(Uuid) + "/postpone?next_renewal_date=" + dateString + "&bulk=" + bulk.ToString().ToLower(),
+                UrlPrefix + Uri.EscapeDataString(Uuid) + "/postpone?next_bill_date=" + dateString + "&bulk=" + bulk.ToString().ToLower(),
                 ReadXml);
         }
 
