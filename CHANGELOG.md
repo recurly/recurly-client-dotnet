@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.17.12](https://github.com/recurly/recurly-client-dotnet/tree/1.17.12) (2021-06-16)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.11...1.17.12)
+
+
+
+
+
 ## [1.17.11](https://github.com/recurly/recurly-client-dotnet/tree/1.17.11) (2021-04-22)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.10...1.17.11)
