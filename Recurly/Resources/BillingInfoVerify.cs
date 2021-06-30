@@ -12,16 +12,12 @@ using Newtonsoft.Json;
 namespace Recurly.Resources
 {
     [ExcludeFromCodeCoverage]
-    public class BillingInfoUpdatedBy : Resource
+    public class BillingInfoVerify : Request
     {
 
-        /// <value>Country, 2-letter ISO 3166-1 alpha-2 code matching the origin IP address, if known by Recurly.</value>
-        [JsonProperty("country")]
-        public string Country { get; set; }
-
-        /// <value>Customer's IP address when updating their billing information.</value>
-        [JsonProperty("ip")]
-        public string Ip { get; set; }
+        /// <value>An identifier for a specific payment gateway.</value>
+        [JsonProperty("gateway_code")]
+        public string GatewayCode { get; set; }
 
     }
 }
