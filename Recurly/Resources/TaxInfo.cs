@@ -23,6 +23,10 @@ namespace Recurly.Resources
         [JsonProperty("region")]
         public string Region { get; set; }
 
+        /// <value>Provides additional tax details for Canadian Sales Tax when there is tax applied at both the country and province levels. This will only be populated for the Invoice response when fetching a single invoice and not for the InvoiceList or LineItem.</value>
+        [JsonProperty("tax_details")]
+        public List<TaxDetail> TaxDetails { get; set; }
+
         /// <value>Provides the tax type as "vat" for EU VAT, "usst" for U.S. Sales Tax, or the 2 letter country code for country level tax types like Canada, Australia, New Zealand, Israel, and all non-EU European countries.</value>
         [JsonProperty("type")]
         public string Type { get; set; }

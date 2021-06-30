@@ -107,7 +107,7 @@ namespace Recurly.Resources
         [JsonProperty("transaction_type")]
         public string TransactionType { get; set; }
 
-        /// <value>If set, overrides the default trial behavior for the subscription. The date must be in the future.</value>
+        /// <value>IIf set, overrides the default trial behavior for the subscription. When the current date time or a past date time is provided the subscription will begin with no trial phase (overriding any plan default trial). When a future date time is provided the subscription will begin with a trial phase ending at the specified date time.</value>
         [JsonProperty("trial_ends_at")]
         public DateTime? TrialEndsAt { get; set; }
 

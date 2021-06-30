@@ -27,6 +27,10 @@ namespace Recurly.Resources
         [JsonProperty("card_type")]
         public string CardType { get; set; }
 
+        /// <value>The 2-letter ISO 3166-1 alpha-2 country code associated with the credit card BIN, if known by Recurly. Available on the BillingInfo object only. Available when the BIN country lookup feature is enabled.</value>
+        [JsonProperty("cc_bin_country")]
+        public string CcBinCountry { get; set; }
+
         /// <value>Expiration month.</value>
         [JsonProperty("exp_month")]
         public int? ExpMonth { get; set; }

@@ -27,6 +27,10 @@ namespace Recurly.Resources
         [JsonProperty("add_ons")]
         public List<SubscriptionAddOn> AddOns { get; set; }
 
+        /// <value>Accept nested attributes for three_d_secure_action_result_token_id</value>
+        [JsonProperty("billing_info")]
+        public SubscriptionChangeBillingInfo BillingInfo { get; set; }
+
         /// <value>Created at</value>
         [JsonProperty("created_at")]
         public DateTime? CreatedAt { get; set; }

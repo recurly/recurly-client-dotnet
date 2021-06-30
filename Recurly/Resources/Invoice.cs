@@ -115,7 +115,7 @@ namespace Recurly.Resources
         [JsonProperty("subscription_ids")]
         public List<string> SubscriptionIds { get; set; }
 
-        /// <value>The summation of charges, discounts, and credits, before tax.</value>
+        /// <value>The summation of charges and credits, before discounts and taxes.</value>
         [JsonProperty("subtotal")]
         public float? Subtotal { get; set; }
 
