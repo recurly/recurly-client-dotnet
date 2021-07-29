@@ -79,11 +79,11 @@ namespace Recurly.Resources
         [JsonProperty("primary_payment_method")]
         public bool? PrimaryPaymentMethod { get; set; }
 
-        /// <value>Tax identifier is required if adding a billing info that is a consumer card in Brazil. This would be the customer's CPF, CPF is a Brazilian tax identifier for all tax paying residents.</value>
+        /// <value>Tax identifier is required if adding a billing info that is a consumer card in Brazil or in Argentina. This would be the customer's CPF (Brazil) and CUIT (Argentina). CPF and CUIT are tax identifiers for all residents who pay taxes in Brazil and Argentina respectively.</value>
         [JsonProperty("tax_identifier")]
         public string TaxIdentifier { get; set; }
 
-        /// <value>this field and a value of 'cpf' are required if adding a billing info that is an elo or hipercard type in Brazil.</value>
+        /// <value>This field and a value of `cpf` or `cuit` are required if adding a billing info that is an elo or hipercard type in Brazil or in Argentina.</value>
         [JsonProperty("tax_identifier_type")]
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
         public Constants.TaxIdentifierType? TaxIdentifierType { get; set; }

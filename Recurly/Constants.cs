@@ -1665,6 +1665,9 @@ namespace Recurly
             [EnumMember(Value = "invalid_gateway_configuration")]
             InvalidGatewayConfiguration,
 
+            [EnumMember(Value = "invalid_gateway_access_token")]
+            InvalidGatewayAccessToken,
+
             [EnumMember(Value = "invalid_issuer")]
             InvalidIssuer,
 
@@ -1823,6 +1826,9 @@ namespace Recurly
 
             [EnumMember(Value = "cpf")]
             Cpf,
+
+            [EnumMember(Value = "cuit")]
+            Cuit,
 
         };
 
