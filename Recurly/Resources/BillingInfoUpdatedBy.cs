@@ -15,7 +15,7 @@ namespace Recurly.Resources
     public class BillingInfoUpdatedBy : Resource
     {
 
-        /// <value>Country of IP address, if known by Recurly.</value>
+        /// <value>Country, 2-letter ISO 3166-1 alpha-2 code matching the origin IP address, if known by Recurly.</value>
         [JsonProperty("country")]
         public string Country { get; set; }
 

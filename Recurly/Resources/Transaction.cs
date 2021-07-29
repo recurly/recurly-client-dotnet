@@ -98,7 +98,7 @@ namespace Recurly.Resources
         [JsonProperty("invoice")]
         public InvoiceMini Invoice { get; set; }
 
-        /// <value>IP address's country</value>
+        /// <value>Origin IP address country, 2-letter ISO 3166-1 alpha-2 code, if known by Recurly.</value>
         [JsonProperty("ip_address_country")]
         public string IpAddressCountry { get; set; }
 

@@ -19,7 +19,7 @@ namespace Recurly.Resources
         [JsonProperty("city")]
         public string City { get; set; }
 
-        /// <value>Country, 2-letter ISO code.</value>
+        /// <value>Country, 2-letter ISO 3166-1 alpha-2 code.</value>
         [JsonProperty("country")]
         public string Country { get; set; }
 
