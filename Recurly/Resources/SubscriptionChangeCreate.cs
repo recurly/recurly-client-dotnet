@@ -37,6 +37,10 @@ namespace Recurly.Resources
         [JsonProperty("add_ons")]
         public List<SubscriptionAddOnUpdate> AddOns { get; set; }
 
+
+        [JsonProperty("billing_info")]
+        public SubscriptionChangeBillingInfoCreate BillingInfo { get; set; }
+
         /// <value>Collection method</value>
         [JsonProperty("collection_method")]
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
