@@ -3279,6 +3279,40 @@ namespace Recurly
 
 
         /// <summary>
+        /// Fetch a preview of a subscription's renewal invoice(s) <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_preview_renewal">get_preview_renewal api documentation</see>
+        /// </summary>
+        /// <param name="GetPreviewRenewalParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// A preview of the subscription's renewal invoice(s).
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public InvoiceCollection GetPreviewRenewal(string subscriptionId, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
+            var url = this.InterpolatePath("/subscriptions/{subscription_id}/preview_renewal", urlParams);
+            return MakeRequest<InvoiceCollection>(Method.GET, url, null, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Fetch a preview of a subscription's renewal invoice(s) <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_preview_renewal">get_preview_renewal api documentation</see>
+        /// </summary>
+        /// <param name="GetPreviewRenewalParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// A preview of the subscription's renewal invoice(s).
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<InvoiceCollection> GetPreviewRenewalAsync(string subscriptionId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
+            var url = this.InterpolatePath("/subscriptions/{subscription_id}/preview_renewal", urlParams);
+            return MakeRequestAsync<InvoiceCollection>(Method.GET, url, null, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
         /// Fetch a subscription's pending change <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_subscription_change">get_subscription_change api documentation</see>
         /// </summary>
         /// <param name="GetSubscriptionChangeParams">Optional Parameters for the request</param>
