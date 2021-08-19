@@ -15,7 +15,7 @@ namespace Recurly.Resources
     public class SubscriptionPause : Request
     {
 
-        /// <value>Number of billing cycles to pause the subscriptions.</value>
+        /// <value>Number of billing cycles to pause the subscriptions. A value of 0 will cancel any pending pauses on the subscription.</value>
         [JsonProperty("remaining_pause_cycles")]
         public int? RemainingPauseCycles { get; set; }
 

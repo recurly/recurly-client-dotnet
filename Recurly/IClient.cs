@@ -2127,6 +2127,26 @@ namespace Recurly
         Task<Subscription> ConvertTrialAsync(string subscriptionId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
 
         /// <summary>
+        /// Fetch a preview of a subscription's renewal invoice(s) <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_preview_renewal">get_preview_renewal api documentation</see>
+        /// </summary>
+        /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
+        /// <returns>
+        /// A preview of the subscription's renewal invoice(s).
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        InvoiceCollection GetPreviewRenewal(string subscriptionId, RequestOptions options = null);
+
+        /// <summary>
+        /// Fetch a preview of a subscription's renewal invoice(s) <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_preview_renewal">get_preview_renewal api documentation</see>
+        /// </summary>
+        /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
+        /// <returns>
+        /// A preview of the subscription's renewal invoice(s).
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<InvoiceCollection> GetPreviewRenewalAsync(string subscriptionId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
         /// Fetch a subscription's pending change <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_subscription_change">get_subscription_change api documentation</see>
         /// </summary>
         /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
