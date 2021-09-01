@@ -3950,5 +3950,92 @@ namespace Recurly
         }
 
 
+
+        /// <summary>
+        /// Show the dunning campaigns for a site <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_dunning_campaigns">list_dunning_campaigns api documentation</see>
+        /// </summary>
+        /// <param name="ListDunningCampaignsParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// A list of the the dunning_campaigns on an account.
+        /// </returns>
+        public Pager<DunningCampaign> ListDunningCampaigns(ListDunningCampaignsParams optionalParams = null, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var queryParams = (optionalParams ?? new ListDunningCampaignsParams()).ToDictionary();
+            var url = this.InterpolatePath("/dunning_campaigns", urlParams);
+            return Pager<DunningCampaign>.Build(url, queryParams, options, this);
+        }
+
+
+
+
+
+        /// <summary>
+        /// Show the settings for a dunning campaign <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_dunning_campaign">get_dunning_campaign api documentation</see>
+        /// </summary>
+        /// <param name="GetDunningCampaignParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Settings for a dunning campaign.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public DunningCampaign GetDunningCampaign(string dunningCampaignId, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "dunning_campaign_id", dunningCampaignId } };
+            var url = this.InterpolatePath("/dunning_campaigns/{dunning_campaign_id}", urlParams);
+            return MakeRequest<DunningCampaign>(Method.GET, url, null, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Show the settings for a dunning campaign <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_dunning_campaign">get_dunning_campaign api documentation</see>
+        /// </summary>
+        /// <param name="GetDunningCampaignParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Settings for a dunning campaign.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<DunningCampaign> GetDunningCampaignAsync(string dunningCampaignId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "dunning_campaign_id", dunningCampaignId } };
+            var url = this.InterpolatePath("/dunning_campaigns/{dunning_campaign_id}", urlParams);
+            return MakeRequestAsync<DunningCampaign>(Method.GET, url, null, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// Assign a dunning campaign to multiple plans <see href="https://developers.recurly.com/api/v2021-02-25#operation/put_dunning_campaign_bulk_update">put_dunning_campaign_bulk_update api documentation</see>
+        /// </summary>
+        /// <param name="PutDunningCampaignBulkUpdateParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// A list of updated plans.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public DunningCampaignsBulkUpdateResponse PutDunningCampaignBulkUpdate(DunningCampaignsBulkUpdate body, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var url = this.InterpolatePath("/dunning_campaigns/{dunning_campaign_id}/bulk_update", urlParams);
+            return MakeRequest<DunningCampaignsBulkUpdateResponse>(Method.PUT, url, body, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Assign a dunning campaign to multiple plans <see href="https://developers.recurly.com/api/v2021-02-25#operation/put_dunning_campaign_bulk_update">put_dunning_campaign_bulk_update api documentation</see>
+        /// </summary>
+        /// <param name="PutDunningCampaignBulkUpdateParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// A list of updated plans.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<DunningCampaignsBulkUpdateResponse> PutDunningCampaignBulkUpdateAsync(DunningCampaignsBulkUpdate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var url = this.InterpolatePath("/dunning_campaigns/{dunning_campaign_id}/bulk_update", urlParams);
+            return MakeRequestAsync<DunningCampaignsBulkUpdateResponse>(Method.PUT, url, body, null, options, cancellationToken);
+        }
+
+
     }
 }

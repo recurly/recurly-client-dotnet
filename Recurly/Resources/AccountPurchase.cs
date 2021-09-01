@@ -48,6 +48,10 @@ namespace Recurly.Resources
         [JsonProperty("custom_fields")]
         public List<CustomField> CustomFields { get; set; }
 
+        /// <value>Unique ID to identify a dunning campaign. Available when the Dunning Campaigns feature is enabled. Used to specify if a non-default dunning campaign should be assigned to this account. For sites without multiple dunning campaigns enabled, the default dunning campaign will always be used.</value>
+        [JsonProperty("dunning_campaign_id")]
+        public string DunningCampaignId { get; set; }
+
         /// <value>The email address used for communicating with this customer. The customer will also use this email address to log into your hosted account management pages. This value does not need to be unique.</value>
         [JsonProperty("email")]
         public string Email { get; set; }

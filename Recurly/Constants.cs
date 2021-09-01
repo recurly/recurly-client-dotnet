@@ -1320,6 +1320,9 @@ namespace Recurly
             [EnumMember(Value = "Visa")]
             Visa,
 
+            [EnumMember(Value = "Tarjeta Naranja")]
+            TarjetaNaranja,
+
         };
 
         public enum AccountType
@@ -1829,6 +1832,21 @@ namespace Recurly
 
             [EnumMember(Value = "cuit")]
             Cuit,
+
+        };
+
+        public enum DunningCycleType
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "automatic")]
+            Automatic,
+
+            [EnumMember(Value = "manual")]
+            Manual,
+
+            [EnumMember(Value = "trial")]
+            Trial,
 
         };
 
