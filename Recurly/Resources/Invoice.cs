@@ -64,6 +64,10 @@ namespace Recurly.Resources
         [JsonProperty("due_at")]
         public DateTime? DueAt { get; set; }
 
+        /// <value>Unique ID to identify the dunning campaign used when dunning the invoice. Available when the Dunning Campaigns feature is enabled. For sites without multiple dunning campaigns enabled, this will always be the default dunning campaign.</value>
+        [JsonProperty("dunning_campaign_id")]
+        public string DunningCampaignId { get; set; }
+
         /// <value>Identifies if the invoice has more line items than are returned in `line_items`. If `has_more_line_items` is `true`, then a request needs to be made to the `list_invoice_line_items` endpoint.</value>
         [JsonProperty("has_more_line_items")]
         public bool? HasMoreLineItems { get; set; }

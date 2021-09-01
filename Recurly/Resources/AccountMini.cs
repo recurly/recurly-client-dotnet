@@ -27,6 +27,10 @@ namespace Recurly.Resources
         [JsonProperty("company")]
         public string Company { get; set; }
 
+        /// <value>Unique ID to identify a dunning campaign. Available when the Dunning Campaigns feature is enabled. Used to specify if a non-default dunning campaign should be assigned to this account. For sites without multiple dunning campaigns enabled, the default dunning campaign will always be used.</value>
+        [JsonProperty("dunning_campaign_id")]
+        public string DunningCampaignId { get; set; }
+
         /// <value>The email address used for communicating with this customer.</value>
         [JsonProperty("email")]
         public string Email { get; set; }
