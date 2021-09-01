@@ -2558,5 +2558,55 @@ namespace Recurly
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
         Task<ExportFiles> GetExportFilesAsync(string exportDate, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// Show the dunning campaigns for a site <see href="https://developers.recurly.com/api/v2019-10-10#operation/list_dunning_campaigns">list_dunning_campaigns api documentation</see>
+        /// </summary>
+        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
+        /// <returns>
+        /// A list of the the dunning_campaigns on an account.
+        /// </returns>
+        Pager<DunningCampaign> ListDunningCampaigns(string sort = null, RequestOptions options = null);
+
+
+        /// <summary>
+        /// Show the settings for a dunning campaign <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_dunning_campaign">get_dunning_campaign api documentation</see>
+        /// </summary>
+        /// <param name="dunningCampaignId">Dunning Campaign ID, e.g. `e28zov4fw0v2`.</param>
+        /// <returns>
+        /// Settings for a dunning campaign.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        DunningCampaign GetDunningCampaign(string dunningCampaignId, RequestOptions options = null);
+
+        /// <summary>
+        /// Show the settings for a dunning campaign <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_dunning_campaign">get_dunning_campaign api documentation</see>
+        /// </summary>
+        /// <param name="dunningCampaignId">Dunning Campaign ID, e.g. `e28zov4fw0v2`.</param>
+        /// <returns>
+        /// Settings for a dunning campaign.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<DunningCampaign> GetDunningCampaignAsync(string dunningCampaignId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// Assign a dunning campaign to multiple plans <see href="https://developers.recurly.com/api/v2019-10-10#operation/put_dunning_campaign_bulk_update">put_dunning_campaign_bulk_update api documentation</see>
+        /// </summary>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// A list of updated plans.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        DunningCampaignsBulkUpdateResponse PutDunningCampaignBulkUpdate(DunningCampaignsBulkUpdate body, RequestOptions options = null);
+
+        /// <summary>
+        /// Assign a dunning campaign to multiple plans <see href="https://developers.recurly.com/api/v2019-10-10#operation/put_dunning_campaign_bulk_update">put_dunning_campaign_bulk_update api documentation</see>
+        /// </summary>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// A list of updated plans.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<DunningCampaignsBulkUpdateResponse> PutDunningCampaignBulkUpdateAsync(DunningCampaignsBulkUpdate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
     }
 }
