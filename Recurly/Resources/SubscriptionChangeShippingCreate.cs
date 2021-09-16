@@ -15,6 +15,14 @@ namespace Recurly.Resources
     public class SubscriptionChangeShippingCreate : Request
     {
 
+
+        [JsonProperty("address")]
+        public ShippingAddressCreate Address { get; set; }
+
+        /// <value>Assign a shipping address from the account's existing shipping addresses. If this and address are both present, address will take precedence.</value>
+        [JsonProperty("address_id")]
+        public string AddressId { get; set; }
+
         /// <value>Assigns the subscription's shipping cost. If this is greater than zero then a `method_id` or `method_code` is required.</value>
         [JsonProperty("amount")]
         public decimal? Amount { get; set; }
