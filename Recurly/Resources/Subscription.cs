@@ -96,6 +96,10 @@ namespace Recurly.Resources
         [JsonProperty("expires_at")]
         public DateTime? ExpiresAt { get; set; }
 
+        /// <value>If present, this subscription's transactions will use the payment gateway with this code.</value>
+        [JsonProperty("gateway_code")]
+        public string GatewayCode { get; set; }
+
         /// <value>Subscription ID</value>
         [JsonProperty("id")]
         public string Id { get; set; }
@@ -158,9 +162,21 @@ namespace Recurly.Resources
         [JsonProperty("subtotal")]
         public decimal? Subtotal { get; set; }
 
+        /// <value>Estimated tax</value>
+        [JsonProperty("tax")]
+        public decimal? Tax { get; set; }
+
+        /// <value>Tax info</value>
+        [JsonProperty("tax_info")]
+        public TaxInfo TaxInfo { get; set; }
+
         /// <value>Terms and conditions</value>
         [JsonProperty("terms_and_conditions")]
         public string TermsAndConditions { get; set; }
+
+        /// <value>Estimated total</value>
+        [JsonProperty("total")]
+        public decimal? Total { get; set; }
 
         /// <value>The number of cycles/billing periods in a term. When `remaining_billing_cycles=0`, if `auto_renew=true` the subscription will renew and a new term will begin, otherwise the subscription will expire.</value>
         [JsonProperty("total_billing_cycles")]
