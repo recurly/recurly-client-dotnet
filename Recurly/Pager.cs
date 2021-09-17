@@ -93,9 +93,6 @@ namespace Recurly
             this.Next = pager.Next;
             this.Data = pager.Data;
             this.HasMore = pager.HasMore;
-            this.Url = pager.Url;
-            this.QueryParams = pager.QueryParams;
-            this.Options = pager.Options;
             this.SetResponse(pager.GetResponse());
             this._pristine = false;
         }

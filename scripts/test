@@ -11,5 +11,8 @@ else
   echo "Style check passed"
 fi
 
-RECURLY_STRICT_MODE=true dotnet test Recurly.Tests/Recurly.Tests.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=opencover \
+# Individual tests can be run by including the --filter flag:
+# ./scripts/test --filter DisplayName=Recurly.Tests.PagerTest.EnumerableTest
+
+RECURLY_STRICT_MODE=true dotnet test Recurly.Tests/Recurly.Tests.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=opencover  "$@" \
 && dotnet ~/.nuget/packages/reportgenerator/*/tools/netcoreapp*/ReportGenerator.dll -reports:./Recurly.Tests/coverage.opencover.xml -targetdir:./Recurly.Tests/coverage_report

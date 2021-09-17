@@ -109,6 +109,19 @@ namespace Recurly.Tests
         }
 
         [Fact]
+        public void EnumerablePagesUrlTest()
+        {
+            var queryParams = new Dictionary<string, object> {
+                { "limit", "200" },
+            };
+            var client = GetPagerSuccessClient(queryParams);
+            var pager = Pager<MyResource>.Build("/resources", queryParams, null, client);
+            var originalUrl = pager.Url;
+            pager.FetchNextPage();
+            Assert.Equal(originalUrl, pager.Url);
+        }
+
+        [Fact]
         public void PagerFirstTest()
         {
             var paramsMatcher = MockClient.QueryParameterMatcher(new Dictionary<string, object> {
