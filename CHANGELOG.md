@@ -1,5 +1,16 @@
 # Changelog
 
+## [4.9.1](https://github.com/recurly/recurly-client-dotnet/tree/4.9.1) (2021-09-17)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/4.9.0...4.9.1)
+
+
+**Merged Pull Requests**
+
+- Fixing bug in the Pager that breaks the Count and First methods [#658](https://github.com/recurly/recurly-client-dotnet/pull/658) ([douglasmiller](https://github.com/douglasmiller))
+
+
+
 ## [4.9.0](https://github.com/recurly/recurly-client-dotnet/tree/4.9.0) (2021-09-16)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/4.8.0...4.9.0)
