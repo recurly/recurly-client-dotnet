@@ -79,7 +79,7 @@ namespace Recurly.Resources
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
         public Constants.RevenueScheduleType? RevenueScheduleType { get; set; }
 
-        /// <value>The shipping address can currently only be changed immediately, using SubscriptionUpdate.</value>
+        /// <value>Shipping addresses are tied to a customer's account. Each account can have up to 20 different shipping addresses, and if you have enabled multiple subscriptions per account, you can associate different shipping addresses to each subscription.</value>
         [JsonProperty("shipping")]
         public SubscriptionChangeShippingCreate Shipping { get; set; }
 

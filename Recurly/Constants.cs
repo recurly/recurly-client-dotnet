@@ -1275,6 +1275,9 @@ namespace Recurly
             [EnumMember(Value = "wire_transfer")]
             WireTransfer,
 
+            [EnumMember(Value = "braintree_v_zero")]
+            BraintreeVZero,
+
         };
 
         public enum CardType
