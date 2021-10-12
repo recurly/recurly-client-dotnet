@@ -34,6 +34,7 @@ namespace Recurly
         }
 
         public string AccountCode { get; private set; }
+        public string BillForAccountCode { get; private set; }
         public string Uuid { get; protected set; }
         public string Description { get; set; }
         public string AccountingCode { get; set; }
@@ -75,8 +76,6 @@ namespace Recurly
 
         private const int AccountingCodeMaxLength = 20;
         private const int UnitAmountMax = 10000000;
-
-        public string BillForAccount;
 
         #region Constructors
 
@@ -152,24 +151,20 @@ namespace Recurly
         {
             while (reader.Read())
             {
-                // End of account element, get out of here
                 if (reader.Name == "adjustment" && reader.NodeType == XmlNodeType.EndElement)
                     break;
 
                 if (reader.NodeType != XmlNodeType.Element) continue;
                 switch (reader.Name)
-                { 
+                {
                     case "account":
                         var href = reader.GetAttribute("href");
                         AccountCode = Uri.UnescapeDataString(href.Substring(href.LastIndexOf("/") + 1));
                         break;
 
                     case "bill_for_account":
-                        BillForAccount = reader.GetAttribute("href");
-//                        BillForAccount = reader.ReadElementContentAsString();
-//                           BillForAccount = Account('');
-//                        var bill_for_account_href = reader.GetAttribute("href");
-//                        BillForAccount = Uri.UnescapeDataString(bill_for_account_href.Substring(bill_for_account_href.LastIndexOf("/") + 1));
+                        href = reader.GetAttribute("href");
+                        BillForAccountCode = Uri.UnescapeDataString(href.Substring(href.LastIndexOf("/") + 1));
                         break;
 
                     case "uuid":

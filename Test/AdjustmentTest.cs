@@ -184,35 +184,16 @@ namespace Recurly.Test
         }
 
         [RecurlyFact(TestEnvironment.Type.Integration)]
-        public void AdjustmentBillForAccount()
+        public void AdjustmentBillForAccountCode()
         {
+            var account = CreateNewAccount();
 
+            var adjustment = account.NewAdjustment("USD", 1234);
+            adjustment.Create();
 
-//            var adjustment2 = account.GetAdjustments.get("abcdef1234567890");
+            var fromService =  Adjustments.Get(adjustment.Uuid);
 
-//            Assert.Equal('dsd', adjustment.BillForAccount);
-//            var account = CreateNewAccount();
-
-//            var adjustments = account.GetAdjustments();
-
-
-//            var adjustment = Adjustments.Get("abcdef1234567890");
-//            Console.WriteLine(adjustment2.uuid);
-//            Assert.Equal("fsdfdsfdf", adjustment.BillForAccount);
-//            string test = "asdasd";
-//            Assert.Equal(test, adjustment.BillForAccount);
-//            Assert.Equal(account.AccountCode, adjustment2.BillForAccount);
-              var account = CreateNewAccount();
-
-             var adjustment = account.NewAdjustment("USD", 1234);
-             adjustment.Create();
-
-            var adj =  Adjustments.Get(adjustment.Uuid);
-
-
-
-            Assert.Equal(account.AccountCode, adj.BillForAccount);
-
+            Assert.Equal(account.AccountCode, fromService.BillForAccountCode);
         }
     }
 }
