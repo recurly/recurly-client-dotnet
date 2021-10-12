@@ -76,6 +76,8 @@ namespace Recurly
         private const int AccountingCodeMaxLength = 20;
         private const int UnitAmountMax = 10000000;
 
+        public string BillForAccount;
+
         #region Constructors
 
 
@@ -160,6 +162,14 @@ namespace Recurly
                     case "account":
                         var href = reader.GetAttribute("href");
                         AccountCode = Uri.UnescapeDataString(href.Substring(href.LastIndexOf("/") + 1));
+                        break;
+
+                    case "bill_for_account":
+                        BillForAccount = reader.GetAttribute("href");
+//                        BillForAccount = reader.ReadElementContentAsString();
+//                           BillForAccount = Account('');
+//                        var bill_for_account_href = reader.GetAttribute("href");
+//                        BillForAccount = Uri.UnescapeDataString(bill_for_account_href.Substring(bill_for_account_href.LastIndexOf("/") + 1));
                         break;
 
                     case "uuid":
