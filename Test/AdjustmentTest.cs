@@ -182,5 +182,18 @@ namespace Recurly.Test
             Action get = () => Adjustments.Get(adjustment.Uuid);
             get.ShouldThrow<NotFoundException>();
         }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void AdjustmentBillForAccountCode()
+        {
+            var account = CreateNewAccount();
+
+            var adjustment = account.NewAdjustment("USD", 1234);
+            adjustment.Create();
+
+            var fromService =  Adjustments.Get(adjustment.Uuid);
+
+            Assert.Equal(account.AccountCode, fromService.BillForAccountCode);
+        }
     }
 }

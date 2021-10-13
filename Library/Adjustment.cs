@@ -34,6 +34,7 @@ namespace Recurly
         }
 
         public string AccountCode { get; private set; }
+        public string BillForAccountCode { get; private set; }
         public string Uuid { get; protected set; }
         public string Description { get; set; }
         public string AccountingCode { get; set; }
@@ -150,16 +151,20 @@ namespace Recurly
         {
             while (reader.Read())
             {
-                // End of account element, get out of here
                 if (reader.Name == "adjustment" && reader.NodeType == XmlNodeType.EndElement)
                     break;
 
                 if (reader.NodeType != XmlNodeType.Element) continue;
                 switch (reader.Name)
-                { 
+                {
                     case "account":
                         var href = reader.GetAttribute("href");
                         AccountCode = Uri.UnescapeDataString(href.Substring(href.LastIndexOf("/") + 1));
+                        break;
+
+                    case "bill_for_account":
+                        href = reader.GetAttribute("href");
+                        BillForAccountCode = Uri.UnescapeDataString(href.Substring(href.LastIndexOf("/") + 1));
                         break;
 
                     case "uuid":
