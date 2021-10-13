@@ -148,7 +148,7 @@ namespace Recurly.Test
             account.InvoicePendingCharges();
 
             adjustments = account.GetAdjustments(state: Adjustment.AdjustmentState.Invoiced);
-            adjustments.Should().HaveCount(3);
+            adjustments.Should().HaveCount(2);
             adjustments.Should().OnlyContain(x => x.State == Adjustment.AdjustmentState.Invoiced);
         }
 
