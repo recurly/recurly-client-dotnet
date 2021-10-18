@@ -139,6 +139,7 @@ namespace Recurly
         public DateTime? DueOn { get; set; }
         public string Type { get; set; }
         public string Origin { get; set; }
+        public string DunningCampaignId { get; private set; }
 
         internal string TransactionType { get; set; }
 
@@ -656,6 +657,10 @@ namespace Recurly
 
                     case "origin":
                         Origin = reader.ReadElementContentAsString();
+                        break;
+
+                    case "dunning_campaign_id":
+                        DunningCampaignId = reader.ReadElementContentAsString();
                         break;
 
                     case "attempt_next_collection_at":

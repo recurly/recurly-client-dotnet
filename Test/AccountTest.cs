@@ -35,6 +35,7 @@ namespace Recurly.Test
                 TaxExempt = true,
                 EntityUseCode = "I",
                 CcEmails = "cc1@test.com,cc2@test.com",
+                DunningCampaignId = "p050sudtexvv",
                 Address = new Address(),
                 CustomFields = customFields
             };
@@ -51,6 +52,7 @@ namespace Recurly.Test
             acct.CompanyName.Should().Be("Test Company");
             acct.AcceptLanguage.Should().Be("en");
             acct.CcEmails.Should().Be("cc1@test.com,cc2@test.com");
+            acct.DunningCampaignId.Should().Be("p050sudtexvv");
             Assert.Equal("my-vat-number", acct.VatNumber);
             Assert.True(acct.TaxExempt.Value);
             Assert.Equal("I", acct.EntityUseCode);

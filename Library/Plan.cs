@@ -52,6 +52,8 @@ namespace Recurly
 
         public bool? TrialRequiresBillingInfo { get; set; }
 
+        public string DunningCampaignId { get; set; }
+
         /// <summary>
         /// Determines whether subscriptions to this plan should auto-renew term at the end of the current term or expire.
         /// Defaults to true.
@@ -322,6 +324,10 @@ namespace Recurly
                         SetupFeeAccountingCode = reader.ReadElementContentAsString();
                         break;
 
+                    case "dunning_campaign_id":
+                        DunningCampaignId = reader.ReadElementContentAsString();
+                        break;
+
                     case "created_at":
                         CreatedAt = reader.ReadElementContentAsDateTime();
                         break;
@@ -386,6 +392,10 @@ namespace Recurly
             xmlWriter.WriteStringIfValid("description", Description);
             xmlWriter.WriteStringIfValid("accounting_code", AccountingCode);
             xmlWriter.WriteStringIfValid("setup_fee_accounting_code", SetupFeeAccountingCode);
+
+            if (DunningCampaignId != null)
+                xmlWriter.WriteElementString("dunning_campaign_id", DunningCampaignId);
+
             if (PlanIntervalLength.HasValue)
             {
                 xmlWriter.WriteElementString("plan_interval_unit", PlanIntervalUnit.ToString().EnumNameToTransportCase());
@@ -420,7 +430,7 @@ namespace Recurly
 
             if (AllowAnyItemOnSubscriptions.HasValue)
                 xmlWriter.WriteElementString("allow_any_item_on_subscriptions", AllowAnyItemOnSubscriptions.Value.AsString());
-                
+
             if (TaxExempt.HasValue)
                 xmlWriter.WriteElementString("tax_exempt", TaxExempt.Value.AsString());
 
@@ -438,7 +448,7 @@ namespace Recurly
 
             if (AutoRenew.HasValue)
                 xmlWriter.WriteElementString("auto_renew", AutoRenew.Value.AsString());
-        
+
             xmlWriter.WriteEndElement();
         }
 
