@@ -1,19 +1,45 @@
 #!/usr/bin/env bash
 set -e
 
-CONFIGURATION=${1:-Debug}
+usage () {
+  echo "Supported Options:"
+  echo
+  echo "  -R     Use the Release build configuration (Debug is used by default)."
+  echo "  -r     Output test results to test-report.html file."
+  echo "  -c     Test class to run. Cannot be used with -m option."
+  echo "  -m     Test method to run. Cannot be used with -c option."
+  echo "  -h     Print this help."
+  echo
+  echo "Example:"
+  echo "  ./scripts/test -m SettingsTest.ValidDomainTest"
+  echo "  ./scripts/test -c SettingsTest -r"
+}
 
-[[ -z "$2" ]] && METHOD="" || METHOD="-method Recurly.Test.$2"
+config="Debug"
 
-if [ "$CONFIGURATION" != "Debug" ] && [ "$CONFIGURATION" != "Release" ]; then
-    # Assume the user wanted Debug
-    CONFIGURATION="Debug"
-    # If they passed in anything, assume it was the method they want to run
-    METHOD="-method Recurly.Test.$1"
+options=':Rrc:m:h'
+while getopts $options option
+do
+    case "$option" in
+        R) config="Release";;
+        r) report="-html test-report.html";;
+        c) test_class="-class Recurly.Test.$OPTARG";;
+        m) test_method="-method Recurly.Test.$OPTARG";;
+        h) usage; exit;;
+        \?) echo "Unknown option: -$OPTARG" >&2; exit 1;;
+        :) echo "Missing option argument for -$OPTARG" >&2; exit 1;;
+    esac
+done
+
+if [ -n "$test_method" ] && [ -n "$test_class" ]; then
+  echo "The -c and -m options cannot be used together"
+  echo
+  usage
+  exit 1
 fi
 
 if [[ -z "${TRAVIS}" ]]; then
-  ./scripts/build $CONFIGURATION
+  ./scripts/build $config
 fi
 
-mono ./testrunner/xunit.runner.console.2.4.0/tools/net472/xunit.console.exe ./Test/bin/$CONFIGURATION/Recurly.Test.dll $METHOD
+mono ./testrunner/xunit.runner.console.2.4.0/tools/net472/xunit.console.exe ./Test/bin/$config/Recurly.Test.dll $report $test_class $test_method
