@@ -192,3 +192,4 @@ dist/*.nupkg
 dist/lib/net*
 
 testrunner/
+test-report.html

@@ -7,4 +7,4 @@ install:
   - nuget install xunit.runner.console -Version 2.4.0 -OutputDirectory testrunner
 script:
   - xbuild /p:Configuration=Release Recurly.sln
-  - ./scripts/test Release
+  - ./scripts/test -R

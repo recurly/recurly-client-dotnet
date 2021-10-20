@@ -151,6 +151,25 @@ foreach (var account in accounts)
 Every `List()` method takes a `FilterCriteria` as the final parameter, but differs in the endpoint specific filters.
 The best way to learn about this is by looking at the source code or the code docs.
 
+## Testing
+
+The test suite can be run using the `scripts/test` script. This script provides some optional configuration that can be viewed by passing the `-h` flag:
+
+```
+$ ./scripts/test -h
+Supported Options:
+
+  -R     Use the Release build configuration (Debug is used by default).
+  -r     Output test results to test-report.html file.
+  -c     Test class to run. Cannot be used with -m option.
+  -m     Test method to run. Cannot be used with -c option.
+  -h     Print this help.
+
+Example:
+  ./scripts/test -m SettingsTest.ValidDomainTest
+  ./scripts/test -c SettingsTest -r
+```
+
 ## Support
 
 Looking for help? Please contact [support@recurly.com](mailto:support@recurly.com) or visit
