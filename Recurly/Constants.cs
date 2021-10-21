@@ -285,6 +285,9 @@ namespace Recurly
             [EnumMember(Value = "en-GB")]
             EnGb,
 
+            [EnumMember(Value = "en-IE")]
+            EnIe,
+
             [EnumMember(Value = "en-NZ")]
             EnNz,
 
@@ -300,6 +303,9 @@ namespace Recurly
             [EnumMember(Value = "es-US")]
             EsUs,
 
+            [EnumMember(Value = "fi-FI")]
+            FiFi,
+
             [EnumMember(Value = "fr-CA")]
             FrCa,
 
@@ -309,8 +315,14 @@ namespace Recurly
             [EnumMember(Value = "hi-IN")]
             HiIn,
 
+            [EnumMember(Value = "it-IT")]
+            ItIt,
+
             [EnumMember(Value = "ja-JP")]
             JaJp,
+
+            [EnumMember(Value = "ko-KR")]
+            KoKr,
 
             [EnumMember(Value = "nl-BE")]
             NlBe,
@@ -324,8 +336,14 @@ namespace Recurly
             [EnumMember(Value = "pt-PT")]
             PtPt,
 
+            [EnumMember(Value = "ro-RO")]
+            RoRo,
+
             [EnumMember(Value = "ru-RU")]
             RuRu,
+
+            [EnumMember(Value = "sk-SK")]
+            SkSk,
 
             [EnumMember(Value = "tr-TR")]
             TrTr,
@@ -612,8 +630,17 @@ namespace Recurly
         {
             Undefined = 0,
 
+            [EnumMember(Value = "carryforward_credit")]
+            CarryforwardCredit,
+
+            [EnumMember(Value = "carryforward_gift_credit")]
+            CarryforwardGiftCredit,
+
             [EnumMember(Value = "credit")]
             Credit,
+
+            [EnumMember(Value = "external_refund")]
+            ExternalRefund,
 
             [EnumMember(Value = "gift_card")]
             GiftCard,
@@ -621,14 +648,23 @@ namespace Recurly
             [EnumMember(Value = "immediate_change")]
             ImmediateChange,
 
+            [EnumMember(Value = "import")]
+            Import,
+
             [EnumMember(Value = "line_item_refund")]
             LineItemRefund,
 
             [EnumMember(Value = "open_amount_refund")]
             OpenAmountRefund,
 
+            [EnumMember(Value = "prepayment")]
+            Prepayment,
+
             [EnumMember(Value = "purchase")]
             Purchase,
+
+            [EnumMember(Value = "refund")]
+            Refund,
 
             [EnumMember(Value = "renewal")]
             Renewal,
@@ -636,11 +672,11 @@ namespace Recurly
             [EnumMember(Value = "termination")]
             Termination,
 
+            [EnumMember(Value = "usage_correction")]
+            UsageCorrection,
+
             [EnumMember(Value = "write_off")]
             WriteOff,
-
-            [EnumMember(Value = "prepayment")]
-            Prepayment,
 
         };
 
