@@ -1,5 +1,16 @@
 # Changelog
 
+## [4.11.0](https://github.com/recurly/recurly-client-dotnet/tree/4.11.0) (2021-10-23)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/4.10.0...4.11.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 [#667](https://github.com/recurly/recurly-client-dotnet/pull/667) ([recurly-integrations](https://github.com/recurly-integrations))
+
+
+
 ## [4.10.0](https://github.com/recurly/recurly-client-dotnet/tree/4.10.0) (2021-10-06)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/4.9.1...4.10.0)
@@ -9,6 +20,9 @@
 
 - Generated Latest Changes for v2021-02-25 [#659](https://github.com/recurly/recurly-client-dotnet/pull/659) ([recurly-integrations](https://github.com/recurly-integrations))
 
+**Closed Issues**
+
+- Constants.PaymentMethod missing Braintree [#643](https://github.com/recurly/recurly-client-dotnet/issues/643)
 
 
 ## [4.9.1](https://github.com/recurly/recurly-client-dotnet/tree/4.9.1) (2021-09-17)
