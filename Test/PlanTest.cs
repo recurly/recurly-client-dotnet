@@ -54,7 +54,8 @@ namespace Recurly.Test
                 TrialIntervalUnit = Plan.IntervalUnit.Months,
                 TrialIntervalLength = 1,
                 PlanIntervalUnit = Plan.IntervalUnit.Days,
-                PlanIntervalLength = 180
+                PlanIntervalLength = 180,
+                DunningCampaignId = "p050sudtexvv"
             };
             plan.SetupFeeInCents.Add("USD", 500);
             plan.Create();
@@ -72,6 +73,7 @@ namespace Recurly.Test
             plan.TrialIntervalLength.Should().Be(1);
             plan.PlanIntervalUnit.Should().Be(Plan.IntervalUnit.Days);
             plan.PlanIntervalLength.Should().Be(180);
+            plan.DunningCampaignId.Should().Be("p050sudtexvv");
         }
 
         [RecurlyFact(TestEnvironment.Type.Integration)]

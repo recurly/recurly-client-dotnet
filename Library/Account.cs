@@ -53,6 +53,7 @@ namespace Recurly
         public string PreferredLocale { get; set; }
         public string ParentAccountCode { get; set; }
         public string TransactionType { get; set; }
+        public string DunningCampaignId { get; set; }
 
         private AccountAcquisition _accountAcquisition;
 
@@ -269,7 +270,7 @@ namespace Recurly
         /// </summary>
         public InvoiceCollection PreviewInvoicePendingCharges(Invoice invoice = null)
         {
-            invoice = invoice ?? new Invoice(); 
+            invoice = invoice ?? new Invoice();
             var collection = new InvoiceCollection();
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 UrlPrefix + Uri.EscapeDataString(AccountCode) + "/invoices/preview",
@@ -584,7 +585,7 @@ namespace Recurly
 
                 switch (reader.Name)
                 {
-                   
+
                     case "account_code":
                         AccountCode = reader.ReadElementContentAsString();
                         break;
@@ -712,6 +713,10 @@ namespace Recurly
                         PreferredLocale = reader.ReadElementContentAsString();
                         break;
 
+                    case "dunning_campaign_id":
+                        DunningCampaignId = reader.ReadElementContentAsString();
+                        break;
+
                     case "custom_fields":
                         CustomFields = new List<CustomField>();
                         while (reader.Read())
@@ -760,6 +765,9 @@ namespace Recurly
             // Clear the parent account by writing empty string. Null should not clear parent.
             if (ParentAccountCode != null)
                 xmlWriter.WriteElementString("parent_account_code", ParentAccountCode);
+
+            if (DunningCampaignId != null)
+                xmlWriter.WriteElementString("dunning_campaign_id", DunningCampaignId);
 
             if (TaxExempt.HasValue)
                 xmlWriter.WriteElementString("tax_exempt", TaxExempt.Value.AsString());

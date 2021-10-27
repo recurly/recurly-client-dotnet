@@ -25,5 +25,6 @@ Content-Type: application/xml; charset=utf-8
     <phone>651-555-1235</phone>
   </address>
   <accept_language>en-US</accept_language>
+  <dunning_campaign_id>1234abcd</dunning_campaign_id>
   <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
 </account>
