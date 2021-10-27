@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.17.13](https://github.com/recurly/recurly-client-dotnet/tree/1.17.13) (2021-10-27)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.12...1.17.13)
+
+
+**Merged Pull Requests**
+
+- Client library update for V2 Dunning Campaign API enhancements [#664](https://github.com/recurly/recurly-client-dotnet/pull/664) ([sunnyw1212](https://github.com/sunnyw1212))
+
+
+
 ## [1.17.12](https://github.com/recurly/recurly-client-dotnet/tree/1.17.12) (2021-06-16)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.11...1.17.12)
