@@ -1524,6 +1524,9 @@ namespace Recurly
             [EnumMember(Value = "amazon_amount_exceeded")]
             AmazonAmountExceeded,
 
+            [EnumMember(Value = "amazon_declined_review")]
+            AmazonDeclinedReview,
+
             [EnumMember(Value = "amazon_invalid_authorization_status")]
             AmazonInvalidAuthorizationStatus,
 
@@ -1572,11 +1575,17 @@ namespace Recurly
             [EnumMember(Value = "billing_agreement_not_accepted")]
             BillingAgreementNotAccepted,
 
+            [EnumMember(Value = "billing_agreement_not_found")]
+            BillingAgreementNotFound,
+
             [EnumMember(Value = "call_issuer")]
             CallIssuer,
 
             [EnumMember(Value = "call_issuer_update_cardholder_data")]
             CallIssuerUpdateCardholderData,
+
+            [EnumMember(Value = "cancelled")]
+            Cancelled,
 
             [EnumMember(Value = "cannot_refund_unsettled_transactions")]
             CannotRefundUnsettledTransactions,
@@ -1592,6 +1601,9 @@ namespace Recurly
 
             [EnumMember(Value = "contact_gateway")]
             ContactGateway,
+
+            [EnumMember(Value = "contract_not_found")]
+            ContractNotFound,
 
             [EnumMember(Value = "currency_not_supported")]
             CurrencyNotSupported,
@@ -1626,14 +1638,23 @@ namespace Recurly
             [EnumMember(Value = "deposit_referenced_chargeback")]
             DepositReferencedChargeback,
 
+            [EnumMember(Value = "direct_debit_type_not_accepted")]
+            DirectDebitTypeNotAccepted,
+
             [EnumMember(Value = "duplicate_transaction")]
             DuplicateTransaction,
 
             [EnumMember(Value = "exceeds_daily_limit")]
             ExceedsDailyLimit,
 
+            [EnumMember(Value = "exceeds_max_amount")]
+            ExceedsMaxAmount,
+
             [EnumMember(Value = "expired_card")]
             ExpiredCard,
+
+            [EnumMember(Value = "finbot_disconnect")]
+            FinbotDisconnect,
 
             [EnumMember(Value = "finbot_unavailable")]
             FinbotUnavailable,
@@ -1656,6 +1677,9 @@ namespace Recurly
             [EnumMember(Value = "fraud_ip_address")]
             FraudIpAddress,
 
+            [EnumMember(Value = "fraud_manual_decision")]
+            FraudManualDecision,
+
             [EnumMember(Value = "fraud_risk_check")]
             FraudRiskCheck,
 
@@ -1670,6 +1694,9 @@ namespace Recurly
 
             [EnumMember(Value = "fraud_velocity")]
             FraudVelocity,
+
+            [EnumMember(Value = "gateway_account_setup_incomplete")]
+            GatewayAccountSetupIncomplete,
 
             [EnumMember(Value = "gateway_error")]
             GatewayError,
@@ -1686,6 +1713,9 @@ namespace Recurly
             [EnumMember(Value = "gateway_unavailable")]
             GatewayUnavailable,
 
+            [EnumMember(Value = "gateway_validation_exception")]
+            GatewayValidationException,
+
             [EnumMember(Value = "insufficient_funds")]
             InsufficientFunds,
 
@@ -1694,6 +1724,9 @@ namespace Recurly
 
             [EnumMember(Value = "invalid_amount")]
             InvalidAmount,
+
+            [EnumMember(Value = "invalid_billing_agreement_status")]
+            InvalidBillingAgreementStatus,
 
             [EnumMember(Value = "invalid_card_number")]
             InvalidCardNumber,
@@ -1704,11 +1737,11 @@ namespace Recurly
             [EnumMember(Value = "invalid_email")]
             InvalidEmail,
 
-            [EnumMember(Value = "invalid_gateway_configuration")]
-            InvalidGatewayConfiguration,
-
             [EnumMember(Value = "invalid_gateway_access_token")]
             InvalidGatewayAccessToken,
+
+            [EnumMember(Value = "invalid_gateway_configuration")]
+            InvalidGatewayConfiguration,
 
             [EnumMember(Value = "invalid_issuer")]
             InvalidIssuer,
@@ -1719,6 +1752,15 @@ namespace Recurly
             [EnumMember(Value = "invalid_merchant_type")]
             InvalidMerchantType,
 
+            [EnumMember(Value = "invalid_name")]
+            InvalidName,
+
+            [EnumMember(Value = "invalid_payment_method")]
+            InvalidPaymentMethod,
+
+            [EnumMember(Value = "invalid_payment_method_hard")]
+            InvalidPaymentMethodHard,
+
             [EnumMember(Value = "invalid_transaction")]
             InvalidTransaction,
 
@@ -1727,6 +1769,9 @@ namespace Recurly
 
             [EnumMember(Value = "merch_max_transaction_limit_exceeded")]
             MerchMaxTransactionLimitExceeded,
+
+            [EnumMember(Value = "moneybot_disconnect")]
+            MoneybotDisconnect,
 
             [EnumMember(Value = "moneybot_unavailable")]
             MoneybotUnavailable,
@@ -1745,6 +1790,9 @@ namespace Recurly
 
             [EnumMember(Value = "partial_credits_not_supported")]
             PartialCreditsNotSupported,
+
+            [EnumMember(Value = "payer_authentication_rejected")]
+            PayerAuthenticationRejected,
 
             [EnumMember(Value = "payment_cannot_void_authorization")]
             PaymentCannotVoidAuthorization,
@@ -1773,8 +1821,14 @@ namespace Recurly
             [EnumMember(Value = "paypal_primary_declined")]
             PaypalPrimaryDeclined,
 
+            [EnumMember(Value = "processor_not_available")]
+            ProcessorNotAvailable,
+
             [EnumMember(Value = "processor_unavailable")]
             ProcessorUnavailable,
+
+            [EnumMember(Value = "recurly_credentials_not_found")]
+            RecurlyCredentialsNotFound,
 
             [EnumMember(Value = "recurly_error")]
             RecurlyError,
@@ -1797,6 +1851,21 @@ namespace Recurly
             [EnumMember(Value = "restricted_card_chargeback")]
             RestrictedCardChargeback,
 
+            [EnumMember(Value = "rjs_token_expired")]
+            RjsTokenExpired,
+
+            [EnumMember(Value = "roku_invalid_card_number")]
+            RokuInvalidCardNumber,
+
+            [EnumMember(Value = "roku_invalid_cib")]
+            RokuInvalidCib,
+
+            [EnumMember(Value = "roku_invalid_payment_method")]
+            RokuInvalidPaymentMethod,
+
+            [EnumMember(Value = "roku_zip_code_mismatch")]
+            RokuZipCodeMismatch,
+
             [EnumMember(Value = "simultaneous")]
             Simultaneous,
 
@@ -1806,8 +1875,17 @@ namespace Recurly
             [EnumMember(Value = "temporary_hold")]
             TemporaryHold,
 
+            [EnumMember(Value = "three_d_secure_action_required")]
+            ThreeDSecureActionRequired,
+
+            [EnumMember(Value = "three_d_secure_action_result_token_mismatch")]
+            ThreeDSecureActionResultTokenMismatch,
+
             [EnumMember(Value = "three_d_secure_authentication")]
             ThreeDSecureAuthentication,
+
+            [EnumMember(Value = "three_d_secure_connection_error")]
+            ThreeDSecureConnectionError,
 
             [EnumMember(Value = "three_d_secure_not_supported")]
             ThreeDSecureNotSupported,
@@ -1842,6 +1920,12 @@ namespace Recurly
             [EnumMember(Value = "transaction_not_found")]
             TransactionNotFound,
 
+            [EnumMember(Value = "transaction_service_v2_disconnect")]
+            TransactionServiceV2Disconnect,
+
+            [EnumMember(Value = "transaction_service_v2_unavailable")]
+            TransactionServiceV2Unavailable,
+
             [EnumMember(Value = "transaction_settled")]
             TransactionSettled,
 
@@ -1853,6 +1937,9 @@ namespace Recurly
 
             [EnumMember(Value = "unknown")]
             Unknown,
+
+            [EnumMember(Value = "unmapped_partner_error")]
+            UnmappedPartnerError,
 
             [EnumMember(Value = "vaultly_service_unavailable")]
             VaultlyServiceUnavailable,
