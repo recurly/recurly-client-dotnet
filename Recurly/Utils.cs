@@ -88,7 +88,8 @@ namespace Recurly
                     {
                         stringRepr = param.Value.ToString();
                     }
-                    qString.Add($"{param.Key}={Uri.EscapeUriString(stringRepr)}");
+
+                    qString.Add($"{param.Key}={Uri.EscapeDataString(stringRepr)}");
                 }
             }
 
