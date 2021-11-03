@@ -78,10 +78,10 @@ namespace Recurly.Tests
         {
             var options = new RequestOptions();
             options.AddHeader("Accept-Language", "en-US");
-            var date = new DateTime(2020, 01, 01);
+            var date = DateTime.Parse("2020-01-01T08:00:00Z");
             var paramsMatcher = MockClient.QueryParameterMatcher(new Dictionary<string, object> {
                 { "param_1", "param1" },
-                { "param_2", Recurly.Utils.ISO8601(date) },
+                { "param_2", "2020-01-01T08%3A00%3A00.000Z" },
             });
 
             var client = MockClient.Build(paramsMatcher, SuccessResponse(System.Net.HttpStatusCode.OK));
