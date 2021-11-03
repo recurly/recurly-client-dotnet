@@ -29,8 +29,10 @@ namespace Recurly.Tests
             d.Add("decimal", 123.456m);
             d.Add("date", new DateTime(2020, 1, 1, 0, 0, 0, DateTimeKind.Utc));
             d.Add("enum", Recurly.Tests.Constants.EnumValue.AllowedEnum);
+            d.Add("email", "testEmail@example.org");
+
             var result = Utils.QueryString(d);
-            Assert.Equal("?trueBool=true&falseBool=false&int=123&decimal=123.456&date=2020-01-01T00:00:00.000Z&enum=allowed_enum", result);
+            Assert.Equal("?trueBool=true&falseBool=false&int=123&decimal=123.456&date=2020-01-01T00%3A00%3A00.000Z&enum=allowed_enum&email=testEmail%40example.org", result);
         }
     }
 }
