@@ -29,7 +29,7 @@ namespace Recurly
         /// <returns>
         /// A list of sites.
         /// </returns>
-        public Pager<Site> ListSites(ListSitesParams optionalParams = null, RequestOptions options = null)
+        public IPager<Site> ListSites(ListSitesParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
             var queryParams = (optionalParams ?? new ListSitesParams()).ToDictionary();
@@ -82,7 +82,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's accounts.
         /// </returns>
-        public Pager<Account> ListAccounts(ListAccountsParams optionalParams = null, RequestOptions options = null)
+        public IPager<Account> ListAccounts(ListAccountsParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
             var queryParams = (optionalParams ?? new ListAccountsParams()).ToDictionary();
@@ -543,7 +543,7 @@ namespace Recurly
         /// <returns>
         /// A list of the the billing information for an account's
         /// </returns>
-        public Pager<BillingInfo> ListBillingInfos(string accountId, ListBillingInfosParams optionalParams = null, RequestOptions options = null)
+        public IPager<BillingInfo> ListBillingInfos(string accountId, ListBillingInfosParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var queryParams = (optionalParams ?? new ListBillingInfosParams()).ToDictionary();
@@ -698,7 +698,7 @@ namespace Recurly
         /// <returns>
         /// A list of the the coupon redemptions on an account.
         /// </returns>
-        public Pager<CouponRedemption> ListAccountCouponRedemptions(string accountId, ListAccountCouponRedemptionsParams optionalParams = null, RequestOptions options = null)
+        public IPager<CouponRedemption> ListAccountCouponRedemptions(string accountId, ListAccountCouponRedemptionsParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var queryParams = (optionalParams ?? new ListAccountCouponRedemptionsParams()).ToDictionary();
@@ -717,7 +717,7 @@ namespace Recurly
         /// <returns>
         /// Active coupon redemptions on an account.
         /// </returns>
-        public Pager<CouponRedemption> ListActiveCouponRedemptions(string accountId, RequestOptions options = null)
+        public IPager<CouponRedemption> ListActiveCouponRedemptions(string accountId, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var url = this.InterpolatePath("/accounts/{account_id}/coupon_redemptions/active", urlParams);
@@ -803,7 +803,7 @@ namespace Recurly
         /// <returns>
         /// A list of the account's credit payments.
         /// </returns>
-        public Pager<CreditPayment> ListAccountCreditPayments(string accountId, ListAccountCreditPaymentsParams optionalParams = null, RequestOptions options = null)
+        public IPager<CreditPayment> ListAccountCreditPayments(string accountId, ListAccountCreditPaymentsParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var queryParams = (optionalParams ?? new ListAccountCreditPaymentsParams()).ToDictionary();
@@ -822,7 +822,7 @@ namespace Recurly
         /// <returns>
         /// A list of the account's invoices.
         /// </returns>
-        public Pager<Invoice> ListAccountInvoices(string accountId, ListAccountInvoicesParams optionalParams = null, RequestOptions options = null)
+        public IPager<Invoice> ListAccountInvoices(string accountId, ListAccountInvoicesParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var queryParams = (optionalParams ?? new ListAccountInvoicesParams()).ToDictionary();
@@ -909,7 +909,7 @@ namespace Recurly
         /// <returns>
         /// A list of the account's line items.
         /// </returns>
-        public Pager<LineItem> ListAccountLineItems(string accountId, ListAccountLineItemsParams optionalParams = null, RequestOptions options = null)
+        public IPager<LineItem> ListAccountLineItems(string accountId, ListAccountLineItemsParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var queryParams = (optionalParams ?? new ListAccountLineItemsParams()).ToDictionary();
@@ -962,7 +962,7 @@ namespace Recurly
         /// <returns>
         /// A list of an account's notes.
         /// </returns>
-        public Pager<AccountNote> ListAccountNotes(string accountId, ListAccountNotesParams optionalParams = null, RequestOptions options = null)
+        public IPager<AccountNote> ListAccountNotes(string accountId, ListAccountNotesParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var queryParams = (optionalParams ?? new ListAccountNotesParams()).ToDictionary();
@@ -1015,7 +1015,7 @@ namespace Recurly
         /// <returns>
         /// A list of an account's shipping addresses.
         /// </returns>
-        public Pager<ShippingAddress> ListShippingAddresses(string accountId, ListShippingAddressesParams optionalParams = null, RequestOptions options = null)
+        public IPager<ShippingAddress> ListShippingAddresses(string accountId, ListShippingAddressesParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var queryParams = (optionalParams ?? new ListShippingAddressesParams()).ToDictionary();
@@ -1170,7 +1170,7 @@ namespace Recurly
         /// <returns>
         /// A list of the account's subscriptions.
         /// </returns>
-        public Pager<Subscription> ListAccountSubscriptions(string accountId, ListAccountSubscriptionsParams optionalParams = null, RequestOptions options = null)
+        public IPager<Subscription> ListAccountSubscriptions(string accountId, ListAccountSubscriptionsParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var queryParams = (optionalParams ?? new ListAccountSubscriptionsParams()).ToDictionary();
@@ -1189,7 +1189,7 @@ namespace Recurly
         /// <returns>
         /// A list of the account's transactions.
         /// </returns>
-        public Pager<Transaction> ListAccountTransactions(string accountId, ListAccountTransactionsParams optionalParams = null, RequestOptions options = null)
+        public IPager<Transaction> ListAccountTransactions(string accountId, ListAccountTransactionsParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var queryParams = (optionalParams ?? new ListAccountTransactionsParams()).ToDictionary();
@@ -1208,7 +1208,7 @@ namespace Recurly
         /// <returns>
         /// A list of an account's child accounts.
         /// </returns>
-        public Pager<Account> ListChildAccounts(string accountId, ListChildAccountsParams optionalParams = null, RequestOptions options = null)
+        public IPager<Account> ListChildAccounts(string accountId, ListChildAccountsParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var queryParams = (optionalParams ?? new ListChildAccountsParams()).ToDictionary();
@@ -1227,7 +1227,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's account acquisition data.
         /// </returns>
-        public Pager<AccountAcquisition> ListAccountAcquisition(ListAccountAcquisitionParams optionalParams = null, RequestOptions options = null)
+        public IPager<AccountAcquisition> ListAccountAcquisition(ListAccountAcquisitionParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
             var queryParams = (optionalParams ?? new ListAccountAcquisitionParams()).ToDictionary();
@@ -1246,7 +1246,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's coupons.
         /// </returns>
-        public Pager<Coupon> ListCoupons(ListCouponsParams optionalParams = null, RequestOptions options = null)
+        public IPager<Coupon> ListCoupons(ListCouponsParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
             var queryParams = (optionalParams ?? new ListCouponsParams()).ToDictionary();
@@ -1469,7 +1469,7 @@ namespace Recurly
         /// <returns>
         /// A list of unique coupon codes that were generated
         /// </returns>
-        public Pager<UniqueCouponCode> ListUniqueCouponCodes(string couponId, ListUniqueCouponCodesParams optionalParams = null, RequestOptions options = null)
+        public IPager<UniqueCouponCode> ListUniqueCouponCodes(string couponId, ListUniqueCouponCodesParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "coupon_id", couponId } };
             var queryParams = (optionalParams ?? new ListUniqueCouponCodesParams()).ToDictionary();
@@ -1488,7 +1488,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's credit payments.
         /// </returns>
-        public Pager<CreditPayment> ListCreditPayments(ListCreditPaymentsParams optionalParams = null, RequestOptions options = null)
+        public IPager<CreditPayment> ListCreditPayments(ListCreditPaymentsParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
             var queryParams = (optionalParams ?? new ListCreditPaymentsParams()).ToDictionary();
@@ -1541,7 +1541,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's custom field definitions.
         /// </returns>
-        public Pager<CustomFieldDefinition> ListCustomFieldDefinitions(ListCustomFieldDefinitionsParams optionalParams = null, RequestOptions options = null)
+        public IPager<CustomFieldDefinition> ListCustomFieldDefinitions(ListCustomFieldDefinitionsParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
             var queryParams = (optionalParams ?? new ListCustomFieldDefinitionsParams()).ToDictionary();
@@ -1594,7 +1594,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's items.
         /// </returns>
-        public Pager<Item> ListItems(ListItemsParams optionalParams = null, RequestOptions options = null)
+        public IPager<Item> ListItems(ListItemsParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
             var queryParams = (optionalParams ?? new ListItemsParams()).ToDictionary();
@@ -1783,7 +1783,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's measured units.
         /// </returns>
-        public Pager<MeasuredUnit> ListMeasuredUnit(ListMeasuredUnitParams optionalParams = null, RequestOptions options = null)
+        public IPager<MeasuredUnit> ListMeasuredUnit(ListMeasuredUnitParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
             var queryParams = (optionalParams ?? new ListMeasuredUnitParams()).ToDictionary();
@@ -1938,7 +1938,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's invoices.
         /// </returns>
-        public Pager<Invoice> ListInvoices(ListInvoicesParams optionalParams = null, RequestOptions options = null)
+        public IPager<Invoice> ListInvoices(ListInvoicesParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
             var queryParams = (optionalParams ?? new ListInvoicesParams()).ToDictionary();
@@ -2263,7 +2263,7 @@ namespace Recurly
         /// <returns>
         /// A list of the invoice's line items.
         /// </returns>
-        public Pager<LineItem> ListInvoiceLineItems(string invoiceId, ListInvoiceLineItemsParams optionalParams = null, RequestOptions options = null)
+        public IPager<LineItem> ListInvoiceLineItems(string invoiceId, ListInvoiceLineItemsParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "invoice_id", invoiceId } };
             var queryParams = (optionalParams ?? new ListInvoiceLineItemsParams()).ToDictionary();
@@ -2282,7 +2282,7 @@ namespace Recurly
         /// <returns>
         /// A list of the the coupon redemptions associated with the invoice.
         /// </returns>
-        public Pager<CouponRedemption> ListInvoiceCouponRedemptions(string invoiceId, ListInvoiceCouponRedemptionsParams optionalParams = null, RequestOptions options = null)
+        public IPager<CouponRedemption> ListInvoiceCouponRedemptions(string invoiceId, ListInvoiceCouponRedemptionsParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "invoice_id", invoiceId } };
             var queryParams = (optionalParams ?? new ListInvoiceCouponRedemptionsParams()).ToDictionary();
@@ -2301,7 +2301,7 @@ namespace Recurly
         /// <returns>
         /// A list of the credit or charge invoices associated with the invoice.
         /// </returns>
-        public Pager<Invoice> ListRelatedInvoices(string invoiceId, RequestOptions options = null)
+        public IPager<Invoice> ListRelatedInvoices(string invoiceId, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "invoice_id", invoiceId } };
             var url = this.InterpolatePath("/invoices/{invoice_id}/related_invoices", urlParams);
@@ -2353,7 +2353,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's line items.
         /// </returns>
-        public Pager<LineItem> ListLineItems(ListLineItemsParams optionalParams = null, RequestOptions options = null)
+        public IPager<LineItem> ListLineItems(ListLineItemsParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
             var queryParams = (optionalParams ?? new ListLineItemsParams()).ToDictionary();
@@ -2440,7 +2440,7 @@ namespace Recurly
         /// <returns>
         /// A list of plans.
         /// </returns>
-        public Pager<Plan> ListPlans(ListPlansParams optionalParams = null, RequestOptions options = null)
+        public IPager<Plan> ListPlans(ListPlansParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
             var queryParams = (optionalParams ?? new ListPlansParams()).ToDictionary();
@@ -2595,7 +2595,7 @@ namespace Recurly
         /// <returns>
         /// A list of add-ons.
         /// </returns>
-        public Pager<AddOn> ListPlanAddOns(string planId, ListPlanAddOnsParams optionalParams = null, RequestOptions options = null)
+        public IPager<AddOn> ListPlanAddOns(string planId, ListPlanAddOnsParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "plan_id", planId } };
             var queryParams = (optionalParams ?? new ListPlanAddOnsParams()).ToDictionary();
@@ -2750,7 +2750,7 @@ namespace Recurly
         /// <returns>
         /// A list of add-ons.
         /// </returns>
-        public Pager<AddOn> ListAddOns(ListAddOnsParams optionalParams = null, RequestOptions options = null)
+        public IPager<AddOn> ListAddOns(ListAddOnsParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
             var queryParams = (optionalParams ?? new ListAddOnsParams()).ToDictionary();
@@ -2803,7 +2803,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's shipping methods.
         /// </returns>
-        public Pager<ShippingMethod> ListShippingMethods(ListShippingMethodsParams optionalParams = null, RequestOptions options = null)
+        public IPager<ShippingMethod> ListShippingMethods(ListShippingMethodsParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
             var queryParams = (optionalParams ?? new ListShippingMethodsParams()).ToDictionary();
@@ -2958,7 +2958,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's subscriptions.
         /// </returns>
-        public Pager<Subscription> ListSubscriptions(ListSubscriptionsParams optionalParams = null, RequestOptions options = null)
+        public IPager<Subscription> ListSubscriptions(ListSubscriptionsParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
             var queryParams = (optionalParams ?? new ListSubscriptionsParams()).ToDictionary();
@@ -3455,7 +3455,7 @@ namespace Recurly
         /// <returns>
         /// A list of the subscription's invoices.
         /// </returns>
-        public Pager<Invoice> ListSubscriptionInvoices(string subscriptionId, ListSubscriptionInvoicesParams optionalParams = null, RequestOptions options = null)
+        public IPager<Invoice> ListSubscriptionInvoices(string subscriptionId, ListSubscriptionInvoicesParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
             var queryParams = (optionalParams ?? new ListSubscriptionInvoicesParams()).ToDictionary();
@@ -3474,7 +3474,7 @@ namespace Recurly
         /// <returns>
         /// A list of the subscription's line items.
         /// </returns>
-        public Pager<LineItem> ListSubscriptionLineItems(string subscriptionId, ListSubscriptionLineItemsParams optionalParams = null, RequestOptions options = null)
+        public IPager<LineItem> ListSubscriptionLineItems(string subscriptionId, ListSubscriptionLineItemsParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
             var queryParams = (optionalParams ?? new ListSubscriptionLineItemsParams()).ToDictionary();
@@ -3493,7 +3493,7 @@ namespace Recurly
         /// <returns>
         /// A list of the the coupon redemptions on a subscription.
         /// </returns>
-        public Pager<CouponRedemption> ListSubscriptionCouponRedemptions(string subscriptionId, ListSubscriptionCouponRedemptionsParams optionalParams = null, RequestOptions options = null)
+        public IPager<CouponRedemption> ListSubscriptionCouponRedemptions(string subscriptionId, ListSubscriptionCouponRedemptionsParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
             var queryParams = (optionalParams ?? new ListSubscriptionCouponRedemptionsParams()).ToDictionary();
@@ -3512,7 +3512,7 @@ namespace Recurly
         /// <returns>
         /// A list of the subscription add-on's usage records.
         /// </returns>
-        public Pager<Usage> ListUsage(string subscriptionId, string addOnId, ListUsageParams optionalParams = null, RequestOptions options = null)
+        public IPager<Usage> ListUsage(string subscriptionId, string addOnId, ListUsageParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId }, { "add_on_id", addOnId } };
             var queryParams = (optionalParams ?? new ListUsageParams()).ToDictionary();
@@ -3667,7 +3667,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's transactions.
         /// </returns>
-        public Pager<Transaction> ListTransactions(ListTransactionsParams optionalParams = null, RequestOptions options = null)
+        public IPager<Transaction> ListTransactions(ListTransactionsParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
             var queryParams = (optionalParams ?? new ListTransactionsParams()).ToDictionary();
@@ -3958,7 +3958,7 @@ namespace Recurly
         /// <returns>
         /// A list of the the dunning_campaigns on an account.
         /// </returns>
-        public Pager<DunningCampaign> ListDunningCampaigns(ListDunningCampaignsParams optionalParams = null, RequestOptions options = null)
+        public IPager<DunningCampaign> ListDunningCampaigns(ListDunningCampaignsParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
             var queryParams = (optionalParams ?? new ListDunningCampaignsParams()).ToDictionary();

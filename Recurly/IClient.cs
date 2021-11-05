@@ -27,7 +27,7 @@ namespace Recurly
         /// <returns>
         /// A list of sites.
         /// </returns>
-        Pager<Site> ListSites(ListSitesParams optionalParams = null, RequestOptions options = null);
+        IPager<Site> ListSites(ListSitesParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's accounts.
         /// </returns>
-        Pager<Account> ListAccounts(ListAccountsParams optionalParams = null, RequestOptions options = null);
+        IPager<Account> ListAccounts(ListAccountsParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -345,7 +345,7 @@ namespace Recurly
         /// <returns>
         /// A list of the the billing information for an account's
         /// </returns>
-        Pager<BillingInfo> ListBillingInfos(string accountId, ListBillingInfosParams optionalParams = null, RequestOptions options = null);
+        IPager<BillingInfo> ListBillingInfos(string accountId, ListBillingInfosParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -450,7 +450,7 @@ namespace Recurly
         /// <returns>
         /// A list of the the coupon redemptions on an account.
         /// </returns>
-        Pager<CouponRedemption> ListAccountCouponRedemptions(string accountId, ListAccountCouponRedemptionsParams optionalParams = null, RequestOptions options = null);
+        IPager<CouponRedemption> ListAccountCouponRedemptions(string accountId, ListAccountCouponRedemptionsParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -460,7 +460,7 @@ namespace Recurly
         /// <returns>
         /// Active coupon redemptions on an account.
         /// </returns>
-        Pager<CouponRedemption> ListActiveCouponRedemptions(string accountId, RequestOptions options = null);
+        IPager<CouponRedemption> ListActiveCouponRedemptions(string accountId, RequestOptions options = null);
 
 
         /// <summary>
@@ -517,7 +517,7 @@ namespace Recurly
         /// <returns>
         /// A list of the account's credit payments.
         /// </returns>
-        Pager<CreditPayment> ListAccountCreditPayments(string accountId, ListAccountCreditPaymentsParams optionalParams = null, RequestOptions options = null);
+        IPager<CreditPayment> ListAccountCreditPayments(string accountId, ListAccountCreditPaymentsParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -534,7 +534,7 @@ namespace Recurly
         /// <returns>
         /// A list of the account's invoices.
         /// </returns>
-        Pager<Invoice> ListAccountInvoices(string accountId, ListAccountInvoicesParams optionalParams = null, RequestOptions options = null);
+        IPager<Invoice> ListAccountInvoices(string accountId, ListAccountInvoicesParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -597,7 +597,7 @@ namespace Recurly
         /// <returns>
         /// A list of the account's line items.
         /// </returns>
-        Pager<LineItem> ListAccountLineItems(string accountId, ListAccountLineItemsParams optionalParams = null, RequestOptions options = null);
+        IPager<LineItem> ListAccountLineItems(string accountId, ListAccountLineItemsParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -630,7 +630,7 @@ namespace Recurly
         /// <returns>
         /// A list of an account's notes.
         /// </returns>
-        Pager<AccountNote> ListAccountNotes(string accountId, ListAccountNotesParams optionalParams = null, RequestOptions options = null);
+        IPager<AccountNote> ListAccountNotes(string accountId, ListAccountNotesParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -668,7 +668,7 @@ namespace Recurly
         /// <returns>
         /// A list of an account's shipping addresses.
         /// </returns>
-        Pager<ShippingAddress> ListShippingAddresses(string accountId, ListShippingAddressesParams optionalParams = null, RequestOptions options = null);
+        IPager<ShippingAddress> ListShippingAddresses(string accountId, ListShippingAddressesParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -775,7 +775,7 @@ namespace Recurly
         /// <returns>
         /// A list of the account's subscriptions.
         /// </returns>
-        Pager<Subscription> ListAccountSubscriptions(string accountId, ListAccountSubscriptionsParams optionalParams = null, RequestOptions options = null);
+        IPager<Subscription> ListAccountSubscriptions(string accountId, ListAccountSubscriptionsParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -793,7 +793,7 @@ namespace Recurly
         /// <returns>
         /// A list of the account's transactions.
         /// </returns>
-        Pager<Transaction> ListAccountTransactions(string accountId, ListAccountTransactionsParams optionalParams = null, RequestOptions options = null);
+        IPager<Transaction> ListAccountTransactions(string accountId, ListAccountTransactionsParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -812,7 +812,7 @@ namespace Recurly
         /// <returns>
         /// A list of an account's child accounts.
         /// </returns>
-        Pager<Account> ListChildAccounts(string accountId, ListChildAccountsParams optionalParams = null, RequestOptions options = null);
+        IPager<Account> ListChildAccounts(string accountId, ListChildAccountsParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -827,7 +827,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's account acquisition data.
         /// </returns>
-        Pager<AccountAcquisition> ListAccountAcquisition(ListAccountAcquisitionParams optionalParams = null, RequestOptions options = null);
+        IPager<AccountAcquisition> ListAccountAcquisition(ListAccountAcquisitionParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -842,7 +842,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's coupons.
         /// </returns>
-        Pager<Coupon> ListCoupons(ListCouponsParams optionalParams = null, RequestOptions options = null);
+        IPager<Coupon> ListCoupons(ListCouponsParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -984,7 +984,7 @@ namespace Recurly
         /// <returns>
         /// A list of unique coupon codes that were generated
         /// </returns>
-        Pager<UniqueCouponCode> ListUniqueCouponCodes(string couponId, ListUniqueCouponCodesParams optionalParams = null, RequestOptions options = null);
+        IPager<UniqueCouponCode> ListUniqueCouponCodes(string couponId, ListUniqueCouponCodesParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -998,7 +998,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's credit payments.
         /// </returns>
-        Pager<CreditPayment> ListCreditPayments(ListCreditPaymentsParams optionalParams = null, RequestOptions options = null);
+        IPager<CreditPayment> ListCreditPayments(ListCreditPaymentsParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -1034,7 +1034,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's custom field definitions.
         /// </returns>
-        Pager<CustomFieldDefinition> ListCustomFieldDefinitions(ListCustomFieldDefinitionsParams optionalParams = null, RequestOptions options = null);
+        IPager<CustomFieldDefinition> ListCustomFieldDefinitions(ListCustomFieldDefinitionsParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -1070,7 +1070,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's items.
         /// </returns>
-        Pager<Item> ListItems(ListItemsParams optionalParams = null, RequestOptions options = null);
+        IPager<Item> ListItems(ListItemsParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -1188,7 +1188,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's measured units.
         /// </returns>
-        Pager<MeasuredUnit> ListMeasuredUnit(ListMeasuredUnitParams optionalParams = null, RequestOptions options = null);
+        IPager<MeasuredUnit> ListMeasuredUnit(ListMeasuredUnitParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -1286,7 +1286,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's invoices.
         /// </returns>
-        Pager<Invoice> ListInvoices(ListInvoicesParams optionalParams = null, RequestOptions options = null);
+        IPager<Invoice> ListInvoices(ListInvoicesParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -1489,7 +1489,7 @@ namespace Recurly
         /// <returns>
         /// A list of the invoice's line items.
         /// </returns>
-        Pager<LineItem> ListInvoiceLineItems(string invoiceId, ListInvoiceLineItemsParams optionalParams = null, RequestOptions options = null);
+        IPager<LineItem> ListInvoiceLineItems(string invoiceId, ListInvoiceLineItemsParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -1503,7 +1503,7 @@ namespace Recurly
         /// <returns>
         /// A list of the the coupon redemptions associated with the invoice.
         /// </returns>
-        Pager<CouponRedemption> ListInvoiceCouponRedemptions(string invoiceId, ListInvoiceCouponRedemptionsParams optionalParams = null, RequestOptions options = null);
+        IPager<CouponRedemption> ListInvoiceCouponRedemptions(string invoiceId, ListInvoiceCouponRedemptionsParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -1513,7 +1513,7 @@ namespace Recurly
         /// <returns>
         /// A list of the credit or charge invoices associated with the invoice.
         /// </returns>
-        Pager<Invoice> ListRelatedInvoices(string invoiceId, RequestOptions options = null);
+        IPager<Invoice> ListRelatedInvoices(string invoiceId, RequestOptions options = null);
 
 
         /// <summary>
@@ -1553,7 +1553,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's line items.
         /// </returns>
-        Pager<LineItem> ListLineItems(ListLineItemsParams optionalParams = null, RequestOptions options = null);
+        IPager<LineItem> ListLineItems(ListLineItemsParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -1609,7 +1609,7 @@ namespace Recurly
         /// <returns>
         /// A list of plans.
         /// </returns>
-        Pager<Plan> ListPlans(ListPlansParams optionalParams = null, RequestOptions options = null);
+        IPager<Plan> ListPlans(ListPlansParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -1708,7 +1708,7 @@ namespace Recurly
         /// <returns>
         /// A list of add-ons.
         /// </returns>
-        Pager<AddOn> ListPlanAddOns(string planId, ListPlanAddOnsParams optionalParams = null, RequestOptions options = null);
+        IPager<AddOn> ListPlanAddOns(string planId, ListPlanAddOnsParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -1814,7 +1814,7 @@ namespace Recurly
         /// <returns>
         /// A list of add-ons.
         /// </returns>
-        Pager<AddOn> ListAddOns(ListAddOnsParams optionalParams = null, RequestOptions options = null);
+        IPager<AddOn> ListAddOns(ListAddOnsParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -1849,7 +1849,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's shipping methods.
         /// </returns>
-        Pager<ShippingMethod> ListShippingMethods(ListShippingMethodsParams optionalParams = null, RequestOptions options = null);
+        IPager<ShippingMethod> ListShippingMethods(ListShippingMethodsParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -1947,7 +1947,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's subscriptions.
         /// </returns>
-        Pager<Subscription> ListSubscriptions(ListSubscriptionsParams optionalParams = null, RequestOptions options = null);
+        IPager<Subscription> ListSubscriptions(ListSubscriptionsParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -2256,7 +2256,7 @@ namespace Recurly
         /// <returns>
         /// A list of the subscription's invoices.
         /// </returns>
-        Pager<Invoice> ListSubscriptionInvoices(string subscriptionId, ListSubscriptionInvoicesParams optionalParams = null, RequestOptions options = null);
+        IPager<Invoice> ListSubscriptionInvoices(string subscriptionId, ListSubscriptionInvoicesParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -2275,7 +2275,7 @@ namespace Recurly
         /// <returns>
         /// A list of the subscription's line items.
         /// </returns>
-        Pager<LineItem> ListSubscriptionLineItems(string subscriptionId, ListSubscriptionLineItemsParams optionalParams = null, RequestOptions options = null);
+        IPager<LineItem> ListSubscriptionLineItems(string subscriptionId, ListSubscriptionLineItemsParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -2289,7 +2289,7 @@ namespace Recurly
         /// <returns>
         /// A list of the the coupon redemptions on a subscription.
         /// </returns>
-        Pager<CouponRedemption> ListSubscriptionCouponRedemptions(string subscriptionId, ListSubscriptionCouponRedemptionsParams optionalParams = null, RequestOptions options = null);
+        IPager<CouponRedemption> ListSubscriptionCouponRedemptions(string subscriptionId, ListSubscriptionCouponRedemptionsParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -2307,7 +2307,7 @@ namespace Recurly
         /// <returns>
         /// A list of the subscription add-on's usage records.
         /// </returns>
-        Pager<Usage> ListUsage(string subscriptionId, string addOnId, ListUsageParams optionalParams = null, RequestOptions options = null);
+        IPager<Usage> ListUsage(string subscriptionId, string addOnId, ListUsageParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -2410,7 +2410,7 @@ namespace Recurly
         /// <returns>
         /// A list of the site's transactions.
         /// </returns>
-        Pager<Transaction> ListTransactions(ListTransactionsParams optionalParams = null, RequestOptions options = null);
+        IPager<Transaction> ListTransactions(ListTransactionsParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -2578,7 +2578,7 @@ namespace Recurly
         /// <returns>
         /// A list of the the dunning_campaigns on an account.
         /// </returns>
-        Pager<DunningCampaign> ListDunningCampaigns(ListDunningCampaignsParams optionalParams = null, RequestOptions options = null);
+        IPager<DunningCampaign> ListDunningCampaigns(ListDunningCampaignsParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
