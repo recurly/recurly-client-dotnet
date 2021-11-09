@@ -43,6 +43,10 @@ namespace Recurly.Resources
         [JsonProperty("avalara_transaction_type")]
         public int? AvalaraTransactionType { get; set; }
 
+        /// <value>The UUID of the account responsible for originating the line item.</value>
+        [JsonProperty("bill_for_account_id")]
+        public string BillForAccountId { get; set; }
+
         /// <value>When the line item was created.</value>
         [JsonProperty("created_at")]
         public DateTime? CreatedAt { get; set; }
