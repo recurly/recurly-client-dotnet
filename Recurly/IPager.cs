@@ -10,6 +10,6 @@ namespace Recurly
         List<T> Data { get; }
 
         IPager<T> FetchNextPage();
-        Task<IPager<T>> FetchNextPageAsync(CancellationToken cancellationToken = default);
+        Task<IPager<T>> FetchNextPageAsync(CancellationToken cancellationToken = default(CancellationToken));
     }
 }
