@@ -19,7 +19,7 @@ namespace Recurly
                     {
                         if (!strictMode.HasValue)
                         {
-                            strictMode = Environment.GetEnvironmentVariable("RECURLY_STRICT_MODE").ToUpper() == "TRUE";
+                            strictMode = Environment.GetEnvironmentVariable("RECURLY_STRICT_MODE")?.ToUpper() == "TRUE";
                         }
                     }
                 }

@@ -138,10 +138,15 @@ namespace Recurly.Tests
         [Fact]
         public void WillThrowAnApiErrorForUnknownErrorType()
         {
+            // Force RECURLY_STRICT_MODE for this test
+            Environment.SetEnvironmentVariable("RECURLY_STRICT_MODE", "TRUE");
+
             var client = MockClient.Build(UnknownTypeResponse());
             // Instead of disabling strict mode, test with ArgumentException as proxy
             var exception = Assert.Throws<System.ArgumentException>(() => client.GetResource("benjamin", "param1", new DateTime(2020, 01, 01)));
             Assert.Matches("no valid exception class", exception.Message);
+
+            Environment.SetEnvironmentVariable("RECURLY_STRICT_MODE", null);
         }
 
         [Fact]
