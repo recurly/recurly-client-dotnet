@@ -1578,6 +1578,9 @@ namespace Recurly
             [EnumMember(Value = "billing_agreement_not_found")]
             BillingAgreementNotFound,
 
+            [EnumMember(Value = "billing_agreement_replaced")]
+            BillingAgreementReplaced,
+
             [EnumMember(Value = "call_issuer")]
             CallIssuer,
 
@@ -1973,6 +1976,27 @@ namespace Recurly
 
             [EnumMember(Value = "trial")]
             Trial,
+
+        };
+
+        public enum AchType
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "bacs")]
+            Bacs,
+
+        };
+
+        public enum AchAccountType
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "checking")]
+            Checking,
+
+            [EnumMember(Value = "savings")]
+            Savings,
 
         };
 
