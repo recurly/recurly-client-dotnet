@@ -1,5 +1,17 @@
 # Changelog
 
+## [4.13.0](https://github.com/recurly/recurly-client-dotnet/tree/4.13.0) (2021-11-22)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/4.12.0...4.13.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 [#673](https://github.com/recurly/recurly-client-dotnet/pull/673) ([recurly-integrations](https://github.com/recurly-integrations))
+- Update to properly encode query string parameters [#670](https://github.com/recurly/recurly-client-dotnet/pull/670) ([bdriggs-axian](https://github.com/bdriggs-axian))
+
+
+
 ## [4.12.0](https://github.com/recurly/recurly-client-dotnet/tree/4.12.0) (2021-10-28)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/4.11.0...4.12.0)
