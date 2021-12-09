@@ -79,6 +79,10 @@ namespace Recurly.Resources
         [JsonProperty("tax_exempt")]
         public bool? TaxExempt { get; set; }
 
+        /// <value>Determines whether or not tax is included in the unit amount. The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing feature) must be enabled to use this flag.</value>
+        [JsonProperty("tax_inclusive")]
+        public bool? TaxInclusive { get; set; }
+
         /// <value>Line item type. If `item_code`/`item_id` is present then `type` should not be present. If `item_code`/`item_id` is not present then `type` is required.</value>
         [JsonProperty("type")]
         public string Type { get; set; }

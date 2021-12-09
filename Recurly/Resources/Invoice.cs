@@ -27,7 +27,7 @@ namespace Recurly.Resources
         [JsonProperty("balance")]
         public float? Balance { get; set; }
 
-        /// <value>The `billing_info_id` is the value that represents a specific billing info for an end customer. When `billing_info_id` is used to assign billing info to the subscription, all future billing events for the subscription will bill to the specified billing info.</value>
+        /// <value>The `billing_info_id` is the value that represents a specific billing info for an end customer. When `billing_info_id` is used to assign billing info to the subscription, all future billing events for the subscription will bill to the specified billing info. `billing_info_id` can ONLY be used for sites utilizing the Wallet feature.</value>
         [JsonProperty("billing_info_id")]
         public string BillingInfoId { get; set; }
 
