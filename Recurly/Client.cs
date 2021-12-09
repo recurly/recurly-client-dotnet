@@ -617,7 +617,7 @@ namespace Recurly
         /// Fetch a billing info <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_a_billing_info">get_a_billing_info api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
-        /// <param name="billingInfoId">Billing Info ID.</param>
+        /// <param name="billingInfoId">Billing Info ID. Can ONLY be used for sites utilizing the Wallet feature.</param>
         /// <returns>
         /// A billing info.
         /// </returns>
@@ -635,7 +635,7 @@ namespace Recurly
         /// Fetch a billing info <see href="https://developers.recurly.com/api/v2019-10-10#operation/get_a_billing_info">get_a_billing_info api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
-        /// <param name="billingInfoId">Billing Info ID.</param>
+        /// <param name="billingInfoId">Billing Info ID. Can ONLY be used for sites utilizing the Wallet feature.</param>
         /// <returns>
         /// A billing info.
         /// </returns>
@@ -653,7 +653,7 @@ namespace Recurly
         /// Update an account's billing information <see href="https://developers.recurly.com/api/v2019-10-10#operation/update_a_billing_info">update_a_billing_info api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
-        /// <param name="billingInfoId">Billing Info ID.</param>
+        /// <param name="billingInfoId">Billing Info ID. Can ONLY be used for sites utilizing the Wallet feature.</param>
         /// <param name="body">The body of the request.</param>
         /// <returns>
         /// Updated billing information.
@@ -672,7 +672,7 @@ namespace Recurly
         /// Update an account's billing information <see href="https://developers.recurly.com/api/v2019-10-10#operation/update_a_billing_info">update_a_billing_info api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
-        /// <param name="billingInfoId">Billing Info ID.</param>
+        /// <param name="billingInfoId">Billing Info ID. Can ONLY be used for sites utilizing the Wallet feature.</param>
         /// <param name="body">The body of the request.</param>
         /// <returns>
         /// Updated billing information.
@@ -691,7 +691,7 @@ namespace Recurly
         /// Remove an account's billing information <see href="https://developers.recurly.com/api/v2019-10-10#operation/remove_a_billing_info">remove_a_billing_info api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
-        /// <param name="billingInfoId">Billing Info ID.</param>
+        /// <param name="billingInfoId">Billing Info ID. Can ONLY be used for sites utilizing the Wallet feature.</param>
         /// <returns>
         /// Billing information deleted
         /// </returns>
@@ -709,7 +709,7 @@ namespace Recurly
         /// Remove an account's billing information <see href="https://developers.recurly.com/api/v2019-10-10#operation/remove_a_billing_info">remove_a_billing_info api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
-        /// <param name="billingInfoId">Billing Info ID.</param>
+        /// <param name="billingInfoId">Billing Info ID. Can ONLY be used for sites utilizing the Wallet feature.</param>
         /// <returns>
         /// Billing information deleted
         /// </returns>
