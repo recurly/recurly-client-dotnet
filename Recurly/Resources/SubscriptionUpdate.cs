@@ -19,7 +19,7 @@ namespace Recurly.Resources
         [JsonProperty("auto_renew")]
         public bool? AutoRenew { get; set; }
 
-        /// <value>The `billing_info_id` is the value that represents a specific billing info for an end customer. When `billing_info_id` is used to assign billing info to the subscription, all future billing events for the subscription will bill to the specified billing info.</value>
+        /// <value>The `billing_info_id` is the value that represents a specific billing info for an end customer. When `billing_info_id` is used to assign billing info to the subscription, all future billing events for the subscription will bill to the specified billing info. `billing_info_id` can ONLY be used for sites utilizing the Wallet feature.</value>
         [JsonProperty("billing_info_id")]
         public string BillingInfoId { get; set; }
 
@@ -68,6 +68,10 @@ namespace Recurly.Resources
         /// <value>Subscription shipping details</value>
         [JsonProperty("shipping")]
         public SubscriptionShippingUpdate Shipping { get; set; }
+
+        /// <value>Determines whether or not tax is included in the unit amount. The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing feature) must be enabled to use this flag.</value>
+        [JsonProperty("tax_inclusive")]
+        public bool? TaxInclusive { get; set; }
 
         /// <value>Specify custom notes to add or override Terms and Conditions. Custom notes will stay with a subscription on all renewals.</value>
         [JsonProperty("terms_and_conditions")]

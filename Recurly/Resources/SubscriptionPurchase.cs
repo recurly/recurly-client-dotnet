@@ -60,6 +60,10 @@ namespace Recurly.Resources
         [JsonProperty("starts_at")]
         public DateTime? StartsAt { get; set; }
 
+        /// <value>Determines whether or not tax is included in the unit amount. The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing feature) must be enabled to use this flag.</value>
+        [JsonProperty("tax_inclusive")]
+        public bool? TaxInclusive { get; set; }
+
         /// <value>The number of cycles/billing periods in a term. When `remaining_billing_cycles=0`, if `auto_renew=true` the subscription will renew and a new term will begin, otherwise the subscription will expire.</value>
         [JsonProperty("total_billing_cycles")]
         public int? TotalBillingCycles { get; set; }

@@ -1890,6 +1890,9 @@ namespace Recurly
             [EnumMember(Value = "three_d_secure_connection_error")]
             ThreeDSecureConnectionError,
 
+            [EnumMember(Value = "three_d_secure_credential_error")]
+            ThreeDSecureCredentialError,
+
             [EnumMember(Value = "three_d_secure_not_supported")]
             ThreeDSecureNotSupported,
 
