@@ -100,6 +100,10 @@ namespace Recurly.Resources
         [JsonProperty("id")]
         public string Id { get; set; }
 
+        /// <value>Invoice template associated to the account. Available when invoice customization flag is enabled.</value>
+        [JsonProperty("invoice_template")]
+        public AccountInvoiceTemplate InvoiceTemplate { get; set; }
+
 
         [JsonProperty("last_name")]
         public string LastName { get; set; }

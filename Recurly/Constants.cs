@@ -1989,6 +1989,9 @@ namespace Recurly
             [EnumMember(Value = "bacs")]
             Bacs,
 
+            [EnumMember(Value = "becs")]
+            Becs,
+
         };
 
         public enum AchAccountType

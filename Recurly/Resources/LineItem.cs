@@ -76,7 +76,7 @@ namespace Recurly.Resources
         [JsonProperty("end_date")]
         public DateTime? EndDate { get; set; }
 
-        /// <value>Optional Stock Keeping Unit assigned to an item. Available when the Credit Invoices and Subscription Billing Terms features are enabled.</value>
+        /// <value>Optional Stock Keeping Unit assigned to an item. Available when the Credit Invoices feature is enabled.</value>
         [JsonProperty("external_sku")]
         public string ExternalSku { get; set; }
 
@@ -92,11 +92,11 @@ namespace Recurly.Resources
         [JsonProperty("invoice_number")]
         public string InvoiceNumber { get; set; }
 
-        /// <value>Unique code to identify an item. Available when the Credit Invoices and Subscription Billing Terms features are enabled.</value>
+        /// <value>Unique code to identify an item. Available when the Credit Invoices feature is enabled.</value>
         [JsonProperty("item_code")]
         public string ItemCode { get; set; }
 
-        /// <value>System-generated unique identifier for an item. Available when the Credit Invoices and Subscription Billing Terms features are enabled.</value>
+        /// <value>System-generated unique identifier for an item. Available when the Credit Invoices feature is enabled.</value>
         [JsonProperty("item_id")]
         public string ItemId { get; set; }
 
