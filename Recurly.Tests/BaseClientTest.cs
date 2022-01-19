@@ -36,6 +36,38 @@ namespace Recurly.Tests
         }
 
         [Fact]
+        public void CanInitializeWithUSDataCenter()
+        {
+            var client = new MockClient("myapikey");
+            Assert.Equal("https://v3.recurly.com/", client.RestClient.BaseUrl.AbsoluteUri);
+        }
+
+        [Fact]
+        public void CanInitializeWithEUSDataCenter()
+        {
+            var clientOptions = new ClientOptions();
+            clientOptions.Region = "eu";
+            var client = new MockClient("myapikey", clientOptions);
+            Assert.Equal("https://v3.eu.recurly.com/", client.RestClient.BaseUrl.AbsoluteUri);
+        }
+
+
+        [Fact]
+        public void WillThrowAnApiErrorForInvalidRegion()
+        {
+            var clientOptions = new ClientOptions();
+            clientOptions.Region = "none";
+
+            // Instead of disabling strict mode, test with ArgumentException as proxy
+            var exception = Assert.Throws<System.ArgumentException>(() =>
+            {
+                var client = new MockClient("myapikey", clientOptions);
+            });
+            Assert.Matches("Invalid region type. Expected one of: us, eu", exception.Message);
+
+        }
+
+        [Fact]
         public void CanProperlyFetchAResource()
         {
             var client = MockClient.Build(SuccessResponse(System.Net.HttpStatusCode.OK));

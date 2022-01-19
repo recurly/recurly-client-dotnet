@@ -18,21 +18,38 @@ namespace Recurly
     public class BaseClient
     {
         private string ApiKey { get; }
-        private const string ApiUrl = "https://v3.recurly.com/";
+        private Dictionary<string, string> ApiHosts = new Dictionary<string, string>()
+        {
+            { "us", "https://v3.recurly.com/" },
+            { "eu", "https://v3.eu.recurly.com/" }
+        };
         private string[] BinaryTypes = { "application/pdf" };
         private List<IEventHandler> EventHandlers = new List<IEventHandler>();
         public virtual string ApiVersion { get; protected set; }
 
         internal IRestClient RestClient { get; set; }
 
-        public BaseClient(string apiKey)
+        public BaseClient(string apiKey, ClientOptions clientOptions = null)
         {
             if (String.IsNullOrEmpty(apiKey))
                 throw new ArgumentException($"apiKey is required. You passed in {apiKey}");
 
             ApiKey = apiKey;
+            var ApiHost = ApiHosts["us"];
+
+            if (clientOptions != null && !string.IsNullOrEmpty(clientOptions.Region))
+            {
+                if (!ApiHosts.ContainsKey(clientOptions.Region))
+                {
+                    var apiHostKeys = string.Join(", ", ApiHosts.Select(x => x.Key).ToArray());
+                    throw new ArgumentException($"Invalid region type. Expected one of: {apiHostKeys}");
+                }
+
+                ApiHost = ApiHosts[clientOptions.Region];
+            }
+
             RestClient = new RestClient();
-            RestClient.BaseUrl = new Uri(ApiUrl);
+            RestClient.BaseUrl = new Uri(ApiHost);
             RestClient.Authenticator = new HttpBasicAuthenticator(ApiKey, "");
 
             // AddDefaultHeader does not work for user-agent

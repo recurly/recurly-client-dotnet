@@ -53,6 +53,18 @@ const apiKey = "83749879bbde395b5fe0cc1a5abf8e5";
 var client = new Recurly.Client(apiKey);
 var sub = client.GetSubscription("uuid-abcd123456")
 ```
+To access Recurly servers in Europe you have to initialize the client with the argument ClientOptions with region with the value "eu".
+```csharp
+// Add this on the top of your file
+using Recurly;
+using Recurly.Resources;
+
+const apiKey = "83749879bbde395b5fe0cc1a5abf8e5";
+var clientOptions = new ClientOptions();
+clientOptions.Region = "none";
+var client = new Recurly.Client(apiKey, clientOptions);
+var sub = client.GetSubscription("uuid-abcd123456")
+```
 
 Optional arguments can be provided through object initializers.
 

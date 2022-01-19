@@ -13,7 +13,7 @@ namespace Recurly.Tests
     {
         public override string ApiVersion => "v2018-08-09";
 
-        public MockClient(string apiKey) : base(apiKey) { }
+        public MockClient(string apiKey, ClientOptions clientOptions = null) : base(apiKey, clientOptions) { }
 
         internal static MockClient Build<T>(Mock<IRestResponse<T>> response, string apiKey = "myapikey")
         {
