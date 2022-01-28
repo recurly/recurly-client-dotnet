@@ -1588,6 +1588,25 @@ namespace Recurly
 
 
         /// <summary>
+        /// List an invoice template's associated accounts <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_invoice_template_accounts">list_invoice_template_accounts api documentation</see>
+        /// </summary>
+        /// <param name="ListInvoiceTemplateAccountsParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// A list of an invoice template's associated accounts.
+        /// </returns>
+        public Pager<Account> ListInvoiceTemplateAccounts(string invoiceTemplateId, ListInvoiceTemplateAccountsParams optionalParams = null, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "invoice_template_id", invoiceTemplateId } };
+            var queryParams = (optionalParams ?? new ListInvoiceTemplateAccountsParams()).ToDictionary();
+            var url = this.InterpolatePath("/invoice_templates/{invoice_template_id}/accounts", urlParams);
+            return Pager<Account>.Build(url, queryParams, options, this);
+        }
+
+
+
+
+
+        /// <summary>
         /// List a site's items <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_items">list_items api documentation</see>
         /// </summary>
         /// <param name="ListItemsParams">Optional Parameters for the request</param>
