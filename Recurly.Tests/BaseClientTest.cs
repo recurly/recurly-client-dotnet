@@ -36,6 +36,24 @@ namespace Recurly.Tests
         }
 
         [Fact]
+        public void DefaultsToUSRegionWithoutClientOptions()
+        {
+            var client = new MockClient("myapikey");
+            Assert.Equal("https://v3.recurly.com/", client.RestClient.BaseUrl.AbsoluteUri);
+        }
+
+        [Fact]
+        public void CanInitializeWithEUSDataCenter()
+        {
+            var options = new ClientOptions()
+            {
+                Region = ClientOptions.Regions.EU
+            };
+            var client = new MockClient("myapikey", options);
+            Assert.Equal("https://v3.eu.recurly.com/", client.RestClient.BaseUrl.AbsoluteUri);
+        }
+
+        [Fact]
         public void CanProperlyFetchAResource()
         {
             var client = MockClient.Build(SuccessResponse(System.Net.HttpStatusCode.OK));

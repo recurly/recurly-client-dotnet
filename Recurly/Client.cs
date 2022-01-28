@@ -20,6 +20,7 @@ namespace Recurly
     {
         public override string ApiVersion => "v2021-02-25";
 
+        public Client(string apiKey, ClientOptions options) : base(apiKey, options) { }
         public Client(string apiKey) : base(apiKey) { }
 
         /// <summary>
