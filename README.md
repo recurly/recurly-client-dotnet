@@ -53,16 +53,19 @@ const apiKey = "83749879bbde395b5fe0cc1a5abf8e5";
 var client = new Recurly.Client(apiKey);
 var sub = client.GetSubscription("uuid-abcd123456")
 ```
-To access Recurly servers in Europe you have to initialize the client with the argument ClientOptions with region with the value "eu".
+
+To access Recurly API in Europe, you will need to specify the EU Region in the `ClientOptions`:
 ```csharp
 // Add this on the top of your file
 using Recurly;
 using Recurly.Resources;
 
 const apiKey = "83749879bbde395b5fe0cc1a5abf8e5";
-var clientOptions = new ClientOptions();
-clientOptions.Region = "none";
-var client = new Recurly.Client(apiKey, clientOptions);
+var options = new ClientOptions()
+{
+    Region = ClientOptions.Regions.EU
+};
+var client = new Recurly.Client(apiKey, options);
 var sub = client.GetSubscription("uuid-abcd123456")
 ```
 
