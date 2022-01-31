@@ -119,7 +119,7 @@ namespace Recurly.Resources
         [JsonProperty("transaction_type")]
         public string TransactionType { get; set; }
 
-        /// <value>The payment method type for a non-credit card based billing info. The value of `bacs` is the only accepted value (Bacs only)</value>
+        /// <value>The payment method type for a non-credit card based billing info. `bacs` and `becs` are the only accepted values.</value>
         [JsonProperty("type")]
         public string Type { get; set; }
 

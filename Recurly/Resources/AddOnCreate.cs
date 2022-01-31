@@ -55,11 +55,11 @@ namespace Recurly.Resources
         [JsonProperty("display_quantity")]
         public bool? DisplayQuantity { get; set; }
 
-        /// <value>Unique code to identify an item. Avaliable when the `Credit Invoices` and `Subscription Billing Terms` features are enabled. If `item_id` and `item_code` are both present, `item_id` will be used.</value>
+        /// <value>Unique code to identify an item. Avaliable when the `Credit Invoices` feature is enabled. If `item_id` and `item_code` are both present, `item_id` will be used.</value>
         [JsonProperty("item_code")]
         public string ItemCode { get; set; }
 
-        /// <value>System-generated unique identifier for an item. Available when the `Credit Invoices` and `Subscription Billing Terms` features are enabled. If `item_id` and `item_code` are both present, `item_id` will be used.</value>
+        /// <value>System-generated unique identifier for an item. Available when the `Credit Invoices` feature is enabled. If `item_id` and `item_code` are both present, `item_id` will be used.</value>
         [JsonProperty("item_id")]
         public string ItemId { get; set; }
 
