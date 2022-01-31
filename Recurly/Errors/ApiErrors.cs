@@ -45,6 +45,14 @@ namespace Recurly.Errors
     }
 
     [ExcludeFromCodeCoverage]
+    public class TaxService : InternalServer
+    {
+        public TaxService() { }
+        public TaxService(string message) : base(message) { }
+        public TaxService(string message, Exception inner) : base(message, inner) { }
+    }
+
+    [ExcludeFromCodeCoverage]
     public class BadGateway : Server
     {
         public BadGateway() { }

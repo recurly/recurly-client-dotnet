@@ -189,6 +189,11 @@ namespace Recurly.Errors
                     {
                         Error = err
                     };
+                case "tax_service_error":
+                    return new TaxService(err.Message)
+                    {
+                        Error = err
+                    };
                 default:
                     // Explode if we are in strict mode
                     if (Utils.StrictMode)
