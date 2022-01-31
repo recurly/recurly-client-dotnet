@@ -18,21 +18,22 @@ namespace Recurly
     public class BaseClient
     {
         private string ApiKey { get; }
-        private const string ApiUrl = "https://v3.recurly.com/";
         private string[] BinaryTypes = { "application/pdf" };
         private List<IEventHandler> EventHandlers = new List<IEventHandler>();
         public virtual string ApiVersion { get; protected set; }
 
         internal IRestClient RestClient { get; set; }
 
-        public BaseClient(string apiKey)
+        public BaseClient(string apiKey) : this(apiKey, new ClientOptions()) { }
+
+        public BaseClient(string apiKey, ClientOptions options)
         {
             if (String.IsNullOrEmpty(apiKey))
                 throw new ArgumentException($"apiKey is required. You passed in {apiKey}");
 
             ApiKey = apiKey;
             RestClient = new RestClient();
-            RestClient.BaseUrl = new Uri(ApiUrl);
+            RestClient.BaseUrl = new Uri(options.BaseUrl);
             RestClient.Authenticator = new HttpBasicAuthenticator(ApiKey, "");
 
             // AddDefaultHeader does not work for user-agent
