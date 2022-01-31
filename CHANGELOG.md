@@ -1,5 +1,17 @@
 # Changelog
 
+## [4.16.0](https://github.com/recurly/recurly-client-dotnet/tree/4.16.0) (2022-01-31)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/4.15.0...4.16.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 [#682](https://github.com/recurly/recurly-client-dotnet/pull/682) ([recurly-integrations](https://github.com/recurly-integrations))
+- Add region argument to client to connect in EU data center [#679](https://github.com/recurly/recurly-client-dotnet/pull/679) ([FabricioCoutinho](https://github.com/FabricioCoutinho))
+
+
+
 ## [4.15.0](https://github.com/recurly/recurly-client-dotnet/tree/4.15.0) (2022-01-28)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/4.14.0...4.15.0)
