@@ -1419,6 +1419,9 @@ namespace Recurly
             [EnumMember(Value = "simultaneous_request")]
             SimultaneousRequest,
 
+            [EnumMember(Value = "tax_service_error")]
+            TaxServiceError,
+
             [EnumMember(Value = "transaction")]
             Transaction,
 
