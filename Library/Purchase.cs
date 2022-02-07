@@ -219,8 +219,8 @@ namespace Recurly
         }
 
         /// <summary>
-        /// Use for Adyen HPP transaction requests. Runs validations
-        /// but does not run any transactions.
+        /// Use for AdyenHPP and Online Banking transaction requests.
+        /// Runs validations but does not run any transactions.
         /// </summary>
         public static InvoiceCollection Pending(Purchase purchase)
         {
