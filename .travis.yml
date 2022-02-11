@@ -7,3 +7,4 @@ script:
   - dotnet restore
   - ./scripts/build
   - ./scripts/test
+  - ./scripts/release
