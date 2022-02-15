@@ -36,6 +36,12 @@ namespace Recurly
             Savings
         }
 
+        public enum OnlineBankingPmtType : short
+        {
+            Ideal,
+            Sofort
+        }
+
         /// <summary>
         /// Account Code or unique ID for the account in Recurly
         /// </summary>
@@ -198,6 +204,12 @@ namespace Recurly
         /// HPP (e.g. Adyen Hosted Payments).
         /// </summary>
         public HppType? ExternalHppType { get; set; }
+
+        /// <summary>
+        /// Can be used if the payments are to be collected by Online Banking.
+        /// (e.g. iDeal, Sofort).
+        /// </summary>
+        public OnlineBankingPmtType? OnlineBankingPaymentType { get; set; }
 
         private const string UrlPrefix = "/accounts/";
         private const string UrlPostfix = "/billing_info";
@@ -445,6 +457,10 @@ namespace Recurly
                         ExternalHppType = reader.ReadElementContentAsString().ParseAsEnum<HppType>();
                         break;
 
+                    case "online_banking_payment_type":
+                        OnlineBankingPaymentType = reader.ReadElementContentAsString().ParseAsEnum<OnlineBankingPmtType>();
+                        break;
+
                     case "primary_payment_method":
                         PrimaryPaymentMethod = reader.ReadElementContentAsBoolean();
                         break;
@@ -523,6 +539,11 @@ namespace Recurly
                 if (ExternalHppType.HasValue)
                 {
                     xmlWriter.WriteElementString("external_hpp_type", ExternalHppType.Value.ToString().EnumNameToTransportCase());
+                }
+
+                if (OnlineBankingPaymentType.HasValue)
+                {
+                    xmlWriter.WriteElementString("online_banking_payment_type", OnlineBankingPaymentType.Value.ToString().EnumNameToTransportCase());
                 }
 
                 if (!GatewayCode.IsNullOrEmpty())
