@@ -54,6 +54,7 @@ namespace Recurly
         public string ParentAccountCode { get; set; }
         public string TransactionType { get; set; }
         public string DunningCampaignId { get; set; }
+        public string InvoiceTemplateUuid { get; set; }
 
         private AccountAcquisition _accountAcquisition;
 
@@ -224,7 +225,8 @@ namespace Recurly
             // PUT /accounts/<account code>
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
                 UrlPrefix + Uri.EscapeDataString(AccountCode),
-                WriteXml);
+                WriteXml,
+                ReadXml);
         }
 
         /// <summary>
@@ -421,6 +423,26 @@ namespace Recurly
 
             return statusCode == HttpStatusCode.NotFound ? null : parent;
         }
+
+
+        private string _invoiceTemplateUuid;
+
+        /// <summary>
+        /// Gets invoice template for this account
+        /// </summary>
+        /// <returns>InvoiceTemplate object</returns>
+        public InvoiceTemplate GetInvoiceTemplate()
+        {
+            if (_invoiceTemplateUuid == null) return null;
+            var invoiceTemplate = new InvoiceTemplate();
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
+                "/invoice_templates/" + _invoiceTemplateUuid,
+                invoiceTemplate.ReadXml);
+
+            return statusCode == HttpStatusCode.NotFound ? null : invoiceTemplate;
+        }
+
+
 
         public RecurlyList<Account> GetChildAccounts()
         {
@@ -730,6 +752,16 @@ namespace Recurly
                             }
                         }
                         break;
+                    case "invoice_template":
+                        var templateHref = reader.GetAttribute("href");
+                        if (templateHref.IsNullOrEmpty())
+                        {
+                            _invoiceTemplateUuid = null;
+                        } else
+                        {
+                          _invoiceTemplateUuid = Uri.UnescapeDataString(templateHref.Substring(templateHref.LastIndexOf("/") + 1));
+                        }
+                        break;
                 }
             }
         }
@@ -771,6 +803,9 @@ namespace Recurly
 
             if (TaxExempt.HasValue)
                 xmlWriter.WriteElementString("tax_exempt", TaxExempt.Value.AsString());
+
+            if (InvoiceTemplateUuid != null)
+                xmlWriter.WriteElementString("invoice_template_uuid", InvoiceTemplateUuid);
 
             xmlWriter.WriteStringIfValid("exemption_certificate", ExemptionCertificate);
 

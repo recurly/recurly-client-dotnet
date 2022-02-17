@@ -113,6 +113,8 @@
     <Compile Include="Exception.cs" />
     <Compile Include="InvalidCredentialsException.cs" />
     <Compile Include="Invoice.cs" />
+    <Compile Include="InvoiceTemplate.cs" />
+    <Compile Include="List\InvoiceTemplateList.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="List\AddOnList.cs" />
     <Compile Include="List\CouponList.cs" />
