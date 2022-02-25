@@ -12,16 +12,16 @@ using Newtonsoft.Json;
 namespace Recurly.Resources
 {
     [ExcludeFromCodeCoverage]
-    public class AccountInvoiceTemplate : Resource
+    public class PercentageTier : Resource
     {
 
-        /// <value>Unique ID to identify the invoice template.</value>
-        [JsonProperty("id")]
-        public string Id { get; set; }
+        /// <value>Ending amount for the tier. Allows up to 2 decimal places. The last tier ending_amount is null.</value>
+        [JsonProperty("ending_amount")]
+        public decimal? EndingAmount { get; set; }
 
-        /// <value>Template name</value>
-        [JsonProperty("name")]
-        public string Name { get; set; }
+        /// <value>Decimal usage percentage.</value>
+        [JsonProperty("usage_percentage")]
+        public string UsagePercentage { get; set; }
 
     }
 }

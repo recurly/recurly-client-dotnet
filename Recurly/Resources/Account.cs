@@ -52,7 +52,7 @@ namespace Recurly.Resources
         [JsonProperty("deleted_at")]
         public DateTime? DeletedAt { get; set; }
 
-        /// <value>Unique ID to identify a dunning campaign. Available when the Dunning Campaigns feature is enabled. Used to specify if a non-default dunning campaign should be assigned to this account. For sites without multiple dunning campaigns enabled, the default dunning campaign will always be used.</value>
+        /// <value>Unique ID to identify a dunning campaign. Used to specify if a non-default dunning campaign should be assigned to this account. For sites without multiple dunning campaigns enabled, the default dunning campaign will always be used.</value>
         [JsonProperty("dunning_campaign_id")]
         public string DunningCampaignId { get; set; }
 
@@ -100,9 +100,9 @@ namespace Recurly.Resources
         [JsonProperty("id")]
         public string Id { get; set; }
 
-        /// <value>Invoice template associated to the account. Available when invoice customization flag is enabled.</value>
-        [JsonProperty("invoice_template")]
-        public AccountInvoiceTemplate InvoiceTemplate { get; set; }
+        /// <value>Unique ID to identify an invoice template. Available when the Invoice Customization feature is enabled. Used to specify if a non-default invoice template will be used to generate invoices for the account. For sites without multiple invoice templates enabled, the default template will always be used.</value>
+        [JsonProperty("invoice_template_id")]
+        public string InvoiceTemplateId { get; set; }
 
 
         [JsonProperty("last_name")]

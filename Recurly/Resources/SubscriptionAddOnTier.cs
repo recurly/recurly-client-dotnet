@@ -31,7 +31,7 @@ namespace Recurly.Resources
         [JsonProperty("unit_amount_decimal")]
         public string UnitAmountDecimal { get; set; }
 
-        /// <value>The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places represented as a string. A value between 0.0 and 100.0. Optionally, override tiers' default usage percentage. Required if add-on's `add_on_type` is `usage` and `usage_type` is `percentage`. Must be omitted otherwise.</value>
+        /// <value>This field is deprecated. Do not used it anymore for percentage tiers subscription add ons. Use the percentage_tiers object instead.</value>
         [JsonProperty("usage_percentage")]
         public string UsagePercentage { get; set; }
 

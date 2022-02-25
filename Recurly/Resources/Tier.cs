@@ -23,7 +23,7 @@ namespace Recurly.Resources
         [JsonProperty("ending_quantity")]
         public int? EndingQuantity { get; set; }
 
-        /// <value>Decimal usage percentage.</value>
+        /// <value>This field is deprecated. Do not used it anymore for percentage tiers add ons. Use the percentage_tiers object instead.</value>
         [JsonProperty("usage_percentage")]
         public string UsagePercentage { get; set; }
 

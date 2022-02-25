@@ -44,6 +44,11 @@ namespace Recurly.Resources
         [JsonProperty("cvv")]
         public string Cvv { get; set; }
 
+        /// <value>Use for Adyen HPP billing info.</value>
+        [JsonProperty("external_hpp_type")]
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.ExternalHppType? ExternalHppType { get; set; }
+
         /// <value>First name</value>
         [JsonProperty("first_name")]
         public string FirstName { get; set; }
@@ -83,6 +88,11 @@ namespace Recurly.Resources
         /// <value>Credit card number, spaces and dashes are accepted.</value>
         [JsonProperty("number")]
         public string Number { get; set; }
+
+        /// <value>Use for Online Banking billing info.</value>
+        [JsonProperty("online_banking_payment_type")]
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.OnlineBankingPaymentType? OnlineBankingPaymentType { get; set; }
 
         /// <value>PayPal billing agreement ID</value>
         [JsonProperty("paypal_billing_agreement_id")]

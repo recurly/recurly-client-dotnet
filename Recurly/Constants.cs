@@ -2009,5 +2009,26 @@ namespace Recurly
 
         };
 
+        public enum ExternalHppType
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "adyen")]
+            Adyen,
+
+        };
+
+        public enum OnlineBankingPaymentType
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "ideal")]
+            Ideal,
+
+            [EnumMember(Value = "sofort")]
+            Sofort,
+
+        };
+
     }
 }
