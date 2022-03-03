@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.17.14](https://github.com/recurly/recurly-client-dotnet/tree/1.17.14) (2022-03-03)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.13...1.17.14)
+
+
+**Merged Pull Requests**
+
+- Add OnlineBankingPaymentType to BillingInfo [#686](https://github.com/recurly/recurly-client-dotnet/pull/686) ([cyberxander90](https://github.com/cyberxander90))
+
+
+
 ## [1.17.13](https://github.com/recurly/recurly-client-dotnet/tree/1.17.13) (2021-10-27)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.12...1.17.13)
