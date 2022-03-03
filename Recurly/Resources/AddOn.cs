@@ -84,6 +84,10 @@ namespace Recurly.Resources
         [JsonProperty("optional")]
         public bool? Optional { get; set; }
 
+        /// <value>Percentage Tiers</value>
+        [JsonProperty("percentage_tiers")]
+        public List<PercentageTiersByCurrency> PercentageTiers { get; set; }
+
         /// <value>Plan ID</value>
         [JsonProperty("plan_id")]
         public string PlanId { get; set; }

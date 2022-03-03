@@ -1060,7 +1060,7 @@ namespace Recurly
         /// <summary>
         /// List an invoice template's associated accounts <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_invoice_template_accounts">list_invoice_template_accounts api documentation</see>
         /// </summary>
-        /// <param name="invoiceTemplateId">Invoice template ID.</param>
+        /// <param name="invoiceTemplateId">Invoice template ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
         /// <param name="limit">Limit number of records 1-200.</param>
         /// <param name="order">Sort order.</param>
@@ -2553,6 +2553,26 @@ namespace Recurly
         Task<InvoiceCollection> PreviewPurchaseAsync(PurchaseCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
 
         /// <summary>
+        /// Create a pending purchase <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_pending_purchase">create_pending_purchase api documentation</see>
+        /// </summary>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// Returns the pending invoice
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        InvoiceCollection CreatePendingPurchase(PurchaseCreate body, RequestOptions options = null);
+
+        /// <summary>
+        /// Create a pending purchase <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_pending_purchase">create_pending_purchase api documentation</see>
+        /// </summary>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// Returns the pending invoice
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<InvoiceCollection> CreatePendingPurchaseAsync(PurchaseCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
         /// List the dates that have an available export to download. <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_export_dates">get_export_dates api documentation</see>
         /// </summary>
         /// <returns>
@@ -2639,5 +2659,35 @@ namespace Recurly
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
         Task<DunningCampaignsBulkUpdateResponse> PutDunningCampaignBulkUpdateAsync(DunningCampaignsBulkUpdate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// Show the invoice templates for a site <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_invoice_templates">list_invoice_templates api documentation</see>
+        /// </summary>
+        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
+        /// <returns>
+        /// A list of the the invoice templates on a site.
+        /// </returns>
+        Pager<InvoiceTemplate> ListInvoiceTemplates(ListInvoiceTemplatesParams optionalParams = null, RequestOptions options = null);
+
+
+        /// <summary>
+        /// Show the settings for an invoice template <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_invoice_template">get_invoice_template api documentation</see>
+        /// </summary>
+        /// <param name="invoiceTemplateId">Invoice template ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <returns>
+        /// Settings for an invoice template.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        InvoiceTemplate GetInvoiceTemplate(string invoiceTemplateId, RequestOptions options = null);
+
+        /// <summary>
+        /// Show the settings for an invoice template <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_invoice_template">get_invoice_template api documentation</see>
+        /// </summary>
+        /// <param name="invoiceTemplateId">Invoice template ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <returns>
+        /// Settings for an invoice template.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<InvoiceTemplate> GetInvoiceTemplateAsync(string invoiceTemplateId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
     }
 }

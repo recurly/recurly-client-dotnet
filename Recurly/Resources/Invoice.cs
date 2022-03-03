@@ -64,7 +64,7 @@ namespace Recurly.Resources
         [JsonProperty("due_at")]
         public DateTime? DueAt { get; set; }
 
-        /// <value>Unique ID to identify the dunning campaign used when dunning the invoice. Available when the Dunning Campaigns feature is enabled. For sites without multiple dunning campaigns enabled, this will always be the default dunning campaign.</value>
+        /// <value>Unique ID to identify the dunning campaign used when dunning the invoice. For sites without multiple dunning campaigns enabled, this will always be the default dunning campaign.</value>
         [JsonProperty("dunning_campaign_id")]
         public string DunningCampaignId { get; set; }
 
@@ -158,6 +158,10 @@ namespace Recurly.Resources
         /// <value>Last updated at</value>
         [JsonProperty("updated_at")]
         public DateTime? UpdatedAt { get; set; }
+
+        /// <value>Invoice UUID</value>
+        [JsonProperty("uuid")]
+        public string Uuid { get; set; }
 
         /// <value>VAT registration number for the customer on this invoice. This will come from the VAT Number field in the Billing Info or the Account Info depending on your tax settings and the invoice collection method.</value>
         [JsonProperty("vat_number")]

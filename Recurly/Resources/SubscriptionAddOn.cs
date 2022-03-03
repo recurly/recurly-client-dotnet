@@ -45,6 +45,13 @@ namespace Recurly.Resources
         [JsonProperty("object")]
         public string Object { get; set; }
 
+        /// <value>
+        /// If percentage tiers are provided in the request, all existing percentage tiers on the Subscription Add-on will be
+        /// removed and replaced by the percentage tiers in the request.
+        /// </value>
+        [JsonProperty("percentage_tiers")]
+        public List<SubscriptionAddOnPercentageTier> PercentageTiers { get; set; }
+
         /// <value>Add-on quantity</value>
         [JsonProperty("quantity")]
         public int? Quantity { get; set; }
