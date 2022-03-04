@@ -301,6 +301,7 @@ namespace Recurly
 
         internal bool _preview;
 
+        public bool? TaxInclusive { get; set; }
         public string CustomerNotes { get; set; }
         public string TermsAndConditions { get; set; }
         public string VatReverseChargeNotes { get; set; }
@@ -1066,6 +1067,11 @@ namespace Recurly
             if (ImportedTrial.HasValue)
             {
                 xmlWriter.WriteElementString("imported_trial", ImportedTrial.Value.ToString().ToLower());
+            }
+
+            if (TaxInclusive.HasValue)
+            {
+                xmlWriter.WriteElementString("tax_inclusive", TaxInclusive.Value.ToString().ToLower());
             }
 
             if (RevenueScheduleType.HasValue)
