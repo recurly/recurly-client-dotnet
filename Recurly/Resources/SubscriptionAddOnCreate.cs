@@ -32,6 +32,14 @@ namespace Recurly.Resources
         [JsonProperty("code")]
         public string Code { get; set; }
 
+        /// <value>
+        /// If percentage tiers are provided in the request, all existing percentage tiers on the Subscription Add-on will be
+        /// removed and replaced by the percentage tiers in the request. There must be one tier without ending_amount value.
+        /// Use only if add_on.tier_type is tiered or volume and add_on.usage_type is percentage.
+        /// </value>
+        [JsonProperty("percentage_tiers")]
+        public List<SubscriptionAddOnPercentageTier> PercentageTiers { get; set; }
+
         /// <value>Quantity</value>
         [JsonProperty("quantity")]
         public int? Quantity { get; set; }
@@ -44,8 +52,8 @@ namespace Recurly.Resources
         /// <value>
         /// If the plan add-on's `tier_type` is `flat`, then `tiers` must be absent. The `tiers` object
         /// must include one to many tiers with `ending_quantity` and `unit_amount`.
-        /// There must be one tier with an `ending_quantity` of 999999999 which is the
-        /// default if not provided. See our [Guide](https://developers.recurly.com/guides/item-addon-guide.html)
+        /// There must be one tier without ending_quantity value.
+        /// See our [Guide](https://developers.recurly.com/guides/item-addon-guide.html)
         /// for an overview of how to configure quantity-based pricing models.
         /// </value>
         [JsonProperty("tiers")]

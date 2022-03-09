@@ -43,6 +43,10 @@ namespace Recurly.Resources
         [JsonProperty("object")]
         public string Object { get; set; }
 
+        /// <value>The percentage tiers of the subscription based on the usage_timestamp. If tier_type = flat, percentage_tiers = []</value>
+        [JsonProperty("percentage_tiers")]
+        public List<SubscriptionAddOnPercentageTier> PercentageTiers { get; set; }
+
         /// <value>When the usage was recorded in your system.</value>
         [JsonProperty("recording_timestamp")]
         public DateTime? RecordingTimestamp { get; set; }
@@ -57,7 +61,7 @@ namespace Recurly.Resources
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
         public Constants.TierType? TierType { get; set; }
 
-        /// <value>The tiers and prices of the subscription based on the usage_timestamp. If tier_type = flat, tiers = null</value>
+        /// <value>The tiers and prices of the subscription based on the usage_timestamp. If tier_type = flat, tiers = []</value>
         [JsonProperty("tiers")]
         public List<SubscriptionAddOnTier> Tiers { get; set; }
 
