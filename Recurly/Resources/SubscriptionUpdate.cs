@@ -69,10 +69,6 @@ namespace Recurly.Resources
         [JsonProperty("shipping")]
         public SubscriptionShippingUpdate Shipping { get; set; }
 
-        /// <value>Determines whether or not tax is included in the unit amount. The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing feature) must be enabled to use this flag.</value>
-        [JsonProperty("tax_inclusive")]
-        public bool? TaxInclusive { get; set; }
-
         /// <value>Specify custom notes to add or override Terms and Conditions. Custom notes will stay with a subscription on all renewals.</value>
         [JsonProperty("terms_and_conditions")]
         public string TermsAndConditions { get; set; }

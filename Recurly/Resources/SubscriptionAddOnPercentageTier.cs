@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 namespace Recurly.Resources
 {
     [ExcludeFromCodeCoverage]
-    public class SubscriptionAddOnPercentageTier : Resource
+    public class SubscriptionAddOnPercentageTier : Request
     {
 
         /// <value>Ending amount</value>

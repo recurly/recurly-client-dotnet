@@ -981,9 +981,6 @@ namespace Recurly
             [EnumMember(Value = "only_bill_what_changed")]
             OnlyBillWhatChanged,
 
-            [EnumMember(Value = "subscription_terms")]
-            SubscriptionTerms,
-
         };
 
         public enum SubscriptionState

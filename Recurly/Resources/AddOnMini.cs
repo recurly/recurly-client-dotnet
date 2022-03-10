@@ -52,9 +52,9 @@ namespace Recurly.Resources
         [JsonProperty("object")]
         public string Object { get; set; }
 
-        /// <value>The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0.</value>
+        /// <value>The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0, represented as a string.</value>
         [JsonProperty("usage_percentage")]
-        public decimal? UsagePercentage { get; set; }
+        public string UsagePercentage { get; set; }
 
         /// <value>Type of usage, returns usage type if `add_on_type` is `usage`.</value>
         [JsonProperty("usage_type")]
