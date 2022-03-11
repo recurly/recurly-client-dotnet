@@ -67,6 +67,14 @@ namespace Recurly.Resources
         [JsonProperty("optional")]
         public bool? Optional { get; set; }
 
+        /// <value>
+        /// `percentage_tiers` is an array of objects, which must have the set of tiers
+        /// per currency and the currency code. The tier_type must be `volume` or `tiered`,
+        /// if not, it must be absent.
+        /// </value>
+        [JsonProperty("percentage_tiers")]
+        public List<PercentageTiersByCurrency> PercentageTiers { get; set; }
+
         /// <value>When this add-on is invoiced, the line item will use this revenue schedule. If `item_code`/`item_id` is part of the request then `revenue_schedule_type` must be absent in the request as the value will be set from the item.</value>
         [JsonProperty("revenue_schedule_type")]
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
@@ -79,15 +87,15 @@ namespace Recurly.Resources
         /// <value>
         /// If the tier_type is `flat`, then `tiers` must be absent. The `tiers` object
         /// must include one to many tiers with `ending_quantity` and `unit_amount` for
-        /// the desired `currencies`, or alternatively, `usage_percentage` for usage percentage type usage add ons. There must be one tier with an `ending_quantity`
-        /// of 999999999 which is the default if not provided.
+        /// the desired `currencies`. There must be one tier without an `ending_quantity` value
+        /// that represents the final tier.
         /// </value>
         [JsonProperty("tiers")]
         public List<Tier> Tiers { get; set; }
 
-        /// <value>The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0. Required if `add_on_type` is usage, `tier_type` is `flat` and `usage_type` is percentage. Must be omitted otherwise.</value>
+        /// <value>The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places represented as a string. A value between 0.0 and 100.0. Required if `add_on_type` is usage, `tier_type` is `flat` and `usage_type` is percentage. Must be omitted otherwise.</value>
         [JsonProperty("usage_percentage")]
-        public decimal? UsagePercentage { get; set; }
+        public string UsagePercentage { get; set; }
 
     }
 }
