@@ -63,6 +63,10 @@ namespace Recurly.Resources
         [JsonProperty("quantity")]
         public int? Quantity { get; set; }
 
+        /// <value>Ramp Intervals</value>
+        [JsonProperty("ramp_intervals")]
+        public List<SubscriptionRampIntervalResponse> RampIntervals { get; set; }
+
         /// <value>Revenue schedule type</value>
         [JsonProperty("revenue_schedule_type")]
         [JsonConverter(typeof(RecurlyStringEnumConverter))]

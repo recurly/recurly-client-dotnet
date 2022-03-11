@@ -12,16 +12,16 @@ using Newtonsoft.Json;
 namespace Recurly.Resources
 {
     [ExcludeFromCodeCoverage]
-    public class PercentageTiersByCurrency : Request
+    public class SubscriptionRampInterval : Request
     {
 
-        /// <value>3-letter ISO 4217 currency code.</value>
-        [JsonProperty("currency")]
-        public string Currency { get; set; }
+        /// <value>Represents how many billing cycles are included in a ramp interval.</value>
+        [JsonProperty("starting_billing_cycle")]
+        public int? StartingBillingCycle { get; set; }
 
-        /// <value>Tiers</value>
-        [JsonProperty("tiers")]
-        public List<PercentageTier> Tiers { get; set; }
+        /// <value>Represents the price for the ramp interval.</value>
+        [JsonProperty("unit_amount")]
+        public int? UnitAmount { get; set; }
 
     }
 }
