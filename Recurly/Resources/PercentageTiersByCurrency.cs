@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 namespace Recurly.Resources
 {
     [ExcludeFromCodeCoverage]
-    public class PercentageTiersByCurrency : Resource
+    public class PercentageTiersByCurrency : Request
     {
 
         /// <value>3-letter ISO 4217 currency code.</value>

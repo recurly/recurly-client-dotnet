@@ -31,7 +31,7 @@ namespace Recurly.Resources
         [JsonProperty("unit_amount_decimal")]
         public string UnitAmountDecimal { get; set; }
 
-        /// <value>This field is deprecated. Do not used it anymore for percentage tiers subscription add ons. Use the percentage_tiers object instead.</value>
+        /// <value>(deprecated) -- Use the percentage_tiers object instead.</value>
         [JsonProperty("usage_percentage")]
         public string UsagePercentage { get; set; }
 
