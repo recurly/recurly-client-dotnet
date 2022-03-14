@@ -1,5 +1,16 @@
 # Changelog
 
+## [4.18.0](https://github.com/recurly/recurly-client-dotnet/tree/4.18.0) (2022-03-14)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/4.17.0...4.18.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 (Percentage tiers feature)  [#692](https://github.com/recurly/recurly-client-dotnet/pull/692) ([recurly-integrations](https://github.com/recurly-integrations))
+
+
+
 ## [4.17.0](https://github.com/recurly/recurly-client-dotnet/tree/4.17.0) (2022-03-03)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/4.16.0...4.17.0)
