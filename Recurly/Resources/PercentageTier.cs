@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 namespace Recurly.Resources
 {
     [ExcludeFromCodeCoverage]
-    public class PercentageTier : Resource
+    public class PercentageTier : Request
     {
 
         /// <value>Ending amount for the tier. Allows up to 2 decimal places. The last tier ending_amount is null.</value>
