@@ -1899,6 +1899,9 @@ namespace Recurly
             [EnumMember(Value = "three_d_secure_not_supported")]
             ThreeDSecureNotSupported,
 
+            [EnumMember(Value = "too_busy")]
+            TooBusy,
+
             [EnumMember(Value = "too_many_attempts")]
             TooManyAttempts,
 

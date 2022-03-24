@@ -19,7 +19,7 @@ namespace Recurly.Resources
         [JsonProperty("currencies")]
         public List<TierPricing> Currencies { get; set; }
 
-        /// <value>Ending quantity for the tier.  This represents a unit amount for unit-priced add ons.</value>
+        /// <value>Ending quantity for the tier.  This represents a unit amount for unit-priced add ons. Must be left empty if it is the final tier.</value>
         [JsonProperty("ending_quantity")]
         public int? EndingQuantity { get; set; }
 
