@@ -83,7 +83,8 @@ namespace Recurly.Resources
         /// <value>
         /// Array of objects which must have at least one set of tiers
         /// per currency and the currency code. The tier_type must be `volume` or `tiered`,
-        /// if not, it must be absent. There must be one tier without ending_amount value.
+        /// if not, it must be absent. There must be one tier without an `ending_amount` value
+        /// which represents the final tier.
         /// </value>
         [JsonProperty("percentage_tiers")]
         public List<PercentageTiersByCurrency> PercentageTiers { get; set; }
@@ -114,8 +115,8 @@ namespace Recurly.Resources
         /// <value>
         /// If the tier_type is `flat`, then `tiers` must be absent. The `tiers` object
         /// must include one to many tiers with `ending_quantity` and `unit_amount` for
-        /// the desired `currencies`. There must be one tier with an `ending_quantity`
-        /// of 999999999 which is the default if not provided.
+        /// the desired `currencies`. There must be one tier without an `ending_quantity` value
+        /// which represents the final tier.
         /// </value>
         [JsonProperty("tiers")]
         public List<Tier> Tiers { get; set; }

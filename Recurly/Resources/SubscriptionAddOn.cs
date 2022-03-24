@@ -48,7 +48,8 @@ namespace Recurly.Resources
         /// <value>
         /// If percentage tiers are provided in the request, all existing percentage tiers on the Subscription Add-on will be
         /// removed and replaced by the percentage tiers in the request. Use only if add_on.tier_type is tiered or volume and
-        /// add_on.usage_type is percentage
+        /// add_on.usage_type is percentage.
+        /// There must be one tier without an `ending_amount` value which represents the final tier.
         /// </value>
         [JsonProperty("percentage_tiers")]
         public List<SubscriptionAddOnPercentageTier> PercentageTiers { get; set; }
@@ -79,7 +80,8 @@ namespace Recurly.Resources
         /// <value>
         /// If tiers are provided in the request, all existing tiers on the Subscription Add-on will be
         /// removed and replaced by the tiers in the request. If add_on.tier_type is tiered or volume and
-        /// add_on.usage_type is percentage use percentage_tiers instead.
+        /// add_on.usage_type is percentage use percentage_tiers instead. 
+        /// There must be one tier without an `ending_quantity` value which represents the final tier.
         /// </value>
         [JsonProperty("tiers")]
         public List<SubscriptionAddOnTier> Tiers { get; set; }
