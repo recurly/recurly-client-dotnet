@@ -23,6 +23,10 @@ namespace Recurly.Resources
         [JsonProperty("activated_at")]
         public DateTime? ActivatedAt { get; set; }
 
+        /// <value>The invoice ID of the latest invoice created for an active subscription.</value>
+        [JsonProperty("active_invoice_id")]
+        public string ActiveInvoiceId { get; set; }
+
         /// <value>Add-ons</value>
         [JsonProperty("add_ons")]
         public List<SubscriptionAddOn> AddOns { get; set; }
