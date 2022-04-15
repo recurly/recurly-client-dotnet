@@ -1,5 +1,21 @@
 # Changelog
 
+## [3.20.0](https://github.com/recurly/recurly-client-dotnet/tree/3.20.0) (2022-04-15)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.19.0...3.20.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2019-10-10 [#699](https://github.com/recurly/recurly-client-dotnet/pull/699) ([recurly-integrations](https://github.com/recurly-integrations))
+- Generated Latest Changes for v2019-10-10 [#693](https://github.com/recurly/recurly-client-dotnet/pull/693) ([recurly-integrations](https://github.com/recurly-integrations))
+- Generated Latest Changes for v2019-10-10 [#688](https://github.com/recurly/recurly-client-dotnet/pull/688) ([recurly-integrations](https://github.com/recurly-integrations))
+- Generated Latest Changes for v2019-10-10 [#683](https://github.com/recurly/recurly-client-dotnet/pull/683) ([recurly-integrations](https://github.com/recurly-integrations))
+- Generated Latest Changes for v2019-10-10 (Tax Inclusive Pricing) [#676](https://github.com/recurly/recurly-client-dotnet/pull/676) ([recurly-integrations](https://github.com/recurly-integrations))
+- Generated Latest Changes for v2019-10-10 (Account Hierarchy Invoice Rollup) [#672](https://github.com/recurly/recurly-client-dotnet/pull/672) ([recurly-integrations](https://github.com/recurly-integrations))
+
+
+
 ## [3.19.0](https://github.com/recurly/recurly-client-dotnet/tree/3.19.0) (2021-10-23)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.18.0...3.19.0)
