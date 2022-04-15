@@ -560,6 +560,30 @@ namespace Recurly
 
         };
 
+        public enum UsageTimeframe
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "billing_period")]
+            BillingPeriod,
+
+            [EnumMember(Value = "subscription_term")]
+            SubscriptionTerm,
+
+        };
+
+        public enum UsageTimeframeCreate
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "billing_period")]
+            BillingPeriod,
+
+            [EnumMember(Value = "subscription_term")]
+            SubscriptionTerm,
+
+        };
+
         public enum CreditPaymentAction
         {
             Undefined = 0,

@@ -126,6 +126,15 @@ namespace Recurly.Resources
         public decimal? UsagePercentage { get; set; }
 
         /// <value>
+        /// The time at which usage totals are reset for billing purposes.
+        /// Allows for `tiered` add-ons to accumulate usage over the course of multiple
+        /// billing periods.
+        /// </value>
+        [JsonProperty("usage_timeframe")]
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.UsageTimeframeCreate? UsageTimeframe { get; set; }
+
+        /// <value>
         /// Type of usage, required if `add_on_type` is `usage`. See our
         /// [Guide](https://developers.recurly.com/guides/usage-based-billing-guide.html) for an
         /// overview of how to configure usage add-ons.
