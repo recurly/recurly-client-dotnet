@@ -43,7 +43,7 @@ namespace Recurly.Resources
         [JsonProperty("code")]
         public string Code { get; set; }
 
-        /// <value>Pricing</value>
+        /// <value>Optional when the pricing model is 'ramp'.</value>
         [JsonProperty("currencies")]
         public List<PlanPricing> Currencies { get; set; }
 

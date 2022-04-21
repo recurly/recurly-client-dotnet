@@ -19,10 +19,6 @@ namespace Recurly.Resources
         [JsonProperty("currency")]
         public string Currency { get; set; }
 
-        /// <value>Determines whether or not tax is included in the unit amount. The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing feature) must be enabled to use this flag.</value>
-        [JsonProperty("tax_inclusive")]
-        public bool? TaxInclusive { get; set; }
-
         /// <value>Allows up to 2 decimal places. Required unless `unit_amount_decimal` is provided.</value>
         [JsonProperty("unit_amount")]
         public decimal? UnitAmount { get; set; }

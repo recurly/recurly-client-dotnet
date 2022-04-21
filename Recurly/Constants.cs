@@ -560,6 +560,30 @@ namespace Recurly
 
         };
 
+        public enum UsageTimeframe
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "billing_period")]
+            BillingPeriod,
+
+            [EnumMember(Value = "subscription_term")]
+            SubscriptionTerm,
+
+        };
+
+        public enum UsageTimeframeCreate
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "billing_period")]
+            BillingPeriod,
+
+            [EnumMember(Value = "subscription_term")]
+            SubscriptionTerm,
+
+        };
+
         public enum CreditPaymentAction
         {
             Undefined = 0,
@@ -590,6 +614,18 @@ namespace Recurly
 
             [EnumMember(Value = "write")]
             Write,
+
+        };
+
+        public enum PricingModelType
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "fixed")]
+            Fixed,
+
+            [EnumMember(Value = "ramp")]
+            Ramp,
 
         };
 
@@ -1895,6 +1931,9 @@ namespace Recurly
 
             [EnumMember(Value = "three_d_secure_not_supported")]
             ThreeDSecureNotSupported,
+
+            [EnumMember(Value = "too_busy")]
+            TooBusy,
 
             [EnumMember(Value = "too_many_attempts")]
             TooManyAttempts,
