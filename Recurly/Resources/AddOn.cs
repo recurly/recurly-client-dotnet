@@ -128,6 +128,11 @@ namespace Recurly.Resources
         [JsonProperty("usage_percentage")]
         public string UsagePercentage { get; set; }
 
+        /// <value>The time at which usage totals are reset for billing purposes.</value>
+        [JsonProperty("usage_timeframe")]
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.UsageTimeframe? UsageTimeframe { get; set; }
+
         /// <value>Type of usage, returns usage type if `add_on_type` is `usage`.</value>
         [JsonProperty("usage_type")]
         [JsonConverter(typeof(RecurlyStringEnumConverter))]

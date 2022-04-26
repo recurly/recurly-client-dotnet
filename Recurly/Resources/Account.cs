@@ -100,7 +100,7 @@ namespace Recurly.Resources
         [JsonProperty("id")]
         public string Id { get; set; }
 
-        /// <value>Unique ID to identify an invoice template. Available when the Invoice Customization feature is enabled. Used to specify if a non-default invoice template will be used to generate invoices for the account. For sites without multiple invoice templates enabled, the default template will always be used.</value>
+        /// <value>Unique ID to identify an invoice template. Available when the site is on a Pro or Enterprise plan. Used to specify if a non-default invoice template will be used to generate invoices for the account. For sites without multiple invoice templates enabled, the default template will always be used.</value>
         [JsonProperty("invoice_template_id")]
         public string InvoiceTemplateId { get; set; }
 

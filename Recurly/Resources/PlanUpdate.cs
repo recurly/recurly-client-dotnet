@@ -43,7 +43,7 @@ namespace Recurly.Resources
         [JsonProperty("code")]
         public string Code { get; set; }
 
-        /// <value>Pricing</value>
+        /// <value>Optional when the pricing model is 'ramp'.</value>
         [JsonProperty("currencies")]
         public List<PlanPricing> Currencies { get; set; }
 
@@ -66,6 +66,10 @@ namespace Recurly.Resources
         /// <value>This name describes your plan and will appear on the Hosted Payment Page and the subscriber's invoice.</value>
         [JsonProperty("name")]
         public string Name { get; set; }
+
+        /// <value>Ramp Intervals</value>
+        [JsonProperty("ramp_intervals")]
+        public List<PlanRampInterval> RampIntervals { get; set; }
 
         /// <value>Revenue schedule type</value>
         [JsonProperty("revenue_schedule_type")]

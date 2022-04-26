@@ -76,6 +76,19 @@ namespace Recurly.Resources
         [JsonProperty("name")]
         public string Name { get; set; }
 
+        /// <value>
+        /// A fixed pricing model has the same price for each billing period.
+        /// A ramp pricing model defines a set of Ramp Intervals, where a subscription changes price on
+        /// a specified cadence of billing periods. The price change could be an increase or decrease.
+        /// </value>
+        [JsonProperty("pricing_model")]
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.PricingModelType? PricingModel { get; set; }
+
+        /// <value>Ramp Intervals</value>
+        [JsonProperty("ramp_intervals")]
+        public List<PlanRampInterval> RampIntervals { get; set; }
+
         /// <value>Revenue schedule type</value>
         [JsonProperty("revenue_schedule_type")]
         [JsonConverter(typeof(RecurlyStringEnumConverter))]

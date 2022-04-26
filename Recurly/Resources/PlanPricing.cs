@@ -23,11 +23,7 @@ namespace Recurly.Resources
         [JsonProperty("setup_fee")]
         public decimal? SetupFee { get; set; }
 
-        /// <value>Determines whether or not tax is included in the unit amount. The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing feature) must be enabled to use this flag.</value>
-        [JsonProperty("tax_inclusive")]
-        public bool? TaxInclusive { get; set; }
-
-        /// <value>Unit price</value>
+        /// <value>This field should not be sent when the pricing model is 'ramp'.</value>
         [JsonProperty("unit_amount")]
         public decimal? UnitAmount { get; set; }
 

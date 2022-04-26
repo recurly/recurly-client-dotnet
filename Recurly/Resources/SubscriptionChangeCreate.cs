@@ -87,10 +87,6 @@ namespace Recurly.Resources
         [JsonProperty("shipping")]
         public SubscriptionChangeShippingCreate Shipping { get; set; }
 
-        /// <value>Determines whether or not tax is included in the unit amount. The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing feature) must be enabled to use this flag.</value>
-        [JsonProperty("tax_inclusive")]
-        public bool? TaxInclusive { get; set; }
-
         /// <value>The timeframe parameter controls when the upgrade or downgrade takes place. The subscription change can occur now, when the subscription is next billed, or when the subscription term ends. Generally, if you're performing an upgrade, you will want the change to occur immediately (now). If you're performing a downgrade, you should set the timeframe to `term_end` or `bill_date` so the change takes effect at a scheduled billing date. The `renewal` timeframe option is accepted as an alias for `term_end`.</value>
         [JsonProperty("timeframe")]
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
