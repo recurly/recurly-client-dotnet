@@ -617,6 +617,18 @@ namespace Recurly
 
         };
 
+        public enum PricingModelType
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "fixed")]
+            Fixed,
+
+            [EnumMember(Value = "ramp")]
+            Ramp,
+
+        };
+
         public enum RevenueScheduleType
         {
             Undefined = 0,
@@ -1004,9 +1016,6 @@ namespace Recurly
 
             [EnumMember(Value = "only_bill_what_changed")]
             OnlyBillWhatChanged,
-
-            [EnumMember(Value = "subscription_terms")]
-            SubscriptionTerms,
 
         };
 

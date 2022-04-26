@@ -63,6 +63,10 @@ namespace Recurly.Resources
         [JsonProperty("quantity")]
         public int? Quantity { get; set; }
 
+        /// <value>Ramp Intervals</value>
+        [JsonProperty("ramp_intervals")]
+        public List<SubscriptionRampIntervalResponse> RampIntervals { get; set; }
+
         /// <value>Revenue schedule type</value>
         [JsonProperty("revenue_schedule_type")]
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
@@ -75,10 +79,6 @@ namespace Recurly.Resources
         /// <value>The ID of the subscription that is going to be changed.</value>
         [JsonProperty("subscription_id")]
         public string SubscriptionId { get; set; }
-
-        /// <value>Determines whether or not tax is included in the unit amount. The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing feature) must be enabled to use this flag.</value>
-        [JsonProperty("tax_inclusive")]
-        public bool? TaxInclusive { get; set; }
 
         /// <value>Unit amount</value>
         [JsonProperty("unit_amount")]

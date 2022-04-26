@@ -94,9 +94,9 @@ namespace Recurly.Resources
         [JsonProperty("tiers")]
         public List<Tier> Tiers { get; set; }
 
-        /// <value>The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0. Required if `add_on_type` is usage, `tier_type` is `flat` and `usage_type` is percentage. Must be omitted otherwise.</value>
+        /// <value>The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places represented as a string. A value between 0.0 and 100.0. Required if `add_on_type` is usage, `tier_type` is `flat` and `usage_type` is percentage. Must be omitted otherwise.</value>
         [JsonProperty("usage_percentage")]
-        public decimal? UsagePercentage { get; set; }
+        public string UsagePercentage { get; set; }
 
     }
 }

@@ -18,13 +18,13 @@ namespace Recurly
     [ExcludeFromCodeCoverage]
     public class Client : BaseClient, IClient
     {
-        public override string ApiVersion => "v2021-02-25";
+        public override string ApiVersion => "v2022-01-01";
 
         public Client(string apiKey, ClientOptions options) : base(apiKey, options) { }
         public Client(string apiKey) : base(apiKey) { }
 
         /// <summary>
-        /// List sites <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_sites">list_sites api documentation</see>
+        /// List sites <see href="https://developers.recurly.com/api/v2022-01-01#operation/list_sites">list_sites api documentation</see>
         /// </summary>
         /// <param name="ListSitesParams">Optional Parameters for the request</param>
         /// <returns>
@@ -43,7 +43,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a site <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_site">get_site api documentation</see>
+        /// Fetch a site <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_site">get_site api documentation</see>
         /// </summary>
         /// <param name="GetSiteParams">Optional Parameters for the request</param>
         /// <returns>
@@ -60,7 +60,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a site <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_site">get_site api documentation</see>
+        /// Fetch a site <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_site">get_site api documentation</see>
         /// </summary>
         /// <param name="GetSiteParams">Optional Parameters for the request</param>
         /// <returns>
@@ -77,7 +77,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List a site's accounts <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_accounts">list_accounts api documentation</see>
+        /// List a site's accounts <see href="https://developers.recurly.com/api/v2022-01-01#operation/list_accounts">list_accounts api documentation</see>
         /// </summary>
         /// <param name="ListAccountsParams">Optional Parameters for the request</param>
         /// <returns>
@@ -96,7 +96,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_account">create_account api documentation</see>
+        /// Create an account <see href="https://developers.recurly.com/api/v2022-01-01#operation/create_account">create_account api documentation</see>
         /// </summary>
         /// <param name="CreateAccountParams">Optional Parameters for the request</param>
         /// <returns>
@@ -113,7 +113,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_account">create_account api documentation</see>
+        /// Create an account <see href="https://developers.recurly.com/api/v2022-01-01#operation/create_account">create_account api documentation</see>
         /// </summary>
         /// <param name="CreateAccountParams">Optional Parameters for the request</param>
         /// <returns>
@@ -130,7 +130,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_account">get_account api documentation</see>
+        /// Fetch an account <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_account">get_account api documentation</see>
         /// </summary>
         /// <param name="GetAccountParams">Optional Parameters for the request</param>
         /// <returns>
@@ -147,7 +147,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_account">get_account api documentation</see>
+        /// Fetch an account <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_account">get_account api documentation</see>
         /// </summary>
         /// <param name="GetAccountParams">Optional Parameters for the request</param>
         /// <returns>
@@ -164,7 +164,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_account">update_account api documentation</see>
+        /// Update an account <see href="https://developers.recurly.com/api/v2022-01-01#operation/update_account">update_account api documentation</see>
         /// </summary>
         /// <param name="UpdateAccountParams">Optional Parameters for the request</param>
         /// <returns>
@@ -181,7 +181,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_account">update_account api documentation</see>
+        /// Update an account <see href="https://developers.recurly.com/api/v2022-01-01#operation/update_account">update_account api documentation</see>
         /// </summary>
         /// <param name="UpdateAccountParams">Optional Parameters for the request</param>
         /// <returns>
@@ -198,7 +198,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Deactivate an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/deactivate_account">deactivate_account api documentation</see>
+        /// Deactivate an account <see href="https://developers.recurly.com/api/v2022-01-01#operation/deactivate_account">deactivate_account api documentation</see>
         /// </summary>
         /// <param name="DeactivateAccountParams">Optional Parameters for the request</param>
         /// <returns>
@@ -215,7 +215,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Deactivate an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/deactivate_account">deactivate_account api documentation</see>
+        /// Deactivate an account <see href="https://developers.recurly.com/api/v2022-01-01#operation/deactivate_account">deactivate_account api documentation</see>
         /// </summary>
         /// <param name="DeactivateAccountParams">Optional Parameters for the request</param>
         /// <returns>
@@ -232,7 +232,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an account's acquisition data <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_account_acquisition">get_account_acquisition api documentation</see>
+        /// Fetch an account's acquisition data <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_account_acquisition">get_account_acquisition api documentation</see>
         /// </summary>
         /// <param name="GetAccountAcquisitionParams">Optional Parameters for the request</param>
         /// <returns>
@@ -249,7 +249,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an account's acquisition data <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_account_acquisition">get_account_acquisition api documentation</see>
+        /// Fetch an account's acquisition data <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_account_acquisition">get_account_acquisition api documentation</see>
         /// </summary>
         /// <param name="GetAccountAcquisitionParams">Optional Parameters for the request</param>
         /// <returns>
@@ -266,7 +266,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update an account's acquisition data <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_account_acquisition">update_account_acquisition api documentation</see>
+        /// Update an account's acquisition data <see href="https://developers.recurly.com/api/v2022-01-01#operation/update_account_acquisition">update_account_acquisition api documentation</see>
         /// </summary>
         /// <param name="UpdateAccountAcquisitionParams">Optional Parameters for the request</param>
         /// <returns>
@@ -283,7 +283,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update an account's acquisition data <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_account_acquisition">update_account_acquisition api documentation</see>
+        /// Update an account's acquisition data <see href="https://developers.recurly.com/api/v2022-01-01#operation/update_account_acquisition">update_account_acquisition api documentation</see>
         /// </summary>
         /// <param name="UpdateAccountAcquisitionParams">Optional Parameters for the request</param>
         /// <returns>
@@ -300,7 +300,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Remove an account's acquisition data <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_account_acquisition">remove_account_acquisition api documentation</see>
+        /// Remove an account's acquisition data <see href="https://developers.recurly.com/api/v2022-01-01#operation/remove_account_acquisition">remove_account_acquisition api documentation</see>
         /// </summary>
         /// <param name="RemoveAccountAcquisitionParams">Optional Parameters for the request</param>
         /// <returns>
@@ -317,7 +317,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Remove an account's acquisition data <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_account_acquisition">remove_account_acquisition api documentation</see>
+        /// Remove an account's acquisition data <see href="https://developers.recurly.com/api/v2022-01-01#operation/remove_account_acquisition">remove_account_acquisition api documentation</see>
         /// </summary>
         /// <param name="RemoveAccountAcquisitionParams">Optional Parameters for the request</param>
         /// <returns>
@@ -334,7 +334,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Reactivate an inactive account <see href="https://developers.recurly.com/api/v2021-02-25#operation/reactivate_account">reactivate_account api documentation</see>
+        /// Reactivate an inactive account <see href="https://developers.recurly.com/api/v2022-01-01#operation/reactivate_account">reactivate_account api documentation</see>
         /// </summary>
         /// <param name="ReactivateAccountParams">Optional Parameters for the request</param>
         /// <returns>
@@ -351,7 +351,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Reactivate an inactive account <see href="https://developers.recurly.com/api/v2021-02-25#operation/reactivate_account">reactivate_account api documentation</see>
+        /// Reactivate an inactive account <see href="https://developers.recurly.com/api/v2022-01-01#operation/reactivate_account">reactivate_account api documentation</see>
         /// </summary>
         /// <param name="ReactivateAccountParams">Optional Parameters for the request</param>
         /// <returns>
@@ -368,7 +368,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an account's balance and past due status <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_account_balance">get_account_balance api documentation</see>
+        /// Fetch an account's balance and past due status <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_account_balance">get_account_balance api documentation</see>
         /// </summary>
         /// <param name="GetAccountBalanceParams">Optional Parameters for the request</param>
         /// <returns>
@@ -385,7 +385,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an account's balance and past due status <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_account_balance">get_account_balance api documentation</see>
+        /// Fetch an account's balance and past due status <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_account_balance">get_account_balance api documentation</see>
         /// </summary>
         /// <param name="GetAccountBalanceParams">Optional Parameters for the request</param>
         /// <returns>
@@ -402,7 +402,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an account's billing information <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_billing_info">get_billing_info api documentation</see>
+        /// Fetch an account's billing information <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_billing_info">get_billing_info api documentation</see>
         /// </summary>
         /// <param name="GetBillingInfoParams">Optional Parameters for the request</param>
         /// <returns>
@@ -419,7 +419,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an account's billing information <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_billing_info">get_billing_info api documentation</see>
+        /// Fetch an account's billing information <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_billing_info">get_billing_info api documentation</see>
         /// </summary>
         /// <param name="GetBillingInfoParams">Optional Parameters for the request</param>
         /// <returns>
@@ -436,7 +436,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Set an account's billing information <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_billing_info">update_billing_info api documentation</see>
+        /// Set an account's billing information <see href="https://developers.recurly.com/api/v2022-01-01#operation/update_billing_info">update_billing_info api documentation</see>
         /// </summary>
         /// <param name="UpdateBillingInfoParams">Optional Parameters for the request</param>
         /// <returns>
@@ -453,7 +453,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Set an account's billing information <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_billing_info">update_billing_info api documentation</see>
+        /// Set an account's billing information <see href="https://developers.recurly.com/api/v2022-01-01#operation/update_billing_info">update_billing_info api documentation</see>
         /// </summary>
         /// <param name="UpdateBillingInfoParams">Optional Parameters for the request</param>
         /// <returns>
@@ -470,7 +470,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Remove an account's billing information <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_billing_info">remove_billing_info api documentation</see>
+        /// Remove an account's billing information <see href="https://developers.recurly.com/api/v2022-01-01#operation/remove_billing_info">remove_billing_info api documentation</see>
         /// </summary>
         /// <param name="RemoveBillingInfoParams">Optional Parameters for the request</param>
         /// <returns>
@@ -487,7 +487,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Remove an account's billing information <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_billing_info">remove_billing_info api documentation</see>
+        /// Remove an account's billing information <see href="https://developers.recurly.com/api/v2022-01-01#operation/remove_billing_info">remove_billing_info api documentation</see>
         /// </summary>
         /// <param name="RemoveBillingInfoParams">Optional Parameters for the request</param>
         /// <returns>
@@ -504,7 +504,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Verify an account's credit card billing information <see href="https://developers.recurly.com/api/v2021-02-25#operation/verify_billing_info">verify_billing_info api documentation</see>
+        /// Verify an account's credit card billing information <see href="https://developers.recurly.com/api/v2022-01-01#operation/verify_billing_info">verify_billing_info api documentation</see>
         /// </summary>
         /// <param name="VerifyBillingInfoParams">Optional Parameters for the request</param>
         /// <returns>
@@ -521,7 +521,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Verify an account's credit card billing information <see href="https://developers.recurly.com/api/v2021-02-25#operation/verify_billing_info">verify_billing_info api documentation</see>
+        /// Verify an account's credit card billing information <see href="https://developers.recurly.com/api/v2022-01-01#operation/verify_billing_info">verify_billing_info api documentation</see>
         /// </summary>
         /// <param name="VerifyBillingInfoParams">Optional Parameters for the request</param>
         /// <returns>
@@ -538,7 +538,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Get the list of billing information associated with an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_billing_infos">list_billing_infos api documentation</see>
+        /// Get the list of billing information associated with an account <see href="https://developers.recurly.com/api/v2022-01-01#operation/list_billing_infos">list_billing_infos api documentation</see>
         /// </summary>
         /// <param name="ListBillingInfosParams">Optional Parameters for the request</param>
         /// <returns>
@@ -557,7 +557,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Add new billing information on an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_billing_info">create_billing_info api documentation</see>
+        /// Add new billing information on an account <see href="https://developers.recurly.com/api/v2022-01-01#operation/create_billing_info">create_billing_info api documentation</see>
         /// </summary>
         /// <param name="CreateBillingInfoParams">Optional Parameters for the request</param>
         /// <returns>
@@ -574,7 +574,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Add new billing information on an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_billing_info">create_billing_info api documentation</see>
+        /// Add new billing information on an account <see href="https://developers.recurly.com/api/v2022-01-01#operation/create_billing_info">create_billing_info api documentation</see>
         /// </summary>
         /// <param name="CreateBillingInfoParams">Optional Parameters for the request</param>
         /// <returns>
@@ -591,7 +591,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a billing info <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_a_billing_info">get_a_billing_info api documentation</see>
+        /// Fetch a billing info <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_a_billing_info">get_a_billing_info api documentation</see>
         /// </summary>
         /// <param name="GetABillingInfoParams">Optional Parameters for the request</param>
         /// <returns>
@@ -608,7 +608,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a billing info <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_a_billing_info">get_a_billing_info api documentation</see>
+        /// Fetch a billing info <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_a_billing_info">get_a_billing_info api documentation</see>
         /// </summary>
         /// <param name="GetABillingInfoParams">Optional Parameters for the request</param>
         /// <returns>
@@ -625,7 +625,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update an account's billing information <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_a_billing_info">update_a_billing_info api documentation</see>
+        /// Update an account's billing information <see href="https://developers.recurly.com/api/v2022-01-01#operation/update_a_billing_info">update_a_billing_info api documentation</see>
         /// </summary>
         /// <param name="UpdateABillingInfoParams">Optional Parameters for the request</param>
         /// <returns>
@@ -642,7 +642,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update an account's billing information <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_a_billing_info">update_a_billing_info api documentation</see>
+        /// Update an account's billing information <see href="https://developers.recurly.com/api/v2022-01-01#operation/update_a_billing_info">update_a_billing_info api documentation</see>
         /// </summary>
         /// <param name="UpdateABillingInfoParams">Optional Parameters for the request</param>
         /// <returns>
@@ -659,7 +659,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Remove an account's billing information <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_a_billing_info">remove_a_billing_info api documentation</see>
+        /// Remove an account's billing information <see href="https://developers.recurly.com/api/v2022-01-01#operation/remove_a_billing_info">remove_a_billing_info api documentation</see>
         /// </summary>
         /// <param name="RemoveABillingInfoParams">Optional Parameters for the request</param>
         /// <returns>
@@ -676,7 +676,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Remove an account's billing information <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_a_billing_info">remove_a_billing_info api documentation</see>
+        /// Remove an account's billing information <see href="https://developers.recurly.com/api/v2022-01-01#operation/remove_a_billing_info">remove_a_billing_info api documentation</see>
         /// </summary>
         /// <param name="RemoveABillingInfoParams">Optional Parameters for the request</param>
         /// <returns>
@@ -693,7 +693,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Show the coupon redemptions for an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_account_coupon_redemptions">list_account_coupon_redemptions api documentation</see>
+        /// Show the coupon redemptions for an account <see href="https://developers.recurly.com/api/v2022-01-01#operation/list_account_coupon_redemptions">list_account_coupon_redemptions api documentation</see>
         /// </summary>
         /// <param name="ListAccountCouponRedemptionsParams">Optional Parameters for the request</param>
         /// <returns>
@@ -712,7 +712,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Show the coupon redemptions that are active on an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_active_coupon_redemptions">list_active_coupon_redemptions api documentation</see>
+        /// Show the coupon redemptions that are active on an account <see href="https://developers.recurly.com/api/v2022-01-01#operation/list_active_coupon_redemptions">list_active_coupon_redemptions api documentation</see>
         /// </summary>
         /// <param name="ListActiveCouponRedemptionsParams">Optional Parameters for the request</param>
         /// <returns>
@@ -730,7 +730,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Generate an active coupon redemption on an account or subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_coupon_redemption">create_coupon_redemption api documentation</see>
+        /// Generate an active coupon redemption on an account or subscription <see href="https://developers.recurly.com/api/v2022-01-01#operation/create_coupon_redemption">create_coupon_redemption api documentation</see>
         /// </summary>
         /// <param name="CreateCouponRedemptionParams">Optional Parameters for the request</param>
         /// <returns>
@@ -747,7 +747,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Generate an active coupon redemption on an account or subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_coupon_redemption">create_coupon_redemption api documentation</see>
+        /// Generate an active coupon redemption on an account or subscription <see href="https://developers.recurly.com/api/v2022-01-01#operation/create_coupon_redemption">create_coupon_redemption api documentation</see>
         /// </summary>
         /// <param name="CreateCouponRedemptionParams">Optional Parameters for the request</param>
         /// <returns>
@@ -764,7 +764,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Delete the active coupon redemption from an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_coupon_redemption">remove_coupon_redemption api documentation</see>
+        /// Delete the active coupon redemption from an account <see href="https://developers.recurly.com/api/v2022-01-01#operation/remove_coupon_redemption">remove_coupon_redemption api documentation</see>
         /// </summary>
         /// <param name="RemoveCouponRedemptionParams">Optional Parameters for the request</param>
         /// <returns>
@@ -781,7 +781,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Delete the active coupon redemption from an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_coupon_redemption">remove_coupon_redemption api documentation</see>
+        /// Delete the active coupon redemption from an account <see href="https://developers.recurly.com/api/v2022-01-01#operation/remove_coupon_redemption">remove_coupon_redemption api documentation</see>
         /// </summary>
         /// <param name="RemoveCouponRedemptionParams">Optional Parameters for the request</param>
         /// <returns>
@@ -798,7 +798,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List an account's credit payments <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_account_credit_payments">list_account_credit_payments api documentation</see>
+        /// List an account's credit payments <see href="https://developers.recurly.com/api/v2022-01-01#operation/list_account_credit_payments">list_account_credit_payments api documentation</see>
         /// </summary>
         /// <param name="ListAccountCreditPaymentsParams">Optional Parameters for the request</param>
         /// <returns>
@@ -817,7 +817,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List an account's invoices <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_account_invoices">list_account_invoices api documentation</see>
+        /// List an account's invoices <see href="https://developers.recurly.com/api/v2022-01-01#operation/list_account_invoices">list_account_invoices api documentation</see>
         /// </summary>
         /// <param name="ListAccountInvoicesParams">Optional Parameters for the request</param>
         /// <returns>
@@ -836,7 +836,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create an invoice for pending line items <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_invoice">create_invoice api documentation</see>
+        /// Create an invoice for pending line items <see href="https://developers.recurly.com/api/v2022-01-01#operation/create_invoice">create_invoice api documentation</see>
         /// </summary>
         /// <param name="CreateInvoiceParams">Optional Parameters for the request</param>
         /// <returns>
@@ -853,7 +853,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create an invoice for pending line items <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_invoice">create_invoice api documentation</see>
+        /// Create an invoice for pending line items <see href="https://developers.recurly.com/api/v2022-01-01#operation/create_invoice">create_invoice api documentation</see>
         /// </summary>
         /// <param name="CreateInvoiceParams">Optional Parameters for the request</param>
         /// <returns>
@@ -870,7 +870,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Preview new invoice for pending line items <see href="https://developers.recurly.com/api/v2021-02-25#operation/preview_invoice">preview_invoice api documentation</see>
+        /// Preview new invoice for pending line items <see href="https://developers.recurly.com/api/v2022-01-01#operation/preview_invoice">preview_invoice api documentation</see>
         /// </summary>
         /// <param name="PreviewInvoiceParams">Optional Parameters for the request</param>
         /// <returns>
@@ -887,7 +887,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Preview new invoice for pending line items <see href="https://developers.recurly.com/api/v2021-02-25#operation/preview_invoice">preview_invoice api documentation</see>
+        /// Preview new invoice for pending line items <see href="https://developers.recurly.com/api/v2022-01-01#operation/preview_invoice">preview_invoice api documentation</see>
         /// </summary>
         /// <param name="PreviewInvoiceParams">Optional Parameters for the request</param>
         /// <returns>
@@ -904,7 +904,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List an account's line items <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_account_line_items">list_account_line_items api documentation</see>
+        /// List an account's line items <see href="https://developers.recurly.com/api/v2022-01-01#operation/list_account_line_items">list_account_line_items api documentation</see>
         /// </summary>
         /// <param name="ListAccountLineItemsParams">Optional Parameters for the request</param>
         /// <returns>
@@ -923,7 +923,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create a new line item for the account <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_line_item">create_line_item api documentation</see>
+        /// Create a new line item for the account <see href="https://developers.recurly.com/api/v2022-01-01#operation/create_line_item">create_line_item api documentation</see>
         /// </summary>
         /// <param name="CreateLineItemParams">Optional Parameters for the request</param>
         /// <returns>
@@ -940,7 +940,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create a new line item for the account <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_line_item">create_line_item api documentation</see>
+        /// Create a new line item for the account <see href="https://developers.recurly.com/api/v2022-01-01#operation/create_line_item">create_line_item api documentation</see>
         /// </summary>
         /// <param name="CreateLineItemParams">Optional Parameters for the request</param>
         /// <returns>
@@ -957,7 +957,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a list of an account's notes <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_account_notes">list_account_notes api documentation</see>
+        /// Fetch a list of an account's notes <see href="https://developers.recurly.com/api/v2022-01-01#operation/list_account_notes">list_account_notes api documentation</see>
         /// </summary>
         /// <param name="ListAccountNotesParams">Optional Parameters for the request</param>
         /// <returns>
@@ -976,7 +976,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an account note <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_account_note">get_account_note api documentation</see>
+        /// Fetch an account note <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_account_note">get_account_note api documentation</see>
         /// </summary>
         /// <param name="GetAccountNoteParams">Optional Parameters for the request</param>
         /// <returns>
@@ -993,7 +993,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an account note <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_account_note">get_account_note api documentation</see>
+        /// Fetch an account note <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_account_note">get_account_note api documentation</see>
         /// </summary>
         /// <param name="GetAccountNoteParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1010,7 +1010,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a list of an account's shipping addresses <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_shipping_addresses">list_shipping_addresses api documentation</see>
+        /// Fetch a list of an account's shipping addresses <see href="https://developers.recurly.com/api/v2022-01-01#operation/list_shipping_addresses">list_shipping_addresses api documentation</see>
         /// </summary>
         /// <param name="ListShippingAddressesParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1029,7 +1029,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create a new shipping address for the account <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_shipping_address">create_shipping_address api documentation</see>
+        /// Create a new shipping address for the account <see href="https://developers.recurly.com/api/v2022-01-01#operation/create_shipping_address">create_shipping_address api documentation</see>
         /// </summary>
         /// <param name="CreateShippingAddressParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1046,7 +1046,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create a new shipping address for the account <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_shipping_address">create_shipping_address api documentation</see>
+        /// Create a new shipping address for the account <see href="https://developers.recurly.com/api/v2022-01-01#operation/create_shipping_address">create_shipping_address api documentation</see>
         /// </summary>
         /// <param name="CreateShippingAddressParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1063,7 +1063,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an account's shipping address <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_shipping_address">get_shipping_address api documentation</see>
+        /// Fetch an account's shipping address <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_shipping_address">get_shipping_address api documentation</see>
         /// </summary>
         /// <param name="GetShippingAddressParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1080,7 +1080,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an account's shipping address <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_shipping_address">get_shipping_address api documentation</see>
+        /// Fetch an account's shipping address <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_shipping_address">get_shipping_address api documentation</see>
         /// </summary>
         /// <param name="GetShippingAddressParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1097,7 +1097,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update an account's shipping address <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_shipping_address">update_shipping_address api documentation</see>
+        /// Update an account's shipping address <see href="https://developers.recurly.com/api/v2022-01-01#operation/update_shipping_address">update_shipping_address api documentation</see>
         /// </summary>
         /// <param name="UpdateShippingAddressParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1114,7 +1114,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update an account's shipping address <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_shipping_address">update_shipping_address api documentation</see>
+        /// Update an account's shipping address <see href="https://developers.recurly.com/api/v2022-01-01#operation/update_shipping_address">update_shipping_address api documentation</see>
         /// </summary>
         /// <param name="UpdateShippingAddressParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1131,7 +1131,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Remove an account's shipping address <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_shipping_address">remove_shipping_address api documentation</see>
+        /// Remove an account's shipping address <see href="https://developers.recurly.com/api/v2022-01-01#operation/remove_shipping_address">remove_shipping_address api documentation</see>
         /// </summary>
         /// <param name="RemoveShippingAddressParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1148,7 +1148,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Remove an account's shipping address <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_shipping_address">remove_shipping_address api documentation</see>
+        /// Remove an account's shipping address <see href="https://developers.recurly.com/api/v2022-01-01#operation/remove_shipping_address">remove_shipping_address api documentation</see>
         /// </summary>
         /// <param name="RemoveShippingAddressParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1165,7 +1165,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List an account's subscriptions <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_account_subscriptions">list_account_subscriptions api documentation</see>
+        /// List an account's subscriptions <see href="https://developers.recurly.com/api/v2022-01-01#operation/list_account_subscriptions">list_account_subscriptions api documentation</see>
         /// </summary>
         /// <param name="ListAccountSubscriptionsParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1184,7 +1184,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List an account's transactions <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_account_transactions">list_account_transactions api documentation</see>
+        /// List an account's transactions <see href="https://developers.recurly.com/api/v2022-01-01#operation/list_account_transactions">list_account_transactions api documentation</see>
         /// </summary>
         /// <param name="ListAccountTransactionsParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1203,7 +1203,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List an account's child accounts <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_child_accounts">list_child_accounts api documentation</see>
+        /// List an account's child accounts <see href="https://developers.recurly.com/api/v2022-01-01#operation/list_child_accounts">list_child_accounts api documentation</see>
         /// </summary>
         /// <param name="ListChildAccountsParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1222,7 +1222,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List a site's account acquisition data <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_account_acquisition">list_account_acquisition api documentation</see>
+        /// List a site's account acquisition data <see href="https://developers.recurly.com/api/v2022-01-01#operation/list_account_acquisition">list_account_acquisition api documentation</see>
         /// </summary>
         /// <param name="ListAccountAcquisitionParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1241,7 +1241,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List a site's coupons <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_coupons">list_coupons api documentation</see>
+        /// List a site's coupons <see href="https://developers.recurly.com/api/v2022-01-01#operation/list_coupons">list_coupons api documentation</see>
         /// </summary>
         /// <param name="ListCouponsParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1260,7 +1260,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create a new coupon <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_coupon">create_coupon api documentation</see>
+        /// Create a new coupon <see href="https://developers.recurly.com/api/v2022-01-01#operation/create_coupon">create_coupon api documentation</see>
         /// </summary>
         /// <param name="CreateCouponParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1277,7 +1277,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create a new coupon <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_coupon">create_coupon api documentation</see>
+        /// Create a new coupon <see href="https://developers.recurly.com/api/v2022-01-01#operation/create_coupon">create_coupon api documentation</see>
         /// </summary>
         /// <param name="CreateCouponParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1294,7 +1294,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a coupon <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_coupon">get_coupon api documentation</see>
+        /// Fetch a coupon <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_coupon">get_coupon api documentation</see>
         /// </summary>
         /// <param name="GetCouponParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1311,7 +1311,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a coupon <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_coupon">get_coupon api documentation</see>
+        /// Fetch a coupon <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_coupon">get_coupon api documentation</see>
         /// </summary>
         /// <param name="GetCouponParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1328,7 +1328,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update an active coupon <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_coupon">update_coupon api documentation</see>
+        /// Update an active coupon <see href="https://developers.recurly.com/api/v2022-01-01#operation/update_coupon">update_coupon api documentation</see>
         /// </summary>
         /// <param name="UpdateCouponParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1345,7 +1345,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update an active coupon <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_coupon">update_coupon api documentation</see>
+        /// Update an active coupon <see href="https://developers.recurly.com/api/v2022-01-01#operation/update_coupon">update_coupon api documentation</see>
         /// </summary>
         /// <param name="UpdateCouponParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1362,7 +1362,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Expire a coupon <see href="https://developers.recurly.com/api/v2021-02-25#operation/deactivate_coupon">deactivate_coupon api documentation</see>
+        /// Expire a coupon <see href="https://developers.recurly.com/api/v2022-01-01#operation/deactivate_coupon">deactivate_coupon api documentation</see>
         /// </summary>
         /// <param name="DeactivateCouponParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1379,7 +1379,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Expire a coupon <see href="https://developers.recurly.com/api/v2021-02-25#operation/deactivate_coupon">deactivate_coupon api documentation</see>
+        /// Expire a coupon <see href="https://developers.recurly.com/api/v2022-01-01#operation/deactivate_coupon">deactivate_coupon api documentation</see>
         /// </summary>
         /// <param name="DeactivateCouponParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1396,7 +1396,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Generate unique coupon codes <see href="https://developers.recurly.com/api/v2021-02-25#operation/generate_unique_coupon_codes">generate_unique_coupon_codes api documentation</see>
+        /// Generate unique coupon codes <see href="https://developers.recurly.com/api/v2022-01-01#operation/generate_unique_coupon_codes">generate_unique_coupon_codes api documentation</see>
         /// </summary>
         /// <param name="GenerateUniqueCouponCodesParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1413,7 +1413,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Generate unique coupon codes <see href="https://developers.recurly.com/api/v2021-02-25#operation/generate_unique_coupon_codes">generate_unique_coupon_codes api documentation</see>
+        /// Generate unique coupon codes <see href="https://developers.recurly.com/api/v2022-01-01#operation/generate_unique_coupon_codes">generate_unique_coupon_codes api documentation</see>
         /// </summary>
         /// <param name="GenerateUniqueCouponCodesParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1430,7 +1430,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Restore an inactive coupon <see href="https://developers.recurly.com/api/v2021-02-25#operation/restore_coupon">restore_coupon api documentation</see>
+        /// Restore an inactive coupon <see href="https://developers.recurly.com/api/v2022-01-01#operation/restore_coupon">restore_coupon api documentation</see>
         /// </summary>
         /// <param name="RestoreCouponParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1447,7 +1447,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Restore an inactive coupon <see href="https://developers.recurly.com/api/v2021-02-25#operation/restore_coupon">restore_coupon api documentation</see>
+        /// Restore an inactive coupon <see href="https://developers.recurly.com/api/v2022-01-01#operation/restore_coupon">restore_coupon api documentation</see>
         /// </summary>
         /// <param name="RestoreCouponParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1464,7 +1464,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List unique coupon codes associated with a bulk coupon <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_unique_coupon_codes">list_unique_coupon_codes api documentation</see>
+        /// List unique coupon codes associated with a bulk coupon <see href="https://developers.recurly.com/api/v2022-01-01#operation/list_unique_coupon_codes">list_unique_coupon_codes api documentation</see>
         /// </summary>
         /// <param name="ListUniqueCouponCodesParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1483,7 +1483,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List a site's credit payments <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_credit_payments">list_credit_payments api documentation</see>
+        /// List a site's credit payments <see href="https://developers.recurly.com/api/v2022-01-01#operation/list_credit_payments">list_credit_payments api documentation</see>
         /// </summary>
         /// <param name="ListCreditPaymentsParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1502,7 +1502,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a credit payment <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_credit_payment">get_credit_payment api documentation</see>
+        /// Fetch a credit payment <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_credit_payment">get_credit_payment api documentation</see>
         /// </summary>
         /// <param name="GetCreditPaymentParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1519,7 +1519,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a credit payment <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_credit_payment">get_credit_payment api documentation</see>
+        /// Fetch a credit payment <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_credit_payment">get_credit_payment api documentation</see>
         /// </summary>
         /// <param name="GetCreditPaymentParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1536,7 +1536,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List a site's custom field definitions <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_custom_field_definitions">list_custom_field_definitions api documentation</see>
+        /// List a site's custom field definitions <see href="https://developers.recurly.com/api/v2022-01-01#operation/list_custom_field_definitions">list_custom_field_definitions api documentation</see>
         /// </summary>
         /// <param name="ListCustomFieldDefinitionsParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1555,7 +1555,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an custom field definition <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_custom_field_definition">get_custom_field_definition api documentation</see>
+        /// Fetch an custom field definition <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_custom_field_definition">get_custom_field_definition api documentation</see>
         /// </summary>
         /// <param name="GetCustomFieldDefinitionParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1572,7 +1572,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an custom field definition <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_custom_field_definition">get_custom_field_definition api documentation</see>
+        /// Fetch an custom field definition <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_custom_field_definition">get_custom_field_definition api documentation</see>
         /// </summary>
         /// <param name="GetCustomFieldDefinitionParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1589,7 +1589,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List an invoice template's associated accounts <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_invoice_template_accounts">list_invoice_template_accounts api documentation</see>
+        /// List an invoice template's associated accounts <see href="https://developers.recurly.com/api/v2022-01-01#operation/list_invoice_template_accounts">list_invoice_template_accounts api documentation</see>
         /// </summary>
         /// <param name="ListInvoiceTemplateAccountsParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1608,7 +1608,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List a site's items <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_items">list_items api documentation</see>
+        /// List a site's items <see href="https://developers.recurly.com/api/v2022-01-01#operation/list_items">list_items api documentation</see>
         /// </summary>
         /// <param name="ListItemsParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1627,7 +1627,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create a new item <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_item">create_item api documentation</see>
+        /// Create a new item <see href="https://developers.recurly.com/api/v2022-01-01#operation/create_item">create_item api documentation</see>
         /// </summary>
         /// <param name="CreateItemParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1644,7 +1644,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create a new item <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_item">create_item api documentation</see>
+        /// Create a new item <see href="https://developers.recurly.com/api/v2022-01-01#operation/create_item">create_item api documentation</see>
         /// </summary>
         /// <param name="CreateItemParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1661,7 +1661,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an item <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_item">get_item api documentation</see>
+        /// Fetch an item <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_item">get_item api documentation</see>
         /// </summary>
         /// <param name="GetItemParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1678,7 +1678,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an item <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_item">get_item api documentation</see>
+        /// Fetch an item <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_item">get_item api documentation</see>
         /// </summary>
         /// <param name="GetItemParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1695,7 +1695,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update an active item <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_item">update_item api documentation</see>
+        /// Update an active item <see href="https://developers.recurly.com/api/v2022-01-01#operation/update_item">update_item api documentation</see>
         /// </summary>
         /// <param name="UpdateItemParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1712,7 +1712,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update an active item <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_item">update_item api documentation</see>
+        /// Update an active item <see href="https://developers.recurly.com/api/v2022-01-01#operation/update_item">update_item api documentation</see>
         /// </summary>
         /// <param name="UpdateItemParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1729,7 +1729,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Deactivate an item <see href="https://developers.recurly.com/api/v2021-02-25#operation/deactivate_item">deactivate_item api documentation</see>
+        /// Deactivate an item <see href="https://developers.recurly.com/api/v2022-01-01#operation/deactivate_item">deactivate_item api documentation</see>
         /// </summary>
         /// <param name="DeactivateItemParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1746,7 +1746,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Deactivate an item <see href="https://developers.recurly.com/api/v2021-02-25#operation/deactivate_item">deactivate_item api documentation</see>
+        /// Deactivate an item <see href="https://developers.recurly.com/api/v2022-01-01#operation/deactivate_item">deactivate_item api documentation</see>
         /// </summary>
         /// <param name="DeactivateItemParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1763,7 +1763,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Reactivate an inactive item <see href="https://developers.recurly.com/api/v2021-02-25#operation/reactivate_item">reactivate_item api documentation</see>
+        /// Reactivate an inactive item <see href="https://developers.recurly.com/api/v2022-01-01#operation/reactivate_item">reactivate_item api documentation</see>
         /// </summary>
         /// <param name="ReactivateItemParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1780,7 +1780,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Reactivate an inactive item <see href="https://developers.recurly.com/api/v2021-02-25#operation/reactivate_item">reactivate_item api documentation</see>
+        /// Reactivate an inactive item <see href="https://developers.recurly.com/api/v2022-01-01#operation/reactivate_item">reactivate_item api documentation</see>
         /// </summary>
         /// <param name="ReactivateItemParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1797,7 +1797,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List a site's measured units <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_measured_unit">list_measured_unit api documentation</see>
+        /// List a site's measured units <see href="https://developers.recurly.com/api/v2022-01-01#operation/list_measured_unit">list_measured_unit api documentation</see>
         /// </summary>
         /// <param name="ListMeasuredUnitParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1816,7 +1816,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create a new measured unit <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_measured_unit">create_measured_unit api documentation</see>
+        /// Create a new measured unit <see href="https://developers.recurly.com/api/v2022-01-01#operation/create_measured_unit">create_measured_unit api documentation</see>
         /// </summary>
         /// <param name="CreateMeasuredUnitParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1833,7 +1833,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create a new measured unit <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_measured_unit">create_measured_unit api documentation</see>
+        /// Create a new measured unit <see href="https://developers.recurly.com/api/v2022-01-01#operation/create_measured_unit">create_measured_unit api documentation</see>
         /// </summary>
         /// <param name="CreateMeasuredUnitParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1850,7 +1850,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a measured unit <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_measured_unit">get_measured_unit api documentation</see>
+        /// Fetch a measured unit <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_measured_unit">get_measured_unit api documentation</see>
         /// </summary>
         /// <param name="GetMeasuredUnitParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1867,7 +1867,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a measured unit <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_measured_unit">get_measured_unit api documentation</see>
+        /// Fetch a measured unit <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_measured_unit">get_measured_unit api documentation</see>
         /// </summary>
         /// <param name="GetMeasuredUnitParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1884,7 +1884,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update a measured unit <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_measured_unit">update_measured_unit api documentation</see>
+        /// Update a measured unit <see href="https://developers.recurly.com/api/v2022-01-01#operation/update_measured_unit">update_measured_unit api documentation</see>
         /// </summary>
         /// <param name="UpdateMeasuredUnitParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1901,7 +1901,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update a measured unit <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_measured_unit">update_measured_unit api documentation</see>
+        /// Update a measured unit <see href="https://developers.recurly.com/api/v2022-01-01#operation/update_measured_unit">update_measured_unit api documentation</see>
         /// </summary>
         /// <param name="UpdateMeasuredUnitParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1918,7 +1918,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Remove a measured unit <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_measured_unit">remove_measured_unit api documentation</see>
+        /// Remove a measured unit <see href="https://developers.recurly.com/api/v2022-01-01#operation/remove_measured_unit">remove_measured_unit api documentation</see>
         /// </summary>
         /// <param name="RemoveMeasuredUnitParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1935,7 +1935,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Remove a measured unit <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_measured_unit">remove_measured_unit api documentation</see>
+        /// Remove a measured unit <see href="https://developers.recurly.com/api/v2022-01-01#operation/remove_measured_unit">remove_measured_unit api documentation</see>
         /// </summary>
         /// <param name="RemoveMeasuredUnitParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1952,7 +1952,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List a site's invoices <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_invoices">list_invoices api documentation</see>
+        /// List a site's invoices <see href="https://developers.recurly.com/api/v2022-01-01#operation/list_invoices">list_invoices api documentation</see>
         /// </summary>
         /// <param name="ListInvoicesParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1971,7 +1971,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_invoice">get_invoice api documentation</see>
+        /// Fetch an invoice <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_invoice">get_invoice api documentation</see>
         /// </summary>
         /// <param name="GetInvoiceParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1988,7 +1988,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_invoice">get_invoice api documentation</see>
+        /// Fetch an invoice <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_invoice">get_invoice api documentation</see>
         /// </summary>
         /// <param name="GetInvoiceParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2005,7 +2005,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update an invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_invoice">update_invoice api documentation</see>
+        /// Update an invoice <see href="https://developers.recurly.com/api/v2022-01-01#operation/update_invoice">update_invoice api documentation</see>
         /// </summary>
         /// <param name="UpdateInvoiceParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2022,7 +2022,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update an invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_invoice">update_invoice api documentation</see>
+        /// Update an invoice <see href="https://developers.recurly.com/api/v2022-01-01#operation/update_invoice">update_invoice api documentation</see>
         /// </summary>
         /// <param name="UpdateInvoiceParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2039,7 +2039,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an invoice as a PDF <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_invoice_pdf">get_invoice_pdf api documentation</see>
+        /// Fetch an invoice as a PDF <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_invoice_pdf">get_invoice_pdf api documentation</see>
         /// </summary>
         /// <param name="GetInvoicePdfParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2056,7 +2056,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an invoice as a PDF <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_invoice_pdf">get_invoice_pdf api documentation</see>
+        /// Fetch an invoice as a PDF <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_invoice_pdf">get_invoice_pdf api documentation</see>
         /// </summary>
         /// <param name="GetInvoicePdfParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2073,7 +2073,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Collect a pending or past due, automatic invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/collect_invoice">collect_invoice api documentation</see>
+        /// Collect a pending or past due, automatic invoice <see href="https://developers.recurly.com/api/v2022-01-01#operation/collect_invoice">collect_invoice api documentation</see>
         /// </summary>
         /// <param name="CollectInvoiceParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2090,7 +2090,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Collect a pending or past due, automatic invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/collect_invoice">collect_invoice api documentation</see>
+        /// Collect a pending or past due, automatic invoice <see href="https://developers.recurly.com/api/v2022-01-01#operation/collect_invoice">collect_invoice api documentation</see>
         /// </summary>
         /// <param name="CollectInvoiceParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2107,7 +2107,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Mark an open invoice as failed <see href="https://developers.recurly.com/api/v2021-02-25#operation/mark_invoice_failed">mark_invoice_failed api documentation</see>
+        /// Mark an open invoice as failed <see href="https://developers.recurly.com/api/v2022-01-01#operation/mark_invoice_failed">mark_invoice_failed api documentation</see>
         /// </summary>
         /// <param name="MarkInvoiceFailedParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2124,7 +2124,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Mark an open invoice as failed <see href="https://developers.recurly.com/api/v2021-02-25#operation/mark_invoice_failed">mark_invoice_failed api documentation</see>
+        /// Mark an open invoice as failed <see href="https://developers.recurly.com/api/v2022-01-01#operation/mark_invoice_failed">mark_invoice_failed api documentation</see>
         /// </summary>
         /// <param name="MarkInvoiceFailedParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2141,7 +2141,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Mark an open invoice as successful <see href="https://developers.recurly.com/api/v2021-02-25#operation/mark_invoice_successful">mark_invoice_successful api documentation</see>
+        /// Mark an open invoice as successful <see href="https://developers.recurly.com/api/v2022-01-01#operation/mark_invoice_successful">mark_invoice_successful api documentation</see>
         /// </summary>
         /// <param name="MarkInvoiceSuccessfulParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2158,7 +2158,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Mark an open invoice as successful <see href="https://developers.recurly.com/api/v2021-02-25#operation/mark_invoice_successful">mark_invoice_successful api documentation</see>
+        /// Mark an open invoice as successful <see href="https://developers.recurly.com/api/v2022-01-01#operation/mark_invoice_successful">mark_invoice_successful api documentation</see>
         /// </summary>
         /// <param name="MarkInvoiceSuccessfulParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2175,7 +2175,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Reopen a closed, manual invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/reopen_invoice">reopen_invoice api documentation</see>
+        /// Reopen a closed, manual invoice <see href="https://developers.recurly.com/api/v2022-01-01#operation/reopen_invoice">reopen_invoice api documentation</see>
         /// </summary>
         /// <param name="ReopenInvoiceParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2192,7 +2192,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Reopen a closed, manual invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/reopen_invoice">reopen_invoice api documentation</see>
+        /// Reopen a closed, manual invoice <see href="https://developers.recurly.com/api/v2022-01-01#operation/reopen_invoice">reopen_invoice api documentation</see>
         /// </summary>
         /// <param name="ReopenInvoiceParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2209,7 +2209,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Void a credit invoice. <see href="https://developers.recurly.com/api/v2021-02-25#operation/void_invoice">void_invoice api documentation</see>
+        /// Void a credit invoice. <see href="https://developers.recurly.com/api/v2022-01-01#operation/void_invoice">void_invoice api documentation</see>
         /// </summary>
         /// <param name="VoidInvoiceParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2226,7 +2226,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Void a credit invoice. <see href="https://developers.recurly.com/api/v2021-02-25#operation/void_invoice">void_invoice api documentation</see>
+        /// Void a credit invoice. <see href="https://developers.recurly.com/api/v2022-01-01#operation/void_invoice">void_invoice api documentation</see>
         /// </summary>
         /// <param name="VoidInvoiceParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2243,7 +2243,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Record an external payment for a manual invoices. <see href="https://developers.recurly.com/api/v2021-02-25#operation/record_external_transaction">record_external_transaction api documentation</see>
+        /// Record an external payment for a manual invoices. <see href="https://developers.recurly.com/api/v2022-01-01#operation/record_external_transaction">record_external_transaction api documentation</see>
         /// </summary>
         /// <param name="RecordExternalTransactionParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2260,7 +2260,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Record an external payment for a manual invoices. <see href="https://developers.recurly.com/api/v2021-02-25#operation/record_external_transaction">record_external_transaction api documentation</see>
+        /// Record an external payment for a manual invoices. <see href="https://developers.recurly.com/api/v2022-01-01#operation/record_external_transaction">record_external_transaction api documentation</see>
         /// </summary>
         /// <param name="RecordExternalTransactionParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2277,7 +2277,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List an invoice's line items <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_invoice_line_items">list_invoice_line_items api documentation</see>
+        /// List an invoice's line items <see href="https://developers.recurly.com/api/v2022-01-01#operation/list_invoice_line_items">list_invoice_line_items api documentation</see>
         /// </summary>
         /// <param name="ListInvoiceLineItemsParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2296,7 +2296,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Show the coupon redemptions applied to an invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_invoice_coupon_redemptions">list_invoice_coupon_redemptions api documentation</see>
+        /// Show the coupon redemptions applied to an invoice <see href="https://developers.recurly.com/api/v2022-01-01#operation/list_invoice_coupon_redemptions">list_invoice_coupon_redemptions api documentation</see>
         /// </summary>
         /// <param name="ListInvoiceCouponRedemptionsParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2315,7 +2315,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List an invoice's related credit or charge invoices <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_related_invoices">list_related_invoices api documentation</see>
+        /// List an invoice's related credit or charge invoices <see href="https://developers.recurly.com/api/v2022-01-01#operation/list_related_invoices">list_related_invoices api documentation</see>
         /// </summary>
         /// <param name="ListRelatedInvoicesParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2333,7 +2333,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Refund an invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/refund_invoice">refund_invoice api documentation</see>
+        /// Refund an invoice <see href="https://developers.recurly.com/api/v2022-01-01#operation/refund_invoice">refund_invoice api documentation</see>
         /// </summary>
         /// <param name="RefundInvoiceParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2350,7 +2350,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Refund an invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/refund_invoice">refund_invoice api documentation</see>
+        /// Refund an invoice <see href="https://developers.recurly.com/api/v2022-01-01#operation/refund_invoice">refund_invoice api documentation</see>
         /// </summary>
         /// <param name="RefundInvoiceParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2367,7 +2367,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List a site's line items <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_line_items">list_line_items api documentation</see>
+        /// List a site's line items <see href="https://developers.recurly.com/api/v2022-01-01#operation/list_line_items">list_line_items api documentation</see>
         /// </summary>
         /// <param name="ListLineItemsParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2386,7 +2386,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a line item <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_line_item">get_line_item api documentation</see>
+        /// Fetch a line item <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_line_item">get_line_item api documentation</see>
         /// </summary>
         /// <param name="GetLineItemParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2403,7 +2403,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a line item <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_line_item">get_line_item api documentation</see>
+        /// Fetch a line item <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_line_item">get_line_item api documentation</see>
         /// </summary>
         /// <param name="GetLineItemParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2420,7 +2420,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Delete an uninvoiced line item <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_line_item">remove_line_item api documentation</see>
+        /// Delete an uninvoiced line item <see href="https://developers.recurly.com/api/v2022-01-01#operation/remove_line_item">remove_line_item api documentation</see>
         /// </summary>
         /// <param name="RemoveLineItemParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2437,7 +2437,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Delete an uninvoiced line item <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_line_item">remove_line_item api documentation</see>
+        /// Delete an uninvoiced line item <see href="https://developers.recurly.com/api/v2022-01-01#operation/remove_line_item">remove_line_item api documentation</see>
         /// </summary>
         /// <param name="RemoveLineItemParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2454,7 +2454,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List a site's plans <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_plans">list_plans api documentation</see>
+        /// List a site's plans <see href="https://developers.recurly.com/api/v2022-01-01#operation/list_plans">list_plans api documentation</see>
         /// </summary>
         /// <param name="ListPlansParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2473,7 +2473,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create a plan <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_plan">create_plan api documentation</see>
+        /// Create a plan <see href="https://developers.recurly.com/api/v2022-01-01#operation/create_plan">create_plan api documentation</see>
         /// </summary>
         /// <param name="CreatePlanParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2490,7 +2490,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create a plan <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_plan">create_plan api documentation</see>
+        /// Create a plan <see href="https://developers.recurly.com/api/v2022-01-01#operation/create_plan">create_plan api documentation</see>
         /// </summary>
         /// <param name="CreatePlanParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2507,7 +2507,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a plan <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_plan">get_plan api documentation</see>
+        /// Fetch a plan <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_plan">get_plan api documentation</see>
         /// </summary>
         /// <param name="GetPlanParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2524,7 +2524,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a plan <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_plan">get_plan api documentation</see>
+        /// Fetch a plan <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_plan">get_plan api documentation</see>
         /// </summary>
         /// <param name="GetPlanParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2541,7 +2541,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update a plan <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_plan">update_plan api documentation</see>
+        /// Update a plan <see href="https://developers.recurly.com/api/v2022-01-01#operation/update_plan">update_plan api documentation</see>
         /// </summary>
         /// <param name="UpdatePlanParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2558,7 +2558,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update a plan <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_plan">update_plan api documentation</see>
+        /// Update a plan <see href="https://developers.recurly.com/api/v2022-01-01#operation/update_plan">update_plan api documentation</see>
         /// </summary>
         /// <param name="UpdatePlanParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2575,7 +2575,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Remove a plan <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_plan">remove_plan api documentation</see>
+        /// Remove a plan <see href="https://developers.recurly.com/api/v2022-01-01#operation/remove_plan">remove_plan api documentation</see>
         /// </summary>
         /// <param name="RemovePlanParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2592,7 +2592,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Remove a plan <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_plan">remove_plan api documentation</see>
+        /// Remove a plan <see href="https://developers.recurly.com/api/v2022-01-01#operation/remove_plan">remove_plan api documentation</see>
         /// </summary>
         /// <param name="RemovePlanParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2609,7 +2609,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List a plan's add-ons <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_plan_add_ons">list_plan_add_ons api documentation</see>
+        /// List a plan's add-ons <see href="https://developers.recurly.com/api/v2022-01-01#operation/list_plan_add_ons">list_plan_add_ons api documentation</see>
         /// </summary>
         /// <param name="ListPlanAddOnsParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2628,7 +2628,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create an add-on <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_plan_add_on">create_plan_add_on api documentation</see>
+        /// Create an add-on <see href="https://developers.recurly.com/api/v2022-01-01#operation/create_plan_add_on">create_plan_add_on api documentation</see>
         /// </summary>
         /// <param name="CreatePlanAddOnParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2645,7 +2645,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create an add-on <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_plan_add_on">create_plan_add_on api documentation</see>
+        /// Create an add-on <see href="https://developers.recurly.com/api/v2022-01-01#operation/create_plan_add_on">create_plan_add_on api documentation</see>
         /// </summary>
         /// <param name="CreatePlanAddOnParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2662,7 +2662,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a plan's add-on <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_plan_add_on">get_plan_add_on api documentation</see>
+        /// Fetch a plan's add-on <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_plan_add_on">get_plan_add_on api documentation</see>
         /// </summary>
         /// <param name="GetPlanAddOnParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2679,7 +2679,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a plan's add-on <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_plan_add_on">get_plan_add_on api documentation</see>
+        /// Fetch a plan's add-on <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_plan_add_on">get_plan_add_on api documentation</see>
         /// </summary>
         /// <param name="GetPlanAddOnParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2696,7 +2696,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update an add-on <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_plan_add_on">update_plan_add_on api documentation</see>
+        /// Update an add-on <see href="https://developers.recurly.com/api/v2022-01-01#operation/update_plan_add_on">update_plan_add_on api documentation</see>
         /// </summary>
         /// <param name="UpdatePlanAddOnParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2713,7 +2713,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update an add-on <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_plan_add_on">update_plan_add_on api documentation</see>
+        /// Update an add-on <see href="https://developers.recurly.com/api/v2022-01-01#operation/update_plan_add_on">update_plan_add_on api documentation</see>
         /// </summary>
         /// <param name="UpdatePlanAddOnParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2730,7 +2730,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Remove an add-on <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_plan_add_on">remove_plan_add_on api documentation</see>
+        /// Remove an add-on <see href="https://developers.recurly.com/api/v2022-01-01#operation/remove_plan_add_on">remove_plan_add_on api documentation</see>
         /// </summary>
         /// <param name="RemovePlanAddOnParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2747,7 +2747,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Remove an add-on <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_plan_add_on">remove_plan_add_on api documentation</see>
+        /// Remove an add-on <see href="https://developers.recurly.com/api/v2022-01-01#operation/remove_plan_add_on">remove_plan_add_on api documentation</see>
         /// </summary>
         /// <param name="RemovePlanAddOnParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2764,7 +2764,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List a site's add-ons <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_add_ons">list_add_ons api documentation</see>
+        /// List a site's add-ons <see href="https://developers.recurly.com/api/v2022-01-01#operation/list_add_ons">list_add_ons api documentation</see>
         /// </summary>
         /// <param name="ListAddOnsParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2783,7 +2783,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an add-on <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_add_on">get_add_on api documentation</see>
+        /// Fetch an add-on <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_add_on">get_add_on api documentation</see>
         /// </summary>
         /// <param name="GetAddOnParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2800,7 +2800,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch an add-on <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_add_on">get_add_on api documentation</see>
+        /// Fetch an add-on <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_add_on">get_add_on api documentation</see>
         /// </summary>
         /// <param name="GetAddOnParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2817,7 +2817,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List a site's shipping methods <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_shipping_methods">list_shipping_methods api documentation</see>
+        /// List a site's shipping methods <see href="https://developers.recurly.com/api/v2022-01-01#operation/list_shipping_methods">list_shipping_methods api documentation</see>
         /// </summary>
         /// <param name="ListShippingMethodsParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2836,7 +2836,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create a new shipping method <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_shipping_method">create_shipping_method api documentation</see>
+        /// Create a new shipping method <see href="https://developers.recurly.com/api/v2022-01-01#operation/create_shipping_method">create_shipping_method api documentation</see>
         /// </summary>
         /// <param name="CreateShippingMethodParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2853,7 +2853,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create a new shipping method <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_shipping_method">create_shipping_method api documentation</see>
+        /// Create a new shipping method <see href="https://developers.recurly.com/api/v2022-01-01#operation/create_shipping_method">create_shipping_method api documentation</see>
         /// </summary>
         /// <param name="CreateShippingMethodParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2870,7 +2870,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a shipping method <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_shipping_method">get_shipping_method api documentation</see>
+        /// Fetch a shipping method <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_shipping_method">get_shipping_method api documentation</see>
         /// </summary>
         /// <param name="GetShippingMethodParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2887,7 +2887,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a shipping method <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_shipping_method">get_shipping_method api documentation</see>
+        /// Fetch a shipping method <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_shipping_method">get_shipping_method api documentation</see>
         /// </summary>
         /// <param name="GetShippingMethodParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2904,7 +2904,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update an active Shipping Method <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_shipping_method">update_shipping_method api documentation</see>
+        /// Update an active Shipping Method <see href="https://developers.recurly.com/api/v2022-01-01#operation/update_shipping_method">update_shipping_method api documentation</see>
         /// </summary>
         /// <param name="UpdateShippingMethodParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2921,7 +2921,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update an active Shipping Method <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_shipping_method">update_shipping_method api documentation</see>
+        /// Update an active Shipping Method <see href="https://developers.recurly.com/api/v2022-01-01#operation/update_shipping_method">update_shipping_method api documentation</see>
         /// </summary>
         /// <param name="UpdateShippingMethodParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2938,7 +2938,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Deactivate a shipping method <see href="https://developers.recurly.com/api/v2021-02-25#operation/deactivate_shipping_method">deactivate_shipping_method api documentation</see>
+        /// Deactivate a shipping method <see href="https://developers.recurly.com/api/v2022-01-01#operation/deactivate_shipping_method">deactivate_shipping_method api documentation</see>
         /// </summary>
         /// <param name="DeactivateShippingMethodParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2955,7 +2955,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Deactivate a shipping method <see href="https://developers.recurly.com/api/v2021-02-25#operation/deactivate_shipping_method">deactivate_shipping_method api documentation</see>
+        /// Deactivate a shipping method <see href="https://developers.recurly.com/api/v2022-01-01#operation/deactivate_shipping_method">deactivate_shipping_method api documentation</see>
         /// </summary>
         /// <param name="DeactivateShippingMethodParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2972,7 +2972,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List a site's subscriptions <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_subscriptions">list_subscriptions api documentation</see>
+        /// List a site's subscriptions <see href="https://developers.recurly.com/api/v2022-01-01#operation/list_subscriptions">list_subscriptions api documentation</see>
         /// </summary>
         /// <param name="ListSubscriptionsParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2991,7 +2991,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create a new subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_subscription">create_subscription api documentation</see>
+        /// Create a new subscription <see href="https://developers.recurly.com/api/v2022-01-01#operation/create_subscription">create_subscription api documentation</see>
         /// </summary>
         /// <param name="CreateSubscriptionParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3008,7 +3008,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create a new subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_subscription">create_subscription api documentation</see>
+        /// Create a new subscription <see href="https://developers.recurly.com/api/v2022-01-01#operation/create_subscription">create_subscription api documentation</see>
         /// </summary>
         /// <param name="CreateSubscriptionParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3025,7 +3025,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_subscription">get_subscription api documentation</see>
+        /// Fetch a subscription <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_subscription">get_subscription api documentation</see>
         /// </summary>
         /// <param name="GetSubscriptionParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3042,7 +3042,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_subscription">get_subscription api documentation</see>
+        /// Fetch a subscription <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_subscription">get_subscription api documentation</see>
         /// </summary>
         /// <param name="GetSubscriptionParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3059,7 +3059,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update a subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_subscription">update_subscription api documentation</see>
+        /// Update a subscription <see href="https://developers.recurly.com/api/v2022-01-01#operation/update_subscription">update_subscription api documentation</see>
         /// </summary>
         /// <param name="UpdateSubscriptionParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3076,7 +3076,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update a subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_subscription">update_subscription api documentation</see>
+        /// Update a subscription <see href="https://developers.recurly.com/api/v2022-01-01#operation/update_subscription">update_subscription api documentation</see>
         /// </summary>
         /// <param name="UpdateSubscriptionParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3093,7 +3093,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Terminate a subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/terminate_subscription">terminate_subscription api documentation</see>
+        /// Terminate a subscription <see href="https://developers.recurly.com/api/v2022-01-01#operation/terminate_subscription">terminate_subscription api documentation</see>
         /// </summary>
         /// <param name="TerminateSubscriptionParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3111,7 +3111,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Terminate a subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/terminate_subscription">terminate_subscription api documentation</see>
+        /// Terminate a subscription <see href="https://developers.recurly.com/api/v2022-01-01#operation/terminate_subscription">terminate_subscription api documentation</see>
         /// </summary>
         /// <param name="TerminateSubscriptionParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3129,7 +3129,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Cancel a subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/cancel_subscription">cancel_subscription api documentation</see>
+        /// Cancel a subscription <see href="https://developers.recurly.com/api/v2022-01-01#operation/cancel_subscription">cancel_subscription api documentation</see>
         /// </summary>
         /// <param name="CancelSubscriptionParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3146,7 +3146,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Cancel a subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/cancel_subscription">cancel_subscription api documentation</see>
+        /// Cancel a subscription <see href="https://developers.recurly.com/api/v2022-01-01#operation/cancel_subscription">cancel_subscription api documentation</see>
         /// </summary>
         /// <param name="CancelSubscriptionParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3163,7 +3163,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Reactivate a canceled subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/reactivate_subscription">reactivate_subscription api documentation</see>
+        /// Reactivate a canceled subscription <see href="https://developers.recurly.com/api/v2022-01-01#operation/reactivate_subscription">reactivate_subscription api documentation</see>
         /// </summary>
         /// <param name="ReactivateSubscriptionParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3180,7 +3180,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Reactivate a canceled subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/reactivate_subscription">reactivate_subscription api documentation</see>
+        /// Reactivate a canceled subscription <see href="https://developers.recurly.com/api/v2022-01-01#operation/reactivate_subscription">reactivate_subscription api documentation</see>
         /// </summary>
         /// <param name="ReactivateSubscriptionParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3197,7 +3197,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Pause subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/pause_subscription">pause_subscription api documentation</see>
+        /// Pause subscription <see href="https://developers.recurly.com/api/v2022-01-01#operation/pause_subscription">pause_subscription api documentation</see>
         /// </summary>
         /// <param name="PauseSubscriptionParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3214,7 +3214,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Pause subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/pause_subscription">pause_subscription api documentation</see>
+        /// Pause subscription <see href="https://developers.recurly.com/api/v2022-01-01#operation/pause_subscription">pause_subscription api documentation</see>
         /// </summary>
         /// <param name="PauseSubscriptionParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3231,7 +3231,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Resume subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/resume_subscription">resume_subscription api documentation</see>
+        /// Resume subscription <see href="https://developers.recurly.com/api/v2022-01-01#operation/resume_subscription">resume_subscription api documentation</see>
         /// </summary>
         /// <param name="ResumeSubscriptionParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3248,7 +3248,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Resume subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/resume_subscription">resume_subscription api documentation</see>
+        /// Resume subscription <see href="https://developers.recurly.com/api/v2022-01-01#operation/resume_subscription">resume_subscription api documentation</see>
         /// </summary>
         /// <param name="ResumeSubscriptionParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3265,7 +3265,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Convert trial subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/convert_trial">convert_trial api documentation</see>
+        /// Convert trial subscription <see href="https://developers.recurly.com/api/v2022-01-01#operation/convert_trial">convert_trial api documentation</see>
         /// </summary>
         /// <param name="ConvertTrialParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3282,7 +3282,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Convert trial subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/convert_trial">convert_trial api documentation</see>
+        /// Convert trial subscription <see href="https://developers.recurly.com/api/v2022-01-01#operation/convert_trial">convert_trial api documentation</see>
         /// </summary>
         /// <param name="ConvertTrialParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3299,7 +3299,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a preview of a subscription's renewal invoice(s) <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_preview_renewal">get_preview_renewal api documentation</see>
+        /// Fetch a preview of a subscription's renewal invoice(s) <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_preview_renewal">get_preview_renewal api documentation</see>
         /// </summary>
         /// <param name="GetPreviewRenewalParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3316,7 +3316,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a preview of a subscription's renewal invoice(s) <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_preview_renewal">get_preview_renewal api documentation</see>
+        /// Fetch a preview of a subscription's renewal invoice(s) <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_preview_renewal">get_preview_renewal api documentation</see>
         /// </summary>
         /// <param name="GetPreviewRenewalParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3333,7 +3333,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a subscription's pending change <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_subscription_change">get_subscription_change api documentation</see>
+        /// Fetch a subscription's pending change <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_subscription_change">get_subscription_change api documentation</see>
         /// </summary>
         /// <param name="GetSubscriptionChangeParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3350,7 +3350,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a subscription's pending change <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_subscription_change">get_subscription_change api documentation</see>
+        /// Fetch a subscription's pending change <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_subscription_change">get_subscription_change api documentation</see>
         /// </summary>
         /// <param name="GetSubscriptionChangeParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3367,7 +3367,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create a new subscription change <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_subscription_change">create_subscription_change api documentation</see>
+        /// Create a new subscription change <see href="https://developers.recurly.com/api/v2022-01-01#operation/create_subscription_change">create_subscription_change api documentation</see>
         /// </summary>
         /// <param name="CreateSubscriptionChangeParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3384,7 +3384,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create a new subscription change <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_subscription_change">create_subscription_change api documentation</see>
+        /// Create a new subscription change <see href="https://developers.recurly.com/api/v2022-01-01#operation/create_subscription_change">create_subscription_change api documentation</see>
         /// </summary>
         /// <param name="CreateSubscriptionChangeParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3401,7 +3401,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Delete the pending subscription change <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_subscription_change">remove_subscription_change api documentation</see>
+        /// Delete the pending subscription change <see href="https://developers.recurly.com/api/v2022-01-01#operation/remove_subscription_change">remove_subscription_change api documentation</see>
         /// </summary>
         /// <param name="RemoveSubscriptionChangeParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3418,7 +3418,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Delete the pending subscription change <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_subscription_change">remove_subscription_change api documentation</see>
+        /// Delete the pending subscription change <see href="https://developers.recurly.com/api/v2022-01-01#operation/remove_subscription_change">remove_subscription_change api documentation</see>
         /// </summary>
         /// <param name="RemoveSubscriptionChangeParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3435,7 +3435,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Preview a new subscription change <see href="https://developers.recurly.com/api/v2021-02-25#operation/preview_subscription_change">preview_subscription_change api documentation</see>
+        /// Preview a new subscription change <see href="https://developers.recurly.com/api/v2022-01-01#operation/preview_subscription_change">preview_subscription_change api documentation</see>
         /// </summary>
         /// <param name="PreviewSubscriptionChangeParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3452,7 +3452,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Preview a new subscription change <see href="https://developers.recurly.com/api/v2021-02-25#operation/preview_subscription_change">preview_subscription_change api documentation</see>
+        /// Preview a new subscription change <see href="https://developers.recurly.com/api/v2022-01-01#operation/preview_subscription_change">preview_subscription_change api documentation</see>
         /// </summary>
         /// <param name="PreviewSubscriptionChangeParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3469,7 +3469,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List a subscription's invoices <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_subscription_invoices">list_subscription_invoices api documentation</see>
+        /// List a subscription's invoices <see href="https://developers.recurly.com/api/v2022-01-01#operation/list_subscription_invoices">list_subscription_invoices api documentation</see>
         /// </summary>
         /// <param name="ListSubscriptionInvoicesParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3488,7 +3488,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List a subscription's line items <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_subscription_line_items">list_subscription_line_items api documentation</see>
+        /// List a subscription's line items <see href="https://developers.recurly.com/api/v2022-01-01#operation/list_subscription_line_items">list_subscription_line_items api documentation</see>
         /// </summary>
         /// <param name="ListSubscriptionLineItemsParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3507,7 +3507,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Show the coupon redemptions for a subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_subscription_coupon_redemptions">list_subscription_coupon_redemptions api documentation</see>
+        /// Show the coupon redemptions for a subscription <see href="https://developers.recurly.com/api/v2022-01-01#operation/list_subscription_coupon_redemptions">list_subscription_coupon_redemptions api documentation</see>
         /// </summary>
         /// <param name="ListSubscriptionCouponRedemptionsParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3526,7 +3526,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List a subscription add-on's usage records <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_usage">list_usage api documentation</see>
+        /// List a subscription add-on's usage records <see href="https://developers.recurly.com/api/v2022-01-01#operation/list_usage">list_usage api documentation</see>
         /// </summary>
         /// <param name="ListUsageParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3545,7 +3545,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Log a usage record on this subscription add-on <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_usage">create_usage api documentation</see>
+        /// Log a usage record on this subscription add-on <see href="https://developers.recurly.com/api/v2022-01-01#operation/create_usage">create_usage api documentation</see>
         /// </summary>
         /// <param name="CreateUsageParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3562,7 +3562,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Log a usage record on this subscription add-on <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_usage">create_usage api documentation</see>
+        /// Log a usage record on this subscription add-on <see href="https://developers.recurly.com/api/v2022-01-01#operation/create_usage">create_usage api documentation</see>
         /// </summary>
         /// <param name="CreateUsageParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3579,7 +3579,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Get a usage record <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_usage">get_usage api documentation</see>
+        /// Get a usage record <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_usage">get_usage api documentation</see>
         /// </summary>
         /// <param name="GetUsageParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3596,7 +3596,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Get a usage record <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_usage">get_usage api documentation</see>
+        /// Get a usage record <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_usage">get_usage api documentation</see>
         /// </summary>
         /// <param name="GetUsageParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3613,7 +3613,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update a usage record <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_usage">update_usage api documentation</see>
+        /// Update a usage record <see href="https://developers.recurly.com/api/v2022-01-01#operation/update_usage">update_usage api documentation</see>
         /// </summary>
         /// <param name="UpdateUsageParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3630,7 +3630,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Update a usage record <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_usage">update_usage api documentation</see>
+        /// Update a usage record <see href="https://developers.recurly.com/api/v2022-01-01#operation/update_usage">update_usage api documentation</see>
         /// </summary>
         /// <param name="UpdateUsageParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3647,7 +3647,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Delete a usage record. <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_usage">remove_usage api documentation</see>
+        /// Delete a usage record. <see href="https://developers.recurly.com/api/v2022-01-01#operation/remove_usage">remove_usage api documentation</see>
         /// </summary>
         /// <param name="RemoveUsageParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3664,7 +3664,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Delete a usage record. <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_usage">remove_usage api documentation</see>
+        /// Delete a usage record. <see href="https://developers.recurly.com/api/v2022-01-01#operation/remove_usage">remove_usage api documentation</see>
         /// </summary>
         /// <param name="RemoveUsageParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3681,7 +3681,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List a site's transactions <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_transactions">list_transactions api documentation</see>
+        /// List a site's transactions <see href="https://developers.recurly.com/api/v2022-01-01#operation/list_transactions">list_transactions api documentation</see>
         /// </summary>
         /// <param name="ListTransactionsParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3700,7 +3700,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a transaction <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_transaction">get_transaction api documentation</see>
+        /// Fetch a transaction <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_transaction">get_transaction api documentation</see>
         /// </summary>
         /// <param name="GetTransactionParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3717,7 +3717,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a transaction <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_transaction">get_transaction api documentation</see>
+        /// Fetch a transaction <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_transaction">get_transaction api documentation</see>
         /// </summary>
         /// <param name="GetTransactionParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3734,7 +3734,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a unique coupon code <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_unique_coupon_code">get_unique_coupon_code api documentation</see>
+        /// Fetch a unique coupon code <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_unique_coupon_code">get_unique_coupon_code api documentation</see>
         /// </summary>
         /// <param name="GetUniqueCouponCodeParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3751,7 +3751,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a unique coupon code <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_unique_coupon_code">get_unique_coupon_code api documentation</see>
+        /// Fetch a unique coupon code <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_unique_coupon_code">get_unique_coupon_code api documentation</see>
         /// </summary>
         /// <param name="GetUniqueCouponCodeParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3768,7 +3768,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Deactivate a unique coupon code <see href="https://developers.recurly.com/api/v2021-02-25#operation/deactivate_unique_coupon_code">deactivate_unique_coupon_code api documentation</see>
+        /// Deactivate a unique coupon code <see href="https://developers.recurly.com/api/v2022-01-01#operation/deactivate_unique_coupon_code">deactivate_unique_coupon_code api documentation</see>
         /// </summary>
         /// <param name="DeactivateUniqueCouponCodeParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3785,7 +3785,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Deactivate a unique coupon code <see href="https://developers.recurly.com/api/v2021-02-25#operation/deactivate_unique_coupon_code">deactivate_unique_coupon_code api documentation</see>
+        /// Deactivate a unique coupon code <see href="https://developers.recurly.com/api/v2022-01-01#operation/deactivate_unique_coupon_code">deactivate_unique_coupon_code api documentation</see>
         /// </summary>
         /// <param name="DeactivateUniqueCouponCodeParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3802,7 +3802,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Restore a unique coupon code <see href="https://developers.recurly.com/api/v2021-02-25#operation/reactivate_unique_coupon_code">reactivate_unique_coupon_code api documentation</see>
+        /// Restore a unique coupon code <see href="https://developers.recurly.com/api/v2022-01-01#operation/reactivate_unique_coupon_code">reactivate_unique_coupon_code api documentation</see>
         /// </summary>
         /// <param name="ReactivateUniqueCouponCodeParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3819,7 +3819,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Restore a unique coupon code <see href="https://developers.recurly.com/api/v2021-02-25#operation/reactivate_unique_coupon_code">reactivate_unique_coupon_code api documentation</see>
+        /// Restore a unique coupon code <see href="https://developers.recurly.com/api/v2022-01-01#operation/reactivate_unique_coupon_code">reactivate_unique_coupon_code api documentation</see>
         /// </summary>
         /// <param name="ReactivateUniqueCouponCodeParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3836,7 +3836,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create a new purchase <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_purchase">create_purchase api documentation</see>
+        /// Create a new purchase <see href="https://developers.recurly.com/api/v2022-01-01#operation/create_purchase">create_purchase api documentation</see>
         /// </summary>
         /// <param name="CreatePurchaseParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3853,7 +3853,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create a new purchase <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_purchase">create_purchase api documentation</see>
+        /// Create a new purchase <see href="https://developers.recurly.com/api/v2022-01-01#operation/create_purchase">create_purchase api documentation</see>
         /// </summary>
         /// <param name="CreatePurchaseParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3870,7 +3870,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Preview a new purchase <see href="https://developers.recurly.com/api/v2021-02-25#operation/preview_purchase">preview_purchase api documentation</see>
+        /// Preview a new purchase <see href="https://developers.recurly.com/api/v2022-01-01#operation/preview_purchase">preview_purchase api documentation</see>
         /// </summary>
         /// <param name="PreviewPurchaseParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3887,7 +3887,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Preview a new purchase <see href="https://developers.recurly.com/api/v2021-02-25#operation/preview_purchase">preview_purchase api documentation</see>
+        /// Preview a new purchase <see href="https://developers.recurly.com/api/v2022-01-01#operation/preview_purchase">preview_purchase api documentation</see>
         /// </summary>
         /// <param name="PreviewPurchaseParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3904,7 +3904,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create a pending purchase <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_pending_purchase">create_pending_purchase api documentation</see>
+        /// Create a pending purchase <see href="https://developers.recurly.com/api/v2022-01-01#operation/create_pending_purchase">create_pending_purchase api documentation</see>
         /// </summary>
         /// <param name="CreatePendingPurchaseParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3921,7 +3921,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Create a pending purchase <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_pending_purchase">create_pending_purchase api documentation</see>
+        /// Create a pending purchase <see href="https://developers.recurly.com/api/v2022-01-01#operation/create_pending_purchase">create_pending_purchase api documentation</see>
         /// </summary>
         /// <param name="CreatePendingPurchaseParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3938,7 +3938,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List the dates that have an available export to download. <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_export_dates">get_export_dates api documentation</see>
+        /// List the dates that have an available export to download. <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_export_dates">get_export_dates api documentation</see>
         /// </summary>
         /// <param name="GetExportDatesParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3955,7 +3955,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List the dates that have an available export to download. <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_export_dates">get_export_dates api documentation</see>
+        /// List the dates that have an available export to download. <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_export_dates">get_export_dates api documentation</see>
         /// </summary>
         /// <param name="GetExportDatesParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3972,7 +3972,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List of the export files that are available to download. <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_export_files">get_export_files api documentation</see>
+        /// List of the export files that are available to download. <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_export_files">get_export_files api documentation</see>
         /// </summary>
         /// <param name="GetExportFilesParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3989,7 +3989,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// List of the export files that are available to download. <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_export_files">get_export_files api documentation</see>
+        /// List of the export files that are available to download. <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_export_files">get_export_files api documentation</see>
         /// </summary>
         /// <param name="GetExportFilesParams">Optional Parameters for the request</param>
         /// <returns>
@@ -4006,7 +4006,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Show the dunning campaigns for a site <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_dunning_campaigns">list_dunning_campaigns api documentation</see>
+        /// Show the dunning campaigns for a site <see href="https://developers.recurly.com/api/v2022-01-01#operation/list_dunning_campaigns">list_dunning_campaigns api documentation</see>
         /// </summary>
         /// <param name="ListDunningCampaignsParams">Optional Parameters for the request</param>
         /// <returns>
@@ -4025,7 +4025,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Show the settings for a dunning campaign <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_dunning_campaign">get_dunning_campaign api documentation</see>
+        /// Show the settings for a dunning campaign <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_dunning_campaign">get_dunning_campaign api documentation</see>
         /// </summary>
         /// <param name="GetDunningCampaignParams">Optional Parameters for the request</param>
         /// <returns>
@@ -4042,7 +4042,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Show the settings for a dunning campaign <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_dunning_campaign">get_dunning_campaign api documentation</see>
+        /// Show the settings for a dunning campaign <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_dunning_campaign">get_dunning_campaign api documentation</see>
         /// </summary>
         /// <param name="GetDunningCampaignParams">Optional Parameters for the request</param>
         /// <returns>
@@ -4059,7 +4059,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Assign a dunning campaign to multiple plans <see href="https://developers.recurly.com/api/v2021-02-25#operation/put_dunning_campaign_bulk_update">put_dunning_campaign_bulk_update api documentation</see>
+        /// Assign a dunning campaign to multiple plans <see href="https://developers.recurly.com/api/v2022-01-01#operation/put_dunning_campaign_bulk_update">put_dunning_campaign_bulk_update api documentation</see>
         /// </summary>
         /// <param name="PutDunningCampaignBulkUpdateParams">Optional Parameters for the request</param>
         /// <returns>
@@ -4076,7 +4076,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Assign a dunning campaign to multiple plans <see href="https://developers.recurly.com/api/v2021-02-25#operation/put_dunning_campaign_bulk_update">put_dunning_campaign_bulk_update api documentation</see>
+        /// Assign a dunning campaign to multiple plans <see href="https://developers.recurly.com/api/v2022-01-01#operation/put_dunning_campaign_bulk_update">put_dunning_campaign_bulk_update api documentation</see>
         /// </summary>
         /// <param name="PutDunningCampaignBulkUpdateParams">Optional Parameters for the request</param>
         /// <returns>
@@ -4093,7 +4093,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Show the invoice templates for a site <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_invoice_templates">list_invoice_templates api documentation</see>
+        /// Show the invoice templates for a site <see href="https://developers.recurly.com/api/v2022-01-01#operation/list_invoice_templates">list_invoice_templates api documentation</see>
         /// </summary>
         /// <param name="ListInvoiceTemplatesParams">Optional Parameters for the request</param>
         /// <returns>
@@ -4112,7 +4112,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Show the settings for an invoice template <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_invoice_template">get_invoice_template api documentation</see>
+        /// Show the settings for an invoice template <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_invoice_template">get_invoice_template api documentation</see>
         /// </summary>
         /// <param name="GetInvoiceTemplateParams">Optional Parameters for the request</param>
         /// <returns>
@@ -4129,7 +4129,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Show the settings for an invoice template <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_invoice_template">get_invoice_template api documentation</see>
+        /// Show the settings for an invoice template <see href="https://developers.recurly.com/api/v2022-01-01#operation/get_invoice_template">get_invoice_template api documentation</see>
         /// </summary>
         /// <param name="GetInvoiceTemplateParams">Optional Parameters for the request</param>
         /// <returns>
