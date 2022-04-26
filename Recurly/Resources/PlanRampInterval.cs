@@ -12,16 +12,16 @@ using Newtonsoft.Json;
 namespace Recurly.Resources
 {
     [ExcludeFromCodeCoverage]
-    public class Tier : Request
+    public class PlanRampInterval : Request
     {
 
-        /// <value>Tier pricing</value>
+        /// <value>Represents the price for the ramp interval.</value>
         [JsonProperty("currencies")]
-        public List<TierPricing> Currencies { get; set; }
+        public List<PlanRampPricing> Currencies { get; set; }
 
-        /// <value>Ending quantity for the tier. This represents a unit amount for unit-priced add ons. Must be left empty if it is the final tier.</value>
-        [JsonProperty("ending_quantity")]
-        public int? EndingQuantity { get; set; }
+        /// <value>Represents the first billing cycle of a ramp.</value>
+        [JsonProperty("starting_billing_cycle")]
+        public int? StartingBillingCycle { get; set; }
 
     }
 }
