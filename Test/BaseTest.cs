@@ -173,6 +173,11 @@ namespace Recurly.Test
             return name + " " + DateTime.Now.ToString("yyyyMMddhhmmFFFFFFF");
         }
 
+        public string GetMockMeasuredUnitName(string name = "Test Measured Unit")
+        {
+            return name + " " + DateTime.Now.ToString("yyyyMMddhhmmFFFFFFF");
+        }
+
         public BillingInfo NewBillingInfo(Account account)
         {
             var billingInfo = new BillingInfo(account)

@@ -14,8 +14,11 @@ namespace Recurly
         public Adjustment.RevenueSchedule? RevenueScheduleType { get; set; }
         public float? UsagePercentage { get; set; }
         public string TierType { get; set; }
+        public string UsageTimeframe { get; set; }
 
         private List<SubscriptionAddOnTier> _tiers; 
+
+        private List<SubscriptionAddOnPercentageTier> _percentageTiers; 
 
         /// <summary>
         /// List of tiers for this add-on
@@ -26,8 +29,19 @@ namespace Recurly
             set { _tiers = value; }
         }
 
+        /// <summary>
+        /// List of percentage tiers for this add-on
+        /// </summary>
+        public List<SubscriptionAddOnPercentageTier> PercentageTiers
+        {
+            get {return _percentageTiers ?? (_percentageTiers = new List<SubscriptionAddOnPercentageTier>()); }
+            set { _percentageTiers = value; }
+        }
+
         public string AddOnSource { get; set; }
 
+        #region Constructors
+        
         public SubscriptionAddOn(XmlTextReader reader)
         {
             ReadXml(reader);
@@ -66,6 +80,10 @@ namespace Recurly
           UnitAmountInCents = unitAmountInCents;
           Quantity = quantity;
         }
+
+        #endregion
+
+        #region Read and Write XML documents
 
         internal override void ReadXml(XmlTextReader reader)
         {
@@ -113,6 +131,10 @@ namespace Recurly
                         TierType = reader.ReadElementContentAsString();
                         break;
 
+                    case "usage_timeframe":
+                        UsageTimeframe = reader.ReadElementContentAsString();
+                        break;
+
                     case "tiers":
                         Tiers = new List<SubscriptionAddOnTier>();
                         while (reader.Read())
@@ -122,6 +144,19 @@ namespace Recurly
                             else if (reader.NodeType == XmlNodeType.Element && reader.Name == "tier")
                             {
                                 Tiers.Add(new SubscriptionAddOnTier(reader));
+                            }
+                        }
+                        break;
+
+                    case "percentage_tiers":
+                        PercentageTiers = new List<SubscriptionAddOnPercentageTier>();
+                        while (reader.Read())
+                        {
+                            if (reader.Name == "percentage_tiers" && reader.NodeType == XmlNodeType.EndElement)
+                                break;
+                            else if (reader.NodeType == XmlNodeType.Element && reader.Name == "percentage_tier")
+                            {
+                                PercentageTiers.Add(new SubscriptionAddOnPercentageTier(reader));
                             }
                         }
                         break;
@@ -152,13 +187,20 @@ namespace Recurly
 
             if (TierType != null)
                 writer.WriteElementString("tier_type", TierType);
+            
+            if (UsageTimeframe != null)
+                writer.WriteElementString("usage_timeframe", UsageTimeframe);
 
             writer.WriteIfCollectionHasAny("tiers", Tiers);
+
+            writer.WriteIfCollectionHasAny("percentage_tiers", PercentageTiers);
 
             if (AddOnSource != null)
                 writer.WriteElementString("add_on_source", AddOnSource);
 
             writer.WriteEndElement();
         }
+
+        #endregion
     }
 }
