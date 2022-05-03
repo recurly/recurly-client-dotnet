@@ -149,7 +149,10 @@
     <Compile Include="ValidationException.cs" />
     <Compile Include="Extensions\XmlWriterExtensions.cs" />
     <Compile Include="SubscriptionAddOnTier.cs" />
+    <Compile Include="SubscriptionAddOnPercentageTier.cs" />
     <Compile Include="Tier.cs" />
+    <Compile Include="CurrencyPercentageTier.cs" />
+    <Compile Include="PercentageTier.cs" />
     <Compile Include="VerifyBillingInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -30,6 +30,7 @@ namespace Recurly
         public DateTime UpdatedAt { get; private set; }
         public Adjustment.RevenueSchedule? RevenueScheduleType { get; set; }
         public string ItemState { get; private set; }
+        public string UsageTimeframe { get; set; }
         private string _tierType;
         public string TierType { 
           get
@@ -43,6 +44,8 @@ namespace Recurly
 
         private List<Tier> _tiers; 
 
+        private List<CurrencyPercentageTier> _currencyPercentageTiers; 
+
         /// <summary>
         /// List of tiers for this add-on
         /// </summary>
@@ -50,6 +53,15 @@ namespace Recurly
         {
             get { return _tiers ?? (_tiers = new List<Tier>()); }
             set { _tiers = value; }
+        }
+
+        /// <summary>
+        /// List of percentage tiers by currency for this add-on
+        /// </summary>
+        public List<CurrencyPercentageTier> CurrencyPercentageTiers
+        {
+            get { return _currencyPercentageTiers ?? (_currencyPercentageTiers = new List<CurrencyPercentageTier>()); }
+            set { _currencyPercentageTiers = value; }
         }
 
         private Dictionary<string, int> _unitAmountInCents;
@@ -230,6 +242,14 @@ namespace Recurly
                     case "tier_type":
                         TierType = reader.ReadElementContentAsString();
                         break;
+
+                    case "usage_timeframe":
+                        UsageTimeframe = reader.ReadElementContentAsString();
+                        break;
+
+                    case "percentage_tiers":
+                        reader.Skip();
+                        break;
                 }
             }
         }
@@ -273,7 +293,12 @@ namespace Recurly
 
             xmlWriter.WriteElementString("tier_type", TierType);
 
+            if (UsageTimeframe != null)
+                xmlWriter.WriteElementString("usage_timeframe", UsageTimeframe);
+
             xmlWriter.WriteIfCollectionHasAny("tiers", Tiers);
+
+            xmlWriter.WriteIfCollectionHasAny("percentage_tiers", CurrencyPercentageTiers);
 
             xmlWriter.WriteEndElement();
         }
@@ -291,7 +316,10 @@ namespace Recurly
             if (DisplayQuantityOnHostedPage.HasValue)
                 xmlWriter.WriteElementString("display_quantity_on_hosted_page", DisplayQuantityOnHostedPage.Value.AsString());
             xmlWriter.WriteElementString("tier_type", TierType);
+            if (UsageTimeframe != null)
+                xmlWriter.WriteElementString("usage_timeframe", UsageTimeframe);
             xmlWriter.WriteIfCollectionHasAny("tiers", Tiers);
+            xmlWriter.WriteIfCollectionHasAny("percentage_tiers", CurrencyPercentageTiers);
 
             xmlWriter.WriteEndElement();
         }
