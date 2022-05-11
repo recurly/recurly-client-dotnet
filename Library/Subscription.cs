@@ -301,6 +301,7 @@ namespace Recurly
 
         internal bool _preview;
 
+        public bool? TaxInclusive { get; set; }
         public string CustomerNotes { get; set; }
         public string TermsAndConditions { get; set; }
         public string VatReverseChargeNotes { get; set; }
@@ -329,7 +330,7 @@ namespace Recurly
         /// <summary>
         /// Determines the renewal subscription term.
         /// Defaults to plans total billing cycles value unless
-        /// overwritten when creating the subscription or editing subscription. 
+        /// overwritten when creating the subscription or editing subscription.
         /// </summary>
         public int? RenewalBillingCycles { get; set; }
 
@@ -337,12 +338,12 @@ namespace Recurly
         /// Previously named first_renewal_date. Forces the subscriptions next billing period start date.
         /// Subsequent billing period start dates will be offset from this date.
         /// The first invoice will be prorated appropriately so that the customer pays
-        /// for the portion of the first billing period for which the subscription applies. 
+        /// for the portion of the first billing period for which the subscription applies.
         /// </summary>
         public DateTime FirstBillDate { get; private set; }
 
         /// <summary>
-        /// Previously named next_renewal_date. Specifies a future date that 
+        /// Previously named next_renewal_date. Specifies a future date that
         /// the subscriptions next billing period should be billed.
         /// </summary>
         public DateTime NextBillDate { get; private set; }
@@ -539,15 +540,15 @@ namespace Recurly
             {
                 Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
                     url,
-                    request.WriteConvertTrialXml, 
+                    request.WriteConvertTrialXml,
                     ReadXml);
             }
         }
-            
+
         public void ConvertTrialMoto() {
             var request = new Subscription() {
                 TransactionType = "moto"
-            };  
+            };
             ConvertTrial(request);
         }
 
@@ -848,6 +849,10 @@ namespace Recurly
                         TaxRate = reader.ReadElementContentAsDecimal();
                         break;
 
+                    case "tax_inclusive":
+                        TaxInclusive = reader.ReadElementContentAsBoolean();
+                        break;
+
                     case "customer_notes":
                         CustomerNotes = reader.ReadElementContentAsString();
                         break;
@@ -1064,6 +1069,11 @@ namespace Recurly
                 xmlWriter.WriteElementString("imported_trial", ImportedTrial.Value.ToString().ToLower());
             }
 
+            if (TaxInclusive.HasValue)
+            {
+                xmlWriter.WriteElementString("tax_inclusive", TaxInclusive.Value.ToString().ToLower());
+            }
+
             if (RevenueScheduleType.HasValue)
                 xmlWriter.WriteElementString("revenue_schedule_type", RevenueScheduleType.Value.ToString().EnumNameToTransportCase());
 
@@ -1096,12 +1106,12 @@ namespace Recurly
             if (TransactionType != null) {
                 xmlWriter.WriteElementString("transaction_type", TransactionType);
             }
-            
+
             if (Account != null) {
                 xmlWriter.WriteStartElement("account");
                 if (Account.BillingInfo != null)
                     Account.BillingInfo.WriteXml(xmlWriter);
-            }    
+            }
             xmlWriter.WriteEndElement(); // End: subscription
         }
 
