@@ -49,6 +49,7 @@ namespace Recurly
         public int TotalInCents { get; protected set; }
         public string Currency { get; set; }
         public bool? TaxExempt { get; set; }
+        public bool? TaxInclusive { get; set; }
         public string TaxCode { get; set; }
         public RevenueSchedule? RevenueScheduleType { get; set; }
 
@@ -89,10 +90,10 @@ namespace Recurly
 
         internal Adjustment()
         {
-            
+
         }
 
-        internal Adjustment(string accountCode, string description, string currency, int unitAmountInCents, int quantity, string accountingCode = null, bool? taxExempt = null)
+        internal Adjustment(string accountCode, string description, string currency, int unitAmountInCents, int quantity, string accountingCode = null, bool? taxExempt = null, bool? taxInclusive = null)
         {
             AccountCode = accountCode;
             Description = description;
@@ -101,6 +102,7 @@ namespace Recurly
             Quantity = quantity;
             AccountingCode = accountingCode;
             TaxExempt = taxExempt;
+            TaxInclusive = taxInclusive;
             State = AdjustmentState.Pending;
 
             if (!AccountingCode.IsNullOrEmpty() && AccountingCode.Length > AccountingCodeMaxLength)
@@ -134,7 +136,7 @@ namespace Recurly
 
         /// <summary>
         /// Deletes an adjustment from an account.
-        /// 
+        ///
         /// Adjustments can only be deleted when not invoiced
         /// </summary>
         public void Delete()
@@ -223,6 +225,10 @@ namespace Recurly
                         TaxExempt = reader.ReadElementContentAsBoolean();
                         break;
 
+                    case "tax_inclusive":
+                        TaxInclusive = reader.ReadElementContentAsBoolean();
+                        break;
+
                     case "tax_code":
                         TaxCode = reader.ReadElementContentAsString();
                         break;
@@ -250,7 +256,7 @@ namespace Recurly
                     case "start_date":
                         DateTime startDate;
                         if (DateTime.TryParse(reader.ReadElementContentAsString(), out startDate))
-                            StartDate = startDate;                        
+                            StartDate = startDate;
                         break;
 
                     case "end_date":
@@ -317,6 +323,8 @@ namespace Recurly
                 xmlWriter.WriteElementString("accounting_code", AccountingCode);
             if (TaxExempt.HasValue)
                 xmlWriter.WriteElementString("tax_exempt", TaxExempt.Value.AsString());
+            if (TaxInclusive.HasValue)
+                xmlWriter.WriteElementString("tax_inclusive", TaxInclusive.Value.AsString());
             if (!embedded)
                 xmlWriter.WriteElementString("currency", Currency);
             if (RevenueScheduleType.HasValue)
