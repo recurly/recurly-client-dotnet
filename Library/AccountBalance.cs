@@ -12,6 +12,7 @@ namespace Recurly
     {
         public bool PastDue { get; internal set; }
         public Dictionary<string, int> BalanceInCents = new Dictionary<string, int>();
+        public Dictionary<string, int> ProcessingPrepaymentBalanceInCents = new Dictionary<string, int>();
         private const string UrlPrefix = "/accounts/";
 
         public static AccountBalance Get(string accountCode)
@@ -55,6 +56,18 @@ namespace Recurly
                             if (reader.NodeType == XmlNodeType.Element)
                             {
                                 BalanceInCents.Add(reader.Name, reader.ReadElementContentAsInt());
+                            }
+                        }
+                        break;
+                    case "processing_prepayment_balance_in_cents":
+                        while (reader.Read())
+                        {
+                            if (reader.Name == "processing_prepayment_balance_in_cents" && reader.NodeType == XmlNodeType.EndElement)
+                                break;
+
+                            if (reader.NodeType == XmlNodeType.Element)
+                            {
+                                ProcessingPrepaymentBalanceInCents.Add(reader.Name, reader.ReadElementContentAsInt());
                             }
                         }
                         break;
