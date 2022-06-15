@@ -23,5 +23,9 @@ namespace Recurly.Resources
         [JsonProperty("currency")]
         public string Currency { get; set; }
 
+        /// <value>Total amount for the prepayment credit invoices in a `processing` state on the account.</value>
+        [JsonProperty("processing_prepayment_amount")]
+        public decimal? ProcessingPrepaymentAmount { get; set; }
+
     }
 }
