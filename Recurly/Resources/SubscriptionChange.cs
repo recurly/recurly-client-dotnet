@@ -79,7 +79,7 @@ namespace Recurly.Resources
         [JsonProperty("subscription_id")]
         public string SubscriptionId { get; set; }
 
-        /// <value>Determines whether or not tax is included in the unit amount. The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing feature) must be enabled to use this flag.</value>
+        /// <value>This field is deprecated. Please do not use it.</value>
         [JsonProperty("tax_inclusive")]
         public bool? TaxInclusive { get; set; }
 
