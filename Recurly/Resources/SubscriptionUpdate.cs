@@ -69,7 +69,7 @@ namespace Recurly.Resources
         [JsonProperty("shipping")]
         public SubscriptionShippingUpdate Shipping { get; set; }
 
-        /// <value>This field is deprecated. Do not use it anymore to update a subscription's tax inclusivity. Use the POST subscription change route instead.</value>
+        /// <value>This field is deprecated. Please do not use it.</value>
         [JsonProperty("tax_inclusive")]
         public bool? TaxInclusive { get; set; }
 

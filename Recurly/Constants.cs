@@ -330,6 +330,9 @@ namespace Recurly
             [EnumMember(Value = "nl-NL")]
             NlNl,
 
+            [EnumMember(Value = "pl-PL")]
+            PlPl,
+
             [EnumMember(Value = "pt-BR")]
             PtBr,
 
@@ -344,6 +347,9 @@ namespace Recurly
 
             [EnumMember(Value = "sk-SK")]
             SkSk,
+
+            [EnumMember(Value = "sv-SE")]
+            SvSe,
 
             [EnumMember(Value = "tr-TR")]
             TrTr,
@@ -1991,6 +1997,9 @@ namespace Recurly
 
             [EnumMember(Value = "cpf")]
             Cpf,
+
+            [EnumMember(Value = "cnpj")]
+            Cnpj,
 
             [EnumMember(Value = "cuit")]
             Cuit,
