@@ -20,4 +20,4 @@ mkdir -p ./dist/lib/net47
 cp ./Library/bin/Release/* ./dist/lib/net47/
 cd dist
 nuget pack recurly.nuspec
-NUGET_TOKEN="$api_token" nuget push recurly-api-client.*.nupkg -Source https://api.nuget.org/v3/index.json
+nuget push recurly-api-client.*.nupkg -ApiKey "$api_token" -Source https://api.nuget.org/v3/index.json
