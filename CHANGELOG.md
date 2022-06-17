@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.0.0](https://github.com/recurly/recurly-client-dotnet/tree/2.0.0) (2022-06-17)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.14...2.0.0)
+
+
+
+
+
 ## [1.17.14](https://github.com/recurly/recurly-client-dotnet/tree/1.17.14) (2022-03-03)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.13...1.17.14)
@@ -240,10 +248,10 @@
 
 **Merged Pull Requests**
 
-- Bump to version 1.16.0 [#431](https://github.com/recurly/recurly-client-dotnet/pull/431) ([aaron-suarez](https://github.com/aaron-suarez))
-- Add missing properties to XML serializer for Adjustment class [#427](https://github.com/recurly/recurly-client-dotnet/pull/427) ([aaron-suarez](https://github.com/aaron-suarez))
-- Only send Address object if Address properties were changed [#426](https://github.com/recurly/recurly-client-dotnet/pull/426) ([aaron-suarez](https://github.com/aaron-suarez))
-- Fix timeoutMilliseconds when using config file [#420](https://github.com/recurly/recurly-client-dotnet/pull/420) ([aaron-suarez](https://github.com/aaron-suarez))
+- Bump to version 1.16.0 [#431](https://github.com/recurly/recurly-client-dotnet/pull/431) ([aaron-junot](https://github.com/aaron-junot))
+- Add missing properties to XML serializer for Adjustment class [#427](https://github.com/recurly/recurly-client-dotnet/pull/427) ([aaron-junot](https://github.com/aaron-junot))
+- Only send Address object if Address properties were changed [#426](https://github.com/recurly/recurly-client-dotnet/pull/426) ([aaron-junot](https://github.com/aaron-junot))
+- Fix timeoutMilliseconds when using config file [#420](https://github.com/recurly/recurly-client-dotnet/pull/420) ([aaron-junot](https://github.com/aaron-junot))
 
 **Closed Issues**
 
@@ -257,9 +265,9 @@
 
 **Merged Pull Requests**
 
-- Release version 1.15.8 [#423](https://github.com/recurly/recurly-client-dotnet/pull/423) ([aaron-suarez](https://github.com/aaron-suarez))
+- Release version 1.15.8 [#423](https://github.com/recurly/recurly-client-dotnet/pull/423) ([aaron-junot](https://github.com/aaron-junot))
 - Accommodate null value in Bank Account Type [#422](https://github.com/recurly/recurly-client-dotnet/pull/422) ([tardomatic](https://github.com/tardomatic))
-- Add 3DS tokens to transaction error and billing info [#415](https://github.com/recurly/recurly-client-dotnet/pull/415) ([aaron-suarez](https://github.com/aaron-suarez))
+- Add 3DS tokens to transaction error and billing info [#415](https://github.com/recurly/recurly-client-dotnet/pull/415) ([aaron-junot](https://github.com/aaron-junot))
 
 
 
@@ -270,7 +278,7 @@
 
 **Merged Pull Requests**
 
-- Bump to version 1.15.7 [#416](https://github.com/recurly/recurly-client-dotnet/pull/416) ([aaron-suarez](https://github.com/aaron-suarez))
+- Bump to version 1.15.7 [#416](https://github.com/recurly/recurly-client-dotnet/pull/416) ([aaron-junot](https://github.com/aaron-junot))
 - Allow programmer to change the PlanCode [#414](https://github.com/recurly/recurly-client-dotnet/pull/414) ([bhelx](https://github.com/bhelx))
 
 
@@ -282,7 +290,7 @@
 
 **Merged Pull Requests**
 
-- Release version 1.15.6 [#400](https://github.com/recurly/recurly-client-dotnet/pull/400) ([aaron-suarez](https://github.com/aaron-suarez))
+- Release version 1.15.6 [#400](https://github.com/recurly/recurly-client-dotnet/pull/400) ([aaron-junot](https://github.com/aaron-junot))
 - Add a Timeout Configuration. [#395](https://github.com/recurly/recurly-client-dotnet/pull/395) ([caleb-conner](https://github.com/caleb-conner))
 
 
@@ -294,8 +302,8 @@
 
 **Merged Pull Requests**
 
-- Bump to version 1.15.5 [#394](https://github.com/recurly/recurly-client-dotnet/pull/394) ([aaron-suarez](https://github.com/aaron-suarez))
-- Add ForceCollect [#393](https://github.com/recurly/recurly-client-dotnet/pull/393) ([aaron-suarez](https://github.com/aaron-suarez))
+- Bump to version 1.15.5 [#394](https://github.com/recurly/recurly-client-dotnet/pull/394) ([aaron-junot](https://github.com/aaron-junot))
+- Add ForceCollect [#393](https://github.com/recurly/recurly-client-dotnet/pull/393) ([aaron-junot](https://github.com/aaron-junot))
 - Update issue templates [#389](https://github.com/recurly/recurly-client-dotnet/pull/389) ([bhelx](https://github.com/bhelx))
 
 
@@ -307,8 +315,8 @@
 
 **Merged Pull Requests**
 
-- Bump to version 1.15.4 [#387](https://github.com/recurly/recurly-client-dotnet/pull/387) ([aaron-suarez](https://github.com/aaron-suarez))
-- Add PersonalMessage to XML read and write [#386](https://github.com/recurly/recurly-client-dotnet/pull/386) ([aaron-suarez](https://github.com/aaron-suarez))
+- Bump to version 1.15.4 [#387](https://github.com/recurly/recurly-client-dotnet/pull/387) ([aaron-junot](https://github.com/aaron-junot))
+- Add PersonalMessage to XML read and write [#386](https://github.com/recurly/recurly-client-dotnet/pull/386) ([aaron-junot](https://github.com/aaron-junot))
 
 
 
@@ -319,8 +327,8 @@
 
 **Merged Pull Requests**
 
-- Release version 1.15.3 / API version 2.19 [#382](https://github.com/recurly/recurly-client-dotnet/pull/382) ([aaron-suarez](https://github.com/aaron-suarez))
-- Fix Subscription Change issues regarding AddOns [#381](https://github.com/recurly/recurly-client-dotnet/pull/381) ([aaron-suarez](https://github.com/aaron-suarez))
+- Release version 1.15.3 / API version 2.19 [#382](https://github.com/recurly/recurly-client-dotnet/pull/382) ([aaron-junot](https://github.com/aaron-junot))
+- Fix Subscription Change issues regarding AddOns [#381](https://github.com/recurly/recurly-client-dotnet/pull/381) ([aaron-junot](https://github.com/aaron-junot))
 
 **Closed Issues**
 
@@ -334,7 +342,7 @@
 
 **Merged Pull Requests**
 
-- Release version 1.15.2 / API version 2.18 [#378](https://github.com/recurly/recurly-client-dotnet/pull/378) ([aaron-suarez](https://github.com/aaron-suarez))
+- Release version 1.15.2 / API version 2.18 [#378](https://github.com/recurly/recurly-client-dotnet/pull/378) ([aaron-junot](https://github.com/aaron-junot))
 
 
 
@@ -345,8 +353,8 @@
 
 **Merged Pull Requests**
 
-- Release version 1.15.1 [#377](https://github.com/recurly/recurly-client-dotnet/pull/377) ([aaron-suarez](https://github.com/aaron-suarez))
-- Fix issue when usage_percentage is null [#376](https://github.com/recurly/recurly-client-dotnet/pull/376) ([aaron-suarez](https://github.com/aaron-suarez))
+- Release version 1.15.1 [#377](https://github.com/recurly/recurly-client-dotnet/pull/377) ([aaron-junot](https://github.com/aaron-junot))
+- Fix issue when usage_percentage is null [#376](https://github.com/recurly/recurly-client-dotnet/pull/376) ([aaron-junot](https://github.com/aaron-junot))
 
 **Closed Issues**
 
@@ -360,13 +368,13 @@
 
 **Merged Pull Requests**
 
-- Release Version 1.15.0 [#374](https://github.com/recurly/recurly-client-dotnet/pull/374) ([aaron-suarez](https://github.com/aaron-suarez))
-- Fix upgrade notes for version 1.14.0 [#373](https://github.com/recurly/recurly-client-dotnet/pull/373) ([aaron-suarez](https://github.com/aaron-suarez))
+- Release Version 1.15.0 [#374](https://github.com/recurly/recurly-client-dotnet/pull/374) ([aaron-junot](https://github.com/aaron-junot))
+- Fix upgrade notes for version 1.14.0 [#373](https://github.com/recurly/recurly-client-dotnet/pull/373) ([aaron-junot](https://github.com/aaron-junot))
 - Transaction error [#372](https://github.com/recurly/recurly-client-dotnet/pull/372) ([PashaSk](https://github.com/PashaSk))
-- Fix extra written elements and add error details to RecurlyException [#368](https://github.com/recurly/recurly-client-dotnet/pull/368) ([aaron-suarez](https://github.com/aaron-suarez))
-- Remove broken test for ExemptionCertificate [#365](https://github.com/recurly/recurly-client-dotnet/pull/365) ([aaron-suarez](https://github.com/aaron-suarez))
-- Add SubscriptionChange class [#363](https://github.com/recurly/recurly-client-dotnet/pull/363) ([aaron-suarez](https://github.com/aaron-suarez))
-- Add Framework and OS to user agent [#361](https://github.com/recurly/recurly-client-dotnet/pull/361) ([aaron-suarez](https://github.com/aaron-suarez))
+- Fix extra written elements and add error details to RecurlyException [#368](https://github.com/recurly/recurly-client-dotnet/pull/368) ([aaron-junot](https://github.com/aaron-junot))
+- Remove broken test for ExemptionCertificate [#365](https://github.com/recurly/recurly-client-dotnet/pull/365) ([aaron-junot](https://github.com/aaron-junot))
+- Add SubscriptionChange class [#363](https://github.com/recurly/recurly-client-dotnet/pull/363) ([aaron-junot](https://github.com/aaron-junot))
+- Add Framework and OS to user agent [#361](https://github.com/recurly/recurly-client-dotnet/pull/361) ([aaron-junot](https://github.com/aaron-junot))
 
 **Closed Issues**
 
@@ -382,13 +390,13 @@
 
 **Merged Pull Requests**
 
-- Release version 2.14.1 / API version 2.17 [#364](https://github.com/recurly/recurly-client-dotnet/pull/364) ([aaron-suarez](https://github.com/aaron-suarez))
-- Make UTC explicit in Subscription.Postpone [#362](https://github.com/recurly/recurly-client-dotnet/pull/362) ([aaron-suarez](https://github.com/aaron-suarez))
-- Add methods for working with Shipping Addresses [#360](https://github.com/recurly/recurly-client-dotnet/pull/360) ([aaron-suarez](https://github.com/aaron-suarez))
-- Add EnterOfflinePayment method to Invoice [#359](https://github.com/recurly/recurly-client-dotnet/pull/359) ([aaron-suarez](https://github.com/aaron-suarez))
-- Add custom fields to WriteChangeSubscriptionXml [#358](https://github.com/recurly/recurly-client-dotnet/pull/358) ([aaron-suarez](https://github.com/aaron-suarez))
-- Remove examples.md file [#357](https://github.com/recurly/recurly-client-dotnet/pull/357) ([aaron-suarez](https://github.com/aaron-suarez))
-- Add missing values to WriteChangeSubscriptionXml() [#352](https://github.com/recurly/recurly-client-dotnet/pull/352) ([aaron-suarez](https://github.com/aaron-suarez))
+- Release version 2.14.1 / API version 2.17 [#364](https://github.com/recurly/recurly-client-dotnet/pull/364) ([aaron-junot](https://github.com/aaron-junot))
+- Make UTC explicit in Subscription.Postpone [#362](https://github.com/recurly/recurly-client-dotnet/pull/362) ([aaron-junot](https://github.com/aaron-junot))
+- Add methods for working with Shipping Addresses [#360](https://github.com/recurly/recurly-client-dotnet/pull/360) ([aaron-junot](https://github.com/aaron-junot))
+- Add EnterOfflinePayment method to Invoice [#359](https://github.com/recurly/recurly-client-dotnet/pull/359) ([aaron-junot](https://github.com/aaron-junot))
+- Add custom fields to WriteChangeSubscriptionXml [#358](https://github.com/recurly/recurly-client-dotnet/pull/358) ([aaron-junot](https://github.com/aaron-junot))
+- Remove examples.md file [#357](https://github.com/recurly/recurly-client-dotnet/pull/357) ([aaron-junot](https://github.com/aaron-junot))
+- Add missing values to WriteChangeSubscriptionXml() [#352](https://github.com/recurly/recurly-client-dotnet/pull/352) ([aaron-junot](https://github.com/aaron-junot))
 - modified Error classes to have at least one public constructor [#350](https://github.com/recurly/recurly-client-dotnet/pull/350) ([stweedie](https://github.com/stweedie))
 
 **Closed Issues**
@@ -405,12 +413,12 @@
 
 **Merged Pull Requests**
 
-- Bump to version 1.14.0 / API version 2.16 [#351](https://github.com/recurly/recurly-client-dotnet/pull/351) ([aaron-suarez](https://github.com/aaron-suarez))
+- Bump to version 1.14.0 / API version 2.16 [#351](https://github.com/recurly/recurly-client-dotnet/pull/351) ([aaron-junot](https://github.com/aaron-junot))
 - Update integration tests to for credit memos [#349](https://github.com/recurly/recurly-client-dotnet/pull/349) ([bhelx](https://github.com/bhelx))
 - Changes to Invoice Refunds needed for credit memos [#347](https://github.com/recurly/recurly-client-dotnet/pull/347) ([bhelx](https://github.com/bhelx))
-- Change line endings [#346](https://github.com/recurly/recurly-client-dotnet/pull/346) ([aaron-suarez](https://github.com/aaron-suarez))
-- Change formatting of Usage dates in WriteXML to match Recurly format [#345](https://github.com/recurly/recurly-client-dotnet/pull/345) ([aaron-suarez](https://github.com/aaron-suarez))
-- Make GiftCard RedeemedAt, DeliveredAt and CanceledAt nullable [#343](https://github.com/recurly/recurly-client-dotnet/pull/343) ([aaron-suarez](https://github.com/aaron-suarez))
+- Change line endings [#346](https://github.com/recurly/recurly-client-dotnet/pull/346) ([aaron-junot](https://github.com/aaron-junot))
+- Change formatting of Usage dates in WriteXML to match Recurly format [#345](https://github.com/recurly/recurly-client-dotnet/pull/345) ([aaron-junot](https://github.com/aaron-junot))
+- Make GiftCard RedeemedAt, DeliveredAt and CanceledAt nullable [#343](https://github.com/recurly/recurly-client-dotnet/pull/343) ([aaron-junot](https://github.com/aaron-junot))
 
 **Closed Issues**
 
@@ -429,11 +437,11 @@
 
 **Merged Pull Requests**
 
-- Bump to version 1.13.1 / API version 2.15 [#342](https://github.com/recurly/recurly-client-dotnet/pull/342) ([aaron-suarez](https://github.com/aaron-suarez))
-- Fix Compiler Warnings [#341](https://github.com/recurly/recurly-client-dotnet/pull/341) ([aaron-suarez](https://github.com/aaron-suarez))
+- Bump to version 1.13.1 / API version 2.15 [#342](https://github.com/recurly/recurly-client-dotnet/pull/342) ([aaron-junot](https://github.com/aaron-junot))
+- Fix Compiler Warnings [#341](https://github.com/recurly/recurly-client-dotnet/pull/341) ([aaron-junot](https://github.com/aaron-junot))
 - We don't really need this versioned. Let us finally remove it [#340](https://github.com/recurly/recurly-client-dotnet/pull/340) ([bhelx](https://github.com/bhelx))
-- Ensure that net47 folder exists [#339](https://github.com/recurly/recurly-client-dotnet/pull/339) ([aaron-suarez](https://github.com/aaron-suarez))
-- Add tokenization support for billing info [#335](https://github.com/recurly/recurly-client-dotnet/pull/335) ([aaron-suarez](https://github.com/aaron-suarez))
+- Ensure that net47 folder exists [#339](https://github.com/recurly/recurly-client-dotnet/pull/339) ([aaron-junot](https://github.com/aaron-junot))
+- Add tokenization support for billing info [#335](https://github.com/recurly/recurly-client-dotnet/pull/335) ([aaron-junot](https://github.com/aaron-junot))
 
 **Closed Issues**
 
@@ -451,12 +459,12 @@
 - Add clean and release scripts [#336](https://github.com/recurly/recurly-client-dotnet/pull/336) ([bhelx](https://github.com/bhelx))
 - API version 2.14 changes [#334](https://github.com/recurly/recurly-client-dotnet/pull/334) ([bhelx](https://github.com/bhelx))
 - Bump 1.13.0 [#333](https://github.com/recurly/recurly-client-dotnet/pull/333) ([bhelx](https://github.com/bhelx))
-- Fix integration tests so they all pass [#332](https://github.com/recurly/recurly-client-dotnet/pull/332) ([aaron-suarez](https://github.com/aaron-suarez))
-- Allow test script to run a single method [#330](https://github.com/recurly/recurly-client-dotnet/pull/330) ([aaron-suarez](https://github.com/aaron-suarez))
-- Add ability to update an invoice [#329](https://github.com/recurly/recurly-client-dotnet/pull/329) ([aaron-suarez](https://github.com/aaron-suarez))
-- Allow updating custom fields through /notes endpoint [#328](https://github.com/recurly/recurly-client-dotnet/pull/328) ([aaron-suarez](https://github.com/aaron-suarez))
+- Fix integration tests so they all pass [#332](https://github.com/recurly/recurly-client-dotnet/pull/332) ([aaron-junot](https://github.com/aaron-junot))
+- Allow test script to run a single method [#330](https://github.com/recurly/recurly-client-dotnet/pull/330) ([aaron-junot](https://github.com/aaron-junot))
+- Add ability to update an invoice [#329](https://github.com/recurly/recurly-client-dotnet/pull/329) ([aaron-junot](https://github.com/aaron-junot))
+- Allow updating custom fields through /notes endpoint [#328](https://github.com/recurly/recurly-client-dotnet/pull/328) ([aaron-junot](https://github.com/aaron-junot))
 - Upgrade .NET 4.7 and scripts folder [#327](https://github.com/recurly/recurly-client-dotnet/pull/327) ([bhelx](https://github.com/bhelx))
-- Remove reference to unused ruleset [#326](https://github.com/recurly/recurly-client-dotnet/pull/326) ([aaron-suarez](https://github.com/aaron-suarez))
+- Remove reference to unused ruleset [#326](https://github.com/recurly/recurly-client-dotnet/pull/326) ([aaron-junot](https://github.com/aaron-junot))
 
 
 
@@ -658,7 +666,7 @@
 
 ## [1.9.0](https://github.com/recurly/recurly-client-dotnet/tree/1.9.0) (2017-12-01)
 
-[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.8.1...1.9.0)
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.5.3...1.9.0)
 
 
 **Merged Pull Requests**
@@ -669,20 +677,6 @@
 - Make optional ints nullable [#263](https://github.com/recurly/recurly-client-dotnet/pull/263) ([bhelx](https://github.com/bhelx))
 - Fix creation of an empty invoice when InvoiceList is empty [#260](https://github.com/recurly/recurly-client-dotnet/pull/260) ([igor-shevchenko](https://github.com/igor-shevchenko))
 - Add missing 'DinersClub' credit card type [#258](https://github.com/recurly/recurly-client-dotnet/pull/258) ([igor-shevchenko](https://github.com/igor-shevchenko))
-
-**Closed Issues**
-
-- revenue_schedule_type spelled incorrectly [#259](https://github.com/recurly/recurly-client-dotnet/issues/259)
-- 'DinersClub' credit card type missing from enum [#255](https://github.com/recurly/recurly-client-dotnet/issues/255)
-
-
-## [1.8.1](https://github.com/recurly/recurly-client-dotnet/tree/1.8.1) (2017-11-08)
-
-[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.5.3...1.8.1)
-
-
-**Merged Pull Requests**
-
 - Bump 1.8.0 [#254](https://github.com/recurly/recurly-client-dotnet/pull/254) ([bhelx](https://github.com/bhelx))
 - Implements missing `revenue_schedule_type` [#253](https://github.com/recurly/recurly-client-dotnet/pull/253) ([bhelx](https://github.com/bhelx))
 - Make TrialRequiresBillingInfo an optional [#252](https://github.com/recurly/recurly-client-dotnet/pull/252) ([bhelx](https://github.com/bhelx))
@@ -700,15 +694,33 @@
 
 **Closed Issues**
 
+- revenue_schedule_type spelled incorrectly [#259](https://github.com/recurly/recurly-client-dotnet/issues/259)
+- Missing source code for version 1.3.2 [#257](https://github.com/recurly/recurly-client-dotnet/issues/257)
+- 'DinersClub' credit card type missing from enum [#255](https://github.com/recurly/recurly-client-dotnet/issues/255)
 - NullReferenceException when trying to GetSubscriptions() [#238](https://github.com/recurly/recurly-client-dotnet/issues/238)
 - Error in readme sample [#237](https://github.com/recurly/recurly-client-dotnet/issues/237)
 
 
 ## [1.5.3](https://github.com/recurly/recurly-client-dotnet/tree/1.5.3) (2017-11-09)
 
-[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.7.1...1.5.3)
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.8.1...1.5.3)
 
 
+
+
+
+## [1.8.1](https://github.com/recurly/recurly-client-dotnet/tree/1.8.1) (2017-11-08)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.7.1...1.8.1)
+
+
+**Merged Pull Requests**
+
+- Bump 1.8.0 [#254](https://github.com/recurly/recurly-client-dotnet/pull/254) ([bhelx](https://github.com/bhelx))
+- Implements missing `revenue_schedule_type` [#253](https://github.com/recurly/recurly-client-dotnet/pull/253) ([bhelx](https://github.com/bhelx))
+- Make TrialRequiresBillingInfo an optional [#252](https://github.com/recurly/recurly-client-dotnet/pull/252) ([bhelx](https://github.com/bhelx))
+- Update the README with `Overview` section [#251](https://github.com/recurly/recurly-client-dotnet/pull/251) ([bhelx](https://github.com/bhelx))
+- Adds giftcard redeem endpoint [#250](https://github.com/recurly/recurly-client-dotnet/pull/250) ([bhelx](https://github.com/bhelx))
 
 
 
