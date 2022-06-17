@@ -1,8 +1,8 @@
 # Changelog
 
-## [2.0.0](https://github.com/recurly/recurly-client-dotnet/tree/2.0.0) (2022-06-17)
+## [2.0.1](https://github.com/recurly/recurly-client-dotnet/tree/2.0.1) (2022-06-17)
 
-[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.14...2.0.0)
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.14...2.0.1)
 
 
 
