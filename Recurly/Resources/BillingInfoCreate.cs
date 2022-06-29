@@ -36,6 +36,11 @@ namespace Recurly.Resources
         [JsonProperty("backup_payment_method")]
         public bool? BackupPaymentMethod { get; set; }
 
+
+        [JsonProperty("card_type")]
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.CardType? CardType { get; set; }
+
         /// <value>Company name</value>
         [JsonProperty("company")]
         public string Company { get; set; }
