@@ -159,6 +159,10 @@ namespace Recurly.Resources
         [JsonProperty("subtotal")]
         public float? Subtotal { get; set; }
 
+        /// <value>Determines whether or not tax is included in the unit amount. The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing feature) must be enabled to utilize this flag.</value>
+        [JsonProperty("tax_inclusive")]
+        public bool? TaxInclusive { get; set; }
+
         /// <value>Terms and conditions</value>
         [JsonProperty("terms_and_conditions")]
         public string TermsAndConditions { get; set; }
