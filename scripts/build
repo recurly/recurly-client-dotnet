@@ -3,9 +3,5 @@ set -e
 
 CONFIGURATION=${1:-Debug}
 
-if [ ! -d "testrunner" ]; then
-  nuget restore Recurly.sln
-  nuget install xunit.runner.console -Version 2.4.0 -OutputDirectory testrunner
-fi
-
-msbuild /p:Configuration=$CONFIGURATION Recurly.sln
+dotnet restore Recurly.sln
+dotnet build /p:Configuration=$CONFIGURATION Recurly.sln

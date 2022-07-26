@@ -14,10 +14,10 @@ if [ -z "$api_token" ]; then
 fi
 
 
-./scripts/clean
-./scripts/build Release
-mkdir -p ./dist/lib/net47
-cp ./Library/bin/Release/* ./dist/lib/net47/
-cd dist
-nuget pack recurly.nuspec
-nuget push recurly-api-client.*.nupkg -ApiKey "$api_token" -Source https://api.nuget.org/v3/index.json
+#clean
+./clean
+
+#publish
+dotnet pack -c Release
+dotnet build -c Release
+dotnet nuget push "$(pwd)"/Library/bin/Release/Recurly.*.nupkg -s https://api.nuget.org/v3/index.json -k "$api_token"
