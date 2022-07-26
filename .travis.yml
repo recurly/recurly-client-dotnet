@@ -1,10 +1,14 @@
 language: csharp
-dist: trusty
-mono: 5.10.1
-solution: Recurly.sln
+# dist: trusty
+mono: none
+dotnet: 5.0
+# solution: Recurly.sln
 install:
-  - nuget restore Recurly.sln
-  - nuget install xunit.runner.console -Version 2.4.0 -OutputDirectory testrunner
+  # - dotnet restore Recurly.sln
+  # - dpkg --purge packages-microsoft-prod && dpkg -i packages-microsoft-prod.deb
+  - sudo apt-get update && sudo apt-get upgrade
+  - sudo apt-get install -y libssl-dev mono-devel
 script:
-  - xbuild /p:Configuration=Release Recurly.sln
-  - ./scripts/test -R
+  - dotnet restore Recurly.sln
+  - dotnet build /p:Configuration=Release Recurly.sln
+  - ./scripts/test --configuration Release

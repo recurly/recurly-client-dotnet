@@ -1,45 +1,15 @@
 #!/usr/bin/env bash
 set -e
 
-usage () {
-  echo "Supported Options:"
-  echo
-  echo "  -R     Use the Release build configuration (Debug is used by default)."
-  echo "  -r     Output test results to test-report.html file."
-  echo "  -c     Test class to run. Cannot be used with -m option."
-  echo "  -m     Test method to run. Cannot be used with -c option."
-  echo "  -h     Print this help."
-  echo
-  echo "Example:"
-  echo "  ./scripts/test -m SettingsTest.ValidDomainTest"
-  echo "  ./scripts/test -c SettingsTest -r"
-}
+# all options just a passthrough for `dotnet test` options
+# https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-test
 
-config="Debug"
-
-options=':Rrc:m:h'
-while getopts $options option
-do
-    case "$option" in
-        R) config="Release";;
-        r) report="-html test-report.html";;
-        c) test_class="-class Recurly.Test.$OPTARG";;
-        m) test_method="-method Recurly.Test.$OPTARG";;
-        h) usage; exit;;
-        \?) echo "Unknown option: -$OPTARG" >&2; exit 1;;
-        :) echo "Missing option argument for -$OPTARG" >&2; exit 1;;
-    esac
-done
-
-if [ -n "$test_method" ] && [ -n "$test_class" ]; then
-  echo "The -c and -m options cannot be used together"
-  echo
-  usage
-  exit 1
-fi
-
+# leaving here for later github action configuration
 if [[ -z "${TRAVIS}" ]]; then
   ./scripts/build $config
 fi
 
-mono ./testrunner/xunit.runner.console.2.4.0/tools/net472/xunit.console.exe ./Test/bin/$config/Recurly.Test.dll $report $test_class $test_method
+# e.g. to output test run to html:
+# ./scripts/test --logger html
+
+dotnet test Test/Recurly.Test.csproj "$@"

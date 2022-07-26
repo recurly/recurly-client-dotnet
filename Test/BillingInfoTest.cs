@@ -131,7 +131,8 @@ namespace Recurly.Test
                 bacsInfo.Create();
             } catch (ValidationException exception) {
                 threw = true;
-                exception.Errors[0].Symbol.Should().Be("card_type_not_accepted");
+                // exception.Errors[0].Symbol.Should().Be("card_type_not_accepted");
+                exception.Errors[0].Symbol.Should().Be("direct_debit_type_not_accepted");
             }
             threw.Should().Be(true);
         }
@@ -156,7 +157,8 @@ namespace Recurly.Test
                 becsInfo.Create();
             } catch (ValidationException exception) {
                 threw = true;
-                exception.Errors[0].Symbol.Should().Be("card_type_not_accepted");
+                // exception.Errors[0].Symbol.Should().Be("card_type_not_accepted");
+                exception.Errors[0].Symbol.Should().Be("direct_debit_type_not_accepted");
             }
             threw.Should().Be(true);
         }

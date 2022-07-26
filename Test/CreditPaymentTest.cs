@@ -15,7 +15,7 @@ namespace Recurly.Test
       var cancelledCollection = Purchase.Cancel(transactionUuid);
       var creditPaymentUuid = CreditPayments.List(FilterCriteria.Instance.WithSort(FilterCriteria.Sort.CreatedAt)).First().Uuid;
       var creditPayment = CreditPayments.Get(creditPaymentUuid);
-      Assert.Equal(creditPayment.AmountInCents, 629);
+      Assert.Equal(creditPayment.AmountInCents, 630);
     }
   }
 }
