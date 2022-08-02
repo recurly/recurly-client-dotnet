@@ -79,6 +79,10 @@ namespace Recurly.Resources
         [JsonProperty("quantity")]
         public int? Quantity { get; set; }
 
+        /// <value>The new set of ramp intervals for the subscription.</value>
+        [JsonProperty("ramp_intervals")]
+        public List<SubscriptionRampInterval> RampIntervals { get; set; }
+
         /// <value>If `auto_renew=true`, when a term completes, `total_billing_cycles` takes this value as the length of subsequent terms. Defaults to the plan's `total_billing_cycles`.</value>
         [JsonProperty("renewal_billing_cycles")]
         public int? RenewalBillingCycles { get; set; }
