@@ -48,6 +48,7 @@ namespace Recurly
         public string AccountCode { get; private set; }
         public string Id { get; private set; }
         public string FirstName { get; set; }
+        public string Username { get; set; }
         public string LastName { get; set; }
         public string MandateReference { get; set; }
         public string Address1 { get; set; }
@@ -320,6 +321,10 @@ namespace Recurly
                     case "first_name":
                         FirstName = reader.ReadElementContentAsString();
                         break;
+                    
+                    case "username":
+                        Username = reader.ReadElementContentAsString();
+                        break;
 
                     case "last_name":
                         LastName = reader.ReadElementContentAsString();
@@ -492,6 +497,7 @@ namespace Recurly
             if (string.IsNullOrEmpty(TokenId))
             {
                 xmlWriter.WriteStringIfValid("first_name", FirstName);
+                xmlWriter.WriteStringIfValid("username", Username);
                 xmlWriter.WriteStringIfValid("last_name", LastName);
                 xmlWriter.WriteStringIfValid("mandate_reference", MandateReference);
                 xmlWriter.WriteStringIfValid("company", Company);
