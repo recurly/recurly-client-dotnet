@@ -79,6 +79,7 @@ namespace Recurly.Test
                 adjustment.Create();
                 var collection = acct.InvoicePendingCharges();
                 var invoice = collection.ChargeInvoice;
+                System.Threading.Thread.Sleep(1000); // Sleep hack to avoid simultaneous_request errors
                 invoice.MarkFailed();
             }
 
