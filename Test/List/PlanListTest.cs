@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using Xunit;
+using System.Linq;
 
 namespace Recurly.Test
 {
@@ -15,6 +16,22 @@ namespace Recurly.Test
 
             var plans = Plans.List();
             plans.Should().NotBeEmpty();
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void ListPlansWithRampIntervals()
+        {
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName()) { Description = "Test Plan List with Ramps" };
+            plan.SetupFeeInCents.Add("USD", 0);
+            plan.PricingModel = PricingModelType.Ramp;
+            plan.RampIntervals = GetMockRampIntervals(3);
+            plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
+
+            var plans = Plans.List();
+            var rampPlan = plans.FirstOrDefault(p => p.PricingModel == PricingModelType.Ramp);
+            rampPlan.Should().NotBeNull();
+            rampPlan.RampIntervals.Count.Should().Be(3);
         }
 
         [Fact(Skip = "utility, for cleaning up test data; may no longer be necessary")]
