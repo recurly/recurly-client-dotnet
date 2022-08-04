@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using FluentAssertions;
 using Xunit;
+using System.Linq;
 
 namespace Recurly.Test
 {
@@ -25,6 +27,106 @@ namespace Recurly.Test
             fromService.UnitAmountInCents.Should().Contain("USD", 100);
             fromService.Description.Should().Be("Test Lookup");
             Assert.True(plan.TaxExempt.Value);
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void LookupPlanWithRamps()
+        {
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName()) { Description = "Test Ramp Lookup" };
+            plan.SetupFeeInCents.Add("USD", 0);
+            plan.PricingModel = PricingModelType.Ramp;
+            plan.RampIntervals = GetMockRampIntervals(3);
+
+            plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
+
+            var fromService = Plans.Get(plan.PlanCode);
+            fromService.PricingModel.Should().Be(PricingModelType.Ramp);
+            fromService.RampIntervals.Count.Should().Be(3);
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void LookupPlanWithRampsMultiCurrency()
+        {
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName()) { Description = "Test Create Multicurrency Plan with Ramps" };
+            plan.SetupFeeInCents.Add("USD", 0);
+
+            plan.PricingModel = PricingModelType.Ramp;
+            plan.RampIntervals = GetMockRampIntervalsMultiCurrency(3);
+
+            plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
+
+            var fromService = Plans.Get(plan.PlanCode);
+            fromService.PricingModel.Should().Be(PricingModelType.Ramp);
+            fromService.RampIntervals[0].Currencies.Count.Should().Be(2);
+            fromService.RampIntervals[1].Currencies.Count.Should().Be(2);
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void CreatePlanWithRamps()
+        {
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName()) { Description = "Test Create Plan with Ramps" };
+            plan.TaxExempt = true;
+            plan.PlanIntervalLength = 12;
+            plan.PlanIntervalUnit = Plan.IntervalUnit.Months;
+            plan.SetupFeeInCents.Add("USD", 0);
+            plan.PricingModel = PricingModelType.Ramp;
+            plan.RampIntervals = GetMockRampIntervals(2);
+
+            plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
+
+            var fromService = Plans.Get(plan.PlanCode);
+            fromService.PricingModel.Should().Be(PricingModelType.Ramp);
+            var firstRamp = fromService.RampIntervals[0];
+            var secondRamp = fromService.RampIntervals[1];
+
+            firstRamp.StartingBillingCycle.Should().Be(1);
+            firstRamp.Currencies.First().Currency.Should().Be("USD");
+            firstRamp.Currencies.First().UnitAmountInCents.Should().Be(200);
+            secondRamp.StartingBillingCycle.Should().Be(3);
+            secondRamp.Currencies.First().Currency.Should().Be("USD");
+            secondRamp.Currencies.First().UnitAmountInCents.Should().Be(400);
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void UpdatePlanWithRamps()
+        {
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName()) { Description = "Test Update Plan with Ramps" };
+            plan.SetupFeeInCents.Add("USD", 0);
+            plan.PricingModel = PricingModelType.Ramp;
+            plan.RampIntervals = GetMockRampIntervals(2);
+            plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
+
+            plan.RampIntervals = GetMockRampIntervalsMultiCurrency(4);
+            plan.Update();
+
+            var updatedPlan = Plans.Get(plan.PlanCode);
+            updatedPlan.PricingModel.Should().Be(PricingModelType.Ramp);
+            updatedPlan.RampIntervals.Count.Should().Be(4);
+
+            updatedPlan.RampIntervals.ForEach(
+                ramp => ramp.Currencies.Count.Should().Be(2)
+            );
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void FixedPricingModelPlan()
+        {
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName()) { Description = "Test Fixed Plan Lookup" };
+            plan.SetupFeeInCents.Add("USD", 0);
+            plan.UnitAmountInCents.Add("USD", 500);
+            plan.TaxExempt = false;
+            plan.PlanIntervalLength = 12;
+            plan.PlanIntervalUnit = Plan.IntervalUnit.Months;
+
+            plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
+
+            var fromService = Plans.Get(plan.PlanCode);
+            fromService.PricingModel.Should().Be(PricingModelType.Fixed);
         }
 
         [RecurlyFact(TestEnvironment.Type.Integration)]

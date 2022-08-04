@@ -173,6 +173,64 @@ namespace Recurly.Test
             return name + " " + DateTime.Now.ToString("yyyyMMddhhmmFFFFFFF");
         }
 
+        public List<PlanRampInterval> GetMockRampIntervals(int numberOfRamps)
+        {
+            var rampIntervals = new List<PlanRampInterval>();
+
+            for (int i = 0; i < numberOfRamps; i++)
+            {
+                var rampInterval = new PlanRampInterval()
+                {
+                    StartingBillingCycle = (i == 0) ? 1 : i + 2,
+                    Currencies = new List<PlanRampPricing>
+                    {
+                        new PlanRampPricing()
+                        {
+                            Currency = "USD",
+                            UnitAmountInCents = (numberOfRamps * 100) * (i + 1)
+                        }
+                    }
+                };
+                rampIntervals.Add(rampInterval);
+            }
+
+            return rampIntervals;
+        }
+
+        public List<PlanRampInterval> GetMockRampIntervalsMultiCurrency(int numberOfRamps)
+        {
+            var rampIntervals = new List<PlanRampInterval>();
+
+            for (int i = 0; i < numberOfRamps; i++)
+            {
+                var currencies = new List<PlanRampPricing>();
+                var currency1 = new PlanRampPricing()
+                {
+                    Currency = "USD",
+                    UnitAmountInCents = (numberOfRamps * 100) * (i + 1)
+                };
+
+                currencies.Add(currency1);
+
+                var currency2 = new PlanRampPricing()
+                {
+                    Currency = "EUR",
+                    UnitAmountInCents = (numberOfRamps * 200) * (i + 1)
+                };
+
+                currencies.Add(currency2);
+
+                var rampInterval = new PlanRampInterval()
+                {
+                    StartingBillingCycle = (i == 0) ? 1 : i + 2,
+                    Currencies = currencies
+                };
+                rampIntervals.Add(rampInterval);
+            }
+
+            return rampIntervals;
+        }
+
         public string GetMockMeasuredUnitName(string name = "Test Measured Unit")
         {
             return name + " " + DateTime.Now.ToString("yyyyMMddhhmmFFFFFFF");

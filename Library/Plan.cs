@@ -78,6 +78,22 @@ namespace Recurly
             }
         }
 
+        /// <summary>
+        /// The pricing model type for the plan.  Can be a 'fixed' price plan or a 'ramp' priced plan
+        /// </summary>
+        public PricingModelType? PricingModel { get; set; }
+
+        /// <summary>
+        /// The ramp intervals representing the pricing schedule for the subscription
+        /// </summary>
+        public List<PlanRampInterval> RampIntervals
+        {
+            get { return _rampIntervals ?? (_rampIntervals = new List<PlanRampInterval>()); }
+            set { _rampIntervals = value; }
+        }
+
+        private List<PlanRampInterval> _rampIntervals;
+
         private Dictionary<string, int> _unitAmountInCents;
         /// <summary>
         /// A dictionary of currencies and values for the subscription amount
@@ -233,10 +249,26 @@ namespace Recurly
             }
         }
 
+        internal void ReadXmlRampIntervals(XmlTextReader reader)
+        {
+            while (reader.Read())
+            {
+                if ((reader.Name == "ramp_intervals") &&
+                    reader.NodeType == XmlNodeType.EndElement)
+                    break;
+
+                if (reader.NodeType == XmlNodeType.Element && reader.Name == "ramp_interval")
+                {
+                    RampIntervals.Add(new PlanRampInterval(reader));
+                }
+            }
+        }
+
         internal override void ReadXml(XmlTextReader reader)
         {
             UnitAmountInCents.Clear();
             SetupFeeInCents.Clear();
+            RampIntervals.Clear();
 
             while (reader.Read())
             {
@@ -352,6 +384,14 @@ namespace Recurly
                         ReadXmlSetupFee(reader);
                         break;
 
+                    case "pricing_model":
+                        PricingModel = reader.ReadElementContentAsString().ParseAsEnum<PricingModelType>();
+                        break;
+
+                    case "ramp_intervals":
+                        ReadXmlRampIntervals(reader);
+                        break;
+
                     case "total_billing_cycles":
                         int totalBillingCycles;
                         if (int.TryParse(reader.ReadElementContentAsString(), out totalBillingCycles))
@@ -448,6 +488,19 @@ namespace Recurly
 
             if (AutoRenew.HasValue)
                 xmlWriter.WriteElementString("auto_renew", AutoRenew.Value.AsString());
+
+            if (PricingModel.HasValue)
+                xmlWriter.WriteElementString("pricing_model", PricingModel.ToString().EnumNameToTransportCase());
+
+            if (RampIntervals.HasAny())
+            {
+                xmlWriter.WriteStartElement("ramp_intervals");
+                foreach (var ramp in _rampIntervals)
+                {
+                    ramp.WriteXml(xmlWriter);
+                }
+                xmlWriter.WriteEndElement();
+            }
 
             xmlWriter.WriteEndElement();
         }
