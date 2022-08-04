@@ -4,11 +4,6 @@ set -e
 # all options just a passthrough for `dotnet test` options
 # https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-test
 
-# leaving here for later github action configuration
-if [[ -z "${TRAVIS}" ]]; then
-  ./scripts/build $config
-fi
-
 # e.g. to output test run to html:
 # ./scripts/test --logger html
 

@@ -1,0 +1,29 @@
+name: CI
+on: [push]
+concurrency: 
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Dotnet ${{ matrix.dotnet }} tests
+    strategy:
+      matrix:
+        dotnet: [5.0.x]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: ${{ matrix.dotnet }}
+      - run: ./scripts/build Release
+      - run: ./scripts/test /p:Configuration=Release
+  buildall:
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    name: Build (matrix)
+    needs: build
+    steps:
+      - name: Check build matrix status
+        if: ${{ needs.build.result != 'success' }}
+        run: exit 1

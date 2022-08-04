@@ -222,6 +222,7 @@ namespace Recurly.Test
             Assert.Equal(1, invoice.Adjustments.Count);
 
             // refund
+            System.Threading.Thread.Sleep(1000); // Sleep hack to avoid simultaneous_request errors
             var refundInvoice = invoice.Refund(adjustment, false);
             Assert.NotEqual(invoice.Uuid, refundInvoice.Uuid);
             Assert.Equal(-3999, refundInvoice.SubtotalInCents);
@@ -276,13 +277,13 @@ namespace Recurly.Test
             var invoice = collection.ChargeInvoice;
             invoice.MarkSuccessful();
 
-            System.Threading.Thread.Sleep(2000); // hack
 
             Assert.Equal(2, invoice.Adjustments.Count);
             Assert.Equal(1, invoice.Transactions.Count);
             Assert.Equal(7, invoice.Transactions[0].AmountInCents);
 
             // refund
+            System.Threading.Thread.Sleep(1000); // Sleep hack to avoid simultaneous_request errors
             var refundInvoice = invoice.Refund(invoice.Adjustments);
             Assert.NotEqual(invoice.Uuid, refundInvoice.Uuid);
             Assert.Equal(-5, refundInvoice.SubtotalInCents);
@@ -304,6 +305,8 @@ namespace Recurly.Test
             var collection = account.InvoicePendingCharges();
             var invoice = collection.ChargeInvoice;
             invoice.MarkSuccessful();
+
+
             invoice.State.Should().Be(Invoice.InvoiceState.Paid);
             Assert.Equal(1, invoice.Adjustments.Count);
 
@@ -315,6 +318,7 @@ namespace Recurly.Test
               Method = Invoice.RefundMethod.AllTransaction
             };
 
+            System.Threading.Thread.Sleep(1000); // Sleep hack to avoid simultaneous_request errors
             var refundInvoice = invoice.RefundAmount(100, refundOptions); // 1 dollar
             Assert.NotEqual(invoice.Uuid, refundInvoice.Uuid);
 
@@ -332,6 +336,8 @@ namespace Recurly.Test
             var collection = account.InvoicePendingCharges();
             var invoice = collection.ChargeInvoice;
             invoice.MarkSuccessful();
+
+
             invoice.State.Should().Be(Invoice.InvoiceState.Paid);
             Assert.Equal(2, invoice.Adjustments.Count);
 
@@ -344,6 +350,7 @@ namespace Recurly.Test
             };
 
             adjustment = invoice.Adjustments[0];
+            System.Threading.Thread.Sleep(1000); // Sleep hack to avoid simultaneous_request errors
             var refundInvoice = invoice.Refund(adjustment, refundOptions);
             Assert.NotEqual(invoice.Uuid, refundInvoice.Uuid);
             Assert.Equal(1, refundInvoice.Adjustments.Count);
