@@ -202,7 +202,7 @@ namespace Recurly.Test
         public const string FullLinkHeader = @"<https://your-subdomain.recurly.com/v2/transactions>; rel=""start"",
   <https://your-subdomain.recurly.com/v2/transactions?cursor=-1318344434>; rel=""prev"",
   <https://your-subdomain.recurly.com/v2/transactions?cursor=1318388868>; rel=""next""";
-  
+
         public const string LinkHeaderOnlyNext = "<https://your-subdomain.recurly.com/v2/transactions?cursor=1318388868>; rel=\"next\"";
 
         [Theory,

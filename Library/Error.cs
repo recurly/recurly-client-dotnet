@@ -91,8 +91,8 @@ namespace Recurly
 
         internal static Error[] ParseErrors(XmlTextReader xmlReader)
         {
- 
-            var errors = new List<Error>();                  
+
+            var errors = new List<Error>();
             bool list = false;
 
             while (xmlReader.Read())
@@ -107,7 +107,7 @@ namespace Recurly
                     errors.Add(new Error(xmlReader, list));
             }
 
-            return errors.ToArray();          
+            return errors.ToArray();
         }
 
         /// <summary>

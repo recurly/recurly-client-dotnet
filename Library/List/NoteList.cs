@@ -6,7 +6,7 @@ namespace Recurly
     {
         public NoteList(string baseUrl) : base(Client.HttpRequestMethod.Get, baseUrl)
         {
-            
+
         }
 
         public override RecurlyList<Note> Start

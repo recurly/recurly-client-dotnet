@@ -11,7 +11,7 @@ namespace Recurly
     /// </summary>
     public class InvoiceCollection : RecurlyEntity
     {
-       
+
         /// <summary>
         /// The invoice associated with charges.
         /// </summary>
@@ -49,7 +49,7 @@ namespace Recurly
                         var invoice = new Invoice();
                         invoice.ReadXml(reader, "charge_invoice");
                         ChargeInvoice = invoice;
-                        break;                    
+                        break;
                     case "credit_invoices":
                         var invoices = new InvoiceList();
                         invoices.ReadXml(reader, "credit_invoices", "credit_invoice");
@@ -64,7 +64,7 @@ namespace Recurly
             throw new NotImplementedException();
         }
 
-       
+
         #endregion
 
 

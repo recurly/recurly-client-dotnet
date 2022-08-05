@@ -49,7 +49,7 @@ namespace Recurly.Configuration
         /// <summary>
         /// Default Page Size or limit to the number of results returned at a time
         /// </summary>
-        [ConfigurationProperty("pageSize", IsRequired = false, DefaultValue=200)]
+        [ConfigurationProperty("pageSize", IsRequired = false, DefaultValue = 200)]
         public int PageSize
         {
             get { return (int)base["pageSize"]; }
@@ -59,13 +59,13 @@ namespace Recurly.Configuration
         /// <summary>
         /// Default request timeout
         /// </summary>
-        [ConfigurationProperty("timeoutMilliseconds", IsRequired = false, DefaultValue=60000)]
+        [ConfigurationProperty("timeoutMilliseconds", IsRequired = false, DefaultValue = 60000)]
         public int? TimeoutMilliseconds
         {
             get { return (int)base["timeoutMilliseconds"]; }
             set { base["timeoutMilliseconds"] = value; }
         }
-      
+
         #endregion
     }
 }

@@ -81,7 +81,7 @@ namespace Recurly
                 DateTime dateVal;
 
                 switch (reader.Name)
-                {                
+                {
                     case "email_address":
                         EmailAddress = reader.ReadElementContentAsString();
                         break;
@@ -97,7 +97,7 @@ namespace Recurly
                     case "gifter_name":
                         GifterName = reader.ReadElementContentAsString();
                         break;
-                    
+
                     case "personal_message":
                         PersonalMessage = reader.ReadElementContentAsString();
                         break;
@@ -106,7 +106,7 @@ namespace Recurly
                         if (DateTime.TryParse(reader.ReadElementContentAsString(), out dateVal))
                             DeliverAt = dateVal;
                         break;
-                    
+
                     case "method":
                         Method = reader.ReadElementContentAsString().ParseAsEnum<DeliveryMethod>();
                         break;
@@ -131,7 +131,7 @@ namespace Recurly
 
             if (DeliverAt.HasValue)
                 xmlWriter.WriteStringIfValid("deliver_at", DeliverAt.Value.ToString("s"));
-            
+
             if (Address != null)
                 Address.WriteXml(xmlWriter);
 

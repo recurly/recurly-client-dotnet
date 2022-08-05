@@ -137,7 +137,8 @@ namespace Recurly
 #endif
             var request = (HttpWebRequest)WebRequest.Create(url);
 
-            if (!request.RequestUri.Host.EndsWith(Settings.ValidDomain)) {
+            if (!request.RequestUri.Host.EndsWith(Settings.ValidDomain))
+            {
                 throw new RecurlyException("Domain " + request.RequestUri.Host + " is not a valid Recurly domain");
             }
 
@@ -375,7 +376,8 @@ namespace Recurly
                     next = link.GetUrlFromLinkHeader("next");
                     prev = link.GetUrlFromLinkHeader("prev");
                     readXmlListDelegate(xmlReader, start, next, prev);
-                } else if (readXmlListDelegate != null)
+                }
+                else if (readXmlListDelegate != null)
                 {
                     readXmlListDelegate(xmlReader, start, next, prev);
                 }

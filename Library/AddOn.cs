@@ -14,7 +14,7 @@ namespace Recurly
 
         public string PlanCode { get; set; }
         public string AddOnCode { get; set; }
-        public string ItemCode {get; set; }
+        public string ItemCode { get; set; }
         public string Name { get; set; }
         public string ExternalSku { get; private set; }
         public int? DefaultQuantity { get; set; }
@@ -25,26 +25,28 @@ namespace Recurly
         public long? MeasuredUnitId { get; set; }
         public Type? AddOnType { get; set; }
         public Usage.Type? UsageType { get; set; }
-        public float? UsagePercentage {get; set; }
+        public float? UsagePercentage { get; set; }
         public DateTime CreatedAt { get; private set; }
         public DateTime UpdatedAt { get; private set; }
         public Adjustment.RevenueSchedule? RevenueScheduleType { get; set; }
         public string ItemState { get; private set; }
         public string UsageTimeframe { get; set; }
         private string _tierType;
-        public string TierType { 
-          get
-          {
-            return (_tierType == null) ? "flat" : _tierType;
-          }
-          set {
-            _tierType = value;
-          }
+        public string TierType
+        {
+            get
+            {
+                return (_tierType == null) ? "flat" : _tierType;
+            }
+            set
+            {
+                _tierType = value;
+            }
         }
 
-        private List<Tier> _tiers; 
+        private List<Tier> _tiers;
 
-        private List<CurrencyPercentageTier> _currencyPercentageTiers; 
+        private List<CurrencyPercentageTier> _currencyPercentageTiers;
 
         /// <summary>
         /// List of tiers for this add-on
@@ -115,13 +117,17 @@ namespace Recurly
         /// <summary>
         /// Update an existing add on in Recurly
         /// </summary>
-        public void Update() {
-            if (this.ItemState == null) {
+        public void Update()
+        {
+            if (this.ItemState == null)
+            {
                 Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
                     UrlPrefix + Uri.EscapeDataString(PlanCode) + UrlPostfix + Uri.EscapeDataString(AddOnCode),
                     WriteXml,
                     ReadXml);
-            } else {
+            }
+            else
+            {
                 Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
                     UrlPrefix + Uri.EscapeDataString(PlanCode) + UrlPostfix + Uri.EscapeDataString(AddOnCode),
                     WriteItemBackedUpdateXml,
@@ -170,7 +176,7 @@ namespace Recurly
                     case "add_on_code":
                         AddOnCode = reader.ReadElementContentAsString();
                         break;
-                    
+
                     case "item_code":
                         ItemCode = reader.ReadElementContentAsString();
                         break;
@@ -220,7 +226,8 @@ namespace Recurly
                         break;
 
                     case "usage_percentage":
-                        if (reader.GetAttribute("nil") == null) {
+                        if (reader.GetAttribute("nil") == null)
+                        {
                             UsagePercentage = reader.ReadElementContentAsFloat();
                         }
                         break;
@@ -238,7 +245,7 @@ namespace Recurly
                     case "external_sku":
                         ExternalSku = reader.ReadElementContentAsString();
                         break;
-                        
+
                     case "tier_type":
                         TierType = reader.ReadElementContentAsString();
                         break;
@@ -303,7 +310,8 @@ namespace Recurly
             xmlWriter.WriteEndElement();
         }
 
-        internal void WriteItemBackedUpdateXml(XmlTextWriter xmlWriter) {
+        internal void WriteItemBackedUpdateXml(XmlTextWriter xmlWriter)
+        {
             xmlWriter.WriteStartElement("add_on");
 
             if (DefaultQuantity.HasValue)

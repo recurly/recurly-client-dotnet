@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using FluentAssertions;
 using Xunit;
-using System.Linq;
 
 namespace Recurly.Test
 {
@@ -11,7 +11,7 @@ namespace Recurly.Test
         [RecurlyFact(TestEnvironment.Type.Integration)]
         public void LookupPlan()
         {
-            var plan = new Plan(GetMockPlanCode(), GetMockPlanName()) {Description = "Test Lookup"};
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName()) { Description = "Test Lookup" };
             plan.UnitAmountInCents.Add("USD", 100);
             plan.TaxExempt = true;
             plan.TotalBillingCycles = 6;
@@ -214,7 +214,7 @@ namespace Recurly.Test
         [RecurlyFact(TestEnvironment.Type.Integration)]
         public void UpdatePlan()
         {
-            var plan = new Plan(GetMockPlanCode(), GetMockPlanName()) {Description = "Test Update"};
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName()) { Description = "Test Update" };
             plan.UnitAmountInCents.Add("USD", 100);
             plan.Create();
             PlansToDeactivateOnDispose.Add(plan);
@@ -235,7 +235,7 @@ namespace Recurly.Test
         public void DeactivatePlan()
         {
             // Arrange
-            var plan = new Plan(GetMockPlanCode(), GetMockPlanName()) {Description = "Test Delete"};
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName()) { Description = "Test Delete" };
             plan.UnitAmountInCents.Add("USD", 100);
             plan.Create();
             PlansToDeactivateOnDispose.Add(plan);

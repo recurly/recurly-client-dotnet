@@ -15,7 +15,7 @@ namespace Recurly
         /// Unique ID assigned to this gift card.
         /// </summary>
         public long Id { get; private set; }
-        
+
         private string _accountCode;
         private Account _account;
 
@@ -104,7 +104,7 @@ namespace Recurly
         /// </summary>
         public DateTime? DeliveredAt { get; private set; }
 
-        
+
         private String _purchaseInvoiceId;
         private Invoice _purchaseInvoice;
 
@@ -169,7 +169,7 @@ namespace Recurly
             RedemptionCode = redemptionCode;
         }
 
-        internal GiftCard() {}
+        internal GiftCard() { }
 
         internal GiftCard(XmlTextReader xmlReader)
         {
@@ -240,7 +240,7 @@ namespace Recurly
                         if (long.TryParse(reader.ReadElementContentAsString(), out id))
                             Id = id;
                         break;
-                        
+
                     case "product_code":
                         ProductCode = reader.ReadElementContentAsString();
                         break;

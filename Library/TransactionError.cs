@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Xml;
-using System.Linq;
 
 namespace Recurly
 {
@@ -23,7 +23,8 @@ namespace Recurly
                 if (Enum.TryParse(ErrorCode, out errorEnum))
                 {
                     return errorEnum;
-                } else
+                }
+                else
                 {
                     return TransactionErrorCodeEnum.not_recognized;
                 }
@@ -92,7 +93,7 @@ namespace Recurly
 
         public override string ToString()
         {
-            return String.Concat(this.GetType().GetProperties().Select(i=>$"{i.Name}: \"{i.GetValue(this, null)}\" "));
+            return String.Concat(this.GetType().GetProperties().Select(i => $"{i.Name}: \"{i.GetValue(this, null)}\" "));
         }
 
         internal static TransactionError ReadResponseAndParseError(HttpWebResponse response)

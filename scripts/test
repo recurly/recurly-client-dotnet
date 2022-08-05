@@ -1,4 +1,14 @@
 #!/usr/bin/env bash
+
+# First check formatting
+echo "Checking style..."
+if ./scripts/format --check; then
+  echo "Style check passed"
+else
+  echo "Code does not conform to style guide. To autoformat, run './scripts/format'."
+  exit 1
+fi
+
 set -e
 
 # all options just a passthrough for `dotnet test` options
@@ -8,3 +18,4 @@ set -e
 # ./scripts/test --logger html
 
 dotnet test Test/Recurly.Test.csproj "$@"
+

@@ -8,11 +8,12 @@ using System.Xml;
 
 namespace Recurly
 {
-    public class MeasuredUnit : RecurlyEntity {
+    public class MeasuredUnit : RecurlyEntity
+    {
 
         public string DisplayName { get; set; }
         public string Description { get; set; }
-        public string Name { get; set; } 
+        public string Name { get; set; }
         public long Id { get; private set; }
 
         internal const string UrlPrefix = "/measured_units/";
@@ -86,7 +87,7 @@ namespace Recurly
                     case "id":
                         Id = Convert.ToInt64(reader.ReadElementContentAsString());
                         break;
-             
+
                     case "display_name":
                         DisplayName = reader.ReadElementContentAsString();
                         break;
@@ -109,7 +110,7 @@ namespace Recurly
             xmlWriter.WriteElementString("name", Name);
             xmlWriter.WriteElementString("display_name", DisplayName);
             xmlWriter.WriteStringIfValid("description", Description);
-  
+
             xmlWriter.WriteEndElement();
         }
 

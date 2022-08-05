@@ -13,7 +13,7 @@ namespace Recurly.Test.Fixtures
             if (name.IsNullOrEmpty())
                 throw new ArgumentNullException("name");
 
-            if(!Enum.IsDefined(typeof(FixtureType), type))
+            if (!Enum.IsDefined(typeof(FixtureType), type))
                 throw new InvalidEnumArgumentException("type", (int)type, typeof(FixtureType));
 
             var fixturePath = string.Format("fixtures/{0}/{1}.xml", type, name);
@@ -61,7 +61,7 @@ namespace Recurly.Test.Fixtures
         {
             var split = line.Split(':');
             return new KeyValuePair<string, string>(split[0].SafeTrim(), split[1].SafeTrim());
-        } 
+        }
     }
 
     public enum FixtureType

@@ -12,8 +12,9 @@ namespace Recurly
         internal OpenAmountRefund(int amountInCents, Invoice.RefundMethod method = Invoice.RefundMethod.CreditFirst)
         {
             AmountInCents = amountInCents;
-            RefundOptions = new Invoice.RefundOptions() {
-              Method = method
+            RefundOptions = new Invoice.RefundOptions()
+            {
+                Method = method
             };
         }
 
@@ -35,16 +36,16 @@ namespace Recurly
             writer.WriteElementString("refund_method", RefundOptions.Method.ToString().EnumNameToTransportCase());
 
             if (RefundOptions.ExternalRefund.HasValue)
-              writer.WriteElementString("external_refund", RefundOptions.ExternalRefund.Value.AsString());
+                writer.WriteElementString("external_refund", RefundOptions.ExternalRefund.Value.AsString());
             if (RefundOptions.RefundedAt.HasValue)
-              writer.WriteElementString("refunded_at", RefundOptions.RefundedAt.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ"));
+                writer.WriteElementString("refunded_at", RefundOptions.RefundedAt.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ"));
 
             if (!RefundOptions.Description.IsNullOrEmpty())
-              writer.WriteElementString("description", RefundOptions.Description);
+                writer.WriteElementString("description", RefundOptions.Description);
             if (!RefundOptions.PaymentMethod.IsNullOrEmpty())
-              writer.WriteElementString("payment_method", RefundOptions.PaymentMethod);
+                writer.WriteElementString("payment_method", RefundOptions.PaymentMethod);
             if (!RefundOptions.CreditCustomerNotes.IsNullOrEmpty())
-              writer.WriteElementString("credit_customer_notes", RefundOptions.CreditCustomerNotes);
+                writer.WriteElementString("credit_customer_notes", RefundOptions.CreditCustomerNotes);
 
             writer.WriteEndElement();
         }

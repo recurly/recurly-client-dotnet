@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
 using Xunit;
-using System.Collections.Generic;
 
 namespace Recurly.Test
 {
@@ -123,7 +123,8 @@ namespace Recurly.Test
         [RecurlyFact(TestEnvironment.Type.Integration)]
         public void UpdateAccountWithAdditionalBillingInfo()
         {
-            try {
+            try
+            {
                 var account = CreateNewAccountWithWallet();
                 var billingInfos = account.GetBillingInfos();
                 Assert.True(billingInfos.Count == 3);
@@ -136,8 +137,9 @@ namespace Recurly.Test
             }
             catch (ValidationException e)
             {
-              foreach (var err in e.Errors) {
-                  Console.WriteLine(err);
+                foreach (var err in e.Errors)
+                {
+                    Console.WriteLine(err);
                 }
             }
         }
@@ -227,7 +229,7 @@ namespace Recurly.Test
             updatedShippingAddress.Address2.ShouldBeEquivalentTo("Suite 100");
             var id = updatedShippingAddress.Id;
 
-            account.DeleteShippingAddress((long) id);
+            account.DeleteShippingAddress((long)id);
 
             shippingAddresses = account.GetShippingAddresses();
             shippingAddresses.Should().BeEmpty();

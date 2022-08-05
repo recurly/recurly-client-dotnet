@@ -279,12 +279,12 @@ namespace Recurly
         /// <param name="gatewayCode"></param>
         public void Verify(string gatewayCode = null)
         {
-          var verify = new VerifyBillingInfo(gatewayCode);
-          Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
-              BillingInfoUrl(AccountCode) + "/verify",
-              verify.WriteXml,
-              verify.ReadXml
-          );
+            var verify = new VerifyBillingInfo(gatewayCode);
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
+                BillingInfoUrl(AccountCode) + "/verify",
+                verify.WriteXml,
+                verify.ReadXml
+            );
         }
 
         private static string BillingInfoUrl(string accountCode)
@@ -394,7 +394,7 @@ namespace Recurly
                         if (int.TryParse(reader.ReadElementContentAsString(), out m))
                             ExpirationMonth = m;
                         break;
-                        
+
                     case "first_six":
                         FirstSix = reader.ReadElementContentAsString();
                         break;
@@ -566,7 +566,7 @@ namespace Recurly
 
             xmlWriter.WriteStringIfValid("token_id", TokenId);
             xmlWriter.WriteStringIfValid("three_d_secure_action_result_token_id", ThreeDSecureActionResultTokenId);
-            
+
             if (PrimaryPaymentMethod.HasValue)
                 xmlWriter.WriteElementString("primary_payment_method", PrimaryPaymentMethod.Value.AsString());
 
