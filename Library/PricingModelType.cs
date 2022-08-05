@@ -15,5 +15,5 @@ namespace Recurly
 
         [EnumMember(Value = "ramp")]
         Ramp,
-    } 
+    }
 }

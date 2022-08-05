@@ -177,7 +177,7 @@ namespace Recurly
             var collection = new InvoiceCollection();
 
             Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
-                UrlPrefix, 
+                UrlPrefix,
                 purchase.WriteXml,
                 collection.ReadXml);
 

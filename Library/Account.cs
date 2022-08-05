@@ -314,7 +314,8 @@ namespace Recurly
             var adjustments = new AdjustmentList();
             filter = filter ?? FilterCriteria.Instance;
             var parameters = filter.ToNamedValueCollection();
-            if (type != Adjustment.AdjustmentType.All) {
+            if (type != Adjustment.AdjustmentType.All)
+            {
                 parameters["type"] = type.ToString().EnumNameToTransportCase();
             }
             if (state != Adjustment.AdjustmentState.Any)
@@ -364,7 +365,7 @@ namespace Recurly
         /// Gets a billing info from wallet
         /// </summary>
         /// <returns>BillingInfo</returns>
-        public  BillingInfo GetBillingInfo(string billingInfoUuid)
+        public BillingInfo GetBillingInfo(string billingInfoUuid)
         {
             var billingInfo = new BillingInfo(this);
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
@@ -546,46 +547,46 @@ namespace Recurly
                 UrlPrefix + Uri.EscapeDataString(AccountCode) + "/shipping_addresses/" + shippingAddressId);
         }
 
-      /// <summary>
-      /// Creates a billing info in wallet
-      /// </summary>
-      /// <param name="billingInfo"></param>
-      /// <returns>BillingInfo object</returns>
-      public BillingInfo CreateBillingInfo(BillingInfo billingInfo)
-      {
-        // v2/accounts/:account_code/billing_infos
-          var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
-              UrlPrefix + Uri.EscapeDataString(AccountCode) + "/billing_infos/",
-              billingInfo.WriteXml,
-              billingInfo.ReadXml);
+        /// <summary>
+        /// Creates a billing info in wallet
+        /// </summary>
+        /// <param name="billingInfo"></param>
+        /// <returns>BillingInfo object</returns>
+        public BillingInfo CreateBillingInfo(BillingInfo billingInfo)
+        {
+            // v2/accounts/:account_code/billing_infos
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
+                UrlPrefix + Uri.EscapeDataString(AccountCode) + "/billing_infos/",
+                billingInfo.WriteXml,
+                billingInfo.ReadXml);
 
-          return statusCode == HttpStatusCode.Created ? billingInfo : null;
-      }
+            return statusCode == HttpStatusCode.Created ? billingInfo : null;
+        }
 
-      /// <summary>
-      /// Updates a billing info in wallet
-      /// </summary>
-      /// <param name="billingInfo"></param>
-      /// <returns>BillingInfo object</returns>
-      public BillingInfo UpdateBillingInfo(BillingInfo billingInfo)
-      {
-          var billingInfoId = billingInfo.Id;
-          var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
-              UrlPrefix + Uri.EscapeDataString(AccountCode) + "/billing_infos/" + billingInfoId,
-              billingInfo.WriteXml,
-              billingInfo.ReadXml);
+        /// <summary>
+        /// Updates a billing info in wallet
+        /// </summary>
+        /// <param name="billingInfo"></param>
+        /// <returns>BillingInfo object</returns>
+        public BillingInfo UpdateBillingInfo(BillingInfo billingInfo)
+        {
+            var billingInfoId = billingInfo.Id;
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
+                UrlPrefix + Uri.EscapeDataString(AccountCode) + "/billing_infos/" + billingInfoId,
+                billingInfo.WriteXml,
+                billingInfo.ReadXml);
 
-          return statusCode == HttpStatusCode.OK ? billingInfo : null;
-      }
+            return statusCode == HttpStatusCode.OK ? billingInfo : null;
+        }
 
-      /// <summary>
-      /// Deletes a billing info from wallet
-      /// </summary>
-      public void DeleteBillingInfo(string billingInfoId)
-      {
-          var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Delete,
-              UrlPrefix + Uri.EscapeDataString(AccountCode) + "/billing_infos/" + billingInfoId);
-      }
+        /// <summary>
+        /// Deletes a billing info from wallet
+        /// </summary>
+        public void DeleteBillingInfo(string billingInfoId)
+        {
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Delete,
+                UrlPrefix + Uri.EscapeDataString(AccountCode) + "/billing_infos/" + billingInfoId);
+        }
 
         #region Read and Write XML documents
 
@@ -757,9 +758,10 @@ namespace Recurly
                         if (templateHref.IsNullOrEmpty())
                         {
                             _invoiceTemplateUuid = null;
-                        } else
+                        }
+                        else
                         {
-                          _invoiceTemplateUuid = Uri.UnescapeDataString(templateHref.Substring(templateHref.LastIndexOf("/") + 1));
+                            _invoiceTemplateUuid = Uri.UnescapeDataString(templateHref.Substring(templateHref.LastIndexOf("/") + 1));
                         }
                         break;
                 }
@@ -809,7 +811,7 @@ namespace Recurly
 
             xmlWriter.WriteStringIfValid("exemption_certificate", ExemptionCertificate);
 
-            if(_accountAcquisition != null)
+            if (_accountAcquisition != null)
                 _accountAcquisition.WriteXml(xmlWriter);
 
             if (_billingInfo != null)

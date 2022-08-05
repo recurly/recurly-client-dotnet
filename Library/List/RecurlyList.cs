@@ -21,7 +21,8 @@ namespace Recurly
 
         public int Count
         {
-            get {
+            get
+            {
                 return Items.Count;
             }
         }
@@ -129,7 +130,7 @@ namespace Recurly
         {
             return Items.Contains(value, comparer);
         }
-        internal bool Exists(Predicate <T> match)
+        internal bool Exists(Predicate<T> match)
         {
             return Items.Exists(match);
         }
@@ -248,7 +249,7 @@ namespace Recurly
         public static RecurlyList<T> Instance
         {
             get { return _instance ?? (_instance = new EmptyRecurlyListImpl<T>()); }
-        } 
+        }
     }
 
     internal class EmptyRecurlyListImpl<T> : RecurlyList<T> where T : RecurlyEntity

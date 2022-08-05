@@ -3,5 +3,10 @@ set -e
 
 CONFIGURATION=${1:-Debug}
 
+if ! command -v dotnet-format; then
+  echo "Installing dotnet formatter..."
+  dotnet tool install -g dotnet-format --version 4.0.0
+fi
+
 dotnet restore Recurly.sln
 dotnet build /p:Configuration=$CONFIGURATION Recurly.sln

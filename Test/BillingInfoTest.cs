@@ -101,9 +101,12 @@ namespace Recurly.Test
                 Currency = "USD", // should be "EUR" but test environment does not support multi-currency
             };
             var threw = false;
-            try {
+            try
+            {
                 ibanInfo.Create();
-            } catch (ValidationException exception) {
+            }
+            catch (ValidationException exception)
+            {
                 threw = true;
                 exception.Errors[0].Symbol.Should().Be("direct_debit_type_not_accepted");
                 System.Console.WriteLine(exception);
@@ -127,9 +130,12 @@ namespace Recurly.Test
                 Type = "bacs",
             };
             var threw = false;
-            try {
+            try
+            {
                 bacsInfo.Create();
-            } catch (ValidationException exception) {
+            }
+            catch (ValidationException exception)
+            {
                 threw = true;
                 // exception.Errors[0].Symbol.Should().Be("card_type_not_accepted");
                 exception.Errors[0].Symbol.Should().Be("direct_debit_type_not_accepted");
@@ -153,9 +159,12 @@ namespace Recurly.Test
                 Type = "becs",
             };
             var threw = false;
-            try {
+            try
+            {
                 becsInfo.Create();
-            } catch (ValidationException exception) {
+            }
+            catch (ValidationException exception)
+            {
                 threw = true;
                 // exception.Errors[0].Symbol.Should().Be("card_type_not_accepted");
                 exception.Errors[0].Symbol.Should().Be("direct_debit_type_not_accepted");
@@ -166,15 +175,15 @@ namespace Recurly.Test
         [RecurlyFact(TestEnvironment.Type.Integration)]
         public void VerifyBillingInfo()
         {
-          var accountCode = GetUniqueAccountCode();
-          var info = NewBillingInfo(accountCode);
-          var account = new Account(accountCode, info);
-          account.Create();
+            var accountCode = GetUniqueAccountCode();
+            var info = NewBillingInfo(accountCode);
+            var account = new Account(accountCode, info);
+            account.Create();
 
-          info.Verify();
-          var transaction = Transactions.List().First();
-          Assert.Equal(transaction.Action, Recurly.Transaction.TransactionType.Verify);
-          Assert.Equal(transaction.Origin, "api_verify_card");
+            info.Verify();
+            var transaction = Transactions.List().First();
+            Assert.Equal(transaction.Action, Recurly.Transaction.TransactionType.Verify);
+            Assert.Equal(transaction.Origin, "api_verify_card");
         }
 
         [RecurlyFact(TestEnvironment.Type.Integration)]

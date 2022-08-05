@@ -22,7 +22,7 @@ namespace Recurly
 
         public string State { get; private set; }
 
-        public string SubscriptionUuid {get; set; }
+        public string SubscriptionUuid { get; set; }
 
         internal CouponRedemption(XmlTextReader reader)
             : this()
@@ -41,9 +41,9 @@ namespace Recurly
         /// </summary>
         /// <param name="accountCode"></param>
         /// <param name="currency"></param>
-        internal static CouponRedemption Redeem(string accountCode, string couponCode, string currency, string subscriptionUuid=null)
+        internal static CouponRedemption Redeem(string accountCode, string couponCode, string currency, string subscriptionUuid = null)
         {
-            var cr = new CouponRedemption {AccountCode = accountCode, Currency = currency, SubscriptionUuid = subscriptionUuid};
+            var cr = new CouponRedemption { AccountCode = accountCode, Currency = currency, SubscriptionUuid = subscriptionUuid };
 
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                "/coupons/" + Uri.EscapeDataString(couponCode) + "/redeem",
@@ -95,7 +95,7 @@ namespace Recurly
 
                     case "coupon":
                         href = reader.GetAttribute("href");
-                        CouponCode =Uri.UnescapeDataString( href.Substring(href.LastIndexOf("/") + 1));
+                        CouponCode = Uri.UnescapeDataString(href.Substring(href.LastIndexOf("/") + 1));
                         break;
 
                     case "single_use":
@@ -170,6 +170,6 @@ namespace Recurly
 
         #endregion
 
-        
+
     }
 }

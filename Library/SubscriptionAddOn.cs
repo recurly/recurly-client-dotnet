@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Xml;
-using System.Globalization;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Xml;
 
 namespace Recurly
 {
@@ -16,16 +16,16 @@ namespace Recurly
         public string TierType { get; set; }
         public string UsageTimeframe { get; set; }
 
-        private List<SubscriptionAddOnTier> _tiers; 
+        private List<SubscriptionAddOnTier> _tiers;
 
-        private List<SubscriptionAddOnPercentageTier> _percentageTiers; 
+        private List<SubscriptionAddOnPercentageTier> _percentageTiers;
 
         /// <summary>
         /// List of tiers for this add-on
         /// </summary>
         public List<SubscriptionAddOnTier> Tiers
         {
-            get {return _tiers ?? (_tiers = new List<SubscriptionAddOnTier>()); }
+            get { return _tiers ?? (_tiers = new List<SubscriptionAddOnTier>()); }
             set { _tiers = value; }
         }
 
@@ -34,14 +34,14 @@ namespace Recurly
         /// </summary>
         public List<SubscriptionAddOnPercentageTier> PercentageTiers
         {
-            get {return _percentageTiers ?? (_percentageTiers = new List<SubscriptionAddOnPercentageTier>()); }
+            get { return _percentageTiers ?? (_percentageTiers = new List<SubscriptionAddOnPercentageTier>()); }
             set { _percentageTiers = value; }
         }
 
         public string AddOnSource { get; set; }
 
         #region Constructors
-        
+
         public SubscriptionAddOn(XmlTextReader reader)
         {
             ReadXml(reader);
@@ -75,10 +75,10 @@ namespace Recurly
         // new constructor including add-on source
         public SubscriptionAddOn(string addOnCode, string addOnSource, int unitAmountInCents, int quantity = 1)
         {
-          AddOnCode = addOnCode;
-          AddOnSource = addOnSource;
-          UnitAmountInCents = unitAmountInCents;
-          Quantity = quantity;
+            AddOnCode = addOnCode;
+            AddOnSource = addOnSource;
+            UnitAmountInCents = unitAmountInCents;
+            Quantity = quantity;
         }
 
         #endregion
@@ -174,9 +174,9 @@ namespace Recurly
             writer.WriteStartElement("subscription_add_on");
 
             writer.WriteElementString("add_on_code", AddOnCode);
-            writer.WriteElementString("quantity", Quantity.AsString());			
+            writer.WriteElementString("quantity", Quantity.AsString());
 
-            if(UnitAmountInCents.HasValue)
+            if (UnitAmountInCents.HasValue)
                 writer.WriteElementString("unit_amount_in_cents", UnitAmountInCents.Value.AsString());
 
             if (RevenueScheduleType.HasValue)
@@ -187,7 +187,7 @@ namespace Recurly
 
             if (TierType != null)
                 writer.WriteElementString("tier_type", TierType);
-            
+
             if (UsageTimeframe != null)
                 writer.WriteElementString("usage_timeframe", UsageTimeframe);
 

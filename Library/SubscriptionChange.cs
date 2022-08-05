@@ -140,7 +140,7 @@ namespace Recurly
                 xmlWriter.WriteElementString("renewal_billing_cycles", RenewalBillingCycles.Value.AsString());
 
             if (BillingInfo != null)
-              BillingInfo.WriteXml(xmlWriter);
+                BillingInfo.WriteXml(xmlWriter);
 
             xmlWriter.WriteIfCollectionHasAny("custom_fields", CustomFields);
 

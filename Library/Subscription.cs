@@ -16,18 +16,18 @@ namespace Recurly
         // The currently valid Subscription States
         public enum SubscriptionState : short
         {
-            All      = 0,
-            Active   = 1,
+            All = 0,
+            Active = 1,
             Canceled = 2,
-            Expired  = 4,
-            Future   = 8,
-            InTrial  = 16,
-            Live     = 32,
-            PastDue  = 64,
-            Pending  = 128,
-            Open     = 256,
-            Failed   = 512,
-            Paused   = 1024
+            Expired = 4,
+            Future = 8,
+            InTrial = 16,
+            Live = 32,
+            PastDue = 64,
+            Pending = 128,
+            Open = 256,
+            Failed = 512,
+            Paused = 1024
         }
 
         public enum RefundType : short
@@ -227,16 +227,17 @@ namespace Recurly
         /// </summary>
         public Coupon[] Coupons
         {
-            get {
+            get
+            {
                 if (_coupons == null)
                 {
                     _coupons = new Coupon[_couponCodes.Length];
                 }
 
-                if ( _coupons.Length == 0)
+                if (_coupons.Length == 0)
                 {
 
-                    for (int i = 0; i<_couponCodes.Length; i++)
+                    for (int i = 0; i < _couponCodes.Length; i++)
                     {
                         _coupons[i] = Recurly.Coupons.Get(_couponCodes[i]);
                     }
@@ -244,10 +245,11 @@ namespace Recurly
 
                 return _coupons;
             }
-            set {
+            set
+            {
                 _coupons = value;
                 _couponCodes = new string[_coupons.Length];
-                for (int i = 0; i<_coupons.Length; i++)
+                for (int i = 0; i < _coupons.Length; i++)
                 {
                     _couponCodes[i] = _coupons[i].CouponCode;
                 }
@@ -442,16 +444,19 @@ namespace Recurly
         /// </summary>
         public void Cancel(string timeframe = null)
         {
-          var url = UrlPrefix + Uri.EscapeDataString(Uuid) + "/cancel";
-          if (timeframe == null) {
-            Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
-                url,
-                ReadXml);
-          } else {
-            Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
-                url += "?timeframe=" + timeframe,
-                ReadXml);
-          }
+            var url = UrlPrefix + Uri.EscapeDataString(Uuid) + "/cancel";
+            if (timeframe == null)
+            {
+                Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
+                    url,
+                    ReadXml);
+            }
+            else
+            {
+                Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
+                    url += "?timeframe=" + timeframe,
+                    ReadXml);
+            }
         }
 
         /// <summary>
@@ -545,21 +550,27 @@ namespace Recurly
             }
         }
 
-        public void ConvertTrialMoto() {
-            var request = new Subscription() {
+        public void ConvertTrialMoto()
+        {
+            var request = new Subscription()
+            {
                 TransactionType = "moto"
             };
             ConvertTrial(request);
         }
 
-        public void ConvertTrial(string threeDSecureActionResultTokenId = null) {
+        public void ConvertTrial(string threeDSecureActionResultTokenId = null)
+        {
             Subscription request = null;
 
             if (threeDSecureActionResultTokenId != null)
             {
-                request = new Subscription(){
-                    Account = new Account(){
-                        BillingInfo = new BillingInfo(){
+                request = new Subscription()
+                {
+                    Account = new Account()
+                    {
+                        BillingInfo = new BillingInfo()
+                        {
                             ThreeDSecureActionResultTokenId = threeDSecureActionResultTokenId
                         }
                     }
@@ -1017,7 +1028,8 @@ namespace Recurly
 
             xmlWriter.WriteStringIfValid("coupon_code", _couponCode);
 
-            if (_couponCodes != null && _couponCodes.Length != 0) {
+            if (_couponCodes != null && _couponCodes.Length != 0)
+            {
                 xmlWriter.WriteStartElement("coupon_codes");
                 foreach (var _coupon_code in _couponCodes)
                 {
@@ -1103,11 +1115,13 @@ namespace Recurly
         internal void WriteConvertTrialXml(XmlTextWriter xmlWriter)
         {
             xmlWriter.WriteStartElement("subscription"); // Start: subscription
-            if (TransactionType != null) {
+            if (TransactionType != null)
+            {
                 xmlWriter.WriteElementString("transaction_type", TransactionType);
             }
 
-            if (Account != null) {
+            if (Account != null)
+            {
                 xmlWriter.WriteStartElement("account");
                 if (Account.BillingInfo != null)
                     Account.BillingInfo.WriteXml(xmlWriter);
@@ -1117,7 +1131,7 @@ namespace Recurly
 
         internal Client.WriteXmlDelegate WriteSubscriptionNotesXml(Dictionary<string, string> notes)
         {
-            return delegate(XmlTextWriter xmlWriter)
+            return delegate (XmlTextWriter xmlWriter)
             {
                 xmlWriter.WriteStartElement("subscription"); // Start: subscription
 

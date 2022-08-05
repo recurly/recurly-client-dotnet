@@ -10,7 +10,7 @@ namespace Recurly.Test
         [RecurlyFact(TestEnvironment.Type.Integration)]
         public void ListLiveSubscriptions()
         {
-            var p = new Plan(GetMockPlanCode(), GetMockPlanName()) {Description = "Subscription Test"};
+            var p = new Plan(GetMockPlanCode(), GetMockPlanName()) { Description = "Subscription Test" };
             p.UnitAmountInCents.Add("USD", 200);
             p.Create();
             PlansToDeactivateOnDispose.Add(p);
@@ -187,12 +187,12 @@ namespace Recurly.Test
         [RecurlyFact(TestEnvironment.Type.Integration)]
         public void ListForAccount()
         {
-            var plan1 = new Plan(GetMockPlanCode(), GetMockPlanName()) {Description = "Subscription Test"};
+            var plan1 = new Plan(GetMockPlanCode(), GetMockPlanName()) { Description = "Subscription Test" };
             plan1.UnitAmountInCents.Add("USD", 400);
             plan1.Create();
             PlansToDeactivateOnDispose.Add(plan1);
 
-            var plan2 = new Plan(GetMockPlanCode(), GetMockPlanName()) {Description = "Subscription Test"};
+            var plan2 = new Plan(GetMockPlanCode(), GetMockPlanName()) { Description = "Subscription Test" };
             plan2.UnitAmountInCents.Add("USD", 500);
             plan2.Create();
             PlansToDeactivateOnDispose.Add(plan2);

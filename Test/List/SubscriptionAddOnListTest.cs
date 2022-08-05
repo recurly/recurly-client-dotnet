@@ -17,11 +17,11 @@ namespace Recurly.Test.List
 
             var plan = new Plan(GetMockPlanCode(), "add add on test");
             plan.UnitAmountInCents.Add(USD, 100);
-            
+
             var addOn = plan.NewAddOn("1", "test");
             addOn.UnitAmountInCents.Add(USD, 200);
             addOn.AddOnType = AddOn.Type.Fixed;
-            
+
             var sub = new Subscription(account, plan, GBP);
 
             Action a = () => sub.AddOns.Add(addOn);
@@ -76,7 +76,7 @@ namespace Recurly.Test.List
         [Fact]
         public void AddItemAddOn()
         {
-            var item = new Item(GetMockItemCode(), GetMockItemName()) {Description = "Mock Item"};
+            var item = new Item(GetMockItemCode(), GetMockItemName()) { Description = "Mock Item" };
             item.Description = "A test description";
             item.Create();
 

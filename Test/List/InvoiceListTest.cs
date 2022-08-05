@@ -25,10 +25,12 @@ namespace Recurly.Test
                 }
                 else if (x == 3 || x == 4)
                 {
+                    System.Threading.Thread.Sleep(1000); // Sleep hack to avoid simultaneous_request errors
                     invoice.MarkFailed();
                 }
                 else
                 {
+                    System.Threading.Thread.Sleep(1000); // Sleep hack to avoid simultaneous_request errors
                     invoice.MarkSuccessful();
                 }
             }
@@ -142,6 +144,7 @@ namespace Recurly.Test
 
             collection = account.InvoicePendingCharges(invoiceData);
             invoice = collection.ChargeInvoice;
+            System.Threading.Thread.Sleep(1000); // Sleep hack to avoid simultaneous_request errors
             invoice.MarkFailed();
 
             var list = Invoices.List(account.AccountCode);

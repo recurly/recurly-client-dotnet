@@ -32,7 +32,7 @@ namespace Recurly.Test
         [RecurlyFact(TestEnvironment.Type.Integration)]
         public void CouponsCanBeCreated()
         {
-            var discounts = new Dictionary<string, int> {{"USD", 100}};
+            var discounts = new Dictionary<string, int> { { "USD", 100 } };
             var coupon = new Coupon(GetMockCouponCode(), GetMockCouponName(), discounts)
             {
                 MaxRedemptions = 1
@@ -116,7 +116,7 @@ namespace Recurly.Test
         [RecurlyFact(TestEnvironment.Type.Integration)]
         public void CreateCouponDollars()
         {
-            var discounts = new Dictionary<string, int> {{"USD", 100}, {"EUR", 50}};
+            var discounts = new Dictionary<string, int> { { "USD", 100 }, { "EUR", 50 } };
             var coupon = new Coupon(GetMockCouponCode(), GetMockCouponName(), discounts);
 
             coupon.Create();

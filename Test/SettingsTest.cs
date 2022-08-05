@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Recurly.Configuration;
 using FluentAssertions;
+using Recurly.Configuration;
 using Xunit;
 
 namespace Recurly.Test

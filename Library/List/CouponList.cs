@@ -52,7 +52,7 @@ namespace Recurly
             PerPage = int.Parse(qscoll.Get("per_page"));
 
             BaseUrl = url.Scheme + "://" + url.Host + ":" + url.Port + url.AbsolutePath + "?cursor=" + qscoll.Get("cursor");
-            
+
             GetItems();
         }
     }

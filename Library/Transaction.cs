@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net;
-using System.Xml;
 using System.Text.RegularExpressions;
+using System.Xml;
 
 namespace Recurly
 {
@@ -179,7 +179,7 @@ namespace Recurly
                         if (null != href)
                         {
                             AccountCode = Uri.UnescapeDataString(href.Substring(href.LastIndexOf("/") + 1));
-                        } 
+                        }
                         else
                         {
                             Account = new Account(reader);

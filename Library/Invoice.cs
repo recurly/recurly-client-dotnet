@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Net;
-using System.Xml;
 using System.Collections.Generic;
+using System.Net;
 using System.Text.RegularExpressions;
+using System.Xml;
 
 namespace Recurly
 {
@@ -35,43 +35,44 @@ namespace Recurly
             Manual
         }
 
-        public class RefundOptions {
-          /// <summary>
-          /// If credit line items exist on the invoice, this parameter
-          /// specifies which refund method to use first. Most relevant
-          /// in partial refunds, you can chose to refund credit back
-          /// to the account first or a transaction giving money back to
-          /// the customer first.
-          /// </summary>
-          public RefundMethod Method { get; set; }
+        public class RefundOptions
+        {
+            /// <summary>
+            /// If credit line items exist on the invoice, this parameter
+            /// specifies which refund method to use first. Most relevant
+            /// in partial refunds, you can chose to refund credit back
+            /// to the account first or a transaction giving money back to
+            /// the customer first.
+            /// </summary>
+            public RefundMethod Method { get; set; }
 
-          /// <summary>
-          /// Designates that the refund transactions created are manual.
-          /// </summary>
-          public bool? ExternalRefund { get; set; }
+            /// <summary>
+            /// Designates that the refund transactions created are manual.
+            /// </summary>
+            public bool? ExternalRefund { get; set; }
 
-          /// <summary>
-          /// Customer notes to be applied to the refund credit invoice.
-          /// </summary>
-          public string CreditCustomerNotes { get; set; }
+            /// <summary>
+            /// Customer notes to be applied to the refund credit invoice.
+            /// </summary>
+            public string CreditCustomerNotes { get; set; }
 
-          /// <summary>
-          /// Creates the manual transactions with this payment method.
-          /// Allowed if *external_refund* is true.
-          /// </summary>
-          public string PaymentMethod { get; set; }
+            /// <summary>
+            /// Creates the manual transactions with this payment method.
+            /// Allowed if *external_refund* is true.
+            /// </summary>
+            public string PaymentMethod { get; set; }
 
-          /// <summary>
-          /// Sets this value as the *transaction_note* on the manual transactions
-          /// created. Allowed if *external_refund* is true.
-          /// </summary>
-          public string Description { get; set; }
+            /// <summary>
+            /// Sets this value as the *transaction_note* on the manual transactions
+            /// created. Allowed if *external_refund* is true.
+            /// </summary>
+            public string Description { get; set; }
 
-          /// <summary>
-          /// Sets this value as the *collected_at* on the manual transactions
-          /// created. Allowed if *external_refund* is true.
-          /// </summary>
-          public DateTime? RefundedAt { get; set; }
+            /// <summary>
+            /// Sets this value as the *collected_at* on the manual transactions
+            /// created. Allowed if *external_refund* is true.
+            /// </summary>
+            public DateTime? RefundedAt { get; set; }
         }
 
         public string AccountCode { get; private set; }
@@ -90,7 +91,7 @@ namespace Recurly
         public string Currency { get; protected set; }
         public int? NetTerms
         {
-            get{ return _netTerms; }
+            get { return _netTerms; }
             set { _netTerms = value; _netTermsChanged = true; }
         }
 
@@ -268,21 +269,25 @@ namespace Recurly
         public Invoice ForceCollect(string transactionType = null, BillingInfo billingInfo = null)
         {
             var invoice = new Invoice();
-            if (transactionType == null && billingInfo == null) {
-              Client.Instance.PerformRequest(
-                  Client.HttpRequestMethod.Put,
-                  memberUrl() + "/collect",
-                  invoice.ReadXml);
-            } else {
-              var invoiceReq = new Invoice() {
-                TransactionType = transactionType,
-                BillingInfo = billingInfo
-              };
-              Client.Instance.PerformRequest(
-                  Client.HttpRequestMethod.Put,
-                  memberUrl() + "/collect",
-                  invoiceReq.WriteXmlForceCollect,
-                  invoice.ReadXml);
+            if (transactionType == null && billingInfo == null)
+            {
+                Client.Instance.PerformRequest(
+                    Client.HttpRequestMethod.Put,
+                    memberUrl() + "/collect",
+                    invoice.ReadXml);
+            }
+            else
+            {
+                var invoiceReq = new Invoice()
+                {
+                    TransactionType = transactionType,
+                    BillingInfo = billingInfo
+                };
+                Client.Instance.PerformRequest(
+                    Client.HttpRequestMethod.Put,
+                    memberUrl() + "/collect",
+                    invoiceReq.WriteXmlForceCollect,
+                    invoice.ReadXml);
             }
             return invoice;
         }
@@ -624,7 +629,7 @@ namespace Recurly
 
                     case "address":
                         Address = new Address(reader);
-                        _referenceAddress = (Address) Address.Clone();
+                        _referenceAddress = (Address)Address.Clone();
                         break;
 
                     case "shipping_address":
@@ -680,12 +685,12 @@ namespace Recurly
             }
         }
 
-        internal  void WriteXmlForceCollect(XmlTextWriter xmlWriter)
+        internal void WriteXmlForceCollect(XmlTextWriter xmlWriter)
         {
             xmlWriter.WriteStartElement("invoice"); // Start: invoice
             xmlWriter.WriteElementString("transaction_type", TransactionType);
             if (BillingInfo != null)
-              BillingInfo.WriteXml(xmlWriter);
+                BillingInfo.WriteXml(xmlWriter);
             xmlWriter.WriteStringIfValid("billing_info_uuid", BillingInfoUuid);
             xmlWriter.WriteEndElement(); // End: invoice
         }
