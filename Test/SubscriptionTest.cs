@@ -1,8 +1,8 @@
 ﻿using System;
-using FluentAssertions;
 using System.Collections.Generic;
-using Xunit;
 using System.Linq;
+using FluentAssertions;
+using Xunit;
 
 namespace Recurly.Test
 {
@@ -77,7 +77,7 @@ namespace Recurly.Test
             plan.Create();
             PlansToDeactivateOnDispose.Add(plan);
 
-            var account = CreateNewAccountWithBillingInfo();            
+            var account = CreateNewAccountWithBillingInfo();
             var coup = CreateNewCoupon(3);
             var sub = new Subscription(account, plan, "USD");
             sub.CustomFields.Add(new CustomField("food", "taco"));
@@ -105,7 +105,8 @@ namespace Recurly.Test
         [RecurlyFact(TestEnvironment.Type.Integration)]
         public void CreateSubscriptionWithWallet()
         {
-            try {
+            try
+            {
                 var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
                 {
                     Description = "Create Subscription With Billing Info Uuid Test"
@@ -126,7 +127,7 @@ namespace Recurly.Test
                 account.Address = address;
                 account.Update();
 
-                var binfos = account.GetBillingInfos();           
+                var binfos = account.GetBillingInfos();
                 var sub = new Subscription(account, plan, "USD");
                 sub.BillingInfoUuid = binfos[1].Id;
                 sub.Create();
@@ -136,9 +137,10 @@ namespace Recurly.Test
             }
             catch (ValidationException e)
             {
-                foreach (var err in e.Errors) {
+                foreach (var err in e.Errors)
+                {
                     Console.WriteLine(err);
-                  }
+                }
             }
         }
 

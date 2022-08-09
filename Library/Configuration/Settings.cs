@@ -1,8 +1,8 @@
 using System;
+using System.Globalization;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
-using System.Globalization;
 using Microsoft.Win32;
 
 [assembly: InternalsVisibleTo("Recurly.Test")]
@@ -210,7 +210,8 @@ namespace Recurly.Configuration
         {
             try
             {
-                using (RegistryKey ndpKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32).OpenSubKey("SOFTWARE\\Microsoft\\NET Framework Setup\\NDP\\v4\\Full\\")) {
+                using (RegistryKey ndpKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32).OpenSubKey("SOFTWARE\\Microsoft\\NET Framework Setup\\NDP\\v4\\Full\\"))
+                {
                     int releaseKey = Convert.ToInt32(ndpKey.GetValue("Release"));
                     string version = CheckFor45DotVersion(releaseKey);
                     return $"Framework {version}";
@@ -227,34 +228,44 @@ namespace Recurly.Configuration
         // the framework to ensure your app works the same.
         private static string CheckFor45DotVersion(int releaseKey)
         {
-            if (releaseKey >= 461808) {
+            if (releaseKey >= 461808)
+            {
                 return "4.7.2 or later";
             }
-            if (releaseKey >= 461308) {
+            if (releaseKey >= 461308)
+            {
                 return "4.7.1 or later";
             }
-            if (releaseKey >= 460798) {
+            if (releaseKey >= 460798)
+            {
                 return "4.7 or later";
             }
-            if (releaseKey >= 394802) {
+            if (releaseKey >= 394802)
+            {
                 return "4.6.2 or later";
             }
-            if (releaseKey >= 394254) {
+            if (releaseKey >= 394254)
+            {
                 return "4.6.1 or later";
             }
-            if (releaseKey >= 393295) {
+            if (releaseKey >= 393295)
+            {
                 return "4.6 or later";
             }
-            if (releaseKey >= 393273) {
+            if (releaseKey >= 393273)
+            {
                 return "4.6 RC or later";
             }
-            if ((releaseKey >= 379893)) {
+            if ((releaseKey >= 379893))
+            {
                 return "4.5.2 or later";
             }
-            if ((releaseKey >= 378675)) {
+            if ((releaseKey >= 378675))
+            {
                 return "4.5.1 or later";
             }
-            if ((releaseKey >= 378389)) {
+            if ((releaseKey >= 378389))
+            {
                 return "4.5 or later";
             }
             // This line should never execute. A non-null release key should mean

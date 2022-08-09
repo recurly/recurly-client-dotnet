@@ -19,7 +19,7 @@ namespace Recurly
         public long? Id { get; private set; }
         public int? UnitAmountInCents { get; set; }
         public float? UsagePercentage { get; set; }
-        public int Amount{ get; set; }
+        public int Amount { get; set; }
         public string MerchantTag { get; set; }
         public Type UsageType { get; set; }
         public DateTime? UsageTimestamp { get; set; }
@@ -85,8 +85,8 @@ namespace Recurly
             return Usage.UrlPrefix(SubscriptionUuid, SubscriptionAddOnCode);
         }
 
-        private static string UrlPrefix(string SubscriptionUuid, string SubscriptionAddOnCode) 
-		{
+        private static string UrlPrefix(string SubscriptionUuid, string SubscriptionAddOnCode)
+        {
             return "/subscriptions/" + Uri.EscapeDataString(SubscriptionUuid) + "/add_ons/" + Uri.EscapeDataString(SubscriptionAddOnCode) + "/usage";
         }
 
@@ -187,7 +187,7 @@ namespace Recurly
 
             xmlWriter.WriteElementString("amount", Amount.AsString());
             xmlWriter.WriteElementString("merchant_tag", MerchantTag);
-            
+
             if (RecordingTimestamp.HasValue)
                 xmlWriter.WriteElementString("recording_timestamp", RecordingTimestamp.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ"));
 

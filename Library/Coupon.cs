@@ -110,7 +110,7 @@ namespace Recurly
 
         public List<string> Items
         {
-            get {return _items ?? (_items = new List<string>()); }
+            get { return _items ?? (_items = new List<string>()); }
         }
 
         #region Constructors

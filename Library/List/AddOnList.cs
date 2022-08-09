@@ -16,7 +16,7 @@ namespace Recurly
         {
             while (reader.Read())
             {
-                if ((reader.Name =="add_ons" || reader.Name == "subscription_add_ons") &&
+                if ((reader.Name == "add_ons" || reader.Name == "subscription_add_ons") &&
                     reader.NodeType == XmlNodeType.EndElement)
                     break;
 

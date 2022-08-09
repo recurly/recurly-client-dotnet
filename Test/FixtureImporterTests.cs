@@ -31,7 +31,7 @@ namespace Recurly.Test
         [Fact]
         public void Get_throws_InvalidEnumArgumentException_when_passed_invalid_FixtureType()
         {
-            Action a = () => FixtureImporter.Get((FixtureType) 100, ValidFixtureName);
+            Action a = () => FixtureImporter.Get((FixtureType)100, ValidFixtureName);
             a.ShouldThrow<InvalidEnumArgumentException>();
         }
 

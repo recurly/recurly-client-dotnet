@@ -7,9 +7,9 @@ using Xunit;
 using AccountState = Recurly.Account.AccountState;
 using AdjustmentState = Recurly.Adjustment.AdjustmentState;
 using AdjustmentType = Recurly.Adjustment.AdjustmentType;
-using CreditCardType = Recurly.BillingInfo.CreditCardType;
-using CouponState = Recurly.Coupon.CouponState;
 using CouponDiscountType = Recurly.Coupon.CouponDiscountType;
+using CouponState = Recurly.Coupon.CouponState;
+using CreditCardType = Recurly.BillingInfo.CreditCardType;
 using InvoiceState = Recurly.Invoice.InvoiceState;
 using SubscriptionState = Recurly.Subscription.SubscriptionState;
 
@@ -60,7 +60,7 @@ namespace Recurly.Test
                 new object[] { SubscriptionState },
                 new object[] { SubscriptionChangeTimeframe },
                 new object[] { SubscriptionRefundType }
-            }; 
+            };
 
             public IEnumerator<object[]> GetEnumerator()
             {

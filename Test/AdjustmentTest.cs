@@ -11,7 +11,7 @@ namespace Recurly.Test
         public void CreateAdjustmentWithItemCode()
         {
             var account = CreateNewAccount();
-            var item = new Item(GetMockItemCode(), GetMockItemName()) {Description = "Test Lookup"};
+            var item = new Item(GetMockItemCode(), GetMockItemName()) { Description = "Test Lookup" };
             item.Description = "A test description";
             item.ExternalSku = "tester-sku";
             item.Create();
@@ -191,7 +191,7 @@ namespace Recurly.Test
             var adjustment = account.NewAdjustment("USD", 1234);
             adjustment.Create();
 
-            var fromService =  Adjustments.Get(adjustment.Uuid);
+            var fromService = Adjustments.Get(adjustment.Uuid);
 
             Assert.Equal(account.AccountCode, fromService.BillForAccountCode);
         }

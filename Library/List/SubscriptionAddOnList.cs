@@ -6,7 +6,7 @@ namespace Recurly
     {
         private Subscription _subscription;
 
-        public SubscriptionAddOnList() {}
+        public SubscriptionAddOnList() { }
 
         public SubscriptionAddOnList(Subscription subscription)
         {
@@ -118,7 +118,7 @@ namespace Recurly
         /// <param name="tierType">The add-on tier-type.</param>
         /// <param name="quantity">The quantity of the add-on. Optional, default is 1.</param>
 
-        public void Add(AddOn planAddOn, string tierType, int quantity=1)
+        public void Add(AddOn planAddOn, string tierType, int quantity = 1)
         {
             var sub = new SubscriptionAddOn(planAddOn.AddOnCode, tierType, quantity);
             base.Add(sub);
@@ -144,7 +144,7 @@ namespace Recurly
         // sub.AddOns.Add(code, quantity, unitInCents);
         // sub.AddOns.Add(code, quantity); unitInCents=this.Plan.UnitAmountInCents[this.Currency]
         // sub.AddOns.Add(code); 1, unitInCents=this.Plan.UnitAmountInCents[this.Currency]
-        public void Add(string planAddOnCode, int quantity=1)
+        public void Add(string planAddOnCode, int quantity = 1)
         {
             if (_subscription == null)
             {
@@ -185,15 +185,15 @@ namespace Recurly
         // Supports item code as add-on code. Also supports plan add-on code as add-on code.
         public void Add(string addOnCode, string addOnSource, int unitAmountInCents, int quantity = 1)
         {
-          var sub = new SubscriptionAddOn(addOnCode, addOnSource, unitAmountInCents, quantity);
-          base.Add(sub);
+            var sub = new SubscriptionAddOn(addOnCode, addOnSource, unitAmountInCents, quantity);
+            base.Add(sub);
         }
 
         public void Add(string planAddOnCode, string addOnSource, int quantity = 1)
         {
-          var unitAmount = _subscription.Plan.AddOns.Find(ao => ao.AddOnCode == planAddOnCode).UnitAmountInCents[_subscription.Currency];
-          var sub = new SubscriptionAddOn(planAddOnCode, addOnSource, unitAmount, quantity);
-          base.Add(sub);
+            var unitAmount = _subscription.Plan.AddOns.Find(ao => ao.AddOnCode == planAddOnCode).UnitAmountInCents[_subscription.Currency];
+            var sub = new SubscriptionAddOn(planAddOnCode, addOnSource, unitAmount, quantity);
+            base.Add(sub);
         }
 
     }

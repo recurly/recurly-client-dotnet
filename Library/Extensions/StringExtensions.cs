@@ -45,7 +45,7 @@ namespace Recurly
         /// <returns>The results of attempting to parse the transformed string to the given enum.</returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="source"/> is null or empty.</exception>
         /// <exception cref="T:System.ArgumentException"><typeparamref name="T"/> is not an <see cref="T:System.Enum"/>. -or- the sanitized name is empty, whitespace, or does not match a member of the given enumeration.</exception>
-        public static T ParseAsEnum<T>(this string source) 
+        public static T ParseAsEnum<T>(this string source)
         {
             var sanitized = source.ToPascalCase();
             if (sanitized.IsNullOrEmpty())
@@ -104,7 +104,7 @@ namespace Recurly
         /// <returns>The result of the attempted conversion.</returns>
         public static string EnumNameToTransportCase(this string enumName)
         {
-            if(enumName.IsNullOrWhiteSpace())
+            if (enumName.IsNullOrWhiteSpace())
                 throw new ArgumentException("enumName cannot be null or whitespace!", "enumName");
 
             var words = enumName.Split(' ');
@@ -138,7 +138,7 @@ namespace Recurly
             if (linkHeader.IsNullOrEmpty())
                 throw new ArgumentNullException("linkHeader");
 
-            if(rel.IsNullOrEmpty())
+            if (rel.IsNullOrEmpty())
                 throw new ArgumentNullException("rel");
 
             var regex = new Regex(string.Format("<([^>]+)>; rel=\"{0}\"", rel));

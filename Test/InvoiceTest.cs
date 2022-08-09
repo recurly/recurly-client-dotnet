@@ -310,12 +310,13 @@ namespace Recurly.Test
             invoice.State.Should().Be(Invoice.InvoiceState.Paid);
             Assert.Equal(1, invoice.Adjustments.Count);
 
-            var refundOptions = new Invoice.RefundOptions() {
-              ExternalRefund = true,
-              Description = "External Refund Description",
-              CreditCustomerNotes = "Credit Customer Notes",
-              PaymentMethod = "credit_card",
-              Method = Invoice.RefundMethod.AllTransaction
+            var refundOptions = new Invoice.RefundOptions()
+            {
+                ExternalRefund = true,
+                Description = "External Refund Description",
+                CreditCustomerNotes = "Credit Customer Notes",
+                PaymentMethod = "credit_card",
+                Method = Invoice.RefundMethod.AllTransaction
             };
 
             System.Threading.Thread.Sleep(1000); // Sleep hack to avoid simultaneous_request errors
@@ -341,12 +342,13 @@ namespace Recurly.Test
             invoice.State.Should().Be(Invoice.InvoiceState.Paid);
             Assert.Equal(2, invoice.Adjustments.Count);
 
-            var refundOptions = new Invoice.RefundOptions() {
-              ExternalRefund = true,
-              Description = "External Refund Description",
-              CreditCustomerNotes = "Credit Customer Notes",
-              PaymentMethod = "credit_card",
-              Method = Invoice.RefundMethod.AllTransaction
+            var refundOptions = new Invoice.RefundOptions()
+            {
+                ExternalRefund = true,
+                Description = "External Refund Description",
+                CreditCustomerNotes = "Credit Customer Notes",
+                PaymentMethod = "credit_card",
+                Method = Invoice.RefundMethod.AllTransaction
             };
 
             adjustment = invoice.Adjustments[0];

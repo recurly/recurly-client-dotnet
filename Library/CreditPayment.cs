@@ -10,7 +10,7 @@ namespace Recurly
     {
         public string Uuid { get; set; }
         public string Action { get; set; }
-        [Obsolete("Deprecated, please use AmountInCents")] 
+        [Obsolete("Deprecated, please use AmountInCents")]
         public int UnitAmountInCents { get; set; }
         public int AmountInCents { get; set; }
         public string AppliedToInvoice { get; set; }
@@ -46,7 +46,7 @@ namespace Recurly
 
                 DateTime dt;
                 switch (reader.Name)
-                { 
+                {
                     case "uuid":
                         Uuid = reader.ReadElementContentAsString();
                         break;
@@ -55,11 +55,11 @@ namespace Recurly
                     case "unit_amount_in_cents":
                         UnitAmountInCents = reader.ReadElementContentAsInt();
                         break;
-        
+
                     case "amount_in_cents":
                         AmountInCents = reader.ReadElementContentAsInt();
                         break;
-   
+
                     case "currency":
                         Currency = reader.ReadElementContentAsString();
                         break;
@@ -78,7 +78,7 @@ namespace Recurly
                         break;
 
                     case "updated_at":
-                        if(DateTime.TryParse(reader.ReadElementContentAsString(), out dt))
+                        if (DateTime.TryParse(reader.ReadElementContentAsString(), out dt))
                             UpdatedAt = dt;
                         break;
 

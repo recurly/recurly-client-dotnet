@@ -32,7 +32,7 @@ namespace Recurly
 
             while (xmlReader.Read())
             {
-            
+
                 if ((xmlReader.Name == "errors" || xmlReader.Name == "error") &&
                     xmlReader.NodeType == XmlNodeType.EndElement)
                     break;

@@ -58,7 +58,8 @@ namespace Recurly
             if (ShippingAddressId.HasValue)
             {
                 xmlWriter.WriteElementString("shipping_address_id", ShippingAddressId.Value.ToString());
-            } else if(_shippingAddress != null)
+            }
+            else if (_shippingAddress != null)
             {
                 _shippingAddress.WriteXml(xmlWriter);
             }
@@ -99,7 +100,7 @@ namespace Recurly
 
             if (shippingMethodHashCode != null && shippingAmountHashCode != null)
             {
-                return (int) shippingMethodHashCode ^ (int) shippingAmountHashCode;
+                return (int)shippingMethodHashCode ^ (int)shippingAmountHashCode;
             }
 
             return 0;

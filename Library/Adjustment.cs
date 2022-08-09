@@ -69,7 +69,7 @@ namespace Recurly
         public DateTime StartDate { get; set; }
         public DateTime? EndDate { get; set; }
 
-        public DateTime? CreatedAt { get ; protected set; }
+        public DateTime? CreatedAt { get; protected set; }
         public DateTime UpdatedAt { get; private set; }
 
         private const string UrlPrefix = "/accounts/";
@@ -109,7 +109,7 @@ namespace Recurly
                 throw new PropertyOutOfRangeException("AccountingCode",
                     string.Format("Adjustment's AccountingCode can be at most {0} characters in length.", AccountingCodeMaxLength));
 
-            if(UnitAmountInCents > UnitAmountMax)
+            if (UnitAmountInCents > UnitAmountMax)
                 throw new PropertyOutOfRangeException("UnitAmountInCents",
                     string.Format("Adjustment's UnitAmountInCents may be at most {0}.", UnitAmountMax));
         }
@@ -273,7 +273,7 @@ namespace Recurly
 
                     case "updated_at":
                         DateTime updatedAt;
-                        if(DateTime.TryParse(reader.ReadElementContentAsString(), out updatedAt))
+                        if (DateTime.TryParse(reader.ReadElementContentAsString(), out updatedAt))
                             UpdatedAt = updatedAt;
                         break;
 

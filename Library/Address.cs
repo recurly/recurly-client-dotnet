@@ -138,7 +138,8 @@ namespace Recurly
             return true;
         }
 
-        public virtual object Clone() {
+        public virtual object Clone()
+        {
             return this.MemberwiseClone();
         }
     }
