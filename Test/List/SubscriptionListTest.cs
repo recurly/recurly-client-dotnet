@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using FluentAssertions;
 using Xunit;
 
@@ -207,6 +208,21 @@ namespace Recurly.Test
 
             var list = account.GetSubscriptions(Subscription.SubscriptionState.All);
             list.Should().NotBeEmpty();
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void ListSubscriptionsWithRampIntervals()
+        {
+            var subscription = CreateNewRampSubscription(3);
+
+            var list = Subscriptions.List(Subscription.SubscriptionState.Active);
+
+            var rampSubscription = list.FirstOrDefault(sub => sub.RampIntervals.Count > 0);
+
+            rampSubscription.Should().NotBeNull();
+            rampSubscription.RampIntervals.Count.Should().Be(3);
+            subscription.Cancel();
+            subscription.Account.Close();
         }
     }
 }

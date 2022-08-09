@@ -84,7 +84,7 @@ namespace Recurly
         public PricingModelType? PricingModel { get; set; }
 
         /// <summary>
-        /// The ramp intervals representing the pricing schedule for the subscription
+        /// The ramp intervals representing the pricing schedule for the plan
         /// </summary>
         public List<PlanRampInterval> RampIntervals
         {
