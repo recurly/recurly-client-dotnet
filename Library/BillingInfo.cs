@@ -321,7 +321,7 @@ namespace Recurly
                     case "first_name":
                         FirstName = reader.ReadElementContentAsString();
                         break;
-                    
+
                     case "username":
                         Username = reader.ReadElementContentAsString();
                         break;
