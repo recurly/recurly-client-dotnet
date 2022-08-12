@@ -35,7 +35,7 @@ namespace Recurly.Test
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName()) { Description = "Test Ramp Lookup" };
             plan.SetupFeeInCents.Add("USD", 0);
             plan.PricingModel = PricingModelType.Ramp;
-            plan.RampIntervals = GetMockRampIntervals(3);
+            plan.RampIntervals = GetMockPlanRampIntervals(3);
 
             plan.Create();
             PlansToDeactivateOnDispose.Add(plan);
@@ -52,7 +52,7 @@ namespace Recurly.Test
             plan.SetupFeeInCents.Add("USD", 0);
 
             plan.PricingModel = PricingModelType.Ramp;
-            plan.RampIntervals = GetMockRampIntervalsMultiCurrency(3);
+            plan.RampIntervals = GetMockPlanRampIntervalsMultiCurrency(3);
 
             plan.Create();
             PlansToDeactivateOnDispose.Add(plan);
@@ -72,7 +72,7 @@ namespace Recurly.Test
             plan.PlanIntervalUnit = Plan.IntervalUnit.Months;
             plan.SetupFeeInCents.Add("USD", 0);
             plan.PricingModel = PricingModelType.Ramp;
-            plan.RampIntervals = GetMockRampIntervals(2);
+            plan.RampIntervals = GetMockPlanRampIntervals(2);
 
             plan.Create();
             PlansToDeactivateOnDispose.Add(plan);
@@ -96,11 +96,11 @@ namespace Recurly.Test
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName()) { Description = "Test Update Plan with Ramps" };
             plan.SetupFeeInCents.Add("USD", 0);
             plan.PricingModel = PricingModelType.Ramp;
-            plan.RampIntervals = GetMockRampIntervals(2);
+            plan.RampIntervals = GetMockPlanRampIntervals(2);
             plan.Create();
             PlansToDeactivateOnDispose.Add(plan);
 
-            plan.RampIntervals = GetMockRampIntervalsMultiCurrency(4);
+            plan.RampIntervals = GetMockPlanRampIntervalsMultiCurrency(4);
             plan.Update();
 
             var updatedPlan = Plans.Get(plan.PlanCode);

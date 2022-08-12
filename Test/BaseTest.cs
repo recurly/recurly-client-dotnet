@@ -173,7 +173,7 @@ namespace Recurly.Test
             return name + " " + DateTime.Now.ToString("yyyyMMddhhmmFFFFFFF");
         }
 
-        public List<PlanRampInterval> GetMockRampIntervals(int numberOfRamps)
+        public List<PlanRampInterval> GetMockPlanRampIntervals(int numberOfRamps)
         {
             var rampIntervals = new List<PlanRampInterval>();
 
@@ -197,7 +197,7 @@ namespace Recurly.Test
             return rampIntervals;
         }
 
-        public List<PlanRampInterval> GetMockRampIntervalsMultiCurrency(int numberOfRamps)
+        public List<PlanRampInterval> GetMockPlanRampIntervalsMultiCurrency(int numberOfRamps)
         {
             var rampIntervals = new List<PlanRampInterval>();
 
@@ -229,6 +229,50 @@ namespace Recurly.Test
             }
 
             return rampIntervals;
+        }
+
+        public List<SubscriptionRampInterval> GetMockSubscriptionRampIntervals(int numberOfRamps)
+        {
+            var rampIntervals = new List<SubscriptionRampInterval>();
+
+            for (int i = 0; i < numberOfRamps; i++)
+            {
+                var rampInterval = new SubscriptionRampInterval()
+                {
+                    StartingBillingCycle = (i == 0) ? 1 : i + 2,
+                    UnitAmountInCents = (numberOfRamps * 100) * (i + 1)
+                };
+                rampIntervals.Add(rampInterval);
+            }
+
+            return rampIntervals;
+        }
+
+        public Subscription CreateNewRampSubscription(int numberOfRamps)
+        {
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName()) { Description = "Create Ramp Subscription" };
+            plan.SetupFeeInCents.Add("USD", 0);
+            plan.PricingModel = PricingModelType.Ramp;
+            plan.RampIntervals = GetMockPlanRampIntervals(numberOfRamps);
+            plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
+
+            var account = CreateNewAccountWithBillingInfo();
+
+            var sub = new Subscription(account, plan, "USD");
+            sub.Create();
+
+            return Subscriptions.Get(sub.Uuid);
+        }
+
+        public Plan CreateNewRampPlan(int numberOfRamps)
+        {
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName()) { Description = "Create Ramp Plan" };
+            plan.SetupFeeInCents.Add("USD", 0);
+            plan.PricingModel = PricingModelType.Ramp;
+            plan.RampIntervals = GetMockPlanRampIntervals(numberOfRamps);
+            plan.Create();
+            return Plans.Get(plan.PlanCode);
         }
 
         public string GetMockMeasuredUnitName(string name = "Test Measured Unit")

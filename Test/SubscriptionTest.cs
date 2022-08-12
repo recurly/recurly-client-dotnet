@@ -801,5 +801,127 @@ namespace Recurly.Test
             sub.Terminate(Subscription.RefundType.None);
             account.Close();
         }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void LookupSubscriptionWithRamps()
+        {
+            var subscription = CreateNewRampSubscription(3);
+            var fromService = Subscriptions.Get(subscription.Uuid);
+
+            fromService.Should().Be(subscription);
+            fromService.RampIntervals.Count.Should().Be(3);
+
+            var remainingBillingCycles = fromService.RampIntervals.Select(ramp => ramp.RemainingBillingCycles).ToList();
+            var billingCycleList = new List<int?>() { 1, 1, null };
+            remainingBillingCycles.Should().BeEquivalentTo(billingCycleList);
+
+            subscription.Cancel();
+            subscription.Account.Close();
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void CreateSubscriptionWithDefaultRamps()
+        {
+            var plan = CreateNewRampPlan(3);
+            PlansToDeactivateOnDispose.Add(plan);
+
+            var account = CreateNewAccountWithBillingInfo();
+
+            var subscription = new Subscription(account, plan, "USD");
+            subscription.Create();
+
+            var fromService = Subscriptions.Get(subscription.Uuid);
+            fromService.RampIntervals.Count.Should().Be(3);
+            var subRamps = fromService.RampIntervals;
+            var planRamps = plan.RampIntervals;
+
+            for (int i = 0; i < fromService.RampIntervals.Count; i++)
+            {
+                subRamps[i].StartingBillingCycle.Should().Be(planRamps[i].StartingBillingCycle);
+                subRamps[i].UnitAmountInCents.Should().Be(planRamps[i].Currencies.First().UnitAmountInCents);
+            }
+
+            subscription.Cancel();
+            account.Close();
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void CreateSubscriptionWithCustomRamps()
+        {
+            var plan = CreateNewRampPlan(3);
+            PlansToDeactivateOnDispose.Add(plan);
+
+            var account = CreateNewAccountWithBillingInfo();
+
+            var subscription = new Subscription(account, plan, "USD");
+            subscription.RampIntervals = GetMockSubscriptionRampIntervals(5);
+            subscription.RampIntervals.Count.Should().Be(5);
+            subscription.Create();
+
+            var fromService = Subscriptions.Get(subscription.Uuid);
+            fromService.RampIntervals.Count.Should().Be(5);
+
+            fromService.RampIntervals[0].StartingBillingCycle.Should().Be(1);
+            fromService.RampIntervals[0].UnitAmountInCents.Should().Be(500);
+            fromService.RampIntervals[1].StartingBillingCycle.Should().Be(3);
+            fromService.RampIntervals[1].UnitAmountInCents.Should().Be(1000);
+            fromService.RampIntervals[2].StartingBillingCycle.Should().Be(4);
+            fromService.RampIntervals[2].UnitAmountInCents.Should().Be(1500);
+            fromService.RampIntervals[3].StartingBillingCycle.Should().Be(5);
+            fromService.RampIntervals[3].UnitAmountInCents.Should().Be(2000);
+            fromService.RampIntervals[4].StartingBillingCycle.Should().Be(6);
+            fromService.RampIntervals[4].UnitAmountInCents.Should().Be(2500);
+
+            subscription.Cancel();
+            account.Close();
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void UpdateSubscriptionWithRamps()
+        {
+            var sub = CreateNewRampSubscription(3);
+            var newRampIntervals = GetMockSubscriptionRampIntervals(5);
+
+            var subChange = new SubscriptionChange()
+            {
+                TimeFrame = SubscriptionChange.ChangeTimeframe.Now,
+                RampIntervals = newRampIntervals
+            };
+
+            Subscription.ChangeSubscription(sub.Uuid, subChange);
+
+            var newSubscription = Subscriptions.Get(sub.Uuid);
+            newSubscription.RampIntervals.Count.Should().Be(5);
+
+            sub.Cancel();
+            sub.Account.Close();
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void PreviewSubscriptionWithRamps()
+        {
+            var plan = CreateNewRampPlan(3);
+            PlansToDeactivateOnDispose.Add(plan);
+
+            var account = CreateNewAccountWithBillingInfo();
+
+            var sub = new Subscription(account, plan, "USD");
+            sub.Preview();
+
+            sub.RampIntervals.Count.Should().Be(3);
+
+            try
+            {
+                sub.Cancel();
+            }
+            catch (Exception ex)
+            {
+                ex.Message.Should().Contain("Couldn't find Subscription");
+            }
+            finally
+            {
+                account.Close();
+            }
+        }
     }
 }

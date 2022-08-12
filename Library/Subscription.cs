@@ -378,6 +378,17 @@ namespace Recurly
 
         public string TransactionType { get; set; }
 
+        /// <summary>
+        /// The ramp intervals representing the pricing schedule for the subscription
+        /// </summary>
+        public List<SubscriptionRampInterval> RampIntervals
+        {
+            get { return _rampIntervals ?? (_rampIntervals = new List<SubscriptionRampInterval>()); }
+            set { _rampIntervals = value; }
+        }
+
+        private List<SubscriptionRampInterval> _rampIntervals;
+
         internal Subscription()
         {
             IsPendingSubscription = false;
@@ -679,6 +690,22 @@ namespace Recurly
             }
         }
 
+        internal void ReadRampIntervalsXml(XmlTextReader reader)
+        {
+            while (reader.Read())
+            {
+                if ((reader.Name == "ramp_intervals") && reader.NodeType == XmlNodeType.EndElement)
+                    break;
+
+                if (reader.NodeType != XmlNodeType.Element) continue;
+
+                if (reader.Name == "ramp_interval")
+                {
+                    RampIntervals.Add(new SubscriptionRampInterval(reader));
+                }
+            }
+        }
+
         internal void ReadPreviewXml(XmlTextReader reader)
         {
             _preview = true;
@@ -787,6 +814,10 @@ namespace Recurly
                         // overwrite existing list with what came back from Recurly
                         AddOns = new SubscriptionAddOnList(this);
                         AddOns.ReadXml(reader);
+                        break;
+
+                    case "ramp_intervals":
+                        ReadRampIntervalsXml(reader);
                         break;
 
                     case "custom_fields":
@@ -1108,6 +1139,13 @@ namespace Recurly
 
             if (TransactionType != null)
                 xmlWriter.WriteElementString("transaction_type", TransactionType);
+
+            if (RampIntervals.HasAny())
+            {
+                xmlWriter.WriteStartElement("ramp_intervals");
+                _rampIntervals.ForEach(ramp => ramp.WriteXml(xmlWriter));
+                xmlWriter.WriteEndElement();
+            }
 
             xmlWriter.WriteEndElement(); // End: subscription
         }

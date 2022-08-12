@@ -24,7 +24,7 @@ namespace Recurly.Test
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName()) { Description = "Test Plan List with Ramps" };
             plan.SetupFeeInCents.Add("USD", 0);
             plan.PricingModel = PricingModelType.Ramp;
-            plan.RampIntervals = GetMockRampIntervals(3);
+            plan.RampIntervals = GetMockPlanRampIntervals(3);
             plan.Create();
             PlansToDeactivateOnDispose.Add(plan);
 

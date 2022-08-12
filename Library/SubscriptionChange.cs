@@ -87,6 +87,16 @@ namespace Recurly
         /// </summary>
         public BillingInfo BillingInfo { get; set; }
 
+        /// <summary>
+        /// The ramp intervals representing the pricing schedule for the subscription
+        /// </summary>
+        public List<SubscriptionRampInterval> RampIntervals
+        {
+            get { return _rampIntervals ?? (_rampIntervals = new List<SubscriptionRampInterval>()); }
+            set { _rampIntervals = value; }
+        }
+
+        private List<SubscriptionRampInterval> _rampIntervals;
 
         /// <summary>
         /// Creates a new subscription change object
@@ -141,6 +151,13 @@ namespace Recurly
 
             if (BillingInfo != null)
                 BillingInfo.WriteXml(xmlWriter);
+
+            if (RampIntervals.HasAny())
+            {
+                xmlWriter.WriteStartElement("ramp_intervals");
+                _rampIntervals.ForEach(ramp => ramp.WriteXml(xmlWriter));
+                xmlWriter.WriteEndElement();
+            }
 
             xmlWriter.WriteIfCollectionHasAny("custom_fields", CustomFields);
 
