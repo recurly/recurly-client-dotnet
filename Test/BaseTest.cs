@@ -268,6 +268,7 @@ namespace Recurly.Test
         public Plan CreateNewRampPlan(int numberOfRamps)
         {
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName()) { Description = "Create Ramp Plan" };
+            plan.TaxExempt = true;
             plan.SetupFeeInCents.Add("USD", 0);
             plan.PricingModel = PricingModelType.Ramp;
             plan.RampIntervals = GetMockPlanRampIntervals(numberOfRamps);
