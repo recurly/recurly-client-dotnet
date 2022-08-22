@@ -178,6 +178,18 @@ namespace Recurly.Test
         }
 
         [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void VerifyBillingInfoCvv()
+        {
+          var accountCode = GetUniqueAccountCode();
+          var info = NewBillingInfo(accountCode);
+          var account = new Account(accountCode, info);
+          account.Create();
+
+          info.VerifyCvv();
+          account.BillingInfo.AccountCode.Should().Be(info.AccountCode);
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void LookupBillingInfo()
         {
             var accountCode = GetUniqueAccountCode();

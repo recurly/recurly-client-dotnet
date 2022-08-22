@@ -287,6 +287,20 @@ namespace Recurly
           );
         }
 
+        /// <summary>
+        /// Verify card CVV
+        /// </summary>
+        /// <param name="verification_value"></param>
+        public void VerifyCvv(string verificationValue = null)
+        {
+          var verify = new VerifyBillingInfoCvv(verificationValue);
+          Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
+              BillingInfoUrl(AccountCode) + "/verify_cvv",
+              verify.WriteXml,
+              verify.ReadXml
+          );
+        }
+
         private static string BillingInfoUrl(string accountCode)
         {
             return UrlPrefix + Uri.EscapeDataString(accountCode) + UrlPostfix;
