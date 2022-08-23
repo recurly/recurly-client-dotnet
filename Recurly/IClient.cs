@@ -2643,22 +2643,24 @@ namespace Recurly
         /// <summary>
         /// Assign a dunning campaign to multiple plans <see href="https://developers.recurly.com/api/v2021-02-25#operation/put_dunning_campaign_bulk_update">put_dunning_campaign_bulk_update api documentation</see>
         /// </summary>
+        /// <param name="dunningCampaignId">Dunning Campaign ID, e.g. `e28zov4fw0v2`.</param>
         /// <param name="body">The body of the request.</param>
         /// <returns>
         /// A list of updated plans.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        DunningCampaignsBulkUpdateResponse PutDunningCampaignBulkUpdate(DunningCampaignsBulkUpdate body, RequestOptions options = null);
+        DunningCampaignsBulkUpdateResponse PutDunningCampaignBulkUpdate(string dunningCampaignId, DunningCampaignsBulkUpdate body, RequestOptions options = null);
 
         /// <summary>
         /// Assign a dunning campaign to multiple plans <see href="https://developers.recurly.com/api/v2021-02-25#operation/put_dunning_campaign_bulk_update">put_dunning_campaign_bulk_update api documentation</see>
         /// </summary>
+        /// <param name="dunningCampaignId">Dunning Campaign ID, e.g. `e28zov4fw0v2`.</param>
         /// <param name="body">The body of the request.</param>
         /// <returns>
         /// A list of updated plans.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        Task<DunningCampaignsBulkUpdateResponse> PutDunningCampaignBulkUpdateAsync(DunningCampaignsBulkUpdate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+        Task<DunningCampaignsBulkUpdateResponse> PutDunningCampaignBulkUpdateAsync(string dunningCampaignId, DunningCampaignsBulkUpdate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
 
         /// <summary>
         /// Show the invoice templates for a site <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_invoice_templates">list_invoice_templates api documentation</see>
