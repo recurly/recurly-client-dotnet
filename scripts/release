@@ -15,9 +15,9 @@ fi
 
 
 #clean
-./clean
+./scripts/clean
 
 #publish
 dotnet pack -c Release
 dotnet build -c Release
-dotnet nuget push "$(pwd)"/Library/bin/Release/Recurly.*.nupkg -s https://api.nuget.org/v3/index.json -k "$api_token"
+dotnet nuget push "$(pwd)"/Library/bin/Release/net45/recurly-api-client.*.nupkg -s https://api.nuget.org/v3/index.json -k "$api_token"
