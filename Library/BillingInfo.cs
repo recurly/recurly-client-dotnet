@@ -22,7 +22,8 @@ namespace Recurly
             Laser,
             Unknown,
             DinersClub,
-            UnionPay
+            UnionPay,
+            CartesBancaires
         }
 
         public enum HppType : short
@@ -548,6 +549,7 @@ namespace Recurly
                     xmlWriter.WriteElementString("year", ExpirationYear.AsString());
 
                     xmlWriter.WriteStringIfValid("verification_value", VerificationValue);
+                    xmlWriter.WriteElementString("card_type", CardType.ToString().EnumNameToTransportCase());
                 }
 
                 if (!RoutingNumber.IsNullOrEmpty())

@@ -28,6 +28,7 @@ namespace Recurly.Test
             info.Country = "GB";
             info.Currency = "USD";   // Should really be a different currency for testing but test environment doesn't seem set up for multi-currency
             info.IpAddress = "192.0.2.1";    // Reserved address for "TEST-NET-1" (so no country)
+            info.CardType = CreditCardType.CartesBancaires;
             info.CreditCardNumber = TestCreditCardNumbers.MasterCard1;
             info.VerificationValue = "321";
             info.ExpirationMonth = DateTime.Now.AddMonths(3).Month;
