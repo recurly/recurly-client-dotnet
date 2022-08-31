@@ -22,14 +22,15 @@ namespace Recurly
                 if (reader.NodeType != XmlNodeType.Element) continue;
 
                 if (reader.Name == "verification_value")
-                        VerificationValue = reader.ReadElementContentAsString();
+                    VerificationValue = reader.ReadElementContentAsString();
             }
         }
 
         internal override void WriteXml(XmlTextWriter writer)
         {
             writer.WriteStartElement("billing_info");
-            if (!VerificationValue.IsNullOrEmpty()){
+            if (!VerificationValue.IsNullOrEmpty())
+            {
                 writer.WriteElementString("verification_value", VerificationValue);
             };
             writer.WriteEndElement();
