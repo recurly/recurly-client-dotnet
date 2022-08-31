@@ -13,16 +13,16 @@ namespace Recurly
         }
 
         internal override void ReadXml(XmlTextReader reader)
-            {
+        {
             while (reader.Read())
             {
-              if (reader.Name == "verify_cvv" && reader.NodeType == XmlNodeType.EndElement)
-                  break;
+                if (reader.Name == "verify_cvv" && reader.NodeType == XmlNodeType.EndElement)
+                    break;
 
-              if (reader.NodeType != XmlNodeType.Element) continue;
+                if (reader.NodeType != XmlNodeType.Element) continue;
 
-              if (reader.Name == "verification_value")
-                    VerificationValue = reader.ReadElementContentAsString();
+                if (reader.Name == "verification_value")
+                        VerificationValue = reader.ReadElementContentAsString();
             }
         }
 
@@ -32,7 +32,7 @@ namespace Recurly
             if (!VerificationValue.IsNullOrEmpty()){
                 writer.WriteElementString("verification_value", VerificationValue);
             };
-            writer.WriteEndElement(); 
+            writer.WriteEndElement();
         }
     }
 }
