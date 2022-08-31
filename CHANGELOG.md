@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.17.17](https://github.com/recurly/recurly-client-dotnet/tree/1.17.17) (2022-08-31)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.16...1.17.17)
+
+
+**Merged Pull Requests**
+
+- fix styling issues [#731](https://github.com/recurly/recurly-client-dotnet/pull/731) ([ricardopaul0](https://github.com/ricardopaul0))
+- add verify_cvv endpoint [#727](https://github.com/recurly/recurly-client-dotnet/pull/727) ([ricardopaul0](https://github.com/ricardopaul0))
+
+
+
 ## [1.17.16](https://github.com/recurly/recurly-client-dotnet/tree/1.17.16) (2022-08-24)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.15...1.17.16)
@@ -8,6 +20,7 @@
 **Merged Pull Requests**
 
 - Add Unit Tests for Purchases with Ramp Pricing [#724](https://github.com/recurly/recurly-client-dotnet/pull/724) ([btruncali1](https://github.com/btruncali1))
+- add username to billing info attributes [#723](https://github.com/recurly/recurly-client-dotnet/pull/723) ([ricardopaul0](https://github.com/ricardopaul0))
 - Added Support for Ramp Intervals on a Subscription [#722](https://github.com/recurly/recurly-client-dotnet/pull/722) ([btruncali1](https://github.com/btruncali1))
 - Added Support for Ramp Pricing Feature [#720](https://github.com/recurly/recurly-client-dotnet/pull/720) ([btruncali1](https://github.com/btruncali1))
 
