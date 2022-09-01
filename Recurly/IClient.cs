@@ -335,6 +335,28 @@ namespace Recurly
         Task<Transaction> VerifyBillingInfoAsync(string accountId, BillingInfoVerify body = null, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
 
         /// <summary>
+        /// Verify an account's credit card billing cvv <see href="https://developers.recurly.com/api/v2021-02-25#operation/verify_billing_info_cvv">verify_billing_info_cvv api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// Transaction information from verify.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Transaction VerifyBillingInfoCvv(string accountId, BillingInfoVerifyCVV body, RequestOptions options = null);
+
+        /// <summary>
+        /// Verify an account's credit card billing cvv <see href="https://developers.recurly.com/api/v2021-02-25#operation/verify_billing_info_cvv">verify_billing_info_cvv api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// Transaction information from verify.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<Transaction> VerifyBillingInfoCvvAsync(string accountId, BillingInfoVerifyCVV body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
         /// Get the list of billing information associated with an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_billing_infos">list_billing_infos api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
