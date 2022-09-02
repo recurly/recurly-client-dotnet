@@ -12,16 +12,12 @@ using Newtonsoft.Json;
 namespace Recurly.Resources
 {
     [ExcludeFromCodeCoverage]
-    public class SubscriptionRampInterval : Request
+    public class BillingInfoVerifyCVV : Request
     {
 
-        /// <value>Represents the billing cycle where a ramp interval starts.</value>
-        [JsonProperty("starting_billing_cycle")]
-        public int? StartingBillingCycle { get; set; }
-
-        /// <value>Represents the price for the ramp interval.</value>
-        [JsonProperty("unit_amount")]
-        public int? UnitAmount { get; set; }
+        /// <value>Unique security code for a credit card.</value>
+        [JsonProperty("verification_value")]
+        public string VerificationValue { get; set; }
 
     }
 }
