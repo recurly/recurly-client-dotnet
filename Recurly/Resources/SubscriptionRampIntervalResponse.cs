@@ -25,7 +25,7 @@ namespace Recurly.Resources
 
         /// <value>Represents the price for the ramp interval.</value>
         [JsonProperty("unit_amount")]
-        public int? UnitAmount { get; set; }
+        public decimal? UnitAmount { get; set; }
 
     }
 }
