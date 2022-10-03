@@ -7,6 +7,7 @@ namespace Recurly
     {
         public bool Prorate { get; protected set; }
         public int Quantity { get; protected set; }
+        public decimal? QuantityDecimal { get; protected set; }
         public string Uuid { get; protected set; }
 
         [Obsolete("This constructor is deprecated, please use Refund(Adjustment).")]
@@ -21,6 +22,7 @@ namespace Recurly
         {
             Prorate = adjustment.Prorate.HasValue ? adjustment.Prorate.Value : false;
             Quantity = adjustment.Quantity;
+            QuantityDecimal = adjustment.QuantityDecimal;
             Uuid = adjustment.Uuid;
         }
 
@@ -35,6 +37,10 @@ namespace Recurly
 
             writer.WriteElementString("uuid", Uuid);
             writer.WriteElementString("quantity", Quantity.AsString());
+
+            if (QuantityDecimal.HasValue)
+                writer.WriteElementString("quantity_decimal", QuantityDecimal.Value.ToString());
+
             writer.WriteElementString("prorate", Prorate.AsString());
 
             writer.WriteEndElement(); // adjustment

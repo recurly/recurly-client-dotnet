@@ -44,6 +44,9 @@ namespace Recurly
         public string Origin { get; set; }
         public int UnitAmountInCents { get; set; }
         public int Quantity { get; set; }
+        public decimal? QuantityDecimal { get; set; }
+        public int? QuantityRemaining { get; set; }
+        public decimal? QuantityDecimalRemaining { get; set; }
         public int DiscountInCents { get; protected set; }
         public int TaxInCents { get; protected set; }
         public int TotalInCents { get; protected set; }
@@ -205,6 +208,18 @@ namespace Recurly
                         Quantity = reader.ReadElementContentAsInt();
                         break;
 
+                    case "quantity_decimal":
+                        QuantityDecimal = reader.ReadElementContentAsDecimal();
+                        break;
+
+                    case "quantity_remaining":
+                        QuantityRemaining = reader.ReadElementContentAsInt();
+                        break;
+
+                    case "quantity_decimal_remaining":
+                        QuantityDecimalRemaining = reader.ReadElementContentAsDecimal();
+                        break;
+
                     case "discount_in_cents":
                         DiscountInCents = reader.ReadElementContentAsInt();
                         break;
@@ -311,6 +326,8 @@ namespace Recurly
             xmlWriter.WriteElementString("unit_amount_in_cents", UnitAmountInCents.AsString());
             xmlWriter.WriteElementString("quantity", Quantity.AsString());
 
+            if (QuantityDecimal.HasValue)
+                xmlWriter.WriteElementString("quantity_decimal", QuantityDecimal.Value.ToString());
             if (Description != null)
                 xmlWriter.WriteElementString("description", Description);
             if (ExternalSku != null)
