@@ -1,0 +1,36 @@
+HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
+X-Records: 2
+Link: <https://api.recurly.com/v2/accounts/abcdef1234567890/entitlements?cursor=1234567890&per_page=1>; rel="start", <https://api.recurly.com/v2/accounts/abcdef1234567890/entitlements?cursor=1234566890&per_page=1>; rel="next"
+
+<?xml version="1.0" encoding="UTF-8"?>
+<entitlements>
+  <entitlement>
+    <customer_permission>
+      <id>rjozsnk1yw99</id>
+      <code>hgkjlh</code>
+      <name>iglgjk</name>
+      <description></description>
+    </customer_permission>
+    <granted_by type="array">
+      <subscription href="https://api.recurly.com/v2/subscriptions/r0owvmqumomn"/>
+      <subscription href="https://api.recurly.com/v2/subscriptions/r0wz2x6rdr0m"/>
+    </granted_by>
+    <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
+    <updated_at type="datetime">2011-04-30T12:00:00Z</created_at>
+  </entitlement>
+  <entitlement>
+    <customer_permission>
+      <id>rjozsnk1yw99</id>
+      <code>hgkjlh</code>
+      <name>iglgjk</name>
+      <description></description>
+    </customer_permission>
+    <granted_by type="array">
+      <subscription href="https://api.recurly.com/v2/subscriptions/r0owvmqumomn"/>
+      <subscription href="https://api.recurly.com/v2/subscriptions/r0wz2x6rdr0m"/>
+    </granted_by>
+    <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
+    <updated_at type="datetime">2011-04-30T12:00:00Z</created_at>
+  </entitlement>
+</entitlements>
