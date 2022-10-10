@@ -414,6 +414,11 @@ namespace Recurly
             return new NoteList(UrlPrefix + Uri.EscapeDataString(AccountCode) + "/notes/");
         }
 
+        public RecurlyList<Entitlement> GetEntitlements()
+        {
+            return new EntitlementList(UrlPrefix + Uri.EscapeDataString(AccountCode) + "/entitlements/");
+        }
+
         public Account GetParentAccount()
         {
             if (ParentAccountCode == null) return null;
