@@ -12,7 +12,7 @@ namespace Recurly
 
         public CustomerPermission CustomerPermission { get; private set; }
 
-        public List<GrantedBy> GrantedBys { get; private set; }
+        public GrantedBy GrantedBy { get; private set; }
 
         public DateTime? CreatedAt { get; private set; }
 
@@ -79,12 +79,13 @@ namespace Recurly
                         // The element's opening tag - nothing to do
                         break;
 
-                    case "customer_permissions":
+                    case "customer_permission":
                         CustomerPermission = new CustomerPermission(reader);
                         break;
 
-                    case "granted_bys":
-                        ReadXMLGrantedBys(reader);
+                    case "granted_by":
+                        //ReadXMLGrantedBys(reader);
+                        GrantedBy = new GrantedBy(reader);
                         break;
 
                     case "created_at":
@@ -98,28 +99,43 @@ namespace Recurly
             }
         }
 
-        internal void ReadXMLGrantedBys(XmlTextReader reader)
-        {
-            GrantedBys = new List<GrantedBy>();
 
-            while (reader.Read())
-            {
-                if (reader.NodeType == XmlNodeType.Element && reader.Name == "subscription")
-                {
-                    GrantedBys.Add(new GrantedBy(reader));
-                }
+        // TODO: remove this from here
+        //internal void ReadXMLGrantedBys(XmlTextReader reader)
+        //{
+        //    GrantedBys = new List<GrantedBy>();
 
-                if (reader.NodeType == XmlNodeType.Element && reader.Name == "external_subscription")
-                {
-                    GrantedBys.Add(new GrantedBy(reader));
-                }
+        //    while (reader.Read())
+        //    {
+        //        if (reader.Name == "granted_by" && reader.NodeType == XmlNodeType.EndElement)
+        //            break;
 
-                if (reader.NodeType == XmlNodeType.Element && reader.Name == "item")
-                {
-                    GrantedBys.Add(new GrantedBy(reader));
-                }
-            }
-        }
+        //        if (reader.NodeType != XmlNodeType.Element) continue;
+
+
+        //        if (reader.NodeType == XmlNodeType.Element && reader.Name == "subscription")
+        //        {
+        //            var subscriptionHref = reader.GetAttribute("href");
+        //            string thing1 = subscriptionHref.Substring(subscriptionHref.LastIndexOf("/") + 1);
+        //           // string thing = Uri.UnescapeDataString(subscriptionHref.Substring(subscriptionHref.LastIndexOf("/") + 1));
+
+        //            SubscriptionIds.Add(thing1);
+                    
+        //        //    break;
+        //         //   GrantedBys.Add(new GrantedBy(reader));
+        //        }
+
+        //        if (reader.NodeType == XmlNodeType.Element && reader.Name == "external_subscription")
+        //        {
+        //            GrantedBys.Add(new GrantedBy(reader));
+        //        }
+
+        //        if (reader.NodeType == XmlNodeType.Element && reader.Name == "item")
+        //        {
+        //            GrantedBys.Add(new GrantedBy(reader));
+        //        }
+        //    }
+        //}
 
         internal override void WriteXml(XmlTextWriter writer)
         {
