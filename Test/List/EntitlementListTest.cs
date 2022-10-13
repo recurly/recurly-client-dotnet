@@ -9,7 +9,8 @@ namespace Recurly.Test
         [RecurlyFact(TestEnvironment.Type.Integration)]
         public void List()
         {
-            var account = CreateNewAccountWithBillingInfo();
+            //var account = CreateNewAccountWithBillingInfo();
+            var account = Accounts.Get("V2TestEntitlement1");
 
             var list = account.GetEntitlements();
             list.Should().NotBeEmpty();

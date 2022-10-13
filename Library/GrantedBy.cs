@@ -9,6 +9,7 @@ namespace Recurly
     /// Subscriptions and Items granting a Customer Permission in Recurly.
     ///
     /// </summary>
+    /// TODO: This class goes away
     public class GrantedBy : RecurlyEntity
     {
         SubscriptionList Subscriptions {get; set;}

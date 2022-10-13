@@ -12,14 +12,16 @@ namespace Recurly
 
         public CustomerPermission CustomerPermission { get; private set; }
 
-        public GrantedBy GrantedBy { get; private set; }
+        //public GrantedBy GrantedBy { get; private set; }
+        public Dictionary<string, string> GrantedBy = new Dictionary<string, string>();
+
 
         public DateTime? CreatedAt { get; private set; }
 
         public DateTime? UpdatedAt { get; private set; }
 
-        private const string UrlPrefix = "/accounts/";
-        private const string UrlPostfix = "/entitlements";
+        //private const string UrlPrefix = "/accounts/";
+        //private const string UrlPostfix = "/entitlements";
 
         internal Entitlement(string accountCode) : this()
         {
@@ -43,26 +45,26 @@ namespace Recurly
         /// </summary>
         /// <param name="accountCode"></param>
         /// <returns></returns>
-        public static Entitlement Get(string accountCode)
-        {
-            if (string.IsNullOrWhiteSpace(accountCode))
-            {
-                return null;
-            }
+        //public static Entitlement Get(string accountCode)
+        //{
+        //    if (string.IsNullOrWhiteSpace(accountCode))
+        //    {
+        //        return null;
+        //    }
 
-            var entitlement = new Entitlement();
+        //    var entitlement = new Entitlement();
 
-            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
-                EntitlementUrl(accountCode),
-                entitlement.ReadXml);
+        //    var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
+        //        EntitlementUrl(accountCode),
+        //        entitlement.ReadXml);
 
-            return statusCode == HttpStatusCode.NotFound ? null : entitlement;
-        }
+        //    return statusCode == HttpStatusCode.NotFound ? null : entitlement;
+        //}
 
-        private static string EntitlementUrl(string accountCode)
-        {
-            return UrlPrefix + Uri.EscapeDataString(accountCode) + UrlPostfix;
-        }
+        //private static string EntitlementUrl(string accountCode)
+        //{
+        //    return UrlPrefix + Uri.EscapeDataString(accountCode) + UrlPostfix;
+        //}
 
         internal override void ReadXml(XmlTextReader reader)
         {
@@ -84,8 +86,8 @@ namespace Recurly
                         break;
 
                     case "granted_by":
-                        //ReadXMLGrantedBys(reader);
-                        GrantedBy = new GrantedBy(reader);
+                        ReadXMLGrantedBys(reader);
+                        //GrantedBy = new GrantedBy(reader);
                         break;
 
                     case "created_at":
@@ -100,42 +102,25 @@ namespace Recurly
         }
 
 
-        // TODO: remove this from here
-        //internal void ReadXMLGrantedBys(XmlTextReader reader)
-        //{
-        //    GrantedBys = new List<GrantedBy>();
+        internal void ReadXMLGrantedBys(XmlTextReader reader)
+        {
+            while (reader.Read())
+            {
+                if (reader.Name == "granted_by" && reader.NodeType == XmlNodeType.EndElement)
+                    break;
 
-        //    while (reader.Read())
-        //    {
-        //        if (reader.Name == "granted_by" && reader.NodeType == XmlNodeType.EndElement)
-        //            break;
-
-        //        if (reader.NodeType != XmlNodeType.Element) continue;
+                if (reader.NodeType != XmlNodeType.Element) continue;
 
 
-        //        if (reader.NodeType == XmlNodeType.Element && reader.Name == "subscription")
-        //        {
-        //            var subscriptionHref = reader.GetAttribute("href");
-        //            string thing1 = subscriptionHref.Substring(subscriptionHref.LastIndexOf("/") + 1);
-        //           // string thing = Uri.UnescapeDataString(subscriptionHref.Substring(subscriptionHref.LastIndexOf("/") + 1));
+                if (reader.NodeType == XmlNodeType.Element)
+                {
+                    var href = reader.GetAttribute("href");
+                    string id = href.Substring(href.LastIndexOf("/") + 1);
+                    GrantedBy.Add(reader.Name, id);
+                }
+            }
+        }
 
-        //            SubscriptionIds.Add(thing1);
-                    
-        //        //    break;
-        //         //   GrantedBys.Add(new GrantedBy(reader));
-        //        }
-
-        //        if (reader.NodeType == XmlNodeType.Element && reader.Name == "external_subscription")
-        //        {
-        //            GrantedBys.Add(new GrantedBy(reader));
-        //        }
-
-        //        if (reader.NodeType == XmlNodeType.Element && reader.Name == "item")
-        //        {
-        //            GrantedBys.Add(new GrantedBy(reader));
-        //        }
-        //    }
-        //}
 
         internal override void WriteXml(XmlTextWriter writer)
         {
