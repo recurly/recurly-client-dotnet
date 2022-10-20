@@ -49,7 +49,7 @@ namespace Recurly.Resources
         [JsonProperty("cvv")]
         public string Cvv { get; set; }
 
-        /// <value>Use for Adyen HPP billing info.</value>
+        /// <value>Use for Adyen HPP billing info. This should only be used as part of a pending purchase request, when the billing info is nested inside an account object.</value>
         [JsonProperty("external_hpp_type")]
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
         public Constants.ExternalHppType? ExternalHppType { get; set; }
@@ -94,7 +94,7 @@ namespace Recurly.Resources
         [JsonProperty("number")]
         public string Number { get; set; }
 
-        /// <value>Use for Online Banking billing info.</value>
+        /// <value>Use for Online Banking billing info. This should only be used as part of a pending purchase request, when the billing info is nested inside an account object.</value>
         [JsonProperty("online_banking_payment_type")]
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
         public Constants.OnlineBankingPaymentType? OnlineBankingPaymentType { get; set; }
