@@ -9,20 +9,18 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 
-namespace Recurly.Resources
-{
-    [ExcludeFromCodeCoverage]
-    public class CouponDiscountTrial : Resource
-    {
-
-        /// <value>Trial length measured in the units specified by the sibling `unit` property</value>
-        [JsonProperty("length")]
-        public int? Length { get; set; }
-
-        /// <value>Temporal unit of the free trial</value>
-        [JsonProperty("unit")]
-        [JsonConverter(typeof(RecurlyStringEnumConverter))]
-        public Constants.FreeTrialUnit? Unit { get; set; }
-
-    }
+namespace Recurly.Resources {
+  [ExcludeFromCodeCoverage] 
+  public class CouponDiscountTrial : Resource {
+  
+    /// <value>Trial length measured in the units specified by the sibling `unit` property</value>
+    [JsonProperty("length")]
+    public int? Length { get; set; }
+  
+    /// <value>Temporal unit of the free trial</value>
+    [JsonProperty("unit")]
+[JsonConverter(typeof(RecurlyStringEnumConverter))]
+    public Constants.FreeTrialUnit? Unit { get; set; }
+  
+  }
 }

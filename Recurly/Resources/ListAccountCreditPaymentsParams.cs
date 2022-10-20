@@ -9,33 +9,33 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 
-namespace Recurly.Resources
+namespace Recurly.Resources 
 {
 
     [ExcludeFromCodeCoverage]
     public class ListAccountCreditPaymentsParams : OptionalParams
     {
-
+        
         /// <value>Limit number of records 1-200.</value>
         [JsonProperty("limit")]
         public int? Limit { get; set; }
-
+        
         /// <value>Sort order.</value>
         [JsonProperty("order")]
         public Constants.AlphanumericSort? Order { get; set; }
-
+        
         /// <value>Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </value>
         [JsonProperty("sort")]
         public Constants.TimestampSort? Sort { get; set; }
-
+        
         /// <value>Inclusively filter by begin_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </value>
         [JsonProperty("begin_time")]
         public DateTime? BeginTime { get; set; }
-
+        
         /// <value>Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </value>
         [JsonProperty("end_time")]
         public DateTime? EndTime { get; set; }
-
+        
     }
 }
 

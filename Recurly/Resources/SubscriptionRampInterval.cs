@@ -9,19 +9,17 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 
-namespace Recurly.Resources
-{
-    [ExcludeFromCodeCoverage]
-    public class SubscriptionRampInterval : Request
-    {
-
-        /// <value>Represents the billing cycle where a ramp interval starts.</value>
-        [JsonProperty("starting_billing_cycle")]
-        public int? StartingBillingCycle { get; set; }
-
-        /// <value>Represents the price for the ramp interval.</value>
-        [JsonProperty("unit_amount")]
-        public int? UnitAmount { get; set; }
-
-    }
+namespace Recurly.Resources {
+  [ExcludeFromCodeCoverage] 
+  public class SubscriptionRampInterval : Request {
+  
+    /// <value>Represents the billing cycle where a ramp interval starts.</value>
+    [JsonProperty("starting_billing_cycle")]
+    public int? StartingBillingCycle { get; set; }
+  
+    /// <value>Represents the price for the ramp interval.</value>
+    [JsonProperty("unit_amount")]
+    public int? UnitAmount { get; set; }
+  
+  }
 }

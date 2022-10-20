@@ -9,27 +9,25 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 
-namespace Recurly.Resources
-{
-    [ExcludeFromCodeCoverage]
-    public class AccountBalance : Resource
-    {
-
-        /// <value>Account mini details</value>
-        [JsonProperty("account")]
-        public AccountMini Account { get; set; }
-
-
-        [JsonProperty("balances")]
-        public List<AccountBalanceAmount> Balances { get; set; }
-
-        /// <value>Object type</value>
-        [JsonProperty("object")]
-        public string Object { get; set; }
-
-
-        [JsonProperty("past_due")]
-        public bool? PastDue { get; set; }
-
-    }
+namespace Recurly.Resources {
+  [ExcludeFromCodeCoverage] 
+  public class AccountBalance : Resource {
+  
+    /// <value>Account mini details</value>
+    [JsonProperty("account")]
+    public AccountMini Account { get; set; }
+  
+    
+    [JsonProperty("balances")]
+    public List<AccountBalanceAmount> Balances { get; set; }
+  
+    /// <value>Object type</value>
+    [JsonProperty("object")]
+    public string Object { get; set; }
+  
+    
+    [JsonProperty("past_due")]
+    public bool? PastDue { get; set; }
+  
+  }
 }

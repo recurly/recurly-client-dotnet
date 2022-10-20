@@ -9,19 +9,17 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 
-namespace Recurly.Resources
-{
-    [ExcludeFromCodeCoverage]
-    public class ExportDates : Resource
-    {
-
-        /// <value>An array of dates that have available exports.</value>
-        [JsonProperty("dates")]
-        public List<string> Dates { get; set; }
-
-        /// <value>Object type</value>
-        [JsonProperty("object")]
-        public string Object { get; set; }
-
-    }
+namespace Recurly.Resources {
+  [ExcludeFromCodeCoverage] 
+  public class ExportDates : Resource {
+  
+    /// <value>An array of dates that have available exports.</value>
+    [JsonProperty("dates")]
+    public List<string> Dates { get; set; }
+  
+    /// <value>Object type</value>
+    [JsonProperty("object")]
+    public string Object { get; set; }
+  
+  }
 }

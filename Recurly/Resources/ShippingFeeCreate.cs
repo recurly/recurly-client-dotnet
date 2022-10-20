@@ -9,23 +9,21 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 
-namespace Recurly.Resources
-{
-    [ExcludeFromCodeCoverage]
-    public class ShippingFeeCreate : Request
-    {
-
-        /// <value>This is priced in the purchase's currency.</value>
-        [JsonProperty("amount")]
-        public decimal? Amount { get; set; }
-
-        /// <value>The code of the shipping method used to deliver the purchase. If `method_id` and `method_code` are both present, `method_id` will be used.</value>
-        [JsonProperty("method_code")]
-        public string MethodCode { get; set; }
-
-        /// <value>The id of the shipping method used to deliver the purchase. If `method_id` and `method_code` are both present, `method_id` will be used.</value>
-        [JsonProperty("method_id")]
-        public string MethodId { get; set; }
-
-    }
+namespace Recurly.Resources {
+  [ExcludeFromCodeCoverage] 
+  public class ShippingFeeCreate : Request {
+  
+    /// <value>This is priced in the purchase's currency.</value>
+    [JsonProperty("amount")]
+    public decimal? Amount { get; set; }
+  
+    /// <value>The code of the shipping method used to deliver the purchase. If `method_id` and `method_code` are both present, `method_id` will be used.</value>
+    [JsonProperty("method_code")]
+    public string MethodCode { get; set; }
+  
+    /// <value>The id of the shipping method used to deliver the purchase. If `method_id` and `method_code` are both present, `method_id` will be used.</value>
+    [JsonProperty("method_id")]
+    public string MethodId { get; set; }
+  
+  }
 }

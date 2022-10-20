@@ -9,19 +9,17 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 
-namespace Recurly.Resources
-{
-    [ExcludeFromCodeCoverage]
-    public class DunningCampaignsBulkUpdate : Request
-    {
-
-        /// <value>List of `plan_codes` associated with the Plans for which the dunning campaign should be updated. Required unless `plan_ids` is present.</value>
-        [JsonProperty("plan_codes")]
-        public List<string> PlanCodes { get; set; }
-
-        /// <value>List of `plan_ids` associated with the Plans for which the dunning campaign should be updated. Required unless `plan_codes` is present.</value>
-        [JsonProperty("plan_ids")]
-        public List<string> PlanIds { get; set; }
-
-    }
+namespace Recurly.Resources {
+  [ExcludeFromCodeCoverage] 
+  public class DunningCampaignsBulkUpdate : Request {
+  
+    /// <value>List of `plan_codes` associated with the Plans for which the dunning campaign should be updated. Required unless `plan_ids` is present.</value>
+    [JsonProperty("plan_codes")]
+    public List<string> PlanCodes { get; set; }
+  
+    /// <value>List of `plan_ids` associated with the Plans for which the dunning campaign should be updated. Required unless `plan_codes` is present.</value>
+    [JsonProperty("plan_ids")]
+    public List<string> PlanIds { get; set; }
+  
+  }
 }

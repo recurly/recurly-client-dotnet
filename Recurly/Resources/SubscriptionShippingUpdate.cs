@@ -9,23 +9,21 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 
-namespace Recurly.Resources
-{
-    [ExcludeFromCodeCoverage]
-    public class SubscriptionShippingUpdate : Request
-    {
-
-
-        [JsonProperty("address")]
-        public ShippingAddressCreate Address { get; set; }
-
-        /// <value>Assign a shipping address from the account's existing shipping addresses.</value>
-        [JsonProperty("address_id")]
-        public string AddressId { get; set; }
-
-        /// <value>Object type</value>
-        [JsonProperty("object")]
-        public string Object { get; set; }
-
-    }
+namespace Recurly.Resources {
+  [ExcludeFromCodeCoverage] 
+  public class SubscriptionShippingUpdate : Request {
+  
+    
+    [JsonProperty("address")]
+    public ShippingAddressCreate Address { get; set; }
+  
+    /// <value>Assign a shipping address from the account's existing shipping addresses.</value>
+    [JsonProperty("address_id")]
+    public string AddressId { get; set; }
+  
+    /// <value>Object type</value>
+    [JsonProperty("object")]
+    public string Object { get; set; }
+  
+  }
 }

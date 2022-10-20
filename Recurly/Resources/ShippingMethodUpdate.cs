@@ -9,39 +9,37 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 
-namespace Recurly.Resources
-{
-    [ExcludeFromCodeCoverage]
-    public class ShippingMethodUpdate : Request
-    {
-
-        /// <value>Accounting code for shipping method.</value>
-        [JsonProperty("accounting_code")]
-        public string AccountingCode { get; set; }
-
-        /// <value>The internal name used identify the shipping method.</value>
-        [JsonProperty("code")]
-        public string Code { get; set; }
-
-        /// <value>The name of the shipping method displayed to customers.</value>
-        [JsonProperty("name")]
-        public string Name { get; set; }
-
-        /// <value>
-        /// Used by Avalara, Vertex, and Recurly’s built-in tax feature. The tax
-        /// code values are specific to each tax system. If you are using Recurly’s
-        /// built-in taxes the values are:
-        /// 
-        /// - `FR` – Common Carrier FOB Destination
-        /// - `FR022000` – Common Carrier FOB Origin
-        /// - `FR020400` – Non Common Carrier FOB Destination
-        /// - `FR020500` – Non Common Carrier FOB Origin
-        /// - `FR010100` – Delivery by Company Vehicle Before Passage of Title
-        /// - `FR010200` – Delivery by Company Vehicle After Passage of Title
-        /// - `NT` – Non-Taxable
-        /// </value>
-        [JsonProperty("tax_code")]
-        public string TaxCode { get; set; }
-
-    }
+namespace Recurly.Resources {
+  [ExcludeFromCodeCoverage] 
+  public class ShippingMethodUpdate : Request {
+  
+    /// <value>Accounting code for shipping method.</value>
+    [JsonProperty("accounting_code")]
+    public string AccountingCode { get; set; }
+  
+    /// <value>The internal name used identify the shipping method.</value>
+    [JsonProperty("code")]
+    public string Code { get; set; }
+  
+    /// <value>The name of the shipping method displayed to customers.</value>
+    [JsonProperty("name")]
+    public string Name { get; set; }
+  
+    /// <value>
+    /// Used by Avalara, Vertex, and Recurly’s built-in tax feature. The tax
+    /// code values are specific to each tax system. If you are using Recurly’s
+    /// built-in taxes the values are:
+    /// 
+    /// - `FR` – Common Carrier FOB Destination
+    /// - `FR022000` – Common Carrier FOB Origin
+    /// - `FR020400` – Non Common Carrier FOB Destination
+    /// - `FR020500` – Non Common Carrier FOB Origin
+    /// - `FR010100` – Delivery by Company Vehicle Before Passage of Title
+    /// - `FR010200` – Delivery by Company Vehicle After Passage of Title
+    /// - `NT` – Non-Taxable
+    /// </value>
+    [JsonProperty("tax_code")]
+    public string TaxCode { get; set; }
+  
+  }
 }

@@ -9,23 +9,21 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 
-namespace Recurly.Resources
-{
-    [ExcludeFromCodeCoverage]
-    public class Tier : Request
-    {
-
-        /// <value>Tier pricing</value>
-        [JsonProperty("currencies")]
-        public List<TierPricing> Currencies { get; set; }
-
-        /// <value>Ending quantity for the tier.  This represents a unit amount for unit-priced add ons. Must be left empty if it is the final tier.</value>
-        [JsonProperty("ending_quantity")]
-        public int? EndingQuantity { get; set; }
-
-        /// <value>(deprecated) -- Use the percentage_tiers object instead.</value>
-        [JsonProperty("usage_percentage")]
-        public string UsagePercentage { get; set; }
-
-    }
+namespace Recurly.Resources {
+  [ExcludeFromCodeCoverage] 
+  public class Tier : Request {
+  
+    /// <value>Tier pricing</value>
+    [JsonProperty("currencies")]
+    public List<TierPricing> Currencies { get; set; }
+  
+    /// <value>Ending quantity for the tier.  This represents a unit amount for unit-priced add ons. Must be left empty if it is the final tier.</value>
+    [JsonProperty("ending_quantity")]
+    public int? EndingQuantity { get; set; }
+  
+    /// <value>(deprecated) -- Use the percentage_tiers object instead.</value>
+    [JsonProperty("usage_percentage")]
+    public string UsagePercentage { get; set; }
+  
+  }
 }

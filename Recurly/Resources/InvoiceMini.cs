@@ -9,33 +9,31 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 
-namespace Recurly.Resources
-{
-    [ExcludeFromCodeCoverage]
-    public class InvoiceMini : Resource
-    {
-
-        /// <value>Invoice ID</value>
-        [JsonProperty("id")]
-        public string Id { get; set; }
-
-        /// <value>Invoice number</value>
-        [JsonProperty("number")]
-        public string Number { get; set; }
-
-        /// <value>Object type</value>
-        [JsonProperty("object")]
-        public string Object { get; set; }
-
-        /// <value>Invoice state</value>
-        [JsonProperty("state")]
-        [JsonConverter(typeof(RecurlyStringEnumConverter))]
-        public Constants.InvoiceState? State { get; set; }
-
-        /// <value>Invoice type</value>
-        [JsonProperty("type")]
-        [JsonConverter(typeof(RecurlyStringEnumConverter))]
-        public Constants.InvoiceType? Type { get; set; }
-
-    }
+namespace Recurly.Resources {
+  [ExcludeFromCodeCoverage] 
+  public class InvoiceMini : Resource {
+  
+    /// <value>Invoice ID</value>
+    [JsonProperty("id")]
+    public string Id { get; set; }
+  
+    /// <value>Invoice number</value>
+    [JsonProperty("number")]
+    public string Number { get; set; }
+  
+    /// <value>Object type</value>
+    [JsonProperty("object")]
+    public string Object { get; set; }
+  
+    /// <value>Invoice state</value>
+    [JsonProperty("state")]
+[JsonConverter(typeof(RecurlyStringEnumConverter))]
+    public Constants.InvoiceState? State { get; set; }
+  
+    /// <value>Invoice type</value>
+    [JsonProperty("type")]
+[JsonConverter(typeof(RecurlyStringEnumConverter))]
+    public Constants.InvoiceType? Type { get; set; }
+  
+  }
 }

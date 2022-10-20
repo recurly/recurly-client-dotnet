@@ -9,19 +9,17 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 
-namespace Recurly.Resources
-{
-    [ExcludeFromCodeCoverage]
-    public class PlanRampPricing : Request
-    {
-
-        /// <value>3-letter ISO 4217 currency code.</value>
-        [JsonProperty("currency")]
-        public string Currency { get; set; }
-
-        /// <value>Represents the price for the Ramp Interval.</value>
-        [JsonProperty("unit_amount")]
-        public decimal? UnitAmount { get; set; }
-
-    }
+namespace Recurly.Resources {
+  [ExcludeFromCodeCoverage] 
+  public class PlanRampPricing : Request {
+  
+    /// <value>3-letter ISO 4217 currency code.</value>
+    [JsonProperty("currency")]
+    public string Currency { get; set; }
+  
+    /// <value>Represents the price for the Ramp Interval.</value>
+    [JsonProperty("unit_amount")]
+    public decimal? UnitAmount { get; set; }
+  
+  }
 }

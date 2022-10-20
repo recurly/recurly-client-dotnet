@@ -9,15 +9,13 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 
-namespace Recurly.Resources
-{
-    [ExcludeFromCodeCoverage]
-    public class BinaryFile : Resource
-    {
-
-
-        [JsonProperty("data")]
-        public byte[] Data { get; set; }
-
-    }
+namespace Recurly.Resources {
+  [ExcludeFromCodeCoverage] 
+  public class BinaryFile : Resource {
+  
+    
+    [JsonProperty("data")]
+    public byte[] Data { get; set; }
+  
+  }
 }

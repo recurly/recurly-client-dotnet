@@ -9,15 +9,13 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 
-namespace Recurly.Resources
-{
-    [ExcludeFromCodeCoverage]
-    public class BillingInfoVerify : Request
-    {
-
-        /// <value>An identifier for a specific payment gateway.</value>
-        [JsonProperty("gateway_code")]
-        public string GatewayCode { get; set; }
-
-    }
+namespace Recurly.Resources {
+  [ExcludeFromCodeCoverage] 
+  public class BillingInfoVerify : Request {
+  
+    /// <value>An identifier for a specific payment gateway.</value>
+    [JsonProperty("gateway_code")]
+    public string GatewayCode { get; set; }
+  
+  }
 }

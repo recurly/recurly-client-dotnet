@@ -9,23 +9,21 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 
-namespace Recurly.Resources
-{
-    [ExcludeFromCodeCoverage]
-    public class ShippingPurchase : Request
-    {
-
-
-        [JsonProperty("address")]
-        public ShippingAddressCreate Address { get; set; }
-
-        /// <value>Assign a shipping address from the account's existing shipping addresses. If this and `address` are both present, `address` will take precedence.</value>
-        [JsonProperty("address_id")]
-        public string AddressId { get; set; }
-
-        /// <value>A list of shipping fees to be created as charges with the purchase.</value>
-        [JsonProperty("fees")]
-        public List<ShippingFeeCreate> Fees { get; set; }
-
-    }
+namespace Recurly.Resources {
+  [ExcludeFromCodeCoverage] 
+  public class ShippingPurchase : Request {
+  
+    
+    [JsonProperty("address")]
+    public ShippingAddressCreate Address { get; set; }
+  
+    /// <value>Assign a shipping address from the account's existing shipping addresses. If this and `address` are both present, `address` will take precedence.</value>
+    [JsonProperty("address_id")]
+    public string AddressId { get; set; }
+  
+    /// <value>A list of shipping fees to be created as charges with the purchase.</value>
+    [JsonProperty("fees")]
+    public List<ShippingFeeCreate> Fees { get; set; }
+  
+  }
 }

@@ -9,19 +9,17 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 
-namespace Recurly.Resources
-{
-    [ExcludeFromCodeCoverage]
-    public class DunningCampaignsBulkUpdateResponse : Resource
-    {
-
-        /// <value>Object type</value>
-        [JsonProperty("object")]
-        public string Object { get; set; }
-
-        /// <value>An array containing all of the `Plan` resources that have been updated.</value>
-        [JsonProperty("plans")]
-        public List<Plan> Plans { get; set; }
-
-    }
+namespace Recurly.Resources {
+  [ExcludeFromCodeCoverage] 
+  public class DunningCampaignsBulkUpdateResponse : Resource {
+  
+    /// <value>Object type</value>
+    [JsonProperty("object")]
+    public string Object { get; set; }
+  
+    /// <value>An array containing all of the `Plan` resources that have been updated.</value>
+    [JsonProperty("plans")]
+    public List<Plan> Plans { get; set; }
+  
+  }
 }

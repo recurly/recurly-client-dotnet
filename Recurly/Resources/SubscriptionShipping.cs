@@ -9,27 +9,25 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 
-namespace Recurly.Resources
-{
-    [ExcludeFromCodeCoverage]
-    public class SubscriptionShipping : Resource
-    {
-
-
-        [JsonProperty("address")]
-        public ShippingAddress Address { get; set; }
-
-        /// <value>Subscription's shipping cost</value>
-        [JsonProperty("amount")]
-        public decimal? Amount { get; set; }
-
-
-        [JsonProperty("method")]
-        public ShippingMethodMini Method { get; set; }
-
-        /// <value>Object type</value>
-        [JsonProperty("object")]
-        public string Object { get; set; }
-
-    }
+namespace Recurly.Resources {
+  [ExcludeFromCodeCoverage] 
+  public class SubscriptionShipping : Resource {
+  
+    
+    [JsonProperty("address")]
+    public ShippingAddress Address { get; set; }
+  
+    /// <value>Subscription's shipping cost</value>
+    [JsonProperty("amount")]
+    public decimal? Amount { get; set; }
+  
+    
+    [JsonProperty("method")]
+    public ShippingMethodMini Method { get; set; }
+  
+    /// <value>Object type</value>
+    [JsonProperty("object")]
+    public string Object { get; set; }
+  
+  }
 }

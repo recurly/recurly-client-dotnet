@@ -9,27 +9,25 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 
-namespace Recurly.Resources
-{
-    [ExcludeFromCodeCoverage]
-    public class TransactionPaymentGateway : Resource
-    {
-
-
-        [JsonProperty("id")]
-        public string Id { get; set; }
-
-
-        [JsonProperty("name")]
-        public string Name { get; set; }
-
-        /// <value>Object type</value>
-        [JsonProperty("object")]
-        public string Object { get; set; }
-
-
-        [JsonProperty("type")]
-        public string Type { get; set; }
-
-    }
+namespace Recurly.Resources {
+  [ExcludeFromCodeCoverage] 
+  public class TransactionPaymentGateway : Resource {
+  
+    
+    [JsonProperty("id")]
+    public string Id { get; set; }
+  
+    
+    [JsonProperty("name")]
+    public string Name { get; set; }
+  
+    /// <value>Object type</value>
+    [JsonProperty("object")]
+    public string Object { get; set; }
+  
+    
+    [JsonProperty("type")]
+    public string Type { get; set; }
+  
+  }
 }

@@ -9,15 +9,13 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 
-namespace Recurly.Resources
-{
-    [ExcludeFromCodeCoverage]
-    public class BillingInfoVerifyCVV : Request
-    {
-
-        /// <value>Unique security code for a credit card.</value>
-        [JsonProperty("verification_value")]
-        public string VerificationValue { get; set; }
-
-    }
+namespace Recurly.Resources {
+  [ExcludeFromCodeCoverage] 
+  public class BillingInfoVerifyCVV : Request {
+  
+    /// <value>Unique security code for a credit card.</value>
+    [JsonProperty("verification_value")]
+    public string VerificationValue { get; set; }
+  
+  }
 }

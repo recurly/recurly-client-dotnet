@@ -9,17 +9,17 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 
-namespace Recurly.Resources
+namespace Recurly.Resources 
 {
 
     [ExcludeFromCodeCoverage]
     public class ListDunningCampaignsParams : OptionalParams
     {
-
+        
         /// <value>Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </value>
         [JsonProperty("sort")]
         public Constants.TimestampSort? Sort { get; set; }
-
+        
     }
 }
 

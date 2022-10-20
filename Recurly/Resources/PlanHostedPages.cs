@@ -9,27 +9,25 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 
-namespace Recurly.Resources
-{
-    [ExcludeFromCodeCoverage]
-    public class PlanHostedPages : Request
-    {
-
-        /// <value>If `true`, the customer will be sent directly to your `success_url` after a successful signup, bypassing Recurly's hosted confirmation page.</value>
-        [JsonProperty("bypass_confirmation")]
-        public bool? BypassConfirmation { get; set; }
-
-        /// <value>URL to redirect to on canceled signup on the hosted payment pages.</value>
-        [JsonProperty("cancel_url")]
-        public string CancelUrl { get; set; }
-
-        /// <value>Determines if the quantity field is displayed on the hosted pages for the plan.</value>
-        [JsonProperty("display_quantity")]
-        public bool? DisplayQuantity { get; set; }
-
-        /// <value>URL to redirect to after signup on the hosted payment pages.</value>
-        [JsonProperty("success_url")]
-        public string SuccessUrl { get; set; }
-
-    }
+namespace Recurly.Resources {
+  [ExcludeFromCodeCoverage] 
+  public class PlanHostedPages : Request {
+  
+    /// <value>If `true`, the customer will be sent directly to your `success_url` after a successful signup, bypassing Recurly's hosted confirmation page.</value>
+    [JsonProperty("bypass_confirmation")]
+    public bool? BypassConfirmation { get; set; }
+  
+    /// <value>URL to redirect to on canceled signup on the hosted payment pages.</value>
+    [JsonProperty("cancel_url")]
+    public string CancelUrl { get; set; }
+  
+    /// <value>Determines if the quantity field is displayed on the hosted pages for the plan.</value>
+    [JsonProperty("display_quantity")]
+    public bool? DisplayQuantity { get; set; }
+  
+    /// <value>URL to redirect to after signup on the hosted payment pages.</value>
+    [JsonProperty("success_url")]
+    public string SuccessUrl { get; set; }
+  
+  }
 }

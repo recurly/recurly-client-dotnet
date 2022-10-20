@@ -9,23 +9,21 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 
-namespace Recurly.Resources
-{
-    [ExcludeFromCodeCoverage]
-    public class MeasuredUnitUpdate : Request
-    {
-
-        /// <value>Optional internal description.</value>
-        [JsonProperty("description")]
-        public string Description { get; set; }
-
-        /// <value>Display name for the measured unit.</value>
-        [JsonProperty("display_name")]
-        public string DisplayName { get; set; }
-
-        /// <value>Unique internal name of the measured unit on your site.</value>
-        [JsonProperty("name")]
-        public string Name { get; set; }
-
-    }
+namespace Recurly.Resources {
+  [ExcludeFromCodeCoverage] 
+  public class MeasuredUnitUpdate : Request {
+  
+    /// <value>Optional internal description.</value>
+    [JsonProperty("description")]
+    public string Description { get; set; }
+  
+    /// <value>Display name for the measured unit.</value>
+    [JsonProperty("display_name")]
+    public string DisplayName { get; set; }
+  
+    /// <value>Unique internal name of the measured unit on your site.</value>
+    [JsonProperty("name")]
+    public string Name { get; set; }
+  
+  }
 }

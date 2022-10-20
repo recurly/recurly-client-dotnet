@@ -9,19 +9,17 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 
-namespace Recurly.Resources
-{
-    [ExcludeFromCodeCoverage]
-    public class DunningInterval : Resource
-    {
-
-        /// <value>Number of days before sending the next email.</value>
-        [JsonProperty("days")]
-        public int? Days { get; set; }
-
-        /// <value>Email template being used.</value>
-        [JsonProperty("email_template")]
-        public string EmailTemplate { get; set; }
-
-    }
+namespace Recurly.Resources {
+  [ExcludeFromCodeCoverage] 
+  public class DunningInterval : Resource {
+  
+    /// <value>Number of days before sending the next email.</value>
+    [JsonProperty("days")]
+    public int? Days { get; set; }
+  
+    /// <value>Email template being used.</value>
+    [JsonProperty("email_template")]
+    public string EmailTemplate { get; set; }
+  
+  }
 }
