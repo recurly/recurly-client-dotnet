@@ -68,6 +68,14 @@ namespace Recurly.Resources
         [JsonProperty("dunning_campaign_id")]
         public string DunningCampaignId { get; set; }
 
+        /// <value>Number of times the event was sent.</value>
+        [JsonProperty("dunning_events_sent")]
+        public int? DunningEventsSent { get; set; }
+
+        /// <value>Last communication attempt.</value>
+        [JsonProperty("final_dunning_event")]
+        public bool? FinalDunningEvent { get; set; }
+
         /// <value>Identifies if the invoice has more line items than are returned in `line_items`. If `has_more_line_items` is `true`, then a request needs to be made to the `list_invoice_line_items` endpoint.</value>
         [JsonProperty("has_more_line_items")]
         public bool? HasMoreLineItems { get; set; }
