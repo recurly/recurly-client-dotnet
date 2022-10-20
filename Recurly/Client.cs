@@ -538,6 +538,40 @@ namespace Recurly
 
 
         /// <summary>
+        /// Verify an account's credit card billing cvv <see href="https://developers.recurly.com/api/v2022-01-01#operation/verify_billing_info_cvv">verify_billing_info_cvv api documentation</see>
+        /// </summary>
+        /// <param name="VerifyBillingInfoCvvParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Transaction information from verify.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Transaction VerifyBillingInfoCvv(string accountId, BillingInfoVerifyCVV body, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
+            var url = this.InterpolatePath("/accounts/{account_id}/billing_info/verify_cvv", urlParams);
+            return MakeRequest<Transaction>(Method.POST, url, body, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Verify an account's credit card billing cvv <see href="https://developers.recurly.com/api/v2022-01-01#operation/verify_billing_info_cvv">verify_billing_info_cvv api documentation</see>
+        /// </summary>
+        /// <param name="VerifyBillingInfoCvvParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Transaction information from verify.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<Transaction> VerifyBillingInfoCvvAsync(string accountId, BillingInfoVerifyCVV body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
+            var url = this.InterpolatePath("/accounts/{account_id}/billing_info/verify_cvv", urlParams);
+            return MakeRequestAsync<Transaction>(Method.POST, url, body, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
         /// Get the list of billing information associated with an account <see href="https://developers.recurly.com/api/v2022-01-01#operation/list_billing_infos">list_billing_infos api documentation</see>
         /// </summary>
         /// <param name="ListBillingInfosParams">Optional Parameters for the request</param>
@@ -4066,9 +4100,9 @@ namespace Recurly
         /// A list of updated plans.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public DunningCampaignsBulkUpdateResponse PutDunningCampaignBulkUpdate(DunningCampaignsBulkUpdate body, RequestOptions options = null)
+        public DunningCampaignsBulkUpdateResponse PutDunningCampaignBulkUpdate(string dunningCampaignId, DunningCampaignsBulkUpdate body, RequestOptions options = null)
         {
-            var urlParams = new Dictionary<string, object> { };
+            var urlParams = new Dictionary<string, object> { { "dunning_campaign_id", dunningCampaignId } };
             var url = this.InterpolatePath("/dunning_campaigns/{dunning_campaign_id}/bulk_update", urlParams);
             return MakeRequest<DunningCampaignsBulkUpdateResponse>(Method.PUT, url, body, null, options);
         }
@@ -4083,9 +4117,9 @@ namespace Recurly
         /// A list of updated plans.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public Task<DunningCampaignsBulkUpdateResponse> PutDunningCampaignBulkUpdateAsync(DunningCampaignsBulkUpdate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        public Task<DunningCampaignsBulkUpdateResponse> PutDunningCampaignBulkUpdateAsync(string dunningCampaignId, DunningCampaignsBulkUpdate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
         {
-            var urlParams = new Dictionary<string, object> { };
+            var urlParams = new Dictionary<string, object> { { "dunning_campaign_id", dunningCampaignId } };
             var url = this.InterpolatePath("/dunning_campaigns/{dunning_campaign_id}/bulk_update", urlParams);
             return MakeRequestAsync<DunningCampaignsBulkUpdateResponse>(Method.PUT, url, body, null, options, cancellationToken);
         }

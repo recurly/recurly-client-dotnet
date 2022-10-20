@@ -78,5 +78,9 @@ namespace Recurly.Resources
         [JsonProperty("routing_number_bank")]
         public string RoutingNumberBank { get; set; }
 
+        /// <value>Username of the associated payment method. Currently only associated with Venmo.</value>
+        [JsonProperty("username")]
+        public string Username { get; set; }
+
     }
 }

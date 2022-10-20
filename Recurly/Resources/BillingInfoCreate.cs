@@ -36,6 +36,11 @@ namespace Recurly.Resources
         [JsonProperty("backup_payment_method")]
         public bool? BackupPaymentMethod { get; set; }
 
+
+        [JsonProperty("card_type")]
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.CardType? CardType { get; set; }
+
         /// <value>Company name</value>
         [JsonProperty("company")]
         public string Company { get; set; }
@@ -44,7 +49,7 @@ namespace Recurly.Resources
         [JsonProperty("cvv")]
         public string Cvv { get; set; }
 
-        /// <value>Use for Adyen HPP billing info.</value>
+        /// <value>Use for Adyen HPP billing info. This should only be used as part of a pending purchase request, when the billing info is nested inside an account object.</value>
         [JsonProperty("external_hpp_type")]
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
         public Constants.ExternalHppType? ExternalHppType { get; set; }
@@ -89,7 +94,7 @@ namespace Recurly.Resources
         [JsonProperty("number")]
         public string Number { get; set; }
 
-        /// <value>Use for Online Banking billing info.</value>
+        /// <value>Use for Online Banking billing info. This should only be used as part of a pending purchase request, when the billing info is nested inside an account object.</value>
         [JsonProperty("online_banking_payment_type")]
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
         public Constants.OnlineBankingPaymentType? OnlineBankingPaymentType { get; set; }
@@ -110,11 +115,11 @@ namespace Recurly.Resources
         [JsonProperty("sort_code")]
         public string SortCode { get; set; }
 
-        /// <value>Tax identifier is required if adding a billing info that is a consumer card in Brazil or in Argentina. This would be the customer's CPF (Brazil) and CUIT (Argentina). CPF and CUIT are tax identifiers for all residents who pay taxes in Brazil and Argentina respectively.</value>
+        /// <value>Tax identifier is required if adding a billing info that is a consumer card in Brazil or in Argentina. This would be the customer's CPF/CNPJ (Brazil) and CUIT (Argentina). CPF, CNPJ and CUIT are tax identifiers for all residents who pay taxes in Brazil and Argentina respectively.</value>
         [JsonProperty("tax_identifier")]
         public string TaxIdentifier { get; set; }
 
-        /// <value>This field and a value of `cpf` or `cuit` are required if adding a billing info that is an elo or hipercard type in Brazil or in Argentina.</value>
+        /// <value>This field and a value of `cpf`, `cnpj` or `cuit` are required if adding a billing info that is an elo or hipercard type in Brazil or in Argentina.</value>
         [JsonProperty("tax_identifier_type")]
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
         public Constants.TaxIdentifierType? TaxIdentifierType { get; set; }
