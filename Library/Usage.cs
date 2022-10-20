@@ -20,6 +20,7 @@ namespace Recurly
         public int? UnitAmountInCents { get; set; }
         public float? UsagePercentage { get; set; }
         public int Amount { get; set; }
+        public decimal? AmountDecimal { get; set; }
         public string MerchantTag { get; set; }
         public Type UsageType { get; set; }
         public DateTime? UsageTimestamp { get; set; }
@@ -121,6 +122,10 @@ namespace Recurly
                         Amount = reader.ReadElementContentAsInt();
                         break;
 
+                    case "amount_decimal":
+                        AmountDecimal = reader.ReadElementContentAsDecimal();
+                        break;
+
                     case "unit_amount_in_cents":
                         if (Int32.TryParse(reader.ReadElementContentAsString(), out unitAmountInCents))
                             UnitAmountInCents = unitAmountInCents;
@@ -186,6 +191,10 @@ namespace Recurly
                 xmlWriter.WriteElementString("unit_amount_in_cents", UnitAmountInCents.Value.AsString());
 
             xmlWriter.WriteElementString("amount", Amount.AsString());
+
+            if (AmountDecimal.HasValue)
+                xmlWriter.WriteElementString("amount_decimal", AmountDecimal.Value.ToString());
+
             xmlWriter.WriteElementString("merchant_tag", MerchantTag);
 
             if (RecordingTimestamp.HasValue)
