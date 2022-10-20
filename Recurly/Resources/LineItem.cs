@@ -145,6 +145,10 @@ namespace Recurly.Resources
         [JsonProperty("quantity")]
         public int? Quantity { get; set; }
 
+        /// <value>A floating-point alternative to Quantity. If this value is present, it will be used in place of Quantity for calculations, and Quantity will be the rounded integer value of this number. This field supports up to 9 decimal places. The Decimal Quantity feature must be enabled to utilize this field.</value>
+        [JsonProperty("quantity_decimal")]
+        public string QuantityDecimal { get; set; }
+
         /// <value>Refund?</value>
         [JsonProperty("refund")]
         public bool? Refund { get; set; }
@@ -152,6 +156,10 @@ namespace Recurly.Resources
         /// <value>For refund charges, the quantity being refunded. For non-refund charges, the total quantity refunded (possibly over multiple refunds).</value>
         [JsonProperty("refunded_quantity")]
         public int? RefundedQuantity { get; set; }
+
+        /// <value>A floating-point alternative to Refunded Quantity. For refund charges, the quantity being refunded. For non-refund charges, the total quantity refunded (possibly over multiple refunds). The Decimal Quantity feature must be enabled to utilize this field.</value>
+        [JsonProperty("refunded_quantity_decimal")]
+        public string RefundedQuantityDecimal { get; set; }
 
         /// <value>Revenue schedule type</value>
         [JsonProperty("revenue_schedule_type")]
