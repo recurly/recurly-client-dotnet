@@ -4272,14 +4272,15 @@ namespace Recurly
         /// <summary>
         /// Assign a dunning campaign to multiple plans <see href="https://developers.recurly.com/api/v2019-10-10#operation/put_dunning_campaign_bulk_update">put_dunning_campaign_bulk_update api documentation</see>
         /// </summary>
+        /// <param name="dunningCampaignId">Dunning Campaign ID, e.g. `e28zov4fw0v2`.</param>
         /// <param name="body">The body of the request.</param>
         /// <returns>
         /// A list of updated plans.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public DunningCampaignsBulkUpdateResponse PutDunningCampaignBulkUpdate(DunningCampaignsBulkUpdate body, RequestOptions options = null)
+        public DunningCampaignsBulkUpdateResponse PutDunningCampaignBulkUpdate(string dunningCampaignId, DunningCampaignsBulkUpdate body, RequestOptions options = null)
         {
-            var urlParams = new Dictionary<string, object> { };
+            var urlParams = new Dictionary<string, object> { { "dunning_campaign_id", dunningCampaignId } };
             var url = this.InterpolatePath("/dunning_campaigns/{dunning_campaign_id}/bulk_update", urlParams);
             return MakeRequest<DunningCampaignsBulkUpdateResponse>(Method.PUT, url, body, null, options);
         }
@@ -4289,14 +4290,15 @@ namespace Recurly
         /// <summary>
         /// Assign a dunning campaign to multiple plans <see href="https://developers.recurly.com/api/v2019-10-10#operation/put_dunning_campaign_bulk_update">put_dunning_campaign_bulk_update api documentation</see>
         /// </summary>
+        /// <param name="dunningCampaignId">Dunning Campaign ID, e.g. `e28zov4fw0v2`.</param>
         /// <param name="body">The body of the request.</param>
         /// <returns>
         /// A list of updated plans.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public Task<DunningCampaignsBulkUpdateResponse> PutDunningCampaignBulkUpdateAsync(DunningCampaignsBulkUpdate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        public Task<DunningCampaignsBulkUpdateResponse> PutDunningCampaignBulkUpdateAsync(string dunningCampaignId, DunningCampaignsBulkUpdate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
         {
-            var urlParams = new Dictionary<string, object> { };
+            var urlParams = new Dictionary<string, object> { { "dunning_campaign_id", dunningCampaignId } };
             var url = this.InterpolatePath("/dunning_campaigns/{dunning_campaign_id}/bulk_update", urlParams);
             return MakeRequestAsync<DunningCampaignsBulkUpdateResponse>(Method.PUT, url, body, null, options, cancellationToken);
         }

@@ -19,7 +19,7 @@ namespace Recurly.Resources
         [JsonProperty("currencies")]
         public List<PlanRampPricing> Currencies { get; set; }
 
-        /// <value>Represents the first billing cycle of a ramp.</value>
+        /// <value>Represents the billing cycle where a ramp interval starts.</value>
         [JsonProperty("starting_billing_cycle")]
         public int? StartingBillingCycle { get; set; }
 

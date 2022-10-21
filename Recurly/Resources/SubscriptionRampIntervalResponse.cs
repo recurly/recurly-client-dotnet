@@ -19,7 +19,7 @@ namespace Recurly.Resources
         [JsonProperty("remaining_billing_cycles")]
         public int? RemainingBillingCycles { get; set; }
 
-        /// <value>Represents how many billing cycles are included in a ramp interval.</value>
+        /// <value>Represents the billing cycle where a ramp interval starts.</value>
         [JsonProperty("starting_billing_cycle")]
         public int? StartingBillingCycle { get; set; }
 
