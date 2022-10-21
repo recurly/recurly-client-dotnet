@@ -30,5 +30,9 @@ namespace Recurly.Resources
         [JsonProperty("quantity")]
         public int? Quantity { get; set; }
 
+        /// <value>A floating-point alternative to Quantity. If this value is present, it will be used in place of Quantity for calculations, and Quantity will be the rounded integer value of this number. This field supports up to 9 decimal places. The Decimal Quantity feature must be enabled to utilize this field.</value>
+        [JsonProperty("quantity_decimal")]
+        public string QuantityDecimal { get; set; }
+
     }
 }
