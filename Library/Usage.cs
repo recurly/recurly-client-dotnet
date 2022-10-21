@@ -16,6 +16,12 @@ namespace Recurly
             Percentage
         }
 
+        public enum CalculationType
+        {
+            Cumulative,
+            LastInPeriod
+        }
+
         public long? Id { get; private set; }
         public int? UnitAmountInCents { get; set; }
         public float? UsagePercentage { get; set; }

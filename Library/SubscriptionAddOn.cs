@@ -13,6 +13,7 @@ namespace Recurly
         public int Quantity { get; set; }
         public Adjustment.RevenueSchedule? RevenueScheduleType { get; set; }
         public float? UsagePercentage { get; set; }
+        public Usage.CalculationType? UsageCalculationType { get; set; }
         public string TierType { get; set; }
         public string UsageTimeframe { get; set; }
 
@@ -125,6 +126,11 @@ namespace Recurly
                         if (Single.TryParse(usagePercentage, NumberStyles.Number,
                                 CultureInfo.InvariantCulture.NumberFormat, out float percentage))
                             UsagePercentage = percentage;
+                        break;
+
+                    case "usage_calculation_type":
+                        if (!reader.ReadElementContentAsString().IsNullOrEmpty())
+                            UsageCalculationType = reader.ReadElementContentAsString().ParseAsEnum<Usage.CalculationType>();
                         break;
 
                     case "tier_type":

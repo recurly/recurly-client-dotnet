@@ -25,6 +25,7 @@ namespace Recurly
         public long? MeasuredUnitId { get; set; }
         public Type? AddOnType { get; set; }
         public Usage.Type? UsageType { get; set; }
+        public Usage.CalculationType? UsageCalculationType { get; set; }
         public float? UsagePercentage { get; set; }
         public DateTime CreatedAt { get; private set; }
         public DateTime UpdatedAt { get; private set; }
@@ -225,6 +226,11 @@ namespace Recurly
                         UsageType = reader.ReadElementContentAsString().ParseAsEnum<Usage.Type>();
                         break;
 
+                    case "usage_calculation_type":
+                        if (!reader.ReadElementContentAsString().IsNullOrEmpty())
+                            UsageCalculationType = reader.ReadElementContentAsString().ParseAsEnum<Usage.CalculationType>();
+                        break;
+
                     case "usage_percentage":
                         if (reader.GetAttribute("nil") == null)
                         {
@@ -278,6 +284,9 @@ namespace Recurly
 
             if (UsageType.HasValue)
                 xmlWriter.WriteElementString("usage_type", UsageType.Value.ToString().EnumNameToTransportCase());
+
+            if (UsageCalculationType.HasValue)
+                xmlWriter.WriteElementString("usage_calculation_type", UsageCalculationType.Value.ToString().EnumNameToTransportCase());
 
             if (UsagePercentage.HasValue)
                 xmlWriter.WriteElementString("usage_percentage", UsagePercentage.Value.ToString());
