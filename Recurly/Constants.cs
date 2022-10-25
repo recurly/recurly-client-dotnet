@@ -143,6 +143,24 @@ namespace Recurly
 
         };
 
+        public enum FilterLimitedSubscriptionState
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "active")]
+            Active,
+
+            [EnumMember(Value = "canceled")]
+            Canceled,
+
+            [EnumMember(Value = "expired")]
+            Expired,
+
+            [EnumMember(Value = "future")]
+            Future,
+
+        };
+
         public enum True
         {
             Undefined = 0,
