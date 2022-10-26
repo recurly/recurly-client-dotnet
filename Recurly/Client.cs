@@ -4178,5 +4178,24 @@ namespace Recurly
         }
 
 
+
+        /// <summary>
+        /// Show all entitlements granted to an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_entitlements">list_entitlements api documentation</see>
+        /// </summary>
+        /// <param name="ListEntitlementsParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// A list of the entitlements granted to an account.
+        /// </returns>
+        public Pager<Entitlements> ListEntitlements(string accountId, ListEntitlementsParams optionalParams = null, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
+            var queryParams = (optionalParams ?? new ListEntitlementsParams()).ToDictionary();
+            var url = this.InterpolatePath("/accounts/{account_id}/entitlements", urlParams);
+            return Pager<Entitlements>.Build(url, queryParams, options, this);
+        }
+
+
+
+
     }
 }
