@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.17.19](https://github.com/recurly/recurly-client-dotnet/tree/1.17.19) (2022-10-27)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.18...1.17.19)
+
+
+**Merged Pull Requests**
+
+- adds support for entitlements [#735](https://github.com/recurly/recurly-client-dotnet/pull/735) ([amandamfielding](https://github.com/amandamfielding))
+
+
+
 ## [1.17.18](https://github.com/recurly/recurly-client-dotnet/tree/1.17.18) (2022-10-20)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.17...1.17.18)
