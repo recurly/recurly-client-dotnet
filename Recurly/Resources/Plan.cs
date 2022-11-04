@@ -51,6 +51,10 @@ namespace Recurly.Resources
         [JsonProperty("currencies")]
         public List<PlanPricing> Currencies { get; set; }
 
+        /// <value>The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.</value>
+        [JsonProperty("custom_fields")]
+        public List<CustomField> CustomFields { get; set; }
+
         /// <value>Deleted at</value>
         [JsonProperty("deleted_at")]
         public DateTime? DeletedAt { get; set; }
