@@ -727,7 +727,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Show the coupon redemptions for an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_account_coupon_redemptions">list_account_coupon_redemptions api documentation</see>
+        /// List the coupon redemptions for an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_account_coupon_redemptions">list_account_coupon_redemptions api documentation</see>
         /// </summary>
         /// <param name="ListAccountCouponRedemptionsParams">Optional Parameters for the request</param>
         /// <returns>
@@ -746,7 +746,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Show the coupon redemptions that are active on an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_active_coupon_redemptions">list_active_coupon_redemptions api documentation</see>
+        /// List the coupon redemptions that are active on an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_active_coupon_redemptions">list_active_coupon_redemptions api documentation</see>
         /// </summary>
         /// <param name="ListActiveCouponRedemptionsParams">Optional Parameters for the request</param>
         /// <returns>
@@ -991,7 +991,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a list of an account's notes <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_account_notes">list_account_notes api documentation</see>
+        /// List an account's notes <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_account_notes">list_account_notes api documentation</see>
         /// </summary>
         /// <param name="ListAccountNotesParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2330,7 +2330,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Show the coupon redemptions applied to an invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_invoice_coupon_redemptions">list_invoice_coupon_redemptions api documentation</see>
+        /// List the coupon redemptions applied to an invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_invoice_coupon_redemptions">list_invoice_coupon_redemptions api documentation</see>
         /// </summary>
         /// <param name="ListInvoiceCouponRedemptionsParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3541,7 +3541,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Show the coupon redemptions for a subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_subscription_coupon_redemptions">list_subscription_coupon_redemptions api documentation</see>
+        /// List the coupon redemptions for a subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_subscription_coupon_redemptions">list_subscription_coupon_redemptions api documentation</see>
         /// </summary>
         /// <param name="ListSubscriptionCouponRedemptionsParams">Optional Parameters for the request</param>
         /// <returns>
@@ -4040,7 +4040,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Show the dunning campaigns for a site <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_dunning_campaigns">list_dunning_campaigns api documentation</see>
+        /// List the dunning campaigns for a site <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_dunning_campaigns">list_dunning_campaigns api documentation</see>
         /// </summary>
         /// <param name="ListDunningCampaignsParams">Optional Parameters for the request</param>
         /// <returns>
@@ -4059,7 +4059,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Show the settings for a dunning campaign <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_dunning_campaign">get_dunning_campaign api documentation</see>
+        /// Fetch a dunning campaign <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_dunning_campaign">get_dunning_campaign api documentation</see>
         /// </summary>
         /// <param name="GetDunningCampaignParams">Optional Parameters for the request</param>
         /// <returns>
@@ -4076,7 +4076,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Show the settings for a dunning campaign <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_dunning_campaign">get_dunning_campaign api documentation</see>
+        /// Fetch a dunning campaign <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_dunning_campaign">get_dunning_campaign api documentation</see>
         /// </summary>
         /// <param name="GetDunningCampaignParams">Optional Parameters for the request</param>
         /// <returns>
@@ -4146,7 +4146,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Show the settings for an invoice template <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_invoice_template">get_invoice_template api documentation</see>
+        /// Fetch an invoice template <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_invoice_template">get_invoice_template api documentation</see>
         /// </summary>
         /// <param name="GetInvoiceTemplateParams">Optional Parameters for the request</param>
         /// <returns>
@@ -4163,7 +4163,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Show the settings for an invoice template <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_invoice_template">get_invoice_template api documentation</see>
+        /// Fetch an invoice template <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_invoice_template">get_invoice_template api documentation</see>
         /// </summary>
         /// <param name="GetInvoiceTemplateParams">Optional Parameters for the request</param>
         /// <returns>
@@ -4180,7 +4180,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Show all entitlements granted to an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_entitlements">list_entitlements api documentation</see>
+        /// List entitlements granted to an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_entitlements">list_entitlements api documentation</see>
         /// </summary>
         /// <param name="ListEntitlementsParams">Optional Parameters for the request</param>
         /// <returns>

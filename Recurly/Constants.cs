@@ -24,6 +24,9 @@ namespace Recurly
             [EnumMember(Value = "item")]
             Item,
 
+            [EnumMember(Value = "plan")]
+            Plan,
+
             [EnumMember(Value = "subscription")]
             Subscription,
 
