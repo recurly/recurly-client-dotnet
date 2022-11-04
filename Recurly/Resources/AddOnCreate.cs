@@ -105,7 +105,7 @@ namespace Recurly.Resources
         /// <value>
         /// The pricing model for the add-on.  For more information,
         /// [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based). See our
-        /// [Guide](https://developers.recurly.com/guides/item-addon-guide.html) for an overview of how
+        /// [Guide](https://recurly.com/developers/guides/item-addon-guide.html) for an overview of how
         /// to configure quantity-based pricing models.
         /// </value>
         [JsonProperty("tier_type")]
@@ -136,7 +136,7 @@ namespace Recurly.Resources
 
         /// <value>
         /// Type of usage, required if `add_on_type` is `usage`. See our
-        /// [Guide](https://developers.recurly.com/guides/usage-based-billing-guide.html) for an
+        /// [Guide](https://recurly.com/developers/guides/usage-based-billing-guide.html) for an
         /// overview of how to configure usage add-ons.
         /// </value>
         [JsonProperty("usage_type")]
