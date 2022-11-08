@@ -396,6 +396,15 @@ namespace Recurly
         }
 
         /// <summary>
+        /// Returns a list of external_subscriptions for this account
+        /// </summary>
+        /// <returns></returns>
+        public RecurlyList<ExternalSubscription> GetExternalSubscriptions()
+        {
+            return new ExternalSubscriptionList(UrlPrefix + Uri.EscapeDataString(AccountCode) + "/external_subscriptions/");
+        }
+
+        /// <summary>
         /// Returns a list of transactions for this account, by transaction type
         /// </summary>
         /// <param name="state">Transactions of this state will be retrieved. Optional, default: All.</param>
