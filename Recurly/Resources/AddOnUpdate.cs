@@ -94,6 +94,11 @@ namespace Recurly.Resources
         [JsonProperty("tiers")]
         public List<Tier> Tiers { get; set; }
 
+        /// <value>The type of calculation to be employed for an add-on.  Cumulative billing will sum all usage records created in the current billing cycle.  Last-in-period billing will apply only the most recent usage record in the billing period.  If no value is specified, cumulative billing will be used.</value>
+        [JsonProperty("usage_calculation_type")]
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.UsageCalculationType? UsageCalculationType { get; set; }
+
         /// <value>The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0. Required if `add_on_type` is usage, `tier_type` is `flat` and `usage_type` is percentage. Must be omitted otherwise.</value>
         [JsonProperty("usage_percentage")]
         public decimal? UsagePercentage { get; set; }
