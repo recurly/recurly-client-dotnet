@@ -83,6 +83,18 @@ namespace Recurly
 
         };
 
+        public enum UsageCalculationType
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "cumulative")]
+            Cumulative,
+
+            [EnumMember(Value = "last_in_period")]
+            LastInPeriod,
+
+        };
+
         public enum BillingStatus
         {
             Undefined = 0,

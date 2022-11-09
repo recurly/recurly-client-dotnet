@@ -1315,6 +1315,66 @@ namespace Recurly
         Task<MeasuredUnit> RemoveMeasuredUnitAsync(string measuredUnitId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
 
         /// <summary>
+        /// List a site's external products <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_external_products">list_external_products api documentation</see>
+        /// </summary>
+        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
+        /// <returns>
+        /// A list of the the external_products on a site.
+        /// </returns>
+        Pager<ExternalProduct> ListExternalProducts(ListExternalProductsParams optionalParams = null, RequestOptions options = null);
+
+
+        /// <summary>
+        /// Fetch an external product <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_external_product">get_external_product api documentation</see>
+        /// </summary>
+        /// <param name="externalProductId">External product id</param>
+        /// <returns>
+        /// Settings for an external product.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        ExternalProduct GetExternalProduct(string externalProductId, RequestOptions options = null);
+
+        /// <summary>
+        /// Fetch an external product <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_external_product">get_external_product api documentation</see>
+        /// </summary>
+        /// <param name="externalProductId">External product id</param>
+        /// <returns>
+        /// Settings for an external product.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<ExternalProduct> GetExternalProductAsync(string externalProductId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// List a site's external subscriptions <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_external_subscriptions">list_external_subscriptions api documentation</see>
+        /// </summary>
+        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
+        /// <returns>
+        /// A list of the the external_subscriptions on a site.
+        /// </returns>
+        Pager<ExternalSubscription> ListExternalSubscriptions(ListExternalSubscriptionsParams optionalParams = null, RequestOptions options = null);
+
+
+        /// <summary>
+        /// Fetch an external subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_external_subscription">get_external_subscription api documentation</see>
+        /// </summary>
+        /// <param name="externalSubscriptionId">External subscription id</param>
+        /// <returns>
+        /// Settings for an external subscription.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        ExternalSubscription GetExternalSubscription(string externalSubscriptionId, RequestOptions options = null);
+
+        /// <summary>
+        /// Fetch an external subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_external_subscription">get_external_subscription api documentation</see>
+        /// </summary>
+        /// <param name="externalSubscriptionId">External subscription id</param>
+        /// <returns>
+        /// Settings for an external subscription.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<ExternalSubscription> GetExternalSubscriptionAsync(string externalSubscriptionId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
         /// List a site's invoices <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_invoices">list_invoices api documentation</see>
         /// </summary>
         /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
@@ -2723,6 +2783,17 @@ namespace Recurly
         /// A list of the entitlements granted to an account.
         /// </returns>
         Pager<Entitlements> ListEntitlements(string accountId, ListEntitlementsParams optionalParams = null, RequestOptions options = null);
+
+
+        /// <summary>
+        /// List an account's external subscriptions <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_account_external_subscriptions">list_account_external_subscriptions api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
+        /// <returns>
+        /// A list of the the external_subscriptions on an account.
+        /// </returns>
+        Pager<ExternalSubscription> ListAccountExternalSubscriptions(string accountId, ListAccountExternalSubscriptionsParams optionalParams = null, RequestOptions options = null);
 
     }
 }
