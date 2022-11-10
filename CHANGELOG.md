@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.17.20](https://github.com/recurly/recurly-client-dotnet/tree/1.17.20) (2022-11-10)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.19...1.17.20)
+
+
+
+
+
 ## [1.17.19](https://github.com/recurly/recurly-client-dotnet/tree/1.17.19) (2022-10-27)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.18...1.17.19)
