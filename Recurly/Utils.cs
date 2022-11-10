@@ -66,7 +66,6 @@ namespace Recurly
                         stringRepr = param.Value.ToString();
 
                         var type = param.Value.GetType();
-                        Console.WriteLine($"TYPE {type}");
                         var memInfos = type.GetMember(param.Value.ToString());
                         foreach (var memInfo in memInfos)
                             foreach (var attr in memInfo.GetCustomAttributes(true))
