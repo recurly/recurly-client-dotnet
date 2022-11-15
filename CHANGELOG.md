@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.17.21](https://github.com/recurly/recurly-client-dotnet/tree/1.17.21) (2022-11-15)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.20...1.17.21)
+
+
+**Merged Pull Requests**
+
+- Support for external subscriptions and products [#750](https://github.com/recurly/recurly-client-dotnet/pull/750) ([ELepolt](https://github.com/ELepolt))
+
+
+
 ## [1.17.20](https://github.com/recurly/recurly-client-dotnet/tree/1.17.20) (2022-11-10)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.19...1.17.20)
