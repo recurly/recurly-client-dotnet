@@ -19,6 +19,10 @@ namespace Recurly.Resources
         [JsonProperty("amount")]
         public float? Amount { get; set; }
 
+        /// <value>Total amount of the open balances on credit invoices for the account.</value>
+        [JsonProperty("available_credit_amount")]
+        public float? AvailableCreditAmount { get; set; }
+
         /// <value>3-letter ISO 4217 currency code.</value>
         [JsonProperty("currency")]
         public string Currency { get; set; }
