@@ -1410,8 +1410,14 @@ namespace Recurly
             [EnumMember(Value = "Discover")]
             Discover,
 
+            [EnumMember(Value = "ELO")]
+            Elo,
+
             [EnumMember(Value = "Forbrugsforeningen")]
             Forbrugsforeningen,
+
+            [EnumMember(Value = "Hipercard")]
+            Hipercard,
 
             [EnumMember(Value = "JCB")]
             Jcb,

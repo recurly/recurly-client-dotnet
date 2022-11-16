@@ -2213,6 +2213,40 @@ namespace Recurly
 
 
         /// <summary>
+        /// Apply available credit to a pending or past due charge invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/apply_credit_balance">apply_credit_balance api documentation</see>
+        /// </summary>
+        /// <param name="ApplyCreditBalanceParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// The updated invoice.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Invoice ApplyCreditBalance(string invoiceId, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "invoice_id", invoiceId } };
+            var url = this.InterpolatePath("/invoices/{invoice_id}/apply_credit_balance", urlParams);
+            return MakeRequest<Invoice>(Method.PUT, url, null, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Apply available credit to a pending or past due charge invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/apply_credit_balance">apply_credit_balance api documentation</see>
+        /// </summary>
+        /// <param name="ApplyCreditBalanceParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// The updated invoice.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<Invoice> ApplyCreditBalanceAsync(string invoiceId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "invoice_id", invoiceId } };
+            var url = this.InterpolatePath("/invoices/{invoice_id}/apply_credit_balance", urlParams);
+            return MakeRequestAsync<Invoice>(Method.PUT, url, null, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
         /// Collect a pending or past due, automatic invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/collect_invoice">collect_invoice api documentation</see>
         /// </summary>
         /// <param name="CollectInvoiceParams">Optional Parameters for the request</param>
