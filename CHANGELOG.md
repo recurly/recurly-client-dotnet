@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.24.0](https://github.com/recurly/recurly-client-dotnet/tree/3.24.0) (2022-11-17)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.23.0...3.24.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2019-10-10 (Apply Credit Balance feature) [#752](https://github.com/recurly/recurly-client-dotnet/pull/752) ([recurly-integrations](https://github.com/recurly-integrations))
+- Generated Latest Changes for v2019-10-10 [#746](https://github.com/recurly/recurly-client-dotnet/pull/746) ([recurly-integrations](https://github.com/recurly-integrations))
+
+
+
 ## [3.23.0](https://github.com/recurly/recurly-client-dotnet/tree/3.23.0) (2022-10-21)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.22.0...3.23.0)
