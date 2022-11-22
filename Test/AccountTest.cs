@@ -199,6 +199,7 @@ namespace Recurly.Test
             balance.Should().NotBeNull();
             balance.BalanceInCents.First().Value.Should().BeGreaterThan(0);
             balance.ProcessingPrepaymentBalanceInCents.First().Value.Should().Be(0);
+            balance.AvailableCreditBalanceInCents.First().Value.Should().Be(0);
         }
 
         [RecurlyFact(TestEnvironment.Type.Integration)]
