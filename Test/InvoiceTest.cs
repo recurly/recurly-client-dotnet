@@ -184,6 +184,31 @@ namespace Recurly.Test
         }
 
         [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void ApplyCreditBalance()
+        {
+            var account = CreateNewAccount();
+
+            var adjustment = account.NewAdjustment("USD", 3999, "Test Charge");
+            adjustment.Create();
+
+            var invoiceData = new Invoice()
+            {
+                CollectionMethod = Invoice.Collection.Manual
+            };
+
+            var collection = account.InvoicePendingCharges(invoiceData);
+            var invoice = collection.ChargeInvoice;
+
+            var credit = account.NewAdjustment("USD", -4999, "Test Credit");
+            credit.Create();
+            account.InvoicePendingCharges();
+
+            invoice.ApplyCreditBalance();
+
+            invoice.State.Should().Be(Invoice.InvoiceState.Paid);
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void FailedCollection()
         {
             var account = CreateNewAccountWithBillingInfo();

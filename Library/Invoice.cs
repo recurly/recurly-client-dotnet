@@ -245,6 +245,14 @@ namespace Recurly
         }
 
         /// <summary>
+        /// Applies the open credit balance on an account to a collectible charge invoice
+        /// </summary>
+        public void ApplyCreditBalance()
+        {
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Put, memberUrl() + "/apply_credit_balance", ReadXml);
+        }
+
+        /// <summary>
         /// Marks an invoice as failed. This returns a
         /// new invoice collection and does not update the
         /// this invoice object.
