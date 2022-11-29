@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.17.22](https://github.com/recurly/recurly-client-dotnet/tree/1.17.22) (2022-11-29)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.21...1.17.22)
+
+
+**Merged Pull Requests**
+
+- V2 add support for Apply Credit Balance to existing invoice feature [#754](https://github.com/recurly/recurly-client-dotnet/pull/754) ([judith](https://github.com/judith))
+
+
+
 ## [1.17.21](https://github.com/recurly/recurly-client-dotnet/tree/1.17.21) (2022-11-15)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.20...1.17.21)
