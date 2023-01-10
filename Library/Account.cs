@@ -51,6 +51,7 @@ namespace Recurly
         public bool HasCanceledSubscription { get; private set; }
         public bool HasPastDueInvoice { get; private set; }
         public string PreferredLocale { get; set; }
+        public string PreferredTimeZone { get; set; }
         public string ParentAccountCode { get; set; }
         public string TransactionType { get; set; }
         public string DunningCampaignId { get; set; }
@@ -750,6 +751,10 @@ namespace Recurly
                         PreferredLocale = reader.ReadElementContentAsString();
                         break;
 
+                    case "preferred_time_zone":
+                        PreferredTimeZone = reader.ReadElementContentAsString();
+                        break;
+
                     case "dunning_campaign_id":
                         DunningCampaignId = reader.ReadElementContentAsString();
                         break;
@@ -802,6 +807,7 @@ namespace Recurly
             xmlWriter.WriteStringIfValid("entity_use_code", EntityUseCode);
             xmlWriter.WriteStringIfValid("cc_emails", CcEmails);
             xmlWriter.WriteStringIfValid("preferred_locale", PreferredLocale);
+            xmlWriter.WriteStringIfValid("preferred_time_zone", PreferredTimeZone);
 
             xmlWriter.WriteIfCollectionHasAny("billing_infos", BillingInfos);
             xmlWriter.WriteIfCollectionHasAny("shipping_addresses", ShippingAddresses);
