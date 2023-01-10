@@ -71,7 +71,8 @@ namespace Recurly.Resources
         /// `percentage_tiers` is an array of objects, which must have the set of tiers
         /// per currency and the currency code. The tier_type must be `volume` or `tiered`,
         /// if not, it must be absent. There must be one tier without an `ending_amount` value
-        /// which represents the final tier.
+        /// which represents the final tier.  This feature is currently in development and
+        /// requires approval and enablement, please contact support.
         /// </value>
         [JsonProperty("percentage_tiers")]
         public List<PercentageTiersByCurrency> PercentageTiers { get; set; }
