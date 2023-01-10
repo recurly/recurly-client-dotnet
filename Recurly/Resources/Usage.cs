@@ -43,7 +43,7 @@ namespace Recurly.Resources
         [JsonProperty("object")]
         public string Object { get; set; }
 
-        /// <value>The percentage tiers of the subscription based on the usage_timestamp. If tier_type = flat, percentage_tiers = []</value>
+        /// <value>The percentage tiers of the subscription based on the usage_timestamp. If tier_type = flat, percentage_tiers = []. This feature is currently in development and requires approval and enablement, please contact support.</value>
         [JsonProperty("percentage_tiers")]
         public List<SubscriptionAddOnPercentageTier> PercentageTiers { get; set; }
 
