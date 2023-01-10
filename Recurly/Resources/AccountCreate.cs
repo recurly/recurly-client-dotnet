@@ -79,6 +79,10 @@ namespace Recurly.Resources
         [JsonProperty("preferred_locale")]
         public string PreferredLocale { get; set; }
 
+        /// <value>Used to determine the time zone of emails sent on behalf of the merchant to the customer. Must be a [supported IANA time zone name](https://docs.recurly.com/docs/email-time-zones-and-time-stamps#supported-api-iana-time-zone-names)</value>
+        [JsonProperty("preferred_time_zone")]
+        public string PreferredTimeZone { get; set; }
+
 
         [JsonProperty("shipping_addresses")]
         public List<ShippingAddressCreate> ShippingAddresses { get; set; }
