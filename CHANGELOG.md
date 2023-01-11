@@ -1,5 +1,16 @@
 # Changelog
 
+## [4.29.0](https://github.com/recurly/recurly-client-dotnet/tree/4.29.0) (2023-01-11)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/4.28.0...4.29.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 (Account Preferred Time Zone) [#757](https://github.com/recurly/recurly-client-dotnet/pull/757) ([douglasmiller](https://github.com/douglasmiller))
+
+
+
 ## [4.28.0](https://github.com/recurly/recurly-client-dotnet/tree/4.28.0) (2022-11-17)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/4.27.0...4.28.0)
