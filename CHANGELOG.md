@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.25.0](https://github.com/recurly/recurly-client-dotnet/tree/3.25.0) (2023-01-11)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.24.0...3.25.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2019-10-10 (Account Preferred Time Zone) [#756](https://github.com/recurly/recurly-client-dotnet/pull/756) ([recurly-integrations](https://github.com/recurly-integrations))
+
+
+
 ## [3.24.0](https://github.com/recurly/recurly-client-dotnet/tree/3.24.0) (2022-11-17)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.23.0...3.24.0)
