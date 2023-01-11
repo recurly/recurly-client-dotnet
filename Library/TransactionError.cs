@@ -32,6 +32,26 @@ namespace Recurly
         }
 
         /// <summary>
+        /// Transaction Decline Code
+        /// </summary>
+        public string DeclineCode { get; internal set; }
+        public TransactionDeclineCodeEnum DeclineCodeEnum
+        {
+            get
+            {
+                TransactionDeclineCodeEnum declineEnum;
+                if (Enum.TryParse(DeclineCode, out declineEnum))
+                {
+                    return declineEnum;
+                }
+                else
+                {
+                    return TransactionDeclineCodeEnum.not_recognized;
+                }
+            }
+        }
+
+        /// <summary>
         /// Category of error
         /// </summary>
         public string ErrorCategory { get; internal set; }
@@ -87,6 +107,9 @@ namespace Recurly
                     case "three_d_secure_action_token_id":
                         ThreeDSecureActionTokenId = reader.ReadElementContentAsString();
                         break;
+                    case "decline_code":
+                        DeclineCode = reader.ReadElementContentAsString();
+                        break
                 }
             }
         }
