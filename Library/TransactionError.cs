@@ -109,7 +109,7 @@ namespace Recurly
                         break;
                     case "decline_code":
                         DeclineCode = reader.ReadElementContentAsString();
-                        break
+                        break;
                 }
             }
         }
