@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.17.23](https://github.com/recurly/recurly-client-dotnet/tree/1.17.23) (2023-01-11)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.22...1.17.23)
+
+
+**Merged Pull Requests**
+
+- Support `preferred_time_zone` on Account [#755](https://github.com/recurly/recurly-client-dotnet/pull/755) ([cbarton](https://github.com/cbarton))
+
+
+
 ## [1.17.22](https://github.com/recurly/recurly-client-dotnet/tree/1.17.22) (2022-11-29)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.21...1.17.22)
