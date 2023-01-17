@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Xml;
 
 namespace Recurly
@@ -74,6 +75,16 @@ namespace Recurly
 
         public DateTime? CreatedAt { get; protected set; }
         public DateTime UpdatedAt { get; private set; }
+
+        /// <summary>
+        /// List of custom fields
+        /// </summary>
+        public List<CustomField> CustomFields
+        {
+            get { return _customFields ?? (_customFields = new List<CustomField>()); }
+            set { _customFields = value; }
+        }
+        private List<CustomField> _customFields;
 
         private const string UrlPrefix = "/accounts/";
         private const string UrlPostfix = "/adjustments/";
@@ -306,6 +317,20 @@ namespace Recurly
                         ShippingAddress = new ShippingAddress();
                         ShippingAddress.ReadXml(reader);
                         break;
+
+                    case "custom_fields":
+                        CustomFields = new List<CustomField>();
+                        while (reader.Read())
+                        {
+                            if (reader.Name == "custom_fields" && reader.NodeType == XmlNodeType.EndElement)
+                                break;
+
+                            if (reader.NodeType == XmlNodeType.Element && reader.Name == "custom_field")
+                            {
+                                CustomFields.Add(new CustomField(reader));
+                            }
+                        }
+                        break;
                 }
             }
         }
@@ -325,6 +350,7 @@ namespace Recurly
             xmlWriter.WriteStartElement("adjustment"); // Start: adjustment
             xmlWriter.WriteElementString("unit_amount_in_cents", UnitAmountInCents.AsString());
             xmlWriter.WriteElementString("quantity", Quantity.AsString());
+            xmlWriter.WriteIfCollectionHasAny("custom_fields", CustomFields);
 
             if (QuantityDecimal.HasValue)
                 xmlWriter.WriteElementString("quantity_decimal", QuantityDecimal.Value.ToString());
