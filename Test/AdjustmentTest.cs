@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using FluentAssertions;
 using Xunit;
 
@@ -72,6 +73,54 @@ namespace Recurly.Test
 
             var adjustments = account.GetAdjustments();
             adjustments.Should().HaveCount(2);
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void GetAdjustmentsWithCustomFieldsForAccount()
+        {
+            var account = CreateNewAccount();
+            var adjustment = account.NewAdjustment("USD", 5000, "Charge", 1);
+
+            var customField = new CustomField()
+            {
+                Name = "color",
+                Value = "purple"
+            };
+
+            adjustment.CustomFields.Add(customField);
+            adjustment.Create();
+
+            account.InvoicePendingCharges();
+
+            var response = account.GetAdjustments().First();
+            Assert.Equal(response.CustomFields[0].Name, "color");
+            Assert.Equal(response.CustomFields[0].Value, "purple");
+            account.Close();
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void GetAdjustmentWithCustomFieldsByUuid()
+        {
+            var account = CreateNewAccountWithBillingInfo();
+            var adjustment = account.NewAdjustment("USD", 1234);
+
+            var customField = new CustomField()
+            {
+                Name = "color",
+                Value = "purple"
+            };
+
+            adjustment.CustomFields.Add(customField);
+            adjustment.Create();
+
+            adjustment.Uuid.Should().NotBeNullOrEmpty();
+            adjustment.CustomFields.Should().NotBeNullOrEmpty();
+
+            var response = Adjustments.Get(adjustment.Uuid);
+
+            Assert.Equal(response.CustomFields[0].Name, "color");
+            Assert.Equal(response.CustomFields[0].Value, "purple");
+            account.Close();
         }
 
         /// <summary>
