@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
 using Xunit;
@@ -177,6 +178,80 @@ namespace Recurly.Test
             var capturedCollection = Purchase.Capture(transactionUuid);
             capturedCollection.ChargeInvoice.State.Should().Be(Invoice.InvoiceState.Paid);
             Assert.Equal(capturedCollection.ChargeInvoice.SubtotalInCents, firstRampUnitAmount);
+            account.Close();
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void CreatePurchaseWithCustomFields()
+        {
+            var account = CreateNewAccountWithBillingInfo();
+            string currency = "USD";
+
+            var adjustment = account.NewAdjustment("ABC", 1000);
+            adjustment.TaxExempt = true;
+            adjustment.Description = "my description";
+            adjustment.Currency = currency;
+            adjustment.Quantity = 1;
+            adjustment.AccountingCode = "accounting code";
+            adjustment.UnitAmountInCents = 5000;
+
+            var customField = new CustomField()
+            {
+                Name = "color",
+                Value = "purple"
+            };
+
+            adjustment.CustomFields.Add(customField);
+
+            var purchase = new Purchase(account.AccountCode, currency);
+            purchase.Account.BillingInfo = account.BillingInfo;
+
+            purchase.Adjustments.Add(adjustment);
+
+            var response = Purchase.Invoice(purchase);
+
+            Assert.NotNull(response.ChargeInvoice);
+            Assert.Equal(response.ChargeInvoice.Adjustments[0].CustomFields[0].Name, "color");
+            Assert.Equal(response.ChargeInvoice.Adjustments[0].CustomFields[0].Value, "purple");
+            account.Close();
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void AuthAndCapturePurchaseWithCustomFields()
+        {
+            var account = CreateNewAccountWithBillingInfo();
+
+            string currency = "USD";
+
+            var adjustment = account.NewAdjustment("ABC", 1000);
+            adjustment.TaxExempt = true;
+            adjustment.Description = "my description";
+            adjustment.Currency = currency;
+            adjustment.Quantity = 1;
+            adjustment.AccountingCode = "accounting code";
+            adjustment.UnitAmountInCents = 5000;
+
+            var customField = new CustomField()
+            {
+                Name = "color",
+                Value = "purple"
+            };
+
+            adjustment.CustomFields.Add(customField);
+            var purchase = new Purchase(account.AccountCode, currency);
+            purchase.Account.BillingInfo = account.BillingInfo;
+            purchase.Adjustments.Add(adjustment);
+
+            var authResponse = Purchase.Authorize(purchase);
+            Assert.Equal(authResponse.ChargeInvoice.Adjustments[0].CustomFields[0].Name, "color");
+            Assert.Equal(authResponse.ChargeInvoice.Adjustments[0].CustomFields[0].Value, "purple");
+
+
+            var transactionUuid = authResponse.ChargeInvoice.Transactions[0].Uuid;
+            var capturedResponse = Purchase.Capture(transactionUuid);
+            capturedResponse.ChargeInvoice.State.Should().Be(Invoice.InvoiceState.Paid);
+            Assert.Equal(capturedResponse.ChargeInvoice.Adjustments[0].CustomFields[0].Name, "color");
+            Assert.Equal(capturedResponse.ChargeInvoice.Adjustments[0].CustomFields[0].Value, "purple");
             account.Close();
         }
     }
