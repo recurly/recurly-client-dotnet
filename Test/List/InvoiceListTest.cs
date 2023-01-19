@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Linq;
 using FluentAssertions;
 using Xunit;
 
@@ -37,6 +38,20 @@ namespace Recurly.Test
 
             var list = Invoices.List();
             list.Should().NotBeEmpty();
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void ListInvoicesWithCustomFields()
+        {
+            var account = CreateNewAccount();
+            var adjustment = account.NewAdjustment("USD", 500, "Test Charge");
+
+            adjustment.CustomFields.Add(new CustomField("color", "purple"));
+            adjustment.Create();
+            account.InvoicePendingCharges();
+
+            var list = Invoices.List().Select(x => x.Adjustments.FirstOrDefault(y => y.CustomFields.Any())).First();
+            list.CustomFields.Should().NotBeNullOrEmpty();
         }
 
         [RecurlyFact(TestEnvironment.Type.Integration)]
