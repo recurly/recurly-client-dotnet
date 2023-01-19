@@ -36,6 +36,10 @@ namespace Recurly.Resources
         [JsonProperty("currency")]
         public string Currency { get; set; }
 
+        /// <value>The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.</value>
+        [JsonProperty("custom_fields")]
+        public List<CustomField> CustomFields { get; set; }
+
         /// <value>Description that appears on the invoice. If `item_code`/`item_id` is part of the request then `description` must be absent.</value>
         [JsonProperty("description")]
         public string Description { get; set; }
