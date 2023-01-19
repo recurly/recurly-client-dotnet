@@ -1,5 +1,16 @@
 # Changelog
 
+## [4.30.0](https://github.com/recurly/recurly-client-dotnet/tree/4.30.0) (2023-01-19)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/4.29.0...4.30.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 (Custom Fields on Line Items) [#761](https://github.com/recurly/recurly-client-dotnet/pull/761) ([recurly-integrations](https://github.com/recurly-integrations))
+
+
+
 ## [4.29.0](https://github.com/recurly/recurly-client-dotnet/tree/4.29.0) (2023-01-11)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/4.28.0...4.29.0)
