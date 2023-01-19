@@ -30,6 +30,9 @@ namespace Recurly
             [EnumMember(Value = "subscription")]
             Subscription,
 
+            [EnumMember(Value = "charge")]
+            Charge,
+
         };
 
         public enum RefundType
