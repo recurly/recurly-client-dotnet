@@ -55,8 +55,6 @@ namespace Recurly
 
                 if (reader.NodeType != XmlNodeType.Element) continue;
 
-                DateTime dt;
-
                 switch (reader.Name)
                 {
                     case "uuid":

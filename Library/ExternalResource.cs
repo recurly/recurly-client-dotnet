@@ -25,8 +25,6 @@ namespace Recurly
 
         internal override void ReadXml(XmlTextReader reader)
         {
-            DateTime dateVal;
-
             while (reader.Read())
             {
                 if (reader.Name == "external_resource" && reader.NodeType == XmlNodeType.EndElement)

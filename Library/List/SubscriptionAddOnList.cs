@@ -135,7 +135,7 @@ namespace Recurly
         /// };
         /// change.AddOns.Add(subaddon); 
 
-        public void Add(SubscriptionAddOn addOn)
+        new public void Add(SubscriptionAddOn addOn)
         {
             var sub = addOn;
             base.Add(sub);
