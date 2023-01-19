@@ -111,7 +111,13 @@ namespace Recurly
             xmlWriter.WriteEndElement();
         }
 
-        public bool Equals(object that)
+        public override bool Equals(object obj)
+        {
+            var a = obj as Address;
+            return a != null && Equals(a);
+        }
+
+        public bool Equals(Address that)
         {
             if (null == that)
                 return false;
@@ -120,6 +126,13 @@ namespace Recurly
             if (this.GetType() != that.GetType())
                 return false;
             return this.CompareMembers(that as Address);
+        }
+
+        public override int GetHashCode()
+        {
+            var addressHashCode = Address1?.GetHashCode() ?? 0;
+            var nameHashCode = NameOnAccount?.GetHashCode() ?? 0;
+            return addressHashCode + nameHashCode;
         }
 
         private bool CompareMembers(Address that)

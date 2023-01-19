@@ -248,7 +248,7 @@ namespace Recurly.Test
 
             // refund
             System.Threading.Thread.Sleep(1000); // Sleep hack to avoid simultaneous_request errors
-            var refundInvoice = invoice.Refund(adjustment, false);
+            var refundInvoice = invoice.Refund(adjustment, new Invoice.RefundOptions());
             Assert.NotEqual(invoice.Uuid, refundInvoice.Uuid);
             Assert.Equal(-3999, refundInvoice.SubtotalInCents);
             Assert.Equal(1, refundInvoice.Adjustments.Count);
@@ -309,7 +309,7 @@ namespace Recurly.Test
 
             // refund
             System.Threading.Thread.Sleep(1000); // Sleep hack to avoid simultaneous_request errors
-            var refundInvoice = invoice.Refund(invoice.Adjustments);
+            var refundInvoice = invoice.Refund(invoice.Adjustments, new Invoice.RefundOptions());
             Assert.NotEqual(invoice.Uuid, refundInvoice.Uuid);
             Assert.Equal(-5, refundInvoice.SubtotalInCents);
             Assert.Equal(2, refundInvoice.Adjustments.Count);
