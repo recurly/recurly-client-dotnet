@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using FluentAssertions;
 using Xunit;
 
@@ -21,6 +22,38 @@ namespace Recurly.Test
             var fromService = Invoices.Get(invoice.InvoiceNumber);
 
             invoice.Should().Be(fromService);
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void PostInvoiceWithCustomFields()
+        {
+            var account = CreateNewAccountWithBillingInfo();
+
+            var adjustment = account.NewAdjustment("USD", 5000, "Test Charge");
+
+            adjustment.CustomFields.Add(new CustomField("color", "purple"));
+            adjustment.Create();
+
+            var invoice = account.InvoicePendingCharges().ChargeInvoice;
+            invoice.Adjustments.First().CustomFields.Should().NotBeNullOrEmpty();
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void GetInvoiceWithCustomFields()
+        {
+            var account = CreateNewAccountWithBillingInfo();
+
+            var adjustment = account.NewAdjustment("USD", 5000, "Test Charge");
+
+            adjustment.CustomFields.Add(new CustomField("color", "purple"));
+            adjustment.Create();
+
+            var invoice = account.InvoicePendingCharges().ChargeInvoice;
+            var fromService = Invoices.Get(invoice.InvoiceNumber).Adjustments.First();
+
+            Assert.Equal(fromService.CustomFields.First().Name, "color");
+            Assert.Equal(fromService.CustomFields.First().Value, "purple");
+            account.Close();
         }
 
         [RecurlyFact(TestEnvironment.Type.Integration)]
@@ -189,6 +222,9 @@ namespace Recurly.Test
             var account = CreateNewAccount();
 
             var adjustment = account.NewAdjustment("USD", 3999, "Test Charge");
+
+            // Optionally add custom fields to adjustment
+            adjustment.CustomFields.Add(new CustomField("color", "purple"));
             adjustment.Create();
 
             var invoiceData = new Invoice()
@@ -201,11 +237,13 @@ namespace Recurly.Test
 
             var credit = account.NewAdjustment("USD", -4999, "Test Credit");
             credit.Create();
+
             account.InvoicePendingCharges();
 
             invoice.ApplyCreditBalance();
 
             invoice.State.Should().Be(Invoice.InvoiceState.Paid);
+            invoice.Adjustments.First().CustomFields.Should().NotBeNullOrEmpty();
         }
 
         [RecurlyFact(TestEnvironment.Type.Integration)]
@@ -253,7 +291,6 @@ namespace Recurly.Test
             Assert.Equal(-3999, refundInvoice.SubtotalInCents);
             Assert.Equal(1, refundInvoice.Adjustments.Count);
             Assert.Equal(0, refundInvoice.Transactions.Count);
-
             account.Close();
         }
 
@@ -263,6 +300,9 @@ namespace Recurly.Test
             var account = CreateNewAccount();
 
             var adjustment = account.NewAdjustment("USD", 5000, "Test Charge");
+
+            // Optionally add custom fields to the adjustment
+            adjustment.CustomFields.Add(new CustomField("color", "purple"));
             adjustment.Create();
 
             var invoice = account.InvoicePendingCharges().ChargeInvoice;
@@ -285,6 +325,8 @@ namespace Recurly.Test
             Assert.Equal(invoice.CustomerNotes, "Some Customer Notes");
             Assert.Equal(invoice.TermsAndConditions, "Some Terms and Conditions");
             Assert.Equal(invoice.GatewayCode, "jhq4mlfe7wtw");
+            Assert.Equal(invoice.Adjustments[0].CustomFields[0].Name, "color");
+            Assert.Equal(invoice.Adjustments[0].CustomFields[0].Value, "purple");
         }
 
         [Fact(Skip = "This feature is deprecated and no longer supported for accounts where line item refunds are turned on.")]
