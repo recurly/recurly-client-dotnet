@@ -30,6 +30,22 @@ namespace Recurly.Test
         }
 
         [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void LookupPlanWithCustomFields()
+        {
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName()) { Description = "Test Custom Fields Lookup" };
+            plan.UnitAmountInCents.Add("USD", 100);
+            plan.CustomFields.Add(new CustomField("food", "pizza"));
+
+            plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
+
+            var fromService = Plans.Get(plan.PlanCode);
+            fromService.PlanCode.Should().Be(plan.PlanCode);
+            fromService.CustomFields[0].Name.Should().Be("food");
+            fromService.CustomFields[0].Value.Should().Be("pizza");
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void LookupPlanWithRamps()
         {
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName()) { Description = "Test Ramp Lookup" };
@@ -110,6 +126,22 @@ namespace Recurly.Test
             updatedPlan.RampIntervals.ForEach(
                 ramp => ramp.Currencies.Count.Should().Be(2)
             );
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void UpdatePlanWithCustomFields()
+        {
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName()) { Description = "Test Update Plan with Custom Fields" };
+            plan.UnitAmountInCents.Add("USD", 100);
+            plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
+
+            plan.CustomFields.Add(new CustomField("food", "pizza"));
+            plan.Update();
+
+            var updatedPlan = Plans.Get(plan.PlanCode);
+            updatedPlan.CustomFields[0].Name.Should().Be("food");
+            updatedPlan.CustomFields[0].Value.Should().Be("pizza");
         }
 
         [RecurlyFact(TestEnvironment.Type.Integration)]
