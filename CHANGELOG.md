@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.17.24](https://github.com/recurly/recurly-client-dotnet/tree/1.17.24) (2023-02-06)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.23...1.17.24)
+
+
+**Merged Pull Requests**
+
+- Add Tests for Invoices with Custom Fields on Adjustments [#763](https://github.com/recurly/recurly-client-dotnet/pull/763) ([btruncali1](https://github.com/btruncali1))
+- Add Unit Tests for Custom Fields on Adjustments [#760](https://github.com/recurly/recurly-client-dotnet/pull/760) ([btruncali1](https://github.com/btruncali1))
+- Add support for custom fields on charges [#759](https://github.com/recurly/recurly-client-dotnet/pull/759) ([btruncali1](https://github.com/btruncali1))
+- Added DeclineCode to TransactionError [#758](https://github.com/recurly/recurly-client-dotnet/pull/758) ([arzitney](https://github.com/arzitney))
+
+
+
 ## [1.17.23](https://github.com/recurly/recurly-client-dotnet/tree/1.17.23) (2023-01-11)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.22...1.17.23)
