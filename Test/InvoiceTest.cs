@@ -51,6 +51,7 @@ namespace Recurly.Test
             var invoice = account.InvoicePendingCharges().ChargeInvoice;
             var fromService = Invoices.Get(invoice.InvoiceNumber).Adjustments.First();
 
+            System.Threading.Thread.Sleep(1000);
             Assert.Equal(fromService.CustomFields.First().Name, "color");
             Assert.Equal(fromService.CustomFields.First().Value, "purple");
             account.Close();
