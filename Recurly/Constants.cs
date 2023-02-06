@@ -407,6 +407,18 @@ namespace Recurly
 
         };
 
+        public enum DeliveryMethod
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "email")]
+            Email,
+
+            [EnumMember(Value = "post")]
+            Post,
+
+        };
+
         public enum GatewayTransactionType
         {
             Undefined = 0,
@@ -2045,6 +2057,99 @@ namespace Recurly
 
             [EnumMember(Value = "zero_dollar_auth_not_supported")]
             ZeroDollarAuthNotSupported,
+
+        };
+
+        public enum DeclineCode
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "account_closed")]
+            AccountClosed,
+
+            [EnumMember(Value = "call_issuer")]
+            CallIssuer,
+
+            [EnumMember(Value = "card_not_activated")]
+            CardNotActivated,
+
+            [EnumMember(Value = "card_not_supported")]
+            CardNotSupported,
+
+            [EnumMember(Value = "cardholder_requested_stop")]
+            CardholderRequestedStop,
+
+            [EnumMember(Value = "do_not_honor")]
+            DoNotHonor,
+
+            [EnumMember(Value = "do_not_try_again")]
+            DoNotTryAgain,
+
+            [EnumMember(Value = "exceeds_daily_limit")]
+            ExceedsDailyLimit,
+
+            [EnumMember(Value = "generic_decline")]
+            GenericDecline,
+
+            [EnumMember(Value = "expired_card")]
+            ExpiredCard,
+
+            [EnumMember(Value = "fraudulent")]
+            Fraudulent,
+
+            [EnumMember(Value = "insufficient_funds")]
+            InsufficientFunds,
+
+            [EnumMember(Value = "incorrect_address")]
+            IncorrectAddress,
+
+            [EnumMember(Value = "incorrect_security_code")]
+            IncorrectSecurityCode,
+
+            [EnumMember(Value = "invalid_amount")]
+            InvalidAmount,
+
+            [EnumMember(Value = "invalid_number")]
+            InvalidNumber,
+
+            [EnumMember(Value = "invalid_transaction")]
+            InvalidTransaction,
+
+            [EnumMember(Value = "issuer_unavailable")]
+            IssuerUnavailable,
+
+            [EnumMember(Value = "lifecycle_decline")]
+            LifecycleDecline,
+
+            [EnumMember(Value = "lost_card")]
+            LostCard,
+
+            [EnumMember(Value = "pickup_card")]
+            PickupCard,
+
+            [EnumMember(Value = "policy_decline")]
+            PolicyDecline,
+
+            [EnumMember(Value = "restricted_card")]
+            RestrictedCard,
+
+            [EnumMember(Value = "restricted_card_chargeback")]
+            RestrictedCardChargeback,
+
+            [EnumMember(Value = "security_decline")]
+            SecurityDecline,
+
+            [EnumMember(Value = "stolen_card")]
+            StolenCard,
+
+            [EnumMember(Value = "try_again")]
+            TryAgain,
+
+            [EnumMember(Value = "update_cardholder_data")]
+            UpdateCardholderData,
+
+            [EnumMember(Value = "requires_3d_secure")]
+            Requires3dSecure,
 
         };
 

@@ -4356,5 +4356,159 @@ namespace Recurly
 
 
 
+
+        /// <summary>
+        /// List gift cards <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_gift_cards">list_gift_cards api documentation</see>
+        /// </summary>
+        /// <param name="ListGiftCardsParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// List of all created gift cards on your site.
+        /// </returns>
+        public Pager<GiftCard> ListGiftCards(RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var url = this.InterpolatePath("/gift_cards", urlParams);
+            return Pager<GiftCard>.Build(url, null, options, this);
+        }
+
+
+
+
+
+        /// <summary>
+        /// Create gift card <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_gift_card">create_gift_card api documentation</see>
+        /// </summary>
+        /// <param name="CreateGiftCardParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Returns the gift card
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public GiftCard CreateGiftCard(GiftCardCreate body, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var url = this.InterpolatePath("/gift_cards", urlParams);
+            return MakeRequest<GiftCard>(Method.POST, url, body, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Create gift card <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_gift_card">create_gift_card api documentation</see>
+        /// </summary>
+        /// <param name="CreateGiftCardParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Returns the gift card
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<GiftCard> CreateGiftCardAsync(GiftCardCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var url = this.InterpolatePath("/gift_cards", urlParams);
+            return MakeRequestAsync<GiftCard>(Method.POST, url, body, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// Fetch a gift card <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_gift_card">get_gift_card api documentation</see>
+        /// </summary>
+        /// <param name="GetGiftCardParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Gift card details
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public GiftCard GetGiftCard(string giftCardId, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "gift_card_id", giftCardId } };
+            var url = this.InterpolatePath("/gift_cards/{gift_card_id}", urlParams);
+            return MakeRequest<GiftCard>(Method.GET, url, null, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Fetch a gift card <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_gift_card">get_gift_card api documentation</see>
+        /// </summary>
+        /// <param name="GetGiftCardParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Gift card details
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<GiftCard> GetGiftCardAsync(string giftCardId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "gift_card_id", giftCardId } };
+            var url = this.InterpolatePath("/gift_cards/{gift_card_id}", urlParams);
+            return MakeRequestAsync<GiftCard>(Method.GET, url, null, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// Preview gift card <see href="https://developers.recurly.com/api/v2021-02-25#operation/preview_gift_card">preview_gift_card api documentation</see>
+        /// </summary>
+        /// <param name="PreviewGiftCardParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Returns the gift card
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public GiftCard PreviewGiftCard(GiftCardCreate body, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var url = this.InterpolatePath("/gift_cards/preview", urlParams);
+            return MakeRequest<GiftCard>(Method.POST, url, body, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Preview gift card <see href="https://developers.recurly.com/api/v2021-02-25#operation/preview_gift_card">preview_gift_card api documentation</see>
+        /// </summary>
+        /// <param name="PreviewGiftCardParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Returns the gift card
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<GiftCard> PreviewGiftCardAsync(GiftCardCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var url = this.InterpolatePath("/gift_cards/preview", urlParams);
+            return MakeRequestAsync<GiftCard>(Method.POST, url, body, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// Redeem gift card <see href="https://developers.recurly.com/api/v2021-02-25#operation/redeem_gift_card">redeem_gift_card api documentation</see>
+        /// </summary>
+        /// <param name="RedeemGiftCardParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Redeems and returns the gift card
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public GiftCard RedeemGiftCard(string redemptionCode, GiftCardRedeem body, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "redemption_code", redemptionCode } };
+            var url = this.InterpolatePath("/gift_cards/{redemption_code}/redeem", urlParams);
+            return MakeRequest<GiftCard>(Method.POST, url, body, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Redeem gift card <see href="https://developers.recurly.com/api/v2021-02-25#operation/redeem_gift_card">redeem_gift_card api documentation</see>
+        /// </summary>
+        /// <param name="RedeemGiftCardParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Redeems and returns the gift card
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<GiftCard> RedeemGiftCardAsync(string redemptionCode, GiftCardRedeem body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "redemption_code", redemptionCode } };
+            var url = this.InterpolatePath("/gift_cards/{redemption_code}/redeem", urlParams);
+            return MakeRequestAsync<GiftCard>(Method.POST, url, body, null, options, cancellationToken);
+        }
+
+
     }
 }
