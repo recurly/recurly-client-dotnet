@@ -56,6 +56,10 @@ namespace Recurly.Resources
         [JsonProperty("customer_notes")]
         public string CustomerNotes { get; set; }
 
+        /// <value>A gift card redemption code to be redeemed on the purchase invoice.</value>
+        [JsonProperty("gift_card_redemption_code")]
+        public string GiftCardRedemptionCode { get; set; }
+
         /// <value>Integer representing the number of days after an invoice's creation that the invoice will become past due. If an invoice's net terms are set to '0', it is due 'On Receipt' and will become past due 24 hours after it’s created. If an invoice is due net 30, it will become past due at 31 days exactly.</value>
         [JsonProperty("net_terms")]
         public int? NetTerms { get; set; }

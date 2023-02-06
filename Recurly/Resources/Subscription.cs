@@ -56,6 +56,10 @@ namespace Recurly.Resources
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
         public Constants.CollectionMethod? CollectionMethod { get; set; }
 
+        /// <value>When the subscription was converted from a gift card.</value>
+        [JsonProperty("converted_at")]
+        public DateTime? ConvertedAt { get; set; }
+
         /// <value>Returns subscription level coupon redemptions that are tied to this subscription.</value>
         [JsonProperty("coupon_redemptions")]
         public List<CouponRedemptionMini> CouponRedemptions { get; set; }
@@ -160,6 +164,10 @@ namespace Recurly.Resources
         /// <value>Subscription shipping details</value>
         [JsonProperty("shipping")]
         public SubscriptionShipping Shipping { get; set; }
+
+        /// <value>Whether the subscription was started with a gift certificate.</value>
+        [JsonProperty("started_with_gift")]
+        public bool? StartedWithGift { get; set; }
 
         /// <value>State</value>
         [JsonProperty("state")]

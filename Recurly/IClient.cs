@@ -2815,5 +2815,96 @@ namespace Recurly
         /// </returns>
         Pager<ExternalSubscription> ListAccountExternalSubscriptions(string accountId, ListAccountExternalSubscriptionsParams optionalParams = null, RequestOptions options = null);
 
+
+        /// <summary>
+        /// List gift cards <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_gift_cards">list_gift_cards api documentation</see>
+        /// </summary>
+        /// <returns>
+        /// List of all created gift cards on your site.
+        /// </returns>
+        Pager<GiftCard> ListGiftCards(RequestOptions options = null);
+
+
+        /// <summary>
+        /// Create gift card <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_gift_card">create_gift_card api documentation</see>
+        /// </summary>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// Returns the gift card
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        GiftCard CreateGiftCard(GiftCardCreate body, RequestOptions options = null);
+
+        /// <summary>
+        /// Create gift card <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_gift_card">create_gift_card api documentation</see>
+        /// </summary>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// Returns the gift card
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<GiftCard> CreateGiftCardAsync(GiftCardCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// Fetch a gift card <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_gift_card">get_gift_card api documentation</see>
+        /// </summary>
+        /// <param name="giftCardId">Gift Card ID, e.g. `e28zov4fw0v2`.</param>
+        /// <returns>
+        /// Gift card details
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        GiftCard GetGiftCard(string giftCardId, RequestOptions options = null);
+
+        /// <summary>
+        /// Fetch a gift card <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_gift_card">get_gift_card api documentation</see>
+        /// </summary>
+        /// <param name="giftCardId">Gift Card ID, e.g. `e28zov4fw0v2`.</param>
+        /// <returns>
+        /// Gift card details
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<GiftCard> GetGiftCardAsync(string giftCardId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// Preview gift card <see href="https://developers.recurly.com/api/v2021-02-25#operation/preview_gift_card">preview_gift_card api documentation</see>
+        /// </summary>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// Returns the gift card
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        GiftCard PreviewGiftCard(GiftCardCreate body, RequestOptions options = null);
+
+        /// <summary>
+        /// Preview gift card <see href="https://developers.recurly.com/api/v2021-02-25#operation/preview_gift_card">preview_gift_card api documentation</see>
+        /// </summary>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// Returns the gift card
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<GiftCard> PreviewGiftCardAsync(GiftCardCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// Redeem gift card <see href="https://developers.recurly.com/api/v2021-02-25#operation/redeem_gift_card">redeem_gift_card api documentation</see>
+        /// </summary>
+        /// <param name="redemptionCode">Gift Card redemption code, e.g., `N1A2T8IRXSCMO40V`.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// Redeems and returns the gift card
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        GiftCard RedeemGiftCard(string redemptionCode, GiftCardRedeem body, RequestOptions options = null);
+
+        /// <summary>
+        /// Redeem gift card <see href="https://developers.recurly.com/api/v2021-02-25#operation/redeem_gift_card">redeem_gift_card api documentation</see>
+        /// </summary>
+        /// <param name="redemptionCode">Gift Card redemption code, e.g., `N1A2T8IRXSCMO40V`.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// Redeems and returns the gift card
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<GiftCard> RedeemGiftCardAsync(string redemptionCode, GiftCardRedeem body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
     }
 }
