@@ -1,5 +1,16 @@
 # Changelog
 
+## [4.31.0](https://github.com/recurly/recurly-client-dotnet/tree/4.31.0) (2023-02-07)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/4.30.0...4.31.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 (GiftCard endpoints and new transaction error support) [#770](https://github.com/recurly/recurly-client-dotnet/pull/770) ([recurly-integrations](https://github.com/recurly-integrations))
+
+
+
 ## [4.30.0](https://github.com/recurly/recurly-client-dotnet/tree/4.30.0) (2023-01-19)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/4.29.0...4.30.0)
