@@ -42,24 +42,6 @@ namespace Recurly
 
         #region Read and Write XML documents
 
-        internal void ReadExternalResourceXml(XmlTextReader reader)
-        {
-            while (reader.Read())
-            {
-                if (reader.Name == "external_resource" && reader.NodeType == XmlNodeType.EndElement)
-                    break;
-
-                if (reader.NodeType != XmlNodeType.Element) continue;
-
-                switch (reader.Name)
-                {
-                    case "external_object_reference":
-                        ExternalObjectReference = reader.ReadElementContentAsString();
-                        break;
-                }
-            }
-        }
-
         internal void ReadExternalProductReferenceXml(XmlTextReader reader)
         {
             ExternalProductReferenceList = new List<ExternalProductReference>();
