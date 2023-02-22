@@ -21,11 +21,12 @@ namespace Recurly
             internal set { _account = value; }
         }
 
+        public string ExternalId { get; set; }
         public string AppIdentifier { get; private set; }
+        public string State { get; set; }
         public bool? AutoRenew { get; set; }
         public int Quantity { get; set; }
         public ExternalProductReference ExternalProductReference { get; private set; }
-        public ExternalResource ExternalResource { get; private set; }
         public DateTime? LastPurchased { get; private set; }
         public DateTime? ActivatedAt { get; private set; }
         public DateTime? ExpiresAt { get; private set; }
@@ -44,11 +45,6 @@ namespace Recurly
         }
 
         #region Read XML documents
-
-        internal void ReadExternalResourceXml(XmlTextReader reader)
-        {
-            ExternalResource = new ExternalResource(reader);
-        }
 
         internal void ReadExternalProductReferenceXml(XmlTextReader reader)
         {
@@ -75,17 +71,21 @@ namespace Recurly
                             _accountCode = Uri.UnescapeDataString(href.Substring(href.LastIndexOf("/") + 1));
                         break;
 
-                    case "external_product_reference":
-                        ReadExternalProductReferenceXml(reader);
+                    case "external_id":
+                        ExternalId = reader.ReadElementContentAsString();
                         break;
 
-                    case "external_resource":
-                        ReadExternalResourceXml(reader);
+                    case "external_product_reference":
+                        ReadExternalProductReferenceXml(reader);
                         break;
 
                     case "last_purchased":
                         if (DateTime.TryParse(reader.ReadElementContentAsString(), out dateVal))
                             LastPurchased = dateVal;
+                        break;
+
+                    case "state":
+                        State = reader.ReadElementContentAsString();
                         break;
 
                     case "auto_renew":
