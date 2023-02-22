@@ -39,13 +39,13 @@ namespace Recurly.Resources
         [JsonProperty("expires_at")]
         public DateTime? ExpiresAt { get; set; }
 
+        /// <value>The id of the subscription in the external systems., I.e. Apple App Store or Google Play Store.</value>
+        [JsonProperty("external_id")]
+        public string ExternalId { get; set; }
+
         /// <value>External Product Reference details</value>
         [JsonProperty("external_product_reference")]
         public ExternalProductReferenceMini ExternalProductReference { get; set; }
-
-        /// <value>External Resource mini details</value>
-        [JsonProperty("external_resource")]
-        public ExternalResourceMini ExternalResource { get; set; }
 
         /// <value>System-generated unique identifier for an external subscription ID, e.g. `e28zov4fw0v2`.</value>
         [JsonProperty("id")]
@@ -62,6 +62,10 @@ namespace Recurly.Resources
         /// <value>An indication of the quantity of a subscribed item's quantity.</value>
         [JsonProperty("quantity")]
         public int? Quantity { get; set; }
+
+        /// <value>External subscriptions can be active, canceled, expired, or future.</value>
+        [JsonProperty("state")]
+        public string State { get; set; }
 
         /// <value>When the external subscription was updated in Recurly.</value>
         [JsonProperty("updated_at")]
