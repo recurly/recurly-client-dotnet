@@ -669,6 +669,9 @@ namespace Recurly
             [EnumMember(Value = "write")]
             Write,
 
+            [EnumMember(Value = "set_only")]
+            SetOnly,
+
         };
 
         public enum PricingModelType
