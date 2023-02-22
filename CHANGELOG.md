@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.17.25](https://github.com/recurly/recurly-client-dotnet/tree/1.17.25) (2023-02-22)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.24...1.17.25)
+
+
+**Merged Pull Requests**
+
+- Added `ExternalSubscription.ExternalId`, removed `ExternalResource` [#771](https://github.com/recurly/recurly-client-dotnet/pull/771) ([csampson](https://github.com/csampson))
+
+
+
 ## [1.17.24](https://github.com/recurly/recurly-client-dotnet/tree/1.17.24) (2023-02-06)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.23...1.17.24)

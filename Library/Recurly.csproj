@@ -2,7 +2,7 @@
   <PropertyGroup>
     <ProductVersion>9.0.30729</ProductVersion>
     <PackageId>recurly-api-client</PackageId>
-    <PackageVersion>1.17.24</PackageVersion>
+    <PackageVersion>1.17.25</PackageVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <TargetFramework>net45</TargetFramework>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
