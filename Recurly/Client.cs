@@ -3314,7 +3314,7 @@ namespace Recurly
         {
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
             var url = this.InterpolatePath("/subscriptions/{subscription_id}/cancel", urlParams);
-            return MakeRequest<Subscription>(Method.PUT, url, null, null, options);
+            return MakeRequest<Subscription>(Method.PUT, url, body, null, options);
         }
 
 
@@ -3331,7 +3331,7 @@ namespace Recurly
         {
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
             var url = this.InterpolatePath("/subscriptions/{subscription_id}/cancel", urlParams);
-            return MakeRequestAsync<Subscription>(Method.PUT, url, null, null, options, cancellationToken);
+            return MakeRequestAsync<Subscription>(Method.PUT, url, body, null, options, cancellationToken);
         }
 
 
