@@ -1,5 +1,16 @@
 # Changelog
 
+## [4.32.1](https://github.com/recurly/recurly-client-dotnet/tree/4.32.1) (2023-03-10)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/4.32.0...4.32.1)
+
+
+**Merged Pull Requests**
+
+- Bug fix for optional bodies not being included in requests [#775](https://github.com/recurly/recurly-client-dotnet/pull/775) ([recurly-integrations](https://github.com/recurly-integrations))
+
+
+
 ## [4.32.0](https://github.com/recurly/recurly-client-dotnet/tree/4.32.0) (2023-02-22)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/4.31.0...4.32.0)
