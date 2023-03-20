@@ -953,5 +953,13 @@ namespace Recurly
             parameters["state"] = state.ToString().EnumNameToTransportCase();
             return new AccountList(Account.UrlPrefix + "?" + parameters.ToString());
         }
+        /// <summary>
+        /// Returns a list of external_invoices for this account
+        /// </summary>
+        /// <returns></returns>
+        public static RecurlyList<ExternalInvoice> GetExternalInvoices(string accountCode)
+        {
+            return new ExternalInvoiceList(Account.UrlPrefix + Uri.EscapeDataString(accountCode) + "/external_invoices/");
+        }
     }
 }

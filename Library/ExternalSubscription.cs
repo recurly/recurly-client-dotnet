@@ -171,5 +171,13 @@ namespace Recurly
 
             return statusCode == HttpStatusCode.NotFound ? null : externalSubscription;
         }
+        /// <summary>
+        /// Returns a list of external_invoices for this external subscription
+        /// </summary>
+        /// <returns></returns>
+        public static RecurlyList<ExternalInvoice> GetExternalInvoices(string uuid)
+        {
+            return new ExternalInvoiceList(ExternalSubscription.UrlPrefix + Uri.EscapeDataString(uuid) + "/external_invoices/");
+        }
     }
 }
