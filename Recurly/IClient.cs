@@ -543,6 +543,19 @@ namespace Recurly
 
 
         /// <summary>
+        /// List the external invoices on an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_account_external_invoices">list_account_external_invoices api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
+        /// <param name="limit">Limit number of records 1-200.</param>
+        /// <param name="order">Sort order.</param>
+        /// <returns>
+        /// A list of the the external_invoices on an account.
+        /// </returns>
+        Pager<ExternalInvoice> ListAccountExternalInvoices(string accountId, ListAccountExternalInvoicesParams optionalParams = null, RequestOptions options = null);
+
+
+        /// <summary>
         /// List an account's invoices <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_account_invoices">list_account_invoices api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
@@ -1373,6 +1386,19 @@ namespace Recurly
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
         Task<ExternalSubscription> GetExternalSubscriptionAsync(string externalSubscriptionId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// List the external invoices on an external subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_external_subscription_external_invoices">list_external_subscription_external_invoices api documentation</see>
+        /// </summary>
+        /// <param name="externalSubscriptionId">External subscription id</param>
+        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
+        /// <param name="limit">Limit number of records 1-200.</param>
+        /// <param name="order">Sort order.</param>
+        /// <returns>
+        /// A list of the the external_invoices on a site.
+        /// </returns>
+        Pager<ExternalInvoice> ListExternalSubscriptionExternalInvoices(string externalSubscriptionId, ListExternalSubscriptionExternalInvoicesParams optionalParams = null, RequestOptions options = null);
+
 
         /// <summary>
         /// List a site's invoices <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_invoices">list_invoices api documentation</see>
@@ -2793,6 +2819,38 @@ namespace Recurly
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
         Task<InvoiceTemplate> GetInvoiceTemplateAsync(string invoiceTemplateId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// List the external invoices on a site <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_external_invoices">list_external_invoices api documentation</see>
+        /// </summary>
+        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
+        /// <param name="limit">Limit number of records 1-200.</param>
+        /// <param name="order">Sort order.</param>
+        /// <returns>
+        /// A list of the the external_invoices on a site.
+        /// </returns>
+        Pager<ExternalInvoice> ListExternalInvoices(ListExternalInvoicesParams optionalParams = null, RequestOptions options = null);
+
+
+        /// <summary>
+        /// Fetch an external invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/show_external_invoice">show_external_invoice api documentation</see>
+        /// </summary>
+        /// <param name="externalInvoiceId">External invoice ID, e.g. `e28zov4fw0v2`.</param>
+        /// <returns>
+        /// Returns the external invoice
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        ExternalInvoice ShowExternalInvoice(string externalInvoiceId, RequestOptions options = null);
+
+        /// <summary>
+        /// Fetch an external invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/show_external_invoice">show_external_invoice api documentation</see>
+        /// </summary>
+        /// <param name="externalInvoiceId">External invoice ID, e.g. `e28zov4fw0v2`.</param>
+        /// <returns>
+        /// Returns the external invoice
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<ExternalInvoice> ShowExternalInvoiceAsync(string externalInvoiceId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
 
         /// <summary>
         /// List entitlements granted to an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_entitlements">list_entitlements api documentation</see>

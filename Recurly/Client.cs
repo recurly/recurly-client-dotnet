@@ -851,6 +851,25 @@ namespace Recurly
 
 
         /// <summary>
+        /// List the external invoices on an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_account_external_invoices">list_account_external_invoices api documentation</see>
+        /// </summary>
+        /// <param name="ListAccountExternalInvoicesParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// A list of the the external_invoices on an account.
+        /// </returns>
+        public Pager<ExternalInvoice> ListAccountExternalInvoices(string accountId, ListAccountExternalInvoicesParams optionalParams = null, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
+            var queryParams = (optionalParams ?? new ListAccountExternalInvoicesParams()).ToDictionary();
+            var url = this.InterpolatePath("/accounts/{account_id}/external_invoices", urlParams);
+            return Pager<ExternalInvoice>.Build(url, queryParams, options, this);
+        }
+
+
+
+
+
+        /// <summary>
         /// List an account's invoices <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_account_invoices">list_account_invoices api documentation</see>
         /// </summary>
         /// <param name="ListAccountInvoicesParams">Optional Parameters for the request</param>
@@ -2088,6 +2107,25 @@ namespace Recurly
             var url = this.InterpolatePath("/external_subscriptions/{external_subscription_id}", urlParams);
             return MakeRequestAsync<ExternalSubscription>(Method.GET, url, null, null, options, cancellationToken);
         }
+
+
+
+        /// <summary>
+        /// List the external invoices on an external subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_external_subscription_external_invoices">list_external_subscription_external_invoices api documentation</see>
+        /// </summary>
+        /// <param name="ListExternalSubscriptionExternalInvoicesParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// A list of the the external_invoices on a site.
+        /// </returns>
+        public Pager<ExternalInvoice> ListExternalSubscriptionExternalInvoices(string externalSubscriptionId, ListExternalSubscriptionExternalInvoicesParams optionalParams = null, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "external_subscription_id", externalSubscriptionId } };
+            var queryParams = (optionalParams ?? new ListExternalSubscriptionExternalInvoicesParams()).ToDictionary();
+            var url = this.InterpolatePath("/external_subscriptions/{external_subscription_id}/external_invoices", urlParams);
+            return Pager<ExternalInvoice>.Build(url, queryParams, options, this);
+        }
+
+
 
 
 
@@ -4315,6 +4353,59 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "invoice_template_id", invoiceTemplateId } };
             var url = this.InterpolatePath("/invoice_templates/{invoice_template_id}", urlParams);
             return MakeRequestAsync<InvoiceTemplate>(Method.GET, url, null, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// List the external invoices on a site <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_external_invoices">list_external_invoices api documentation</see>
+        /// </summary>
+        /// <param name="ListExternalInvoicesParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// A list of the the external_invoices on a site.
+        /// </returns>
+        public Pager<ExternalInvoice> ListExternalInvoices(ListExternalInvoicesParams optionalParams = null, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var queryParams = (optionalParams ?? new ListExternalInvoicesParams()).ToDictionary();
+            var url = this.InterpolatePath("/external_invoices", urlParams);
+            return Pager<ExternalInvoice>.Build(url, queryParams, options, this);
+        }
+
+
+
+
+
+        /// <summary>
+        /// Fetch an external invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/show_external_invoice">show_external_invoice api documentation</see>
+        /// </summary>
+        /// <param name="ShowExternalInvoiceParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Returns the external invoice
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public ExternalInvoice ShowExternalInvoice(string externalInvoiceId, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "external_invoice_id", externalInvoiceId } };
+            var url = this.InterpolatePath("/external_invoices/{external_invoice_id}", urlParams);
+            return MakeRequest<ExternalInvoice>(Method.GET, url, null, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Fetch an external invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/show_external_invoice">show_external_invoice api documentation</see>
+        /// </summary>
+        /// <param name="ShowExternalInvoiceParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Returns the external invoice
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<ExternalInvoice> ShowExternalInvoiceAsync(string externalInvoiceId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "external_invoice_id", externalInvoiceId } };
+            var url = this.InterpolatePath("/external_invoices/{external_invoice_id}", urlParams);
+            return MakeRequestAsync<ExternalInvoice>(Method.GET, url, null, null, options, cancellationToken);
         }
 
 
