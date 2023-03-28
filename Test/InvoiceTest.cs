@@ -18,6 +18,7 @@ namespace Recurly.Test
             var invoice = account.InvoicePendingCharges().ChargeInvoice;
             Assert.Equal("usst", invoice.TaxType);
             Assert.Equal(0.08625M, invoice.TaxRate.Value);
+            Assert.True(invoice.UsedTaxService.GetValueOrDefault());
 
             var fromService = Invoices.Get(invoice.InvoiceNumber);
 

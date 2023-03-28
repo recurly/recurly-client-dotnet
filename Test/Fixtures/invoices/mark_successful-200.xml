@@ -14,6 +14,7 @@ Content-Type: application/xml; charset=utf-8
   <total_in_cents type="integer">2995</total_in_cents>
   <currency>USD</currency>
   <created_at type="datetime">2012-05-28T17:44:13Z</created_at>
+  <used_tax_service type="boolean">true</used_tax_service>
   <line_items type="array">
     <adjustment href="https://api.recurly.com/v2/adjustments/190357944dad4d461272774dd184a17e" type="charge">
       <account href="https://api.recurly.com/v2/accounts/1"/>
