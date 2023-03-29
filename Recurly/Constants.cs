@@ -2231,5 +2231,14 @@ namespace Recurly
 
         };
 
+        public enum ExternalInvoiceState
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "paid")]
+            Paid,
+
+        };
+
     }
 }
