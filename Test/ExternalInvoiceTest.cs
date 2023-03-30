@@ -14,7 +14,7 @@ namespace Recurly.Test
             var externalInvoice = ExternalInvoices.Get(uuid);
             externalInvoice.ExternalId.Should().Be("external_id");
             externalInvoice.State.Should().Be(ExternalInvoice.ExternalInvoiceState.Paid);
-            externalInvoice.TotalInCents.Should().Be(123);
+            externalInvoice.Total.Should().Be(123);
             externalInvoice.Currency.Should().Be("USD");
             externalInvoice.PurchasedAt.Should().NotBe(default(DateTime));
             externalInvoice.CreatedAt.Should().NotBe(default(DateTime));
