@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.17.26](https://github.com/recurly/recurly-client-dotnet/tree/1.17.26) (2023-04-05)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.25...1.17.26)
+
+
+**Merged Pull Requests**
+
+- External Invoices: Dotnet Client Libraries [#776](https://github.com/recurly/recurly-client-dotnet/pull/776) ([paulorbpinho-fullstacklabs](https://github.com/paulorbpinho-fullstacklabs))
+
+
+
 ## [1.17.25](https://github.com/recurly/recurly-client-dotnet/tree/1.17.25) (2023-02-22)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.24...1.17.25)
