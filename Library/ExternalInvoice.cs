@@ -36,7 +36,7 @@ namespace Recurly
 
         public string ExternalId { get; private set; }
         public ExternalInvoiceState State { get; private set; }
-        public int TotalInCents { get; private set; }
+        public decimal Total { get; private set; }
         /// <summary>
         /// List of external charges
         /// </summary>
@@ -95,7 +95,7 @@ namespace Recurly
                         break;
 
                     case "total":
-                        TotalInCents = reader.ReadElementContentAsInt();
+                        Total = reader.ReadElementContentAsDecimal();
                         break;
 
                     case "currency":

@@ -27,7 +27,7 @@ namespace Recurly
             internal set { _externalInvoice = value; }
         }
         public string Description { get; private set; }
-        public int UnitAmount { get; private set; }
+        public decimal UnitAmount { get; private set; }
         public string Currency { get; private set; }
         public int Quantity { get; private set; }
         public DateTime CreatedAt { get; private set; }
@@ -72,7 +72,7 @@ namespace Recurly
                         break;
 
                     case "unit_amount":
-                        UnitAmount = reader.ReadElementContentAsInt();
+                        UnitAmount = reader.ReadElementContentAsDecimal();
                         break;
 
                     case "quantity":
