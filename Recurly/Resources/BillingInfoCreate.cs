@@ -45,6 +45,10 @@ namespace Recurly.Resources
         [JsonProperty("company")]
         public string Company { get; set; }
 
+        /// <value>3-letter ISO 4217 currency code.</value>
+        [JsonProperty("currency")]
+        public string Currency { get; set; }
+
         /// <value>*STRONGLY RECOMMENDED*</value>
         [JsonProperty("cvv")]
         public string Cvv { get; set; }

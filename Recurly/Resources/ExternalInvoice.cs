@@ -58,7 +58,7 @@ namespace Recurly.Resources
 
         /// <value>Total</value>
         [JsonProperty("total")]
-        public decimal? Total { get; set; }
+        public string Total { get; set; }
 
         /// <value>When the external invoice was updated in Recurly.</value>
         [JsonProperty("updated_at")]

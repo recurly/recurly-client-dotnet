@@ -49,7 +49,7 @@ namespace Recurly.Resources
 
         /// <value>Unit Amount</value>
         [JsonProperty("unit_amount")]
-        public decimal? UnitAmount { get; set; }
+        public string UnitAmount { get; set; }
 
         /// <value>When the external charge was updated in Recurly.</value>
         [JsonProperty("updated_at")]
