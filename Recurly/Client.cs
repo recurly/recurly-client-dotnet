@@ -851,6 +851,160 @@ namespace Recurly
 
 
         /// <summary>
+        /// List external accounts for an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_account_external_account">list_account_external_account api documentation</see>
+        /// </summary>
+        /// <param name="ListAccountExternalAccountParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// A list of external accounts on an account.
+        /// </returns>
+        public Pager<ExternalAccount> ListAccountExternalAccount(string accountId, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
+            var url = this.InterpolatePath("/accounts/{account_id}/external_accounts", urlParams);
+            return Pager<ExternalAccount>.Build(url, null, options, this);
+        }
+
+
+
+
+
+        /// <summary>
+        /// Create an external account <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_account_external_account">create_account_external_account api documentation</see>
+        /// </summary>
+        /// <param name="CreateAccountExternalAccountParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// A representation of the created external_account.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public ExternalAccount CreateAccountExternalAccount(string accountId, ExternalAccountCreate body, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
+            var url = this.InterpolatePath("/accounts/{account_id}/external_accounts", urlParams);
+            return MakeRequest<ExternalAccount>(Method.POST, url, body, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Create an external account <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_account_external_account">create_account_external_account api documentation</see>
+        /// </summary>
+        /// <param name="CreateAccountExternalAccountParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// A representation of the created external_account.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<ExternalAccount> CreateAccountExternalAccountAsync(string accountId, ExternalAccountCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
+            var url = this.InterpolatePath("/accounts/{account_id}/external_accounts", urlParams);
+            return MakeRequestAsync<ExternalAccount>(Method.POST, url, body, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// Get an external account for an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_account_external_account">get_account_external_account api documentation</see>
+        /// </summary>
+        /// <param name="GetAccountExternalAccountParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// A external account on an account.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public ExternalAccount GetAccountExternalAccount(string accountId, string externalAccountId, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId }, { "external_account_id", externalAccountId } };
+            var url = this.InterpolatePath("/accounts/{account_id}/external_accounts/{external_account_id}", urlParams);
+            return MakeRequest<ExternalAccount>(Method.GET, url, null, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Get an external account for an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_account_external_account">get_account_external_account api documentation</see>
+        /// </summary>
+        /// <param name="GetAccountExternalAccountParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// A external account on an account.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<ExternalAccount> GetAccountExternalAccountAsync(string accountId, string externalAccountId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId }, { "external_account_id", externalAccountId } };
+            var url = this.InterpolatePath("/accounts/{account_id}/external_accounts/{external_account_id}", urlParams);
+            return MakeRequestAsync<ExternalAccount>(Method.GET, url, null, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// Update an external account <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_account_external_account">update_account_external_account api documentation</see>
+        /// </summary>
+        /// <param name="UpdateAccountExternalAccountParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// A representation of the updated external_account.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public ExternalAccount UpdateAccountExternalAccount(string accountId, string externalAccountId, ExternalAccountUpdate body, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId }, { "external_account_id", externalAccountId } };
+            var url = this.InterpolatePath("/accounts/{account_id}/external_accounts/{external_account_id}", urlParams);
+            return MakeRequest<ExternalAccount>(Method.PUT, url, body, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Update an external account <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_account_external_account">update_account_external_account api documentation</see>
+        /// </summary>
+        /// <param name="UpdateAccountExternalAccountParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// A representation of the updated external_account.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<ExternalAccount> UpdateAccountExternalAccountAsync(string accountId, string externalAccountId, ExternalAccountUpdate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId }, { "external_account_id", externalAccountId } };
+            var url = this.InterpolatePath("/accounts/{account_id}/external_accounts/{external_account_id}", urlParams);
+            return MakeRequestAsync<ExternalAccount>(Method.PUT, url, body, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// Delete an external account for an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/delete_account_external_account">delete_account_external_account api documentation</see>
+        /// </summary>
+        /// <param name="DeleteAccountExternalAccountParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Successful Delete
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public ExternalAccount DeleteAccountExternalAccount(string accountId, string externalAccountId, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId }, { "external_account_id", externalAccountId } };
+            var url = this.InterpolatePath("/accounts/{account_id}/external_accounts/{external_account_id}", urlParams);
+            return MakeRequest<ExternalAccount>(Method.DELETE, url, null, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Delete an external account for an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/delete_account_external_account">delete_account_external_account api documentation</see>
+        /// </summary>
+        /// <param name="DeleteAccountExternalAccountParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Successful Delete
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<ExternalAccount> DeleteAccountExternalAccountAsync(string accountId, string externalAccountId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId }, { "external_account_id", externalAccountId } };
+            var url = this.InterpolatePath("/accounts/{account_id}/external_accounts/{external_account_id}", urlParams);
+            return MakeRequestAsync<ExternalAccount>(Method.DELETE, url, null, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
         /// List the external invoices on an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_account_external_invoices">list_account_external_invoices api documentation</see>
         /// </summary>
         /// <param name="ListAccountExternalInvoicesParams">Optional Parameters for the request</param>
