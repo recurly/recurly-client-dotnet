@@ -603,6 +603,75 @@ namespace Recurly
                 UrlPrefix + Uri.EscapeDataString(AccountCode) + "/billing_infos/" + billingInfoId);
         }
 
+        /// <summary>
+        /// Returns a specific external_account for this account
+        /// <param name="id"></param>
+        /// </summary>
+        /// <returns>ExternalAccount object</returns>
+        public ExternalAccount GetExternalAccount(string id)
+        {
+            if (id == null)
+                return null;
+
+            var externalAccount = new ExternalAccount();
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
+                UrlPrefix + Uri.EscapeDataString(AccountCode) + "/external_accounts/" + id,
+                externalAccount.ReadXml);
+
+            return statusCode == HttpStatusCode.NotFound ? null : externalAccount;
+        }
+
+        /// <summary>
+        /// Returns a list of external_accounts for this account
+        /// </summary>
+        /// <returns>ExternalAccount list</returns>
+        public RecurlyList<ExternalAccount> GetExternalAccounts()
+        {
+            return new ExternalAccountList(Account.UrlPrefix + Uri.EscapeDataString(AccountCode) + "/external_accounts/");
+        }
+
+        /// <summary>
+        /// Create an external_account
+        /// </summary>
+        /// <param name="externalAccount"></param>
+        /// <returns>ExternalAccount object</returns>
+        public ExternalAccount CreateExternalAccount(ExternalAccount externalAccount)
+        {
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
+                UrlPrefix + Uri.EscapeDataString(AccountCode) + "/external_accounts",
+                externalAccount.WriteXml,
+                externalAccount.ReadXml);
+
+            return statusCode == HttpStatusCode.Created ? externalAccount : null;
+        }
+
+        /// <summary>
+        /// Updates an external_account
+        /// </summary>
+        /// <param name="externalAccount"></param>
+        /// <returns>ExternalAccount object</returns>
+        public ExternalAccount UpdateExternalAccount(ExternalAccount externalAccount)
+        {
+            var id = externalAccount.Id;
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
+                UrlPrefix + Uri.EscapeDataString(AccountCode) + "/external_accounts/" + id,
+                externalAccount.WriteXml,
+                externalAccount.ReadXml);
+
+            return statusCode == HttpStatusCode.OK ? externalAccount : null;
+        }
+
+        /// <summary>
+        /// Deletes an external_account
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public void DeleteExternalAccount(string id)
+        {
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Delete,
+                UrlPrefix + Uri.EscapeDataString(AccountCode) + "/external_accounts/" + id);
+        }
+
         #region Read and Write XML documents
 
         internal override void ReadXml(XmlTextReader reader)
@@ -953,6 +1022,7 @@ namespace Recurly
             parameters["state"] = state.ToString().EnumNameToTransportCase();
             return new AccountList(Account.UrlPrefix + "?" + parameters.ToString());
         }
+
         /// <summary>
         /// Returns a list of external_invoices for this account
         /// </summary>
