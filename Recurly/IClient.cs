@@ -543,6 +543,106 @@ namespace Recurly
 
 
         /// <summary>
+        /// List external accounts for an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_account_external_account">list_account_external_account api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <returns>
+        /// A list of external accounts on an account.
+        /// </returns>
+        Pager<ExternalAccount> ListAccountExternalAccount(string accountId, RequestOptions options = null);
+
+
+        /// <summary>
+        /// Create an external account <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_account_external_account">create_account_external_account api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// A representation of the created external_account.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        ExternalAccount CreateAccountExternalAccount(string accountId, ExternalAccountCreate body, RequestOptions options = null);
+
+        /// <summary>
+        /// Create an external account <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_account_external_account">create_account_external_account api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// A representation of the created external_account.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<ExternalAccount> CreateAccountExternalAccountAsync(string accountId, ExternalAccountCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// Get an external account for an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_account_external_account">get_account_external_account api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="externalAccountId">External account ID, e.g. `s28zov4fw0cb`.</param>
+        /// <returns>
+        /// A external account on an account.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        ExternalAccount GetAccountExternalAccount(string accountId, string externalAccountId, RequestOptions options = null);
+
+        /// <summary>
+        /// Get an external account for an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_account_external_account">get_account_external_account api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="externalAccountId">External account ID, e.g. `s28zov4fw0cb`.</param>
+        /// <returns>
+        /// A external account on an account.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<ExternalAccount> GetAccountExternalAccountAsync(string accountId, string externalAccountId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// Update an external account <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_account_external_account">update_account_external_account api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="externalAccountId">External account ID, e.g. `s28zov4fw0cb`.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// A representation of the updated external_account.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        ExternalAccount UpdateAccountExternalAccount(string accountId, string externalAccountId, ExternalAccountUpdate body, RequestOptions options = null);
+
+        /// <summary>
+        /// Update an external account <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_account_external_account">update_account_external_account api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="externalAccountId">External account ID, e.g. `s28zov4fw0cb`.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// A representation of the updated external_account.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<ExternalAccount> UpdateAccountExternalAccountAsync(string accountId, string externalAccountId, ExternalAccountUpdate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// Delete an external account for an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/delete_account_external_account">delete_account_external_account api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="externalAccountId">External account ID, e.g. `s28zov4fw0cb`.</param>
+        /// <returns>
+        /// Successful Delete
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        ExternalAccount DeleteAccountExternalAccount(string accountId, string externalAccountId, RequestOptions options = null);
+
+        /// <summary>
+        /// Delete an external account for an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/delete_account_external_account">delete_account_external_account api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="externalAccountId">External account ID, e.g. `s28zov4fw0cb`.</param>
+        /// <returns>
+        /// Successful Delete
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<ExternalAccount> DeleteAccountExternalAccountAsync(string accountId, string externalAccountId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
         /// List the external invoices on an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_account_external_invoices">list_account_external_invoices api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>

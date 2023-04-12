@@ -60,6 +60,10 @@ namespace Recurly.Resources
         [JsonProperty("exemption_certificate")]
         public string ExemptionCertificate { get; set; }
 
+        /// <value>External Accounts</value>
+        [JsonProperty("external_accounts")]
+        public List<ExternalAccountCreate> ExternalAccounts { get; set; }
+
 
         [JsonProperty("first_name")]
         public string FirstName { get; set; }
