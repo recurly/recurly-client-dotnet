@@ -121,6 +121,7 @@ namespace Recurly
         public string TaxType { get; private set; }
         public string TaxRegion { get; private set; }
         public decimal? TaxRate { get; private set; }
+        public bool? UsedTaxService { get; private set; }
 
         public RecurlyList<TaxDetail> TaxDetails { get; private set; }
         public RecurlyList<Adjustment> Adjustments { get; private set; }
@@ -586,6 +587,10 @@ namespace Recurly
 
                     case "tax_region":
                         TaxRegion = reader.ReadElementContentAsString();
+                        break;
+
+                    case "used_tax_service":
+                        UsedTaxService = reader.ReadElementContentAsBoolean();
                         break;
 
                     case "net_terms":
