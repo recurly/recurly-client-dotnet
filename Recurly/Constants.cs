@@ -342,8 +342,14 @@ namespace Recurly
             [EnumMember(Value = "fi-FI")]
             FiFi,
 
+            [EnumMember(Value = "fr-BE")]
+            FrBe,
+
             [EnumMember(Value = "fr-CA")]
             FrCa,
+
+            [EnumMember(Value = "fr-CH")]
+            FrCh,
 
             [EnumMember(Value = "fr-FR")]
             FrFr,
