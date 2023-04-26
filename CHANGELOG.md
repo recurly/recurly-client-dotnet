@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.27.0](https://github.com/recurly/recurly-client-dotnet/tree/3.27.0) (2023-04-26)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.26.0...3.27.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2019-10-10 (UsedTaxService on Invoice) [#784](https://github.com/recurly/recurly-client-dotnet/pull/784) ([recurly-integrations](https://github.com/recurly-integrations))
+
+
+
 ## [3.26.0](https://github.com/recurly/recurly-client-dotnet/tree/3.26.0) (2023-01-19)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/3.25.0...3.26.0)
