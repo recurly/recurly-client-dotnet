@@ -57,6 +57,7 @@ namespace Recurly.Resources
         /// - `read_only` - Users with the Customers role will be able to view this field's data via the admin UI, but
         ///   editing will only be available via the API.
         /// - `write` - Users with the Customers role will be able to view and edit this field's data via the admin UI.
+        /// - `set_only` - Users with the Customers role will be able to set this field's data via the admin console.
         /// </value>
         [JsonProperty("user_access")]
         public string UserAccess { get; set; }
