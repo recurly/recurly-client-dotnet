@@ -167,6 +167,10 @@ namespace Recurly.Resources
         [JsonProperty("updated_at")]
         public DateTime? UpdatedAt { get; set; }
 
+        /// <value>Will be `true` when the invoice had a successful response from the tax service and `false` when the invoice was not sent to tax service due to a lack of address or enabled jurisdiction or was processed without tax due to a non-blocking error returned from the tax service.</value>
+        [JsonProperty("used_tax_service")]
+        public bool? UsedTaxService { get; set; }
+
         /// <value>Invoice UUID</value>
         [JsonProperty("uuid")]
         public string Uuid { get; set; }
