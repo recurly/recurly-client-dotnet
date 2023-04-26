@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.17.28](https://github.com/recurly/recurly-client-dotnet/tree/1.17.28) (2023-04-26)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.27...1.17.28)
+
+
+**Merged Pull Requests**
+
+- Add UsedTaxService to Invoice response [#783](https://github.com/recurly/recurly-client-dotnet/pull/783) ([judith](https://github.com/judith))
+
+
+
 ## [1.17.27](https://github.com/recurly/recurly-client-dotnet/tree/1.17.27) (2023-04-13)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.26...1.17.27)
