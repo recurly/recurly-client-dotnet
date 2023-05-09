@@ -14,7 +14,7 @@ namespace Recurly.Test
             var externalSubscription = ExternalSubscriptions.Get(uuid);
             externalSubscription.Quantity.Should().Be(14);
             externalSubscription.State.Should().Be("");
-            externalSubscription.ExternalId.Should().Be("");
+            externalSubscription.ExternalId.Should().Be("cool-string");
         }
     }
 }
