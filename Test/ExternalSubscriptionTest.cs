@@ -10,7 +10,7 @@ namespace Recurly.Test
         [RecurlyFact(TestEnvironment.Type.Integration)]
         public void LookupExternalSubscription()
         {
-            var uuid = "rv1loyqlf6si";
+            var uuid = "sv3fm556opc8";
             var externalSubscription = ExternalSubscriptions.Get(uuid);
             externalSubscription.Quantity.Should().Be(14);
             externalSubscription.State.Should().Be("");
