@@ -855,6 +855,9 @@ namespace Recurly
         {
             Undefined = 0,
 
+            [EnumMember(Value = "bacs")]
+            Bacs,
+
             [EnumMember(Value = "ach")]
             Ach,
 
@@ -1170,6 +1173,9 @@ namespace Recurly
             [EnumMember(Value = "chargeback")]
             Chargeback,
 
+            [EnumMember(Value = "external_recovery")]
+            ExternalRecovery,
+
             [EnumMember(Value = "force_collect")]
             ForceCollect,
 
@@ -1361,6 +1367,9 @@ namespace Recurly
         public enum PaymentMethod
         {
             Undefined = 0,
+
+            [EnumMember(Value = "bacs")]
+            Bacs,
 
             [EnumMember(Value = "amazon")]
             Amazon,
