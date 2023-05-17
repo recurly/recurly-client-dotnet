@@ -11,6 +11,7 @@ namespace Recurly
     /// </summary>
     public class ExternalProduct : RecurlyEntity
     {
+        public string Id { get; private set; }
         private Plan _plan;
         public Plan Plan
         {
@@ -21,16 +22,16 @@ namespace Recurly
                 PlanCode = value.PlanCode;
             }
         }
-        public string PlanCode { get; private set; }
-        public string Name { get; private set; }
+        public string PlanCode { get; set; }
+        public string Name { get; set; }
         public string ExternalObjectReference { get; private set; }
-        public List<ExternalProductReference> ExternalProductReferenceList { get; private set; }
+        public List<ExternalProductReference> ExternalProductReferenceList { get; set; }
         public DateTime CreatedAt { get; private set; }
         public DateTime UpdatedAt { get; private set; }
 
         internal const string UrlPrefix = "/external_products/";
 
-        internal ExternalProduct()
+        public ExternalProduct()
         {
         }
 
@@ -39,6 +40,90 @@ namespace Recurly
             ReadXml(reader);
         }
 
+        /// <summary>
+        /// Create a new external product in Recurly
+        /// </summary>
+        public void Create()
+        {
+            // POST /external_products
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Post, UrlPrefix, WriteXml, ReadXml);
+        }
+
+        /// <summary>
+        /// Update an existing external product in Recurly
+        /// </summary>
+        public void Update()
+        {
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Put,
+                UrlPrefix + Uri.EscapeDataString(Id),
+                WriteUpdateXml);
+        }
+
+        /// <summary>
+        /// Deletes this external product, making it inactive
+        /// </summary>
+        public void Delete()
+        {
+            Client.Instance.PerformRequest(Client.HttpRequestMethod.Delete, UrlPrefix + Uri.EscapeDataString(Id));
+        }
+
+        #region External Product References
+
+        /// <summary>
+        /// Returns a specific external_product_reference for this account
+        /// <param name="id"></param>
+        /// </summary>
+        /// <returns>ExternalProductReference object</returns>
+        public ExternalProductReference GetExternalProductReference(string id)
+        {
+            if (id == null)
+                return null;
+
+            var externalProductReference = new ExternalProductReference();
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
+                UrlPrefix + Uri.EscapeDataString(Id) + "/external_product_references/" + id,
+                externalProductReference.ReadXml);
+
+            return statusCode == HttpStatusCode.NotFound ? null : externalProductReference;
+        }
+
+        /// <summary>
+        /// Returns a list of external_product_reference for this account
+        /// </summary>
+        /// <returns>ExternalProductReference list</returns>
+        public RecurlyList<ExternalProductReference> GetExternalProductReferences()
+        {
+            return new ExternalProductReferenceList(ExternalProduct.UrlPrefix + Uri.EscapeDataString(Id) + "/external_product_references");
+        }
+
+        /// <summary>
+        /// Create an external_product_reference
+        /// </summary>
+        /// <param name="externalProductReference"></param>
+        /// <returns>ExternalProductReference object</returns>
+        public ExternalProductReference CreateExternalProductReference(ExternalProductReference externalProductReference)
+        {
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
+                UrlPrefix + Uri.EscapeDataString(Id) + "/external_product_references/",
+                externalProductReference.WriteXml,
+                externalProductReference.ReadXml);
+
+            return statusCode == HttpStatusCode.Created ? externalProductReference : null;
+        }
+
+
+        /// <summary>
+        /// Deletes an external_product_reference
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public void DeleteExternalProductReference(string id)
+        {
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Delete,
+                UrlPrefix + Uri.EscapeDataString(Id) + "/external_product_references/" + id);
+        }
+
+        #endregion
 
         #region Read and Write XML documents
 
@@ -91,6 +176,10 @@ namespace Recurly
 
                 switch (reader.Name)
                 {
+                    case "id":
+                        Id = reader.ReadElementContentAsString();
+                        break;
+
                     case "plan":
                         ReadPlanXml(reader);
                         break;
@@ -116,9 +205,32 @@ namespace Recurly
             }
         }
 
-        internal override void WriteXml(XmlTextWriter writer)
+        internal override void WriteXml(XmlTextWriter xmlWriter)
         {
-            throw new NotImplementedException();
+            WriteXml(xmlWriter, "external_product");
+        }
+
+        internal void WriteXml(XmlTextWriter xmlWriter, string xmlName)
+        {
+            xmlWriter.WriteStartElement(xmlName); // Start: external_product
+
+            xmlWriter.WriteElementString("plan_code", PlanCode);
+            xmlWriter.WriteStringIfValid("name", Name);
+            xmlWriter.WriteIfCollectionHasAny("external_product_references", ExternalProductReferenceList);
+            xmlWriter.WriteEndElement(); // End: external_product
+        }
+
+        internal void WriteUpdateXml(XmlTextWriter xmlWriter)
+        {
+            WriteUpdateXml(xmlWriter, "external_product");
+        }
+
+        internal void WriteUpdateXml(XmlTextWriter xmlWriter, string xmlName)
+        {
+            xmlWriter.WriteStartElement(xmlName); // Start: external_product
+
+            xmlWriter.WriteElementString("plan_code", PlanCode);
+            xmlWriter.WriteEndElement(); // End: external_product
         }
 
         #endregion

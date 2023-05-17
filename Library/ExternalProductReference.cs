@@ -18,7 +18,7 @@ namespace Recurly
         public DateTime? CreatedAt { get; private set; }
         public DateTime? UpdatedAt { get; private set; }
 
-        internal ExternalProductReference()
+        public ExternalProductReference()
         {
         }
 
@@ -63,9 +63,19 @@ namespace Recurly
             }
         }
 
-        internal override void WriteXml(XmlTextWriter writer)
+
+        internal override void WriteXml(XmlTextWriter xmlWriter)
         {
-            throw new NotImplementedException();
+            WriteXml(xmlWriter, "external_product_reference");
+        }
+
+        internal void WriteXml(XmlTextWriter xmlWriter, string xmlName)
+        {
+            xmlWriter.WriteStartElement(xmlName); // Start: external_product_reference
+
+            xmlWriter.WriteElementString("reference_code", ReferenceCode);
+            xmlWriter.WriteStringIfValid("external_connection_type", ExternalConnectionType);
+            xmlWriter.WriteEndElement();
         }
     }
 }
