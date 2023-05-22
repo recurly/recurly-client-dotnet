@@ -45,6 +45,10 @@ namespace Recurly.Resources
         [JsonProperty("first_six")]
         public string FirstSix { get; set; }
 
+        /// <value>Gateway specific attributes associated with this PaymentMethod</value>
+        [JsonProperty("gateway_attributes")]
+        public GatewayAttributes GatewayAttributes { get; set; }
+
         /// <value>An identifier for a specific payment gateway.</value>
         [JsonProperty("gateway_code")]
         public string GatewayCode { get; set; }
