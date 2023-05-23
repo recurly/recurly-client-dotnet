@@ -2178,6 +2178,40 @@ namespace Recurly
 
 
         /// <summary>
+        /// Create an external product <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_external_product">create_external_product api documentation</see>
+        /// </summary>
+        /// <param name="CreateExternalProductParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Returns the external product
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public ExternalProduct CreateExternalProduct(ExternalProductCreate body, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var url = this.InterpolatePath("/external_products", urlParams);
+            return MakeRequest<ExternalProduct>(Method.POST, url, body, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Create an external product <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_external_product">create_external_product api documentation</see>
+        /// </summary>
+        /// <param name="CreateExternalProductParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Returns the external product
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<ExternalProduct> CreateExternalProductAsync(ExternalProductCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var url = this.InterpolatePath("/external_products", urlParams);
+            return MakeRequestAsync<ExternalProduct>(Method.POST, url, body, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
         /// Fetch an external product <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_external_product">get_external_product api documentation</see>
         /// </summary>
         /// <param name="GetExternalProductParams">Optional Parameters for the request</param>
@@ -2207,6 +2241,195 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "external_product_id", externalProductId } };
             var url = this.InterpolatePath("/external_products/{external_product_id}", urlParams);
             return MakeRequestAsync<ExternalProduct>(Method.GET, url, null, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// Update an external product <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_external_product">update_external_product api documentation</see>
+        /// </summary>
+        /// <param name="UpdateExternalProductParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Settings for an external product.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public ExternalProduct UpdateExternalProduct(string externalProductId, ExternalProductUpdate body, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "external_product_id", externalProductId } };
+            var url = this.InterpolatePath("/external_products/{external_product_id}", urlParams);
+            return MakeRequest<ExternalProduct>(Method.PUT, url, body, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Update an external product <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_external_product">update_external_product api documentation</see>
+        /// </summary>
+        /// <param name="UpdateExternalProductParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Settings for an external product.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<ExternalProduct> UpdateExternalProductAsync(string externalProductId, ExternalProductUpdate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "external_product_id", externalProductId } };
+            var url = this.InterpolatePath("/external_products/{external_product_id}", urlParams);
+            return MakeRequestAsync<ExternalProduct>(Method.PUT, url, body, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// Deactivate an external product <see href="https://developers.recurly.com/api/v2021-02-25#operation/deactivate_external_products">deactivate_external_products api documentation</see>
+        /// </summary>
+        /// <param name="DeactivateExternalProductsParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Deactivated external product.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public ExternalProduct DeactivateExternalProducts(string externalProductId, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "external_product_id", externalProductId } };
+            var url = this.InterpolatePath("/external_products/{external_product_id}", urlParams);
+            return MakeRequest<ExternalProduct>(Method.DELETE, url, null, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Deactivate an external product <see href="https://developers.recurly.com/api/v2021-02-25#operation/deactivate_external_products">deactivate_external_products api documentation</see>
+        /// </summary>
+        /// <param name="DeactivateExternalProductsParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Deactivated external product.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<ExternalProduct> DeactivateExternalProductsAsync(string externalProductId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "external_product_id", externalProductId } };
+            var url = this.InterpolatePath("/external_products/{external_product_id}", urlParams);
+            return MakeRequestAsync<ExternalProduct>(Method.DELETE, url, null, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// List the external product references for an external product <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_external_product_external_product_references">list_external_product_external_product_references api documentation</see>
+        /// </summary>
+        /// <param name="ListExternalProductExternalProductReferencesParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// A list of the the external product references for an external product.
+        /// </returns>
+        public Pager<ExternalProductReferenceCollection> ListExternalProductExternalProductReferences(string externalProductId, ListExternalProductExternalProductReferencesParams optionalParams = null, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "external_product_id", externalProductId } };
+            var queryParams = (optionalParams ?? new ListExternalProductExternalProductReferencesParams()).ToDictionary();
+            var url = this.InterpolatePath("/external_products/{external_product_id}/external_product_references", urlParams);
+            return Pager<ExternalProductReferenceCollection>.Build(url, queryParams, options, this);
+        }
+
+
+
+
+
+        /// <summary>
+        /// Create an external product reference on an external product <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_external_product_external_product_reference">create_external_product_external_product_reference api documentation</see>
+        /// </summary>
+        /// <param name="CreateExternalProductExternalProductReferenceParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Details for the external product reference.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public ExternalProductReferenceMini CreateExternalProductExternalProductReference(string externalProductId, ExternalProductReferenceCreate body, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "external_product_id", externalProductId } };
+            var url = this.InterpolatePath("/external_products/{external_product_id}/external_product_references", urlParams);
+            return MakeRequest<ExternalProductReferenceMini>(Method.POST, url, body, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Create an external product reference on an external product <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_external_product_external_product_reference">create_external_product_external_product_reference api documentation</see>
+        /// </summary>
+        /// <param name="CreateExternalProductExternalProductReferenceParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Details for the external product reference.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<ExternalProductReferenceMini> CreateExternalProductExternalProductReferenceAsync(string externalProductId, ExternalProductReferenceCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "external_product_id", externalProductId } };
+            var url = this.InterpolatePath("/external_products/{external_product_id}/external_product_references", urlParams);
+            return MakeRequestAsync<ExternalProductReferenceMini>(Method.POST, url, body, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// Fetch an external product reference <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_external_product_external_product_reference">get_external_product_external_product_reference api documentation</see>
+        /// </summary>
+        /// <param name="GetExternalProductExternalProductReferenceParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Details for an external product reference.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public ExternalProductReferenceMini GetExternalProductExternalProductReference(string externalProductId, string externalProductReferenceId, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "external_product_id", externalProductId }, { "external_product_reference_id", externalProductReferenceId } };
+            var url = this.InterpolatePath("/external_products/{external_product_id}/external_product_references/{external_product_reference_id}", urlParams);
+            return MakeRequest<ExternalProductReferenceMini>(Method.GET, url, null, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Fetch an external product reference <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_external_product_external_product_reference">get_external_product_external_product_reference api documentation</see>
+        /// </summary>
+        /// <param name="GetExternalProductExternalProductReferenceParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Details for an external product reference.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<ExternalProductReferenceMini> GetExternalProductExternalProductReferenceAsync(string externalProductId, string externalProductReferenceId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "external_product_id", externalProductId }, { "external_product_reference_id", externalProductReferenceId } };
+            var url = this.InterpolatePath("/external_products/{external_product_id}/external_product_references/{external_product_reference_id}", urlParams);
+            return MakeRequestAsync<ExternalProductReferenceMini>(Method.GET, url, null, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// Deactivate an external product reference <see href="https://developers.recurly.com/api/v2021-02-25#operation/deactivate_external_product_external_product_reference">deactivate_external_product_external_product_reference api documentation</see>
+        /// </summary>
+        /// <param name="DeactivateExternalProductExternalProductReferenceParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Details for an external product reference.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public ExternalProductReferenceMini DeactivateExternalProductExternalProductReference(string externalProductId, string externalProductReferenceId, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "external_product_id", externalProductId }, { "external_product_reference_id", externalProductReferenceId } };
+            var url = this.InterpolatePath("/external_products/{external_product_id}/external_product_references/{external_product_reference_id}", urlParams);
+            return MakeRequest<ExternalProductReferenceMini>(Method.DELETE, url, null, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Deactivate an external product reference <see href="https://developers.recurly.com/api/v2021-02-25#operation/deactivate_external_product_external_product_reference">deactivate_external_product_external_product_reference api documentation</see>
+        /// </summary>
+        /// <param name="DeactivateExternalProductExternalProductReferenceParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Details for an external product reference.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<ExternalProductReferenceMini> DeactivateExternalProductExternalProductReferenceAsync(string externalProductId, string externalProductReferenceId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "external_product_id", externalProductId }, { "external_product_reference_id", externalProductReferenceId } };
+            var url = this.InterpolatePath("/external_products/{external_product_id}/external_product_references/{external_product_reference_id}", urlParams);
+            return MakeRequestAsync<ExternalProductReferenceMini>(Method.DELETE, url, null, null, options, cancellationToken);
         }
 
 
