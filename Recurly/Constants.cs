@@ -14,6 +14,18 @@ namespace Recurly
     namespace Constants
     {
 
+        public enum ExternalProductReferenceConnectionType
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "apple_app_store")]
+            AppleAppStore,
+
+            [EnumMember(Value = "google_play_store")]
+            GooglePlayStore,
+
+        };
+
         public enum RelatedType
         {
             Undefined = 0,
