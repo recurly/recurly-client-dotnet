@@ -15,5 +15,16 @@ namespace Recurly.Test
             externalProduct.Name.Should().Be("An External Product");
             externalProduct.Plan.Name.Should().Be("external-resource-plan");
         }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void CreateDeleteExternalProduct()
+        {
+            var externalProduct = new ExternalProduct();
+            externalProduct.Name = "External Product!";
+            externalProduct.Create();
+            externalProduct.Name.Should().Be("External Product!");
+
+            externalProduct.Delete();
+        }
     }
 }
