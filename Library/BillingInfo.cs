@@ -195,6 +195,8 @@ namespace Recurly
 
         public string GatewayCode { get; set; }
 
+        public GatewayAttributes GatewayAttributes { get; set; }
+
         /// <summary>
         /// Timestamp representing the last update of this billing info
         /// </summary>
@@ -496,6 +498,18 @@ namespace Recurly
                         }
                         break;
 
+                    case "gateway_token":
+                        GatewayToken = reader.ReadElementContentAsString();
+                        break;
+
+                    case "gateway_code":
+                        GatewayCode = reader.ReadElementContentAsString();
+                        break;
+
+                    case "gateway_attributes":
+                        GatewayAttributes = new GatewayAttributes(reader);
+                        break;
+
                     default:
                         Debug.WriteLine("Recurly Client Library: Unexpected XML field in response - " + reader.Name);
                         break;
@@ -570,6 +584,7 @@ namespace Recurly
                 {
                     xmlWriter.WriteElementString("gateway_code", GatewayCode);
                     xmlWriter.WriteElementString("gateway_token", GatewayToken);
+                    if (GatewayAttributes != null) GatewayAttributes.WriteXml(xmlWriter);
 
                     // EnumNameToTransportCase() turns MasterCard into "master_card",
                     // but it needs to be "master" for the server to accept it.
