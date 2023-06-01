@@ -3114,6 +3114,35 @@ namespace Recurly
 
 
         /// <summary>
+        /// Fetch a business entity <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_business_entity">get_business_entity api documentation</see>
+        /// </summary>
+        /// <param name="businessEntityId">Business Entity ID. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-entity1`.</param>
+        /// <returns>
+        /// Business entity details
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        BusinessEntity GetBusinessEntity(string businessEntityId, RequestOptions options = null);
+
+        /// <summary>
+        /// Fetch a business entity <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_business_entity">get_business_entity api documentation</see>
+        /// </summary>
+        /// <param name="businessEntityId">Business Entity ID. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-entity1`.</param>
+        /// <returns>
+        /// Business entity details
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<BusinessEntity> GetBusinessEntityAsync(string businessEntityId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// List business entities <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_business_entities">list_business_entities api documentation</see>
+        /// </summary>
+        /// <returns>
+        /// List of all business entities on your site.
+        /// </returns>
+        Pager<BusinessEntity> ListBusinessEntities(RequestOptions options = null);
+
+
+        /// <summary>
         /// List gift cards <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_gift_cards">list_gift_cards api documentation</see>
         /// </summary>
         /// <returns>
@@ -3203,5 +3232,22 @@ namespace Recurly
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
         Task<GiftCard> RedeemGiftCardAsync(string redemptionCode, GiftCardRedeem body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// List a business entity's invoices <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_business_entity_invoices">list_business_entity_invoices api documentation</see>
+        /// </summary>
+        /// <param name="businessEntityId">Business Entity ID. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-entity1`.</param>
+        /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
+        /// <param name="limit">Limit number of records 1-200.</param>
+        /// <param name="order">Sort order.</param>
+        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
+        /// <param name="beginTime">Inclusively filter by begin_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
+        /// <param name="endTime">Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
+        /// <param name="type">Filter by type when:  - `type=charge`, only charge invoices will be returned.  - `type=credit`, only credit invoices will be returned.  - `type=non-legacy`, only charge and credit invoices will be returned.  - `type=legacy`, only legacy invoices will be returned.  </param>
+        /// <returns>
+        /// A list of the business entity's invoices.
+        /// </returns>
+        Pager<Invoice> ListBusinessEntityInvoices(string businessEntityId, ListBusinessEntityInvoicesParams optionalParams = null, RequestOptions options = null);
+
     }
 }

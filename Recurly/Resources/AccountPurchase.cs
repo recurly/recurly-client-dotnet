@@ -76,6 +76,10 @@ namespace Recurly.Resources
         [JsonProperty("last_name")]
         public string LastName { get; set; }
 
+        /// <value>Unique ID to identify the business entity assigned to the account. Available when the `Multiple Business Entities` feature is enabled.</value>
+        [JsonProperty("override_business_entity_id")]
+        public string OverrideBusinessEntityId { get; set; }
+
         /// <value>The account code of the parent account to be associated with this account. Passing an empty value removes any existing parent association from this account. If both `parent_account_code` and `parent_account_id` are passed, the non-blank value in `parent_account_id` will be used. Only one level of parent child relationship is allowed. You cannot assign a parent account that itself has a parent account.</value>
         [JsonProperty("parent_account_code")]
         public string ParentAccountCode { get; set; }

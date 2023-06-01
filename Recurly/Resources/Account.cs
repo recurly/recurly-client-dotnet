@@ -116,6 +116,10 @@ namespace Recurly.Resources
         [JsonProperty("object")]
         public string Object { get; set; }
 
+        /// <value>Unique ID to identify the business entity assigned to the account. Available when the `Multiple Business Entities` feature is enabled.</value>
+        [JsonProperty("override_business_entity_id")]
+        public string OverrideBusinessEntityId { get; set; }
+
         /// <value>The UUID of the parent account associated with this account.</value>
         [JsonProperty("parent_account_id")]
         public string ParentAccountId { get; set; }
