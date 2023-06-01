@@ -31,6 +31,10 @@ namespace Recurly.Resources
         [JsonProperty("billing_info_id")]
         public string BillingInfoId { get; set; }
 
+        /// <value>Unique ID to identify the business entity assigned to the invoice. Available when the `Multiple Business Entities` feature is enabled.</value>
+        [JsonProperty("business_entity_id")]
+        public string BusinessEntityId { get; set; }
+
         /// <value>Date invoice was marked paid or failed.</value>
         [JsonProperty("closed_at")]
         public DateTime? ClosedAt { get; set; }

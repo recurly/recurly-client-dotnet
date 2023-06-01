@@ -4826,6 +4826,58 @@ namespace Recurly
 
 
         /// <summary>
+        /// Fetch a business entity <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_business_entity">get_business_entity api documentation</see>
+        /// </summary>
+        /// <param name="GetBusinessEntityParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Business entity details
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public BusinessEntity GetBusinessEntity(string businessEntityId, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "business_entity_id", businessEntityId } };
+            var url = this.InterpolatePath("/business_entities/{business_entity_id}", urlParams);
+            return MakeRequest<BusinessEntity>(Method.GET, url, null, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Fetch a business entity <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_business_entity">get_business_entity api documentation</see>
+        /// </summary>
+        /// <param name="GetBusinessEntityParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Business entity details
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<BusinessEntity> GetBusinessEntityAsync(string businessEntityId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "business_entity_id", businessEntityId } };
+            var url = this.InterpolatePath("/business_entities/{business_entity_id}", urlParams);
+            return MakeRequestAsync<BusinessEntity>(Method.GET, url, null, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// List business entities <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_business_entities">list_business_entities api documentation</see>
+        /// </summary>
+        /// <param name="ListBusinessEntitiesParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// List of all business entities on your site.
+        /// </returns>
+        public Pager<BusinessEntity> ListBusinessEntities(RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var url = this.InterpolatePath("/business_entities", urlParams);
+            return Pager<BusinessEntity>.Build(url, null, options, this);
+        }
+
+
+
+
+
+        /// <summary>
         /// List gift cards <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_gift_cards">list_gift_cards api documentation</see>
         /// </summary>
         /// <param name="ListGiftCardsParams">Optional Parameters for the request</param>
@@ -4976,6 +5028,25 @@ namespace Recurly
             var url = this.InterpolatePath("/gift_cards/{redemption_code}/redeem", urlParams);
             return MakeRequestAsync<GiftCard>(Method.POST, url, body, null, options, cancellationToken);
         }
+
+
+
+        /// <summary>
+        /// List a business entity's invoices <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_business_entity_invoices">list_business_entity_invoices api documentation</see>
+        /// </summary>
+        /// <param name="ListBusinessEntityInvoicesParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// A list of the business entity's invoices.
+        /// </returns>
+        public Pager<Invoice> ListBusinessEntityInvoices(string businessEntityId, ListBusinessEntityInvoicesParams optionalParams = null, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "business_entity_id", businessEntityId } };
+            var queryParams = (optionalParams ?? new ListBusinessEntityInvoicesParams()).ToDictionary();
+            var url = this.InterpolatePath("/business_entities/{business_entity_id}/invoices", urlParams);
+            return Pager<Invoice>.Build(url, queryParams, options, this);
+        }
+
+
 
 
     }
