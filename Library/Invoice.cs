@@ -143,6 +143,33 @@ namespace Recurly
         public string Origin { get; set; }
         public string DunningCampaignId { get; private set; }
 
+        private string BusinessEntityId { get; set; }
+        private BusinessEntity _businessEntity;
+
+        public BusinessEntity BusinessEntity
+        {
+            get
+            {
+                if (_businessEntity != null)
+                    return _businessEntity;
+
+                try
+                {
+                    _businessEntity = BusinessEntities.Get(BusinessEntityId);
+                }
+                catch (NotFoundException)
+                {
+                    _businessEntity = null;
+                }
+
+                return _businessEntity;
+            }
+            set
+            {
+                _businessEntity = value;
+            }
+        }
+
         internal string TransactionType { get; set; }
 
         /// <summary>
@@ -497,6 +524,20 @@ namespace Recurly
                     case "account":
                         var accountHref = reader.GetAttribute("href");
                         AccountCode = Uri.UnescapeDataString(accountHref.Substring(accountHref.LastIndexOf("/") + 1));
+                        break;
+
+                    case "business_entity":
+                        var businessEntityHref = reader.GetAttribute("href");
+
+                        if (businessEntityHref.IsNullOrEmpty())
+                        {
+                            BusinessEntityId = null;
+                        }
+                        else
+                        {
+                            BusinessEntityId = Uri.UnescapeDataString(businessEntityHref.Substring(businessEntityHref.LastIndexOf("/") + 1));
+                        }
+
                         break;
 
                     case "billing_info_uuid":
