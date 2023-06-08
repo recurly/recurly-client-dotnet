@@ -56,6 +56,7 @@ namespace Recurly
         public string TransactionType { get; set; }
         public string DunningCampaignId { get; set; }
         public string InvoiceTemplateUuid { get; set; }
+        public string OverrideBusinessEntityId { get; set; }
 
         private AccountAcquisition _accountAcquisition;
 
@@ -157,6 +158,32 @@ namespace Recurly
             set { _customFields = value; }
         }
         private List<CustomField> _customFields;
+
+        private BusinessEntity _overrideBusinessEntity;
+
+        public BusinessEntity OverrideBusinessEntity
+        {
+            get
+            {
+                if (_overrideBusinessEntity != null)
+                    return _overrideBusinessEntity;
+
+                try
+                {
+                    _overrideBusinessEntity = BusinessEntities.Get(OverrideBusinessEntityId);
+                }
+                catch (NotFoundException)
+                {
+                    _overrideBusinessEntity = null;
+                }
+
+                return _overrideBusinessEntity;
+            }
+            set
+            {
+                _overrideBusinessEntity = value;
+            }
+        }
 
         internal const string UrlPrefix = "/accounts/";
 
@@ -852,6 +879,19 @@ namespace Recurly
                             _invoiceTemplateUuid = Uri.UnescapeDataString(templateHref.Substring(templateHref.LastIndexOf("/") + 1));
                         }
                         break;
+                    case "override_business_entity":
+                        var businessEntityHref = reader.GetAttribute("href");
+
+                        if (businessEntityHref.IsNullOrEmpty())
+                        {
+                            OverrideBusinessEntityId = null;
+                        }
+                        else
+                        {
+                            OverrideBusinessEntityId = Uri.UnescapeDataString(businessEntityHref.Substring(businessEntityHref.LastIndexOf("/") + 1));
+                        }
+
+                        break;
                 }
             }
         }
@@ -891,6 +931,9 @@ namespace Recurly
 
             if (DunningCampaignId != null)
                 xmlWriter.WriteElementString("dunning_campaign_id", DunningCampaignId);
+
+            if (OverrideBusinessEntityId != null)
+                xmlWriter.WriteElementString("override_business_entity_id", OverrideBusinessEntityId);
 
             if (TaxExempt.HasValue)
                 xmlWriter.WriteElementString("tax_exempt", TaxExempt.Value.AsString());

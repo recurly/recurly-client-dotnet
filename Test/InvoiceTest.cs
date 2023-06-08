@@ -59,6 +59,21 @@ namespace Recurly.Test
         }
 
         [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void GetInvoiceBusinessEntitity()
+        {
+            var account = CreateNewAccountWithOverrideBusinessEntity();
+            var adjustment = account.NewAdjustment("USD", 5000, "Test Charge");
+
+            adjustment.CustomFields.Add(new CustomField("color", "purple"));
+            adjustment.Create();
+
+            var invoice = account.InvoicePendingCharges().ChargeInvoice;
+            var businessEntity = invoice.BusinessEntity;
+
+            businessEntity.Should().BeOfType(typeof(BusinessEntity));
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void GetInvoicePdf()
         {
             var account = CreateNewAccount();

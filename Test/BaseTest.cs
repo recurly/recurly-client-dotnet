@@ -31,6 +31,15 @@ namespace Recurly.Test
             return account;
         }
 
+        protected Account CreateNewAccountWithOverrideBusinessEntity()
+        {
+            var businessEntities = BusinessEntities.List();
+            var account = new Account(GetUniqueAccountCode());
+            account.OverrideBusinessEntityId = businessEntities[0].Id;
+            account.Create();
+            return account;
+        }
+
         protected Account CreateNewAccountWithWallet()
         {
             var account = new Account(GetUniqueAccountCode());

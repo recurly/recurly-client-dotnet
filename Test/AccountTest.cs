@@ -36,6 +36,7 @@ namespace Recurly.Test
                 EntityUseCode = "I",
                 CcEmails = "cc1@test.com,cc2@test.com",
                 DunningCampaignId = "p050sudtexvv",
+                OverrideBusinessEntityId = "sh9k0b4b80dg",
                 Address = new Address(),
                 CustomFields = customFields
             };
@@ -53,6 +54,7 @@ namespace Recurly.Test
             acct.AcceptLanguage.Should().Be("en");
             acct.CcEmails.Should().Be("cc1@test.com,cc2@test.com");
             acct.DunningCampaignId.Should().Be("p050sudtexvv");
+            acct.OverrideBusinessEntity.Code.Should().Be("default");
             Assert.Equal("my-vat-number", acct.VatNumber);
             Assert.True(acct.TaxExempt.Value);
             Assert.Equal("I", acct.EntityUseCode);
@@ -234,6 +236,15 @@ namespace Recurly.Test
 
             shippingAddresses = account.GetShippingAddresses();
             shippingAddresses.Should().BeEmpty();
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void BusinessEntity()
+        {
+            var account = CreateNewAccountWithOverrideBusinessEntity();
+            var businessEntity = account.OverrideBusinessEntity;
+
+            businessEntity.Should().BeOfType(typeof(BusinessEntity));
         }
     }
 }
