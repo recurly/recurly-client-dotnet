@@ -25,11 +25,15 @@ namespace Recurly
         public string AppIdentifier { get; private set; }
         public string State { get; set; }
         public bool? AutoRenew { get; set; }
+        public bool? InGracePeriod { get; set; }
         public int Quantity { get; set; }
         public ExternalProductReference ExternalProductReference { get; private set; }
         public DateTime? LastPurchased { get; private set; }
         public DateTime? ActivatedAt { get; private set; }
+        public DateTime? CanceledAt { get; private set; }
         public DateTime? ExpiresAt { get; private set; }
+        public DateTime? TrialStartedAt { get; private set; }
+        public DateTime? TrialEndsAt { get; private set; }
         public DateTime CreatedAt { get; private set; }
         public DateTime UpdatedAt { get; private set; }
 
@@ -94,6 +98,12 @@ namespace Recurly
                             AutoRenew = b;
                         break;
 
+                    case "in_grace_period":
+                        bool c;
+                        if (bool.TryParse(reader.ReadElementContentAsString(), out c))
+                            InGracePeriod = c;
+                        break;
+
                     case "app_identifier":
                         AppIdentifier = reader.ReadElementContentAsString();
                         break;
@@ -107,9 +117,24 @@ namespace Recurly
                             ActivatedAt = dateVal;
                         break;
 
+                    case "canceled_at":
+                        if (DateTime.TryParse(reader.ReadElementContentAsString(), out dateVal))
+                            CanceledAt = dateVal;
+                        break;
+
                     case "expires_at":
                         if (DateTime.TryParse(reader.ReadElementContentAsString(), out dateVal))
                             ExpiresAt = dateVal;
+                        break;
+
+                    case "trial_started_at":
+                        if (DateTime.TryParse(reader.ReadElementContentAsString(), out dateVal))
+                            TrialStartedAt = dateVal;
+                        break;
+
+                    case "trial_ends_at":
+                        if (DateTime.TryParse(reader.ReadElementContentAsString(), out dateVal))
+                            TrialEndsAt = dateVal;
                         break;
 
                     case "updated_at":
