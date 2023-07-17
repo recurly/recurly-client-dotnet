@@ -31,6 +31,10 @@ namespace Recurly.Resources
         [JsonProperty("auto_renew")]
         public bool? AutoRenew { get; set; }
 
+        /// <value>When the external subscription was canceled in the external platform.</value>
+        [JsonProperty("canceled_at")]
+        public DateTime? CanceledAt { get; set; }
+
         /// <value>When the external subscription was created in Recurly.</value>
         [JsonProperty("created_at")]
         public DateTime? CreatedAt { get; set; }
@@ -51,6 +55,10 @@ namespace Recurly.Resources
         [JsonProperty("id")]
         public string Id { get; set; }
 
+        /// <value>An indication of whether or not the external subscription is in a grace period.</value>
+        [JsonProperty("in_grace_period")]
+        public bool? InGracePeriod { get; set; }
+
         /// <value>When a new billing event occurred on the external subscription in conjunction with a recent billing period, reactivation or upgrade/downgrade.</value>
         [JsonProperty("last_purchased")]
         public DateTime? LastPurchased { get; set; }
@@ -63,9 +71,17 @@ namespace Recurly.Resources
         [JsonProperty("quantity")]
         public int? Quantity { get; set; }
 
-        /// <value>External subscriptions can be active, canceled, expired, or future.</value>
+        /// <value>External subscriptions can be active, canceled, expired, or past_due.</value>
         [JsonProperty("state")]
         public string State { get; set; }
+
+        /// <value>When the external subscription trial period ends in the external platform.</value>
+        [JsonProperty("trial_ends_at")]
+        public DateTime? TrialEndsAt { get; set; }
+
+        /// <value>When the external subscription trial period started in the external platform.</value>
+        [JsonProperty("trial_started_at")]
+        public DateTime? TrialStartedAt { get; set; }
 
         /// <value>When the external subscription was updated in Recurly.</value>
         [JsonProperty("updated_at")]

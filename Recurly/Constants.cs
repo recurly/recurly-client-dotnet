@@ -1437,6 +1437,9 @@ namespace Recurly
             [EnumMember(Value = "braintree_v_zero")]
             BraintreeVZero,
 
+            [EnumMember(Value = "boleto")]
+            Boleto,
+
         };
 
         public enum CardType
