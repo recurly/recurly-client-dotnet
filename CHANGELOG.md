@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.17.32](https://github.com/recurly/recurly-client-dotnet/tree/1.17.32) (2023-07-17)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.31...1.17.32)
+
+
+**Merged Pull Requests**
+
+- V2 Client Library External Subscription changes [#800](https://github.com/recurly/recurly-client-dotnet/pull/800) ([paulorbpinho-fullstacklabs](https://github.com/paulorbpinho-fullstacklabs))
+
+
+
 ## [1.17.31](https://github.com/recurly/recurly-client-dotnet/tree/1.17.31) (2023-06-13)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.30...1.17.31)
