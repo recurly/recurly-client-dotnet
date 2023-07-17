@@ -13,6 +13,12 @@ namespace Recurly
         /// <summary>Represents the price for the ramp interval.</summary>
         public int UnitAmountInCents { get; set; }
 
+        /// <summary>Represents the date on which the ramp interval starts.</summary>
+        public DateTime StartingOn { get; set; }
+
+        /// <summary>Represents the date on which the ramp interval ends.</summary>
+        public DateTime? EndingOn { get; set; }
+
         /// <summary>A readonly element that represents how many billing cycles are left in a ramp interval.</summary>
         public int? RemainingBillingCycles { get { return _remainingBillingCycles; } }
 
@@ -21,10 +27,12 @@ namespace Recurly
         #region Constructors
         public SubscriptionRampInterval() { }
 
-        public SubscriptionRampInterval(int startingBillingCycle, int unitAmountInCents)
+        public SubscriptionRampInterval(int startingBillingCycle, int unitAmountInCents, DateTime startingOn, DateTime endingOn)
         {
             StartingBillingCycle = startingBillingCycle;
             UnitAmountInCents = unitAmountInCents;
+            StartingOn = startingOn;
+            EndingOn = endingOn;
         }
 
         public SubscriptionRampInterval(XmlTextReader reader)
@@ -52,6 +60,19 @@ namespace Recurly
 
                     case "unit_amount_in_cents":
                         UnitAmountInCents = reader.ReadElementContentAsInt();
+                        break;
+
+                    case "starting_on":
+                        StartingOn = reader.ReadElementContentAsDateTime();
+                        break;
+
+                    case "ending_on":
+                        DateTime endingOn;
+
+                        if (!reader.IsEmptyElement && DateTime.TryParse(reader.ReadElementContentAsString(), out endingOn))
+                        {
+                            EndingOn = endingOn;
+                        }
                         break;
 
                     case "remaining_billing_cycles":
