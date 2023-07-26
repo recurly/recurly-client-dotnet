@@ -856,6 +856,7 @@ namespace Recurly.Test
             var subscription = new Subscription(account, plan, "USD");
             subscription.RampIntervals = GetMockSubscriptionRampIntervals(5);
             subscription.RampIntervals.Count.Should().Be(5);
+            subscription.StartsAt = 1.January(2099);
             subscription.Create();
 
             var fromService = Subscriptions.Get(subscription.Uuid);
@@ -863,14 +864,24 @@ namespace Recurly.Test
 
             fromService.RampIntervals[0].StartingBillingCycle.Should().Be(1);
             fromService.RampIntervals[0].UnitAmountInCents.Should().Be(500);
+            fromService.RampIntervals[0].StartingOn.Should().Be(1.January(2099));
+            fromService.RampIntervals[0].EndingOn.Should().Be(1.March(2099));
             fromService.RampIntervals[1].StartingBillingCycle.Should().Be(3);
             fromService.RampIntervals[1].UnitAmountInCents.Should().Be(1000);
+            fromService.RampIntervals[1].StartingOn.Should().Be(1.March(2099));
+            fromService.RampIntervals[1].EndingOn.Should().Be(1.April(2099));
             fromService.RampIntervals[2].StartingBillingCycle.Should().Be(4);
             fromService.RampIntervals[2].UnitAmountInCents.Should().Be(1500);
+            fromService.RampIntervals[2].StartingOn.Should().Be(1.April(2099));
+            fromService.RampIntervals[2].EndingOn.Should().Be(1.May(2099));
             fromService.RampIntervals[3].StartingBillingCycle.Should().Be(5);
             fromService.RampIntervals[3].UnitAmountInCents.Should().Be(2000);
+            fromService.RampIntervals[3].StartingOn.Should().Be(1.May(2099));
+            fromService.RampIntervals[3].EndingOn.Should().Be(1.June(2099));
             fromService.RampIntervals[4].StartingBillingCycle.Should().Be(6);
             fromService.RampIntervals[4].UnitAmountInCents.Should().Be(2500);
+            fromService.RampIntervals[4].StartingOn.Should().Be(1.June(2099));
+            fromService.RampIntervals[4].EndingOn.Should().BeNull();
 
             subscription.Cancel();
             account.Close();
