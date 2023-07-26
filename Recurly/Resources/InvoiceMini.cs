@@ -15,6 +15,10 @@ namespace Recurly.Resources
     public class InvoiceMini : Resource
     {
 
+        /// <value>Unique ID to identify the business entity assigned to the invoice. Available when the `Multiple Business Entities` feature is enabled.</value>
+        [JsonProperty("business_entity_id")]
+        public string BusinessEntityId { get; set; }
+
         /// <value>Invoice ID</value>
         [JsonProperty("id")]
         public string Id { get; set; }

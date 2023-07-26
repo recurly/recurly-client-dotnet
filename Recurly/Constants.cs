@@ -722,6 +722,18 @@ namespace Recurly
 
         };
 
+        public enum NetTermsType
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "net")]
+            Net,
+
+            [EnumMember(Value = "eom")]
+            Eom,
+
+        };
+
         public enum InvoiceType
         {
             Undefined = 0,
