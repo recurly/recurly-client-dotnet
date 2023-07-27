@@ -1,12 +1,13 @@
 # Changelog
 
-## [4.42.0](https://github.com/recurly/recurly-client-dotnet/tree/4.42.0) (2023-07-26)
+## [4.43.0](https://github.com/recurly/recurly-client-dotnet/tree/4.43.0) (2023-07-27)
 
-[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/4.41.0...4.42.0)
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/4.41.0...4.43.0)
 
 
 **Merged Pull Requests**
 
+- Generated Latest Changes for v2021-02-25 (Ramp Dates, Net Terms, Invoice Business Entity) [#803](https://github.com/recurly/recurly-client-dotnet/pull/803) ([recurly-integrations](https://github.com/recurly-integrations))
 - Generated Latest Changes for v2021-02-25 (App Management - External Subscriptions) [#801](https://github.com/recurly/recurly-client-dotnet/pull/801) ([recurly-integrations](https://github.com/recurly-integrations))
 
 
