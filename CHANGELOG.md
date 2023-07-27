@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.17.33](https://github.com/recurly/recurly-client-dotnet/tree/1.17.33) (2023-07-27)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.32...1.17.33)
+
+
+**Merged Pull Requests**
+
+- [V2] Add starting_on and ending_on to subscription ramps [#802](https://github.com/recurly/recurly-client-dotnet/pull/802) ([rlew421](https://github.com/rlew421))
+
+
+
 ## [1.17.32](https://github.com/recurly/recurly-client-dotnet/tree/1.17.32) (2023-07-17)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.31...1.17.32)
