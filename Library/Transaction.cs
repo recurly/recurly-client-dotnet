@@ -86,6 +86,7 @@ namespace Recurly
         public int? Invoice { get; private set; }
         public string InvoicePrefix { get; private set; }
 
+        public string ActionResult { get; set; }
 
         public string InvoiceNumberWithPrefix()
         {
@@ -308,6 +309,9 @@ namespace Recurly
                             CollectedAt = d;
                         }
                         break;
+                    case "action_result":
+                        ActionResult = reader.ReadElementContentAsString();
+                        break;
                     case "transaction_error":
                         Error = new TransactionError(reader);
                         break;
@@ -327,6 +331,7 @@ namespace Recurly
             xmlWriter.WriteElementString("tax_exempt", TaxExempt.AsString().ToLower());
             xmlWriter.WriteStringIfValid("tax_code", TaxCode);
             xmlWriter.WriteStringIfValid("accounting_code", AccountingCode);
+            xmlWriter.WriteStringIfValid("action_result", ActionResult);
 
             if (Account != null)
             {
