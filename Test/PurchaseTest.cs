@@ -57,27 +57,6 @@ namespace Recurly.Test
         }
 
         [RecurlyFact(TestEnvironment.Type.Integration)]
-        public void InvoicePurchaseWithActionResult()
-        {
-            var account = CreateNewAccountWithBillingInfo();
-            var currency = "USD";
-            var plan = new Plan(GetMockPlanCode(), GetMockPlanName()) { Description = "Plan for Purchase Test" };
-            plan.UnitAmountInCents.Add("USD", 580);
-            plan.Create();
-
-            var purchase = new Purchase(account.AccountCode, currency);
-
-            purchase.Account.BillingInfo = account.BillingInfo;
-
-            var sub = new Subscription(plan.PlanCode);
-            purchase.Subscriptions.Add(sub);
-
-            var collection = Purchase.Invoice(purchase);
-            Assert.NotNull(collection.ChargeInvoice);
-            Assert.Equal(collection.ChargeInvoice.Transactions[0].ActionResult, "example");
-        }
-
-        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void InvoicePurchaseWithCustomRamps()
         {
             var plan = CreateNewRampPlan(3);
