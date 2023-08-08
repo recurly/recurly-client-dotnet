@@ -378,6 +378,8 @@ namespace Recurly
 
         public string TransactionType { get; set; }
 
+        public string ActionResult { get; set; }
+
         /// <summary>
         /// The ramp intervals representing the pricing schedule for the subscription
         /// </summary>
@@ -980,6 +982,10 @@ namespace Recurly
                     case "shipping_amount_in_cents":
                         ShippingAmountInCents = reader.ReadElementContentAsInt();
                         break;
+
+                    case "action_result":
+                        ActionResult = reader.ReadElementContentAsString();
+                        break;
                 }
             }
         }
@@ -1146,6 +1152,9 @@ namespace Recurly
                 _rampIntervals.ForEach(ramp => ramp.WriteXml(xmlWriter));
                 xmlWriter.WriteEndElement();
             }
+
+            if (ActionResult != null)
+                xmlWriter.WriteElementString("action_result", ActionResult);
 
             xmlWriter.WriteEndElement(); // End: subscription
         }
