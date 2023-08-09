@@ -19,6 +19,10 @@ namespace Recurly.Resources
         [JsonProperty("account")]
         public AccountMini Account { get; set; }
 
+        /// <value>Action result params to be used in Recurly-JS to complete a payment when using asynchronous payment methods, e.g., Boleto, iDEAL and Sofort.</value>
+        [JsonProperty("action_result")]
+        public Dictionary<string, string> ActionResult { get; set; }
+
         /// <value>Total transaction amount sent to the payment gateway.</value>
         [JsonProperty("amount")]
         public decimal? Amount { get; set; }
