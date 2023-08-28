@@ -1917,6 +1917,9 @@ namespace Recurly
             [EnumMember(Value = "issuer_unavailable")]
             IssuerUnavailable,
 
+            [EnumMember(Value = "lifecycle_decline")]
+            LifecycleDecline,
+
             [EnumMember(Value = "merch_max_transaction_limit_exceeded")]
             MerchMaxTransactionLimitExceeded,
 

@@ -181,6 +181,10 @@ namespace Recurly.Resources
         [JsonProperty("uuid")]
         public string Uuid { get; set; }
 
+        /// <value>VAT number for the customer on this transaction. If the customer's Billing Info country is BR or AR, then this will be their Tax Identifier. For all other countries this will come from the VAT Number field in the Billing Info.</value>
+        [JsonProperty("vat_number")]
+        public string VatNumber { get; set; }
+
         /// <value>Voided at</value>
         [JsonProperty("voided_at")]
         public DateTime? VoidedAt { get; set; }
