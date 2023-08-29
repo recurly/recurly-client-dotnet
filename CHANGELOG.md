@@ -1,5 +1,17 @@
 # Changelog
 
+## [4.44.0](https://github.com/recurly/recurly-client-dotnet/tree/4.44.0) (2023-08-29)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/4.43.0...4.44.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 (`VATNumber`, `LifecycleDecline`) [#806](https://github.com/recurly/recurly-client-dotnet/pull/806) ([recurly-integrations](https://github.com/recurly-integrations))
+- Generated Latest Changes for v2021-02-25 (action_result) [#805](https://github.com/recurly/recurly-client-dotnet/pull/805) ([recurly-integrations](https://github.com/recurly-integrations))
+
+
+
 ## [4.43.0](https://github.com/recurly/recurly-client-dotnet/tree/4.43.0) (2023-07-27)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/4.41.0...4.43.0)
