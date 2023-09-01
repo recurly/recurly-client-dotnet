@@ -900,6 +900,9 @@ namespace Recurly
             [EnumMember(Value = "eft")]
             Eft,
 
+            [EnumMember(Value = "google_pay")]
+            GooglePay,
+
             [EnumMember(Value = "money_order")]
             MoneyOrder,
 
@@ -1418,6 +1421,9 @@ namespace Recurly
 
             [EnumMember(Value = "gateway_token")]
             GatewayToken,
+
+            [EnumMember(Value = "google_pay")]
+            GooglePay,
 
             [EnumMember(Value = "iban_bank_account")]
             IbanBankAccount,

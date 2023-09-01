@@ -24979,6 +24979,7 @@ components:
       - check
       - credit_card
       - eft
+      - google_pay
       - money_order
       - other
       - paypal
@@ -25172,6 +25173,7 @@ components:
       - credit_card
       - eft
       - gateway_token
+      - google_pay
       - iban_bank_account
       - money_order
       - other
