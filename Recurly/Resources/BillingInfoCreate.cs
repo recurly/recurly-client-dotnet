@@ -115,6 +115,10 @@ namespace Recurly.Resources
         [JsonProperty("primary_payment_method")]
         public bool? PrimaryPaymentMethod { get; set; }
 
+        /// <value>Roku's CIB if billing through Roku</value>
+        [JsonProperty("roku_billing_agreement_id")]
+        public string RokuBillingAgreementId { get; set; }
+
         /// <value>The bank's rounting number. (ACH only)</value>
         [JsonProperty("routing_number")]
         public string RoutingNumber { get; set; }

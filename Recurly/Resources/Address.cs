@@ -23,6 +23,10 @@ namespace Recurly.Resources
         [JsonProperty("country")]
         public string Country { get; set; }
 
+        /// <value>Code that represents a geographic entity (location or object). Only returned for Sling Vertex Integration</value>
+        [JsonProperty("geo_code")]
+        public string GeoCode { get; set; }
+
         /// <value>Phone number</value>
         [JsonProperty("phone")]
         public string Phone { get; set; }
