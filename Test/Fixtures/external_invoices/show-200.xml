@@ -1,0 +1,35 @@
+HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<external_invoice href="https://api.recurly.com/v2/external_invoices/twqswp6wgq68">
+    <account href="https://api.recurly.com/v2/accounts/fe337836-771f-4af8-b73f-0a8362f45197"/>
+    <external_subscription href="https://api.recurly.com/v2/external_subscriptions/tsfnx2vn5wh6"/>
+    <external_payment_phase href="https://api.recurly.com/v2/external_payment_phases/twqswp627ri3"/>
+    <external_id>2000000458276005</external_id>
+    <state>paid</state>
+    <currency>USD</currency>
+    <total>10.45</total>
+    <line_items type="array">
+        <external_charge>
+            <account href="https://api.recurly.com/v2/accounts/fe337836-771f-4af8-b73f-0a8362f45197"/>
+            <external_invoice href="https://api.recurly.com/v2/external_invoices/twqswp6wgq68"/>
+            <external_product_reference href="https://api.recurly.com/v2/external_product_references/twqswp9p3krc">
+                <id>twqswp9p3krc</id>
+                <reference_code>random-ass-test-2</reference_code>
+                <external_connection_type>apple_app_store</external_connection_type>
+                <created_at type="datetime">2023-11-15T16:16:43Z</created_at>
+                <updated_at type="datetime">2023-11-15T16:16:43Z</updated_at>
+            </external_product_reference>
+            <description>the best banana in the world</description>
+            <unit_amount>10.45</unit_amount>
+            <currency>USD</currency>
+            <quantity>1</quantity>
+            <created_at type="datetime">2023-11-15T16:16:43Z</created_at>
+            <updated_at type="datetime">2023-11-15T16:16:43Z</updated_at>
+        </external_charge>
+    </line_items>
+    <purchased_at type="datetime">2023-11-14T14:15:22Z</purchased_at>
+    <created_at type="datetime">2023-11-15T16:16:43Z</created_at>
+    <updated_at type="datetime">2023-11-15T16:16:43Z</updated_at>
+</external_invoice>

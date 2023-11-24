@@ -21,6 +21,12 @@ namespace Recurly
             internal set { _account = value; }
         }
 
+        private List<ExternalInvoice> _externalInvoices;
+        public List<ExternalInvoice> ExternalInvoices
+        {
+            get { return _externalInvoices ?? (_externalInvoices = new List<ExternalInvoice>()); }
+            set { _externalInvoices = value; }
+        }
         public string ExternalId { get; set; }
         public string AppIdentifier { get; private set; }
         public string State { get; set; }
@@ -204,5 +210,33 @@ namespace Recurly
         {
             return new ExternalInvoiceList(ExternalSubscription.UrlPrefix + Uri.EscapeDataString(uuid) + "/external_invoices/");
         }
+
+        /// <summary>
+        /// Returns a list of external_payment_phases for this external subscription
+        /// </summary>
+        /// <returns></returns>
+        public static RecurlyList<ExternalPaymentPhase> GetExternalPaymentPhases(string uuid)
+        {
+            return new ExternalPaymentPhaseList(ExternalSubscription.UrlPrefix + Uri.EscapeDataString(uuid) + ExternalPaymentPhase.UrlPrefix);
+        }
+
+        /// <summary>
+        /// Returns an external payment phase for external subscription
+        /// </summary>
+        /// <returns></returns>
+        public static ExternalPaymentPhase GetExternalPaymentPhase(string uuid, string externalPaymentPhaseUuid)
+        {
+            if (string.IsNullOrWhiteSpace(uuid) || string.IsNullOrWhiteSpace(externalPaymentPhaseUuid))
+            {
+                return null;
+            }
+            var externalPaymentPhase = new ExternalPaymentPhase();
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Get,
+                ExternalSubscription.UrlPrefix + Uri.EscapeDataString(uuid) + ExternalPaymentPhase.UrlPrefix + Uri.EscapeDataString(externalPaymentPhaseUuid),
+                externalPaymentPhase.ReadXml);
+
+            return statusCode == HttpStatusCode.NotFound ? null : externalPaymentPhase;
+        }
+
     }
 }
