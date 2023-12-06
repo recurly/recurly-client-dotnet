@@ -3092,6 +3092,41 @@ namespace Recurly
         Task<ExternalInvoice> ShowExternalInvoiceAsync(string externalInvoiceId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
 
         /// <summary>
+        /// List the external payment phases on an external subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_external_subscription_external_payment_phases">list_external_subscription_external_payment_phases api documentation</see>
+        /// </summary>
+        /// <param name="externalSubscriptionId">External subscription id</param>
+        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
+        /// <param name="limit">Limit number of records 1-200.</param>
+        /// <param name="order">Sort order.</param>
+        /// <returns>
+        /// A list of the the external_payment_phases on a site.
+        /// </returns>
+        Pager<ExternalPaymentPhase> ListExternalSubscriptionExternalPaymentPhases(string externalSubscriptionId, ListExternalSubscriptionExternalPaymentPhasesParams optionalParams = null, RequestOptions options = null);
+
+
+        /// <summary>
+        /// Fetch an external payment_phase <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_external_subscription_external_payment_phase">get_external_subscription_external_payment_phase api documentation</see>
+        /// </summary>
+        /// <param name="externalSubscriptionId">External subscription id</param>
+        /// <param name="externalPaymentPhaseId">External payment phase ID, e.g. `a34ypb2ef9w1`.</param>
+        /// <returns>
+        /// Details for an external payment_phase.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        ExternalPaymentPhase GetExternalSubscriptionExternalPaymentPhase(string externalSubscriptionId, string externalPaymentPhaseId, RequestOptions options = null);
+
+        /// <summary>
+        /// Fetch an external payment_phase <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_external_subscription_external_payment_phase">get_external_subscription_external_payment_phase api documentation</see>
+        /// </summary>
+        /// <param name="externalSubscriptionId">External subscription id</param>
+        /// <param name="externalPaymentPhaseId">External payment phase ID, e.g. `a34ypb2ef9w1`.</param>
+        /// <returns>
+        /// Details for an external payment_phase.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<ExternalPaymentPhase> GetExternalSubscriptionExternalPaymentPhaseAsync(string externalSubscriptionId, string externalPaymentPhaseId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
         /// List entitlements granted to an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_entitlements">list_entitlements api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
