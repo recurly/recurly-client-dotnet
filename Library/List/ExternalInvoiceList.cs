@@ -8,6 +8,9 @@ namespace Recurly
         {
         }
 
+        internal ExternalInvoiceList()
+        {
+        }
         public override RecurlyList<ExternalInvoice> Start
         {
             get { return HasStartPage() ? new ExternalInvoiceList(StartUrl) : RecurlyList.Empty<ExternalInvoice>(); }

@@ -34,6 +34,15 @@ namespace Recurly
             internal set { _externalSubscription = value; }
         }
 
+        private string _externalPaymentPhaseUuid;
+        public string ExternalPaymentPhaseUuid => _externalPaymentPhaseUuid;
+
+        private ExternalPaymentPhase _externalPaymentPhase;
+        public ExternalPaymentPhase ExternalPaymentPhase
+        {
+            get { return _externalPaymentPhase ?? (_externalPaymentPhase = ExternalPaymentPhases.Get(_externalPaymentPhaseUuid)); }
+            internal set { _externalPaymentPhase = value; }
+        }
         public string ExternalId { get; private set; }
         public ExternalInvoiceState State { get; private set; }
         public decimal Total { get; private set; }
@@ -84,6 +93,12 @@ namespace Recurly
                         href = reader.GetAttribute("href");
                         if (null != href)
                             _externalSubscriptionUuid = Uri.UnescapeDataString(href.Substring(href.LastIndexOf("/") + 1));
+                        break;
+
+                    case "external_payment_phase":
+                        href = reader.GetAttribute("href");
+                        if (null != href)
+                            _externalPaymentPhaseUuid = Uri.UnescapeDataString(href.Substring(href.LastIndexOf("/") + 1));
                         break;
 
                     case "external_id":

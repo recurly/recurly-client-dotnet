@@ -8,6 +8,15 @@ namespace Recurly.Test.Fixtures
 {
     public class FixtureImporter
     {
+        public static string GetFixtureTypeDescription(FixtureType type)
+        {
+            DescriptionAttribute[] attributes = (DescriptionAttribute[])type
+           .GetType()
+           .GetField(type.ToString())
+           .GetCustomAttributes(typeof(DescriptionAttribute), false);
+
+            return attributes.Length > 0 ? attributes[0].Description : string.Empty;
+        }
         public static FixtureResponse Get(FixtureType type, string name)
         {
             if (name.IsNullOrEmpty())
@@ -16,7 +25,7 @@ namespace Recurly.Test.Fixtures
             if (!Enum.IsDefined(typeof(FixtureType), type))
                 throw new InvalidEnumArgumentException("type", (int)type, typeof(FixtureType));
 
-            var fixturePath = string.Format("fixtures/{0}/{1}.xml", type, name);
+            var fixturePath = string.Format("Fixtures/{0}/{1}.xml", GetFixtureTypeDescription(type), name);
 
             if (!File.Exists(fixturePath))
                 throw new FileNotFoundException("Could not locate the fixture response file!", fixturePath);
@@ -66,6 +75,10 @@ namespace Recurly.Test.Fixtures
 
     public enum FixtureType
     {
-        Accounts
+        Accounts,
+        [Description("external_payment_phases")]
+        ExternalPaymentPhases,
+        [Description("external_invoices")]
+        ExternalInvoices,
     }
 }
