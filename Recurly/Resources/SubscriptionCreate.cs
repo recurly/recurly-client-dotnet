@@ -56,6 +56,10 @@ namespace Recurly.Resources
         [JsonProperty("customer_notes")]
         public string CustomerNotes { get; set; }
 
+        /// <value>If present, this subscription's transactions will use the payment gateway with this code.</value>
+        [JsonProperty("gateway_code")]
+        public string GatewayCode { get; set; }
+
         /// <value>A gift card redemption code to be redeemed on the purchase invoice.</value>
         [JsonProperty("gift_card_redemption_code")]
         public string GiftCardRedemptionCode { get; set; }

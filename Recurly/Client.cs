@@ -4788,6 +4788,59 @@ namespace Recurly
 
 
         /// <summary>
+        /// List the external payment phases on an external subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_external_subscription_external_payment_phases">list_external_subscription_external_payment_phases api documentation</see>
+        /// </summary>
+        /// <param name="ListExternalSubscriptionExternalPaymentPhasesParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// A list of the the external_payment_phases on a site.
+        /// </returns>
+        public Pager<ExternalPaymentPhase> ListExternalSubscriptionExternalPaymentPhases(string externalSubscriptionId, ListExternalSubscriptionExternalPaymentPhasesParams optionalParams = null, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "external_subscription_id", externalSubscriptionId } };
+            var queryParams = (optionalParams ?? new ListExternalSubscriptionExternalPaymentPhasesParams()).ToDictionary();
+            var url = this.InterpolatePath("/external_subscriptions/{external_subscription_id}/external_payment_phases", urlParams);
+            return Pager<ExternalPaymentPhase>.Build(url, queryParams, options, this);
+        }
+
+
+
+
+
+        /// <summary>
+        /// Fetch an external payment_phase <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_external_subscription_external_payment_phase">get_external_subscription_external_payment_phase api documentation</see>
+        /// </summary>
+        /// <param name="GetExternalSubscriptionExternalPaymentPhaseParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Details for an external payment_phase.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public ExternalPaymentPhase GetExternalSubscriptionExternalPaymentPhase(string externalSubscriptionId, string externalPaymentPhaseId, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "external_subscription_id", externalSubscriptionId }, { "external_payment_phase_id", externalPaymentPhaseId } };
+            var url = this.InterpolatePath("/external_subscriptions/{external_subscription_id}/external_payment_phases/{external_payment_phase_id}", urlParams);
+            return MakeRequest<ExternalPaymentPhase>(Method.GET, url, null, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Fetch an external payment_phase <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_external_subscription_external_payment_phase">get_external_subscription_external_payment_phase api documentation</see>
+        /// </summary>
+        /// <param name="GetExternalSubscriptionExternalPaymentPhaseParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Details for an external payment_phase.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<ExternalPaymentPhase> GetExternalSubscriptionExternalPaymentPhaseAsync(string externalSubscriptionId, string externalPaymentPhaseId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "external_subscription_id", externalSubscriptionId }, { "external_payment_phase_id", externalPaymentPhaseId } };
+            var url = this.InterpolatePath("/external_subscriptions/{external_subscription_id}/external_payment_phases/{external_payment_phase_id}", urlParams);
+            return MakeRequestAsync<ExternalPaymentPhase>(Method.GET, url, null, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
         /// List entitlements granted to an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_entitlements">list_entitlements api documentation</see>
         /// </summary>
         /// <param name="ListEntitlementsParams">Optional Parameters for the request</param>

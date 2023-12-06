@@ -170,7 +170,7 @@ namespace Recurly.Resources
         [JsonProperty("tax")]
         public decimal? Tax { get; set; }
 
-        /// <value>Tax info</value>
+        /// <value>Only for merchants using Recurly's In-The-Box taxes.</value>
         [JsonProperty("tax_info")]
         public TaxInfo TaxInfo { get; set; }
 
