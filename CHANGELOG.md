@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.17.34](https://github.com/recurly/recurly-client-dotnet/tree/1.17.34) (2023-12-06)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.33...1.17.34)
+
+
+**Merged Pull Requests**
+
+- Add external payment phases [#809](https://github.com/recurly/recurly-client-dotnet/pull/809) ([paulorbpinho-fullstacklabs](https://github.com/paulorbpinho-fullstacklabs))
+- [V2] Add action_result to Subscription and Transaction [#804](https://github.com/recurly/recurly-client-dotnet/pull/804) ([fkosouski](https://github.com/fkosouski))
+
+
+
 ## [1.17.33](https://github.com/recurly/recurly-client-dotnet/tree/1.17.33) (2023-07-27)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.32...1.17.33)
