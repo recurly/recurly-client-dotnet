@@ -68,12 +68,24 @@ namespace Recurly
                 Body = body
             };
             var restRequest = BuildRequest(method, url, body, queryParams, options);
+
+            foreach (var handler in this.EventHandlers)
+            {
+                handler.OnRequest(httpRequest);
+            }
+
             var task = RestClient.ExecuteAsync<T>(restRequest, cancellationToken);
             return await task.ContinueWith(t =>
             {
                 var restResponse = t.Result;
                 this.HandleResponse(restResponse);
                 var httpResponse = Http.Response.Build(restResponse, httpRequest);
+
+                foreach (var handler in this.EventHandlers)
+                {
+                    handler.OnResponse(httpResponse);
+                }
+
                 if (restResponse.Data is Resource)
                     restResponse.Data.SetResponse(httpResponse);
                 return restResponse.Data;

@@ -183,6 +183,23 @@ namespace Recurly.Tests
             Assert.Equal("benjamin", resource.MyString);
         }
 
+        [Fact]
+        public async void WillTriggerHookIfAvailableAsync()
+        {
+            var client = MockClient.Build(SuccessResponse(System.Net.HttpStatusCode.OK));
+            var mockHandler = new Mock<IEventHandler>();
+            mockHandler
+              .Setup(x => x.OnRequest(It.IsAny<Recurly.Http.Request>()));
+            mockHandler
+              .Setup(x => x.OnResponse(It.IsAny<Recurly.Http.Response>()));
+            client.AddEventHandler(mockHandler.Object);
+            MyResource resource = await client.GetResourceAsync("benjamin", "param1", new DateTime());
+
+            Assert.Equal("benjamin", resource.MyString);
+            mockHandler.Verify(v => v.OnRequest(It.IsAny<Recurly.Http.Request>()), Times.Once());
+            mockHandler.Verify(v => v.OnResponse(It.IsAny<Recurly.Http.Response>()), Times.Once());
+        }
+
         private Mock<IRestResponse<MyResource>> SuccessResponse(System.Net.HttpStatusCode status)
         {
             var data = new MyResource()
