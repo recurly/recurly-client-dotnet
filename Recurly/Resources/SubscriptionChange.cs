@@ -63,6 +63,10 @@ namespace Recurly.Resources
         [JsonProperty("quantity")]
         public int? Quantity { get; set; }
 
+        /// <value>The ramp intervals representing the pricing schedule for the subscription.</value>
+        [JsonProperty("ramp_intervals")]
+        public List<SubscriptionRampIntervalResponse> RampIntervals { get; set; }
+
         /// <value>Revenue schedule type</value>
         [JsonProperty("revenue_schedule_type")]
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
@@ -75,6 +79,10 @@ namespace Recurly.Resources
         /// <value>The ID of the subscription that is going to be changed.</value>
         [JsonProperty("subscription_id")]
         public string SubscriptionId { get; set; }
+
+        /// <value>This field is deprecated. Please do not use it.</value>
+        [JsonProperty("tax_inclusive")]
+        public bool? TaxInclusive { get; set; }
 
         /// <value>Unit amount</value>
         [JsonProperty("unit_amount")]

@@ -84,6 +84,10 @@ namespace Recurly.Resources
         [JsonProperty("optional")]
         public bool? Optional { get; set; }
 
+        /// <value>This feature is currently in development and requires approval and enablement, please contact support.</value>
+        [JsonProperty("percentage_tiers")]
+        public List<PercentageTiersByCurrency> PercentageTiers { get; set; }
+
         /// <value>Plan ID</value>
         [JsonProperty("plan_id")]
         public string PlanId { get; set; }
@@ -105,7 +109,7 @@ namespace Recurly.Resources
         /// <value>
         /// The pricing model for the add-on.  For more information,
         /// [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based). See our
-        /// [Guide](https://developers.recurly.com/guides/item-addon-guide.html) for an overview of how
+        /// [Guide](https://recurly.com/developers/guides/item-addon-guide.html) for an overview of how
         /// to configure quantity-based pricing models.
         /// </value>
         [JsonProperty("tier_type")]
@@ -120,9 +124,19 @@ namespace Recurly.Resources
         [JsonProperty("updated_at")]
         public DateTime? UpdatedAt { get; set; }
 
+        /// <value>The type of calculation to be employed for an add-on.  Cumulative billing will sum all usage records created in the current billing cycle.  Last-in-period billing will apply only the most recent usage record in the billing period.  If no value is specified, cumulative billing will be used.</value>
+        [JsonProperty("usage_calculation_type")]
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.UsageCalculationType? UsageCalculationType { get; set; }
+
         /// <value>The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0.</value>
         [JsonProperty("usage_percentage")]
         public decimal? UsagePercentage { get; set; }
+
+        /// <value>The time at which usage totals are reset for billing purposes.</value>
+        [JsonProperty("usage_timeframe")]
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.UsageTimeframe? UsageTimeframe { get; set; }
 
         /// <value>Type of usage, returns usage type if `add_on_type` is `usage`.</value>
         [JsonProperty("usage_type")]

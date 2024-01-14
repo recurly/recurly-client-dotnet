@@ -19,6 +19,10 @@ namespace Recurly.Resources
         [JsonProperty("account")]
         public AccountMini Account { get; set; }
 
+        /// <value>Action result params to be used in Recurly-JS to complete a payment when using asynchronous payment methods, e.g., Boleto, iDEAL and Sofort.</value>
+        [JsonProperty("action_result")]
+        public Dictionary<string, string> ActionResult { get; set; }
+
         /// <value>Total transaction amount sent to the payment gateway.</value>
         [JsonProperty("amount")]
         public decimal? Amount { get; set; }
@@ -176,6 +180,10 @@ namespace Recurly.Resources
         /// <value>The UUID is useful for matching data with the CSV exports and building URLs into Recurly's UI.</value>
         [JsonProperty("uuid")]
         public string Uuid { get; set; }
+
+        /// <value>VAT number for the customer on this transaction. If the customer's Billing Info country is BR or AR, then this will be their Tax Identifier. For all other countries this will come from the VAT Number field in the Billing Info.</value>
+        [JsonProperty("vat_number")]
+        public string VatNumber { get; set; }
 
         /// <value>Voided at</value>
         [JsonProperty("voided_at")]

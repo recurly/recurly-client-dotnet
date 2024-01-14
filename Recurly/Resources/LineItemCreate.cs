@@ -36,6 +36,10 @@ namespace Recurly.Resources
         [JsonProperty("currency")]
         public string Currency { get; set; }
 
+        /// <value>The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.</value>
+        [JsonProperty("custom_fields")]
+        public List<CustomField> CustomFields { get; set; }
+
         /// <value>Description that appears on the invoice. If `item_code`/`item_id` is part of the request then `description` must be absent.</value>
         [JsonProperty("description")]
         public string Description { get; set; }
@@ -44,11 +48,11 @@ namespace Recurly.Resources
         [JsonProperty("end_date")]
         public DateTime? EndDate { get; set; }
 
-        /// <value>Unique code to identify an item. Available when the Credit Invoices and Subscription Billing Terms features are enabled.</value>
+        /// <value>Unique code to identify an item. Available when the Credit Invoices feature is enabled.</value>
         [JsonProperty("item_code")]
         public string ItemCode { get; set; }
 
-        /// <value>System-generated unique identifier for an item. Available when the Credit Invoices and Subscription Billing Terms features are enabled.</value>
+        /// <value>System-generated unique identifier for an item. Available when the Credit Invoices feature is enabled.</value>
         [JsonProperty("item_id")]
         public string ItemId { get; set; }
 
@@ -81,6 +85,10 @@ namespace Recurly.Resources
         /// <value>`true` exempts tax on charges, `false` applies tax on charges. If not defined, then defaults to the Plan and Site settings. This attribute does not work for credits (negative line items). Credits are always applied post-tax. Pre-tax discounts should use the Coupons feature.</value>
         [JsonProperty("tax_exempt")]
         public bool? TaxExempt { get; set; }
+
+        /// <value>Determines whether or not tax is included in the unit amount. The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing feature) must be enabled to use this flag.</value>
+        [JsonProperty("tax_inclusive")]
+        public bool? TaxInclusive { get; set; }
 
         /// <value>Line item type. If `item_code`/`item_id` is present then `type` should not be present. If `item_code`/`item_id` is not present then `type` is required.</value>
         [JsonProperty("type")]

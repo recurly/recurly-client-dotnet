@@ -15,6 +15,15 @@ namespace Recurly.Resources
     public class BillingInfoCreate : Request
     {
 
+        /// <value>The bank account number. (ACH, Bacs only)</value>
+        [JsonProperty("account_number")]
+        public string AccountNumber { get; set; }
+
+        /// <value>The bank account type. (ACH only)</value>
+        [JsonProperty("account_type")]
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.AchAccountType? AccountType { get; set; }
+
 
         [JsonProperty("address")]
         public Address Address { get; set; }
@@ -27,13 +36,27 @@ namespace Recurly.Resources
         [JsonProperty("backup_payment_method")]
         public bool? BackupPaymentMethod { get; set; }
 
+
+        [JsonProperty("card_type")]
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.CardType? CardType { get; set; }
+
         /// <value>Company name</value>
         [JsonProperty("company")]
         public string Company { get; set; }
 
+        /// <value>3-letter ISO 4217 currency code.</value>
+        [JsonProperty("currency")]
+        public string Currency { get; set; }
+
         /// <value>*STRONGLY RECOMMENDED*</value>
         [JsonProperty("cvv")]
         public string Cvv { get; set; }
+
+        /// <value>Use for Adyen HPP billing info. This should only be used as part of a pending purchase request, when the billing info is nested inside an account object.</value>
+        [JsonProperty("external_hpp_type")]
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.ExternalHppType? ExternalHppType { get; set; }
 
         /// <value>First name</value>
         [JsonProperty("first_name")]
@@ -42,6 +65,10 @@ namespace Recurly.Resources
         /// <value>Fraud Session ID</value>
         [JsonProperty("fraud_session_id")]
         public string FraudSessionId { get; set; }
+
+        /// <value>Additional attributes to send to the gateway.</value>
+        [JsonProperty("gateway_attributes")]
+        public GatewayAttributes GatewayAttributes { get; set; }
 
         /// <value>An identifier for a specific payment gateway. Must be used in conjunction with `gateway_token`.</value>
         [JsonProperty("gateway_code")]
@@ -67,9 +94,18 @@ namespace Recurly.Resources
         [JsonProperty("month")]
         public string Month { get; set; }
 
+        /// <value>The name associated with the bank account (ACH, SEPA, Bacs only)</value>
+        [JsonProperty("name_on_account")]
+        public string NameOnAccount { get; set; }
+
         /// <value>Credit card number, spaces and dashes are accepted.</value>
         [JsonProperty("number")]
         public string Number { get; set; }
+
+        /// <value>Use for Online Banking billing info. This should only be used as part of a pending purchase request, when the billing info is nested inside an account object.</value>
+        [JsonProperty("online_banking_payment_type")]
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.OnlineBankingPaymentType? OnlineBankingPaymentType { get; set; }
 
         /// <value>PayPal billing agreement ID</value>
         [JsonProperty("paypal_billing_agreement_id")]
@@ -79,11 +115,23 @@ namespace Recurly.Resources
         [JsonProperty("primary_payment_method")]
         public bool? PrimaryPaymentMethod { get; set; }
 
-        /// <value>Tax identifier is required if adding a billing info that is a consumer card in Brazil or in Argentina. This would be the customer's CPF (Brazil) and CUIT (Argentina). CPF and CUIT are tax identifiers for all residents who pay taxes in Brazil and Argentina respectively.</value>
+        /// <value>Roku's CIB if billing through Roku</value>
+        [JsonProperty("roku_billing_agreement_id")]
+        public string RokuBillingAgreementId { get; set; }
+
+        /// <value>The bank's rounting number. (ACH only)</value>
+        [JsonProperty("routing_number")]
+        public string RoutingNumber { get; set; }
+
+        /// <value>Bank identifier code for UK based banks. Required for Bacs based billing infos. (Bacs only)</value>
+        [JsonProperty("sort_code")]
+        public string SortCode { get; set; }
+
+        /// <value>Tax identifier is required if adding a billing info that is a consumer card in Brazil or in Argentina. This would be the customer's CPF/CNPJ (Brazil) and CUIT (Argentina). CPF, CNPJ and CUIT are tax identifiers for all residents who pay taxes in Brazil and Argentina respectively.</value>
         [JsonProperty("tax_identifier")]
         public string TaxIdentifier { get; set; }
 
-        /// <value>This field and a value of `cpf` or `cuit` are required if adding a billing info that is an elo or hipercard type in Brazil or in Argentina.</value>
+        /// <value>This field and a value of `cpf`, `cnpj` or `cuit` are required if adding a billing info that is an elo or hipercard type in Brazil or in Argentina.</value>
         [JsonProperty("tax_identifier_type")]
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
         public Constants.TaxIdentifierType? TaxIdentifierType { get; set; }
@@ -92,7 +140,7 @@ namespace Recurly.Resources
         [JsonProperty("three_d_secure_action_result_token_id")]
         public string ThreeDSecureActionResultTokenId { get; set; }
 
-        /// <value>A token [generated by Recurly.js](https://developers.recurly.com/reference/recurly-js/#getting-a-token).</value>
+        /// <value>A token [generated by Recurly.js](https://recurly.com/developers/reference/recurly-js/#getting-a-token).</value>
         [JsonProperty("token_id")]
         public string TokenId { get; set; }
 
@@ -100,6 +148,11 @@ namespace Recurly.Resources
         [JsonProperty("transaction_type")]
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
         public Constants.GatewayTransactionType? TransactionType { get; set; }
+
+        /// <value>The payment method type for a non-credit card based billing info. `bacs` and `becs` are the only accepted values.</value>
+        [JsonProperty("type")]
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.AchType? Type { get; set; }
 
         /// <value>VAT number</value>
         [JsonProperty("vat_number")]

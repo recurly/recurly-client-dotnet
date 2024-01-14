@@ -45,6 +45,15 @@ namespace Recurly.Resources
         [JsonProperty("object")]
         public string Object { get; set; }
 
+        /// <value>
+        /// If percentage tiers are provided in the request, all existing percentage tiers on the Subscription Add-on will be
+        /// removed and replaced by the percentage tiers in the request. Use only if add_on.tier_type is tiered or volume and
+        /// add_on.usage_type is percentage. There must be one tier without an `ending_amount` value which represents the final tier.
+        /// This feature is currently in development and requires approval and enablement, please contact support.
+        /// </value>
+        [JsonProperty("percentage_tiers")]
+        public List<SubscriptionAddOnPercentageTier> PercentageTiers { get; set; }
+
         /// <value>Add-on quantity</value>
         [JsonProperty("quantity")]
         public int? Quantity { get; set; }
@@ -61,7 +70,7 @@ namespace Recurly.Resources
         /// <value>
         /// The pricing model for the add-on.  For more information,
         /// [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based). See our
-        /// [Guide](https://developers.recurly.com/guides/item-addon-guide.html) for an overview of how
+        /// [Guide](https://recurly.com/developers/guides/item-addon-guide.html) for an overview of how
         /// to configure quantity-based pricing models.
         /// </value>
         [JsonProperty("tier_type")]
@@ -70,7 +79,9 @@ namespace Recurly.Resources
 
         /// <value>
         /// If tiers are provided in the request, all existing tiers on the Subscription Add-on will be
-        /// removed and replaced by the tiers in the request.
+        /// removed and replaced by the tiers in the request. If add_on.tier_type is tiered or volume and
+        /// add_on.usage_type is percentage use percentage_tiers instead. 
+        /// There must be one tier without an `ending_quantity` value which represents the final tier.
         /// </value>
         [JsonProperty("tiers")]
         public List<SubscriptionAddOnTier> Tiers { get; set; }
@@ -87,9 +98,19 @@ namespace Recurly.Resources
         [JsonProperty("updated_at")]
         public DateTime? UpdatedAt { get; set; }
 
+        /// <value>The type of calculation to be employed for an add-on.  Cumulative billing will sum all usage records created in the current billing cycle.  Last-in-period billing will apply only the most recent usage record in the billing period.  If no value is specified, cumulative billing will be used.</value>
+        [JsonProperty("usage_calculation_type")]
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.UsageCalculationType? UsageCalculationType { get; set; }
+
         /// <value>The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0. Required if add_on_type is usage and usage_type is percentage.</value>
         [JsonProperty("usage_percentage")]
         public decimal? UsagePercentage { get; set; }
+
+        /// <value>The time at which usage totals are reset for billing purposes.</value>
+        [JsonProperty("usage_timeframe")]
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.UsageTimeframe? UsageTimeframe { get; set; }
 
     }
 }

@@ -56,11 +56,11 @@ namespace Recurly.Resources
         [JsonProperty("display_quantity")]
         public bool? DisplayQuantity { get; set; }
 
-        /// <value>Unique code to identify an item. Available when the `Credit Invoices` and `Subscription Billing Terms` features are enabled. If `item_id` and `item_code` are both present, `item_id` will be used.</value>
+        /// <value>Unique code to identify an item. Available when the `Credit Invoices` feature are enabled. If `item_id` and `item_code` are both present, `item_id` will be used.</value>
         [JsonProperty("item_code")]
         public string ItemCode { get; set; }
 
-        /// <value>System-generated unique identifier for an item. Available when the `Credit Invoices` and `Subscription Billing Terms` features are enabled. If `item_id` and `item_code` are both present, `item_id` will be used.</value>
+        /// <value>System-generated unique identifier for an item. Available when the `Credit Invoices` feature is enabled. If `item_id` and `item_code` are both present, `item_id` will be used.</value>
         [JsonProperty("item_id")]
         public string ItemId { get; set; }
 
@@ -80,6 +80,16 @@ namespace Recurly.Resources
         [JsonProperty("optional")]
         public bool? Optional { get; set; }
 
+        /// <value>
+        /// Array of objects which must have at least one set of tiers
+        /// per currency and the currency code. The tier_type must be `volume` or `tiered`,
+        /// if not, it must be absent. There must be one tier without an `ending_amount` value
+        /// which represents the final tier. This feature is currently in development and
+        /// requires approval and enablement, please contact support.
+        /// </value>
+        [JsonProperty("percentage_tiers")]
+        public List<PercentageTiersByCurrency> PercentageTiers { get; set; }
+
         /// <value>Plan ID</value>
         [JsonProperty("plan_id")]
         public string PlanId { get; set; }
@@ -96,7 +106,7 @@ namespace Recurly.Resources
         /// <value>
         /// The pricing model for the add-on.  For more information,
         /// [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based). See our
-        /// [Guide](https://developers.recurly.com/guides/item-addon-guide.html) for an overview of how
+        /// [Guide](https://recurly.com/developers/guides/item-addon-guide.html) for an overview of how
         /// to configure quantity-based pricing models.
         /// </value>
         [JsonProperty("tier_type")]
@@ -106,19 +116,33 @@ namespace Recurly.Resources
         /// <value>
         /// If the tier_type is `flat`, then `tiers` must be absent. The `tiers` object
         /// must include one to many tiers with `ending_quantity` and `unit_amount` for
-        /// the desired `currencies`, or alternatively, `usage_percentage` for usage percentage type usage add ons. There must be one tier with an `ending_quantity`
-        /// of 999999999 which is the default if not provided.
+        /// the desired `currencies`. There must be one tier without an `ending_quantity` value
+        /// which represents the final tier.
         /// </value>
         [JsonProperty("tiers")]
         public List<Tier> Tiers { get; set; }
+
+        /// <value>The type of calculation to be employed for an add-on.  Cumulative billing will sum all usage records created in the current billing cycle.  Last-in-period billing will apply only the most recent usage record in the billing period.  If no value is specified, cumulative billing will be used.</value>
+        [JsonProperty("usage_calculation_type")]
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.UsageCalculationType? UsageCalculationType { get; set; }
 
         /// <value>The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0. Required if `add_on_type` is usage, `tier_type` is `flat` and `usage_type` is percentage. Must be omitted otherwise.</value>
         [JsonProperty("usage_percentage")]
         public decimal? UsagePercentage { get; set; }
 
         /// <value>
+        /// The time at which usage totals are reset for billing purposes.
+        /// Allows for `tiered` add-ons to accumulate usage over the course of multiple
+        /// billing periods.
+        /// </value>
+        [JsonProperty("usage_timeframe")]
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.UsageTimeframeCreate? UsageTimeframe { get; set; }
+
+        /// <value>
         /// Type of usage, required if `add_on_type` is `usage`. See our
-        /// [Guide](https://developers.recurly.com/guides/usage-based-billing-guide.html) for an
+        /// [Guide](https://recurly.com/developers/guides/usage-based-billing-guide.html) for an
         /// overview of how to configure usage add-ons.
         /// </value>
         [JsonProperty("usage_type")]

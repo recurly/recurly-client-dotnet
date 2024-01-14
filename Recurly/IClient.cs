@@ -335,6 +335,28 @@ namespace Recurly
         Task<Transaction> VerifyBillingInfoAsync(string accountId, BillingInfoVerify body = null, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
 
         /// <summary>
+        /// Verify an account's credit card billing cvv <see href="https://developers.recurly.com/api/v2021-02-25#operation/verify_billing_info_cvv">verify_billing_info_cvv api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// Transaction information from verify.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Transaction VerifyBillingInfoCvv(string accountId, BillingInfoVerifyCVV body, RequestOptions options = null);
+
+        /// <summary>
+        /// Verify an account's credit card billing cvv <see href="https://developers.recurly.com/api/v2021-02-25#operation/verify_billing_info_cvv">verify_billing_info_cvv api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// Transaction information from verify.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<Transaction> VerifyBillingInfoCvvAsync(string accountId, BillingInfoVerifyCVV body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
         /// Get the list of billing information associated with an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_billing_infos">list_billing_infos api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
@@ -374,7 +396,7 @@ namespace Recurly
         /// Fetch a billing info <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_a_billing_info">get_a_billing_info api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
-        /// <param name="billingInfoId">Billing Info ID.</param>
+        /// <param name="billingInfoId">Billing Info ID. Can ONLY be used for sites utilizing the Wallet feature.</param>
         /// <returns>
         /// A billing info.
         /// </returns>
@@ -385,7 +407,7 @@ namespace Recurly
         /// Fetch a billing info <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_a_billing_info">get_a_billing_info api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
-        /// <param name="billingInfoId">Billing Info ID.</param>
+        /// <param name="billingInfoId">Billing Info ID. Can ONLY be used for sites utilizing the Wallet feature.</param>
         /// <returns>
         /// A billing info.
         /// </returns>
@@ -396,7 +418,7 @@ namespace Recurly
         /// Update an account's billing information <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_a_billing_info">update_a_billing_info api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
-        /// <param name="billingInfoId">Billing Info ID.</param>
+        /// <param name="billingInfoId">Billing Info ID. Can ONLY be used for sites utilizing the Wallet feature.</param>
         /// <param name="body">The body of the request.</param>
         /// <returns>
         /// Updated billing information.
@@ -408,7 +430,7 @@ namespace Recurly
         /// Update an account's billing information <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_a_billing_info">update_a_billing_info api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
-        /// <param name="billingInfoId">Billing Info ID.</param>
+        /// <param name="billingInfoId">Billing Info ID. Can ONLY be used for sites utilizing the Wallet feature.</param>
         /// <param name="body">The body of the request.</param>
         /// <returns>
         /// Updated billing information.
@@ -420,7 +442,7 @@ namespace Recurly
         /// Remove an account's billing information <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_a_billing_info">remove_a_billing_info api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
-        /// <param name="billingInfoId">Billing Info ID.</param>
+        /// <param name="billingInfoId">Billing Info ID. Can ONLY be used for sites utilizing the Wallet feature.</param>
         /// <returns>
         /// Billing information deleted
         /// </returns>
@@ -431,7 +453,7 @@ namespace Recurly
         /// Remove an account's billing information <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_a_billing_info">remove_a_billing_info api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
-        /// <param name="billingInfoId">Billing Info ID.</param>
+        /// <param name="billingInfoId">Billing Info ID. Can ONLY be used for sites utilizing the Wallet feature.</param>
         /// <returns>
         /// Billing information deleted
         /// </returns>
@@ -439,7 +461,7 @@ namespace Recurly
         Task<EmptyResource> RemoveABillingInfoAsync(string accountId, string billingInfoId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
 
         /// <summary>
-        /// Show the coupon redemptions for an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_account_coupon_redemptions">list_account_coupon_redemptions api documentation</see>
+        /// List the coupon redemptions for an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_account_coupon_redemptions">list_account_coupon_redemptions api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
@@ -454,7 +476,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Show the coupon redemptions that are active on an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_active_coupon_redemptions">list_active_coupon_redemptions api documentation</see>
+        /// List the coupon redemptions that are active on an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_active_coupon_redemptions">list_active_coupon_redemptions api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <returns>
@@ -518,6 +540,119 @@ namespace Recurly
         /// A list of the account's credit payments.
         /// </returns>
         IPager<CreditPayment> ListAccountCreditPayments(string accountId, ListAccountCreditPaymentsParams optionalParams = null, RequestOptions options = null);
+
+
+        /// <summary>
+        /// List external accounts for an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_account_external_account">list_account_external_account api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <returns>
+        /// A list of external accounts on an account.
+        /// </returns>
+        Pager<ExternalAccount> ListAccountExternalAccount(string accountId, RequestOptions options = null);
+
+
+        /// <summary>
+        /// Create an external account <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_account_external_account">create_account_external_account api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// A representation of the created external_account.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        ExternalAccount CreateAccountExternalAccount(string accountId, ExternalAccountCreate body, RequestOptions options = null);
+
+        /// <summary>
+        /// Create an external account <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_account_external_account">create_account_external_account api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// A representation of the created external_account.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<ExternalAccount> CreateAccountExternalAccountAsync(string accountId, ExternalAccountCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// Get an external account for an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_account_external_account">get_account_external_account api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="externalAccountId">External account ID, e.g. `s28zov4fw0cb`.</param>
+        /// <returns>
+        /// A external account on an account.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        ExternalAccount GetAccountExternalAccount(string accountId, string externalAccountId, RequestOptions options = null);
+
+        /// <summary>
+        /// Get an external account for an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_account_external_account">get_account_external_account api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="externalAccountId">External account ID, e.g. `s28zov4fw0cb`.</param>
+        /// <returns>
+        /// A external account on an account.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<ExternalAccount> GetAccountExternalAccountAsync(string accountId, string externalAccountId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// Update an external account <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_account_external_account">update_account_external_account api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="externalAccountId">External account ID, e.g. `s28zov4fw0cb`.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// A representation of the updated external_account.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        ExternalAccount UpdateAccountExternalAccount(string accountId, string externalAccountId, ExternalAccountUpdate body, RequestOptions options = null);
+
+        /// <summary>
+        /// Update an external account <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_account_external_account">update_account_external_account api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="externalAccountId">External account ID, e.g. `s28zov4fw0cb`.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// A representation of the updated external_account.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<ExternalAccount> UpdateAccountExternalAccountAsync(string accountId, string externalAccountId, ExternalAccountUpdate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// Delete an external account for an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/delete_account_external_account">delete_account_external_account api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="externalAccountId">External account ID, e.g. `s28zov4fw0cb`.</param>
+        /// <returns>
+        /// Successful Delete
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        ExternalAccount DeleteAccountExternalAccount(string accountId, string externalAccountId, RequestOptions options = null);
+
+        /// <summary>
+        /// Delete an external account for an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/delete_account_external_account">delete_account_external_account api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="externalAccountId">External account ID, e.g. `s28zov4fw0cb`.</param>
+        /// <returns>
+        /// Successful Delete
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<ExternalAccount> DeleteAccountExternalAccountAsync(string accountId, string externalAccountId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// List the external invoices on an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_account_external_invoices">list_account_external_invoices api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
+        /// <param name="limit">Limit number of records 1-200.</param>
+        /// <param name="order">Sort order.</param>
+        /// <returns>
+        /// A list of the the external_invoices on an account.
+        /// </returns>
+        Pager<ExternalInvoice> ListAccountExternalInvoices(string accountId, ListAccountExternalInvoicesParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>
@@ -623,7 +758,7 @@ namespace Recurly
         Task<LineItem> CreateLineItemAsync(string accountId, LineItemCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
 
         /// <summary>
-        /// Fetch a list of an account's notes <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_account_notes">list_account_notes api documentation</see>
+        /// List an account's notes <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_account_notes">list_account_notes api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
@@ -1058,6 +1193,25 @@ namespace Recurly
         Task<CustomFieldDefinition> GetCustomFieldDefinitionAsync(string customFieldDefinitionId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
 
         /// <summary>
+        /// List an invoice template's associated accounts <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_invoice_template_accounts">list_invoice_template_accounts api documentation</see>
+        /// </summary>
+        /// <param name="invoiceTemplateId">Invoice template ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
+        /// <param name="limit">Limit number of records 1-200.</param>
+        /// <param name="order">Sort order.</param>
+        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
+        /// <param name="beginTime">Inclusively filter by begin_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
+        /// <param name="endTime">Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
+        /// <param name="email">Filter for accounts with this exact email address. A blank value will return accounts with both `null` and `""` email addresses. Note that multiple accounts can share one email address.</param>
+        /// <param name="subscriber">Filter for accounts with or without a subscription in the `active`,  `canceled`, or `future` state.  </param>
+        /// <param name="pastDue">Filter for accounts with an invoice in the `past_due` state.</param>
+        /// <returns>
+        /// A list of an invoice template's associated accounts.
+        /// </returns>
+        Pager<Account> ListInvoiceTemplateAccounts(string invoiceTemplateId, ListInvoiceTemplateAccountsParams optionalParams = null, RequestOptions options = null);
+
+
+        /// <summary>
         /// List a site's items <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_items">list_items api documentation</see>
         /// </summary>
         /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
@@ -1274,6 +1428,218 @@ namespace Recurly
         Task<MeasuredUnit> RemoveMeasuredUnitAsync(string measuredUnitId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
 
         /// <summary>
+        /// List a site's external products <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_external_products">list_external_products api documentation</see>
+        /// </summary>
+        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
+        /// <returns>
+        /// A list of the the external_products on a site.
+        /// </returns>
+        Pager<ExternalProduct> ListExternalProducts(ListExternalProductsParams optionalParams = null, RequestOptions options = null);
+
+
+        /// <summary>
+        /// Create an external product <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_external_product">create_external_product api documentation</see>
+        /// </summary>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// Returns the external product
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        ExternalProduct CreateExternalProduct(ExternalProductCreate body, RequestOptions options = null);
+
+        /// <summary>
+        /// Create an external product <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_external_product">create_external_product api documentation</see>
+        /// </summary>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// Returns the external product
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<ExternalProduct> CreateExternalProductAsync(ExternalProductCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// Fetch an external product <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_external_product">get_external_product api documentation</see>
+        /// </summary>
+        /// <param name="externalProductId">External product id</param>
+        /// <returns>
+        /// Settings for an external product.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        ExternalProduct GetExternalProduct(string externalProductId, RequestOptions options = null);
+
+        /// <summary>
+        /// Fetch an external product <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_external_product">get_external_product api documentation</see>
+        /// </summary>
+        /// <param name="externalProductId">External product id</param>
+        /// <returns>
+        /// Settings for an external product.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<ExternalProduct> GetExternalProductAsync(string externalProductId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// Update an external product <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_external_product">update_external_product api documentation</see>
+        /// </summary>
+        /// <param name="externalProductId">External product id</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// Settings for an external product.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        ExternalProduct UpdateExternalProduct(string externalProductId, ExternalProductUpdate body, RequestOptions options = null);
+
+        /// <summary>
+        /// Update an external product <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_external_product">update_external_product api documentation</see>
+        /// </summary>
+        /// <param name="externalProductId">External product id</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// Settings for an external product.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<ExternalProduct> UpdateExternalProductAsync(string externalProductId, ExternalProductUpdate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// Deactivate an external product <see href="https://developers.recurly.com/api/v2021-02-25#operation/deactivate_external_products">deactivate_external_products api documentation</see>
+        /// </summary>
+        /// <param name="externalProductId">External product id</param>
+        /// <returns>
+        /// Deactivated external product.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        ExternalProduct DeactivateExternalProducts(string externalProductId, RequestOptions options = null);
+
+        /// <summary>
+        /// Deactivate an external product <see href="https://developers.recurly.com/api/v2021-02-25#operation/deactivate_external_products">deactivate_external_products api documentation</see>
+        /// </summary>
+        /// <param name="externalProductId">External product id</param>
+        /// <returns>
+        /// Deactivated external product.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<ExternalProduct> DeactivateExternalProductsAsync(string externalProductId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// List the external product references for an external product <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_external_product_external_product_references">list_external_product_external_product_references api documentation</see>
+        /// </summary>
+        /// <param name="externalProductId">External product id</param>
+        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
+        /// <returns>
+        /// A list of the the external product references for an external product.
+        /// </returns>
+        Pager<ExternalProductReferenceCollection> ListExternalProductExternalProductReferences(string externalProductId, ListExternalProductExternalProductReferencesParams optionalParams = null, RequestOptions options = null);
+
+
+        /// <summary>
+        /// Create an external product reference on an external product <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_external_product_external_product_reference">create_external_product_external_product_reference api documentation</see>
+        /// </summary>
+        /// <param name="externalProductId">External product id</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// Details for the external product reference.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        ExternalProductReferenceMini CreateExternalProductExternalProductReference(string externalProductId, ExternalProductReferenceCreate body, RequestOptions options = null);
+
+        /// <summary>
+        /// Create an external product reference on an external product <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_external_product_external_product_reference">create_external_product_external_product_reference api documentation</see>
+        /// </summary>
+        /// <param name="externalProductId">External product id</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// Details for the external product reference.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<ExternalProductReferenceMini> CreateExternalProductExternalProductReferenceAsync(string externalProductId, ExternalProductReferenceCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// Fetch an external product reference <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_external_product_external_product_reference">get_external_product_external_product_reference api documentation</see>
+        /// </summary>
+        /// <param name="externalProductId">External product id</param>
+        /// <param name="externalProductReferenceId">External product reference ID, e.g. `d39iun2fw1v4`.</param>
+        /// <returns>
+        /// Details for an external product reference.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        ExternalProductReferenceMini GetExternalProductExternalProductReference(string externalProductId, string externalProductReferenceId, RequestOptions options = null);
+
+        /// <summary>
+        /// Fetch an external product reference <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_external_product_external_product_reference">get_external_product_external_product_reference api documentation</see>
+        /// </summary>
+        /// <param name="externalProductId">External product id</param>
+        /// <param name="externalProductReferenceId">External product reference ID, e.g. `d39iun2fw1v4`.</param>
+        /// <returns>
+        /// Details for an external product reference.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<ExternalProductReferenceMini> GetExternalProductExternalProductReferenceAsync(string externalProductId, string externalProductReferenceId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// Deactivate an external product reference <see href="https://developers.recurly.com/api/v2021-02-25#operation/deactivate_external_product_external_product_reference">deactivate_external_product_external_product_reference api documentation</see>
+        /// </summary>
+        /// <param name="externalProductId">External product id</param>
+        /// <param name="externalProductReferenceId">External product reference ID, e.g. `d39iun2fw1v4`.</param>
+        /// <returns>
+        /// Details for an external product reference.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        ExternalProductReferenceMini DeactivateExternalProductExternalProductReference(string externalProductId, string externalProductReferenceId, RequestOptions options = null);
+
+        /// <summary>
+        /// Deactivate an external product reference <see href="https://developers.recurly.com/api/v2021-02-25#operation/deactivate_external_product_external_product_reference">deactivate_external_product_external_product_reference api documentation</see>
+        /// </summary>
+        /// <param name="externalProductId">External product id</param>
+        /// <param name="externalProductReferenceId">External product reference ID, e.g. `d39iun2fw1v4`.</param>
+        /// <returns>
+        /// Details for an external product reference.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<ExternalProductReferenceMini> DeactivateExternalProductExternalProductReferenceAsync(string externalProductId, string externalProductReferenceId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// List a site's external subscriptions <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_external_subscriptions">list_external_subscriptions api documentation</see>
+        /// </summary>
+        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
+        /// <returns>
+        /// A list of the the external_subscriptions on a site.
+        /// </returns>
+        Pager<ExternalSubscription> ListExternalSubscriptions(ListExternalSubscriptionsParams optionalParams = null, RequestOptions options = null);
+
+
+        /// <summary>
+        /// Fetch an external subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_external_subscription">get_external_subscription api documentation</see>
+        /// </summary>
+        /// <param name="externalSubscriptionId">External subscription id</param>
+        /// <returns>
+        /// Settings for an external subscription.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        ExternalSubscription GetExternalSubscription(string externalSubscriptionId, RequestOptions options = null);
+
+        /// <summary>
+        /// Fetch an external subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_external_subscription">get_external_subscription api documentation</see>
+        /// </summary>
+        /// <param name="externalSubscriptionId">External subscription id</param>
+        /// <returns>
+        /// Settings for an external subscription.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<ExternalSubscription> GetExternalSubscriptionAsync(string externalSubscriptionId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// List the external invoices on an external subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_external_subscription_external_invoices">list_external_subscription_external_invoices api documentation</see>
+        /// </summary>
+        /// <param name="externalSubscriptionId">External subscription id</param>
+        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
+        /// <param name="limit">Limit number of records 1-200.</param>
+        /// <param name="order">Sort order.</param>
+        /// <returns>
+        /// A list of the the external_invoices on a site.
+        /// </returns>
+        Pager<ExternalInvoice> ListExternalSubscriptionExternalInvoices(string externalSubscriptionId, ListExternalSubscriptionExternalInvoicesParams optionalParams = null, RequestOptions options = null);
+
+
+        /// <summary>
         /// List a site's invoices <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_invoices">list_invoices api documentation</see>
         /// </summary>
         /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
@@ -1350,6 +1716,26 @@ namespace Recurly
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
         Task<BinaryFile> GetInvoicePdfAsync(string invoiceId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// Apply available credit to a pending or past due charge invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/apply_credit_balance">apply_credit_balance api documentation</see>
+        /// </summary>
+        /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
+        /// <returns>
+        /// The updated invoice.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Invoice ApplyCreditBalance(string invoiceId, RequestOptions options = null);
+
+        /// <summary>
+        /// Apply available credit to a pending or past due charge invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/apply_credit_balance">apply_credit_balance api documentation</see>
+        /// </summary>
+        /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
+        /// <returns>
+        /// The updated invoice.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<Invoice> ApplyCreditBalanceAsync(string invoiceId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
 
         /// <summary>
         /// Collect a pending or past due, automatic invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/collect_invoice">collect_invoice api documentation</see>
@@ -1493,7 +1879,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Show the coupon redemptions applied to an invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_invoice_coupon_redemptions">list_invoice_coupon_redemptions api documentation</see>
+        /// List the coupon redemptions applied to an invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_invoice_coupon_redemptions">list_invoice_coupon_redemptions api documentation</see>
         /// </summary>
         /// <param name="invoiceId">Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`. For number use prefix `number-`, e.g. `number-1000`.</param>
         /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
@@ -2279,7 +2665,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Show the coupon redemptions for a subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_subscription_coupon_redemptions">list_subscription_coupon_redemptions api documentation</see>
+        /// List the coupon redemptions for a subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_subscription_coupon_redemptions">list_subscription_coupon_redemptions api documentation</see>
         /// </summary>
         /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
         /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
@@ -2534,6 +2920,26 @@ namespace Recurly
         Task<InvoiceCollection> PreviewPurchaseAsync(PurchaseCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
 
         /// <summary>
+        /// Create a pending purchase <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_pending_purchase">create_pending_purchase api documentation</see>
+        /// </summary>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// Returns the pending invoice
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        InvoiceCollection CreatePendingPurchase(PurchaseCreate body, RequestOptions options = null);
+
+        /// <summary>
+        /// Create a pending purchase <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_pending_purchase">create_pending_purchase api documentation</see>
+        /// </summary>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// Returns the pending invoice
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<InvoiceCollection> CreatePendingPurchaseAsync(PurchaseCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
         /// List the dates that have an available export to download. <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_export_dates">get_export_dates api documentation</see>
         /// </summary>
         /// <returns>
@@ -2572,7 +2978,7 @@ namespace Recurly
         Task<ExportFiles> GetExportFilesAsync(string exportDate, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
 
         /// <summary>
-        /// Show the dunning campaigns for a site <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_dunning_campaigns">list_dunning_campaigns api documentation</see>
+        /// List the dunning campaigns for a site <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_dunning_campaigns">list_dunning_campaigns api documentation</see>
         /// </summary>
         /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
         /// <returns>
@@ -2582,7 +2988,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Show the settings for a dunning campaign <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_dunning_campaign">get_dunning_campaign api documentation</see>
+        /// Fetch a dunning campaign <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_dunning_campaign">get_dunning_campaign api documentation</see>
         /// </summary>
         /// <param name="dunningCampaignId">Dunning Campaign ID, e.g. `e28zov4fw0v2`.</param>
         /// <returns>
@@ -2592,7 +2998,7 @@ namespace Recurly
         DunningCampaign GetDunningCampaign(string dunningCampaignId, RequestOptions options = null);
 
         /// <summary>
-        /// Show the settings for a dunning campaign <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_dunning_campaign">get_dunning_campaign api documentation</see>
+        /// Fetch a dunning campaign <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_dunning_campaign">get_dunning_campaign api documentation</see>
         /// </summary>
         /// <param name="dunningCampaignId">Dunning Campaign ID, e.g. `e28zov4fw0v2`.</param>
         /// <returns>
@@ -2604,21 +3010,279 @@ namespace Recurly
         /// <summary>
         /// Assign a dunning campaign to multiple plans <see href="https://developers.recurly.com/api/v2021-02-25#operation/put_dunning_campaign_bulk_update">put_dunning_campaign_bulk_update api documentation</see>
         /// </summary>
+        /// <param name="dunningCampaignId">Dunning Campaign ID, e.g. `e28zov4fw0v2`.</param>
         /// <param name="body">The body of the request.</param>
         /// <returns>
         /// A list of updated plans.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        DunningCampaignsBulkUpdateResponse PutDunningCampaignBulkUpdate(DunningCampaignsBulkUpdate body, RequestOptions options = null);
+        DunningCampaignsBulkUpdateResponse PutDunningCampaignBulkUpdate(string dunningCampaignId, DunningCampaignsBulkUpdate body, RequestOptions options = null);
 
         /// <summary>
         /// Assign a dunning campaign to multiple plans <see href="https://developers.recurly.com/api/v2021-02-25#operation/put_dunning_campaign_bulk_update">put_dunning_campaign_bulk_update api documentation</see>
         /// </summary>
+        /// <param name="dunningCampaignId">Dunning Campaign ID, e.g. `e28zov4fw0v2`.</param>
         /// <param name="body">The body of the request.</param>
         /// <returns>
         /// A list of updated plans.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        Task<DunningCampaignsBulkUpdateResponse> PutDunningCampaignBulkUpdateAsync(DunningCampaignsBulkUpdate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+        Task<DunningCampaignsBulkUpdateResponse> PutDunningCampaignBulkUpdateAsync(string dunningCampaignId, DunningCampaignsBulkUpdate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// Show the invoice templates for a site <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_invoice_templates">list_invoice_templates api documentation</see>
+        /// </summary>
+        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
+        /// <returns>
+        /// A list of the the invoice templates on a site.
+        /// </returns>
+        Pager<InvoiceTemplate> ListInvoiceTemplates(ListInvoiceTemplatesParams optionalParams = null, RequestOptions options = null);
+
+
+        /// <summary>
+        /// Fetch an invoice template <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_invoice_template">get_invoice_template api documentation</see>
+        /// </summary>
+        /// <param name="invoiceTemplateId">Invoice template ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <returns>
+        /// Settings for an invoice template.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        InvoiceTemplate GetInvoiceTemplate(string invoiceTemplateId, RequestOptions options = null);
+
+        /// <summary>
+        /// Fetch an invoice template <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_invoice_template">get_invoice_template api documentation</see>
+        /// </summary>
+        /// <param name="invoiceTemplateId">Invoice template ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <returns>
+        /// Settings for an invoice template.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<InvoiceTemplate> GetInvoiceTemplateAsync(string invoiceTemplateId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// List the external invoices on a site <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_external_invoices">list_external_invoices api documentation</see>
+        /// </summary>
+        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
+        /// <param name="limit">Limit number of records 1-200.</param>
+        /// <param name="order">Sort order.</param>
+        /// <returns>
+        /// A list of the the external_invoices on a site.
+        /// </returns>
+        Pager<ExternalInvoice> ListExternalInvoices(ListExternalInvoicesParams optionalParams = null, RequestOptions options = null);
+
+
+        /// <summary>
+        /// Fetch an external invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/show_external_invoice">show_external_invoice api documentation</see>
+        /// </summary>
+        /// <param name="externalInvoiceId">External invoice ID, e.g. `e28zov4fw0v2`.</param>
+        /// <returns>
+        /// Returns the external invoice
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        ExternalInvoice ShowExternalInvoice(string externalInvoiceId, RequestOptions options = null);
+
+        /// <summary>
+        /// Fetch an external invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/show_external_invoice">show_external_invoice api documentation</see>
+        /// </summary>
+        /// <param name="externalInvoiceId">External invoice ID, e.g. `e28zov4fw0v2`.</param>
+        /// <returns>
+        /// Returns the external invoice
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<ExternalInvoice> ShowExternalInvoiceAsync(string externalInvoiceId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// List the external payment phases on an external subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_external_subscription_external_payment_phases">list_external_subscription_external_payment_phases api documentation</see>
+        /// </summary>
+        /// <param name="externalSubscriptionId">External subscription id</param>
+        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
+        /// <param name="limit">Limit number of records 1-200.</param>
+        /// <param name="order">Sort order.</param>
+        /// <returns>
+        /// A list of the the external_payment_phases on a site.
+        /// </returns>
+        Pager<ExternalPaymentPhase> ListExternalSubscriptionExternalPaymentPhases(string externalSubscriptionId, ListExternalSubscriptionExternalPaymentPhasesParams optionalParams = null, RequestOptions options = null);
+
+
+        /// <summary>
+        /// Fetch an external payment_phase <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_external_subscription_external_payment_phase">get_external_subscription_external_payment_phase api documentation</see>
+        /// </summary>
+        /// <param name="externalSubscriptionId">External subscription id</param>
+        /// <param name="externalPaymentPhaseId">External payment phase ID, e.g. `a34ypb2ef9w1`.</param>
+        /// <returns>
+        /// Details for an external payment_phase.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        ExternalPaymentPhase GetExternalSubscriptionExternalPaymentPhase(string externalSubscriptionId, string externalPaymentPhaseId, RequestOptions options = null);
+
+        /// <summary>
+        /// Fetch an external payment_phase <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_external_subscription_external_payment_phase">get_external_subscription_external_payment_phase api documentation</see>
+        /// </summary>
+        /// <param name="externalSubscriptionId">External subscription id</param>
+        /// <param name="externalPaymentPhaseId">External payment phase ID, e.g. `a34ypb2ef9w1`.</param>
+        /// <returns>
+        /// Details for an external payment_phase.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<ExternalPaymentPhase> GetExternalSubscriptionExternalPaymentPhaseAsync(string externalSubscriptionId, string externalPaymentPhaseId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// List entitlements granted to an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_entitlements">list_entitlements api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="state">Filter the entitlements based on the state of the applicable subscription.    - When `state=active`, `state=canceled`, `state=expired`, or `state=future`, subscriptions with states that match the query and only those subscriptions will be returned.  - When no state is provided, subscriptions with active or canceled states will be returned.  </param>
+        /// <returns>
+        /// A list of the entitlements granted to an account.
+        /// </returns>
+        Pager<Entitlements> ListEntitlements(string accountId, ListEntitlementsParams optionalParams = null, RequestOptions options = null);
+
+
+        /// <summary>
+        /// List an account's external subscriptions <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_account_external_subscriptions">list_account_external_subscriptions api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
+        /// <returns>
+        /// A list of the the external_subscriptions on an account.
+        /// </returns>
+        Pager<ExternalSubscription> ListAccountExternalSubscriptions(string accountId, ListAccountExternalSubscriptionsParams optionalParams = null, RequestOptions options = null);
+
+
+        /// <summary>
+        /// Fetch a business entity <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_business_entity">get_business_entity api documentation</see>
+        /// </summary>
+        /// <param name="businessEntityId">Business Entity ID. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-entity1`.</param>
+        /// <returns>
+        /// Business entity details
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        BusinessEntity GetBusinessEntity(string businessEntityId, RequestOptions options = null);
+
+        /// <summary>
+        /// Fetch a business entity <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_business_entity">get_business_entity api documentation</see>
+        /// </summary>
+        /// <param name="businessEntityId">Business Entity ID. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-entity1`.</param>
+        /// <returns>
+        /// Business entity details
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<BusinessEntity> GetBusinessEntityAsync(string businessEntityId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// List business entities <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_business_entities">list_business_entities api documentation</see>
+        /// </summary>
+        /// <returns>
+        /// List of all business entities on your site.
+        /// </returns>
+        Pager<BusinessEntity> ListBusinessEntities(RequestOptions options = null);
+
+
+        /// <summary>
+        /// List gift cards <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_gift_cards">list_gift_cards api documentation</see>
+        /// </summary>
+        /// <returns>
+        /// List of all created gift cards on your site.
+        /// </returns>
+        Pager<GiftCard> ListGiftCards(RequestOptions options = null);
+
+
+        /// <summary>
+        /// Create gift card <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_gift_card">create_gift_card api documentation</see>
+        /// </summary>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// Returns the gift card
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        GiftCard CreateGiftCard(GiftCardCreate body, RequestOptions options = null);
+
+        /// <summary>
+        /// Create gift card <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_gift_card">create_gift_card api documentation</see>
+        /// </summary>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// Returns the gift card
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<GiftCard> CreateGiftCardAsync(GiftCardCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// Fetch a gift card <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_gift_card">get_gift_card api documentation</see>
+        /// </summary>
+        /// <param name="giftCardId">Gift Card ID, e.g. `e28zov4fw0v2`.</param>
+        /// <returns>
+        /// Gift card details
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        GiftCard GetGiftCard(string giftCardId, RequestOptions options = null);
+
+        /// <summary>
+        /// Fetch a gift card <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_gift_card">get_gift_card api documentation</see>
+        /// </summary>
+        /// <param name="giftCardId">Gift Card ID, e.g. `e28zov4fw0v2`.</param>
+        /// <returns>
+        /// Gift card details
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<GiftCard> GetGiftCardAsync(string giftCardId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// Preview gift card <see href="https://developers.recurly.com/api/v2021-02-25#operation/preview_gift_card">preview_gift_card api documentation</see>
+        /// </summary>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// Returns the gift card
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        GiftCard PreviewGiftCard(GiftCardCreate body, RequestOptions options = null);
+
+        /// <summary>
+        /// Preview gift card <see href="https://developers.recurly.com/api/v2021-02-25#operation/preview_gift_card">preview_gift_card api documentation</see>
+        /// </summary>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// Returns the gift card
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<GiftCard> PreviewGiftCardAsync(GiftCardCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// Redeem gift card <see href="https://developers.recurly.com/api/v2021-02-25#operation/redeem_gift_card">redeem_gift_card api documentation</see>
+        /// </summary>
+        /// <param name="redemptionCode">Gift Card redemption code, e.g., `N1A2T8IRXSCMO40V`.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// Redeems and returns the gift card
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        GiftCard RedeemGiftCard(string redemptionCode, GiftCardRedeem body, RequestOptions options = null);
+
+        /// <summary>
+        /// Redeem gift card <see href="https://developers.recurly.com/api/v2021-02-25#operation/redeem_gift_card">redeem_gift_card api documentation</see>
+        /// </summary>
+        /// <param name="redemptionCode">Gift Card redemption code, e.g., `N1A2T8IRXSCMO40V`.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// Redeems and returns the gift card
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<GiftCard> RedeemGiftCardAsync(string redemptionCode, GiftCardRedeem body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// List a business entity's invoices <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_business_entity_invoices">list_business_entity_invoices api documentation</see>
+        /// </summary>
+        /// <param name="businessEntityId">Business Entity ID. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-entity1`.</param>
+        /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
+        /// <param name="limit">Limit number of records 1-200.</param>
+        /// <param name="order">Sort order.</param>
+        /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
+        /// <param name="beginTime">Inclusively filter by begin_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
+        /// <param name="endTime">Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
+        /// <param name="type">Filter by type when:  - `type=charge`, only charge invoices will be returned.  - `type=credit`, only credit invoices will be returned.  - `type=non-legacy`, only charge and credit invoices will be returned.  - `type=legacy`, only legacy invoices will be returned.  </param>
+        /// <returns>
+        /// A list of the business entity's invoices.
+        /// </returns>
+        Pager<Invoice> ListBusinessEntityInvoices(string businessEntityId, ListBusinessEntityInvoicesParams optionalParams = null, RequestOptions options = null);
+
     }
 }

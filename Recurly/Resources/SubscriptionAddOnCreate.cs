@@ -32,6 +32,15 @@ namespace Recurly.Resources
         [JsonProperty("code")]
         public string Code { get; set; }
 
+        /// <value>
+        /// If percentage tiers are provided in the request, all existing percentage tiers on the Subscription Add-on will be
+        /// removed and replaced by the percentage tiers in the request. There must be one tier without ending_amount value
+        /// which represents the final tier. Use only if add_on.tier_type is tiered or volume and add_on.usage_type is
+        /// percentage. This feature is currently in development and requires approval and enablement, please contact support.
+        /// </value>
+        [JsonProperty("percentage_tiers")]
+        public List<SubscriptionAddOnPercentageTier> PercentageTiers { get; set; }
+
         /// <value>Quantity</value>
         [JsonProperty("quantity")]
         public int? Quantity { get; set; }
@@ -44,8 +53,8 @@ namespace Recurly.Resources
         /// <value>
         /// If the plan add-on's `tier_type` is `flat`, then `tiers` must be absent. The `tiers` object
         /// must include one to many tiers with `ending_quantity` and `unit_amount`.
-        /// There must be one tier with an `ending_quantity` of 999999999 which is the
-        /// default if not provided. See our [Guide](https://developers.recurly.com/guides/item-addon-guide.html)
+        /// There must be one tier without an `ending_quantity` value which represents the final tier.
+        /// See our [Guide](https://recurly.com/developers/guides/item-addon-guide.html)
         /// for an overview of how to configure quantity-based pricing models.
         /// </value>
         [JsonProperty("tiers")]
@@ -67,7 +76,7 @@ namespace Recurly.Resources
         [JsonProperty("unit_amount_decimal")]
         public string UnitAmountDecimal { get; set; }
 
-        /// <value>The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0. Required if `add_on_type` is usage and `usage_type` is percentage. Must be omitted otherwise. `usage_percentage` does not support tiers. See our [Guide](https://developers.recurly.com/guides/usage-based-billing-guide.html) for an overview of how to configure usage add-ons.</value>
+        /// <value>The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0. Required if `add_on_type` is usage and `usage_type` is percentage. Must be omitted otherwise. `usage_percentage` does not support tiers. See our [Guide](https://recurly.com/developers/guides/usage-based-billing-guide.html) for an overview of how to configure usage add-ons.</value>
         [JsonProperty("usage_percentage")]
         public decimal? UsagePercentage { get; set; }
 

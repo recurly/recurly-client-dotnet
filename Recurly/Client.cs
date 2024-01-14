@@ -20,6 +20,7 @@ namespace Recurly
     {
         public override string ApiVersion => "v2021-02-25";
 
+        public Client(string apiKey, ClientOptions options) : base(apiKey, options) { }
         public Client(string apiKey) : base(apiKey) { }
 
         /// <summary>
@@ -514,7 +515,7 @@ namespace Recurly
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var url = this.InterpolatePath("/accounts/{account_id}/billing_info/verify", urlParams);
-            return MakeRequest<Transaction>(Method.POST, url, null, null, options);
+            return MakeRequest<Transaction>(Method.POST, url, body, null, options);
         }
 
 
@@ -531,7 +532,41 @@ namespace Recurly
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var url = this.InterpolatePath("/accounts/{account_id}/billing_info/verify", urlParams);
-            return MakeRequestAsync<Transaction>(Method.POST, url, null, null, options, cancellationToken);
+            return MakeRequestAsync<Transaction>(Method.POST, url, body, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// Verify an account's credit card billing cvv <see href="https://developers.recurly.com/api/v2021-02-25#operation/verify_billing_info_cvv">verify_billing_info_cvv api documentation</see>
+        /// </summary>
+        /// <param name="VerifyBillingInfoCvvParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Transaction information from verify.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Transaction VerifyBillingInfoCvv(string accountId, BillingInfoVerifyCVV body, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
+            var url = this.InterpolatePath("/accounts/{account_id}/billing_info/verify_cvv", urlParams);
+            return MakeRequest<Transaction>(Method.POST, url, body, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Verify an account's credit card billing cvv <see href="https://developers.recurly.com/api/v2021-02-25#operation/verify_billing_info_cvv">verify_billing_info_cvv api documentation</see>
+        /// </summary>
+        /// <param name="VerifyBillingInfoCvvParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Transaction information from verify.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<Transaction> VerifyBillingInfoCvvAsync(string accountId, BillingInfoVerifyCVV body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
+            var url = this.InterpolatePath("/accounts/{account_id}/billing_info/verify_cvv", urlParams);
+            return MakeRequestAsync<Transaction>(Method.POST, url, body, null, options, cancellationToken);
         }
 
 
@@ -692,7 +727,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Show the coupon redemptions for an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_account_coupon_redemptions">list_account_coupon_redemptions api documentation</see>
+        /// List the coupon redemptions for an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_account_coupon_redemptions">list_account_coupon_redemptions api documentation</see>
         /// </summary>
         /// <param name="ListAccountCouponRedemptionsParams">Optional Parameters for the request</param>
         /// <returns>
@@ -711,7 +746,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Show the coupon redemptions that are active on an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_active_coupon_redemptions">list_active_coupon_redemptions api documentation</see>
+        /// List the coupon redemptions that are active on an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_active_coupon_redemptions">list_active_coupon_redemptions api documentation</see>
         /// </summary>
         /// <param name="ListActiveCouponRedemptionsParams">Optional Parameters for the request</param>
         /// <returns>
@@ -809,6 +844,179 @@ namespace Recurly
             var queryParams = (optionalParams ?? new ListAccountCreditPaymentsParams()).ToDictionary();
             var url = this.InterpolatePath("/accounts/{account_id}/credit_payments", urlParams);
             return Pager<CreditPayment>.Build(url, queryParams, options, this);
+        }
+
+
+
+
+
+        /// <summary>
+        /// List external accounts for an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_account_external_account">list_account_external_account api documentation</see>
+        /// </summary>
+        /// <param name="ListAccountExternalAccountParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// A list of external accounts on an account.
+        /// </returns>
+        public Pager<ExternalAccount> ListAccountExternalAccount(string accountId, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
+            var url = this.InterpolatePath("/accounts/{account_id}/external_accounts", urlParams);
+            return Pager<ExternalAccount>.Build(url, null, options, this);
+        }
+
+
+
+
+
+        /// <summary>
+        /// Create an external account <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_account_external_account">create_account_external_account api documentation</see>
+        /// </summary>
+        /// <param name="CreateAccountExternalAccountParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// A representation of the created external_account.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public ExternalAccount CreateAccountExternalAccount(string accountId, ExternalAccountCreate body, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
+            var url = this.InterpolatePath("/accounts/{account_id}/external_accounts", urlParams);
+            return MakeRequest<ExternalAccount>(Method.POST, url, body, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Create an external account <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_account_external_account">create_account_external_account api documentation</see>
+        /// </summary>
+        /// <param name="CreateAccountExternalAccountParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// A representation of the created external_account.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<ExternalAccount> CreateAccountExternalAccountAsync(string accountId, ExternalAccountCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
+            var url = this.InterpolatePath("/accounts/{account_id}/external_accounts", urlParams);
+            return MakeRequestAsync<ExternalAccount>(Method.POST, url, body, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// Get an external account for an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_account_external_account">get_account_external_account api documentation</see>
+        /// </summary>
+        /// <param name="GetAccountExternalAccountParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// A external account on an account.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public ExternalAccount GetAccountExternalAccount(string accountId, string externalAccountId, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId }, { "external_account_id", externalAccountId } };
+            var url = this.InterpolatePath("/accounts/{account_id}/external_accounts/{external_account_id}", urlParams);
+            return MakeRequest<ExternalAccount>(Method.GET, url, null, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Get an external account for an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_account_external_account">get_account_external_account api documentation</see>
+        /// </summary>
+        /// <param name="GetAccountExternalAccountParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// A external account on an account.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<ExternalAccount> GetAccountExternalAccountAsync(string accountId, string externalAccountId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId }, { "external_account_id", externalAccountId } };
+            var url = this.InterpolatePath("/accounts/{account_id}/external_accounts/{external_account_id}", urlParams);
+            return MakeRequestAsync<ExternalAccount>(Method.GET, url, null, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// Update an external account <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_account_external_account">update_account_external_account api documentation</see>
+        /// </summary>
+        /// <param name="UpdateAccountExternalAccountParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// A representation of the updated external_account.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public ExternalAccount UpdateAccountExternalAccount(string accountId, string externalAccountId, ExternalAccountUpdate body, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId }, { "external_account_id", externalAccountId } };
+            var url = this.InterpolatePath("/accounts/{account_id}/external_accounts/{external_account_id}", urlParams);
+            return MakeRequest<ExternalAccount>(Method.PUT, url, body, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Update an external account <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_account_external_account">update_account_external_account api documentation</see>
+        /// </summary>
+        /// <param name="UpdateAccountExternalAccountParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// A representation of the updated external_account.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<ExternalAccount> UpdateAccountExternalAccountAsync(string accountId, string externalAccountId, ExternalAccountUpdate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId }, { "external_account_id", externalAccountId } };
+            var url = this.InterpolatePath("/accounts/{account_id}/external_accounts/{external_account_id}", urlParams);
+            return MakeRequestAsync<ExternalAccount>(Method.PUT, url, body, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// Delete an external account for an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/delete_account_external_account">delete_account_external_account api documentation</see>
+        /// </summary>
+        /// <param name="DeleteAccountExternalAccountParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Successful Delete
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public ExternalAccount DeleteAccountExternalAccount(string accountId, string externalAccountId, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId }, { "external_account_id", externalAccountId } };
+            var url = this.InterpolatePath("/accounts/{account_id}/external_accounts/{external_account_id}", urlParams);
+            return MakeRequest<ExternalAccount>(Method.DELETE, url, null, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Delete an external account for an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/delete_account_external_account">delete_account_external_account api documentation</see>
+        /// </summary>
+        /// <param name="DeleteAccountExternalAccountParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Successful Delete
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<ExternalAccount> DeleteAccountExternalAccountAsync(string accountId, string externalAccountId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId }, { "external_account_id", externalAccountId } };
+            var url = this.InterpolatePath("/accounts/{account_id}/external_accounts/{external_account_id}", urlParams);
+            return MakeRequestAsync<ExternalAccount>(Method.DELETE, url, null, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// List the external invoices on an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_account_external_invoices">list_account_external_invoices api documentation</see>
+        /// </summary>
+        /// <param name="ListAccountExternalInvoicesParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// A list of the the external_invoices on an account.
+        /// </returns>
+        public Pager<ExternalInvoice> ListAccountExternalInvoices(string accountId, ListAccountExternalInvoicesParams optionalParams = null, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
+            var queryParams = (optionalParams ?? new ListAccountExternalInvoicesParams()).ToDictionary();
+            var url = this.InterpolatePath("/accounts/{account_id}/external_invoices", urlParams);
+            return Pager<ExternalInvoice>.Build(url, queryParams, options, this);
         }
 
 
@@ -956,7 +1164,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Fetch a list of an account's notes <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_account_notes">list_account_notes api documentation</see>
+        /// List an account's notes <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_account_notes">list_account_notes api documentation</see>
         /// </summary>
         /// <param name="ListAccountNotesParams">Optional Parameters for the request</param>
         /// <returns>
@@ -1588,6 +1796,25 @@ namespace Recurly
 
 
         /// <summary>
+        /// List an invoice template's associated accounts <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_invoice_template_accounts">list_invoice_template_accounts api documentation</see>
+        /// </summary>
+        /// <param name="ListInvoiceTemplateAccountsParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// A list of an invoice template's associated accounts.
+        /// </returns>
+        public Pager<Account> ListInvoiceTemplateAccounts(string invoiceTemplateId, ListInvoiceTemplateAccountsParams optionalParams = null, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "invoice_template_id", invoiceTemplateId } };
+            var queryParams = (optionalParams ?? new ListInvoiceTemplateAccountsParams()).ToDictionary();
+            var url = this.InterpolatePath("/invoice_templates/{invoice_template_id}/accounts", urlParams);
+            return Pager<Account>.Build(url, queryParams, options, this);
+        }
+
+
+
+
+
+        /// <summary>
         /// List a site's items <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_items">list_items api documentation</see>
         /// </summary>
         /// <param name="ListItemsParams">Optional Parameters for the request</param>
@@ -1932,6 +2159,354 @@ namespace Recurly
 
 
         /// <summary>
+        /// List a site's external products <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_external_products">list_external_products api documentation</see>
+        /// </summary>
+        /// <param name="ListExternalProductsParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// A list of the the external_products on a site.
+        /// </returns>
+        public Pager<ExternalProduct> ListExternalProducts(ListExternalProductsParams optionalParams = null, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var queryParams = (optionalParams ?? new ListExternalProductsParams()).ToDictionary();
+            var url = this.InterpolatePath("/external_products", urlParams);
+            return Pager<ExternalProduct>.Build(url, queryParams, options, this);
+        }
+
+
+
+
+
+        /// <summary>
+        /// Create an external product <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_external_product">create_external_product api documentation</see>
+        /// </summary>
+        /// <param name="CreateExternalProductParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Returns the external product
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public ExternalProduct CreateExternalProduct(ExternalProductCreate body, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var url = this.InterpolatePath("/external_products", urlParams);
+            return MakeRequest<ExternalProduct>(Method.POST, url, body, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Create an external product <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_external_product">create_external_product api documentation</see>
+        /// </summary>
+        /// <param name="CreateExternalProductParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Returns the external product
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<ExternalProduct> CreateExternalProductAsync(ExternalProductCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var url = this.InterpolatePath("/external_products", urlParams);
+            return MakeRequestAsync<ExternalProduct>(Method.POST, url, body, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// Fetch an external product <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_external_product">get_external_product api documentation</see>
+        /// </summary>
+        /// <param name="GetExternalProductParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Settings for an external product.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public ExternalProduct GetExternalProduct(string externalProductId, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "external_product_id", externalProductId } };
+            var url = this.InterpolatePath("/external_products/{external_product_id}", urlParams);
+            return MakeRequest<ExternalProduct>(Method.GET, url, null, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Fetch an external product <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_external_product">get_external_product api documentation</see>
+        /// </summary>
+        /// <param name="GetExternalProductParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Settings for an external product.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<ExternalProduct> GetExternalProductAsync(string externalProductId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "external_product_id", externalProductId } };
+            var url = this.InterpolatePath("/external_products/{external_product_id}", urlParams);
+            return MakeRequestAsync<ExternalProduct>(Method.GET, url, null, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// Update an external product <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_external_product">update_external_product api documentation</see>
+        /// </summary>
+        /// <param name="UpdateExternalProductParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Settings for an external product.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public ExternalProduct UpdateExternalProduct(string externalProductId, ExternalProductUpdate body, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "external_product_id", externalProductId } };
+            var url = this.InterpolatePath("/external_products/{external_product_id}", urlParams);
+            return MakeRequest<ExternalProduct>(Method.PUT, url, body, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Update an external product <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_external_product">update_external_product api documentation</see>
+        /// </summary>
+        /// <param name="UpdateExternalProductParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Settings for an external product.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<ExternalProduct> UpdateExternalProductAsync(string externalProductId, ExternalProductUpdate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "external_product_id", externalProductId } };
+            var url = this.InterpolatePath("/external_products/{external_product_id}", urlParams);
+            return MakeRequestAsync<ExternalProduct>(Method.PUT, url, body, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// Deactivate an external product <see href="https://developers.recurly.com/api/v2021-02-25#operation/deactivate_external_products">deactivate_external_products api documentation</see>
+        /// </summary>
+        /// <param name="DeactivateExternalProductsParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Deactivated external product.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public ExternalProduct DeactivateExternalProducts(string externalProductId, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "external_product_id", externalProductId } };
+            var url = this.InterpolatePath("/external_products/{external_product_id}", urlParams);
+            return MakeRequest<ExternalProduct>(Method.DELETE, url, null, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Deactivate an external product <see href="https://developers.recurly.com/api/v2021-02-25#operation/deactivate_external_products">deactivate_external_products api documentation</see>
+        /// </summary>
+        /// <param name="DeactivateExternalProductsParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Deactivated external product.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<ExternalProduct> DeactivateExternalProductsAsync(string externalProductId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "external_product_id", externalProductId } };
+            var url = this.InterpolatePath("/external_products/{external_product_id}", urlParams);
+            return MakeRequestAsync<ExternalProduct>(Method.DELETE, url, null, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// List the external product references for an external product <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_external_product_external_product_references">list_external_product_external_product_references api documentation</see>
+        /// </summary>
+        /// <param name="ListExternalProductExternalProductReferencesParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// A list of the the external product references for an external product.
+        /// </returns>
+        public Pager<ExternalProductReferenceCollection> ListExternalProductExternalProductReferences(string externalProductId, ListExternalProductExternalProductReferencesParams optionalParams = null, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "external_product_id", externalProductId } };
+            var queryParams = (optionalParams ?? new ListExternalProductExternalProductReferencesParams()).ToDictionary();
+            var url = this.InterpolatePath("/external_products/{external_product_id}/external_product_references", urlParams);
+            return Pager<ExternalProductReferenceCollection>.Build(url, queryParams, options, this);
+        }
+
+
+
+
+
+        /// <summary>
+        /// Create an external product reference on an external product <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_external_product_external_product_reference">create_external_product_external_product_reference api documentation</see>
+        /// </summary>
+        /// <param name="CreateExternalProductExternalProductReferenceParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Details for the external product reference.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public ExternalProductReferenceMini CreateExternalProductExternalProductReference(string externalProductId, ExternalProductReferenceCreate body, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "external_product_id", externalProductId } };
+            var url = this.InterpolatePath("/external_products/{external_product_id}/external_product_references", urlParams);
+            return MakeRequest<ExternalProductReferenceMini>(Method.POST, url, body, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Create an external product reference on an external product <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_external_product_external_product_reference">create_external_product_external_product_reference api documentation</see>
+        /// </summary>
+        /// <param name="CreateExternalProductExternalProductReferenceParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Details for the external product reference.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<ExternalProductReferenceMini> CreateExternalProductExternalProductReferenceAsync(string externalProductId, ExternalProductReferenceCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "external_product_id", externalProductId } };
+            var url = this.InterpolatePath("/external_products/{external_product_id}/external_product_references", urlParams);
+            return MakeRequestAsync<ExternalProductReferenceMini>(Method.POST, url, body, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// Fetch an external product reference <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_external_product_external_product_reference">get_external_product_external_product_reference api documentation</see>
+        /// </summary>
+        /// <param name="GetExternalProductExternalProductReferenceParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Details for an external product reference.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public ExternalProductReferenceMini GetExternalProductExternalProductReference(string externalProductId, string externalProductReferenceId, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "external_product_id", externalProductId }, { "external_product_reference_id", externalProductReferenceId } };
+            var url = this.InterpolatePath("/external_products/{external_product_id}/external_product_references/{external_product_reference_id}", urlParams);
+            return MakeRequest<ExternalProductReferenceMini>(Method.GET, url, null, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Fetch an external product reference <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_external_product_external_product_reference">get_external_product_external_product_reference api documentation</see>
+        /// </summary>
+        /// <param name="GetExternalProductExternalProductReferenceParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Details for an external product reference.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<ExternalProductReferenceMini> GetExternalProductExternalProductReferenceAsync(string externalProductId, string externalProductReferenceId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "external_product_id", externalProductId }, { "external_product_reference_id", externalProductReferenceId } };
+            var url = this.InterpolatePath("/external_products/{external_product_id}/external_product_references/{external_product_reference_id}", urlParams);
+            return MakeRequestAsync<ExternalProductReferenceMini>(Method.GET, url, null, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// Deactivate an external product reference <see href="https://developers.recurly.com/api/v2021-02-25#operation/deactivate_external_product_external_product_reference">deactivate_external_product_external_product_reference api documentation</see>
+        /// </summary>
+        /// <param name="DeactivateExternalProductExternalProductReferenceParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Details for an external product reference.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public ExternalProductReferenceMini DeactivateExternalProductExternalProductReference(string externalProductId, string externalProductReferenceId, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "external_product_id", externalProductId }, { "external_product_reference_id", externalProductReferenceId } };
+            var url = this.InterpolatePath("/external_products/{external_product_id}/external_product_references/{external_product_reference_id}", urlParams);
+            return MakeRequest<ExternalProductReferenceMini>(Method.DELETE, url, null, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Deactivate an external product reference <see href="https://developers.recurly.com/api/v2021-02-25#operation/deactivate_external_product_external_product_reference">deactivate_external_product_external_product_reference api documentation</see>
+        /// </summary>
+        /// <param name="DeactivateExternalProductExternalProductReferenceParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Details for an external product reference.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<ExternalProductReferenceMini> DeactivateExternalProductExternalProductReferenceAsync(string externalProductId, string externalProductReferenceId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "external_product_id", externalProductId }, { "external_product_reference_id", externalProductReferenceId } };
+            var url = this.InterpolatePath("/external_products/{external_product_id}/external_product_references/{external_product_reference_id}", urlParams);
+            return MakeRequestAsync<ExternalProductReferenceMini>(Method.DELETE, url, null, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// List a site's external subscriptions <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_external_subscriptions">list_external_subscriptions api documentation</see>
+        /// </summary>
+        /// <param name="ListExternalSubscriptionsParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// A list of the the external_subscriptions on a site.
+        /// </returns>
+        public Pager<ExternalSubscription> ListExternalSubscriptions(ListExternalSubscriptionsParams optionalParams = null, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var queryParams = (optionalParams ?? new ListExternalSubscriptionsParams()).ToDictionary();
+            var url = this.InterpolatePath("/external_subscriptions", urlParams);
+            return Pager<ExternalSubscription>.Build(url, queryParams, options, this);
+        }
+
+
+
+
+
+        /// <summary>
+        /// Fetch an external subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_external_subscription">get_external_subscription api documentation</see>
+        /// </summary>
+        /// <param name="GetExternalSubscriptionParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Settings for an external subscription.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public ExternalSubscription GetExternalSubscription(string externalSubscriptionId, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "external_subscription_id", externalSubscriptionId } };
+            var url = this.InterpolatePath("/external_subscriptions/{external_subscription_id}", urlParams);
+            return MakeRequest<ExternalSubscription>(Method.GET, url, null, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Fetch an external subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_external_subscription">get_external_subscription api documentation</see>
+        /// </summary>
+        /// <param name="GetExternalSubscriptionParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Settings for an external subscription.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<ExternalSubscription> GetExternalSubscriptionAsync(string externalSubscriptionId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "external_subscription_id", externalSubscriptionId } };
+            var url = this.InterpolatePath("/external_subscriptions/{external_subscription_id}", urlParams);
+            return MakeRequestAsync<ExternalSubscription>(Method.GET, url, null, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// List the external invoices on an external subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_external_subscription_external_invoices">list_external_subscription_external_invoices api documentation</see>
+        /// </summary>
+        /// <param name="ListExternalSubscriptionExternalInvoicesParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// A list of the the external_invoices on a site.
+        /// </returns>
+        public Pager<ExternalInvoice> ListExternalSubscriptionExternalInvoices(string externalSubscriptionId, ListExternalSubscriptionExternalInvoicesParams optionalParams = null, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "external_subscription_id", externalSubscriptionId } };
+            var queryParams = (optionalParams ?? new ListExternalSubscriptionExternalInvoicesParams()).ToDictionary();
+            var url = this.InterpolatePath("/external_subscriptions/{external_subscription_id}/external_invoices", urlParams);
+            return Pager<ExternalInvoice>.Build(url, queryParams, options, this);
+        }
+
+
+
+
+
+        /// <summary>
         /// List a site's invoices <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_invoices">list_invoices api documentation</see>
         /// </summary>
         /// <param name="ListInvoicesParams">Optional Parameters for the request</param>
@@ -2053,6 +2628,40 @@ namespace Recurly
 
 
         /// <summary>
+        /// Apply available credit to a pending or past due charge invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/apply_credit_balance">apply_credit_balance api documentation</see>
+        /// </summary>
+        /// <param name="ApplyCreditBalanceParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// The updated invoice.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Invoice ApplyCreditBalance(string invoiceId, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "invoice_id", invoiceId } };
+            var url = this.InterpolatePath("/invoices/{invoice_id}/apply_credit_balance", urlParams);
+            return MakeRequest<Invoice>(Method.PUT, url, null, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Apply available credit to a pending or past due charge invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/apply_credit_balance">apply_credit_balance api documentation</see>
+        /// </summary>
+        /// <param name="ApplyCreditBalanceParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// The updated invoice.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<Invoice> ApplyCreditBalanceAsync(string invoiceId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "invoice_id", invoiceId } };
+            var url = this.InterpolatePath("/invoices/{invoice_id}/apply_credit_balance", urlParams);
+            return MakeRequestAsync<Invoice>(Method.PUT, url, null, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
         /// Collect a pending or past due, automatic invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/collect_invoice">collect_invoice api documentation</see>
         /// </summary>
         /// <param name="CollectInvoiceParams">Optional Parameters for the request</param>
@@ -2064,7 +2673,7 @@ namespace Recurly
         {
             var urlParams = new Dictionary<string, object> { { "invoice_id", invoiceId } };
             var url = this.InterpolatePath("/invoices/{invoice_id}/collect", urlParams);
-            return MakeRequest<Invoice>(Method.PUT, url, null, null, options);
+            return MakeRequest<Invoice>(Method.PUT, url, body, null, options);
         }
 
 
@@ -2081,7 +2690,7 @@ namespace Recurly
         {
             var urlParams = new Dictionary<string, object> { { "invoice_id", invoiceId } };
             var url = this.InterpolatePath("/invoices/{invoice_id}/collect", urlParams);
-            return MakeRequestAsync<Invoice>(Method.PUT, url, null, null, options, cancellationToken);
+            return MakeRequestAsync<Invoice>(Method.PUT, url, body, null, options, cancellationToken);
         }
 
 
@@ -2276,7 +2885,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Show the coupon redemptions applied to an invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_invoice_coupon_redemptions">list_invoice_coupon_redemptions api documentation</see>
+        /// List the coupon redemptions applied to an invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_invoice_coupon_redemptions">list_invoice_coupon_redemptions api documentation</see>
         /// </summary>
         /// <param name="ListInvoiceCouponRedemptionsParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3120,7 +3729,7 @@ namespace Recurly
         {
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
             var url = this.InterpolatePath("/subscriptions/{subscription_id}/cancel", urlParams);
-            return MakeRequest<Subscription>(Method.PUT, url, null, null, options);
+            return MakeRequest<Subscription>(Method.PUT, url, body, null, options);
         }
 
 
@@ -3137,7 +3746,7 @@ namespace Recurly
         {
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
             var url = this.InterpolatePath("/subscriptions/{subscription_id}/cancel", urlParams);
-            return MakeRequestAsync<Subscription>(Method.PUT, url, null, null, options, cancellationToken);
+            return MakeRequestAsync<Subscription>(Method.PUT, url, body, null, options, cancellationToken);
         }
 
 
@@ -3487,7 +4096,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Show the coupon redemptions for a subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_subscription_coupon_redemptions">list_subscription_coupon_redemptions api documentation</see>
+        /// List the coupon redemptions for a subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_subscription_coupon_redemptions">list_subscription_coupon_redemptions api documentation</see>
         /// </summary>
         /// <param name="ListSubscriptionCouponRedemptionsParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3884,6 +4493,40 @@ namespace Recurly
 
 
         /// <summary>
+        /// Create a pending purchase <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_pending_purchase">create_pending_purchase api documentation</see>
+        /// </summary>
+        /// <param name="CreatePendingPurchaseParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Returns the pending invoice
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public InvoiceCollection CreatePendingPurchase(PurchaseCreate body, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var url = this.InterpolatePath("/purchases/pending", urlParams);
+            return MakeRequest<InvoiceCollection>(Method.POST, url, body, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Create a pending purchase <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_pending_purchase">create_pending_purchase api documentation</see>
+        /// </summary>
+        /// <param name="CreatePendingPurchaseParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Returns the pending invoice
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<InvoiceCollection> CreatePendingPurchaseAsync(PurchaseCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var url = this.InterpolatePath("/purchases/pending", urlParams);
+            return MakeRequestAsync<InvoiceCollection>(Method.POST, url, body, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
         /// List the dates that have an available export to download. <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_export_dates">get_export_dates api documentation</see>
         /// </summary>
         /// <param name="GetExportDatesParams">Optional Parameters for the request</param>
@@ -3952,7 +4595,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Show the dunning campaigns for a site <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_dunning_campaigns">list_dunning_campaigns api documentation</see>
+        /// List the dunning campaigns for a site <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_dunning_campaigns">list_dunning_campaigns api documentation</see>
         /// </summary>
         /// <param name="ListDunningCampaignsParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3971,7 +4614,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Show the settings for a dunning campaign <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_dunning_campaign">get_dunning_campaign api documentation</see>
+        /// Fetch a dunning campaign <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_dunning_campaign">get_dunning_campaign api documentation</see>
         /// </summary>
         /// <param name="GetDunningCampaignParams">Optional Parameters for the request</param>
         /// <returns>
@@ -3988,7 +4631,7 @@ namespace Recurly
 
 
         /// <summary>
-        /// Show the settings for a dunning campaign <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_dunning_campaign">get_dunning_campaign api documentation</see>
+        /// Fetch a dunning campaign <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_dunning_campaign">get_dunning_campaign api documentation</see>
         /// </summary>
         /// <param name="GetDunningCampaignParams">Optional Parameters for the request</param>
         /// <returns>
@@ -4012,9 +4655,9 @@ namespace Recurly
         /// A list of updated plans.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public DunningCampaignsBulkUpdateResponse PutDunningCampaignBulkUpdate(DunningCampaignsBulkUpdate body, RequestOptions options = null)
+        public DunningCampaignsBulkUpdateResponse PutDunningCampaignBulkUpdate(string dunningCampaignId, DunningCampaignsBulkUpdate body, RequestOptions options = null)
         {
-            var urlParams = new Dictionary<string, object> { };
+            var urlParams = new Dictionary<string, object> { { "dunning_campaign_id", dunningCampaignId } };
             var url = this.InterpolatePath("/dunning_campaigns/{dunning_campaign_id}/bulk_update", urlParams);
             return MakeRequest<DunningCampaignsBulkUpdateResponse>(Method.PUT, url, body, null, options);
         }
@@ -4029,12 +4672,434 @@ namespace Recurly
         /// A list of updated plans.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public Task<DunningCampaignsBulkUpdateResponse> PutDunningCampaignBulkUpdateAsync(DunningCampaignsBulkUpdate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        public Task<DunningCampaignsBulkUpdateResponse> PutDunningCampaignBulkUpdateAsync(string dunningCampaignId, DunningCampaignsBulkUpdate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
         {
-            var urlParams = new Dictionary<string, object> { };
+            var urlParams = new Dictionary<string, object> { { "dunning_campaign_id", dunningCampaignId } };
             var url = this.InterpolatePath("/dunning_campaigns/{dunning_campaign_id}/bulk_update", urlParams);
             return MakeRequestAsync<DunningCampaignsBulkUpdateResponse>(Method.PUT, url, body, null, options, cancellationToken);
         }
+
+
+
+        /// <summary>
+        /// Show the invoice templates for a site <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_invoice_templates">list_invoice_templates api documentation</see>
+        /// </summary>
+        /// <param name="ListInvoiceTemplatesParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// A list of the the invoice templates on a site.
+        /// </returns>
+        public Pager<InvoiceTemplate> ListInvoiceTemplates(ListInvoiceTemplatesParams optionalParams = null, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var queryParams = (optionalParams ?? new ListInvoiceTemplatesParams()).ToDictionary();
+            var url = this.InterpolatePath("/invoice_templates", urlParams);
+            return Pager<InvoiceTemplate>.Build(url, queryParams, options, this);
+        }
+
+
+
+
+
+        /// <summary>
+        /// Fetch an invoice template <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_invoice_template">get_invoice_template api documentation</see>
+        /// </summary>
+        /// <param name="GetInvoiceTemplateParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Settings for an invoice template.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public InvoiceTemplate GetInvoiceTemplate(string invoiceTemplateId, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "invoice_template_id", invoiceTemplateId } };
+            var url = this.InterpolatePath("/invoice_templates/{invoice_template_id}", urlParams);
+            return MakeRequest<InvoiceTemplate>(Method.GET, url, null, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Fetch an invoice template <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_invoice_template">get_invoice_template api documentation</see>
+        /// </summary>
+        /// <param name="GetInvoiceTemplateParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Settings for an invoice template.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<InvoiceTemplate> GetInvoiceTemplateAsync(string invoiceTemplateId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "invoice_template_id", invoiceTemplateId } };
+            var url = this.InterpolatePath("/invoice_templates/{invoice_template_id}", urlParams);
+            return MakeRequestAsync<InvoiceTemplate>(Method.GET, url, null, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// List the external invoices on a site <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_external_invoices">list_external_invoices api documentation</see>
+        /// </summary>
+        /// <param name="ListExternalInvoicesParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// A list of the the external_invoices on a site.
+        /// </returns>
+        public Pager<ExternalInvoice> ListExternalInvoices(ListExternalInvoicesParams optionalParams = null, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var queryParams = (optionalParams ?? new ListExternalInvoicesParams()).ToDictionary();
+            var url = this.InterpolatePath("/external_invoices", urlParams);
+            return Pager<ExternalInvoice>.Build(url, queryParams, options, this);
+        }
+
+
+
+
+
+        /// <summary>
+        /// Fetch an external invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/show_external_invoice">show_external_invoice api documentation</see>
+        /// </summary>
+        /// <param name="ShowExternalInvoiceParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Returns the external invoice
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public ExternalInvoice ShowExternalInvoice(string externalInvoiceId, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "external_invoice_id", externalInvoiceId } };
+            var url = this.InterpolatePath("/external_invoices/{external_invoice_id}", urlParams);
+            return MakeRequest<ExternalInvoice>(Method.GET, url, null, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Fetch an external invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/show_external_invoice">show_external_invoice api documentation</see>
+        /// </summary>
+        /// <param name="ShowExternalInvoiceParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Returns the external invoice
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<ExternalInvoice> ShowExternalInvoiceAsync(string externalInvoiceId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "external_invoice_id", externalInvoiceId } };
+            var url = this.InterpolatePath("/external_invoices/{external_invoice_id}", urlParams);
+            return MakeRequestAsync<ExternalInvoice>(Method.GET, url, null, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// List the external payment phases on an external subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_external_subscription_external_payment_phases">list_external_subscription_external_payment_phases api documentation</see>
+        /// </summary>
+        /// <param name="ListExternalSubscriptionExternalPaymentPhasesParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// A list of the the external_payment_phases on a site.
+        /// </returns>
+        public Pager<ExternalPaymentPhase> ListExternalSubscriptionExternalPaymentPhases(string externalSubscriptionId, ListExternalSubscriptionExternalPaymentPhasesParams optionalParams = null, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "external_subscription_id", externalSubscriptionId } };
+            var queryParams = (optionalParams ?? new ListExternalSubscriptionExternalPaymentPhasesParams()).ToDictionary();
+            var url = this.InterpolatePath("/external_subscriptions/{external_subscription_id}/external_payment_phases", urlParams);
+            return Pager<ExternalPaymentPhase>.Build(url, queryParams, options, this);
+        }
+
+
+
+
+
+        /// <summary>
+        /// Fetch an external payment_phase <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_external_subscription_external_payment_phase">get_external_subscription_external_payment_phase api documentation</see>
+        /// </summary>
+        /// <param name="GetExternalSubscriptionExternalPaymentPhaseParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Details for an external payment_phase.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public ExternalPaymentPhase GetExternalSubscriptionExternalPaymentPhase(string externalSubscriptionId, string externalPaymentPhaseId, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "external_subscription_id", externalSubscriptionId }, { "external_payment_phase_id", externalPaymentPhaseId } };
+            var url = this.InterpolatePath("/external_subscriptions/{external_subscription_id}/external_payment_phases/{external_payment_phase_id}", urlParams);
+            return MakeRequest<ExternalPaymentPhase>(Method.GET, url, null, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Fetch an external payment_phase <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_external_subscription_external_payment_phase">get_external_subscription_external_payment_phase api documentation</see>
+        /// </summary>
+        /// <param name="GetExternalSubscriptionExternalPaymentPhaseParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Details for an external payment_phase.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<ExternalPaymentPhase> GetExternalSubscriptionExternalPaymentPhaseAsync(string externalSubscriptionId, string externalPaymentPhaseId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "external_subscription_id", externalSubscriptionId }, { "external_payment_phase_id", externalPaymentPhaseId } };
+            var url = this.InterpolatePath("/external_subscriptions/{external_subscription_id}/external_payment_phases/{external_payment_phase_id}", urlParams);
+            return MakeRequestAsync<ExternalPaymentPhase>(Method.GET, url, null, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// List entitlements granted to an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_entitlements">list_entitlements api documentation</see>
+        /// </summary>
+        /// <param name="ListEntitlementsParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// A list of the entitlements granted to an account.
+        /// </returns>
+        public Pager<Entitlements> ListEntitlements(string accountId, ListEntitlementsParams optionalParams = null, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
+            var queryParams = (optionalParams ?? new ListEntitlementsParams()).ToDictionary();
+            var url = this.InterpolatePath("/accounts/{account_id}/entitlements", urlParams);
+            return Pager<Entitlements>.Build(url, queryParams, options, this);
+        }
+
+
+
+
+
+        /// <summary>
+        /// List an account's external subscriptions <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_account_external_subscriptions">list_account_external_subscriptions api documentation</see>
+        /// </summary>
+        /// <param name="ListAccountExternalSubscriptionsParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// A list of the the external_subscriptions on an account.
+        /// </returns>
+        public Pager<ExternalSubscription> ListAccountExternalSubscriptions(string accountId, ListAccountExternalSubscriptionsParams optionalParams = null, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
+            var queryParams = (optionalParams ?? new ListAccountExternalSubscriptionsParams()).ToDictionary();
+            var url = this.InterpolatePath("/accounts/{account_id}/external_subscriptions", urlParams);
+            return Pager<ExternalSubscription>.Build(url, queryParams, options, this);
+        }
+
+
+
+
+
+        /// <summary>
+        /// Fetch a business entity <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_business_entity">get_business_entity api documentation</see>
+        /// </summary>
+        /// <param name="GetBusinessEntityParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Business entity details
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public BusinessEntity GetBusinessEntity(string businessEntityId, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "business_entity_id", businessEntityId } };
+            var url = this.InterpolatePath("/business_entities/{business_entity_id}", urlParams);
+            return MakeRequest<BusinessEntity>(Method.GET, url, null, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Fetch a business entity <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_business_entity">get_business_entity api documentation</see>
+        /// </summary>
+        /// <param name="GetBusinessEntityParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Business entity details
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<BusinessEntity> GetBusinessEntityAsync(string businessEntityId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "business_entity_id", businessEntityId } };
+            var url = this.InterpolatePath("/business_entities/{business_entity_id}", urlParams);
+            return MakeRequestAsync<BusinessEntity>(Method.GET, url, null, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// List business entities <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_business_entities">list_business_entities api documentation</see>
+        /// </summary>
+        /// <param name="ListBusinessEntitiesParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// List of all business entities on your site.
+        /// </returns>
+        public Pager<BusinessEntity> ListBusinessEntities(RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var url = this.InterpolatePath("/business_entities", urlParams);
+            return Pager<BusinessEntity>.Build(url, null, options, this);
+        }
+
+
+
+
+
+        /// <summary>
+        /// List gift cards <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_gift_cards">list_gift_cards api documentation</see>
+        /// </summary>
+        /// <param name="ListGiftCardsParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// List of all created gift cards on your site.
+        /// </returns>
+        public Pager<GiftCard> ListGiftCards(RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var url = this.InterpolatePath("/gift_cards", urlParams);
+            return Pager<GiftCard>.Build(url, null, options, this);
+        }
+
+
+
+
+
+        /// <summary>
+        /// Create gift card <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_gift_card">create_gift_card api documentation</see>
+        /// </summary>
+        /// <param name="CreateGiftCardParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Returns the gift card
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public GiftCard CreateGiftCard(GiftCardCreate body, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var url = this.InterpolatePath("/gift_cards", urlParams);
+            return MakeRequest<GiftCard>(Method.POST, url, body, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Create gift card <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_gift_card">create_gift_card api documentation</see>
+        /// </summary>
+        /// <param name="CreateGiftCardParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Returns the gift card
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<GiftCard> CreateGiftCardAsync(GiftCardCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var url = this.InterpolatePath("/gift_cards", urlParams);
+            return MakeRequestAsync<GiftCard>(Method.POST, url, body, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// Fetch a gift card <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_gift_card">get_gift_card api documentation</see>
+        /// </summary>
+        /// <param name="GetGiftCardParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Gift card details
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public GiftCard GetGiftCard(string giftCardId, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "gift_card_id", giftCardId } };
+            var url = this.InterpolatePath("/gift_cards/{gift_card_id}", urlParams);
+            return MakeRequest<GiftCard>(Method.GET, url, null, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Fetch a gift card <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_gift_card">get_gift_card api documentation</see>
+        /// </summary>
+        /// <param name="GetGiftCardParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Gift card details
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<GiftCard> GetGiftCardAsync(string giftCardId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "gift_card_id", giftCardId } };
+            var url = this.InterpolatePath("/gift_cards/{gift_card_id}", urlParams);
+            return MakeRequestAsync<GiftCard>(Method.GET, url, null, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// Preview gift card <see href="https://developers.recurly.com/api/v2021-02-25#operation/preview_gift_card">preview_gift_card api documentation</see>
+        /// </summary>
+        /// <param name="PreviewGiftCardParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Returns the gift card
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public GiftCard PreviewGiftCard(GiftCardCreate body, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var url = this.InterpolatePath("/gift_cards/preview", urlParams);
+            return MakeRequest<GiftCard>(Method.POST, url, body, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Preview gift card <see href="https://developers.recurly.com/api/v2021-02-25#operation/preview_gift_card">preview_gift_card api documentation</see>
+        /// </summary>
+        /// <param name="PreviewGiftCardParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Returns the gift card
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<GiftCard> PreviewGiftCardAsync(GiftCardCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var url = this.InterpolatePath("/gift_cards/preview", urlParams);
+            return MakeRequestAsync<GiftCard>(Method.POST, url, body, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// Redeem gift card <see href="https://developers.recurly.com/api/v2021-02-25#operation/redeem_gift_card">redeem_gift_card api documentation</see>
+        /// </summary>
+        /// <param name="RedeemGiftCardParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Redeems and returns the gift card
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public GiftCard RedeemGiftCard(string redemptionCode, GiftCardRedeem body, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "redemption_code", redemptionCode } };
+            var url = this.InterpolatePath("/gift_cards/{redemption_code}/redeem", urlParams);
+            return MakeRequest<GiftCard>(Method.POST, url, body, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Redeem gift card <see href="https://developers.recurly.com/api/v2021-02-25#operation/redeem_gift_card">redeem_gift_card api documentation</see>
+        /// </summary>
+        /// <param name="RedeemGiftCardParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Redeems and returns the gift card
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<GiftCard> RedeemGiftCardAsync(string redemptionCode, GiftCardRedeem body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "redemption_code", redemptionCode } };
+            var url = this.InterpolatePath("/gift_cards/{redemption_code}/redeem", urlParams);
+            return MakeRequestAsync<GiftCard>(Method.POST, url, body, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// List a business entity's invoices <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_business_entity_invoices">list_business_entity_invoices api documentation</see>
+        /// </summary>
+        /// <param name="ListBusinessEntityInvoicesParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// A list of the business entity's invoices.
+        /// </returns>
+        public Pager<Invoice> ListBusinessEntityInvoices(string businessEntityId, ListBusinessEntityInvoicesParams optionalParams = null, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "business_entity_id", businessEntityId } };
+            var queryParams = (optionalParams ?? new ListBusinessEntityInvoicesParams()).ToDictionary();
+            var url = this.InterpolatePath("/business_entities/{business_entity_id}/invoices", urlParams);
+            return Pager<Invoice>.Build(url, queryParams, options, this);
+        }
+
+
 
 
     }

@@ -19,6 +19,10 @@ namespace Recurly.Resources
         [JsonProperty("currency")]
         public string Currency { get; set; }
 
+        /// <value>This field is deprecated. Please do not use it.</value>
+        [JsonProperty("tax_inclusive")]
+        public bool? TaxInclusive { get; set; }
+
         /// <value>Allows up to 2 decimal places. Required unless `unit_amount_decimal` is provided.</value>
         [JsonProperty("unit_amount")]
         public decimal? UnitAmount { get; set; }

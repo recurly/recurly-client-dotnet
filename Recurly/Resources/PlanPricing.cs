@@ -23,7 +23,11 @@ namespace Recurly.Resources
         [JsonProperty("setup_fee")]
         public decimal? SetupFee { get; set; }
 
-        /// <value>Unit price</value>
+        /// <value>This field is deprecated. Please do not use it.</value>
+        [JsonProperty("tax_inclusive")]
+        public bool? TaxInclusive { get; set; }
+
+        /// <value>This field should not be sent when the pricing model is 'ramp'.</value>
         [JsonProperty("unit_amount")]
         public decimal? UnitAmount { get; set; }
 

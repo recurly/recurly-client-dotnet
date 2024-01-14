@@ -164,6 +164,11 @@ namespace Recurly.Errors
                     {
                         Error = err
                     };
+                case Constants.ErrorType.TaxServiceError:
+                    return new TaxService(err.Message)
+                    {
+                        Error = err
+                    };
                 case Constants.ErrorType.Transaction:
                     return new Transaction(err.Message)
                     {

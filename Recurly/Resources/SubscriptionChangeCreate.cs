@@ -54,9 +54,26 @@ namespace Recurly.Resources
         [JsonProperty("custom_fields")]
         public List<CustomField> CustomFields { get; set; }
 
-        /// <value>Integer representing the number of days after an invoice's creation that the invoice will become past due. If an invoice's net terms are set to '0', it is due 'On Receipt' and will become past due 24 hours after it’s created. If an invoice is due net 30, it will become past due at 31 days exactly.</value>
+        /// <value>
+        /// Integer normally paired with `Net Terms Type` and representing the number of days past
+        /// the current date (for `net` Net Terms Type) or days after the last day of the current
+        /// month (for `eom` Net Terms Type) that the invoice will become past due. During a subscription
+        /// change, it's not necessary to provide both the `Net Terms Type` and `Net Terms` parameters.
+        /// 
+        /// For more information please visit our docs page (https://docs.recurly.com/docs/manual-payments#section-collection-terms)</value>
         [JsonProperty("net_terms")]
         public int? NetTerms { get; set; }
+
+        /// <value>
+        /// Optionally supplied string that may be either `net` or `eom` (end-of-month).
+        /// When `net`, an invoice becomes past due the specified number of `Net Terms` days from the current date.
+        /// When `eom` an invoice becomes past due the specified number of `Net Terms` days from the last day of the current month.
+        /// 
+        /// This field is only available when the EOM Net Terms feature is enabled.
+        /// </value>
+        [JsonProperty("net_terms_type")]
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.NetTermsType? NetTermsType { get; set; }
 
         /// <value>If you want to change to a new plan, you can provide the plan's code or id. If both are provided the `plan_id` will be used.</value>
         [JsonProperty("plan_code")]
@@ -74,6 +91,10 @@ namespace Recurly.Resources
         [JsonProperty("quantity")]
         public int? Quantity { get; set; }
 
+        /// <value>The new set of ramp intervals for the subscription.</value>
+        [JsonProperty("ramp_intervals")]
+        public List<SubscriptionRampInterval> RampIntervals { get; set; }
+
         /// <value>Revenue schedule type</value>
         [JsonProperty("revenue_schedule_type")]
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
@@ -82,6 +103,10 @@ namespace Recurly.Resources
         /// <value>Shipping addresses are tied to a customer's account. Each account can have up to 20 different shipping addresses, and if you have enabled multiple subscriptions per account, you can associate different shipping addresses to each subscription.</value>
         [JsonProperty("shipping")]
         public SubscriptionChangeShippingCreate Shipping { get; set; }
+
+        /// <value>This field is deprecated. Please do not use it.</value>
+        [JsonProperty("tax_inclusive")]
+        public bool? TaxInclusive { get; set; }
 
         /// <value>The timeframe parameter controls when the upgrade or downgrade takes place. The subscription change can occur now, when the subscription is next billed, or when the subscription term ends. Generally, if you're performing an upgrade, you will want the change to occur immediately (now). If you're performing a downgrade, you should set the timeframe to `term_end` or `bill_date` so the change takes effect at a scheduled billing date. The `renewal` timeframe option is accepted as an alias for `term_end`.</value>
         [JsonProperty("timeframe")]

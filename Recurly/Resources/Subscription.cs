@@ -19,9 +19,17 @@ namespace Recurly.Resources
         [JsonProperty("account")]
         public AccountMini Account { get; set; }
 
+        /// <value>Action result params to be used in Recurly-JS to complete a payment when using asynchronous payment methods, e.g., Boleto, iDEAL and Sofort.</value>
+        [JsonProperty("action_result")]
+        public Dictionary<string, string> ActionResult { get; set; }
+
         /// <value>Activated at</value>
         [JsonProperty("activated_at")]
         public DateTime? ActivatedAt { get; set; }
+
+        /// <value>The invoice ID of the latest invoice created for an active subscription.</value>
+        [JsonProperty("active_invoice_id")]
+        public string ActiveInvoiceId { get; set; }
 
         /// <value>Add-ons</value>
         [JsonProperty("add_ons")]
@@ -51,6 +59,10 @@ namespace Recurly.Resources
         [JsonProperty("collection_method")]
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
         public Constants.CollectionMethod? CollectionMethod { get; set; }
+
+        /// <value>When the subscription was converted from a gift card.</value>
+        [JsonProperty("converted_at")]
+        public DateTime? ConvertedAt { get; set; }
 
         /// <value>Returns subscription level coupon redemptions that are tied to this subscription.</value>
         [JsonProperty("coupon_redemptions")]
@@ -104,9 +116,33 @@ namespace Recurly.Resources
         [JsonProperty("id")]
         public string Id { get; set; }
 
-        /// <value>Integer representing the number of days after an invoice's creation that the invoice will become past due. If an invoice's net terms are set to '0', it is due 'On Receipt' and will become past due 24 hours after it’s created. If an invoice is due net 30, it will become past due at 31 days exactly.</value>
+        /// <value>
+        /// Integer paired with `Net Terms Type` and representing the number
+        /// of days past the current date (for `net` Net Terms Type) or days after
+        /// the last day of the current month (for `eom` Net Terms Type) that the
+        /// invoice will become past due. For any value, an additional 24 hours is
+        /// added to ensure the customer has the entire last day to make payment before
+        /// becoming past due.  For example:
+        /// 
+        /// If an invoice is due `net 0`, it is due 'On Receipt' and will become past due 24 hours after it's created.
+        /// If an invoice is due `net 30`, it will become past due at 31 days exactly.
+        /// If an invoice is due `eom 30`, it will become past due 31 days from the last day of the current month.
+        /// 
+        /// When `eom` Net Terms Type is passed, the value for `Net Terms` is restricted to `0, 15, 30, 45, 60, or 90`.
+        /// For more information please visit our docs page (https://docs.recurly.com/docs/manual-payments#section-collection-terms)</value>
         [JsonProperty("net_terms")]
         public int? NetTerms { get; set; }
+
+        /// <value>
+        /// Optionally supplied string that may be either `net` or `eom` (end-of-month).
+        /// When `net`, an invoice becomes past due the specified number of `Net Terms` days from the current date.
+        /// When `eom` an invoice becomes past due the specified number of `Net Terms` days from the last day of the current month.
+        /// 
+        /// This field is only available when the EOM Net Terms feature is enabled.
+        /// </value>
+        [JsonProperty("net_terms_type")]
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.NetTermsType? NetTermsType { get; set; }
 
         /// <value>Object type</value>
         [JsonProperty("object")]
@@ -132,6 +168,10 @@ namespace Recurly.Resources
         [JsonProperty("quantity")]
         public int? Quantity { get; set; }
 
+        /// <value>The ramp intervals representing the pricing schedule for the subscription.</value>
+        [JsonProperty("ramp_intervals")]
+        public List<SubscriptionRampIntervalResponse> RampIntervals { get; set; }
+
         /// <value>The remaining billing cycles in the current term.</value>
         [JsonProperty("remaining_billing_cycles")]
         public int? RemainingBillingCycles { get; set; }
@@ -153,6 +193,10 @@ namespace Recurly.Resources
         [JsonProperty("shipping")]
         public SubscriptionShipping Shipping { get; set; }
 
+        /// <value>Whether the subscription was started with a gift certificate.</value>
+        [JsonProperty("started_with_gift")]
+        public bool? StartedWithGift { get; set; }
+
         /// <value>State</value>
         [JsonProperty("state")]
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
@@ -162,11 +206,15 @@ namespace Recurly.Resources
         [JsonProperty("subtotal")]
         public decimal? Subtotal { get; set; }
 
-        /// <value>Estimated tax</value>
+        /// <value>Only for merchants using Recurly's In-The-Box taxes.</value>
         [JsonProperty("tax")]
         public decimal? Tax { get; set; }
 
-        /// <value>Tax info</value>
+        /// <value>Determines whether or not tax is included in the unit amount. The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing feature) must be enabled to utilize this flag.</value>
+        [JsonProperty("tax_inclusive")]
+        public bool? TaxInclusive { get; set; }
+
+        /// <value>Only for merchants using Recurly's In-The-Box taxes.</value>
         [JsonProperty("tax_info")]
         public TaxInfo TaxInfo { get; set; }
 

@@ -43,6 +43,10 @@ namespace Recurly.Resources
         [JsonProperty("avalara_transaction_type")]
         public int? AvalaraTransactionType { get; set; }
 
+        /// <value>The UUID of the account responsible for originating the line item.</value>
+        [JsonProperty("bill_for_account_id")]
+        public string BillForAccountId { get; set; }
+
         /// <value>When the line item was created.</value>
         [JsonProperty("created_at")]
         public DateTime? CreatedAt { get; set; }
@@ -60,6 +64,10 @@ namespace Recurly.Resources
         [JsonProperty("currency")]
         public string Currency { get; set; }
 
+        /// <value>The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.</value>
+        [JsonProperty("custom_fields")]
+        public List<CustomField> CustomFields { get; set; }
+
         /// <value>Description that appears on the invoice. For subscription related items this will be filled in automatically.</value>
         [JsonProperty("description")]
         public string Description { get; set; }
@@ -72,7 +80,7 @@ namespace Recurly.Resources
         [JsonProperty("end_date")]
         public DateTime? EndDate { get; set; }
 
-        /// <value>Optional Stock Keeping Unit assigned to an item. Available when the Credit Invoices and Subscription Billing Terms features are enabled.</value>
+        /// <value>Optional Stock Keeping Unit assigned to an item. Available when the Credit Invoices feature is enabled.</value>
         [JsonProperty("external_sku")]
         public string ExternalSku { get; set; }
 
@@ -88,11 +96,11 @@ namespace Recurly.Resources
         [JsonProperty("invoice_number")]
         public string InvoiceNumber { get; set; }
 
-        /// <value>Unique code to identify an item. Available when the Credit Invoices and Subscription Billing Terms features are enabled.</value>
+        /// <value>Unique code to identify an item. Available when the Credit Invoices feature is enabled.</value>
         [JsonProperty("item_code")]
         public string ItemCode { get; set; }
 
-        /// <value>System-generated unique identifier for an item. Available when the Credit Invoices and Subscription Billing Terms features are enabled.</value>
+        /// <value>System-generated unique identifier for an item. Available when the Credit Invoices feature is enabled.</value>
         [JsonProperty("item_id")]
         public string ItemId { get; set; }
 
@@ -144,6 +152,10 @@ namespace Recurly.Resources
         [JsonProperty("quantity")]
         public int? Quantity { get; set; }
 
+        /// <value>A floating-point alternative to Quantity. If this value is present, it will be used in place of Quantity for calculations, and Quantity will be the rounded integer value of this number. This field supports up to 9 decimal places. The Decimal Quantity feature must be enabled to utilize this field.</value>
+        [JsonProperty("quantity_decimal")]
+        public string QuantityDecimal { get; set; }
+
         /// <value>Refund?</value>
         [JsonProperty("refund")]
         public bool? Refund { get; set; }
@@ -151,6 +163,10 @@ namespace Recurly.Resources
         /// <value>For refund charges, the quantity being refunded. For non-refund charges, the total quantity refunded (possibly over multiple refunds).</value>
         [JsonProperty("refunded_quantity")]
         public int? RefundedQuantity { get; set; }
+
+        /// <value>A floating-point alternative to Refunded Quantity. For refund charges, the quantity being refunded. For non-refund charges, the total quantity refunded (possibly over multiple refunds). The Decimal Quantity feature must be enabled to utilize this field.</value>
+        [JsonProperty("refunded_quantity_decimal")]
+        public string RefundedQuantityDecimal { get; set; }
 
         /// <value>Revenue schedule type</value>
         [JsonProperty("revenue_schedule_type")]
@@ -190,7 +206,11 @@ namespace Recurly.Resources
         [JsonProperty("tax_exempt")]
         public bool? TaxExempt { get; set; }
 
-        /// <value>Tax info</value>
+        /// <value>Determines whether or not tax is included in the unit amount. The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing feature) must be enabled to utilize this flag.</value>
+        [JsonProperty("tax_inclusive")]
+        public bool? TaxInclusive { get; set; }
+
+        /// <value>Only for merchants using Recurly's In-The-Box taxes.</value>
         [JsonProperty("tax_info")]
         public TaxInfo TaxInfo { get; set; }
 

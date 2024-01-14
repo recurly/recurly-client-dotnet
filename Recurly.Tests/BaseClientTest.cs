@@ -36,6 +36,24 @@ namespace Recurly.Tests
         }
 
         [Fact]
+        public void DefaultsToUSRegionWithoutClientOptions()
+        {
+            var client = new MockClient("myapikey");
+            Assert.Equal("https://v3.recurly.com/", client.RestClient.BaseUrl.AbsoluteUri);
+        }
+
+        [Fact]
+        public void CanInitializeWithEUSDataCenter()
+        {
+            var options = new ClientOptions()
+            {
+                Region = ClientOptions.Regions.EU
+            };
+            var client = new MockClient("myapikey", options);
+            Assert.Equal("https://v3.eu.recurly.com/", client.RestClient.BaseUrl.AbsoluteUri);
+        }
+
+        [Fact]
         public void CanProperlyFetchAResource()
         {
             var client = MockClient.Build(SuccessResponse(System.Net.HttpStatusCode.OK));
@@ -163,6 +181,23 @@ namespace Recurly.Tests
             client.AddEventHandler(mockHandler.Object);
             MyResource resource = client.GetResource("benjamin", "param1", new DateTime());
             Assert.Equal("benjamin", resource.MyString);
+        }
+
+        [Fact]
+        public async void WillTriggerHookIfAvailableAsync()
+        {
+            var client = MockClient.Build(SuccessResponse(System.Net.HttpStatusCode.OK));
+            var mockHandler = new Mock<IEventHandler>();
+            mockHandler
+              .Setup(x => x.OnRequest(It.IsAny<Recurly.Http.Request>()));
+            mockHandler
+              .Setup(x => x.OnResponse(It.IsAny<Recurly.Http.Response>()));
+            client.AddEventHandler(mockHandler.Object);
+            MyResource resource = await client.GetResourceAsync("benjamin", "param1", new DateTime());
+
+            Assert.Equal("benjamin", resource.MyString);
+            mockHandler.Verify(v => v.OnRequest(It.IsAny<Recurly.Http.Request>()), Times.Once());
+            mockHandler.Verify(v => v.OnResponse(It.IsAny<Recurly.Http.Response>()), Times.Once());
         }
 
         private Mock<IRestResponse<MyResource>> SuccessResponse(System.Net.HttpStatusCode status)

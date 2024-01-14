@@ -15,7 +15,7 @@ namespace Recurly.Resources
     public class Usage : Resource
     {
 
-        /// <value>The amount of usage. Can be positive, negative, or 0. No decimals allowed, we will strip them. If the usage-based add-on is billed with a percentage, your usage will be a monetary amount you will want to format in cents. (e.g., $5.00 is "500").</value>
+        /// <value>The amount of usage. Can be positive, negative, or 0. If the Decimal Quantity feature is enabled, this value will be rounded to nine decimal places.  Otherwise, all digits after the decimal will be stripped. If the usage-based add-on is billed with a percentage, your usage should be a monetary amount formatted in cents (e.g., $5.00 is "500").</value>
         [JsonProperty("amount")]
         public decimal? Amount { get; set; }
 
@@ -43,6 +43,10 @@ namespace Recurly.Resources
         [JsonProperty("object")]
         public string Object { get; set; }
 
+        /// <value>The percentage tiers of the subscription based on the usage_timestamp. If tier_type = flat, percentage_tiers = []. This feature is currently in development and requires approval and enablement, please contact support.</value>
+        [JsonProperty("percentage_tiers")]
+        public List<SubscriptionAddOnPercentageTier> PercentageTiers { get; set; }
+
         /// <value>When the usage was recorded in your system.</value>
         [JsonProperty("recording_timestamp")]
         public DateTime? RecordingTimestamp { get; set; }
@@ -50,14 +54,14 @@ namespace Recurly.Resources
         /// <value>
         /// The pricing model for the add-on.  For more information,
         /// [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based). See our
-        /// [Guide](https://developers.recurly.com/guides/item-addon-guide.html) for an overview of how
+        /// [Guide](https://recurly.com/developers/guides/item-addon-guide.html) for an overview of how
         /// to configure quantity-based pricing models.
         /// </value>
         [JsonProperty("tier_type")]
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
         public Constants.TierType? TierType { get; set; }
 
-        /// <value>The tiers and prices of the subscription based on the usage_timestamp. If tier_type = flat, tiers = null</value>
+        /// <value>The tiers and prices of the subscription based on the usage_timestamp. If tier_type = flat, tiers = []</value>
         [JsonProperty("tiers")]
         public List<SubscriptionAddOnTier> Tiers { get; set; }
 

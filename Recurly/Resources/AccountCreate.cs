@@ -48,7 +48,7 @@ namespace Recurly.Resources
         [JsonProperty("custom_fields")]
         public List<CustomField> CustomFields { get; set; }
 
-        /// <value>Unique ID to identify a dunning campaign. Available when the Dunning Campaigns feature is enabled. Used to specify if a non-default dunning campaign should be assigned to this account. For sites without multiple dunning campaigns enabled, the default dunning campaign will always be used.</value>
+        /// <value>Unique ID to identify a dunning campaign. Used to specify if a non-default dunning campaign should be assigned to this account. For sites without multiple dunning campaigns enabled, the default dunning campaign will always be used.</value>
         [JsonProperty("dunning_campaign_id")]
         public string DunningCampaignId { get; set; }
 
@@ -60,13 +60,25 @@ namespace Recurly.Resources
         [JsonProperty("exemption_certificate")]
         public string ExemptionCertificate { get; set; }
 
+        /// <value>External Accounts</value>
+        [JsonProperty("external_accounts")]
+        public List<ExternalAccountCreate> ExternalAccounts { get; set; }
+
 
         [JsonProperty("first_name")]
         public string FirstName { get; set; }
 
+        /// <value>Unique ID to identify an invoice template.  Available when the site is on a Pro or Elite plan.  Used to specify which invoice template, if any, should be used to generate invoices for the account.</value>
+        [JsonProperty("invoice_template_id")]
+        public string InvoiceTemplateId { get; set; }
+
 
         [JsonProperty("last_name")]
         public string LastName { get; set; }
+
+        /// <value>Unique ID to identify the business entity assigned to the account. Available when the `Multiple Business Entities` feature is enabled.</value>
+        [JsonProperty("override_business_entity_id")]
+        public string OverrideBusinessEntityId { get; set; }
 
         /// <value>The account code of the parent account to be associated with this account. Passing an empty value removes any existing parent association from this account. If both `parent_account_code` and `parent_account_id` are passed, the non-blank value in `parent_account_id` will be used. Only one level of parent child relationship is allowed. You cannot assign a parent account that itself has a parent account.</value>
         [JsonProperty("parent_account_code")]
@@ -80,6 +92,10 @@ namespace Recurly.Resources
         [JsonProperty("preferred_locale")]
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
         public Constants.PreferredLocale? PreferredLocale { get; set; }
+
+        /// <value>Used to determine the time zone of emails sent on behalf of the merchant to the customer. Must be a [supported IANA time zone name](https://docs.recurly.com/docs/email-time-zones-and-time-stamps#supported-api-iana-time-zone-names)</value>
+        [JsonProperty("preferred_time_zone")]
+        public string PreferredTimeZone { get; set; }
 
 
         [JsonProperty("shipping_addresses")]

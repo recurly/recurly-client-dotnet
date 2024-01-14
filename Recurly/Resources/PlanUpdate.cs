@@ -43,15 +43,19 @@ namespace Recurly.Resources
         [JsonProperty("code")]
         public string Code { get; set; }
 
-        /// <value>Pricing</value>
+        /// <value>Optional when the pricing model is 'ramp'.</value>
         [JsonProperty("currencies")]
         public List<PlanPricing> Currencies { get; set; }
+
+        /// <value>The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.</value>
+        [JsonProperty("custom_fields")]
+        public List<CustomField> CustomFields { get; set; }
 
         /// <value>Optional description, not displayed.</value>
         [JsonProperty("description")]
         public string Description { get; set; }
 
-        /// <value>Unique ID to identify a dunning campaign. Available when the Dunning Campaigns feature is enabled. Used to specify if a non-default dunning campaign should be assigned to this plan. For sites without multiple dunning campaigns enabled, the default dunning campaign will always be used.</value>
+        /// <value>Unique ID to identify a dunning campaign. Used to specify if a non-default dunning campaign should be assigned to this plan. For sites without multiple dunning campaigns enabled, the default dunning campaign will always be used.</value>
         [JsonProperty("dunning_campaign_id")]
         public string DunningCampaignId { get; set; }
 
@@ -66,6 +70,10 @@ namespace Recurly.Resources
         /// <value>This name describes your plan and will appear on the Hosted Payment Page and the subscriber's invoice.</value>
         [JsonProperty("name")]
         public string Name { get; set; }
+
+        /// <value>Ramp Intervals</value>
+        [JsonProperty("ramp_intervals")]
+        public List<PlanRampInterval> RampIntervals { get; set; }
 
         /// <value>Revenue schedule type</value>
         [JsonProperty("revenue_schedule_type")]

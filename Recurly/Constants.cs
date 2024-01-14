@@ -14,6 +14,18 @@ namespace Recurly
     namespace Constants
     {
 
+        public enum ExternalProductReferenceConnectionType
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "apple_app_store")]
+            AppleAppStore,
+
+            [EnumMember(Value = "google_play_store")]
+            GooglePlayStore,
+
+        };
+
         public enum RelatedType
         {
             Undefined = 0,
@@ -24,8 +36,14 @@ namespace Recurly
             [EnumMember(Value = "item")]
             Item,
 
+            [EnumMember(Value = "plan")]
+            Plan,
+
             [EnumMember(Value = "subscription")]
             Subscription,
+
+            [EnumMember(Value = "charge")]
+            Charge,
 
         };
 
@@ -77,6 +95,18 @@ namespace Recurly
 
             [EnumMember(Value = "percentage")]
             Percentage,
+
+        };
+
+        public enum UsageCalculationType
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "cumulative")]
+            Cumulative,
+
+            [EnumMember(Value = "last_in_period")]
+            LastInPeriod,
 
         };
 
@@ -140,6 +170,24 @@ namespace Recurly
 
             [EnumMember(Value = "live")]
             Live,
+
+        };
+
+        public enum FilterLimitedSubscriptionState
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "active")]
+            Active,
+
+            [EnumMember(Value = "canceled")]
+            Canceled,
+
+            [EnumMember(Value = "expired")]
+            Expired,
+
+            [EnumMember(Value = "future")]
+            Future,
 
         };
 
@@ -306,8 +354,14 @@ namespace Recurly
             [EnumMember(Value = "fi-FI")]
             FiFi,
 
+            [EnumMember(Value = "fr-BE")]
+            FrBe,
+
             [EnumMember(Value = "fr-CA")]
             FrCa,
+
+            [EnumMember(Value = "fr-CH")]
+            FrCh,
 
             [EnumMember(Value = "fr-FR")]
             FrFr,
@@ -330,6 +384,9 @@ namespace Recurly
             [EnumMember(Value = "nl-NL")]
             NlNl,
 
+            [EnumMember(Value = "pl-PL")]
+            PlPl,
+
             [EnumMember(Value = "pt-BR")]
             PtBr,
 
@@ -344,6 +401,9 @@ namespace Recurly
 
             [EnumMember(Value = "sk-SK")]
             SkSk,
+
+            [EnumMember(Value = "sv-SE")]
+            SvSe,
 
             [EnumMember(Value = "tr-TR")]
             TrTr,
@@ -362,6 +422,18 @@ namespace Recurly
 
             [EnumMember(Value = "self")]
             Self,
+
+        };
+
+        public enum DeliveryMethod
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "email")]
+            Email,
+
+            [EnumMember(Value = "post")]
+            Post,
 
         };
 
@@ -560,6 +632,30 @@ namespace Recurly
 
         };
 
+        public enum UsageTimeframe
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "billing_period")]
+            BillingPeriod,
+
+            [EnumMember(Value = "subscription_term")]
+            SubscriptionTerm,
+
+        };
+
+        public enum UsageTimeframeCreate
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "billing_period")]
+            BillingPeriod,
+
+            [EnumMember(Value = "subscription_term")]
+            SubscriptionTerm,
+
+        };
+
         public enum CreditPaymentAction
         {
             Undefined = 0,
@@ -591,6 +687,21 @@ namespace Recurly
             [EnumMember(Value = "write")]
             Write,
 
+            [EnumMember(Value = "set_only")]
+            SetOnly,
+
+        };
+
+        public enum PricingModelType
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "fixed")]
+            Fixed,
+
+            [EnumMember(Value = "ramp")]
+            Ramp,
+
         };
 
         public enum RevenueScheduleType
@@ -608,6 +719,18 @@ namespace Recurly
 
             [EnumMember(Value = "never")]
             Never,
+
+        };
+
+        public enum NetTermsType
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "net")]
+            Net,
+
+            [EnumMember(Value = "eom")]
+            Eom,
 
         };
 
@@ -756,6 +879,9 @@ namespace Recurly
         {
             Undefined = 0,
 
+            [EnumMember(Value = "bacs")]
+            Bacs,
+
             [EnumMember(Value = "ach")]
             Ach,
 
@@ -773,6 +899,9 @@ namespace Recurly
 
             [EnumMember(Value = "eft")]
             Eft,
+
+            [EnumMember(Value = "google_pay")]
+            GooglePay,
 
             [EnumMember(Value = "money_order")]
             MoneyOrder,
@@ -1071,6 +1200,9 @@ namespace Recurly
             [EnumMember(Value = "chargeback")]
             Chargeback,
 
+            [EnumMember(Value = "external_recovery")]
+            ExternalRecovery,
+
             [EnumMember(Value = "force_collect")]
             ForceCollect,
 
@@ -1263,6 +1395,9 @@ namespace Recurly
         {
             Undefined = 0,
 
+            [EnumMember(Value = "bacs")]
+            Bacs,
+
             [EnumMember(Value = "amazon")]
             Amazon,
 
@@ -1287,6 +1422,9 @@ namespace Recurly
             [EnumMember(Value = "gateway_token")]
             GatewayToken,
 
+            [EnumMember(Value = "google_pay")]
+            GooglePay,
+
             [EnumMember(Value = "iban_bank_account")]
             IbanBankAccount,
 
@@ -1308,11 +1446,17 @@ namespace Recurly
             [EnumMember(Value = "sepadirectdebit")]
             Sepadirectdebit,
 
+            [EnumMember(Value = "venmo")]
+            Venmo,
+
             [EnumMember(Value = "wire_transfer")]
             WireTransfer,
 
             [EnumMember(Value = "braintree_v_zero")]
             BraintreeVZero,
+
+            [EnumMember(Value = "boleto")]
+            Boleto,
 
         };
 
@@ -1332,8 +1476,14 @@ namespace Recurly
             [EnumMember(Value = "Discover")]
             Discover,
 
+            [EnumMember(Value = "ELO")]
+            Elo,
+
             [EnumMember(Value = "Forbrugsforeningen")]
             Forbrugsforeningen,
+
+            [EnumMember(Value = "Hipercard")]
+            Hipercard,
 
             [EnumMember(Value = "JCB")]
             Jcb,
@@ -1418,6 +1568,9 @@ namespace Recurly
 
             [EnumMember(Value = "simultaneous_request")]
             SimultaneousRequest,
+
+            [EnumMember(Value = "tax_service_error")]
+            TaxServiceError,
 
             [EnumMember(Value = "transaction")]
             Transaction,
@@ -1577,6 +1730,9 @@ namespace Recurly
 
             [EnumMember(Value = "billing_agreement_not_found")]
             BillingAgreementNotFound,
+
+            [EnumMember(Value = "billing_agreement_replaced")]
+            BillingAgreementReplaced,
 
             [EnumMember(Value = "call_issuer")]
             CallIssuer,
@@ -1767,6 +1923,9 @@ namespace Recurly
             [EnumMember(Value = "issuer_unavailable")]
             IssuerUnavailable,
 
+            [EnumMember(Value = "lifecycle_decline")]
+            LifecycleDecline,
+
             [EnumMember(Value = "merch_max_transaction_limit_exceeded")]
             MerchMaxTransactionLimitExceeded,
 
@@ -1887,8 +2046,14 @@ namespace Recurly
             [EnumMember(Value = "three_d_secure_connection_error")]
             ThreeDSecureConnectionError,
 
+            [EnumMember(Value = "three_d_secure_credential_error")]
+            ThreeDSecureCredentialError,
+
             [EnumMember(Value = "three_d_secure_not_supported")]
             ThreeDSecureNotSupported,
+
+            [EnumMember(Value = "too_busy")]
+            TooBusy,
 
             [EnumMember(Value = "too_many_attempts")]
             TooManyAttempts,
@@ -1949,12 +2114,108 @@ namespace Recurly
 
         };
 
+        public enum DeclineCode
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "account_closed")]
+            AccountClosed,
+
+            [EnumMember(Value = "call_issuer")]
+            CallIssuer,
+
+            [EnumMember(Value = "card_not_activated")]
+            CardNotActivated,
+
+            [EnumMember(Value = "card_not_supported")]
+            CardNotSupported,
+
+            [EnumMember(Value = "cardholder_requested_stop")]
+            CardholderRequestedStop,
+
+            [EnumMember(Value = "do_not_honor")]
+            DoNotHonor,
+
+            [EnumMember(Value = "do_not_try_again")]
+            DoNotTryAgain,
+
+            [EnumMember(Value = "exceeds_daily_limit")]
+            ExceedsDailyLimit,
+
+            [EnumMember(Value = "generic_decline")]
+            GenericDecline,
+
+            [EnumMember(Value = "expired_card")]
+            ExpiredCard,
+
+            [EnumMember(Value = "fraudulent")]
+            Fraudulent,
+
+            [EnumMember(Value = "insufficient_funds")]
+            InsufficientFunds,
+
+            [EnumMember(Value = "incorrect_address")]
+            IncorrectAddress,
+
+            [EnumMember(Value = "incorrect_security_code")]
+            IncorrectSecurityCode,
+
+            [EnumMember(Value = "invalid_amount")]
+            InvalidAmount,
+
+            [EnumMember(Value = "invalid_number")]
+            InvalidNumber,
+
+            [EnumMember(Value = "invalid_transaction")]
+            InvalidTransaction,
+
+            [EnumMember(Value = "issuer_unavailable")]
+            IssuerUnavailable,
+
+            [EnumMember(Value = "lifecycle_decline")]
+            LifecycleDecline,
+
+            [EnumMember(Value = "lost_card")]
+            LostCard,
+
+            [EnumMember(Value = "pickup_card")]
+            PickupCard,
+
+            [EnumMember(Value = "policy_decline")]
+            PolicyDecline,
+
+            [EnumMember(Value = "restricted_card")]
+            RestrictedCard,
+
+            [EnumMember(Value = "restricted_card_chargeback")]
+            RestrictedCardChargeback,
+
+            [EnumMember(Value = "security_decline")]
+            SecurityDecline,
+
+            [EnumMember(Value = "stolen_card")]
+            StolenCard,
+
+            [EnumMember(Value = "try_again")]
+            TryAgain,
+
+            [EnumMember(Value = "update_cardholder_data")]
+            UpdateCardholderData,
+
+            [EnumMember(Value = "requires_3d_secure")]
+            Requires3dSecure,
+
+        };
+
         public enum TaxIdentifierType
         {
             Undefined = 0,
 
             [EnumMember(Value = "cpf")]
             Cpf,
+
+            [EnumMember(Value = "cnpj")]
+            Cnpj,
 
             [EnumMember(Value = "cuit")]
             Cuit,
@@ -1973,6 +2234,60 @@ namespace Recurly
 
             [EnumMember(Value = "trial")]
             Trial,
+
+        };
+
+        public enum AchType
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "bacs")]
+            Bacs,
+
+            [EnumMember(Value = "becs")]
+            Becs,
+
+        };
+
+        public enum AchAccountType
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "checking")]
+            Checking,
+
+            [EnumMember(Value = "savings")]
+            Savings,
+
+        };
+
+        public enum ExternalHppType
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "adyen")]
+            Adyen,
+
+        };
+
+        public enum OnlineBankingPaymentType
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "ideal")]
+            Ideal,
+
+            [EnumMember(Value = "sofort")]
+            Sofort,
+
+        };
+
+        public enum ExternalInvoiceState
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "paid")]
+            Paid,
 
         };
 

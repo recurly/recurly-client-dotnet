@@ -43,6 +43,10 @@ namespace Recurly.Resources
         [JsonProperty("quantity")]
         public int? Quantity { get; set; }
 
+        /// <value>The new set of ramp intervals for the subscription.</value>
+        [JsonProperty("ramp_intervals")]
+        public List<SubscriptionRampInterval> RampIntervals { get; set; }
+
         /// <value>If `auto_renew=true`, when a term completes, `total_billing_cycles` takes this value as the length of subsequent terms. Defaults to the plan's `total_billing_cycles`.</value>
         [JsonProperty("renewal_billing_cycles")]
         public int? RenewalBillingCycles { get; set; }
@@ -59,6 +63,10 @@ namespace Recurly.Resources
         /// <value>If set, the subscription will begin in the future on this date. The subscription will apply the setup fee and trial period, unless the plan has no trial.</value>
         [JsonProperty("starts_at")]
         public DateTime? StartsAt { get; set; }
+
+        /// <value>Determines whether or not tax is included in the unit amount. The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing feature) must be enabled to use this flag.</value>
+        [JsonProperty("tax_inclusive")]
+        public bool? TaxInclusive { get; set; }
 
         /// <value>The number of cycles/billing periods in a term. When `remaining_billing_cycles=0`, if `auto_renew=true` the subscription will renew and a new term will begin, otherwise the subscription will expire.</value>
         [JsonProperty("total_billing_cycles")]

@@ -25,6 +25,11 @@ namespace Recurly.Resources
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
         public Constants.ErrorCode? Code { get; set; }
 
+        /// <value>Decline code</value>
+        [JsonProperty("decline_code")]
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.DeclineCode? DeclineCode { get; set; }
+
         /// <value>Merchant message</value>
         [JsonProperty("merchant_advice")]
         public string MerchantAdvice { get; set; }

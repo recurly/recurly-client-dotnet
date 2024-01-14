@@ -27,7 +27,7 @@ namespace Recurly.Resources
         [JsonProperty("auto_renew")]
         public bool? AutoRenew { get; set; }
 
-        /// <value>The `billing_info_id` is the value that represents a specific billing info for an end customer. When `billing_info_id` is used to assign billing info to the subscription, all future billing events for the subscription will bill to the specified billing info.</value>
+        /// <value>The `billing_info_id` is the value that represents a specific billing info for an end customer. When `billing_info_id` is used to assign billing info to the subscription, all future billing events for the subscription will bill to the specified billing info. `billing_info_id` can ONLY be used for sites utilizing the Wallet feature.</value>
         [JsonProperty("billing_info_id")]
         public string BillingInfoId { get; set; }
 
@@ -56,9 +56,41 @@ namespace Recurly.Resources
         [JsonProperty("customer_notes")]
         public string CustomerNotes { get; set; }
 
-        /// <value>Integer representing the number of days after an invoice's creation that the invoice will become past due. If an invoice's net terms are set to '0', it is due 'On Receipt' and will become past due 24 hours after it’s created. If an invoice is due net 30, it will become past due at 31 days exactly.</value>
+        /// <value>If present, this subscription's transactions will use the payment gateway with this code.</value>
+        [JsonProperty("gateway_code")]
+        public string GatewayCode { get; set; }
+
+        /// <value>A gift card redemption code to be redeemed on the purchase invoice.</value>
+        [JsonProperty("gift_card_redemption_code")]
+        public string GiftCardRedemptionCode { get; set; }
+
+        /// <value>
+        /// Integer paired with `Net Terms Type` and representing the number
+        /// of days past the current date (for `net` Net Terms Type) or days after
+        /// the last day of the current month (for `eom` Net Terms Type) that the
+        /// invoice will become past due. For any value, an additional 24 hours is
+        /// added to ensure the customer has the entire last day to make payment before
+        /// becoming past due.  For example:
+        /// 
+        /// If an invoice is due `net 0`, it is due 'On Receipt' and will become past due 24 hours after it's created.
+        /// If an invoice is due `net 30`, it will become past due at 31 days exactly.
+        /// If an invoice is due `eom 30`, it will become past due 31 days from the last day of the current month.
+        /// 
+        /// When `eom` Net Terms Type is passed, the value for `Net Terms` is restricted to `0, 15, 30, 45, 60, or 90`.
+        /// For more information please visit our docs page (https://docs.recurly.com/docs/manual-payments#section-collection-terms)</value>
         [JsonProperty("net_terms")]
         public int? NetTerms { get; set; }
+
+        /// <value>
+        /// Optionally supplied string that may be either `net` or `eom` (end-of-month).
+        /// When `net`, an invoice becomes past due the specified number of `Net Terms` days from the current date.
+        /// When `eom` an invoice becomes past due the specified number of `Net Terms` days from the last day of the current month.
+        /// 
+        /// This field is only available when the EOM Net Terms feature is enabled.
+        /// </value>
+        [JsonProperty("net_terms_type")]
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.NetTermsType? NetTermsType { get; set; }
 
         /// <value>If present, this sets the date the subscription's next billing period will start (`current_period_ends_at`). This can be used to align the subscription’s billing to a specific day of the month. The initial invoice will be prorated for the period between the subscription's activation date and the billing period end date. Subsequent periods will be based off the plan interval. For a subscription with a trial period, this will change when the trial expires.</value>
         [JsonProperty("next_bill_date")]
@@ -80,6 +112,10 @@ namespace Recurly.Resources
         [JsonProperty("quantity")]
         public int? Quantity { get; set; }
 
+        /// <value>The new set of ramp intervals for the subscription.</value>
+        [JsonProperty("ramp_intervals")]
+        public List<SubscriptionRampInterval> RampIntervals { get; set; }
+
         /// <value>If `auto_renew=true`, when a term completes, `total_billing_cycles` takes this value as the length of subsequent terms. Defaults to the plan's `total_billing_cycles`.</value>
         [JsonProperty("renewal_billing_cycles")]
         public int? RenewalBillingCycles { get; set; }
@@ -96,6 +132,10 @@ namespace Recurly.Resources
         /// <value>If set, the subscription will begin in the future on this date. The subscription will apply the setup fee and trial period, unless the plan has no trial.</value>
         [JsonProperty("starts_at")]
         public DateTime? StartsAt { get; set; }
+
+        /// <value>Determines whether or not tax is included in the unit amount. The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing feature) must be enabled to use this flag.</value>
+        [JsonProperty("tax_inclusive")]
+        public bool? TaxInclusive { get; set; }
 
         /// <value>This will default to the Terms and Conditions text specified on the Invoice Settings page in your Recurly admin. Specify custom notes to add or override Terms and Conditions. Custom notes will stay with a subscription on all renewals.</value>
         [JsonProperty("terms_and_conditions")]

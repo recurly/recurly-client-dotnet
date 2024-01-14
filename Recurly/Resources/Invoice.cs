@@ -27,9 +27,13 @@ namespace Recurly.Resources
         [JsonProperty("balance")]
         public decimal? Balance { get; set; }
 
-        /// <value>The `billing_info_id` is the value that represents a specific billing info for an end customer. When `billing_info_id` is used to assign billing info to the subscription, all future billing events for the subscription will bill to the specified billing info.</value>
+        /// <value>The `billing_info_id` is the value that represents a specific billing info for an end customer. When `billing_info_id` is used to assign billing info to the subscription, all future billing events for the subscription will bill to the specified billing info. `billing_info_id` can ONLY be used for sites utilizing the Wallet feature.</value>
         [JsonProperty("billing_info_id")]
         public string BillingInfoId { get; set; }
+
+        /// <value>Unique ID to identify the business entity assigned to the invoice. Available when the `Multiple Business Entities` feature is enabled.</value>
+        [JsonProperty("business_entity_id")]
+        public string BusinessEntityId { get; set; }
 
         /// <value>Date invoice was marked paid or failed.</value>
         [JsonProperty("closed_at")]
@@ -64,9 +68,17 @@ namespace Recurly.Resources
         [JsonProperty("due_at")]
         public DateTime? DueAt { get; set; }
 
-        /// <value>Unique ID to identify the dunning campaign used when dunning the invoice. Available when the Dunning Campaigns feature is enabled. For sites without multiple dunning campaigns enabled, this will always be the default dunning campaign.</value>
+        /// <value>Unique ID to identify the dunning campaign used when dunning the invoice. For sites without multiple dunning campaigns enabled, this will always be the default dunning campaign.</value>
         [JsonProperty("dunning_campaign_id")]
         public string DunningCampaignId { get; set; }
+
+        /// <value>Number of times the event was sent.</value>
+        [JsonProperty("dunning_events_sent")]
+        public int? DunningEventsSent { get; set; }
+
+        /// <value>Last communication attempt.</value>
+        [JsonProperty("final_dunning_event")]
+        public bool? FinalDunningEvent { get; set; }
 
         /// <value>Identifies if the invoice has more line items than are returned in `line_items`. If `has_more_line_items` is `true`, then a request needs to be made to the `list_invoice_line_items` endpoint.</value>
         [JsonProperty("has_more_line_items")]
@@ -80,9 +92,33 @@ namespace Recurly.Resources
         [JsonProperty("line_items")]
         public List<LineItem> LineItems { get; set; }
 
-        /// <value>Integer representing the number of days after an invoice's creation that the invoice will become past due. If an invoice's net terms are set to '0', it is due 'On Receipt' and will become past due 24 hours after it’s created. If an invoice is due net 30, it will become past due at 31 days exactly.</value>
+        /// <value>
+        /// Integer paired with `Net Terms Type` and representing the number
+        /// of days past the current date (for `net` Net Terms Type) or days after
+        /// the last day of the current month (for `eom` Net Terms Type) that the
+        /// invoice will become past due. For any value, an additional 24 hours is
+        /// added to ensure the customer has the entire last day to make payment before
+        /// becoming past due.  For example:
+        /// 
+        /// If an invoice is due `net 0`, it is due 'On Receipt' and will become past due 24 hours after it's created.
+        /// If an invoice is due `net 30`, it will become past due at 31 days exactly.
+        /// If an invoice is due `eom 30`, it will become past due 31 days from the last day of the current month.
+        /// 
+        /// When `eom` Net Terms Type is passed, the value for `Net Terms` is restricted to `0, 15, 30, 45, 60, or 90`.
+        /// For more information please visit our docs page (https://docs.recurly.com/docs/manual-payments#section-collection-terms)</value>
         [JsonProperty("net_terms")]
         public int? NetTerms { get; set; }
+
+        /// <value>
+        /// Optionally supplied string that may be either `net` or `eom` (end-of-month).
+        /// When `net`, an invoice becomes past due the specified number of `Net Terms` days from the current date.
+        /// When `eom` an invoice becomes past due the specified number of `Net Terms` days from the last day of the current month.
+        /// 
+        /// This field is only available when the EOM Net Terms feature is enabled.
+        /// </value>
+        [JsonProperty("net_terms_type")]
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.NetTermsType? NetTermsType { get; set; }
 
         /// <value>If VAT taxation and the Country Invoice Sequencing feature are enabled, invoices will have country-specific invoice numbers for invoices billed to EU countries (ex: FR1001). Non-EU invoices will continue to use the site-level invoice number sequence.</value>
         [JsonProperty("number")]
@@ -105,7 +141,7 @@ namespace Recurly.Resources
         [JsonProperty("po_number")]
         public string PoNumber { get; set; }
 
-        /// <value>On refund invoices, this value will exist and show the invoice ID of the purchase invoice the refund was created from.</value>
+        /// <value>On refund invoices, this value will exist and show the invoice ID of the purchase invoice the refund was created from. This field is only populated for sites without the [Only Bill What Changed](https://docs.recurly.com/docs/only-bill-what-changed) feature enabled. Sites with Only Bill What Changed enabled should use the [related_invoices endpoint](https://recurly.com/developers/api/v2021-02-25/index.html#operation/list_related_invoices) to see purchase invoices refunded by this invoice.</value>
         [JsonProperty("previous_invoice_id")]
         public string PreviousInvoiceId { get; set; }
 
@@ -134,7 +170,7 @@ namespace Recurly.Resources
         [JsonProperty("tax")]
         public decimal? Tax { get; set; }
 
-        /// <value>Tax info</value>
+        /// <value>Only for merchants using Recurly's In-The-Box taxes.</value>
         [JsonProperty("tax_info")]
         public TaxInfo TaxInfo { get; set; }
 
@@ -158,6 +194,14 @@ namespace Recurly.Resources
         /// <value>Last updated at</value>
         [JsonProperty("updated_at")]
         public DateTime? UpdatedAt { get; set; }
+
+        /// <value>Will be `true` when the invoice had a successful response from the tax service and `false` when the invoice was not sent to tax service due to a lack of address or enabled jurisdiction or was processed without tax due to a non-blocking error returned from the tax service.</value>
+        [JsonProperty("used_tax_service")]
+        public bool? UsedTaxService { get; set; }
+
+        /// <value>Invoice UUID</value>
+        [JsonProperty("uuid")]
+        public string Uuid { get; set; }
 
         /// <value>VAT registration number for the customer on this invoice. This will come from the VAT Number field in the Billing Info or the Account Info depending on your tax settings and the invoice collection method.</value>
         [JsonProperty("vat_number")]
