@@ -70,6 +70,10 @@ namespace Recurly.Resources
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
         public Constants.CvvCheck? CvvCheck { get; set; }
 
+        /// <value>Fraud information</value>
+        [JsonProperty("fraud_info")]
+        public TransactionFraudInfo FraudInfo { get; set; }
+
         /// <value>Transaction approval code from the payment gateway.</value>
         [JsonProperty("gateway_approval_code")]
         public string GatewayApprovalCode { get; set; }

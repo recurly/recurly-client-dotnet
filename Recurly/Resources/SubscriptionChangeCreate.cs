@@ -60,7 +60,8 @@ namespace Recurly.Resources
         /// month (for `eom` Net Terms Type) that the invoice will become past due. During a subscription
         /// change, it's not necessary to provide both the `Net Terms Type` and `Net Terms` parameters.
         /// 
-        /// For more information please visit our docs page (https://docs.recurly.com/docs/manual-payments#section-collection-terms)</value>
+        /// For more information on how net terms work with `manual` collection visit our docs page (https://docs.recurly.com/docs/manual-payments#section-collection-terms)
+        /// or visit (https://docs.recurly.com/docs/automatic-invoicing-terms#section-collection-terms) for information about net terms using `automatic` collection.</value>
         [JsonProperty("net_terms")]
         public int? NetTerms { get; set; }
 
