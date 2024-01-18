@@ -1,5 +1,17 @@
 # Changelog
 
+## [4.48.0](https://github.com/recurly/recurly-client-dotnet/tree/4.48.0) (2024-01-18)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/4.47.0...4.48.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 [#812](https://github.com/recurly/recurly-client-dotnet/pull/812) ([recurly-integrations](https://github.com/recurly-integrations))
+- feat add event handlers to make request async [#811](https://github.com/recurly/recurly-client-dotnet/pull/811) ([aron-ridgway-deltatre](https://github.com/aron-ridgway-deltatre))
+
+
+
 ## [4.47.0](https://github.com/recurly/recurly-client-dotnet/tree/4.47.0) (2023-12-06)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/4.46.0...4.47.0)
