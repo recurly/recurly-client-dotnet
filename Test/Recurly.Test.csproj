@@ -158,6 +158,12 @@
     <Content Include="Fixtures\coupons\show-200.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Fixtures\general_ledger_accounts\index-200.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Fixtures\general_ledger_accounts\show-200.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Fixtures\invoices\create-201.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
