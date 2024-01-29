@@ -6,6 +6,7 @@ using System.Text;
 using System.Xml;
 using Recurly.Configuration;
 
+[assembly: InternalsVisibleTo("TestRig")]
 [assembly: InternalsVisibleTo("Recurly.Test")]
 
 namespace Recurly

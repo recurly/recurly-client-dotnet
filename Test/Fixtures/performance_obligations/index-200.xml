@@ -1,0 +1,42 @@
+HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<performance_obligations type="array">
+  <performance_obligation href="https://api.recurly.com/v2/performance_obligations/1">
+    <id>1</id>
+    <name>Material Right</name>
+    <created_at type="datetime">2024-01-29T23:02:30Z</created_at>
+    <updated_at type="datetime">2024-01-29T23:02:30Z</updated_at>
+  </performance_obligation>
+  <performance_obligation href="https://api.recurly.com/v2/performance_obligations/2">
+    <id>2</id>
+    <name>Manual Journal</name>
+    <created_at type="datetime">2024-01-29T23:02:30Z</created_at>
+    <updated_at type="datetime">2024-01-29T23:02:30Z</updated_at>
+  </performance_obligation>
+  <performance_obligation href="https://api.recurly.com/v2/performance_obligations/3">
+    <id>3</id>
+    <name>Manually Recognize</name>
+    <created_at type="datetime">2024-01-29T23:02:30Z</created_at>
+    <updated_at type="datetime">2024-01-29T23:02:30Z</updated_at>
+  </performance_obligation>
+  <performance_obligation href="https://api.recurly.com/v2/performance_obligations/4">
+    <id>4</id>
+    <name>Point in Time</name>
+    <created_at type="datetime">2024-01-29T23:02:30Z</created_at>
+    <updated_at type="datetime">2024-01-29T23:02:30Z</updated_at>
+  </performance_obligation>
+  <performance_obligation href="https://api.recurly.com/v2/performance_obligations/5">
+    <id>5</id>
+    <name>Over Time (Partial Monthly)</name>
+    <created_at type="datetime">2024-01-29T23:02:30Z</created_at>
+    <updated_at type="datetime">2024-01-29T23:02:30Z</updated_at>
+  </performance_obligation>
+  <performance_obligation href="https://api.recurly.com/v2/performance_obligations/6">
+    <id>6</id>
+    <name>Over Time (Daily)</name>
+    <created_at type="datetime">2024-01-29T23:02:30Z</created_at>
+    <updated_at type="datetime">2024-01-29T23:02:30Z</updated_at>
+  </performance_obligation>
+</performance_obligations>

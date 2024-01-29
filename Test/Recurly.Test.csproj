@@ -185,6 +185,12 @@
     <Content Include="Fixtures\notes\index-200.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Fixtures\performance_obligations\index-200.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Fixtures\performance_obligations\show-200.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Fixtures\plans\destroy-204.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
