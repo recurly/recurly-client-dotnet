@@ -77,9 +77,17 @@ namespace Recurly.Configuration
             private set { _requestTimeoutMilliseconds = value; }
         }
 
-        protected const string RecurlyServerUri = "https://{0}.recurly.com/v2{1}";
-        public const string RecurlyApiVersion = "2.99";
-        public const string ValidDomain = ".recurly.com";
+        protected string RecurlyServerUri
+        {
+            get
+            {
+                var portSuffix = Port != null ? $":{Port}" : string.Empty;
+                return "https://{0}" + ValidDomain + portSuffix + "/v2{1}";
+            }
+        }
+        public string RecurlyApiVersion = "2.29";
+        public static string ValidDomain = ".recurly.com";
+        public static int? Port { get; set; }
 
         // static, unlikely to change
         public string UserAgent
