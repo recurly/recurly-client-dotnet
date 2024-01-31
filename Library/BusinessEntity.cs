@@ -17,6 +17,8 @@ namespace Recurly
         public TaxAddress TaxAddress { get; set; }
         public string DefaultVatNumber { get; set; }
         public string DefaultRegistrationNumber { get; set; }
+        public string DefaultLiabilityGlAccountId { get; private set; }
+        public string DefaultRevenueGlAccountId { get; private set; }
         public DateTime? CreatedAt { get; private set; }
         public DateTime? UpdatedAt { get; private set; }
 
@@ -87,6 +89,12 @@ namespace Recurly
                         break;
                     case "default_registration_number":
                         DefaultRegistrationNumber = reader.ReadElementContentAsString();
+                        break;
+                    case "default_liability_gl_account_id":
+                        DefaultLiabilityGlAccountId = reader.ReadElementContentAsString();
+                        break;
+                    case "default_revenue_gl_account_id":
+                        DefaultRevenueGlAccountId = reader.ReadElementContentAsString();
                         break;
                     case "created_at":
                         CreatedAt = reader.ReadElementContentAsDateTime();
