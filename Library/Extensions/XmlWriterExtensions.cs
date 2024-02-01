@@ -20,6 +20,31 @@ namespace Recurly
         }
 
         /// <summary>
+        /// Convenience implementation that allows specifically writing "nil nodes" for the
+        /// purpose of unsetting associations from models. Using a simply JSON `null` is
+        /// simple enough in V3, but in V2, we need to write a `nil` attribute.
+        ///
+        /// An empty string for <paramref name="value"/> will result in the node not being
+        /// created. If it is `null`, the node will be created with the attribute.
+        /// </summary>
+        /// <param name="writer">The <see cref="T:System.Xml.XmlWriter"/> that will be written to.</param>
+        /// <param name="localName"></param>
+        /// <param name="value"></param>
+        public static void WriteValidStringOrNil(this XmlWriter writer, string localName, string value)
+        {
+            if (value == null)
+            {
+                writer.WriteStartElement(localName);
+                writer.WriteAttributeString("nil", "nil");
+                writer.WriteEndElement();
+            }
+            else
+            {
+                writer.WriteStringIfValid(localName, value);
+            }
+        }
+
+        /// <summary>
         /// If the given collection <paramref name="items"/> has any elements, writes the contents to the <see cref="T:System.Xml.XmlTextWriter"/> <paramref name="writer"/>
         /// using the provided <paramref name="localName"/> and <paramref name="stringValue"/> <see cref="T:System.Func{T,TResult}"/>s.
         /// </summary>
@@ -42,7 +67,7 @@ namespace Recurly
         }
 
         /// <summary>
-        /// If the given collection has any elements, writes the contents of the <paramref name="items"/> to the <see cref="T:System.Xml.XmlTextWriter"/> 
+        /// If the given collection has any elements, writes the contents of the <paramref name="items"/> to the <see cref="T:System.Xml.XmlTextWriter"/>
         /// using each element's <see cref="Recurly.RecurlyEntity.WriteXml"/> implementation.
         /// </summary>
         /// <typeparam name="T">The type of each element of <paramref name="items"/>, derived from <see cref="Recurly.RecurlyEntity"/>.</typeparam>
@@ -57,7 +82,7 @@ namespace Recurly
         }
 
         /// <summary>
-        /// If the given collection has any elements, writes the contents of the <paramref name="items"/> to the <see cref="T:System.Xml.XmlTextWriter"/> 
+        /// If the given collection has any elements, writes the contents of the <paramref name="items"/> to the <see cref="T:System.Xml.XmlTextWriter"/>
         /// using each element's <see cref="Recurly.RecurlyEntity.WriteXml"/> implementation. If the collection needs to write an empty element for an empty collection, it will do so.
         /// </summary>
         /// <typeparam name="T">The type of each element of <paramref name="items"/>, derived from <see cref="Recurly.RecurlyEntity"/>.</typeparam>

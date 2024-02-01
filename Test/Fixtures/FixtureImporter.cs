@@ -87,5 +87,7 @@ namespace Recurly.Test.Fixtures
         GeneralLedgerAccounts,
         [Description("performance_obligations")]
         PerformanceObligations,
+        [Description("plans")]
+        Plans,
     }
 }
