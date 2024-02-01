@@ -1,0 +1,36 @@
+HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<business_entity href="https://api.recurly.com/v2/business_entities/ske68up0zvae">
+  <invoices href="https://api.recurly.com/v2/business_entities/ske68up0zvae/invoices"/>
+  <id>ske68up0zvae</id>
+  <code>default</code>
+  <name>My Company, LLC</name>
+  <invoice_display_address>
+    <address1>1 Main</address1>
+    <address2></address2>
+    <city>San Jose</city>
+    <state>CA</state>
+    <zip>95120</zip>
+    <country>US</country>
+    <phone>317-555-6666</phone>
+  </invoice_display_address>
+  <tax_address>
+    <address1>1 Main</address1>
+    <address2></address2>
+    <city>San Jose</city>
+    <state>CA</state>
+    <zip>95120</zip>
+    <country>US</country>
+    <phone>317-555-6666</phone>
+  </tax_address>
+  <subscriber_location_countries type="array">
+  </subscriber_location_countries>
+  <default_vat_number></default_vat_number>
+  <default_registration_number></default_registration_number>
+  <created_at type="datetime">2023-03-16T18:29:52Z</created_at>
+  <updated_at type="datetime">2024-01-31T18:59:45Z</updated_at>
+  <default_liability_gl_account_id>twrbsq39zvo5</default_liability_gl_account_id>
+  <default_revenue_gl_account_id>bwrks63lznoi</default_revenue_gl_account_id>
+</business_entity>

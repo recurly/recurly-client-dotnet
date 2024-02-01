@@ -134,6 +134,9 @@
     <Content Include="Fixtures\billinginfo\show-200.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Fixtures\business_entities\show-200.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Fixtures\client\gateway-unavailable-502.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
