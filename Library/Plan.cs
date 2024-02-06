@@ -5,7 +5,7 @@ using System.Xml;
 
 namespace Recurly
 {
-    public class Plan : RecurlyEntity
+    public class Plan : RevRecEntity
     {
         public enum IntervalUnit
         {
@@ -40,6 +40,10 @@ namespace Recurly
 
         public string AccountingCode { get; set; }
         public string SetupFeeAccountingCode { get; set; }
+
+        public string SetupFeeLiabilityGlAccountId = "";
+        public string SetupFeeRevenueGlAccountId = "";
+        public string SetupFeePerformanceObligationId { get; set; }
 
         public DateTime CreatedAt { get; private set; }
         public DateTime UpdatedAt { get; private set; }
@@ -288,6 +292,10 @@ namespace Recurly
 
                 bool b;
 
+                // reading standard revrec nodes. setup fee revrec nodes are
+                // implemented manually, in this class.
+                ReadRevRecNode(reader);
+
                 switch (reader.Name)
                 {
                     case "plan_code":
@@ -362,6 +370,18 @@ namespace Recurly
 
                     case "setup_fee_accounting_code":
                         SetupFeeAccountingCode = reader.ReadElementContentAsString();
+                        break;
+
+                    case "setup_fee_liability_gl_account_id":
+                        SetupFeeLiabilityGlAccountId = reader.ReadElementContentAsString();
+                        break;
+
+                    case "setup_fee_revenue_gl_account_id":
+                        SetupFeeRevenueGlAccountId = reader.ReadElementContentAsString();
+                        break;
+
+                    case "setup_fee_performance_obligation_id":
+                        SetupFeePerformanceObligationId = reader.ReadElementContentAsString();
                         break;
 
                     case "dunning_campaign_id":
@@ -454,6 +474,12 @@ namespace Recurly
             xmlWriter.WriteStringIfValid("description", Description);
             xmlWriter.WriteStringIfValid("accounting_code", AccountingCode);
             xmlWriter.WriteStringIfValid("setup_fee_accounting_code", SetupFeeAccountingCode);
+
+            // product revrec features (and setup fee revrec features)
+            WriteRevRecNodes(xmlWriter);
+            xmlWriter.WriteValidStringOrNil("setup_fee_liability_gl_account_id", SetupFeeLiabilityGlAccountId);
+            xmlWriter.WriteValidStringOrNil("setup_fee_revenue_gl_account_id", SetupFeeRevenueGlAccountId);
+            xmlWriter.WriteStringIfValid("setup_fee_performance_obligation_id", SetupFeePerformanceObligationId);
 
             if (DunningCampaignId != null)
                 xmlWriter.WriteElementString("dunning_campaign_id", DunningCampaignId);
