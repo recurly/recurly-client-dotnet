@@ -5,7 +5,7 @@ using System.Xml;
 
 namespace Recurly
 {
-    public class ShippingMethod : RecurlyEntity
+    public class ShippingMethod : RevRecEntity
     {
         public string Code { get; set; }
         public string Name { get; set; }
@@ -46,6 +46,8 @@ namespace Recurly
 
                 if (reader.NodeType != XmlNodeType.Element) continue;
 
+                ReadRevRecNode(reader);
+
                 switch (reader.Name)
                 {
                     case "code":
@@ -82,6 +84,7 @@ namespace Recurly
             xmlWriter.WriteElementString("code", Code);
             xmlWriter.WriteElementString("name", Name);
             xmlWriter.WriteElementString("accounting_code", AccountingCode);
+            WriteRevRecNodes(xmlWriter);
             xmlWriter.WriteElementString("tax_code", TaxCode);
 
             xmlWriter.WriteEndElement(); // End: shipping_method

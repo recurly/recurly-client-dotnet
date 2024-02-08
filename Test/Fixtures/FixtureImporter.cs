@@ -85,9 +85,15 @@ namespace Recurly.Test.Fixtures
         ExternalInvoices,
         [Description("general_ledger_accounts")]
         GeneralLedgerAccounts,
+        [Description("gift_cards")]
+        GiftCards,
+        [Description("items")]
+        Items,
         [Description("performance_obligations")]
         PerformanceObligations,
         [Description("plans")]
         Plans,
+        [Description("shipping_methods")]
+        ShippingMethods,
     }
 }

@@ -10,7 +10,7 @@ namespace Recurly
     /// An item in Recurly.
     ///
     /// </summary>
-    public class Item : RecurlyEntity
+    public class Item : RevRecEntity
     {
         public string ItemCode { get; set; }
 
@@ -108,6 +108,8 @@ namespace Recurly
 
                 if (reader.NodeType != XmlNodeType.Element) continue;
 
+                ReadRevRecNode(reader);
+
                 switch (reader.Name)
                 {
                     case "item_code":
@@ -135,6 +137,7 @@ namespace Recurly
             xmlWriter.WriteStringIfValid("external_sku", ExternalSku);
             xmlWriter.WriteStringIfValid("accounting_code", AccountingCode);
             xmlWriter.WriteStringIfValid("revenue_schedule_type", RevenueScheduleType);
+            WriteRevRecNodes(xmlWriter);
             xmlWriter.WriteStringIfValid("state", State);
             xmlWriter.WriteIfCollectionHasAny("custom_fields", CustomFields);
 
