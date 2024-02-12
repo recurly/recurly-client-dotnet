@@ -9,7 +9,7 @@ namespace Recurly
     ///
     /// https://dev.recurly.com/docs/gift-card-object
     /// </summary>
-    public class GiftCard : RecurlyEntity
+    public class GiftCard : RevRecEntity
     {
         /// <summary>
         /// Unique ID assigned to this gift card.
@@ -99,7 +99,7 @@ namespace Recurly
         /// <summary>
         /// When the gift card was sent to the recipient by Recurly via email,
         /// if method was email and the "Gift Card Delivery" email template was enabled.
-        /// This will be empty for post delivery or email delivery 
+        /// This will be empty for post delivery or email delivery
         /// where the email template was disabled.
         /// </summary>
         public DateTime? DeliveredAt { get; private set; }
@@ -233,6 +233,8 @@ namespace Recurly
 
                 DateTime dateVal;
 
+                ReadRevRecNode(reader);
+
                 switch (reader.Name)
                 {
                     case "id":
@@ -332,6 +334,8 @@ namespace Recurly
             xmlWriter.WriteElementString("product_code", ProductCode);
             xmlWriter.WriteElementString("currency", Currency);
             xmlWriter.WriteElementString("unit_amount_in_cents", UnitAmountInCents.ToString());
+
+            WriteRevRecNodes(xmlWriter);
 
             if (GifterAccount != null)
                 GifterAccount.WriteXml(xmlWriter, "gifter_account");
