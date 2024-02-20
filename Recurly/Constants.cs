@@ -833,6 +833,24 @@ namespace Recurly
 
         };
 
+        public enum InvoiceStateQueryParam
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "pending")]
+            Pending,
+
+            [EnumMember(Value = "past_due")]
+            PastDue,
+
+            [EnumMember(Value = "paid")]
+            Paid,
+
+            [EnumMember(Value = "failed")]
+            Failed,
+
+        };
+
         public enum CollectionMethod
         {
             Undefined = 0,

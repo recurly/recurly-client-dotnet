@@ -20,6 +20,10 @@ namespace Recurly.Resources
         [JsonProperty("ids")]
         public IList<string> Ids { get; set; }
 
+        /// <value>Invoice state.</value>
+        [JsonProperty("state")]
+        public Constants.InvoiceStateQueryParam? State { get; set; }
+
         /// <value>Limit number of records 1-200.</value>
         [JsonProperty("limit")]
         public int? Limit { get; set; }
