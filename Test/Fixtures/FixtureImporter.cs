@@ -80,6 +80,8 @@ namespace Recurly.Test.Fixtures
         Accounts,
         [Description("addons")]
         AddOns,
+        [Description("adjustments")]
+        Adjustments,
         [Description("business_entities")]
         BusinessEntities,
         [Description("external_payment_phases")]

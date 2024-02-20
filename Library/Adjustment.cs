@@ -7,7 +7,7 @@ namespace Recurly
     /// <summary>
     /// Represents adjustments - credits and charges - on accounts.
     /// </summary>
-    public class Adjustment : RecurlyEntity
+    public class Adjustment : RevRecEntity
     {
         // The currently valid adjustment types
         public enum AdjustmentType : short
@@ -39,6 +39,8 @@ namespace Recurly
         public string Uuid { get; protected set; }
         public string Description { get; set; }
         public string AccountingCode { get; set; }
+        public string LiabilityGlAccountCode { get; private set; }
+        public string RevenueGlAccountCode { get; private set; }
         public string ProductCode { get; set; }
         public string ItemCode { get; set; }
         public string ExternalSku { get; set; }
@@ -171,6 +173,9 @@ namespace Recurly
                     break;
 
                 if (reader.NodeType != XmlNodeType.Element) continue;
+
+                ReadRevRecPobNode(reader);
+
                 switch (reader.Name)
                 {
                     case "account":
@@ -193,6 +198,14 @@ namespace Recurly
 
                     case "accounting_code":
                         AccountingCode = reader.ReadElementContentAsString();
+                        break;
+
+                    case "liability_gl_account_code":
+                        LiabilityGlAccountCode = reader.ReadElementContentAsString();
+                        break;
+
+                    case "revenue_gl_account_code":
+                        RevenueGlAccountCode = reader.ReadElementContentAsString();
                         break;
 
                     case "product_code":
@@ -372,6 +385,9 @@ namespace Recurly
                 xmlWriter.WriteElementString("currency", Currency);
             if (RevenueScheduleType.HasValue)
                 xmlWriter.WriteElementString("revenue_schedule_type", RevenueScheduleType.Value.ToString().EnumNameToTransportCase());
+
+            WriteRevRecNodes(xmlWriter);
+
             if (TaxCode != null)
                 xmlWriter.WriteElementString("tax_code", TaxCode);
             if (StartDate != DateTime.MinValue)

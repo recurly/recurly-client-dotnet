@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
+using System.Xml;
 using FluentAssertions;
+using Recurly.Test.Fixtures;
 using Xunit;
 
 namespace Recurly.Test
@@ -124,7 +126,7 @@ namespace Recurly.Test
         }
 
         /// <summary>
-        /// This test will return two adjustments: one to negate the charge, the 
+        /// This test will return two adjustments: one to negate the charge, the
         /// other for the balance
         /// </summary>
         [RecurlyFact(TestEnvironment.Type.Integration)]
@@ -243,6 +245,35 @@ namespace Recurly.Test
             var fromService = Adjustments.Get(adjustment.Uuid);
 
             Assert.Equal(account.AccountCode, fromService.BillForAccountCode);
+        }
+
+        public void CheckForRevRecData()
+        {
+            var adjustment = new Adjustment();
+
+            var xmlFixture = FixtureImporter.Get(FixtureType.Adjustments, "revrec.show-200").Xml;
+            XmlTextReader reader = new XmlTextReader(new System.IO.StringReader(xmlFixture));
+            adjustment.ReadXml(reader);
+
+            adjustment.LiabilityGlAccountCode.Should().Be("100");
+            adjustment.RevenueGlAccountCode.Should().Be("200");
+            adjustment.PerformanceObligationId.Should().Be("7pu");
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Unit)]
+        public void CheckForRevRecDataOut()
+        {
+            var adjustment = new Adjustment();
+
+            adjustment.LiabilityGlAccountId = "suaz415ebc94";
+            adjustment.RevenueGlAccountId = "sxo2b1hpjrye";
+            adjustment.PerformanceObligationId = "7pu";
+
+            var xml = XmlToString(adjustment.WriteXml);
+
+            xml.Should().Contain("<liability_gl_account_id>suaz415ebc94</liability_gl_account_id>");
+            xml.Should().Contain("<revenue_gl_account_id>sxo2b1hpjrye</revenue_gl_account_id>");
+            xml.Should().Contain("<performance_obligation_id>7pu</performance_obligation_id>");
         }
     }
 }
