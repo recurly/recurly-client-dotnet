@@ -76,7 +76,10 @@ namespace Recurly.Test.Fixtures
 
     public enum FixtureType
     {
+        [Description("accounts")]
         Accounts,
+        [Description("addons")]
+        AddOns,
         [Description("business_entities")]
         BusinessEntities,
         [Description("external_payment_phases")]

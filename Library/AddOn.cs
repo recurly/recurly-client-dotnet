@@ -4,7 +4,7 @@ using System.Xml;
 
 namespace Recurly
 {
-    public class AddOn : RecurlyEntity
+    public class AddOn : RevRecEntity
     {
         public enum Type
         {
@@ -172,6 +172,8 @@ namespace Recurly
 
                 if (reader.NodeType != XmlNodeType.Element) continue;
 
+                ReadRevRecNode(reader);
+
                 switch (reader.Name)
                 {
                     case "add_on_code":
@@ -276,6 +278,8 @@ namespace Recurly
             xmlWriter.WriteStringIfValid("name", Name);
             xmlWriter.WriteStringIfValid("accounting_code", AccountingCode);
 
+            WriteRevRecNodes(xmlWriter);
+
             if (DefaultQuantity.HasValue)
                 xmlWriter.WriteElementString("default_quantity", DefaultQuantity.Value.AsString());
 
@@ -322,6 +326,8 @@ namespace Recurly
         internal void WriteItemBackedUpdateXml(XmlTextWriter xmlWriter)
         {
             xmlWriter.WriteStartElement("add_on");
+
+            WriteRevRecNodes(xmlWriter);
 
             if (DefaultQuantity.HasValue)
                 xmlWriter.WriteElementString("default_quantity", DefaultQuantity.Value.AsString());

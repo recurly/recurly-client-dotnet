@@ -1,5 +1,7 @@
 using System;
+using System.Xml;
 using FluentAssertions;
+using Recurly.Test.Fixtures;
 using Xunit;
 
 namespace Recurly.Test
@@ -156,6 +158,52 @@ namespace Recurly.Test
 
             addon.CurrencyPercentageTiers[0].PercentageTiers[0].EndingAmountInCents.Should().Be(2000);
             addon.CurrencyPercentageTiers[0].PercentageTiers[0].UsagePercentage.Should().Be("25");
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Unit)]
+        public void CheckForRevRecData()
+        {
+            var addOn = new AddOn();
+
+            var xmlFixture = FixtureImporter.Get(FixtureType.AddOns, "revrec.show-200").Xml;
+            XmlTextReader reader = new XmlTextReader(new System.IO.StringReader(xmlFixture));
+            addOn.ReadXml(reader);
+
+            addOn.LiabilityGlAccountId.Should().Be("suaz415ebc94");
+            addOn.RevenueGlAccountId.Should().Be("sxo2b1hpjrye");
+            addOn.PerformanceObligationId.Should().Be("7pu");
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Unit)]
+        public void CheckForRevRecDataOut()
+        {
+            var addOn = new AddOn();
+
+            addOn.LiabilityGlAccountId = "suaz415ebc94";
+            addOn.RevenueGlAccountId = "sxo2b1hpjrye";
+            addOn.PerformanceObligationId = "7pu";
+
+            var xml = XmlToString(addOn.WriteXml);
+
+            xml.Should().Contain("<liability_gl_account_id>suaz415ebc94</liability_gl_account_id>");
+            xml.Should().Contain("<revenue_gl_account_id>sxo2b1hpjrye</revenue_gl_account_id>");
+            xml.Should().Contain("<performance_obligation_id>7pu</performance_obligation_id>");
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Unit)]
+        public void CheckForItemBackedRevRecDataOut()
+        {
+            var addOn = new AddOn();
+
+            addOn.LiabilityGlAccountId = "suaz415ebc94";
+            addOn.RevenueGlAccountId = "sxo2b1hpjrye";
+            addOn.PerformanceObligationId = "7pu";
+
+            var xml = XmlToString(addOn.WriteItemBackedUpdateXml);
+
+            xml.Should().Contain("<liability_gl_account_id>suaz415ebc94</liability_gl_account_id>");
+            xml.Should().Contain("<revenue_gl_account_id>sxo2b1hpjrye</revenue_gl_account_id>");
+            xml.Should().Contain("<performance_obligation_id>7pu</performance_obligation_id>");
         }
     }
 }
