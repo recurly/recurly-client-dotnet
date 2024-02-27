@@ -21,9 +21,15 @@ namespace Recurly
                     break;
 
                 case "performance_obligation_id":
-                    PerformanceObligationId = reader.ReadElementContentAsString();
+                    ReadRevRecPobNode(reader);
                     break;
             };
+        }
+
+        internal protected void ReadRevRecPobNode(XmlTextReader reader)
+        {
+            if (reader.Name == "performance_obligation_id")
+                PerformanceObligationId = reader.ReadElementContentAsString();
         }
 
         internal protected void WriteRevRecNodes(XmlTextWriter writer)

@@ -128,6 +128,9 @@
     <Content Include="Fixtures\adjustments\show-200.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Fixtures\adjustments\revrec.show-200.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Fixtures\adjustments\show-404.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
