@@ -1,10 +1,15 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using System.Xml;
 
 namespace Recurly.Test
 {
     public abstract class BaseTest : IDisposable
     {
+        protected delegate void WriteXmlDelegate(XmlTextWriter xmlWriter);
+
         protected const string NullString = null;
         protected const string EmptyString = "";
 
@@ -360,6 +365,27 @@ namespace Recurly.Test
                 {
                 }
             }
+        }
+
+        /// <summary>
+        /// Use this helper to test entity WriteXml methods to ensure data
+        /// is written correctly to nodes for outgoing requests.
+        /// </summary>
+        /// <param name="writeXmlDelegate"></param>
+        /// <returns>string</returns>
+        protected string XmlToString(WriteXmlDelegate writeXmlDelegate)
+        {
+            var s = new MemoryStream();
+            using (var xmlWriter = new XmlTextWriter(s, Encoding.UTF8))
+            {
+                xmlWriter.WriteStartDocument();
+                xmlWriter.Formatting = Formatting.Indented;
+
+                writeXmlDelegate(xmlWriter);
+
+                xmlWriter.WriteEndDocument();
+            }
+            return Encoding.UTF8.GetString(s.ToArray());
         }
     }
 }

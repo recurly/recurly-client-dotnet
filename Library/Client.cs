@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Runtime.CompilerServices;
@@ -7,6 +6,7 @@ using System.Text;
 using System.Xml;
 using Recurly.Configuration;
 
+[assembly: InternalsVisibleTo("TestRig")]
 [assembly: InternalsVisibleTo("Recurly.Test")]
 
 namespace Recurly
@@ -128,55 +128,27 @@ namespace Recurly
         }
 
         protected virtual HttpStatusCode PerformRequest(HttpRequestMethod method, string urlPath,
-            WriteXmlDelegate writeXmlDelegate, ReadXmlDelegate readXmlDelegate, ReadXmlListDelegate readXmlListDelegate, ReadResponseDelegate reseponseDelegate)
+            WriteXmlDelegate writeXmlDelegate, ReadXmlDelegate readXmlDelegate, ReadXmlListDelegate readXmlListDelegate, ReadResponseDelegate responseDelegate)
         {
-            const int sixtySeconds = 60000;
             var url = Settings.GetServerUri(urlPath);
 #if (DEBUG)
             Console.WriteLine("Requesting " + method + " " + url);
 #endif
             var request = (HttpWebRequest)WebRequest.Create(url);
 
-            if (!request.RequestUri.Host.EndsWith(Settings.ValidDomain))
-            {
-                throw new RecurlyException("Domain " + request.RequestUri.Host + " is not a valid Recurly domain");
-            }
-
-            request.Accept = "application/xml";      // Tells the server to return XML instead of HTML
-            request.ContentType = "application/xml; charset=utf-8"; // The request is an XML document
-            request.SendChunked = false;             // Send it all as one request
-            request.UserAgent = Settings.UserAgent;
-            request.Headers.Add(HttpRequestHeader.Authorization, Settings.AuthorizationHeaderValue);
-            request.Headers.Add("X-Api-Version", Settings.RecurlyApiVersion);
-            request.Method = method.ToString().ToUpper();
-            request.Timeout = Settings.RequestTimeoutMilliseconds ?? request.Timeout;
+            ValidateDomain(request);
+            AddRequestMetadata(request, method);
 
             Console.WriteLine(String.Format("Recurly: Requesting {0} {1}", request.Method, request.RequestUri));
 
-            if ((method == HttpRequestMethod.Post || method == HttpRequestMethod.Put) && (writeXmlDelegate != null))
-            {
-                // 60 second timeout -- some payment gateways (e.g. PayPal) can take a while to respond
-                request.Timeout = Settings.RequestTimeoutMilliseconds.HasValue ? request.Timeout : sixtySeconds;
-
-                // Write POST/PUT body
-                using (var requestStream = request.GetRequestStream())
-                {
-                    WritePostParameters(requestStream, writeXmlDelegate);
-                }
-            }
-            else
-            {
-                request.ContentLength = 0;
-            }
+            WriteRequestParameters(request, method, writeXmlDelegate);
 
             try
             {
                 using (var response = (HttpWebResponse)request.GetResponse())
                 {
-
-                    ReadWebResponse(response, readXmlDelegate, readXmlListDelegate, reseponseDelegate);
+                    ReadWebResponse(response, readXmlDelegate, readXmlListDelegate, responseDelegate);
                     return response.StatusCode;
-
                 }
             }
             catch (WebException ex)
@@ -185,50 +157,22 @@ namespace Recurly
 
                 var response = (HttpWebResponse)ex.Response;
                 var statusCode = response.StatusCode;
-                Errors errors;
 
                 Console.WriteLine(String.Format("Recurly Library Received: {0} - {1}", (int)statusCode, statusCode));
 
-                switch (response.StatusCode)
+                switch (statusCode)
                 {
                     case HttpStatusCode.OK:
                     case HttpStatusCode.Accepted:
                     case HttpStatusCode.Created:
                     case HttpStatusCode.NoContent:
-                        ReadWebResponse(response, readXmlDelegate, readXmlListDelegate, reseponseDelegate);
+                        ReadWebResponse(response, readXmlDelegate, readXmlListDelegate, responseDelegate);
 
                         return HttpStatusCode.NoContent;
 
-                    case HttpStatusCode.NotFound:
-                        errors = Errors.ReadResponseAndParseErrors(response);
-                        if (errors.ValidationErrors.HasAny())
-                            throw new NotFoundException(errors.ValidationErrors[0].Message, errors);
-                        throw new NotFoundException("The requested object was not found.", errors);
-
-                    case HttpStatusCode.Unauthorized:
-                    case HttpStatusCode.Forbidden:
-                        errors = Errors.ReadResponseAndParseErrors(response);
-                        throw new InvalidCredentialsException(errors);
-
-                    case HttpStatusCode.BadRequest:
-                    case HttpStatusCode.PreconditionFailed:
-                        errors = Errors.ReadResponseAndParseErrors(response);
-                        throw new ValidationException(errors);
-
-                    case HttpStatusCode.ServiceUnavailable:
-                        throw new TemporarilyUnavailableException();
-
-                    case HttpStatusCode.InternalServerError:
-                        errors = Errors.ReadResponseAndParseErrors(response);
-                        throw new ServerException(errors);
-                }
-
-                if ((int)statusCode == ValidationException.HttpStatusCode) // Unprocessable Entity
-                {
-                    errors = Errors.ReadResponseAndParseErrors(response);
-                    if (errors.ValidationErrors.HasAny()) Console.WriteLine(errors.ValidationErrors[0].ToString());
-                    else Console.WriteLine("Client Error: " + response.ToString());
-                    throw new ValidationException(errors);
+                    default:
+                        ProcessErrorResponse(response);
+                        break;
                 }
 
                 throw;
@@ -415,7 +359,6 @@ namespace Recurly
             }
             Console.WriteLine(Encoding.UTF8.GetString(s.ToArray()));
 #endif
-
         }
 
         protected virtual MemoryStream CopyAndClose(Stream inputStream)
@@ -435,5 +378,85 @@ namespace Recurly
             return ms;
         }
 
+        private void ValidateDomain(HttpWebRequest request)
+        {
+            if (!request.RequestUri.Host.EndsWith(Settings.ValidDomain))
+            {
+                throw new RecurlyException("Domain " + request.RequestUri.Host + " is not a valid Recurly domain");
+            }
+        }
+
+        private void AddRequestMetadata(HttpWebRequest request, HttpRequestMethod method)
+        {
+            request.Accept = "application/xml";      // Tells the server to return XML instead of HTML
+            request.ContentType = "application/xml; charset=utf-8"; // The request is an XML document
+            request.SendChunked = false;             // Send it all as one request
+            request.UserAgent = Settings.UserAgent;
+            request.Headers.Add(HttpRequestHeader.Authorization, Settings.AuthorizationHeaderValue);
+            request.Headers.Add("X-Api-Version", Settings.RecurlyApiVersion);
+            request.Method = method.ToString().ToUpper();
+            request.Timeout = Settings.RequestTimeoutMilliseconds ?? request.Timeout;
+        }
+
+        private void WriteRequestParameters(HttpWebRequest request,
+                                            HttpRequestMethod method,
+                                            WriteXmlDelegate writeXmlDelegate)
+        {
+            if ((method == HttpRequestMethod.Post || method == HttpRequestMethod.Put) && (writeXmlDelegate != null))
+            {
+                // 60 second timeout -- some payment gateways (e.g. PayPal) can take a while to respond
+                request.Timeout = Settings.RequestTimeoutMilliseconds.HasValue ? request.Timeout : 60000;
+
+                // Write POST/PUT body
+                using (var requestStream = request.GetRequestStream())
+                {
+                    WritePostParameters(requestStream, writeXmlDelegate);
+                }
+            }
+            else
+            {
+                request.ContentLength = 0;
+            }
+        }
+
+        private void ProcessErrorResponse(HttpWebResponse response)
+        {
+            var statusCode = response.StatusCode;
+            Errors errors;
+
+            switch (statusCode)
+            {
+                case HttpStatusCode.NotFound:
+                    errors = Errors.ReadResponseAndParseErrors(response);
+                    if (errors.ValidationErrors.HasAny())
+                        throw new NotFoundException(errors.ValidationErrors[0].Message, errors);
+                    throw new NotFoundException("The requested object was not found.", errors);
+
+                case HttpStatusCode.Unauthorized:
+                case HttpStatusCode.Forbidden:
+                    errors = Errors.ReadResponseAndParseErrors(response);
+                    throw new InvalidCredentialsException(errors);
+
+                case HttpStatusCode.BadRequest:
+                case HttpStatusCode.PreconditionFailed:
+                    errors = Errors.ReadResponseAndParseErrors(response);
+                    throw new ValidationException(errors);
+
+                case HttpStatusCode.ServiceUnavailable:
+                    throw new TemporarilyUnavailableException();
+
+                case HttpStatusCode.InternalServerError:
+                    errors = Errors.ReadResponseAndParseErrors(response);
+                    throw new ServerException(errors);
+            }
+
+            if ((int)statusCode == ValidationException.HttpStatusCode) // Unprocessable Entity
+            {
+                errors = Errors.ReadResponseAndParseErrors(response);
+                if (errors.ValidationErrors.HasAny()) Console.WriteLine(errors.ValidationErrors[0].ToString());
+                else Console.WriteLine("Client Error: " + response.ToString());
+                throw new ValidationException(errors);
+            }
+        }
     }
 }

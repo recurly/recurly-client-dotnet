@@ -1,8 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
 using FluentAssertions;
+using Recurly.Test.Fixtures;
 using Xunit;
+
+
 
 namespace Recurly.Test
 {
@@ -284,5 +287,21 @@ namespace Recurly.Test
             get.ShouldThrow<NotFoundException>();
         }
 
+        [RecurlyFact(TestEnvironment.Type.Unit)]
+        public void CheckForRevRecData()
+        {
+            var plan = new Plan();
+
+            var xmlFixture = FixtureImporter.Get(FixtureType.Plans, "show-200").Xml;
+            XmlTextReader reader = new XmlTextReader(new System.IO.StringReader(xmlFixture));
+            plan.ReadXml(reader);
+
+            plan.LiabilityGlAccountId.Should().Be("twrbsq39zvo5");
+            plan.RevenueGlAccountId.Should().Be("bwrks63lznoi");
+            plan.PerformanceObligationId.Should().Be("rkslzn");
+            plan.SetupFeeLiabilityGlAccountId.Should().Be("twrisqjjzvo5");
+            plan.SetupFeeRevenueGlAccountId.Should().Be("dlrk123lzabc");
+            plan.SetupFeePerformanceObligationId.Should().Be("bks6noi");
+        }
     }
 }

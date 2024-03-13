@@ -1,0 +1,15 @@
+HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<shipping_method href="https://api.recurly.com/v2/shipping_methods/ups-ground">
+  <code>ups-ground</code>
+  <name>UPS - Ground</name>
+  <accounting_code></accounting_code>
+  <tax_code nil="nil"></tax_code>
+  <liability_gl_account_id>suaz415ebc94</liability_gl_account_id>
+  <revenue_gl_account_id>sxo2b1hpjrye</revenue_gl_account_id>
+  <performance_obligation_id>7pu</performance_obligation_id>
+  <created_at type="datetime">2023-07-10T19:54:21Z</created_at>
+  <updated_at type="datetime">2023-12-04T18:54:45Z</updated_at>
+</shipping_method>

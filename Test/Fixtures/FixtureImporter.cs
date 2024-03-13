@@ -26,6 +26,7 @@ namespace Recurly.Test.Fixtures
                 throw new InvalidEnumArgumentException("type", (int)type, typeof(FixtureType));
 
             var fixturePath = string.Format("Fixtures/{0}/{1}.xml", GetFixtureTypeDescription(type), name);
+            Console.WriteLine("Loading fixture for test: {0}", fixturePath);
 
             if (!File.Exists(fixturePath))
                 throw new FileNotFoundException("Could not locate the fixture response file!", fixturePath);
@@ -75,10 +76,29 @@ namespace Recurly.Test.Fixtures
 
     public enum FixtureType
     {
+        [Description("accounts")]
         Accounts,
+        [Description("addons")]
+        AddOns,
+        [Description("adjustments")]
+        Adjustments,
+        [Description("business_entities")]
+        BusinessEntities,
         [Description("external_payment_phases")]
         ExternalPaymentPhases,
         [Description("external_invoices")]
         ExternalInvoices,
+        [Description("general_ledger_accounts")]
+        GeneralLedgerAccounts,
+        [Description("gift_cards")]
+        GiftCards,
+        [Description("items")]
+        Items,
+        [Description("performance_obligations")]
+        PerformanceObligations,
+        [Description("plans")]
+        Plans,
+        [Description("shipping_methods")]
+        ShippingMethods,
     }
 }

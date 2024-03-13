@@ -1,0 +1,32 @@
+HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<gift_card href="https://api.recurly.com/v2/gift_cards/1998400800965102260">
+  <gifter_account href="https://api.recurly.com/v2/accounts/eteum"/>
+  <purchase_invoice href="https://api.recurly.com/v2/invoices/1056"/>
+  <id type="integer">1998400800965102260</id>
+  <redemption_code>S2TNPI1Z4BRKM9U0</redemption_code>
+  <product_code>first-gift-card</product_code>
+  <unit_amount_in_cents type="integer">1000</unit_amount_in_cents>
+  <currency>USD</currency>
+  <delivery>
+    <method>email</method>
+    <email_address>sally@example.com</email_address>
+    <deliver_at nil="nil"></deliver_at>
+    <first_name>Sally</first_name>
+    <last_name>DuMonde</last_name>
+    <address nil="nil"></address>
+    <gifter_name>Benjamin</gifter_name>
+    <personal_message>Happy birthday!</personal_message>
+  </delivery>
+  <created_at type="datetime">2024-02-08T17:48:38Z</created_at>
+  <updated_at type="datetime">2024-02-08T17:48:38Z</updated_at>
+  <delivered_at type="datetime">2024-02-08T17:48:38Z</delivered_at>
+  <redeemed_at nil="nil"></redeemed_at>
+  <canceled_at nil="nil"></canceled_at>
+  <a name="redeem" href="https://api.recurly.com/v2/gift_cards/S2TNPI1Z4BRKM9U0/redeem" method="post"/>
+  <liability_gl_account_id>suaz415ebc94</liability_gl_account_id>
+  <revenue_gl_account_id>sxo2b1hpjrye</revenue_gl_account_id>
+  <performance_obligation_id>7pu</performance_obligation_id>
+</gift_card>
