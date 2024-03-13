@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.17.35](https://github.com/recurly/recurly-client-dotnet/tree/1.17.35) (2024-03-13)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.34...1.17.35)
+
+
+**Merged Pull Requests**
+
+- [V2] Add RevRec Settings to Adjustments [#822](https://github.com/recurly/recurly-client-dotnet/pull/822) ([Smolations](https://github.com/Smolations))
+- [V2] Adds RevRec features to AddOns [#821](https://github.com/recurly/recurly-client-dotnet/pull/821) ([Smolations](https://github.com/Smolations))
+- [V2] Adds RevRec features to Item, GiftCard, and ShippingMethod [#819](https://github.com/recurly/recurly-client-dotnet/pull/819) ([Smolations](https://github.com/Smolations))
+- [V2] Add RevRec settings to the Plan entity [#818](https://github.com/recurly/recurly-client-dotnet/pull/818) ([Smolations](https://github.com/Smolations))
+- [V2] Add RevRec settings to business entities [#817](https://github.com/recurly/recurly-client-dotnet/pull/817) ([Smolations](https://github.com/Smolations))
+- [V2] Add RevRec Performance Obligations Feature [#816](https://github.com/recurly/recurly-client-dotnet/pull/816) ([Smolations](https://github.com/Smolations))
+- Add revrec features [#815](https://github.com/recurly/recurly-client-dotnet/pull/815) ([Smolations](https://github.com/Smolations))
+- [V2] Add RevRec General Ledger Accounts Feature [#813](https://github.com/recurly/recurly-client-dotnet/pull/813) ([Smolations](https://github.com/Smolations))
+
+
+
 ## [1.17.34](https://github.com/recurly/recurly-client-dotnet/tree/1.17.34) (2023-12-06)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.33...1.17.34)
