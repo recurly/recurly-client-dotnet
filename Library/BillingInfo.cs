@@ -22,7 +22,8 @@ namespace Recurly
             Laser,
             Unknown,
             DinersClub,
-            UnionPay
+            UnionPay,
+            CartesBancaires
         }
 
         public enum HppType : short
@@ -94,6 +95,7 @@ namespace Recurly
         public CreditCardType CardType { get; set; }
         public int ExpirationMonth { get; set; }
         public int ExpirationYear { get; set; }
+        public CreditCardType CardNetworkPreference { get; set; }
 
         public string NameOnAccount { get; set; }
         public string RoutingNumber { get; set; }
@@ -428,6 +430,12 @@ namespace Recurly
                         LastTwo = reader.ReadElementContentAsString();
                         break;
 
+                    case "card_network_preference":
+                        var cardNetworkPreference = reader.ReadElementContentAsString();
+                        if (!cardNetworkPreference.IsNullOrEmpty())
+                            CardNetworkPreference = cardNetworkPreference.ParseAsEnum<CreditCardType>();
+                        break;
+
                     case "paypal_billing_agreement_id":
                         PaypalBillingAgreementId = reader.ReadElementContentAsString();
                         break;
@@ -562,6 +570,11 @@ namespace Recurly
                     xmlWriter.WriteElementString("year", ExpirationYear.AsString());
 
                     xmlWriter.WriteStringIfValid("verification_value", VerificationValue);
+                }
+
+                if (!CardNetworkPreference.Equals(CreditCardType.Invalid))
+                {
+                    xmlWriter.WriteElementString("card_network_preference", CardNetworkPreference.ToString().EnumNameToTransportCase());
                 }
 
                 if (!RoutingNumber.IsNullOrEmpty())
