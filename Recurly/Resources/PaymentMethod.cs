@@ -23,6 +23,10 @@ namespace Recurly.Resources
         [JsonProperty("billing_agreement_id")]
         public string BillingAgreementId { get; set; }
 
+        /// <value>Represents the card network preference associated with the billing info for dual badged cards. Must be a supported card network.</value>
+        [JsonProperty("card_network_preference")]
+        public string CardNetworkPreference { get; set; }
+
         /// <value>Visa, MasterCard, American Express, Discover, JCB, etc.</value>
         [JsonProperty("card_type")]
         public string CardType { get; set; }

@@ -35,6 +35,10 @@ namespace Recurly.Resources
         [JsonProperty("backup_payment_method")]
         public bool? BackupPaymentMethod { get; set; }
 
+        /// <value>Represents the card network preference associated with the billing info for dual badged cards. Must be a supported card network.</value>
+        [JsonProperty("card_network_preference")]
+        public string CardNetworkPreference { get; set; }
+
         /// <value>Company name</value>
         [JsonProperty("company")]
         public string Company { get; set; }
@@ -98,6 +102,10 @@ namespace Recurly.Resources
         /// <value>The `primary_payment_method` field is used to designate the primary billing info on the account. The first billing info created on an account will always become primary. Adding additional billing infos provides the flexibility to mark another billing info as primary, or adding additional non-primary billing infos. This can be accomplished by passing the `primary_payment_method` with a value of `true`. When adding billing infos via the billing_info and /accounts endpoints, this value is not permitted, and will return an error if provided.</value>
         [JsonProperty("primary_payment_method")]
         public bool? PrimaryPaymentMethod { get; set; }
+
+        /// <value>Roku's CIB if billing through Roku</value>
+        [JsonProperty("roku_billing_agreement_id")]
+        public string RokuBillingAgreementId { get; set; }
 
         /// <value>The bank's rounting number. (ACH only)</value>
         [JsonProperty("routing_number")]
