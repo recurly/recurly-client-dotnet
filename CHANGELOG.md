@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.17.37](https://github.com/recurly/recurly-client-dotnet/tree/1.17.37) (2024-03-19)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.36...1.17.37)
+
+
+**Merged Pull Requests**
+
+- Add card_network_preference field to v2 [#827](https://github.com/recurly/recurly-client-dotnet/pull/827) ([gilv93](https://github.com/gilv93))
+
+
+
 ## [1.17.36](https://github.com/recurly/recurly-client-dotnet/tree/1.17.36) (2024-03-13)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.34...1.17.36)
