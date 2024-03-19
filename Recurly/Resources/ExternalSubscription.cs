@@ -75,6 +75,10 @@ namespace Recurly.Resources
         [JsonProperty("state")]
         public string State { get; set; }
 
+        /// <value>An indication of whether or not the external subscription was purchased in a sandbox environment.</value>
+        [JsonProperty("test")]
+        public bool? Test { get; set; }
+
         /// <value>When the external subscription trial period ends in the external platform.</value>
         [JsonProperty("trial_ends_at")]
         public DateTime? TrialEndsAt { get; set; }

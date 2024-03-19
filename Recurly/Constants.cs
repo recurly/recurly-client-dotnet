@@ -1532,6 +1532,27 @@ namespace Recurly
 
         };
 
+        public enum CardNetwork
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "Bancontact")]
+            Bancontact,
+
+            [EnumMember(Value = "CartesBancaires")]
+            Cartesbancaires,
+
+            [EnumMember(Value = "Dankort")]
+            Dankort,
+
+            [EnumMember(Value = "MasterCard")]
+            Mastercard,
+
+            [EnumMember(Value = "Visa")]
+            Visa,
+
+        };
+
         public enum AccountType
         {
             Undefined = 0,
