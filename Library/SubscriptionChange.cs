@@ -56,7 +56,16 @@ namespace Recurly
 
         public string CollectionMethod { get; set; }
 
+        /// <summary>
+        /// The net terms for the subscription.
+        /// If net terms type is 'eom', NetTerms must be one of 0, 15, 30, 45, 60, or 90
+        /// </summary>
         public int? NetTerms { get; set; }
+
+        /// <summary>
+        /// The net terms type for the invoice.  Can be a 'net' or 'eom'
+        /// </summary>
+        public NetTermsType? NetTermsType { get; set; }
 
         public string PoNumber { get; set; }
 
@@ -130,6 +139,9 @@ namespace Recurly
 
             if (NetTerms.HasValue)
                 xmlWriter.WriteElementString("net_terms", NetTerms.Value.AsString());
+
+            if (NetTermsType.HasValue)
+                xmlWriter.WriteElementString("net_terms_type", NetTermsType.ToString().EnumNameToTransportCase());
 
             if (PoNumber != null)
                 xmlWriter.WriteElementString("po_number", PoNumber);

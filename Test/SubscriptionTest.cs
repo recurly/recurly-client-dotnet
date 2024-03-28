@@ -290,7 +290,9 @@ namespace Recurly.Test
             var subChange = new SubscriptionChange()
             {
                 PlanCode = plan2.PlanCode,
-                BillingInfoUuid = account.GetBillingInfos()[0].Id
+                BillingInfoUuid = account.GetBillingInfos()[0].Id,
+                NetTerms = 10,
+                NetTermsType = NetTermsType.NET
             };
 
             Subscription.ChangeSubscription(sub.Uuid, subChange);
@@ -299,6 +301,8 @@ namespace Recurly.Test
 
             newSubscription.PendingSubscription.Should().BeNull();
             newSubscription.Plan.Should().Be(plan2);
+            Assert.Equal(newSubscription.NetTerms, 10);
+            Assert.Equal(newSubscription.NetTermsType, NetTermsType.NET);
         }
 
         [RecurlyFact(TestEnvironment.Type.Integration)]
@@ -933,6 +937,28 @@ namespace Recurly.Test
             {
                 account.Close();
             }
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void CreateSubscriptionWithEOMNetTerms()
+        {
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName()) { Description = "Lookup Subscription Test" };
+            plan.UnitAmountInCents.Add("USD", 1500);
+            plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
+
+            var account = CreateNewAccountWithBillingInfo();
+
+            var sub = new Subscription(account, plan, "USD");
+            sub.NetTerms = 15;
+            sub.NetTermsType = NetTermsType.EOM;
+            sub.Create();
+
+            var response = Subscriptions.Get(sub.Uuid);
+
+            response.Should().Be(sub);
+            Assert.Equal(response.NetTerms, 15);
+            response.NetTermsType.Should().Be(NetTermsType.EOM);
         }
     }
 }

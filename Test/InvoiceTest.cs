@@ -465,5 +465,26 @@ namespace Recurly.Test
             var recordedTransaction = invoice.EnterOfflinePayment(offlineTransaction);
             Assert.Equal(recordedTransaction.Status, Recurly.Transaction.TransactionState.Success);
         }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void CreateInvoiceWithEOMNetTerms()
+        {
+            var account = CreateNewAccountWithBillingInfo();
+
+            var adjustment = account.NewAdjustment("USD", 5000, "Test Charge");
+            adjustment.Create();
+
+            var collection = account.InvoicePendingCharges(new Invoice
+            {
+                NetTerms = 45,
+                NetTermsType = NetTermsType.EOM,
+            });
+
+            var invoice = collection.ChargeInvoice;
+            var response = Invoices.Get(invoice.InvoiceNumber);
+
+            Assert.Equal(response.NetTerms, 45);
+            Assert.Equal(response.NetTermsType, NetTermsType.EOM);
+        }
     }
 }
