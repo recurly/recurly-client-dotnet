@@ -89,6 +89,11 @@ namespace Recurly
         public int TaxInCents { get; protected set; }
         public int TotalInCents { get; protected set; }
         public string Currency { get; protected set; }
+
+        /// <summary>
+        /// The net terms for the invoice.
+        /// If net terms type is 'eom', NetTerms must be one of 0, 15, 30, 45, 60, or 90
+        /// </summary>
         public int? NetTerms
         {
             get { return _netTerms; }
@@ -98,6 +103,10 @@ namespace Recurly
         private int? _netTerms;
         private bool _netTermsChanged = false;
 
+        /// <summary>
+        /// The net terms type for the invoice.  Can be a 'net' or 'eom'
+        /// </summary>
+        public NetTermsType? NetTermsType { get; set; }
         public Collection CollectionMethod { get; set; }
         public DateTime? CreatedAt { get; private set; }
         public DateTime? UpdatedAt { get; private set; }
@@ -641,6 +650,10 @@ namespace Recurly
                         }
                         break;
 
+                    case "net_terms_type":
+                        NetTermsType = reader.ReadElementContentAsString().ParseAsEnum<NetTermsType>();
+                        break;
+
                     case "collection_method":
                         var method = reader.ReadElementContentAsString();
                         if (!method.IsNullOrEmpty())
@@ -761,14 +774,17 @@ namespace Recurly
             if (CollectionMethod == Collection.Manual)
             {
                 xmlWriter.WriteElementString("collection_method", "manual");
-
-                if (NetTerms.HasValue)
-                    xmlWriter.WriteElementString("net_terms", NetTerms.Value.AsString());
             }
             else if (CollectionMethod == Collection.Automatic)
             {
                 xmlWriter.WriteElementString("collection_method", "automatic");
             }
+
+            if (NetTerms.HasValue)
+                xmlWriter.WriteElementString("net_terms", NetTerms.Value.AsString());
+
+            if (NetTermsType.HasValue)
+                xmlWriter.WriteElementString("net_terms_type", NetTermsType.ToString().EnumNameToTransportCase());
 
             xmlWriter.WriteEndElement(); // End: invoice
         }

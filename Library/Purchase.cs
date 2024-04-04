@@ -34,8 +34,14 @@ namespace Recurly
 
         /// <summary>
         /// The net terms for the invoice.
+        /// If net terms type is 'eom', NetTerms must be one of 0, 15, 30, 45, 60, or 90
         /// </summary>
         public int? NetTerms { get; set; }
+
+        /// <summary>
+        /// The net terms type for the invoice.  Can be a 'net' or 'eom'
+        /// </summary>
+        public NetTermsType? NetTermsType { get; set; }
 
         /// <summary>
         /// A gift card redemption code to apply to this purchase.
@@ -277,6 +283,9 @@ namespace Recurly
 
             if (NetTerms.HasValue)
                 xmlWriter.WriteElementString("net_terms", NetTerms.Value.ToString());
+
+            if (NetTermsType.HasValue)
+                xmlWriter.WriteElementString("net_terms_type", NetTermsType.ToString().EnumNameToTransportCase());
 
             if (PoNumber != null)
                 xmlWriter.WriteElementString("po_number", PoNumber);

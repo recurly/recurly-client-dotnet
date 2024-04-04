@@ -278,7 +278,16 @@ namespace Recurly
         internal const string UrlPrefix = "/subscriptions/";
 
         public string CollectionMethod { get; set; }
+        /// <summary>
+        /// The net terms for the subscription.
+        /// If net terms type is 'eom', NetTerms must be one of 0, 15, 30, 45, 60, or 90
+        /// </summary>
         public int? NetTerms { get; set; }
+
+        /// <summary>
+        /// The net terms type for the subscription.  Can be a 'net' or 'eom'
+        /// </summary>
+        public NetTermsType? NetTermsType { get; set; }
         public string PoNumber { get; set; }
 
         /// <summary>
@@ -862,6 +871,10 @@ namespace Recurly
                         NetTerms = reader.ReadElementContentAsInt();
                         break;
 
+                    case "net_terms_type":
+                        NetTermsType = reader.ReadElementContentAsString().ParseAsEnum<NetTermsType>();
+                        break;
+
                     case "po_number":
                         PoNumber = reader.ReadElementContentAsString();
                         break;
@@ -1102,11 +1115,15 @@ namespace Recurly
             {
                 xmlWriter.WriteElementString("collection_method", "manual");
 
-                if (NetTerms.HasValue)
-                    xmlWriter.WriteElementString("net_terms", NetTerms.Value.AsString());
             }
             else if (CollectionMethod.Like("automatic"))
                 xmlWriter.WriteElementString("collection_method", "automatic");
+
+            if (NetTerms.HasValue)
+                xmlWriter.WriteElementString("net_terms", NetTerms.Value.AsString());
+
+            if (NetTermsType.HasValue)
+                xmlWriter.WriteElementString("net_terms_type", NetTermsType.ToString().EnumNameToTransportCase());
 
             if (ShippingAddressId.HasValue)
             {
