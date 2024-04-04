@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.17.38](https://github.com/recurly/recurly-client-dotnet/tree/1.17.38) (2024-04-04)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.37...1.17.38)
+
+
+**Merged Pull Requests**
+
+- add net_terms_type to invoice, purchase, and subscription [#828](https://github.com/recurly/recurly-client-dotnet/pull/828) ([btruncali1](https://github.com/btruncali1))
+
+
+
 ## [1.17.37](https://github.com/recurly/recurly-client-dotnet/tree/1.17.37) (2024-03-19)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.36...1.17.37)
