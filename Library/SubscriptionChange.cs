@@ -25,6 +25,12 @@ namespace Recurly
         public string PlanCode { get; set; }
 
         /// <summary>
+        /// Proration settings to be applied to the subscription change.
+        /// If not set, the default proration behavior will apply.
+        /// </summary>
+        public ProrationSettings ProrationSettings { get; set; }
+
+        /// <summary>
         /// List of custom fields
         /// </summary>
         public List<CustomField> CustomFields
@@ -126,6 +132,20 @@ namespace Recurly
             xmlWriter.WriteStringIfValid("billing_info_uuid", BillingInfoUuid);
 
             xmlWriter.WriteStringIfValid("plan_code", PlanCode);
+
+            if (ProrationSettings != null)
+            {
+                xmlWriter.WriteStartElement("proration_settings");
+
+                if (ProrationSettings.Charge != null)
+                    xmlWriter.WriteElementString("charge", ProrationSettings.Charge.Value.ToString().EnumNameToTransportCase());
+
+                if (ProrationSettings.Credit != null)
+                    xmlWriter.WriteElementString("credit", ProrationSettings.Credit.Value.ToString().EnumNameToTransportCase());
+
+                xmlWriter.WriteEndElement();
+            }
+
 
             if (AddOns != null)
                 xmlWriter.WriteIfCollectionHasAny("subscription_add_ons", AddOns);
