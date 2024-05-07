@@ -306,6 +306,54 @@ namespace Recurly.Test
         }
 
         [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void UpdateSubscriptionWithProrationSettings()
+        {
+            var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
+            {
+                Description = "Update Subscription Plan 1"
+            };
+            plan.UnitAmountInCents.Add("USD", 1500);
+            plan.Create();
+            PlansToDeactivateOnDispose.Add(plan);
+
+            var plan2 = new Plan(GetMockPlanCode(), GetMockPlanName())
+            {
+                Description = "Update Subscription Plan 2"
+            };
+            plan2.UnitAmountInCents.Add("USD", 750);
+            plan2.Create();
+            PlansToDeactivateOnDispose.Add(plan2);
+
+            var account = CreateNewAccountWithBillingInfo();
+
+            var sub = new Subscription(account, plan, "USD");
+            sub.Create();
+
+            var subChange = new SubscriptionChange()
+            {
+                PlanCode = plan2.PlanCode,
+                ProrationSettings = new ProrationSettings()
+                {
+                    Charge = ProrationSettings.Options.None,
+                    Credit = ProrationSettings.Options.FullAmount
+                }
+            };
+
+            Assert.Equal(subChange.ProrationSettings.Charge, ProrationSettings.Options.None);
+            Assert.Equal(subChange.ProrationSettings.Credit, ProrationSettings.Options.FullAmount);
+
+            Subscription.ChangeSubscription(sub.Uuid, subChange);
+
+            var newSubscription = Subscriptions.Get(sub.Uuid);
+            var invoices = account.GetInvoices();
+            var chargeInvoice = invoices.FirstOrDefault(invoice => invoice.Type == "charge");
+            var creditInvoice = invoices.FirstOrDefault(invoice => invoice.Type == "credit");
+
+            Assert.Equal(0, chargeInvoice.SubtotalInCents);
+            Assert.Equal(-1500, creditInvoice.SubtotalInCents);
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void CancelSubscription()
         {
             var plan = new Plan(GetMockPlanCode(), GetMockPlanName())
