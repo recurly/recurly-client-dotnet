@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.18.0](https://github.com/recurly/recurly-client-dotnet/tree/1.18.0) (2024-05-08)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.38...1.18.0)
+
+
+**Merged Pull Requests**
+
+- Add subscription change proflex settings [#833](https://github.com/recurly/recurly-client-dotnet/pull/833) ([smagdicatrecurly](https://github.com/smagdicatrecurly))
+
+
+
 ## [1.17.38](https://github.com/recurly/recurly-client-dotnet/tree/1.17.38) (2024-04-04)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.37...1.17.38)
