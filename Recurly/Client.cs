@@ -880,6 +880,7 @@ namespace Recurly
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
         /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
+        /// <param name="state">Invoice state.</param>
         /// <param name="limit">Limit number of records 1-200.</param>
         /// <param name="order">Sort order.</param>
         /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
@@ -889,10 +890,10 @@ namespace Recurly
         /// <returns>
         /// A list of the account's invoices.
         /// </returns>
-        public Pager<Invoice> ListAccountInvoices(string accountId, string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string type = null, RequestOptions options = null)
+        public Pager<Invoice> ListAccountInvoices(string accountId, string ids = null, string state = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string type = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "type", type } };
+            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "state", state }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "type", type } };
             var url = this.InterpolatePath("/accounts/{account_id}/invoices", urlParams);
             return Pager<Invoice>.Build(url, queryParams, options, this);
         }
@@ -2072,6 +2073,7 @@ namespace Recurly
         /// List a site's invoices <see href="https://developers.recurly.com/api/v2019-10-10#operation/list_invoices">list_invoices api documentation</see>
         /// </summary>
         /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
+        /// <param name="state">Invoice state.</param>
         /// <param name="limit">Limit number of records 1-200.</param>
         /// <param name="order">Sort order.</param>
         /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
@@ -2081,10 +2083,10 @@ namespace Recurly
         /// <returns>
         /// A list of the site's invoices.
         /// </returns>
-        public Pager<Invoice> ListInvoices(string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string type = null, RequestOptions options = null)
+        public Pager<Invoice> ListInvoices(string ids = null, string state = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string type = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "type", type } };
+            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "state", state }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "type", type } };
             var url = this.InterpolatePath("/invoices", urlParams);
             return Pager<Invoice>.Build(url, queryParams, options, this);
         }
@@ -3713,6 +3715,7 @@ namespace Recurly
         /// </summary>
         /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
         /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>
+        /// <param name="state">Invoice state.</param>
         /// <param name="limit">Limit number of records 1-200.</param>
         /// <param name="order">Sort order.</param>
         /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
@@ -3722,10 +3725,10 @@ namespace Recurly
         /// <returns>
         /// A list of the subscription's invoices.
         /// </returns>
-        public Pager<Invoice> ListSubscriptionInvoices(string subscriptionId, string ids = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string type = null, RequestOptions options = null)
+        public Pager<Invoice> ListSubscriptionInvoices(string subscriptionId, string ids = null, string state = null, int? limit = null, string order = null, string sort = null, DateTime? beginTime = null, DateTime? endTime = null, string type = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "subscription_id", subscriptionId } };
-            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "type", type } };
+            var queryParams = new Dictionary<string, object> { { "ids", ids }, { "state", state }, { "limit", limit }, { "order", order }, { "sort", sort }, { "begin_time", beginTime }, { "end_time", endTime }, { "type", type } };
             var url = this.InterpolatePath("/subscriptions/{subscription_id}/invoices", urlParams);
             return Pager<Invoice>.Build(url, queryParams, options, this);
         }

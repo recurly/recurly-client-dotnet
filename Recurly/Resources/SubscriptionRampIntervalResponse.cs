@@ -15,6 +15,10 @@ namespace Recurly.Resources
     public class SubscriptionRampIntervalResponse : Resource
     {
 
+        /// <value>Date the ramp interval ends</value>
+        [JsonProperty("ending_on")]
+        public DateTime? EndingOn { get; set; }
+
         /// <value>Represents how many billing cycles are left in a ramp interval.</value>
         [JsonProperty("remaining_billing_cycles")]
         public int? RemainingBillingCycles { get; set; }
@@ -22,6 +26,10 @@ namespace Recurly.Resources
         /// <value>Represents the billing cycle where a ramp interval starts.</value>
         [JsonProperty("starting_billing_cycle")]
         public int? StartingBillingCycle { get; set; }
+
+        /// <value>Date the ramp interval starts</value>
+        [JsonProperty("starting_on")]
+        public DateTime? StartingOn { get; set; }
 
         /// <value>Represents the price for the ramp interval.</value>
         [JsonProperty("unit_amount")]
