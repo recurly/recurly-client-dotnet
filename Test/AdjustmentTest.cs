@@ -48,6 +48,8 @@ namespace Recurly.Test
             adjustment.Quantity = quantity;
             adjustment.AccountingCode = accountingCode;
             adjustment.UnitAmountInCents = unitAmountInCents;
+            adjustment.OriginTaxAddressSource = "origin";
+            adjustment.DestinationTaxAddressSource = "destination";
 
             adjustment.Create();
 
@@ -58,6 +60,8 @@ namespace Recurly.Test
             Assert.Equal(quantity, adjustment.Quantity);
             Assert.Equal(accountingCode, adjustment.AccountingCode);
             Assert.Equal(unitAmountInCents, adjustment.UnitAmountInCents);
+            Assert.Equal("origin", adjustment.OriginTaxAddressSource);
+            Assert.Equal("destination", adjustment.DestinationTaxAddressSource);
         }
 
         [RecurlyFact(TestEnvironment.Type.Integration)]
@@ -216,6 +220,8 @@ namespace Recurly.Test
             var fromService = Adjustments.Get(adjustment.Uuid);
 
             fromService.Uuid.Should().NotBeNull();
+            fromService.OriginTaxAddressSource.Should().Be("origin");
+            fromService.DestinationTaxAddressSource.Should().Be("destination");
         }
 
         [RecurlyFact(TestEnvironment.Type.Integration)]

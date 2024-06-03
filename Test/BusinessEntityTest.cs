@@ -18,6 +18,8 @@ namespace Recurly.Test
             businessEntity.InvoiceDisplayAddress.Country.Should().Be("US");
             businessEntity.TaxAddress.Country.Should().Be("US");
             businessEntity.GetInvoices().Should().BeOfType<InvoiceList>();
+            businessEntity.OriginTaxAddressSource.Should().Be("origin");
+            businessEntity.DestinationTaxAddressSource.Should().Be("destination");
         }
 
         [RecurlyFact(TestEnvironment.Type.Unit)]
