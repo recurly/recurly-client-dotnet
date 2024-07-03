@@ -15,6 +15,9 @@ namespace Recurly
         public string Name { get; set; }
         public InvoiceDisplayAddress InvoiceDisplayAddress { get; set; }
         public TaxAddress TaxAddress { get; set; }
+        public string OriginTaxAddressSource { get; set; }
+        public string DestinationTaxAddressSource { get; set; }
+
         public string DefaultVatNumber { get; set; }
         public string DefaultRegistrationNumber { get; set; }
         public string DefaultLiabilityGlAccountId { get; private set; }
@@ -73,6 +76,12 @@ namespace Recurly
                         break;
                     case "tax_address":
                         TaxAddress = new TaxAddress(reader);
+                        break;
+                    case "origin_tax_address_source":
+                        OriginTaxAddressSource = reader.ReadElementContentAsString();
+                        break;
+                    case "destination_tax_address_source":
+                        DestinationTaxAddressSource = reader.ReadElementContentAsString();
                         break;
                     case "subscriber_location_countries":
                         while (reader.Read())

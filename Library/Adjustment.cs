@@ -62,6 +62,8 @@ namespace Recurly
         public string TaxType { get; private set; }
         public decimal? TaxRate { get; private set; }
         public string TaxRegion { get; private set; }
+        public string OriginTaxAddressSource { get; set; }
+        public string DestinationTaxAddressSource { get; set; }
 
         public AdjustmentState State { get; protected set; }
 
@@ -284,6 +286,14 @@ namespace Recurly
                         TaxRegion = reader.ReadElementContentAsString();
                         break;
 
+                    case "origin_tax_address_source":
+                        OriginTaxAddressSource = reader.ReadElementContentAsString();
+                        break;
+
+                    case "destination_tax_address_source":
+                        DestinationTaxAddressSource = reader.ReadElementContentAsString();
+                        break;
+
                     case "credit_reason_code":
                         CreditReasonCode = reader.ReadElementContentAsString();
                         break;
@@ -396,6 +406,10 @@ namespace Recurly
                 xmlWriter.WriteElementString("end_date", EndDate.Value.ToString("s"));
             if (Origin != null)
                 xmlWriter.WriteElementString("origin", Origin);
+            if (OriginTaxAddressSource != null)
+                xmlWriter.WriteElementString("origin_tax_address_source", OriginTaxAddressSource);
+            if (DestinationTaxAddressSource != null)
+                xmlWriter.WriteElementString("destination_tax_address_source", DestinationTaxAddressSource);
             xmlWriter.WriteEndElement(); // End: adjustment
         }
 
