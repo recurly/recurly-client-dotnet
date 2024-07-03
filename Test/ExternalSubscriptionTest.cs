@@ -19,6 +19,8 @@ namespace Recurly.Test
             externalSubscription.CanceledAt.Should().Be(null);
             externalSubscription.TrialStartedAt.Should().Be(null);
             externalSubscription.TrialEndsAt.Should().Be(null);
+            externalSubscription.Imported.Should().Be(false);
+            externalSubscription.Test.Should().Be(false);
         }
     }
 }

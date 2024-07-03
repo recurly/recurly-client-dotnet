@@ -35,6 +35,8 @@ namespace Recurly
         public int Quantity { get; set; }
         public ExternalProductReference ExternalProductReference { get; private set; }
         public DateTime? LastPurchased { get; private set; }
+        public bool? Imported { get; set; }
+        public bool? Test { get; set; }
         public DateTime? ActivatedAt { get; private set; }
         public DateTime? CanceledAt { get; private set; }
         public DateTime? ExpiresAt { get; private set; }
@@ -92,6 +94,18 @@ namespace Recurly
                     case "last_purchased":
                         if (DateTime.TryParse(reader.ReadElementContentAsString(), out dateVal))
                             LastPurchased = dateVal;
+                        break;
+
+                    case "imported":
+                        bool imported;
+                        if (bool.TryParse(reader.ReadElementContentAsString(), out imported))
+                            Imported = imported;
+                        break;
+
+                    case "test":
+                        bool test;
+                        if (bool.TryParse(reader.ReadElementContentAsString(), out test))
+                            Test = test;
                         break;
 
                     case "state":
@@ -200,6 +214,21 @@ namespace Recurly
                 ExternalSubscription.UrlPrefix + Uri.EscapeDataString(uuid),
                 externalSubscription.ReadXml);
 
+            return statusCode == HttpStatusCode.NotFound ? null : externalSubscription;
+        }
+
+        public static ExternalSubscription GetByExternalId(string externalId)
+        {
+            if (string.IsNullOrWhiteSpace(externalId))
+            {
+                return null;
+            }
+            var externalSubscription = new ExternalSubscription();
+            var statusCode = Client.Instance.PerformRequest(
+                Client.HttpRequestMethod.Get,
+                ExternalSubscription.UrlPrefix + Uri.EscapeDataString("external-id-" + externalId),
+                externalSubscription.ReadXml
+            );
             return statusCode == HttpStatusCode.NotFound ? null : externalSubscription;
         }
         /// <summary>
