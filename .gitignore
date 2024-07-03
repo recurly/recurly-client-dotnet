@@ -149,6 +149,9 @@ ClientBin/
 *.pfx
 *.publishsettings
 
+# GAR access 
+config.json
+
 # RIA/Silverlight projects
 Generated_Code/
 
