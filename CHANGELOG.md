@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.18.1](https://github.com/recurly/recurly-client-dotnet/tree/1.18.1) (2024-07-03)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.18.0...1.18.1)
+
+
+**Merged Pull Requests**
+
+- GET external_subscription by external_id [#841](https://github.com/recurly/recurly-client-dotnet/pull/841) ([paulorbpinho-fullstacklabs](https://github.com/paulorbpinho-fullstacklabs))
+- Add origin_tax_address_source & destination_tax_address_source to business_entity and adjustment resource. [#839](https://github.com/recurly/recurly-client-dotnet/pull/839) ([paulorbpinho-fullstacklabs](https://github.com/paulorbpinho-fullstacklabs))
+
+
+
 ## [1.18.0](https://github.com/recurly/recurly-client-dotnet/tree/1.18.0) (2024-05-08)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.17.38...1.18.0)
