@@ -312,6 +312,36 @@ namespace Recurly.Test
         }
 
         [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void RefundPercentage()
+        {
+            var account = CreateNewAccountWithBillingInfo();
+
+            var adjustment = account.NewAdjustment("USD", 1000, "Test Charge");
+
+            adjustment.Create();
+
+            var collection = account.InvoicePendingCharges();
+            var invoice = collection.ChargeInvoice;
+
+            invoice.MarkSuccessful();
+
+            invoice.State.Should().Be(Invoice.InvoiceState.Paid);
+
+            Assert.Equal(1, invoice.Adjustments.Count);
+
+            // refund
+            System.Threading.Thread.Sleep(1000); // Sleep hack to avoid simultaneous_request errors
+            adjustment.RefundType = Refund.RefundType.Percentage;
+            adjustment.RefundPercentage = 10;
+            var refundInvoice = invoice.Refund(adjustment, new Invoice.RefundOptions());
+            Assert.NotEqual(invoice.Uuid, refundInvoice.Uuid);
+            Assert.Equal(-100, refundInvoice.TotalInCents);
+            Assert.Equal(1, refundInvoice.Adjustments.Count);
+            Assert.Equal(0, refundInvoice.Transactions.Count);
+            account.Close();
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
         public void UpdateInvoice()
         {
             var account = CreateNewAccount();
@@ -436,6 +466,78 @@ namespace Recurly.Test
             };
 
             adjustment = invoice.Adjustments[0];
+            System.Threading.Thread.Sleep(1000); // Sleep hack to avoid simultaneous_request errors
+            var refundInvoice = invoice.Refund(adjustment, refundOptions);
+            Assert.NotEqual(invoice.Uuid, refundInvoice.Uuid);
+            Assert.Equal(1, refundInvoice.Adjustments.Count);
+
+            account.Close();
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void RefundLineItemsPercentage()
+        {
+            var account = CreateNewAccountWithBillingInfo();
+            var adjustment = account.NewAdjustment("USD", 4000, "Test Charge 1");
+            adjustment.Create();
+            adjustment = account.NewAdjustment("USD", 4999, "Test Charge 2");
+            adjustment.Create();
+            var collection = account.InvoicePendingCharges();
+            var invoice = collection.ChargeInvoice;
+            invoice.MarkSuccessful();
+
+
+            invoice.State.Should().Be(Invoice.InvoiceState.Paid);
+            Assert.Equal(2, invoice.Adjustments.Count);
+
+            var refundOptions = new Invoice.RefundOptions()
+            {
+                ExternalRefund = true,
+                Description = "External Refund Description",
+                CreditCustomerNotes = "Credit Customer Notes",
+                PaymentMethod = "credit_card",
+                Method = Invoice.RefundMethod.AllTransaction
+            };
+
+            adjustment = invoice.Adjustments[0];
+            adjustment.RefundType = Refund.RefundType.Percentage;
+            adjustment.RefundPercentage = 10;
+            System.Threading.Thread.Sleep(1000); // Sleep hack to avoid simultaneous_request errors
+            var refundInvoice = invoice.Refund(adjustment, refundOptions);
+            Assert.NotEqual(invoice.Uuid, refundInvoice.Uuid);
+            Assert.Equal(1, refundInvoice.Adjustments.Count);
+
+            account.Close();
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Integration)]
+        public void RefundLineItemsAmountInCents()
+        {
+            var account = CreateNewAccountWithBillingInfo();
+            var adjustment = account.NewAdjustment("USD", 4000, "Test Charge 1");
+            adjustment.Create();
+            adjustment = account.NewAdjustment("USD", 4999, "Test Charge 2");
+            adjustment.Create();
+            var collection = account.InvoicePendingCharges();
+            var invoice = collection.ChargeInvoice;
+            invoice.MarkSuccessful();
+
+
+            invoice.State.Should().Be(Invoice.InvoiceState.Paid);
+            Assert.Equal(2, invoice.Adjustments.Count);
+
+            var refundOptions = new Invoice.RefundOptions()
+            {
+                ExternalRefund = true,
+                Description = "External Refund Description",
+                CreditCustomerNotes = "Credit Customer Notes",
+                PaymentMethod = "credit_card",
+                Method = Invoice.RefundMethod.AllTransaction
+            };
+
+            adjustment = invoice.Adjustments[0];
+            adjustment.RefundType = Refund.RefundType.AmountInCents;
+            adjustment.RefundAmountInCents = 10;
             System.Threading.Thread.Sleep(1000); // Sleep hack to avoid simultaneous_request errors
             var refundInvoice = invoice.Refund(adjustment, refundOptions);
             Assert.NotEqual(invoice.Uuid, refundInvoice.Uuid);

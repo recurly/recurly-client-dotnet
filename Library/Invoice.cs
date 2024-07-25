@@ -458,7 +458,29 @@ namespace Recurly
         public Invoice RefundAmount(int amountInCents, RefundOptions options)
         {
             var refundInvoice = new Invoice();
-            var refund = new OpenAmountRefund(amountInCents, options);
+            var refund = new OpenAmountRefund("amount_in_cents", amountInCents, options);
+
+            var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
+                memberUrl() + "/refund",
+                refund.WriteXml,
+                refundInvoice.ReadXml);
+
+            if (HttpStatusCode.Created == statusCode || HttpStatusCode.OK == statusCode)
+                return refundInvoice;
+            else
+                return null;
+        }
+
+        /// <summary>
+        /// Allows you to refund a percentage from an invoice.
+        /// </summary>
+        /// <param name="percentage">The percentage as an integer to refund from the invoice.</param>
+        /// <param name="options">The options for the refund invoice.</param>
+        /// <returns>new Invoice object</returns>
+        public Invoice RefundPercentage(int percentage, RefundOptions options)
+        {
+            var refundInvoice = new Invoice();
+            var refund = new OpenAmountRefund("percentage", percentage, options);
 
             var statusCode = Client.Instance.PerformRequest(Client.HttpRequestMethod.Post,
                 memberUrl() + "/refund",
