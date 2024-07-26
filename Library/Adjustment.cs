@@ -238,7 +238,9 @@ namespace Recurly
                         break;
 
                     case "quantity_decimal":
-                        QuantityDecimal = reader.ReadElementContentAsDecimal();
+                        var quantityDecimal = reader.ReadElementContentAsString();
+                        if (!quantityDecimal.IsNullOrEmpty())
+                            QuantityDecimal = reader.ReadElementContentAsDecimal();
                         break;
 
                     case "quantity_remaining":

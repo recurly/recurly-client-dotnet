@@ -51,10 +51,11 @@ namespace Recurly
             writer.WriteElementString("uuid", Uuid);
 
             if (Type == RefundType.Quantity)
+            {
                 writer.WriteElementString("quantity", Quantity.AsString());
-
-            if (QuantityDecimal.HasValue)
-                writer.WriteElementString("quantity_decimal", QuantityDecimal.Value.ToString());
+                if (QuantityDecimal.HasValue)
+                    writer.WriteElementString("quantity_decimal", QuantityDecimal.Value.ToString());
+            }
 
             if (Type == RefundType.Percentage)
                 writer.WriteElementString("percentage", Percentage.Value.ToString());
