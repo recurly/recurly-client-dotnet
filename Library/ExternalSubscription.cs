@@ -34,6 +34,7 @@ namespace Recurly
         public bool? InGracePeriod { get; set; }
         public int Quantity { get; set; }
         public ExternalProductReference ExternalProductReference { get; private set; }
+        public string Uuid { get; private set; }
         public DateTime? LastPurchased { get; private set; }
         public bool? Imported { get; set; }
         public bool? Test { get; set; }
@@ -125,6 +126,10 @@ namespace Recurly
                         break;
 
                     case "app_identifier":
+                        AppIdentifier = reader.ReadElementContentAsString();
+                        break;
+
+                    case "uuid":
                         AppIdentifier = reader.ReadElementContentAsString();
                         break;
 
@@ -231,6 +236,22 @@ namespace Recurly
             );
             return statusCode == HttpStatusCode.NotFound ? null : externalSubscription;
         }
+
+        public static ExternalSubscription GetByUuid(string uuid)
+        {
+            if (string.IsNullOrWhiteSpace(uuid))
+            {
+                return null;
+            }
+            var externalSubscription = new ExternalSubscription();
+            var statusCode = Client.Instance.PerformRequest(
+                Client.HttpRequestMethod.Get,
+                ExternalSubscription.UrlPrefix + Uri.EscapeDataString("uuid-" + uuid),
+                externalSubscription.ReadXml
+            );
+            return statusCode == HttpStatusCode.NotFound ? null : externalSubscription;
+        }
+
         /// <summary>
         /// Returns a list of external_invoices for this external subscription
         /// </summary>
