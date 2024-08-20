@@ -5,22 +5,24 @@ namespace Recurly
 {
     class OpenAmountRefund : RecurlyEntity
     {
-        public int AmountInCents { get; protected set; }
+        public int OpenAmount { get; protected set; }
+        public string RefundType { get; protected set; }
         private Invoice.RefundOptions RefundOptions;
 
         [Obsolete("This constructor is deprecated, please use OpenAmountRefund(int, Invoice.RefundOptions).")]
         internal OpenAmountRefund(int amountInCents, Invoice.RefundMethod method = Invoice.RefundMethod.CreditFirst)
         {
-            AmountInCents = amountInCents;
+            OpenAmount = amountInCents;
             RefundOptions = new Invoice.RefundOptions()
             {
                 Method = method
             };
         }
 
-        internal OpenAmountRefund(int amountInCents, Invoice.RefundOptions options)
+        internal OpenAmountRefund(string refundType, int amount, Invoice.RefundOptions options)
         {
-            AmountInCents = amountInCents;
+            RefundType = refundType;
+            OpenAmount = amount;
             RefundOptions = options;
         }
 
@@ -32,7 +34,7 @@ namespace Recurly
         internal override void WriteXml(XmlTextWriter writer)
         {
             writer.WriteStartElement("invoice");
-            writer.WriteElementString("amount_in_cents", AmountInCents.AsString());
+            writer.WriteElementString(RefundType, OpenAmount.AsString());
             writer.WriteElementString("refund_method", RefundOptions.Method.ToString().EnumNameToTransportCase());
 
             if (RefundOptions.ExternalRefund.HasValue)

@@ -48,6 +48,9 @@ namespace Recurly
         public int UnitAmountInCents { get; set; }
         public int Quantity { get; set; }
         public decimal? QuantityDecimal { get; set; }
+        public int? RefundAmountInCents { get; set; }
+        public int? RefundPercentage { get; set; }
+        public Refund.RefundType RefundType { get; set; }
         public int? QuantityRemaining { get; set; }
         public decimal? QuantityDecimalRemaining { get; set; }
         public int DiscountInCents { get; protected set; }
@@ -235,7 +238,9 @@ namespace Recurly
                         break;
 
                     case "quantity_decimal":
-                        QuantityDecimal = reader.ReadElementContentAsDecimal();
+                        var quantityDecimal = reader.ReadElementContentAsString();
+                        if (!quantityDecimal.IsNullOrEmpty())
+                            QuantityDecimal = reader.ReadElementContentAsDecimal();
                         break;
 
                     case "quantity_remaining":
