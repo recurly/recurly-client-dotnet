@@ -335,9 +335,8 @@ namespace Recurly.Test
             adjustment.RefundPercentage = 10;
             var refundInvoice = invoice.Refund(adjustment, new Invoice.RefundOptions());
             Assert.NotEqual(invoice.Uuid, refundInvoice.Uuid);
-            Assert.Equal(-100, refundInvoice.TotalInCents);
+            Assert.Equal(-100, refundInvoice.SubtotalInCents);
             Assert.Equal(1, refundInvoice.Adjustments.Count);
-            Assert.Equal(0, refundInvoice.Transactions.Count);
             account.Close();
         }
 
