@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.18.2](https://github.com/recurly/recurly-client-dotnet/tree/1.18.2) (2024-08-21)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.18.1...1.18.2)
+
+
+**Merged Pull Requests**
+
+- Support for new line item refund work [#844](https://github.com/recurly/recurly-client-dotnet/pull/844) ([ELepolt](https://github.com/ELepolt))
+
+
+
 ## [1.18.1](https://github.com/recurly/recurly-client-dotnet/tree/1.18.1) (2024-07-03)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.18.0...1.18.1)
