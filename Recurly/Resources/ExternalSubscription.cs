@@ -99,5 +99,9 @@ namespace Recurly.Resources
         [JsonProperty("updated_at")]
         public DateTime? UpdatedAt { get; set; }
 
+        /// <value>Universally Unique Identifier created automatically.</value>
+        [JsonProperty("uuid")]
+        public string Uuid { get; set; }
+
     }
 }
