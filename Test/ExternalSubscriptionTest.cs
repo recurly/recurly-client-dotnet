@@ -21,6 +21,7 @@ namespace Recurly.Test
             externalSubscription.TrialEndsAt.Should().Be(null);
             externalSubscription.Imported.Should().Be(false);
             externalSubscription.Test.Should().Be(false);
+            // externalSubscription.Uuid.Should().Be("fill this in after backfill"); id = 3799097350953132104
         }
     }
 }
