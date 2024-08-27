@@ -1715,7 +1715,7 @@ namespace Recurly
         /// <summary>
         /// Fetch an external subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_external_subscription">get_external_subscription api documentation</see>
         /// </summary>
-        /// <param name="externalSubscriptionId">External subscription ID or external_id. For ID no prefix is used e.g. `e28zov4fw0v2`. For external_id use prefix `external-id-`, e.g. `external-id-123456`.</param>
+        /// <param name="externalSubscriptionId">External subscription ID, external_id or uuid. For ID no prefix is used e.g. `e28zov4fw0v2`. For external_id use prefix `external-id-`, e.g. `external-id-123456` and for uuid use prefix `uuid-` e.g. `uuid-7293239bae62777d8c1ae044a9843633`.</param>
         /// <returns>
         /// Settings for an external subscription.
         /// </returns>
@@ -1725,7 +1725,7 @@ namespace Recurly
         /// <summary>
         /// Fetch an external subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_external_subscription">get_external_subscription api documentation</see>
         /// </summary>
-        /// <param name="externalSubscriptionId">External subscription ID or external_id. For ID no prefix is used e.g. `e28zov4fw0v2`. For external_id use prefix `external-id-`, e.g. `external-id-123456`.</param>
+        /// <param name="externalSubscriptionId">External subscription ID, external_id or uuid. For ID no prefix is used e.g. `e28zov4fw0v2`. For external_id use prefix `external-id-`, e.g. `external-id-123456` and for uuid use prefix `uuid-` e.g. `uuid-7293239bae62777d8c1ae044a9843633`.</param>
         /// <returns>
         /// Settings for an external subscription.
         /// </returns>
