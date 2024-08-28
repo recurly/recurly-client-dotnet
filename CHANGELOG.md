@@ -1,5 +1,16 @@
 # Changelog
 
+## [4.58.0](https://github.com/recurly/recurly-client-dotnet/tree/4.58.0) (2024-08-28)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/4.57.0...4.58.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 (add UUID to external subscriptions) [#847](https://github.com/recurly/recurly-client-dotnet/pull/847) ([recurly-integrations](https://github.com/recurly-integrations))
+
+
+
 ## [4.57.0](https://github.com/recurly/recurly-client-dotnet/tree/4.57.0) (2024-08-09)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/4.56.0...4.57.0)
