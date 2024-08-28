@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.18.3](https://github.com/recurly/recurly-client-dotnet/tree/1.18.3) (2024-08-28)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.18.2...1.18.3)
+
+
+**Merged Pull Requests**
+
+- Get external sub by uuid [#846](https://github.com/recurly/recurly-client-dotnet/pull/846) ([amandamfielding](https://github.com/amandamfielding))
+
+
+
 ## [1.18.2](https://github.com/recurly/recurly-client-dotnet/tree/1.18.2) (2024-08-21)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.18.1...1.18.2)
