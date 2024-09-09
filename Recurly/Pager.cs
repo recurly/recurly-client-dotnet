@@ -10,7 +10,7 @@ using RestSharp;
 namespace Recurly
 {
     [JsonObject]
-    public class Pager<T> : Resource, IEnumerator<T>, IEnumerable<T>
+    public class Pager<T> : Resource, IPager<T>, IEnumerator<T>
     {
         [JsonProperty("has_more")]
         public bool HasMore { get; set; }
@@ -68,7 +68,7 @@ namespace Recurly
             return (int)meta.RecordCount;
         }
 
-        public Pager<T> FetchNextPage()
+        public IPager<T> FetchNextPage()
         {
             Dictionary<string, object> NextParams = _pristine ? QueryParams : null;
             var pager = RecurlyClient.MakeRequest<Pager<T>>(Method.GET, Next, null, NextParams, Options);
@@ -76,7 +76,7 @@ namespace Recurly
             return this;
         }
 
-        public async Task<Pager<T>> FetchNextPageAsync(CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<IPager<T>> FetchNextPageAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             Dictionary<string, object> NextParams = _pristine ? QueryParams : null;
             var task = RecurlyClient.MakeRequestAsync<Pager<T>>(Method.GET, Next, null, NextParams, Options, cancellationToken);
