@@ -31,6 +31,10 @@ namespace Recurly.Resources
         [JsonProperty("billing_info_id")]
         public string BillingInfoId { get; set; }
 
+        /// <value>Optional field to be used only when needing to bypass the 60 second limit on creating subscriptions. Should only be used when creating subscriptions in bulk from the API.</value>
+        [JsonProperty("bulk")]
+        public bool? Bulk { get; set; }
+
         /// <value>Collection method</value>
         [JsonProperty("collection_method")]
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
