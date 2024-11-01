@@ -303,5 +303,17 @@ namespace Recurly.Test
             plan.SetupFeeRevenueGlAccountId.Should().Be("dlrk123lzabc");
             plan.SetupFeePerformanceObligationId.Should().Be("bks6noi");
         }
+
+        [RecurlyFact(TestEnvironment.Type.Unit)]
+        public void GetPlanWithVertexTransactionType()
+        {
+            var plan = new Plan();
+
+            var xmlFixture = FixtureImporter.Get(FixtureType.Plans, "show-200").Xml;
+            XmlTextReader reader = new XmlTextReader(new System.IO.StringReader(xmlFixture));
+            plan.ReadXml(reader);
+
+            plan.VertexTransactionType.Should().Be("rental");
+        }
     }
 }

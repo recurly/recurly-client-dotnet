@@ -23,6 +23,12 @@ namespace Recurly
         public string SuccessUrl { get; set; }
         public string CancelUrl { get; set; }
 
+        /// <summary>
+        /// VertexTransactionType is one of rental,sale,lease
+        /// Requires feature flag and vertex integration
+        /// </summary>
+        public string VertexTransactionType { get; set; }
+
         public bool? DisplayDonationAmounts { get; set; }
         public bool? DisplayQuantity { get; set; }
         public bool? DisplayPhoneNumber { get; set; }
@@ -320,6 +326,10 @@ namespace Recurly
                         CancelUrl = reader.ReadElementContentAsString();
                         break;
 
+                    case "vertex_transaction_type":
+                        VertexTransactionType = reader.ReadElementContentAsString();
+                        break;
+
                     case "display_donation_amounts":
                         DisplayDonationAmounts = reader.ReadElementContentAsBoolean();
                         break;
@@ -474,6 +484,7 @@ namespace Recurly
             xmlWriter.WriteStringIfValid("description", Description);
             xmlWriter.WriteStringIfValid("accounting_code", AccountingCode);
             xmlWriter.WriteStringIfValid("setup_fee_accounting_code", SetupFeeAccountingCode);
+            xmlWriter.WriteStringIfValid("vertex_transaction_type", VertexTransactionType);
 
             // product revrec features (and setup fee revrec features)
             WriteRevRecNodes(xmlWriter);
