@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.18.4](https://github.com/recurly/recurly-client-dotnet/tree/1.18.4) (2024-11-13)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.18.3...1.18.4)
+
+
+**Merged Pull Requests**
+
+- adds vertex_transaction_type to plan [#852](https://github.com/recurly/recurly-client-dotnet/pull/852) ([epagerecurly](https://github.com/epagerecurly))
+
+
+
 ## [1.18.3](https://github.com/recurly/recurly-client-dotnet/tree/1.18.3) (2024-08-28)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.18.2...1.18.3)
