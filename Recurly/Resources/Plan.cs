@@ -153,5 +153,9 @@ namespace Recurly.Resources
         [JsonProperty("updated_at")]
         public DateTime? UpdatedAt { get; set; }
 
+        /// <value>Used by Vertex for tax calculations. Possible values are `sale`, `rental`, `lease`.</value>
+        [JsonProperty("vertex_transaction_type")]
+        public string VertexTransactionType { get; set; }
+
     }
 }

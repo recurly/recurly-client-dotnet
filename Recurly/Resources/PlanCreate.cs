@@ -180,5 +180,9 @@ namespace Recurly.Resources
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
         public Constants.IntervalUnit? TrialUnit { get; set; }
 
+        /// <value>Used by Vertex for tax calculations. Possible values are `sale`, `rental`, `lease`.</value>
+        [JsonProperty("vertex_transaction_type")]
+        public string VertexTransactionType { get; set; }
+
     }
 }
