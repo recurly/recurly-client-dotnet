@@ -12,16 +12,12 @@ using Newtonsoft.Json;
 namespace Recurly.Resources
 {
     [ExcludeFromCodeCoverage]
-    public class ExternalAccountUpdate : Request
+    public class AccountExternalSubscription : Request
     {
 
-        /// <value>Represents the account code for the external account.</value>
-        [JsonProperty("external_account_code")]
-        public string ExternalAccountCode { get; set; }
-
-        /// <value>Represents the connection type. One of the connection types of your enabled App Connectors</value>
-        [JsonProperty("external_connection_type")]
-        public string ExternalConnectionType { get; set; }
+        /// <value>The account code of a new or existing account to be used when creating the external subscription.</value>
+        [JsonProperty("account_code")]
+        public string AccountCode { get; set; }
 
     }
 }

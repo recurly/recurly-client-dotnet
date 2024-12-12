@@ -19,7 +19,7 @@ namespace Recurly.Resources
         [JsonProperty("external_account_code")]
         public string ExternalAccountCode { get; set; }
 
-        /// <value>Represents the connection type. `AppleAppStore` or `GooglePlayStore`</value>
+        /// <value>Represents the connection type. One of the connection types of your enabled App Connectors</value>
         [JsonProperty("external_connection_type")]
         public string ExternalConnectionType { get; set; }
 

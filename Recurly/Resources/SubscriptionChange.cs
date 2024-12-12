@@ -31,6 +31,10 @@ namespace Recurly.Resources
         [JsonProperty("billing_info")]
         public SubscriptionChangeBillingInfo BillingInfo { get; set; }
 
+        /// <value>Business entity details</value>
+        [JsonProperty("business_entity")]
+        public BusinessEntityMini BusinessEntity { get; set; }
+
         /// <value>Created at</value>
         [JsonProperty("created_at")]
         public DateTime? CreatedAt { get; set; }
