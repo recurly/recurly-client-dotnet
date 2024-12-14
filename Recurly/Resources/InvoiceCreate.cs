@@ -15,6 +15,14 @@ namespace Recurly.Resources
     public class InvoiceCreate : Request
     {
 
+        /// <value>The `business_entity_code` is the value that represents a specific business entity for an end customer which will be assigned to the invoice. Available when the `Multiple Business Entities` feature is enabled. If both `business_entity_id` and `business_entity_code` are present, `business_entity_id` will be used.</value>
+        [JsonProperty("business_entity_code")]
+        public string BusinessEntityCode { get; set; }
+
+        /// <value>The `business_entity_id` is the value that represents a specific business entity for an end customer which will be assigned to the invoice. Available when the `Multiple Business Entities` feature is enabled. If both `business_entity_id` and `business_entity_code` are present, `business_entity_id` will be used.</value>
+        [JsonProperty("business_entity_id")]
+        public string BusinessEntityId { get; set; }
+
         /// <value>This will default to the Customer Notes text specified on the Invoice Settings for charge invoices. Specify custom notes to add or override Customer Notes on charge invoices.</value>
         [JsonProperty("charge_customer_notes")]
         public string ChargeCustomerNotes { get; set; }

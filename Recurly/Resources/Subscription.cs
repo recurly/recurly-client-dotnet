@@ -51,6 +51,10 @@ namespace Recurly.Resources
         [JsonProperty("billing_info_id")]
         public string BillingInfoId { get; set; }
 
+        /// <value>The ID of the business entity associated with the subscription. This will be `null` if the subscription relies on resolving the business entity during renewal.</value>
+        [JsonProperty("business_entity_id")]
+        public string BusinessEntityId { get; set; }
+
         /// <value>Canceled at</value>
         [JsonProperty("canceled_at")]
         public DateTime? CanceledAt { get; set; }

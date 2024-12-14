@@ -23,6 +23,14 @@ namespace Recurly.Resources
         [JsonProperty("billing_info_id")]
         public string BillingInfoId { get; set; }
 
+        /// <value>The `business_entity_code` is the value that represents a specific business entity for an end customer. When `business_entity_code` is used to assign a business entity to the subscription, all future billing events for the subscription will bill to the specified business entity. Available when the `Multiple Business Entities` feature is enabled. If both `business_entity_id` and `business_entity_code` are present, `business_entity_id` will be used.</value>
+        [JsonProperty("business_entity_code")]
+        public string BusinessEntityCode { get; set; }
+
+        /// <value>The `business_entity_id` is the value that represents a specific business entity for an end customer. When `business_entity_id` is used to assign a business entity to the subscription, all future billing events for the subscription will bill to the specified business entity. Available when the `Multiple Business Entities` feature is enabled. If both `business_entity_id` and `business_entity_code` are present, `business_entity_id` will be used.</value>
+        [JsonProperty("business_entity_id")]
+        public string BusinessEntityId { get; set; }
+
         /// <value>Must be set to manual in order to preview a purchase for an Account that does not have payment information associated with the Billing Info.</value>
         [JsonProperty("collection_method")]
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
@@ -100,6 +108,10 @@ namespace Recurly.Resources
         /// <value>Terms and conditions to be put on the purchase invoice.</value>
         [JsonProperty("terms_and_conditions")]
         public string TermsAndConditions { get; set; }
+
+        /// <value>(Transaction Data, Card on File) - Options for flagging transactions as Customer or Merchant Initiated Unscheduled.</value>
+        [JsonProperty("transaction")]
+        public Dictionary<string, string> Transaction { get; set; }
 
         /// <value>An optional type designation for the payment gateway transaction created by this request. Supports 'moto' value, which is the acronym for mail order and telephone transactions.</value>
         [JsonProperty("transaction_type")]

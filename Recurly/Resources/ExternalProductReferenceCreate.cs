@@ -15,10 +15,9 @@ namespace Recurly.Resources
     public class ExternalProductReferenceCreate : Request
     {
 
-
+        /// <value>Represents the connection type. One of the connection types of your enabled App Connectors</value>
         [JsonProperty("external_connection_type")]
-        [JsonConverter(typeof(RecurlyStringEnumConverter))]
-        public Constants.ExternalProductReferenceConnectionType? ExternalConnectionType { get; set; }
+        public ExternalProductReferenceConnectionType ExternalConnectionType { get; set; }
 
         /// <value>A code which associates the external product to a corresponding object or resource in an external platform like the Apple App Store or Google Play Store.</value>
         [JsonProperty("reference_code")]
