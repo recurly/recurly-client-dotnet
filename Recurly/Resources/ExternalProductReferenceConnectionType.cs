@@ -12,16 +12,8 @@ using Newtonsoft.Json;
 namespace Recurly.Resources
 {
     [ExcludeFromCodeCoverage]
-    public class ExternalAccountUpdate : Request
+    public class ExternalProductReferenceConnectionType : Request
     {
-
-        /// <value>Represents the account code for the external account.</value>
-        [JsonProperty("external_account_code")]
-        public string ExternalAccountCode { get; set; }
-
-        /// <value>Represents the connection type. One of the connection types of your enabled App Connectors</value>
-        [JsonProperty("external_connection_type")]
-        public string ExternalConnectionType { get; set; }
 
     }
 }

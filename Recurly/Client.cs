@@ -2608,7 +2608,41 @@ namespace Recurly
 
 
         /// <summary>
-        /// List a site's external subscriptions <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_external_subscriptions">list_external_subscriptions api documentation</see>
+        /// Create an external subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_external_subscription">create_external_subscription api documentation</see>
+        /// </summary>
+        /// <param name="CreateExternalSubscriptionParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Returns the external subscription
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public ExternalSubscription CreateExternalSubscription(ExternalSubscriptionCreate body, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var url = this.InterpolatePath("/external_subscriptions", urlParams);
+            return MakeRequest<ExternalSubscription>(Method.POST, url, body, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Create an external subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_external_subscription">create_external_subscription api documentation</see>
+        /// </summary>
+        /// <param name="CreateExternalSubscriptionParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Returns the external subscription
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<ExternalSubscription> CreateExternalSubscriptionAsync(ExternalSubscriptionCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var url = this.InterpolatePath("/external_subscriptions", urlParams);
+            return MakeRequestAsync<ExternalSubscription>(Method.POST, url, body, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// List the external subscriptions on a site <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_external_subscriptions">list_external_subscriptions api documentation</see>
         /// </summary>
         /// <param name="ListExternalSubscriptionsParams">Optional Parameters for the request</param>
         /// <returns>
@@ -2656,6 +2690,40 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "external_subscription_id", externalSubscriptionId } };
             var url = this.InterpolatePath("/external_subscriptions/{external_subscription_id}", urlParams);
             return MakeRequestAsync<ExternalSubscription>(Method.GET, url, null, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// Update an external subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/put_external_subscription">put_external_subscription api documentation</see>
+        /// </summary>
+        /// <param name="PutExternalSubscriptionParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Settings for an external subscription.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public ExternalSubscription PutExternalSubscription(string externalSubscriptionId, ExternalSubscriptionUpdate body = null, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "external_subscription_id", externalSubscriptionId } };
+            var url = this.InterpolatePath("/external_subscriptions/{external_subscription_id}", urlParams);
+            return MakeRequest<ExternalSubscription>(Method.PUT, url, body, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Update an external subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/put_external_subscription">put_external_subscription api documentation</see>
+        /// </summary>
+        /// <param name="PutExternalSubscriptionParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Settings for an external subscription.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<ExternalSubscription> PutExternalSubscriptionAsync(string externalSubscriptionId, ExternalSubscriptionUpdate body = null, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "external_subscription_id", externalSubscriptionId } };
+            var url = this.InterpolatePath("/external_subscriptions/{external_subscription_id}", urlParams);
+            return MakeRequestAsync<ExternalSubscription>(Method.PUT, url, body, null, options, cancellationToken);
         }
 
 

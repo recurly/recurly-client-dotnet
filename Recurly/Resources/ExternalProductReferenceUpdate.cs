@@ -12,16 +12,16 @@ using Newtonsoft.Json;
 namespace Recurly.Resources
 {
     [ExcludeFromCodeCoverage]
-    public class ExternalAccountUpdate : Request
+    public class ExternalProductReferenceUpdate : Request
     {
-
-        /// <value>Represents the account code for the external account.</value>
-        [JsonProperty("external_account_code")]
-        public string ExternalAccountCode { get; set; }
 
         /// <value>Represents the connection type. One of the connection types of your enabled App Connectors</value>
         [JsonProperty("external_connection_type")]
-        public string ExternalConnectionType { get; set; }
+        public ExternalProductReferenceConnectionType ExternalConnectionType { get; set; }
+
+        /// <value>A code which associates the external product to a corresponding object or resource in an external platform like the Apple App Store or Google Play Store.</value>
+        [JsonProperty("reference_code")]
+        public string ReferenceCode { get; set; }
 
     }
 }

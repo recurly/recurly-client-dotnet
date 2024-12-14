@@ -1703,7 +1703,27 @@ namespace Recurly
         Task<ExternalProductReferenceMini> DeactivateExternalProductExternalProductReferenceAsync(string externalProductId, string externalProductReferenceId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
 
         /// <summary>
-        /// List a site's external subscriptions <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_external_subscriptions">list_external_subscriptions api documentation</see>
+        /// Create an external subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_external_subscription">create_external_subscription api documentation</see>
+        /// </summary>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// Returns the external subscription
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        ExternalSubscription CreateExternalSubscription(ExternalSubscriptionCreate body, RequestOptions options = null);
+
+        /// <summary>
+        /// Create an external subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_external_subscription">create_external_subscription api documentation</see>
+        /// </summary>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// Returns the external subscription
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<ExternalSubscription> CreateExternalSubscriptionAsync(ExternalSubscriptionCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// List the external subscriptions on a site <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_external_subscriptions">list_external_subscriptions api documentation</see>
         /// </summary>
         /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
         /// <returns>
@@ -1731,6 +1751,26 @@ namespace Recurly
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
         Task<ExternalSubscription> GetExternalSubscriptionAsync(string externalSubscriptionId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// Update an external subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/put_external_subscription">put_external_subscription api documentation</see>
+        /// </summary>
+        /// <param name="externalSubscriptionId">External subscription id</param>
+        /// <returns>
+        /// Settings for an external subscription.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        ExternalSubscription PutExternalSubscription(string externalSubscriptionId, ExternalSubscriptionUpdate body = null, RequestOptions options = null);
+
+        /// <summary>
+        /// Update an external subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/put_external_subscription">put_external_subscription api documentation</see>
+        /// </summary>
+        /// <param name="externalSubscriptionId">External subscription id</param>
+        /// <returns>
+        /// Settings for an external subscription.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<ExternalSubscription> PutExternalSubscriptionAsync(string externalSubscriptionId, ExternalSubscriptionUpdate body = null, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
 
         /// <summary>
         /// List the external invoices on an external subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_external_subscription_external_invoices">list_external_subscription_external_invoices api documentation</see>

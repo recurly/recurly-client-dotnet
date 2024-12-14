@@ -35,6 +35,14 @@ namespace Recurly.Resources
         [JsonProperty("bulk")]
         public bool? Bulk { get; set; }
 
+        /// <value>The `business_entity_code` is the value that represents a specific business entity for an end customer. When `business_entity_code` is used to assign a business entity to the subscription, all future billing events for the subscription will bill to the specified business entity. Available when the `Multiple Business Entities` feature is enabled. If both `business_entity_id` and `business_entity_code` are present, `business_entity_id` will be used.</value>
+        [JsonProperty("business_entity_code")]
+        public string BusinessEntityCode { get; set; }
+
+        /// <value>The `business_entity_id` is the value that represents a specific business entity for an end customer. When `business_entity_id` is used to assign a business entity to the subscription, all future billing events for the subscription will bill to the specified business entity. Available when the `Multiple Business Entities` feature is enabled. If both `business_entity_id` and `business_entity_code` are present, `business_entity_id` will be used.</value>
+        [JsonProperty("business_entity_id")]
+        public string BusinessEntityId { get; set; }
+
         /// <value>Collection method</value>
         [JsonProperty("collection_method")]
         [JsonConverter(typeof(RecurlyStringEnumConverter))]

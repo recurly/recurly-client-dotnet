@@ -44,18 +44,6 @@ namespace Recurly
 
         };
 
-        public enum ExternalProductReferenceConnectionType
-        {
-            Undefined = 0,
-
-            [EnumMember(Value = "apple_app_store")]
-            AppleAppStore,
-
-            [EnumMember(Value = "google_play_store")]
-            GooglePlayStore,
-
-        };
-
         public enum RelatedType
         {
             Undefined = 0,
@@ -2405,6 +2393,42 @@ namespace Recurly
 
             [EnumMember(Value = "origin")]
             Origin,
+
+        };
+
+        public enum TransactionMerchantReasonCode
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "incremental")]
+            Incremental,
+
+            [EnumMember(Value = "no_show")]
+            NoShow,
+
+            [EnumMember(Value = "resubmission")]
+            Resubmission,
+
+            [EnumMember(Value = "service_extension")]
+            ServiceExtension,
+
+            [EnumMember(Value = "split_shipment")]
+            SplitShipment,
+
+            [EnumMember(Value = "top_up")]
+            TopUp,
+
+        };
+
+        public enum TransactionIndicator
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "customer")]
+            Customer,
+
+            [EnumMember(Value = "merchant")]
+            Merchant,
 
         };
 
