@@ -3342,7 +3342,7 @@ namespace Recurly
         /// <returns>
         /// A list of the entitlements granted to an account.
         /// </returns>
-        Pager<Entitlements> ListEntitlements(string accountId, ListEntitlementsParams optionalParams = null, RequestOptions options = null);
+        Pager<Entitlement> ListEntitlements(string accountId, ListEntitlementsParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>

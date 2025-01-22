@@ -5190,7 +5190,7 @@ namespace Recurly
         /// <returns>
         /// A list of the entitlements granted to an account.
         /// </returns>
-        public Pager<Entitlements> ListEntitlements(string accountId, ListEntitlementsParams optionalParams = null, RequestOptions options = null)
+        public Pager<Entitlement> ListEntitlements(string accountId, ListEntitlementsParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var queryParams = (optionalParams ?? new ListEntitlementsParams()).ToDictionary();
