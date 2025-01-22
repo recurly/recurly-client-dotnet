@@ -174,13 +174,24 @@ namespace Recurly.Tests
         {
             var client = MockClient.Build(SuccessResponse(System.Net.HttpStatusCode.OK));
             var mockHandler = new Mock<IEventHandler>();
-            mockHandler
-              .Setup(x => x.OnRequest(It.IsAny<Recurly.Http.Request>()));
-            mockHandler
-              .Setup(x => x.OnResponse(It.IsAny<Recurly.Http.Response>()));
             client.AddEventHandler(mockHandler.Object);
             MyResource resource = client.GetResource("benjamin", "param1", new DateTime());
+
             Assert.Equal("benjamin", resource.MyString);
+            mockHandler.Verify(g => g.OnRequest(It.IsAny<Recurly.Http.Request>()), Times.Once());
+            mockHandler.Verify(g => g.OnResponse(It.IsAny<Recurly.Http.Response>()), Times.Once());
+        }
+
+        [Fact]
+        public void WillTriggerHookIfAvailableOnError()
+        {
+            var client = MockClient.Build(NotFoundResponse());
+            var mockHandler = new Mock<IEventHandler>();
+            client.AddEventHandler(mockHandler.Object);
+
+            Assert.Throws<Recurly.Errors.NotFound>(() => client.GetResource("benjamin", "param1", new DateTime()));
+            mockHandler.Verify(g => g.OnRequest(It.IsAny<Recurly.Http.Request>()), Times.Once());
+            mockHandler.Verify(g => g.OnResponse(It.IsAny<Recurly.Http.Response>()), Times.Once());
         }
 
         [Fact]
@@ -188,14 +199,22 @@ namespace Recurly.Tests
         {
             var client = MockClient.Build(SuccessResponse(System.Net.HttpStatusCode.OK));
             var mockHandler = new Mock<IEventHandler>();
-            mockHandler
-              .Setup(x => x.OnRequest(It.IsAny<Recurly.Http.Request>()));
-            mockHandler
-              .Setup(x => x.OnResponse(It.IsAny<Recurly.Http.Response>()));
             client.AddEventHandler(mockHandler.Object);
             MyResource resource = await client.GetResourceAsync("benjamin", "param1", new DateTime());
 
             Assert.Equal("benjamin", resource.MyString);
+            mockHandler.Verify(v => v.OnRequest(It.IsAny<Recurly.Http.Request>()), Times.Once());
+            mockHandler.Verify(v => v.OnResponse(It.IsAny<Recurly.Http.Response>()), Times.Once());
+        }
+
+        [Fact]
+        public async void WillTriggerHookIfAvailableOnErrorAsync()
+        {
+            var client = MockClient.Build(NotFoundResponse());
+            var mockHandler = new Mock<IEventHandler>();
+            client.AddEventHandler(mockHandler.Object);
+
+            await Assert.ThrowsAsync<Recurly.Errors.NotFound>(() => client.GetResourceAsync("benjamin", "param1", new DateTime()));
             mockHandler.Verify(v => v.OnRequest(It.IsAny<Recurly.Http.Request>()), Times.Once());
             mockHandler.Verify(v => v.OnResponse(It.IsAny<Recurly.Http.Response>()), Times.Once());
         }

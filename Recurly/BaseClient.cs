@@ -78,13 +78,14 @@ namespace Recurly
             return await task.ContinueWith(t =>
             {
                 var restResponse = t.Result;
-                this.HandleResponse(restResponse);
                 var httpResponse = Http.Response.Build(restResponse, httpRequest);
 
                 foreach (var handler in this.EventHandlers)
                 {
                     handler.OnResponse(httpResponse);
                 }
+
+                this.HandleResponse(restResponse);
 
                 if (restResponse.Data is Resource)
                     restResponse.Data.SetResponse(httpResponse);
