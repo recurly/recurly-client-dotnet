@@ -1,9 +1,23 @@
 #!/usr/bin/env bash
 set -e
 
-if ! command -v dotnet-format; then
+# Ensure required dependencies are installed
+sudo apt-get update
+sudo apt-get install -y libssl1.1 libicu-dev
+
+# Set the environment variable for globalization invariant mode
+export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
+
+# Set the library path for OpenSSL
+export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
+
+# Restore NuGet packages
+dotnet restore
+
+if ! command -v dotnet-format &> /dev/null; then
   echo "Installing dotnet formatter..."
   dotnet tool install -g dotnet-format --version 4.0.0
 fi
 
+# Build the project
 dotnet build
