@@ -1117,6 +1117,7 @@ namespace Recurly
         /// <param name="sort">Sort field. You *really* only want to sort by `updated_at` in ascending  order. In descending order updated records will move behind the cursor and could  prevent some records from being returned.  </param>
         /// <param name="beginTime">Inclusively filter by begin_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
         /// <param name="endTime">Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.  **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.  </param>
+        /// <param name="redeemed">Filter unique coupon codes by redemption status. `true` for redeemed, `false` for not redeemed.</param>
         /// <returns>
         /// A list of unique coupon codes that were generated
         /// </returns>

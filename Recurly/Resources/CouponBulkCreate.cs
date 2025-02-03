@@ -15,7 +15,7 @@ namespace Recurly.Resources
     public class CouponBulkCreate : Request
     {
 
-        /// <value>The quantity of unique coupon codes to generate</value>
+        /// <value>The quantity of unique coupon codes to generate. A bulk coupon can have up to 100,000 unique codes (or your site's configured limit).</value>
         [JsonProperty("number_of_unique_codes")]
         public int? NumberOfUniqueCodes { get; set; }
 

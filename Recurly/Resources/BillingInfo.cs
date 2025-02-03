@@ -55,6 +55,10 @@ namespace Recurly.Resources
         [JsonProperty("object")]
         public string Object { get; set; }
 
+        /// <value>Array of Payment Gateway References, each a reference to a third-party gateway object of varying types.</value>
+        [JsonProperty("payment_gateway_references")]
+        public List<PaymentGatewayReferences> PaymentGatewayReferences { get; set; }
+
 
         [JsonProperty("payment_method")]
         public PaymentMethod PaymentMethod { get; set; }
