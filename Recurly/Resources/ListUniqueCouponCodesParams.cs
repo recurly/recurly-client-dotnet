@@ -40,6 +40,10 @@ namespace Recurly.Resources
         [JsonProperty("end_time")]
         public DateTime? EndTime { get; set; }
 
+        /// <value>Filter unique coupon codes by redemption status. `true` for redeemed, `false` for not redeemed.</value>
+        [JsonProperty("redeemed")]
+        public Constants.FilterRedeemed? Redeemed { get; set; }
+
     }
 }
 

@@ -75,7 +75,7 @@ namespace Recurly.Resources
         [JsonProperty("gateway_attributes")]
         public GatewayAttributes GatewayAttributes { get; set; }
 
-        /// <value>An identifier for a specific payment gateway. Must be used in conjunction with `gateway_token`.</value>
+        /// <value>An identifier for a specific payment gateway.</value>
         [JsonProperty("gateway_code")]
         public string GatewayCode { get; set; }
 
@@ -111,6 +111,10 @@ namespace Recurly.Resources
         [JsonProperty("online_banking_payment_type")]
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
         public Constants.OnlineBankingPaymentType? OnlineBankingPaymentType { get; set; }
+
+        /// <value>Array of Payment Gateway References, each a reference to a third-party gateway object of varying types.</value>
+        [JsonProperty("payment_gateway_references")]
+        public List<PaymentGatewayReferences> PaymentGatewayReferences { get; set; }
 
         /// <value>PayPal billing agreement ID</value>
         [JsonProperty("paypal_billing_agreement_id")]

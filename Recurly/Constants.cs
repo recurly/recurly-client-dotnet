@@ -284,6 +284,18 @@ namespace Recurly
 
         };
 
+        public enum FilterRedeemed
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "true")]
+            True,
+
+            [EnumMember(Value = "false")]
+            False,
+
+        };
+
         public enum Channel
         {
             Undefined = 0,
@@ -452,6 +464,21 @@ namespace Recurly
 
             [EnumMember(Value = "post")]
             Post,
+
+        };
+
+        public enum PaymentGatewayReferences
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "stripe_confirmation_token")]
+            StripeConfirmationToken,
+
+            [EnumMember(Value = "stripe_customer")]
+            StripeCustomer,
+
+            [EnumMember(Value = "stripe_payment_method")]
+            StripePaymentMethod,
 
         };
 
