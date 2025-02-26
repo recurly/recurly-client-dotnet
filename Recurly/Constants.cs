@@ -1610,6 +1610,27 @@ namespace Recurly
 
         };
 
+        public enum CardFundingSource
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "credit")]
+            Credit,
+
+            [EnumMember(Value = "debit")]
+            Debit,
+
+            [EnumMember(Value = "charge")]
+            Charge,
+
+            [EnumMember(Value = "prepaid")]
+            Prepaid,
+
+            [EnumMember(Value = "deferred_debit")]
+            DeferredDebit,
+
+        };
+
         public enum AccountType
         {
             Undefined = 0,
