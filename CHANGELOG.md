@@ -1,5 +1,17 @@
 # Changelog
 
+## [4.62.0](https://github.com/recurly/recurly-client-dotnet/tree/4.62.0) (2025-02-26)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/4.61.0...4.62.0)
+
+
+**Merged Pull Requests**
+
+- Add `funding_source` to `BillingInfo` and `Transaction` [#863](https://github.com/recurly/recurly-client-dotnet/pull/863) ([recurly-integrations](https://github.com/recurly-integrations))
+- Generated Latest Changes for v2021-02-25 [#859](https://github.com/recurly/recurly-client-dotnet/pull/859) ([recurly-integrations](https://github.com/recurly-integrations))
+
+
+
 ## [4.61.0](https://github.com/recurly/recurly-client-dotnet/tree/4.61.0) (2024-12-16)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/4.60.0...4.61.0)
