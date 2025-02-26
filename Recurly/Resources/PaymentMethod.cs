@@ -34,7 +34,7 @@ namespace Recurly.Resources
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
         public Constants.CardType? CardType { get; set; }
 
-        /// <value>The 2-letter ISO 3166-1 alpha-2 country code associated with the credit card BIN, if known by Recurly. Available on the BillingInfo object only. Available when the BIN country lookup feature is enabled.</value>
+        /// <value>The 2-letter ISO 3166-1 alpha-2 country code associated with the card's issuer, if known.</value>
         [JsonProperty("cc_bin_country")]
         public string CcBinCountry { get; set; }
 
@@ -49,6 +49,11 @@ namespace Recurly.Resources
         /// <value>Credit card number's first six digits.</value>
         [JsonProperty("first_six")]
         public string FirstSix { get; set; }
+
+        /// <value>The funding source of the card, if known.</value>
+        [JsonProperty("funding_source")]
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.CardFundingSource? FundingSource { get; set; }
 
         /// <value>Gateway specific attributes associated with this PaymentMethod</value>
         [JsonProperty("gateway_attributes")]
