@@ -146,6 +146,10 @@ namespace Recurly.Resources
         [JsonProperty("previous_invoice_id")]
         public string PreviousInvoiceId { get; set; }
 
+        /// <value>Reference Only Currency Conversion</value>
+        [JsonProperty("reference_only_currency_conversion")]
+        public ReferenceOnlyCurrencyConversion ReferenceOnlyCurrencyConversion { get; set; }
+
         /// <value>The refundable amount on a charge invoice. It will be null for all other invoices.</value>
         [JsonProperty("refundable_amount")]
         public decimal? RefundableAmount { get; set; }
