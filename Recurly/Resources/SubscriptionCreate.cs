@@ -31,6 +31,10 @@ namespace Recurly.Resources
         [JsonProperty("billing_info_id")]
         public string BillingInfoId { get; set; }
 
+        /// <value>Optional field to be used only when needing to bypass the 60 second limit on creating subscriptions. Should only be used when creating subscriptions in bulk from the API.</value>
+        [JsonProperty("bulk")]
+        public bool? Bulk { get; set; }
+
         /// <value>Collection method</value>
         [JsonProperty("collection_method")]
         public string CollectionMethod { get; set; }
@@ -95,7 +99,7 @@ namespace Recurly.Resources
         [JsonProperty("shipping")]
         public SubscriptionShippingCreate Shipping { get; set; }
 
-        /// <value>If set, the subscription will begin in the future on this date. The subscription will apply the setup fee and trial period, unless the plan has no trial.</value>
+        /// <value>If set, the subscription will begin on this specified date. The subscription will apply the setup fee and trial period, unless the plan has no trial.</value>
         [JsonProperty("starts_at")]
         public DateTime? StartsAt { get; set; }
 
