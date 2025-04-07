@@ -480,6 +480,9 @@ namespace Recurly
             [EnumMember(Value = "stripe_payment_method")]
             StripePaymentMethod,
 
+            [EnumMember(Value = "upi_vpa")]
+            UpiVpa,
+
         };
 
         public enum GatewayTransactionType
