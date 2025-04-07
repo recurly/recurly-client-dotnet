@@ -64,7 +64,7 @@ namespace Recurly.Resources
         [JsonProperty("shipping")]
         public SubscriptionShippingPurchase Shipping { get; set; }
 
-        /// <value>If set, the subscription will begin in the future on this date. The subscription will apply the setup fee and trial period, unless the plan has no trial.</value>
+        /// <value>If set, the subscription will begin on this specified date. The subscription will apply the setup fee and trial period, unless the plan has no trial.</value>
         [JsonProperty("starts_at")]
         public DateTime? StartsAt { get; set; }
 
