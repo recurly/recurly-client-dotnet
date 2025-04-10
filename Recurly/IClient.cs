@@ -1787,6 +1787,28 @@ namespace Recurly
 
 
         /// <summary>
+        /// Create an external invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_external_invoice">create_external_invoice api documentation</see>
+        /// </summary>
+        /// <param name="externalSubscriptionId">External subscription id</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// Returns the external invoice
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        ExternalInvoice CreateExternalInvoice(string externalSubscriptionId, ExternalInvoiceCreate body, RequestOptions options = null);
+
+        /// <summary>
+        /// Create an external invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_external_invoice">create_external_invoice api documentation</see>
+        /// </summary>
+        /// <param name="externalSubscriptionId">External subscription id</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// Returns the external invoice
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<ExternalInvoice> CreateExternalInvoiceAsync(string externalSubscriptionId, ExternalInvoiceCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
         /// List a site's invoices <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_invoices">list_invoices api documentation</see>
         /// </summary>
         /// <param name="ids">Filter results by their IDs. Up to 200 IDs can be passed at once using  commas as separators, e.g. `ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6`.    **Important notes:**    * The `ids` parameter cannot be used with any other ordering or filtering    parameters (`limit`, `order`, `sort`, `begin_time`, `end_time`, etc)  * Invalid or unknown IDs will be ignored, so you should check that the    results correspond to your request.  * Records are returned in an arbitrary order. Since results are all    returned at once you can sort the records yourself.  </param>

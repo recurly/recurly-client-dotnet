@@ -2748,6 +2748,40 @@ namespace Recurly
 
 
         /// <summary>
+        /// Create an external invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_external_invoice">create_external_invoice api documentation</see>
+        /// </summary>
+        /// <param name="CreateExternalInvoiceParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Returns the external invoice
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public ExternalInvoice CreateExternalInvoice(string externalSubscriptionId, ExternalInvoiceCreate body, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "external_subscription_id", externalSubscriptionId } };
+            var url = this.InterpolatePath("/external_subscriptions/{external_subscription_id}/external_invoices", urlParams);
+            return MakeRequest<ExternalInvoice>(Method.POST, url, body, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Create an external invoice <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_external_invoice">create_external_invoice api documentation</see>
+        /// </summary>
+        /// <param name="CreateExternalInvoiceParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Returns the external invoice
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<ExternalInvoice> CreateExternalInvoiceAsync(string externalSubscriptionId, ExternalInvoiceCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "external_subscription_id", externalSubscriptionId } };
+            var url = this.InterpolatePath("/external_subscriptions/{external_subscription_id}/external_invoices", urlParams);
+            return MakeRequestAsync<ExternalInvoice>(Method.POST, url, body, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
         /// List a site's invoices <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_invoices">list_invoices api documentation</see>
         /// </summary>
         /// <param name="ListInvoicesParams">Optional Parameters for the request</param>
