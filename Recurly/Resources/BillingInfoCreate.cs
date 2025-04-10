@@ -124,6 +124,10 @@ namespace Recurly.Resources
         [JsonProperty("primary_payment_method")]
         public bool? PrimaryPaymentMethod { get; set; }
 
+        /// <value>Specifies a URL to which a consumer will be redirected upon completion of a redirect payment flow. Only redirect payment flows operating through Adyen Components will utilize this return URL.</value>
+        [JsonProperty("return_url")]
+        public string ReturnUrl { get; set; }
+
         /// <value>Roku's CIB if billing through Roku</value>
         [JsonProperty("roku_billing_agreement_id")]
         public string RokuBillingAgreementId { get; set; }
