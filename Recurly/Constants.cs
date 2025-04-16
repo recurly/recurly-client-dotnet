@@ -1536,6 +1536,9 @@ namespace Recurly
             [EnumMember(Value = "cash_app")]
             CashApp,
 
+            [EnumMember(Value = "upi_autopay")]
+            UpiAutopay,
+
         };
 
         public enum CardType
