@@ -103,9 +103,9 @@ namespace Recurly.Resources
         public string Id { get; set; }
 
         /// <value>Must be sent for one-time transactions in order to provide context on which entity is submitting the transaction to ensure proper fraud checks are observed, such as 3DS. If the customer is in session, send `customer`. If this is a merchant initiated one-time transaction, send `merchant`.</value>
-        [JsonProperty("indicator")]
+        [JsonProperty("initiator")]
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
-        public Constants.TransactionIndicator? Indicator { get; set; }
+        public Constants.TransactionInitiator? Initiator { get; set; }
 
         /// <value>Invoice mini details</value>
         [JsonProperty("invoice")]

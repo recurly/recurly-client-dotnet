@@ -474,12 +474,6 @@ namespace Recurly
             [EnumMember(Value = "stripe_confirmation_token")]
             StripeConfirmationToken,
 
-            [EnumMember(Value = "stripe_customer")]
-            StripeCustomer,
-
-            [EnumMember(Value = "stripe_payment_method")]
-            StripePaymentMethod,
-
             [EnumMember(Value = "upi_vpa")]
             UpiVpa,
 
@@ -1298,6 +1292,24 @@ namespace Recurly
 
             [EnumMember(Value = "transparent")]
             Transparent,
+
+            [EnumMember(Value = "token_api")]
+            TokenApi,
+
+            [EnumMember(Value = "api_force_collect")]
+            ApiForceCollect,
+
+            [EnumMember(Value = "api_sub_change")]
+            ApiSubChange,
+
+            [EnumMember(Value = "api_verify_card")]
+            ApiVerifyCard,
+
+            [EnumMember(Value = "refund_balance")]
+            RefundBalance,
+
+            [EnumMember(Value = "amazon_v2_ipn")]
+            AmazonV2Ipn,
 
         };
 
@@ -2474,7 +2486,7 @@ namespace Recurly
 
         };
 
-        public enum TransactionIndicator
+        public enum TransactionInitiator
         {
             Undefined = 0,
 
