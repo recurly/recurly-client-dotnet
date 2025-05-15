@@ -10830,7 +10830,7 @@ paths:
           }
       - lang: Go
         source: "planReq := &recurly.PlanCreate{\n\tCode: &planCode,\n\tName: recurly.String(\"Monthly
-          Coffee Subscription\"),\n\tCurrencies: []recurly.PlanPricingCreate{\n\t\t{\n\t\t\tCurrency:
+          Coffee Subscription\"),\n\tCurrencies: &[]recurly.PlanPricingCreate{\n\t\t{\n\t\t\tCurrency:
           \  recurly.String(\"USD\"),\n\t\t\tUnitAmount: recurly.Float(10000),\n\t\t},\n\t},\n}\n\nplan,
           err := client.CreatePlan(planReq)\nif e, ok := err.(*recurly.Error); ok
           {\n\tif e.Type == recurly.ErrorTypeValidation {\n\t\tfmt.Printf(\"Failed
@@ -11499,7 +11499,7 @@ paths:
           }
       - lang: Go
         source: "addOnReq := &recurly.AddOnCreate{\n\tCode: &addOnCode,\n\tName: recurly.String(\"Fresh
-          beans shipped monthly\"),\n\tCurrencies: []recurly.AddOnPricingCreate{\n\t\t{\n\t\t\tCurrency:
+          beans shipped monthly\"),\n\tCurrencies: &[]recurly.AddOnPricingCreate{\n\t\t{\n\t\t\tCurrency:
           \  recurly.String(\"USD\"),\n\t\t\tUnitAmount: recurly.Float(10),\n\t\t},\n\t},\n}\n\nplanAddOn,
           err := client.CreatePlanAddOn(planID, addOnReq)\nif e, ok := err.(*recurly.Error);
           ok {\n\tif e.Type == recurly.ErrorTypeValidation {\n\t\tfmt.Printf(\"Failed
@@ -15274,7 +15274,7 @@ paths:
       - lang: Go
         source: "purchaseReq := &recurly.PurchaseCreate{\n\tCurrency: recurly.String(\"USD\"),\n\tAccount:
           &recurly.AccountPurchase{\n\t\tCode: recurly.String(accountCode),\n\t},\n\tSubscriptions:
-          []recurly.SubscriptionPurchase{\n\t\t{\n\t\t\tPlanCode:     recurly.String(planCode),\n\t\t\tNextBillDate:
+          &[]recurly.SubscriptionPurchase{\n\t\t{\n\t\t\tPlanCode:     recurly.String(planCode),\n\t\t\tNextBillDate:
           recurly.Time(time.Date(2078, time.November, 10, 23, 0, 0, 0, time.UTC)),\n\t\t},\n\t},\n\tShipping:
           &recurly.ShippingPurchase{\n\t\tAddressId: recurly.String(shippingAddressID),\n\t},\n}\n\ncollection,
           err := client.CreatePurchase(purchaseReq)\nif e, ok := err.(*recurly.Error);
@@ -15508,7 +15508,7 @@ paths:
       - lang: Go
         source: "purchaseReq := &recurly.PurchaseCreate{\n\tCurrency: recurly.String(\"USD\"),\n\tAccount:
           &recurly.AccountPurchase{\n\t\tCode: recurly.String(account.Code),\n\t},\n\tSubscriptions:
-          []recurly.SubscriptionPurchase{\n\t\t{\n\t\t\tPlanCode:     recurly.String(plan.Code),\n\t\t\tNextBillDate:
+          &[]recurly.SubscriptionPurchase{\n\t\t{\n\t\t\tPlanCode:     recurly.String(plan.Code),\n\t\t\tNextBillDate:
           recurly.Time(time.Date(2078, time.November, 10, 23, 0, 0, 0, time.UTC)),\n\t\t},\n\t},\n\tShipping:
           &recurly.ShippingPurchase{\n\t\tAddressId: recurly.String(shippingAddressID),\n\t},\n}\ncollection,
           err := client.PreviewPurchase(purchaseReq)\nif e, ok := err.(*recurly.Error);
@@ -15776,12 +15776,12 @@ paths:
               var_dump($e);
           }
       - lang: Go
-        source: "purchaseReq := &recurly.PurchaseCreate{\n\tCurrency: recurly.String(\"EUR\"),\n\tAccount:
+        source: "purchaseReq := &recurly.PurchaseCreate{\n\tCurrency: recurly.String(\"USD\"),\n\tAccount:
           &recurly.AccountPurchase{\n\t\tCode:  recurly.String(accountCode),\n\t\tEmail:
           recurly.String(\"benjamin@example.com\"),\n\t\tBillingInfo: &recurly.BillingInfoCreate{\n\t\t\tFirstName:
           \               recurly.String(\"Benjamin\"),\n\t\t\tLastName:                 recurly.String(\"Du
           Monde\"),\n\t\t\tOnlineBankingPaymentType: recurly.String(\"ideal\"),\n\t\t},\n\t},\n\tLineItems:
-          []recurly.LineItemCreate{\n\t\t{\n\t\t\tCurrency:   recurly.String(\"EUR\"),\n\t\t\tUnitAmount:
+          &[]recurly.LineItemCreate{\n\t\t{\n\t\t\tCurrency:   recurly.String(\"USD\"),\n\t\t\tUnitAmount:
           recurly.Float(1000),\n\t\t\tType:       recurly.String(\"charge\"),\n\t\t},\n\t},\n}\ncollection,
           err := client.CreatePendingPurchase(purchaseReq)\nif e, ok := err.(*recurly.Error);
           ok {\n\tif e.Type == recurly.ErrorTypeValidation {\n\t\tfmt.Printf(\"Failed
@@ -24152,7 +24152,8 @@ components:
           description: Represents the billing cycle where a ramp interval starts.
           default: 1
         unit_amount:
-          type: integer
+          type: number
+          format: float
           description: Represents the price for the ramp interval.
     SubscriptionRampIntervalResponse:
       type: object
