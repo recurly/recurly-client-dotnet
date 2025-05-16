@@ -1,9 +1,9 @@
 ---
 owner: recurly
 repo: recurly-client-dotnet
-tag_matcher: ^4\..*
+tag_matcher: ^5\..*
 required_issue_labels:
-  - V4
+  - V5
 exclude_labels:
   - bug?
   - internal

@@ -22,6 +22,6 @@ jobs:
       - name: Check Labels
         uses: docker://agilepathway/pull-request-label-checker:latest
         with:
-          one_of: V4
+          one_of: V5
           repo_token: ${{ secrets.GITHUB_TOKEN }}
  
