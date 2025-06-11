@@ -461,6 +461,52 @@ namespace Recurly
         Task<EmptyResource> RemoveABillingInfoAsync(string accountId, string billingInfoId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
 
         /// <summary>
+        /// Verify a billing information's credit card <see href="https://developers.recurly.com/api/v2021-02-25#operation/verify_billing_infos">verify_billing_infos api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="billingInfoId">Billing Info ID. Can ONLY be used for sites utilizing the Wallet feature.</param>
+        /// <returns>
+        /// Transaction information from verify.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Transaction VerifyBillingInfos(string accountId, string billingInfoId, BillingInfoVerify body = null, RequestOptions options = null);
+
+        /// <summary>
+        /// Verify a billing information's credit card <see href="https://developers.recurly.com/api/v2021-02-25#operation/verify_billing_infos">verify_billing_infos api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="billingInfoId">Billing Info ID. Can ONLY be used for sites utilizing the Wallet feature.</param>
+        /// <returns>
+        /// Transaction information from verify.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<Transaction> VerifyBillingInfosAsync(string accountId, string billingInfoId, BillingInfoVerify body = null, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// Verify a billing information's credit card cvv <see href="https://developers.recurly.com/api/v2021-02-25#operation/verify_billing_infos_cvv">verify_billing_infos_cvv api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="billingInfoId">Billing Info ID. Can ONLY be used for sites utilizing the Wallet feature.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// Transaction information from verify.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Transaction VerifyBillingInfosCvv(string accountId, string billingInfoId, BillingInfoVerifyCVV body, RequestOptions options = null);
+
+        /// <summary>
+        /// Verify a billing information's credit card cvv <see href="https://developers.recurly.com/api/v2021-02-25#operation/verify_billing_infos_cvv">verify_billing_infos_cvv api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="billingInfoId">Billing Info ID. Can ONLY be used for sites utilizing the Wallet feature.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// Transaction information from verify.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<Transaction> VerifyBillingInfosCvvAsync(string accountId, string billingInfoId, BillingInfoVerifyCVV body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
         /// List the coupon redemptions for an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_account_coupon_redemptions">list_account_coupon_redemptions api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>

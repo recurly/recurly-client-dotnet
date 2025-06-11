@@ -727,6 +727,74 @@ namespace Recurly
 
 
         /// <summary>
+        /// Verify a billing information's credit card <see href="https://developers.recurly.com/api/v2021-02-25#operation/verify_billing_infos">verify_billing_infos api documentation</see>
+        /// </summary>
+        /// <param name="VerifyBillingInfosParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Transaction information from verify.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Transaction VerifyBillingInfos(string accountId, string billingInfoId, BillingInfoVerify body = null, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId }, { "billing_info_id", billingInfoId } };
+            var url = this.InterpolatePath("/accounts/{account_id}/billing_infos/{billing_info_id}/verify", urlParams);
+            return MakeRequest<Transaction>(Method.POST, url, body, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Verify a billing information's credit card <see href="https://developers.recurly.com/api/v2021-02-25#operation/verify_billing_infos">verify_billing_infos api documentation</see>
+        /// </summary>
+        /// <param name="VerifyBillingInfosParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Transaction information from verify.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<Transaction> VerifyBillingInfosAsync(string accountId, string billingInfoId, BillingInfoVerify body = null, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId }, { "billing_info_id", billingInfoId } };
+            var url = this.InterpolatePath("/accounts/{account_id}/billing_infos/{billing_info_id}/verify", urlParams);
+            return MakeRequestAsync<Transaction>(Method.POST, url, body, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// Verify a billing information's credit card cvv <see href="https://developers.recurly.com/api/v2021-02-25#operation/verify_billing_infos_cvv">verify_billing_infos_cvv api documentation</see>
+        /// </summary>
+        /// <param name="VerifyBillingInfosCvvParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Transaction information from verify.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Transaction VerifyBillingInfosCvv(string accountId, string billingInfoId, BillingInfoVerifyCVV body, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId }, { "billing_info_id", billingInfoId } };
+            var url = this.InterpolatePath("/accounts/{account_id}/billing_infos/{billing_info_id}/verify_cvv", urlParams);
+            return MakeRequest<Transaction>(Method.POST, url, body, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Verify a billing information's credit card cvv <see href="https://developers.recurly.com/api/v2021-02-25#operation/verify_billing_infos_cvv">verify_billing_infos_cvv api documentation</see>
+        /// </summary>
+        /// <param name="VerifyBillingInfosCvvParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Transaction information from verify.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<Transaction> VerifyBillingInfosCvvAsync(string accountId, string billingInfoId, BillingInfoVerifyCVV body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId }, { "billing_info_id", billingInfoId } };
+            var url = this.InterpolatePath("/accounts/{account_id}/billing_infos/{billing_info_id}/verify_cvv", urlParams);
+            return MakeRequestAsync<Transaction>(Method.POST, url, body, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
         /// List the coupon redemptions for an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_account_coupon_redemptions">list_account_coupon_redemptions api documentation</see>
         /// </summary>
         /// <param name="ListAccountCouponRedemptionsParams">Optional Parameters for the request</param>

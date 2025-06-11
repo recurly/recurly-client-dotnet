@@ -31,7 +31,7 @@ namespace Recurly.Resources
         [JsonProperty("add_on_id")]
         public string AddOnId { get; set; }
 
-        /// <value>`(quantity * unit_amount) - (discount + tax)`</value>
+        /// <value>`(quantity * unit_amount) - discount + tax`</value>
         [JsonProperty("amount")]
         public decimal? Amount { get; set; }
 
