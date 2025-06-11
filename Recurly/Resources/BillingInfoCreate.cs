@@ -28,7 +28,7 @@ namespace Recurly.Resources
         [JsonProperty("address")]
         public Address Address { get; set; }
 
-        /// <value>Amazon billing agreement ID</value>
+        /// <value>Only supported on Amazon V1. For Amazon V2, use token_id with Recurly.js.</value>
         [JsonProperty("amazon_billing_agreement_id")]
         public string AmazonBillingAgreementId { get; set; }
 
