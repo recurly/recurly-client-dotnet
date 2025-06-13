@@ -31,20 +31,23 @@ namespace Recurly.Tests
                     Encoding.UTF8.GetBytes($"{ts}.{Body}"))).Replace("-", "");
             }
 
-            Assert.True(Webhooks.VerifyWebhookSignature(header, secret, Body),
+            Assert.True(Webhooks.VerifyWebhookSignature(header, Body, secret),
                 "signature should validate");
-            Assert.True(Webhooks.VerifyWebhookSignature(header, secret, Body,
+            Assert.True(Webhooks.VerifyWebhookSignature(header, Body, secret,
                 throwOnFailure: true),
                 "signature should validate and not throw");
         }
         [Fact]
-        public void ValidSignatureAlt()
+        public void ValidSignatureFromMultiSigHeader()
         {
             var ts = DateTimeOffset.Now.ToUnixTimeMilliseconds() - 1000; // Jump back in time by 1s
             var secret = SecretAlt;
             var header = ts.ToString();
             using (var hmac = new HMACSHA256())
             {
+                // To simulate multiple sigs in the header
+                // we just prepend and append any old sigs
+
                 header += "," + ExpectedSignatureAtOldTimestamp;
 
                 hmac.Key = Encoding.UTF8.GetBytes(secret);
@@ -54,9 +57,9 @@ namespace Recurly.Tests
                 header += "," + ExpectedSignatureAltAtOldTimestamp;
             }
 
-            Assert.True(Webhooks.VerifyWebhookSignature(header, secret, Body),
+            Assert.True(Webhooks.VerifyWebhookSignature(header, Body, secret),
                 "signature should validate");
-            Assert.True(Webhooks.VerifyWebhookSignature(header, secret, Body,
+            Assert.True(Webhooks.VerifyWebhookSignature(header, Body, secret,
                 throwOnFailure: true),
                 "signature should validate and not throw");
         }
@@ -72,24 +75,24 @@ namespace Recurly.Tests
             var secret = Secret;
             var tolerance = long.MaxValue;
 
-            Assert.True(Webhooks.VerifyWebhookSignature(header, secret, Body,
+            Assert.True(Webhooks.VerifyWebhookSignature(header, Body, secret,
                 tolerance: tolerance),
                 "signature should validate");
-            Assert.True(Webhooks.VerifyWebhookSignature(header, secret, Body,
+            Assert.True(Webhooks.VerifyWebhookSignature(header, Body, secret,
                 tolerance: tolerance,
                 throwOnFailure: true),
                 "signature should validate and not throw");
         }
         [Fact]
-        public void ValidSignatureAltIgnoringTimestamp()
+        public void ValidAltSignatureIgnoringTimestamp()
         {
             var header = $"{OldHeader},{ExpectedSignatureAltAtOldTimestamp}";
             var secret = SecretAlt;
 
-            Assert.True(Webhooks.VerifyWebhookSignature(header, secret, Body,
+            Assert.True(Webhooks.VerifyWebhookSignature(header, Body, secret,
                 tolerance: long.MaxValue),
                 "signature should validate");
-            Assert.True(Webhooks.VerifyWebhookSignature(header, secret, Body,
+            Assert.True(Webhooks.VerifyWebhookSignature(header, Body, secret,
                 tolerance: long.MaxValue,
                 throwOnFailure: true),
                 "signature should validate and not throw");
@@ -102,11 +105,11 @@ namespace Recurly.Tests
             var secret = Secret;
 
             // Test with and without throwOnFailure
-            Assert.False(Webhooks.VerifyWebhookSignature(header, secret, Body),
+            Assert.False(Webhooks.VerifyWebhookSignature(header, Body, secret),
                 "signature verification should fail");
             
             var ex = Assert.Throws<InvalidOperationException>(() =>
-                Webhooks.VerifyWebhookSignature(header, secret, Body,
+                Webhooks.VerifyWebhookSignature(header, Body, secret,
                     throwOnFailure: true));
             Assert.False(ex.Data.Contains("expected"),
                 "exception should not contain `expected` data");
@@ -130,10 +133,10 @@ namespace Recurly.Tests
                 header += "," + badSig;
             }
 
-            Assert.False(Webhooks.VerifyWebhookSignature(header, secret, Body),
+            Assert.False(Webhooks.VerifyWebhookSignature(header, Body, secret),
                 "signature should not validate");
             var ex = Assert.Throws<InvalidOperationException>(() =>
-                Webhooks.VerifyWebhookSignature(header, secret, Body,
+                Webhooks.VerifyWebhookSignature(header, Body, secret,
                     throwOnFailure: true));
             Assert.True(ex.Data.Contains("expected"),
                 "exception should contain `expected` data");
@@ -148,11 +151,11 @@ namespace Recurly.Tests
             var secret = SecretAlt;
 
             // Test with and without throwOnFailure
-            Assert.False(Webhooks.VerifyWebhookSignature(header, secret, Body,
+            Assert.False(Webhooks.VerifyWebhookSignature(header, Body, secret,
                 tolerance: long.MaxValue));
             
             var ex = Assert.Throws<InvalidOperationException>(() =>
-                Webhooks.VerifyWebhookSignature(header, secret, Body,
+                Webhooks.VerifyWebhookSignature(header, Body, secret,
                     tolerance: long.MaxValue,
                     throwOnFailure: true));
             Assert.True(ex.Data.Contains("expected"),
