@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
@@ -38,13 +36,14 @@ namespace Recurly
         ///     if the signature fails validation for any reason, defaults to false</param>
         /// <returns>true if the validation succeeds, false if the validation fails for any
         ///     reason and <code>throwOnFailure</code> parameter is false</returns>
-        public static bool VerifyWebhookSignature(string header, string body, string secret,
+        public static bool VerifySignature(string header, string body, string secret,
             long tolerance = DefaultTolerance,
             bool throwOnFailure = false)
         {
             var secretBytes = Encoding.UTF8.GetBytes(secret);
             return VerifyWebhookSignature(header, body, secretBytes, tolerance, throwOnFailure);
         }
+
         /// <summary>
         /// Verifies the header-provided signature for a JSON Webhook payload.
         /// </summary>
