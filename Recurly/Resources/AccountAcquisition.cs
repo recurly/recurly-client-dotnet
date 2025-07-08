@@ -19,6 +19,10 @@ namespace Recurly.Resources
         [JsonProperty("account")]
         public AccountMini Account { get; set; }
 
+        /// <value>Date the account was first created if different than the account.created_at. ie Importing accounts.</value>
+        [JsonProperty("acquired_at")]
+        public DateTime? AcquiredAt { get; set; }
+
         /// <value>An arbitrary identifier for the marketing campaign that led to the acquisition of this account.</value>
         [JsonProperty("campaign")]
         public string Campaign { get; set; }
