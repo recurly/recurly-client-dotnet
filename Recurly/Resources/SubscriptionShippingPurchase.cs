@@ -19,6 +19,10 @@ namespace Recurly.Resources
         [JsonProperty("amount")]
         public decimal? Amount { get; set; }
 
+        /// <value>The expected date of the first delivery for the subscription.</value>
+        [JsonProperty("expected_first_delivery_at")]
+        public DateTime? ExpectedFirstDeliveryAt { get; set; }
+
         /// <value>The code of the shipping method used to deliver the subscription. If `method_id` and `method_code` are both present, `method_id` will be used.</value>
         [JsonProperty("method_code")]
         public string MethodCode { get; set; }

@@ -1491,6 +1491,9 @@ namespace Recurly
             [EnumMember(Value = "apple_pay")]
             ApplePay,
 
+            [EnumMember(Value = "apple_pay_merchant_token")]
+            ApplePayMerchantToken,
+
             [EnumMember(Value = "bank_account_info")]
             BankAccountInfo,
 
