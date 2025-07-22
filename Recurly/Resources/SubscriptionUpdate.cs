@@ -77,6 +77,10 @@ namespace Recurly.Resources
         [JsonProperty("po_number")]
         public string PoNumber { get; set; }
 
+        /// <value>The price segment ID, e.g. `e28zov4fw0v2`.</value>
+        [JsonProperty("price_segment_id")]
+        public string PriceSegmentId { get; set; }
+
         /// <value>The remaining billing cycles in the current term.</value>
         [JsonProperty("remaining_billing_cycles")]
         public int? RemainingBillingCycles { get; set; }

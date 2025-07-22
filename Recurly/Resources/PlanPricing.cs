@@ -19,7 +19,11 @@ namespace Recurly.Resources
         [JsonProperty("currency")]
         public string Currency { get; set; }
 
-        /// <value>Amount of one-time setup fee automatically charged at the beginning of a subscription billing cycle. For subscription plans with a trial, the setup fee will be charged at the time of signup. Setup fees do not increase with the quantity of a subscription plan.</value>
+        /// <value>The price segment ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For requests, the code can also be used. Use prefix `code-`, e.g. `code-gold`.</value>
+        [JsonProperty("price_segment_id")]
+        public string PriceSegmentId { get; set; }
+
+        /// <value>This field is deprecated, please use top level `setup_fees` instead. Amount of one-time setup fee automatically charged at the beginning of a subscription billing cycle. For subscription plans with a trial, the setup fee will be charged at the time of signup. Setup fees do not increase with the quantity of a subscription plan.</value>
         [JsonProperty("setup_fee")]
         public decimal? SetupFee { get; set; }
 
@@ -27,7 +31,7 @@ namespace Recurly.Resources
         [JsonProperty("tax_inclusive")]
         public bool? TaxInclusive { get; set; }
 
-        /// <value>This field should not be sent when the pricing model is 'ramp'.</value>
+        /// <value>This field should not be sent when the pricing model is `'ramp'`.</value>
         [JsonProperty("unit_amount")]
         public decimal? UnitAmount { get; set; }
 

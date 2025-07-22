@@ -94,6 +94,10 @@ namespace Recurly.Resources
         [JsonProperty("po_number")]
         public string PoNumber { get; set; }
 
+        /// <value>The price segment ID, e.g. `e28zov4fw0v2`.</value>
+        [JsonProperty("price_segment_id")]
+        public string PriceSegmentId { get; set; }
+
         /// <value>Allows you to control how any resulting charges and credits will be calculated and prorated.</value>
         [JsonProperty("proration_settings")]
         public ProrationSettings ProrationSettings { get; set; }

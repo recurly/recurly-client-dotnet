@@ -3696,6 +3696,59 @@ namespace Recurly
 
 
         /// <summary>
+        /// List a site's price segments <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_price_segments">list_price_segments api documentation</see>
+        /// </summary>
+        /// <param name="ListPriceSegmentsParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// A list of price segments.
+        /// </returns>
+        public Pager<PriceSegment> ListPriceSegments(ListPriceSegmentsParams optionalParams = null, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var queryParams = (optionalParams ?? new ListPriceSegmentsParams()).ToDictionary();
+            var url = this.InterpolatePath("/price_segments", urlParams);
+            return Pager<PriceSegment>.Build(url, queryParams, options, this);
+        }
+
+
+
+
+
+        /// <summary>
+        /// Fetch a price segment <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_price_segment">get_price_segment api documentation</see>
+        /// </summary>
+        /// <param name="GetPriceSegmentParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// A price segment.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public PriceSegment GetPriceSegment(string priceSegmentId, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "price_segment_id", priceSegmentId } };
+            var url = this.InterpolatePath("/price_segments/{price_segment_id}", urlParams);
+            return MakeRequest<PriceSegment>(Method.GET, url, null, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Fetch a price segment <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_price_segment">get_price_segment api documentation</see>
+        /// </summary>
+        /// <param name="GetPriceSegmentParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// A price segment.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<PriceSegment> GetPriceSegmentAsync(string priceSegmentId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "price_segment_id", priceSegmentId } };
+            var url = this.InterpolatePath("/price_segments/{price_segment_id}", urlParams);
+            return MakeRequestAsync<PriceSegment>(Method.GET, url, null, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
         /// List a site's add-ons <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_add_ons">list_add_ons api documentation</see>
         /// </summary>
         /// <param name="ListAddOnsParams">Optional Parameters for the request</param>

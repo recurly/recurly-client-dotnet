@@ -169,6 +169,10 @@ namespace Recurly.Resources
         [JsonProperty("po_number")]
         public string PoNumber { get; set; }
 
+        /// <value>The price segment ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For requests, the code can also be used. Use prefix `code-`, e.g. `code-gold`.</value>
+        [JsonProperty("price_segment_id")]
+        public string PriceSegmentId { get; set; }
+
         /// <value>Subscription quantity</value>
         [JsonProperty("quantity")]
         public int? Quantity { get; set; }

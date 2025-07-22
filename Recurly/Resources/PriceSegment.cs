@@ -12,20 +12,20 @@ using Newtonsoft.Json;
 namespace Recurly.Resources
 {
     [ExcludeFromCodeCoverage]
-    public class Pricing : Request
+    public class PriceSegment : Resource
     {
 
-        /// <value>3-letter ISO 4217 currency code.</value>
-        [JsonProperty("currency")]
-        public string Currency { get; set; }
+        /// <value>The price segment code, e.g. `my-price-segment`.</value>
+        [JsonProperty("code")]
+        public string Code { get; set; }
 
-        /// <value>This field is deprecated. Please do not use it.</value>
-        [JsonProperty("tax_inclusive")]
-        public bool? TaxInclusive { get; set; }
+        /// <value>The price segment ID, e.g. `e28zov4fw0v2`.</value>
+        [JsonProperty("id")]
+        public string Id { get; set; }
 
-
-        [JsonProperty("unit_amount")]
-        public decimal? UnitAmount { get; set; }
+        /// <value>Object type</value>
+        [JsonProperty("object")]
+        public string Object { get; set; }
 
     }
 }

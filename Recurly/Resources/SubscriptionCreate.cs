@@ -121,6 +121,10 @@ namespace Recurly.Resources
         [JsonProperty("po_number")]
         public string PoNumber { get; set; }
 
+        /// <value>The price segment ID, e.g. `e28zov4fw0v2`.</value>
+        [JsonProperty("price_segment_id")]
+        public string PriceSegmentId { get; set; }
+
         /// <value>Optionally override the default quantity of 1.</value>
         [JsonProperty("quantity")]
         public int? Quantity { get; set; }
