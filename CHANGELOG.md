@@ -1,5 +1,13 @@
 # Changelog
 
+## [5.4.0](https://github.com/recurly/recurly-client-dotnet/tree/5.4.0) (2025-08-06)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/5.3.0...5.4.0)
+
+
+
+
+
 ## [5.3.0](https://github.com/recurly/recurly-client-dotnet/tree/5.3.0) (2025-07-22)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/5.2.0...5.3.0)
