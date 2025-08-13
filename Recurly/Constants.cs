@@ -1515,6 +1515,9 @@ namespace Recurly
             [EnumMember(Value = "google_pay")]
             GooglePay,
 
+            [EnumMember(Value = "google_pay_device_pan")]
+            GooglePayDevicePan,
+
             [EnumMember(Value = "iban_bank_account")]
             IbanBankAccount,
 
