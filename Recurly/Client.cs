@@ -1251,6 +1251,40 @@ namespace Recurly
 
 
         /// <summary>
+        /// Create an account note <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_account_note">create_account_note api documentation</see>
+        /// </summary>
+        /// <param name="CreateAccountNoteParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// An account note.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public AccountNote CreateAccountNote(string accountId, AccountNoteCreate body, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
+            var url = this.InterpolatePath("/accounts/{account_id}/notes", urlParams);
+            return MakeRequest<AccountNote>(Method.POST, url, body, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Create an account note <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_account_note">create_account_note api documentation</see>
+        /// </summary>
+        /// <param name="CreateAccountNoteParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// An account note.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<AccountNote> CreateAccountNoteAsync(string accountId, AccountNoteCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
+            var url = this.InterpolatePath("/accounts/{account_id}/notes", urlParams);
+            return MakeRequestAsync<AccountNote>(Method.POST, url, body, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
         /// Fetch an account note <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_account_note">get_account_note api documentation</see>
         /// </summary>
         /// <param name="GetAccountNoteParams">Optional Parameters for the request</param>
@@ -1280,6 +1314,40 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "account_id", accountId }, { "account_note_id", accountNoteId } };
             var url = this.InterpolatePath("/accounts/{account_id}/notes/{account_note_id}", urlParams);
             return MakeRequestAsync<AccountNote>(Method.GET, url, null, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// Delete an account note <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_account_note">remove_account_note api documentation</see>
+        /// </summary>
+        /// <param name="RemoveAccountNoteParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Account note deleted.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public EmptyResource RemoveAccountNote(string accountId, string accountNoteId, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId }, { "account_note_id", accountNoteId } };
+            var url = this.InterpolatePath("/accounts/{account_id}/notes/{account_note_id}", urlParams);
+            return MakeRequest<EmptyResource>(Method.DELETE, url, null, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Delete an account note <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_account_note">remove_account_note api documentation</see>
+        /// </summary>
+        /// <param name="RemoveAccountNoteParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Account note deleted.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<EmptyResource> RemoveAccountNoteAsync(string accountId, string accountNoteId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId }, { "account_note_id", accountNoteId } };
+            var url = this.InterpolatePath("/accounts/{account_id}/notes/{account_note_id}", urlParams);
+            return MakeRequestAsync<EmptyResource>(Method.DELETE, url, null, null, options, cancellationToken);
         }
 
 

@@ -816,6 +816,28 @@ namespace Recurly
 
 
         /// <summary>
+        /// Create an account note <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_account_note">create_account_note api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// An account note.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        AccountNote CreateAccountNote(string accountId, AccountNoteCreate body, RequestOptions options = null);
+
+        /// <summary>
+        /// Create an account note <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_account_note">create_account_note api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// An account note.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<AccountNote> CreateAccountNoteAsync(string accountId, AccountNoteCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
         /// Fetch an account note <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_account_note">get_account_note api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
@@ -836,6 +858,28 @@ namespace Recurly
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
         Task<AccountNote> GetAccountNoteAsync(string accountId, string accountNoteId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// Delete an account note <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_account_note">remove_account_note api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="accountNoteId">Account Note ID.</param>
+        /// <returns>
+        /// Account note deleted.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        EmptyResource RemoveAccountNote(string accountId, string accountNoteId, RequestOptions options = null);
+
+        /// <summary>
+        /// Delete an account note <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_account_note">remove_account_note api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="accountNoteId">Account Note ID.</param>
+        /// <returns>
+        /// Account note deleted.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<EmptyResource> RemoveAccountNoteAsync(string accountId, string accountNoteId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
 
         /// <summary>
         /// Fetch a list of an account's shipping addresses <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_shipping_addresses">list_shipping_addresses api documentation</see>
