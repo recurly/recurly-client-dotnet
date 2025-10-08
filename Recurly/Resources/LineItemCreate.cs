@@ -53,6 +53,10 @@ namespace Recurly.Resources
         [JsonProperty("end_date")]
         public DateTime? EndDate { get; set; }
 
+        /// <value>The Harmonized System (HS) code is an internationally standardized system of names and numbers to classify traded products. The HS code, sometimes called Commodity Code, is used by customs authorities around the world to identify products when assessing duties and taxes. The HS code may also be referred to as the tariff code or customs code. Values should contain only digits and decimals. If `item_code`/`item_id` is part of the request then `harmonized_system_code` must be absent.</value>
+        [JsonProperty("harmonized_system_code")]
+        public string HarmonizedSystemCode { get; set; }
+
         /// <value>Unique code to identify an item. Available when the Credit Invoices feature is enabled.</value>
         [JsonProperty("item_code")]
         public string ItemCode { get; set; }

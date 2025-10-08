@@ -60,6 +60,10 @@ namespace Recurly.Resources
         [JsonProperty("external_sku")]
         public string ExternalSku { get; set; }
 
+        /// <value>The Harmonized System (HS) code is an internationally standardized system of names and numbers to classify traded products. The HS code, sometimes called Commodity Code, is used by customs authorities around the world to identify products when assessing duties and taxes. The HS code may also be referred to as the tariff code or customs code. Values should contain only digits and decimals.</value>
+        [JsonProperty("harmonized_system_code")]
+        public string HarmonizedSystemCode { get; set; }
+
         /// <value>Add-on ID</value>
         [JsonProperty("id")]
         public string Id { get; set; }

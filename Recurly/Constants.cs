@@ -44,6 +44,18 @@ namespace Recurly
 
         };
 
+        public enum SubscriptionCreateProrationSettingsCharge
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "full_amount")]
+            FullAmount,
+
+            [EnumMember(Value = "prorated_amount")]
+            ProratedAmount,
+
+        };
+
         public enum RelatedType
         {
             Undefined = 0,

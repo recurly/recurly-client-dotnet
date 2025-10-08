@@ -19,6 +19,10 @@ namespace Recurly.Resources
         [JsonProperty("address")]
         public Address Address { get; set; }
 
+        /// <value>The preferred billing date for the account. This date will be used as the billing date for when activating new subscriptions on the account.</value>
+        [JsonProperty("bill_date")]
+        public DateTime? BillDate { get; set; }
+
         /// <value>An enumerable describing the billing behavior of the account, specifically whether the account is self-paying or will rely on the parent account to pay.</value>
         [JsonProperty("bill_to")]
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
