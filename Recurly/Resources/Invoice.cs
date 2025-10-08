@@ -123,6 +123,10 @@ namespace Recurly.Resources
         [JsonProperty("subtotal")]
         public float? Subtotal { get; set; }
 
+        /// <value>The summation of charges and credits, after discounts applied.</value>
+        [JsonProperty("subtotal_after_discount")]
+        public float? SubtotalAfterDiscount { get; set; }
+
         /// <value>The total tax on this invoice.</value>
         [JsonProperty("tax")]
         public float? Tax { get; set; }

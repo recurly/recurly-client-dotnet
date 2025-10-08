@@ -63,7 +63,7 @@ namespace Recurly.Resources
         [JsonProperty("gateway_attributes")]
         public GatewayAttributes GatewayAttributes { get; set; }
 
-        /// <value>An identifier for a specific payment gateway. Must be used in conjunction with `gateway_token`.</value>
+        /// <value>An identifier for a specific payment gateway.</value>
         [JsonProperty("gateway_code")]
         public string GatewayCode { get; set; }
 
