@@ -68,7 +68,7 @@ namespace Recurly.Resources
         [JsonProperty("customer_notes")]
         public string CustomerNotes { get; set; }
 
-        /// <value>If present, this subscription's transactions will use the payment gateway with this code.</value>
+        /// <value>If present, this subscription's subsequent transactions will use the payment gateway with this code. To select a payment gateway to use when creating a Subscription, be sure to set the `account.billing_info.gateway_code` as well.</value>
         [JsonProperty("gateway_code")]
         public string GatewayCode { get; set; }
 

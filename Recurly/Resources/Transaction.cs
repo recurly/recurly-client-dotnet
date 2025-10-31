@@ -140,6 +140,10 @@ namespace Recurly.Resources
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
         public Constants.TransactionMerchantReasonCode? MerchantReasonCode { get; set; }
 
+        /// <value>Next action values are used for any required customer follow-up action. Currently, this is supported for Ebanx when using Pix Automatico.</value>
+        [JsonProperty("next_action")]
+        public TransactionNextAction NextAction { get; set; }
+
         /// <value>Object type</value>
         [JsonProperty("object")]
         public string Object { get; set; }
