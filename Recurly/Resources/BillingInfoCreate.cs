@@ -166,7 +166,7 @@ namespace Recurly.Resources
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
         public Constants.GatewayTransactionType? TransactionType { get; set; }
 
-        /// <value>The payment method type for a non-credit card based billing info. `bacs` and `becs` are the only accepted values.</value>
+        /// <value>The payment method type for a non-credit card based billing info. `bacs`, `becs`, `pix-automatico`, `mercadopago` are the only accepted values.</value>
         [JsonProperty("type")]
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
         public Constants.AchType? Type { get; set; }

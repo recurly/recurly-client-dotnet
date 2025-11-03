@@ -981,6 +981,9 @@ namespace Recurly
             [EnumMember(Value = "google_pay")]
             GooglePay,
 
+            [EnumMember(Value = "mercadopago")]
+            Mercadopago,
+
             [EnumMember(Value = "money_order")]
             MoneyOrder,
 
@@ -989,6 +992,9 @@ namespace Recurly
 
             [EnumMember(Value = "paypal")]
             Paypal,
+
+            [EnumMember(Value = "pix_automatico")]
+            PixAutomatico,
 
             [EnumMember(Value = "roku")]
             Roku,
@@ -1355,6 +1361,15 @@ namespace Recurly
 
         };
 
+        public enum NextActionType
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "qr_code")]
+            QrCode,
+
+        };
+
         public enum CvvCheck
         {
             Undefined = 0,
@@ -1568,6 +1583,15 @@ namespace Recurly
 
             [EnumMember(Value = "upi_autopay")]
             UpiAutopay,
+
+            [EnumMember(Value = "pix_automatico")]
+            PixAutomatico,
+
+            [EnumMember(Value = "mercadopago")]
+            Mercadopago,
+
+            [EnumMember(Value = "klarna")]
+            Klarna,
 
         };
 
@@ -2399,6 +2423,12 @@ namespace Recurly
 
             [EnumMember(Value = "becs")]
             Becs,
+
+            [EnumMember(Value = "pix-automatico")]
+            PixAutomatico,
+
+            [EnumMember(Value = "mercadopago")]
+            Mercadopago,
 
         };
 
