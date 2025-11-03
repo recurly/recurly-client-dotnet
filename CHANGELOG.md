@@ -1,5 +1,16 @@
 # Changelog
 
+## [5.9.0](https://github.com/recurly/recurly-client-dotnet/tree/5.9.0) (2025-11-03)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/5.8.0...5.9.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 [#884](https://github.com/recurly/recurly-client-dotnet/pull/884) ([recurly-integrations](https://github.com/recurly-integrations))
+
+
+
 ## [5.8.0](https://github.com/recurly/recurly-client-dotnet/tree/5.8.0) (2025-10-09)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/5.7.0...5.8.0)
