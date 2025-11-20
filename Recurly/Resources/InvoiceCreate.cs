@@ -32,6 +32,13 @@ namespace Recurly.Resources
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
         public Constants.CollectionMethod? CollectionMethod { get; set; }
 
+        /// <value>
+        /// Controls whether credit invoices are automatically applied to new invoices.
+        /// The `mode` field determines the application behavior.
+        /// </value>
+        [JsonProperty("credit_application_policy")]
+        public CreditApplicationPolicy CreditApplicationPolicy { get; set; }
+
         /// <value>This will default to the Customer Notes text specified on the Invoice Settings for credit invoices. Specify customer notes to add or override Customer Notes on credit invoices.</value>
         [JsonProperty("credit_customer_notes")]
         public string CreditCustomerNotes { get; set; }
