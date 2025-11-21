@@ -76,6 +76,13 @@ namespace Recurly.Resources
         [JsonProperty("created_at")]
         public DateTime? CreatedAt { get; set; }
 
+        /// <value>
+        /// Controls whether credit invoices are automatically applied to new invoices.
+        /// The `mode` field determines the application behavior.
+        /// </value>
+        [JsonProperty("credit_application_policy")]
+        public CreditApplicationPolicy CreditApplicationPolicy { get; set; }
+
         /// <value>3-letter ISO 4217 currency code.</value>
         [JsonProperty("currency")]
         public string Currency { get; set; }
