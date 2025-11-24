@@ -19,6 +19,18 @@ namespace Recurly.Resources
         [JsonProperty("currency")]
         public string Currency { get; set; }
 
+        /// <value>The date of the conversion rate.</value>
+        [JsonProperty("date")]
+        public string Date { get; set; }
+
+        /// <value>The conversion rate to the currency.</value>
+        [JsonProperty("rate")]
+        public string Rate { get; set; }
+
+        /// <value>The source of the conversion rate.</value>
+        [JsonProperty("source")]
+        public string Source { get; set; }
+
         /// <value>The subtotal converted to the currency.</value>
         [JsonProperty("subtotal_in_cents")]
         public decimal? SubtotalInCents { get; set; }

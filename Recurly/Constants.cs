@@ -917,6 +917,18 @@ namespace Recurly
 
         };
 
+        public enum CreditApplicationMode
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "all")]
+            All,
+
+            [EnumMember(Value = "none")]
+            None,
+
+        };
+
         public enum InvoiceRefundType
         {
             Undefined = 0,
