@@ -1,0 +1,57 @@
+HTTP/1.1 201 Created
+Content-Type: application/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<invoice_collection href="https://api.recurly.com/v2/invoice_collections/012345678901234567890123456789ab">
+  <charge_invoice href="https://api.recurly.com/v2/invoices/012345678901234567890123456789ab">
+    <account href="https://api.recurly.com/v2/accounts/test-account-123"/>
+    <uuid>012345678901234567890123456789ab</uuid>
+    <state>paid</state>
+    <invoice_number type="integer">1000</invoice_number>
+    <po_number>PO-12345</po_number>
+    <vat_number nil="nil"></vat_number>
+    <subtotal_in_cents type="integer">580</subtotal_in_cents>
+    <tax_in_cents type="integer">0</tax_in_cents>
+    <total_in_cents type="integer">580</total_in_cents>
+    <currency>USD</currency>
+    <created_at type="datetime">2025-11-25T22:00:00Z</created_at>
+    <updated_at type="datetime">2025-11-25T22:00:00Z</updated_at>
+    <line_items type="array">
+      <adjustment type="charge">
+        <uuid>adj123456789</uuid>
+        <description>Test Adjustment</description>
+        <product_code>test-product</product_code>
+        <unit_amount_in_cents type="integer">580</unit_amount_in_cents>
+        <quantity type="integer">1</quantity>
+        <tax_in_cents type="integer">0</tax_in_cents>
+        <total_in_cents type="integer">580</total_in_cents>
+        <currency>USD</currency>
+        <tax_exempt type="boolean">false</tax_exempt>
+        <vertex_transaction_type>lease</vertex_transaction_type>
+        <created_at type="datetime">2025-11-25T22:00:00Z</created_at>
+        <updated_at type="datetime">2025-11-25T22:00:00Z</updated_at>
+      </adjustment>
+    </line_items>
+    <transactions type="array">
+      <transaction href="https://api.recurly.com/v2/transactions/tx123456789" type="credit_card">
+        <account href="https://api.recurly.com/v2/accounts/test-account-123"/>
+        <uuid>tx123456789</uuid>
+        <action>purchase</action>
+        <amount_in_cents type="integer">580</amount_in_cents>
+        <tax_in_cents type="integer">0</tax_in_cents>
+        <currency>USD</currency>
+        <status>success</status>
+        <payment_method>credit_card</payment_method>
+        <reference nil="nil"></reference>
+        <source>purchase</source>
+        <test type="boolean">true</test>
+        <voidable type="boolean">true</voidable>
+        <refundable type="boolean">true</refundable>
+        <created_at type="datetime">2025-11-25T22:00:00Z</created_at>
+        <updated_at type="datetime">2025-11-25T22:00:00Z</updated_at>
+      </transaction>
+    </transactions>
+  </charge_invoice>
+  <credit_invoices type="array">
+  </credit_invoices>
+</invoice_collection>

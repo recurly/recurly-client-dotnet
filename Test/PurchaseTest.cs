@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
 using FluentAssertions;
+using Recurly.Test.Fixtures;
 using Xunit;
 
 namespace Recurly.Test
@@ -277,6 +279,57 @@ namespace Recurly.Test
             Assert.NotNull(response.ChargeInvoice);
             Assert.Equal(response.ChargeInvoice.NetTerms, 45);
             response.ChargeInvoice.NetTermsType.Should().Be(NetTermsType.EOM);
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Unit)]
+        public void PurchaseWithVertexTransactionType()
+        {
+            // Create an actual purchase with vertex_transaction_type
+            var account = NewAccountWithBillingInfo();
+
+            var adjustment = account.NewAdjustment("Test Adjustment", 580);
+            adjustment.Currency = "USD";
+            adjustment.Quantity = 1;
+            adjustment.UnitAmountInCents = 580;
+            adjustment.VertexTransactionType = "lease";
+
+            var purchase = new Purchase(account.AccountCode, "USD");
+            purchase.Account = account;
+            purchase.Adjustments.Add(adjustment);
+
+            // Verify the request serializes vertex_transaction_type correctly
+            var xmlOutput = new System.Text.StringBuilder();
+            using (var xmlWriter = new XmlTextWriter(new System.IO.StringWriter(xmlOutput)))
+            {
+                adjustment.WriteEmbeddedXml(xmlWriter);
+            }
+            var xml = xmlOutput.ToString();
+            Assert.Contains("<vertex_transaction_type>lease</vertex_transaction_type>", xml);
+
+            // Simulate what Purchase.Invoice(purchase) would return by using a fixture
+            // This mocks the API response without making an actual HTTP call
+            var mockResponse = GetMockInvoiceCollectionResponse();
+
+            // Assert the mocked response contains vertex_transaction_type
+            Assert.NotNull(mockResponse.ChargeInvoice);
+            Assert.Equal(mockResponse.ChargeInvoice.State, Invoice.InvoiceState.Paid);
+            Assert.NotNull(mockResponse.ChargeInvoice.Adjustments);
+            Assert.Single(mockResponse.ChargeInvoice.Adjustments);
+            Assert.Equal(mockResponse.ChargeInvoice.Adjustments[0].VertexTransactionType, "lease");
+            Assert.Equal(mockResponse.ChargeInvoice.Adjustments[0].UnitAmountInCents, 580);
+            Assert.Equal(mockResponse.ChargeInvoice.Adjustments[0].Description, "Test Adjustment");
+        }
+
+        private InvoiceCollection GetMockInvoiceCollectionResponse()
+        {
+            // Mock the Purchase.Invoice response using a fixture
+            var collection = new InvoiceCollection();
+            var xmlFixture = FixtureImporter.Get(FixtureType.Purchases, "invoice-with-vertex-201").Xml;
+            using (var reader = new XmlTextReader(new System.IO.StringReader(xmlFixture)))
+            {
+                collection.ReadXml(reader);
+            }
+            return collection;
         }
     }
 }

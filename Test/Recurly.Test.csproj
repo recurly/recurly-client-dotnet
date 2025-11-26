@@ -224,6 +224,9 @@
     <Content Include="Fixtures\plans\show-200.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Fixtures\purchases\invoice-with-vertex-201.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Fixtures\subscriptions\show-200-inactive.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
