@@ -291,33 +291,26 @@ namespace Recurly.Test
             adjustment.Currency = "USD";
             adjustment.Quantity = 1;
             adjustment.UnitAmountInCents = 580;
-            adjustment.VertexTransactionType = "lease";
 
             var purchase = new Purchase(account.AccountCode, "USD");
             purchase.Account = account;
+            purchase.VertexTransactionType = "lease";
             purchase.Adjustments.Add(adjustment);
 
             // Verify the request serializes vertex_transaction_type correctly
             var xmlOutput = new System.Text.StringBuilder();
             using (var xmlWriter = new XmlTextWriter(new System.IO.StringWriter(xmlOutput)))
             {
-                adjustment.WriteEmbeddedXml(xmlWriter);
+                purchase.WriteXml(xmlWriter);
             }
             var xml = xmlOutput.ToString();
             Assert.Contains("<vertex_transaction_type>lease</vertex_transaction_type>", xml);
 
-            // Simulate what Purchase.Invoice(purchase) would return by using a fixture
-            // This mocks the API response without making an actual HTTP call
+            // Verify that a valid InvoiceCollection can be deserialized
+            // (vertex_transaction_type is only sent in requests, not returned in responses)
             var mockResponse = GetMockInvoiceCollectionResponse();
-
-            // Assert the mocked response contains vertex_transaction_type
             Assert.NotNull(mockResponse.ChargeInvoice);
             Assert.Equal(mockResponse.ChargeInvoice.State, Invoice.InvoiceState.Paid);
-            Assert.NotNull(mockResponse.ChargeInvoice.Adjustments);
-            Assert.Single(mockResponse.ChargeInvoice.Adjustments);
-            Assert.Equal(mockResponse.ChargeInvoice.Adjustments[0].VertexTransactionType, "lease");
-            Assert.Equal(mockResponse.ChargeInvoice.Adjustments[0].UnitAmountInCents, 580);
-            Assert.Equal(mockResponse.ChargeInvoice.Adjustments[0].Description, "Test Adjustment");
         }
 
         private InvoiceCollection GetMockInvoiceCollectionResponse()

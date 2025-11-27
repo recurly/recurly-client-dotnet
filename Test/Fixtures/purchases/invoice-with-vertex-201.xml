@@ -27,7 +27,6 @@ Content-Type: application/xml; charset=utf-8
         <total_in_cents type="integer">580</total_in_cents>
         <currency>USD</currency>
         <tax_exempt type="boolean">false</tax_exempt>
-        <vertex_transaction_type>lease</vertex_transaction_type>
         <created_at type="datetime">2025-11-25T22:00:00Z</created_at>
         <updated_at type="datetime">2025-11-25T22:00:00Z</updated_at>
       </adjustment>

@@ -138,6 +138,11 @@ namespace Recurly
         /// </summary>
         public string TransactionType { get; set; }
 
+        /// <summary>
+        /// Optional vertex transaction type for tax purposes.
+        /// </summary>
+        public string VertexTransactionType { get; set; }
+
         #region Constructors
 
         internal Purchase()
@@ -280,6 +285,9 @@ namespace Recurly
 
             if (TransactionType != null)
                 xmlWriter.WriteElementString("transaction_type", TransactionType);
+
+            if (VertexTransactionType != null)
+                xmlWriter.WriteElementString("vertex_transaction_type", VertexTransactionType);
 
             if (NetTerms.HasValue)
                 xmlWriter.WriteElementString("net_terms", NetTerms.Value.ToString());

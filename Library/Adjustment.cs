@@ -93,11 +93,6 @@ namespace Recurly
         }
         private List<CustomField> _customFields;
 
-        /// <summary>
-        /// Optional vertex transaction type for tax purposes.
-        /// </summary>
-        public string VertexTransactionType { get; set; }
-
         private const string UrlPrefix = "/accounts/";
         private const string UrlPostfix = "/adjustments/";
 
@@ -284,10 +279,6 @@ namespace Recurly
                         TaxCode = reader.ReadElementContentAsString();
                         break;
 
-                    case "vertex_transaction_type":
-                        VertexTransactionType = reader.ReadElementContentAsString();
-                        break;
-
                     case "tax_type":
                         TaxType = reader.ReadElementContentAsString();
                         break;
@@ -414,8 +405,6 @@ namespace Recurly
 
             if (TaxCode != null)
                 xmlWriter.WriteElementString("tax_code", TaxCode);
-            if (VertexTransactionType != null)
-                xmlWriter.WriteElementString("vertex_transaction_type", VertexTransactionType);
             if (StartDate != DateTime.MinValue)
                 xmlWriter.WriteElementString("start_date", StartDate.ToString("s"));
             if (EndDate.HasValue)
