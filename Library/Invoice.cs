@@ -140,6 +140,7 @@ namespace Recurly
         public string TermsAndConditions { get; set; }
         public string VatReverseChargeNotes { get; set; }
         public string GatewayCode { get; set; }
+        public string VertexTransactionType { get; set; }
         public DateTime? AttemptNextCollectionAt { get; set; }
         public string RecoveryReason { get; set; }
         public string AllLineItemsLink { get; set; }
@@ -793,6 +794,9 @@ namespace Recurly
             xmlWriter.WriteElementString("vat_reverse_charge_notes", VatReverseChargeNotes);
             xmlWriter.WriteElementString("po_number", PoNumber);
 
+            if (VertexTransactionType != null)
+                xmlWriter.WriteElementString("vertex_transaction_type", VertexTransactionType);
+
             if (CollectionMethod == Collection.Manual)
             {
                 xmlWriter.WriteElementString("collection_method", "manual");
@@ -825,6 +829,8 @@ namespace Recurly
                 xmlWriter.WriteElementString("vat_reverse_charge_notes", VatReverseChargeNotes);
             if (GatewayCode != null)
                 xmlWriter.WriteElementString("gateway_code", GatewayCode);
+            if (VertexTransactionType != null)
+                xmlWriter.WriteElementString("vertex_transaction_type", VertexTransactionType);
             if (PoNumber != null)
                 xmlWriter.WriteElementString("po_number", PoNumber);
 

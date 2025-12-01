@@ -281,5 +281,23 @@ namespace Recurly.Test
             xml.Should().Contain("<revenue_gl_account_id>sxo2b1hpjrye</revenue_gl_account_id>");
             xml.Should().Contain("<performance_obligation_id>7pu</performance_obligation_id>");
         }
+
+        [RecurlyFact(TestEnvironment.Type.Unit)]
+        public void AdjustmentWithVertexTransactionType()
+        {
+            var adjustment = new Adjustment
+            {
+                VertexTransactionType = "lease"
+            };
+
+            // Verify the request serializes vertex_transaction_type correctly
+            var xmlOutput = new System.Text.StringBuilder();
+            using (var xmlWriter = new XmlTextWriter(new System.IO.StringWriter(xmlOutput)))
+            {
+                adjustment.WriteXml(xmlWriter);
+            }
+            var xml = xmlOutput.ToString();
+            Assert.Contains("<vertex_transaction_type>lease</vertex_transaction_type>", xml);
+        }
     }
 }
