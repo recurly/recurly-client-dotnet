@@ -298,6 +298,24 @@ namespace Recurly.Test
             }
             var xml = xmlOutput.ToString();
             Assert.Contains("<vertex_transaction_type>lease</vertex_transaction_type>", xml);
+
+            // Verify that vertex_transaction_type can be deserialized from responses
+            var mockResponse = GetMockAdjustmentResponse();
+            Assert.NotNull(mockResponse);
+            Assert.Equal(mockResponse.State, Adjustment.AdjustmentState.Invoiced);
+            Assert.Equal("lease", mockResponse.VertexTransactionType);
+        }
+
+        private Adjustment GetMockAdjustmentResponse()
+        {
+            // Mock the Adjustment response using a fixture with vertex_transaction_type
+            var adjustment = new Adjustment();
+            var xmlFixture = FixtureImporter.Get(FixtureType.Adjustments, "show-with-vertex-200").Xml;
+            using (var reader = new XmlTextReader(new System.IO.StringReader(xmlFixture)))
+            {
+                adjustment.ReadXml(reader);
+            }
+            return adjustment;
         }
     }
 }

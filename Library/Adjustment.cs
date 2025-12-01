@@ -284,6 +284,10 @@ namespace Recurly
                         TaxCode = reader.ReadElementContentAsString();
                         break;
 
+                    case "vertex_transaction_type":
+                        VertexTransactionType = reader.ReadElementContentAsString();
+                        break;
+
                     case "tax_type":
                         TaxType = reader.ReadElementContentAsString();
                         break;

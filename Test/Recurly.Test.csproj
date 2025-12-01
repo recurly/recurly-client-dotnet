@@ -134,6 +134,9 @@
     <Content Include="Fixtures\adjustments\show-404.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Fixtures\adjustments\show-with-vertex-200.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Fixtures\billinginfo\destroy-204.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
