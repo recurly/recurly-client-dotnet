@@ -829,8 +829,6 @@ namespace Recurly
                 xmlWriter.WriteElementString("vat_reverse_charge_notes", VatReverseChargeNotes);
             if (GatewayCode != null)
                 xmlWriter.WriteElementString("gateway_code", GatewayCode);
-            if (VertexTransactionType != null)
-                xmlWriter.WriteElementString("vertex_transaction_type", VertexTransactionType);
             if (PoNumber != null)
                 xmlWriter.WriteElementString("po_number", PoNumber);
 
