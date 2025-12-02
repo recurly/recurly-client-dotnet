@@ -313,6 +313,45 @@ namespace Recurly.Test
             Assert.Equal(mockResponse.ChargeInvoice.State, Invoice.InvoiceState.Paid);
         }
 
+        [RecurlyFact(TestEnvironment.Type.Unit)]
+        public void PurchaseWithAdjustmentsContainingVertexTransactionType()
+        {
+            // Create a purchase with adjustments that have vertex_transaction_type
+            var account = NewAccountWithBillingInfo();
+
+            var adjustment1 = account.NewAdjustment("Adjustment with lease type", 580);
+            adjustment1.Currency = "USD";
+            adjustment1.Quantity = 1;
+            adjustment1.VertexTransactionType = "lease";
+
+            var adjustment2 = account.NewAdjustment("Adjustment with rental type", 1200);
+            adjustment2.Currency = "USD";
+            adjustment2.Quantity = 2;
+            adjustment2.UnitAmountInCents = 600;
+            adjustment2.VertexTransactionType = "rental";
+
+            var purchase = new Purchase(account.AccountCode, "USD");
+            purchase.Account = account;
+            purchase.Adjustments.Add(adjustment1);
+            purchase.Adjustments.Add(adjustment2);
+
+            // Verify the request serializes vertex_transaction_type correctly for each adjustment
+            var xmlOutput = new System.Text.StringBuilder();
+            using (var xmlWriter = new XmlTextWriter(new System.IO.StringWriter(xmlOutput)))
+            {
+                purchase.WriteXml(xmlWriter);
+            }
+            var xml = xmlOutput.ToString();
+
+            // Should contain vertex_transaction_type for both adjustments
+            Assert.Contains("<vertex_transaction_type>lease</vertex_transaction_type>", xml);
+            Assert.Contains("<vertex_transaction_type>rental</vertex_transaction_type>", xml);
+
+            // Verify both adjustments are in the XML with their properties
+            Assert.Contains("<unit_amount_in_cents>580</unit_amount_in_cents>", xml);
+            Assert.Contains("<unit_amount_in_cents>600</unit_amount_in_cents>", xml);
+        }
+
         private InvoiceCollection GetMockInvoiceCollectionResponse()
         {
             // Mock the Purchase.Invoice response using a fixture
