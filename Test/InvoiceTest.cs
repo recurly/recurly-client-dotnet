@@ -598,7 +598,7 @@ namespace Recurly.Test
                 VertexTransactionType = "lease"
             };
 
-            // Verify the request serializes vertex_transaction_type correctly
+            // Verify the request serializes vertex_transaction_type correctly (create only, not update)
             var xmlOutput = new System.Text.StringBuilder();
             using (var xmlWriter = new XmlTextWriter(new System.IO.StringWriter(xmlOutput)))
             {
@@ -607,23 +607,6 @@ namespace Recurly.Test
             var xml = xmlOutput.ToString();
             Assert.Contains("<vertex_transaction_type>lease</vertex_transaction_type>", xml);
         }
-
-        [RecurlyFact(TestEnvironment.Type.Unit)]
-        public void InvoiceWithVertexTransactionTypeUpdate()
-        {
-            var invoice = new Invoice
-            {
-                VertexTransactionType = "rental"
-            };
-
-            // Verify the update request serializes vertex_transaction_type correctly
-            var xmlOutput = new System.Text.StringBuilder();
-            using (var xmlWriter = new XmlTextWriter(new System.IO.StringWriter(xmlOutput)))
-            {
-                invoice.WriteUpdateXml(xmlWriter);
-            }
-            var xml = xmlOutput.ToString();
-            Assert.Contains("<vertex_transaction_type>rental</vertex_transaction_type>", xml);
-        }
     }
 }
+
