@@ -104,6 +104,13 @@ namespace Recurly
         /// </summary>
         public DateTime? DeliveredAt { get; private set; }
 
+        /// <summary>
+        /// Optional attribute to bypass tax integration on gift card purchase.
+        /// When true, bypasses the tax integration.
+        /// When false or not set, sends to the tax integration.
+        /// Only used in create requests, not returned in responses.
+        /// </summary>
+        public bool? TaxServiceOptOut { get; set; }
 
         private String _purchaseInvoiceId;
         private Invoice _purchaseInvoice;
@@ -334,6 +341,9 @@ namespace Recurly
             xmlWriter.WriteElementString("product_code", ProductCode);
             xmlWriter.WriteElementString("currency", Currency);
             xmlWriter.WriteElementString("unit_amount_in_cents", UnitAmountInCents.ToString());
+
+            if (TaxServiceOptOut.HasValue)
+                xmlWriter.WriteElementString("tax_service_opt_out", TaxServiceOptOut.Value.AsString());
 
             WriteRevRecNodes(xmlWriter);
 
