@@ -98,6 +98,8 @@ namespace Recurly.Test.Fixtures
         PerformanceObligations,
         [Description("plans")]
         Plans,
+        [Description("purchases")]
+        Purchases,
         [Description("shipping_methods")]
         ShippingMethods,
     }

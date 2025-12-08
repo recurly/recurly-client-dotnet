@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
 using FluentAssertions;
+using Recurly.Test.Fixtures;
 using Xunit;
 
 namespace Recurly.Test
@@ -277,6 +279,89 @@ namespace Recurly.Test
             Assert.NotNull(response.ChargeInvoice);
             Assert.Equal(response.ChargeInvoice.NetTerms, 45);
             response.ChargeInvoice.NetTermsType.Should().Be(NetTermsType.EOM);
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Unit)]
+        public void PurchaseWithVertexTransactionType()
+        {
+            // Create an actual purchase with vertex_transaction_type
+            var account = NewAccountWithBillingInfo();
+
+            var adjustment = account.NewAdjustment("Test Adjustment", 580);
+            adjustment.Currency = "USD";
+            adjustment.Quantity = 1;
+            adjustment.UnitAmountInCents = 580;
+
+            var purchase = new Purchase(account.AccountCode, "USD");
+            purchase.Account = account;
+            purchase.VertexTransactionType = "lease";
+            purchase.Adjustments.Add(adjustment);
+
+            // Verify the request serializes vertex_transaction_type correctly
+            var xmlOutput = new System.Text.StringBuilder();
+            using (var xmlWriter = new XmlTextWriter(new System.IO.StringWriter(xmlOutput)))
+            {
+                purchase.WriteXml(xmlWriter);
+            }
+            var xml = xmlOutput.ToString();
+            Assert.Contains("<vertex_transaction_type>lease</vertex_transaction_type>", xml);
+
+            // Verify that a valid InvoiceCollection can be deserialized
+            // (vertex_transaction_type is only sent in requests, not returned in responses)
+            var mockResponse = GetMockInvoiceCollectionResponse();
+            Assert.NotNull(mockResponse.ChargeInvoice);
+            Assert.Equal(mockResponse.ChargeInvoice.State, Invoice.InvoiceState.Paid);
+        }
+
+        [RecurlyFact(TestEnvironment.Type.Unit)]
+        public void PurchaseWithAdjustmentsContainingVertexTransactionType()
+        {
+            // Create a purchase with adjustments that have vertex_transaction_type
+            var account = NewAccountWithBillingInfo();
+
+            var adjustment1 = account.NewAdjustment("Adjustment with lease type", 580);
+            adjustment1.Currency = "USD";
+            adjustment1.Quantity = 1;
+            adjustment1.VertexTransactionType = "lease";
+
+            var adjustment2 = account.NewAdjustment("Adjustment with rental type", 1200);
+            adjustment2.Currency = "USD";
+            adjustment2.Quantity = 2;
+            adjustment2.UnitAmountInCents = 600;
+            adjustment2.VertexTransactionType = "rental";
+
+            var purchase = new Purchase(account.AccountCode, "USD");
+            purchase.Account = account;
+            purchase.Adjustments.Add(adjustment1);
+            purchase.Adjustments.Add(adjustment2);
+
+            // Verify the request serializes vertex_transaction_type correctly for each adjustment
+            var xmlOutput = new System.Text.StringBuilder();
+            using (var xmlWriter = new XmlTextWriter(new System.IO.StringWriter(xmlOutput)))
+            {
+                purchase.WriteXml(xmlWriter);
+            }
+            var xml = xmlOutput.ToString();
+
+            // Should contain vertex_transaction_type for both adjustments
+            Assert.Contains("<vertex_transaction_type>lease</vertex_transaction_type>", xml);
+            Assert.Contains("<vertex_transaction_type>rental</vertex_transaction_type>", xml);
+
+            // Verify both adjustments are in the XML with their properties
+            Assert.Contains("<unit_amount_in_cents>580</unit_amount_in_cents>", xml);
+            Assert.Contains("<unit_amount_in_cents>600</unit_amount_in_cents>", xml);
+        }
+
+        private InvoiceCollection GetMockInvoiceCollectionResponse()
+        {
+            // Mock the Purchase.Invoice response using a fixture
+            var collection = new InvoiceCollection();
+            var xmlFixture = FixtureImporter.Get(FixtureType.Purchases, "invoice-with-vertex-201").Xml;
+            using (var reader = new XmlTextReader(new System.IO.StringReader(xmlFixture)))
+            {
+                collection.ReadXml(reader);
+            }
+            return collection;
         }
     }
 }

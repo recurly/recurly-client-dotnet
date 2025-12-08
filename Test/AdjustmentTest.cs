@@ -281,5 +281,41 @@ namespace Recurly.Test
             xml.Should().Contain("<revenue_gl_account_id>sxo2b1hpjrye</revenue_gl_account_id>");
             xml.Should().Contain("<performance_obligation_id>7pu</performance_obligation_id>");
         }
+
+        [RecurlyFact(TestEnvironment.Type.Unit)]
+        public void AdjustmentWithVertexTransactionType()
+        {
+            var adjustment = new Adjustment
+            {
+                VertexTransactionType = "lease"
+            };
+
+            // Verify the request serializes vertex_transaction_type correctly
+            var xmlOutput = new System.Text.StringBuilder();
+            using (var xmlWriter = new XmlTextWriter(new System.IO.StringWriter(xmlOutput)))
+            {
+                adjustment.WriteXml(xmlWriter);
+            }
+            var xml = xmlOutput.ToString();
+            Assert.Contains("<vertex_transaction_type>lease</vertex_transaction_type>", xml);
+
+            // Verify that vertex_transaction_type can be deserialized from responses
+            var mockResponse = GetMockAdjustmentResponse();
+            Assert.NotNull(mockResponse);
+            Assert.Equal(mockResponse.State, Adjustment.AdjustmentState.Invoiced);
+            Assert.Equal("lease", mockResponse.VertexTransactionType);
+        }
+
+        private Adjustment GetMockAdjustmentResponse()
+        {
+            // Mock the Adjustment response using a fixture with vertex_transaction_type
+            var adjustment = new Adjustment();
+            var xmlFixture = FixtureImporter.Get(FixtureType.Adjustments, "show-with-vertex-200").Xml;
+            using (var reader = new XmlTextReader(new System.IO.StringReader(xmlFixture)))
+            {
+                adjustment.ReadXml(reader);
+            }
+            return adjustment;
+        }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
+using System.Xml;
 using FluentAssertions;
+using Recurly.Test.Fixtures;
 using Xunit;
 
 namespace Recurly.Test
@@ -587,5 +589,24 @@ namespace Recurly.Test
             Assert.Equal(response.NetTerms, 45);
             Assert.Equal(response.NetTermsType, NetTermsType.EOM);
         }
+
+        [RecurlyFact(TestEnvironment.Type.Unit)]
+        public void InvoiceWithVertexTransactionType()
+        {
+            var invoice = new Invoice
+            {
+                VertexTransactionType = "lease"
+            };
+
+            // Verify the request serializes vertex_transaction_type correctly (create only, not update)
+            var xmlOutput = new System.Text.StringBuilder();
+            using (var xmlWriter = new XmlTextWriter(new System.IO.StringWriter(xmlOutput)))
+            {
+                invoice.WriteXml(xmlWriter);
+            }
+            var xml = xmlOutput.ToString();
+            Assert.Contains("<vertex_transaction_type>lease</vertex_transaction_type>", xml);
+        }
     }
 }
+
