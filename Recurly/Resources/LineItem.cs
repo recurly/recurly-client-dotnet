@@ -277,5 +277,10 @@ namespace Recurly.Resources
         [JsonProperty("uuid")]
         public string Uuid { get; set; }
 
+        /// <value>Used by Vertex for tax calculations. Possible values are sale, rental, lease.</value>
+        [JsonProperty("vertex_transaction_type")]
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.VertexTransactionType? VertexTransactionType { get; set; }
+
     }
 }
