@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.18.6](https://github.com/recurly/recurly-client-dotnet/tree/1.18.6) (2025-12-10)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.18.5...1.18.6)
+
+
+**Merged Pull Requests**
+
+- Adds vertex_transaction_type to purchases invoices and adjustments [#888](https://github.com/recurly/recurly-client-dotnet/pull/888) ([sunnyw1212](https://github.com/sunnyw1212))
+
+
+
 ## [1.18.5](https://github.com/recurly/recurly-client-dotnet/tree/1.18.5) (2025-04-07)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.18.4...1.18.5)
