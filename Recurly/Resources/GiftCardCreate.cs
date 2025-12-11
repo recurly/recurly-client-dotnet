@@ -31,6 +31,10 @@ namespace Recurly.Resources
         [JsonProperty("product_code")]
         public string ProductCode { get; set; }
 
+        /// <value>Set to `true` to bypass sending the purchase to your configured tax service. Defaults to `false`.</value>
+        [JsonProperty("tax_service_opt_out")]
+        public bool? TaxServiceOptOut { get; set; }
+
         /// <value>The amount of the gift card, which is the amount of the charge to the gifter account and the amount of credit that is applied to the recipient account upon successful redemption.</value>
         [JsonProperty("unit_amount")]
         public decimal? UnitAmount { get; set; }

@@ -254,6 +254,21 @@ namespace Recurly
 
         };
 
+        public enum VertexTransactionType
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "sale")]
+            Sale,
+
+            [EnumMember(Value = "rental")]
+            Rental,
+
+            [EnumMember(Value = "lease")]
+            Lease,
+
+        };
+
         public enum FilterTransactionType
         {
             Undefined = 0,

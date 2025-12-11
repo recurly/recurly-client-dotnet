@@ -129,5 +129,10 @@ namespace Recurly.Resources
         [JsonProperty("vat_reverse_charge_notes")]
         public string VatReverseChargeNotes { get; set; }
 
+        /// <value>Used by Vertex for tax calculations. Possible values are sale, rental, lease.</value>
+        [JsonProperty("vertex_transaction_type")]
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.VertexTransactionType? VertexTransactionType { get; set; }
+
     }
 }
