@@ -55,6 +55,10 @@ namespace Recurly.Resources
         [JsonProperty("invoice_collection")]
         public InvoiceCollection InvoiceCollection { get; set; }
 
+        /// <value>If present, this sets the date the subscription's next billing period will start (`current_period_ends_at`). When combined with proration_settings, proration calculation should occur, only supported when timeframe is now.</value>
+        [JsonProperty("next_bill_date")]
+        public DateTime? NextBillDate { get; set; }
+
         /// <value>Object type</value>
         [JsonProperty("object")]
         public string Object { get; set; }
