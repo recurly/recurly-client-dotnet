@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.18.7](https://github.com/recurly/recurly-client-dotnet/tree/1.18.7) (2025-12-17)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.18.6...1.18.7)
+
+
+**Merged Pull Requests**
+
+- Adds tax_service_opt_out to gift cards create [#890](https://github.com/recurly/recurly-client-dotnet/pull/890) ([sunnyw1212](https://github.com/sunnyw1212))
+
+
+
 ## [1.18.6](https://github.com/recurly/recurly-client-dotnet/tree/1.18.6) (2025-12-10)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/1.18.5...1.18.6)
