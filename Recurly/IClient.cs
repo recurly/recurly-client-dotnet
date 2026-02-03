@@ -574,6 +574,50 @@ namespace Recurly
         Task<CouponRedemption> RemoveCouponRedemptionAsync(string accountId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
 
         /// <summary>
+        /// Show the coupon redemption <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_coupon_redemption">get_coupon_redemption api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="couponRedemptionId">Coupon Redemption ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
+        /// <returns>
+        /// A coupon redemption.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        CouponRedemption GetCouponRedemption(string accountId, string couponRedemptionId, RequestOptions options = null);
+
+        /// <summary>
+        /// Show the coupon redemption <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_coupon_redemption">get_coupon_redemption api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="couponRedemptionId">Coupon Redemption ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
+        /// <returns>
+        /// A coupon redemption.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<CouponRedemption> GetCouponRedemptionAsync(string accountId, string couponRedemptionId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// Delete the coupon redemption <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_coupon_redemption_by_id">remove_coupon_redemption_by_id api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="couponRedemptionId">Coupon Redemption ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
+        /// <returns>
+        /// Coupon redemption deleted.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        CouponRedemption RemoveCouponRedemptionById(string accountId, string couponRedemptionId, RequestOptions options = null);
+
+        /// <summary>
+        /// Delete the coupon redemption <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_coupon_redemption_by_id">remove_coupon_redemption_by_id api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="couponRedemptionId">Coupon Redemption ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
+        /// <returns>
+        /// Coupon redemption deleted.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<CouponRedemption> RemoveCouponRedemptionByIdAsync(string accountId, string couponRedemptionId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
         /// List an account's credit payments <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_account_credit_payments">list_account_credit_payments api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
@@ -2970,6 +3014,50 @@ namespace Recurly
         /// </returns>
         Pager<CouponRedemption> ListSubscriptionCouponRedemptions(string subscriptionId, ListSubscriptionCouponRedemptionsParams optionalParams = null, RequestOptions options = null);
 
+
+        /// <summary>
+        /// Show the coupon redemption for a subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_subscription_coupon_redemption">get_subscription_coupon_redemption api documentation</see>
+        /// </summary>
+        /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
+        /// <param name="couponRedemptionId">Coupon Redemption ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
+        /// <returns>
+        /// The coupon redemption on a subscription.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        CouponRedemption GetSubscriptionCouponRedemption(string subscriptionId, string couponRedemptionId, RequestOptions options = null);
+
+        /// <summary>
+        /// Show the coupon redemption for a subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_subscription_coupon_redemption">get_subscription_coupon_redemption api documentation</see>
+        /// </summary>
+        /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
+        /// <param name="couponRedemptionId">Coupon Redemption ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
+        /// <returns>
+        /// The coupon redemption on a subscription.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<CouponRedemption> GetSubscriptionCouponRedemptionAsync(string subscriptionId, string couponRedemptionId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// Delete the coupon redemption from a subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_subscription_coupon_redemption">remove_subscription_coupon_redemption api documentation</see>
+        /// </summary>
+        /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
+        /// <param name="couponRedemptionId">Coupon Redemption ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
+        /// <returns>
+        /// Coupon redemption deleted.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        CouponRedemption RemoveSubscriptionCouponRedemption(string subscriptionId, string couponRedemptionId, RequestOptions options = null);
+
+        /// <summary>
+        /// Delete the coupon redemption from a subscription <see href="https://developers.recurly.com/api/v2021-02-25#operation/remove_subscription_coupon_redemption">remove_subscription_coupon_redemption api documentation</see>
+        /// </summary>
+        /// <param name="subscriptionId">Subscription ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
+        /// <param name="couponRedemptionId">Coupon Redemption ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`. For UUID use prefix `uuid-`, e.g. `uuid-123457890`.</param>
+        /// <returns>
+        /// Coupon redemption deleted.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<CouponRedemption> RemoveSubscriptionCouponRedemptionAsync(string subscriptionId, string couponRedemptionId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
 
         /// <summary>
         /// List a subscription add-on's usage records <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_usage">list_usage api documentation</see>

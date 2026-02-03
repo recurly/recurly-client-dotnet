@@ -16,6 +16,14 @@ namespace Recurly.Resources
     {
 
         /// <value>
+        /// Optional array of credit invoice origin types to allow when mode is `all`.
+        /// If not specified when mode is `all`, credits from all origins are applied.
+        /// Only valid when mode is `all`.
+        /// </value>
+        [JsonProperty("allowed_origins")]
+        public List<Constants.CreditApplicationAllowedOriginType> AllowedOrigins { get; set; }
+
+        /// <value>
         /// Determines which credit invoices are applied to invoices:
         /// - `all`: All available credit invoices are applied (default)
         /// - `none`: No credit invoices are applied automatically

@@ -30,7 +30,9 @@ namespace Recurly.Resources
 
         /// <value>
         /// Controls whether credit invoices are automatically applied to new invoices.
-        /// The `mode` field determines the application behavior.
+        /// The `mode` field determines the application behavior. When mode is `all`,
+        /// the optional `allowed_origins` array can restrict which credit invoice origins
+        /// are applied.
         /// </value>
         [JsonProperty("credit_application_policy")]
         public CreditApplicationPolicy CreditApplicationPolicy { get; set; }

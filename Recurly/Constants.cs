@@ -944,6 +944,51 @@ namespace Recurly
 
         };
 
+        public enum CreditApplicationAllowedOriginType
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "line_item_refund")]
+            LineItemRefund,
+
+            [EnumMember(Value = "open_amount_refund")]
+            OpenAmountRefund,
+
+            [EnumMember(Value = "immediate_change")]
+            ImmediateChange,
+
+            [EnumMember(Value = "termination")]
+            Termination,
+
+            [EnumMember(Value = "credit")]
+            Credit,
+
+            [EnumMember(Value = "write_off")]
+            WriteOff,
+
+            [EnumMember(Value = "refund")]
+            Refund,
+
+            [EnumMember(Value = "external_refund")]
+            ExternalRefund,
+
+            [EnumMember(Value = "carryforward_credit")]
+            CarryforwardCredit,
+
+            [EnumMember(Value = "usage_correction")]
+            UsageCorrection,
+
+            [EnumMember(Value = "prepayment")]
+            Prepayment,
+
+            [EnumMember(Value = "gift_card")]
+            GiftCard,
+
+            [EnumMember(Value = "carryforward_gift_credit")]
+            CarryforwardGiftCredit,
+
+        };
+
         public enum InvoiceRefundType
         {
             Undefined = 0,
