@@ -27,5 +27,9 @@ namespace Recurly.Resources
         [JsonProperty("object")]
         public string Object { get; set; }
 
+        /// <value>Verification transactions (used for free trial payment method validation)</value>
+        [JsonProperty("verification_transactions")]
+        public List<Transaction> VerificationTransactions { get; set; }
+
     }
 }
