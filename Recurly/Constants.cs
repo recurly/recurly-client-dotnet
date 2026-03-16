@@ -909,6 +909,9 @@ namespace Recurly
             [EnumMember(Value = "pending")]
             Pending,
 
+            [EnumMember(Value = "processing")]
+            Processing,
+
             [EnumMember(Value = "past_due")]
             PastDue,
 
@@ -917,6 +920,15 @@ namespace Recurly
 
             [EnumMember(Value = "failed")]
             Failed,
+
+            [EnumMember(Value = "open")]
+            Open,
+
+            [EnumMember(Value = "closed")]
+            Closed,
+
+            [EnumMember(Value = "voided")]
+            Voided,
 
         };
 
@@ -1664,6 +1676,9 @@ namespace Recurly
 
             [EnumMember(Value = "klarna")]
             Klarna,
+
+            [EnumMember(Value = "braintree_google_pay")]
+            BraintreeGooglePay,
 
         };
 
