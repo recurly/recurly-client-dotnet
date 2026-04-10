@@ -2427,6 +2427,54 @@ paths:
           {\n\t\tfmt.Printf(\"Resource not found: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\n\nfmt.Printf(\"Fetched Transaction:
           %v\", transaction)"
+  "/sites/{site_id}/accounts/{account_id}/billing_info/verify_cvv":
+    post:
+      tags:
+      - billing_info
+      operationId: verify_billing_info_cvv
+      summary: Verify an account's credit card billing cvv
+      parameters:
+      - "$ref": "#/components/parameters/site_id"
+      - "$ref": "#/components/parameters/account_id"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/BillingInfoVerifyCVV"
+      responses:
+        '200':
+          description: Transaction information from verify.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Transaction"
+        '404':
+          description: Account has no billing information, or incorrect site or account
+            ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Invalid billing information, or error running the verification
+            transaction.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorMayHaveTransaction"
+        '429':
+          description: Too many CVV verification attempts.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
   "/sites/{site_id}/accounts/{account_id}/billing_infos":
     get:
       tags:
@@ -2632,6 +2680,99 @@ paths:
         '422':
           description: Billing info cannot be deleted. Please set a new primary billing
             info before deleting this billing info
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+  "/sites/{site_id}/accounts/{account_id}/billing_infos/{billing_info_id}/verify":
+    post:
+      tags:
+      - billing_infos
+      operationId: verify_billing_infos
+      summary: Verify a billing information's credit card
+      parameters:
+      - "$ref": "#/components/parameters/site_id"
+      - "$ref": "#/components/parameters/account_id"
+      - "$ref": "#/components/parameters/billing_info_id"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/BillingInfoVerify"
+        required: false
+      responses:
+        '200':
+          description: Transaction information from verify.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Transaction"
+        '404':
+          description: Billing information not found, or incorrect site or account
+            ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Invalid billing information, or error running the verification
+            transaction.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorMayHaveTransaction"
+      x-code-samples: []
+  "/sites/{site_id}/accounts/{account_id}/billing_infos/{billing_info_id}/verify_cvv":
+    post:
+      tags:
+      - billing_infos
+      operationId: verify_billing_infos_cvv
+      summary: Verify a billing information's credit card cvv
+      parameters:
+      - "$ref": "#/components/parameters/site_id"
+      - "$ref": "#/components/parameters/account_id"
+      - "$ref": "#/components/parameters/billing_info_id"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/BillingInfoVerifyCVV"
+      responses:
+        '200':
+          description: Transaction information from verify.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Transaction"
+        '404':
+          description: Billing information not found, or incorrect site or account
+            ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Invalid billing information, or error running the verification
+            transaction.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorMayHaveTransaction"
+        '429':
+          description: Too many CVV verification attempts.
           content:
             application/json:
               schema:
@@ -8982,10 +9123,11 @@ paths:
       summary: Refund an invoice
       description: |
         There are two ways to do a refund:
-        * refund a specific amount which is divided across all the line items.
-        * refund quantities of line items.
-        If you want to refund the entire refundable amount on the invoice, the
-        simplest way is to do `type=amount` without specifiying an `amount`.
+        * Apply a specific dollar/cent amount or percentage amount to an entire invoice, which will refund the resulting amount across all line items on the invoice.
+          * If you want to refund the entire refundable amount on the invoice, the simplest way is to do `type=amount` without specifiying an `amount`.
+          * Note: You must have the Credit Memos feature flag enabled on your site to utilize percentage amount refunds on invoices.
+        * Apply a refund to one or more individual line items on an invoice. A line item can be refunded by a quantity amount, a specific dollar/cent amount, or a percentage amount and will only apply to the specific line item you are aiming to refund.
+          * Note: You must have the Credit Memos feature flag enabled on your site to utilize specific dollar/cent amount and percentage amount refunds on line items.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/invoice_id"
@@ -14721,7 +14863,8 @@ components:
       name: invoice_id
       in: path
       description: Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`.
-        For number use prefix `number-`, e.g. `number-1000`.
+        For number use prefix `number-`, e.g. `number-1000`. For number with prefix
+        or country code, use `number-` and `prefix`, e.g. `number-TEST-FR1001`
       required: true
       schema:
         type: string
@@ -16128,11 +16271,14 @@ components:
           minimum: 0
         tax_code:
           type: string
-          title: Tax code
-          description: Used by Avalara, Vertex, and Recurly’s EU VAT tax feature.
-            The tax code values are specific to each tax system. If you are using
-            Recurly’s EU VAT feature you can use `unknown`, `physical`, or `digital`.
           maxLength: 50
+          title: Tax code
+          description: Optional field used by Avalara, Vertex, and Recurly's In-the-Box
+            tax solution to determine taxation rules. You can pass in specific tax
+            codes using any of these tax integrations. For Recurly's In-the-Box tax
+            offering you can also choose to instead use simple values of `unknown`,
+            `physical`, or `digital` tax codes. If `item_code`/`item_id` is part of
+            the request then `tax_code` must be absent.
         display_quantity:
           type: boolean
           title: Display quantity?
@@ -16339,14 +16485,14 @@ components:
           minimum: 0
         tax_code:
           type: string
-          title: Tax code
-          description: Optional field used by Avalara, Vertex, and Recurly's EU VAT
-            tax feature to determine taxation rules. If you have your own AvaTax or
-            Vertex account configured, use their tax codes to assign specific tax
-            rules. If you are using Recurly's EU VAT feature, you can use values of
-            `unknown`, `physical`, or `digital`. If `item_code`/`item_id` is part
-            of the request then `tax_code` must be absent.
           maxLength: 50
+          title: Tax code
+          description: Optional field used by Avalara, Vertex, and Recurly's In-the-Box
+            tax solution to determine taxation rules. You can pass in specific tax
+            codes using any of these tax integrations. For Recurly's In-the-Box tax
+            offering you can also choose to instead use simple values of `unknown`,
+            `physical`, or `digital` tax codes. If `item_code`/`item_id` is part of
+            the request then `tax_code` must be absent.
         currencies:
           type: array
           title: Add-on pricing
@@ -16472,14 +16618,14 @@ components:
           minimum: 0
         tax_code:
           type: string
-          title: Tax code
-          description: Optional field used by Avalara, Vertex, and Recurly's EU VAT
-            tax feature to determine taxation rules. If you have your own AvaTax or
-            Vertex account configured, use their tax codes to assign specific tax
-            rules. If you are using Recurly's EU VAT feature, you can use values of
-            `unknown`, `physical`, or `digital`. If an `Item` is associated to the
-            `AddOn` then `tax code` must be absent.
           maxLength: 50
+          title: Tax code
+          description: Optional field used by Avalara, Vertex, and Recurly's In-the-Box
+            tax solution to determine taxation rules. You can pass in specific tax
+            codes using any of these tax integrations. For Recurly's In-the-Box tax
+            offering you can also choose to instead use simple values of `unknown`,
+            `physical`, or `digital` tax codes. If an `Item` is associated to the
+            `AddOn` then `tax_code` must be absent.
         display_quantity:
           type: boolean
           title: Display quantity?
@@ -16670,8 +16816,7 @@ components:
           maxLength: 50
         gateway_code:
           type: string
-          title: An identifier for a specific payment gateway. Must be used in conjunction
-            with `gateway_token`.
+          title: An identifier for a specific payment gateway.
           maxLength: 12
         gateway_attributes:
           type: object
@@ -16795,6 +16940,30 @@ components:
           type: string
           description: An identifier for a specific payment gateway.
           maxLength: 13
+        three_d_secure_action_result_token_id:
+          type: string
+          description: A token generated by Recurly.js after completing a 3-D Secure
+            device fingerprinting or authentication challenge.
+          maxLength: 50
+    BillingInfoVerifyCVV:
+      type: object
+      properties:
+        verification_value:
+          type: string
+          description: Unique security code for a credit card.
+        gateway_code:
+          type: string
+          description: An identifier for a specific payment gateway.
+          maxLength: 13
+        token_id:
+          type: string
+          description: A token [generated by Recurly.js](https://recurly.com/developers/reference/recurly-js/#getting-a-token).
+          maxLength: 50
+        three_d_secure_action_result_token_id:
+          type: string
+          description: A token generated by Recurly.js after completing a 3-D Secure
+            device fingerprinting or authentication challenge.
+          maxLength: 50
     Coupon:
       type: object
       properties:
@@ -17678,11 +17847,13 @@ components:
           minimum: 0
         tax_code:
           type: string
-          title: Tax code
-          description: Used by Avalara, Vertex, and Recurly’s EU VAT tax feature.
-            The tax code values are specific to each tax system. If you are using
-            Recurly’s EU VAT feature you can use `unknown`, `physical`, or `digital`.
           maxLength: 50
+          title: Tax code
+          description: Optional field used by Avalara, Vertex, and Recurly's In-the-Box
+            tax solution to determine taxation rules. You can pass in specific tax
+            codes using any of these tax integrations. For Recurly's In-the-Box tax
+            offering you can also choose to instead use simple values of `unknown`,
+            `physical`, or `digital` tax codes.
         tax_exempt:
           type: boolean
           title: Tax exempt?
@@ -17767,11 +17938,13 @@ components:
           minimum: 0
         tax_code:
           type: string
-          title: Tax code
-          description: Used by Avalara, Vertex, and Recurly’s EU VAT tax feature.
-            The tax code values are specific to each tax system. If you are using
-            Recurly’s EU VAT feature you can use `unknown`, `physical`, or `digital`.
           maxLength: 50
+          title: Tax code
+          description: Optional field used by Avalara, Vertex, and Recurly's In-the-Box
+            tax solution to determine taxation rules. You can pass in specific tax
+            codes using any of these tax integrations. For Recurly's In-the-Box tax
+            offering you can also choose to instead use simple values of `unknown`,
+            `physical`, or `digital` tax codes.
         tax_exempt:
           type: boolean
           title: Tax exempt?
@@ -17844,11 +18017,13 @@ components:
           minimum: 0
         tax_code:
           type: string
-          title: Tax code
-          description: Used by Avalara, Vertex, and Recurly’s EU VAT tax feature.
-            The tax code values are specific to each tax system. If you are using
-            Recurly’s EU VAT feature you can use `unknown`, `physical`, or `digital`.
           maxLength: 50
+          title: Tax code
+          description: Optional field used by Avalara, Vertex, and Recurly's In-the-Box
+            tax solution to determine taxation rules. You can pass in specific tax
+            codes using any of these tax integrations. For Recurly's In-the-Box tax
+            offering you can also choose to instead use simple values of `unknown`,
+            `physical`, or `digital` tax codes.
         tax_exempt:
           type: boolean
           title: Tax exempt?
@@ -17998,6 +18173,11 @@ components:
           title: Subtotal
           description: The summation of charges and credits, before discounts and
             taxes.
+        subtotal_after_discount:
+          type: number
+          format: float
+          title: Subtotal After Discount
+          description: The summation of charges and credits, after discounts applied.
         tax:
           type: number
           format: float
@@ -18139,10 +18319,12 @@ components:
           description: Integer representing the number of days after an invoice's
             creation that the invoice will become past due. If an invoice's net terms
             are set to '0', it is due 'On Receipt' and will become past due 24 hours
-            after it’s created. If an invoice is due net 30, it will become past due
+            after it's created. If an invoice is due net 30, it will become past due
             at 31 days exactly.
           default: 0
           minimum: 0
+        credit_application_policy:
+          "$ref": "#/components/schemas/CreditApplicationPolicy"
         po_number:
           type: string
           title: Purchase order number
@@ -18164,6 +18346,15 @@ components:
             will default to the VAT Reverse Charge Notes text specified on the Tax
             Settings page in your Recurly admin, unless custom notes were created
             with the original subscription.
+        vertex_transaction_type:
+          type: string
+          title: Vertex Transaction Type
+          description: Used by Vertex for tax calculations. Possible values are sale,
+            rental, lease.
+          enum:
+          - sale
+          - rental
+          - lease
       required:
       - currency
     InvoiceCollect:
@@ -18645,7 +18836,7 @@ components:
           type: number
           format: float
           title: Total after discounts and taxes
-          description: "`(quantity * unit_amount) - (discount + tax)`"
+          description: "`(quantity * unit_amount) - discount + tax`"
         description:
           type: string
           title: Description
@@ -18719,13 +18910,24 @@ components:
             Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types)
             for more available t/s types.
           minimum: 0
+        vertex_transaction_type:
+          type: string
+          title: Vertex Transaction Type
+          description: Used by Vertex for tax calculations. Possible values are sale,
+            rental, lease.
+          enum:
+          - sale
+          - rental
+          - lease
         tax_code:
           type: string
-          title: Tax code
-          description: Used by Avalara, Vertex, and Recurly’s EU VAT tax feature.
-            The tax code values are specific to each tax system. If you are using
-            Recurly’s EU VAT feature you can use `unknown`, `physical`, or `digital`.
           maxLength: 50
+          title: Tax code
+          description: Optional field used by Avalara, Vertex, and Recurly's In-the-Box
+            tax solution to determine taxation rules. You can pass in specific tax
+            codes using any of these tax integrations. For Recurly's In-the-Box tax
+            offering you can also choose to instead use simple values of `unknown`,
+            `physical`, or `digital` tax codes.
         tax_info:
           "$ref": "#/components/schemas/TaxInfo"
         proration_rate:
@@ -18926,15 +19128,24 @@ components:
             for more available t/s types. If an `Item` is associated to the `LineItem`,
             then the `avalara_service_type` must be absent.
           minimum: 0
+        vertex_transaction_type:
+          type: string
+          title: Vertex Transaction Type
+          description: Used by Vertex for tax calculations. Possible values are sale,
+            rental, lease.
+          enum:
+          - sale
+          - rental
+          - lease
         tax_code:
           type: string
-          title: Tax code
-          description: Optional field used by Avalara, Vertex, and Recurly's EU VAT
-            tax feature to determine taxation rules. If you have your own AvaTax or
-            Vertex account configured, use their tax codes to assign specific tax
-            rules. If you are using Recurly's EU VAT feature, you can use values of
-            `unknown`, `physical`, or `digital`.
           maxLength: 50
+          title: Tax code
+          description: Optional field used by Avalara, Vertex, and Recurly's In-the-Box
+            tax solution to determine taxation rules. You can pass in specific tax
+            codes using any of these tax integrations. For Recurly's In-the-Box tax
+            offering you can also choose to instead use simple values of `unknown`,
+            `physical`, or `digital` tax codes.
         product_code:
           type: string
           title: Product code
@@ -19156,11 +19367,13 @@ components:
           minimum: 0
         tax_code:
           type: string
-          title: Tax code
-          description: Used by Avalara, Vertex, and Recurly’s EU VAT tax feature.
-            The tax code values are specific to each tax system. If you are using
-            Recurly’s EU VAT feature you can use `unknown`, `physical`, or `digital`.
           maxLength: 50
+          title: Tax code
+          description: Optional field used by Avalara, Vertex, and Recurly's In-the-Box
+            tax solution to determine taxation rules. You can pass in specific tax
+            codes using any of these tax integrations. For Recurly's In-the-Box tax
+            offering you can also choose to instead use simple values of `unknown`,
+            `physical`, or `digital` tax codes.
         tax_exempt:
           type: boolean
           title: Tax exempt?
@@ -19345,13 +19558,13 @@ components:
           minimum: 0
         tax_code:
           type: string
-          title: Tax code
-          description: Optional field used by Avalara, Vertex, and Recurly's EU VAT
-            tax feature to determine taxation rules. If you have your own AvaTax or
-            Vertex account configured, use their tax codes to assign specific tax
-            rules. If you are using Recurly's EU VAT feature, you can use values of
-            `unknown`, `physical`, or `digital`.
           maxLength: 50
+          title: Tax code
+          description: Optional field used by Avalara, Vertex, and Recurly's In-the-Box
+            tax solution to determine taxation rules. You can pass in specific tax
+            codes using any of these tax integrations. For Recurly's In-the-Box tax
+            offering you can also choose to instead use simple values of `unknown`,
+            `physical`, or `digital` tax codes.
         tax_exempt:
           type: boolean
           title: Tax exempt?
@@ -19561,13 +19774,13 @@ components:
           minimum: 0
         tax_code:
           type: string
-          title: Tax code
-          description: Optional field used by Avalara, Vertex, and Recurly's EU VAT
-            tax feature to determine taxation rules. If you have your own AvaTax or
-            Vertex account configured, use their tax codes to assign specific tax
-            rules. If you are using Recurly's EU VAT feature, you can use values of
-            `unknown`, `physical`, or `digital`.
           maxLength: 50
+          title: Tax code
+          description: Optional field used by Avalara, Vertex, and Recurly's In-the-Box
+            tax solution to determine taxation rules. You can pass in specific tax
+            codes using any of these tax integrations. For Recurly's In-the-Box tax
+            offering you can also choose to instead use simple values of `unknown`,
+            `physical`, or `digital` tax codes.
         tax_exempt:
           type: boolean
           title: Tax exempt?
@@ -20334,6 +20547,8 @@ components:
             at 31 days exactly.
           minimum: 0
           default: 0
+        credit_application_policy:
+          "$ref": "#/components/schemas/CreditApplicationPolicy"
         terms_and_conditions:
           type: string
           title: Terms and conditions
@@ -20992,9 +21207,10 @@ components:
           type: string
           format: date-time
           title: Start date
-          description: If set, the subscription will begin in the future on this date.
+          description: If set, the subscription will begin on this specified date.
             The subscription will apply the setup fee and trial period, unless the
-            plan has no trial.
+            plan has no trial. Omit this field if the subscription should be started
+            immediately.
         next_bill_date:
           type: string
           format: date-time
@@ -21038,6 +21254,8 @@ components:
           - evenly
           - at_range_end
           - at_range_start
+        credit_application_policy:
+          "$ref": "#/components/schemas/CreditApplicationPolicy"
         terms_and_conditions:
           type: string
           title: Terms and conditions
@@ -21080,6 +21298,12 @@ components:
             mail order and telephone transactions.
           enum:
           - moto
+        bulk:
+          type: boolean
+          description: Optional field to be used only when needing to bypass the 60
+            second limit on creating subscriptions. Should only be used when creating
+            subscriptions in bulk from the API.
+          default: false
       required:
       - plan_code
       - currency
@@ -21141,7 +21365,7 @@ components:
           type: string
           format: date-time
           title: Start date
-          description: If set, the subscription will begin in the future on this date.
+          description: If set, the subscription will begin on this specified date.
             The subscription will apply the setup fee and trial period, unless the
             plan has no trial.
         next_bill_date:
@@ -21187,6 +21411,14 @@ components:
           description: The new set of ramp intervals for the subscription.
           items:
             "$ref": "#/components/schemas/SubscriptionRampInterval"
+        credit_application_policy:
+          "$ref": "#/components/schemas/CreditApplicationPolicy"
+        bulk:
+          type: boolean
+          description: Optional field to be used only when needing to bypass the 60
+            second limit on creating subscriptions. Should only be used when creating
+            subscriptions in bulk from the API.
+          default: false
       required:
       - plan_code
     SubscriptionUpdate:
@@ -21233,6 +21465,8 @@ components:
           - evenly
           - at_range_end
           - at_range_start
+        credit_application_policy:
+          "$ref": "#/components/schemas/CreditApplicationPolicy"
         terms_and_conditions:
           type: string
           title: Terms and conditions
@@ -21430,11 +21664,11 @@ components:
         tax_details:
           type: array
           description: Provides additional tax details for Communications taxes when
-            Avalara for Communications is enabled or Canadian Sales Tax when there
-            is tax applied at both the country and province levels. This will only
-            be populated for the Invoice response when fetching a single invoice and
-            not for the InvoiceList or LineItemList. Only populated for a single LineItem
-            fetch when Avalara for Communications is enabled.
+            Avalara for Communications or Vertex Tax Breakdown is enabled or Canadian
+            Sales Tax. Tax details will only be populated for the Invoice response
+            when fetching a single invoice and not for the InvoiceList or LineItemList.
+            Only populated for a single LineItem fetch when Avalara for Communications
+            is enabled.
           items:
             "$ref": "#/components/schemas/TaxDetail"
     TaxDetail:
@@ -21445,8 +21679,8 @@ components:
           type: string
           title: Type
           description: Provides the tax type for the region or type of Comminications
-            tax when Avalara for Communications is enabled. For Canadian Sales Tax,
-            this will be GST, HST, QST or PST.
+            tax when Avalara for Communications or Vertex is enabled. For Canadian
+            Sales Tax, this will be GST, HST, QST or PST.
         region:
           type: string
           title: Region
@@ -21467,18 +21701,18 @@ components:
           type: string
           title: Name
           description: Provides the name of the Communications tax applied. Present
-            only when Avalara for Communications is enabled.
+            only when Avalara for Communications or Vertex is enabled.
         level:
           type: string
           title: Level
           description: Provides the jurisdiction level for the Communications tax
             applied. Example values include city, state and federal. Present only
-            when Avalara for Communications is enabled.
+            when Avalara for Communications or Vertex is enabled.
         billable:
           type: boolean
           title: Billable
           description: Whether or not the line item is taxable. Only populated for
-            a single LineItem fetch when Avalara for Communications is enabled.
+            a single LineItem fetch when Avalara for Communications or Vertex is enabled.
     Transaction:
       type: object
       properties:
@@ -22030,6 +22264,8 @@ components:
             at 31 days exactly.
           minimum: 0
           default: 0
+        credit_application_policy_override:
+          "$ref": "#/components/schemas/CreditApplicationPolicy"
         terms_and_conditions:
           type: string
           title: Terms and conditions
@@ -22041,6 +22277,15 @@ components:
           type: string
           title: VAT reverse charge notes
           description: VAT reverse charge notes for cross border European tax settlement.
+        vertex_transaction_type:
+          type: string
+          title: Vertex Transaction Type
+          description: Used by Vertex for tax calculations. Possible values are sale,
+            rental, lease.
+          enum:
+          - sale
+          - rental
+          - lease
         credit_customer_notes:
           type: string
           title: Credit customer notes
@@ -22220,6 +22465,7 @@ components:
           format: date-time
           description: When the current settings were updated in Recurly.
     DunningInterval:
+      type: object
       properties:
         days:
           type: integer
@@ -22244,6 +22490,7 @@ components:
           items:
             type: string
     DunningCampaignsBulkUpdateResponse:
+      type: object
       properties:
         object:
           type: string
@@ -22258,6 +22505,7 @@ components:
           items:
             "$ref": "#/components/schemas/Plan"
     PaymentMethod:
+      type: object
       properties:
         object:
           type: string
@@ -22590,6 +22838,52 @@ components:
                   a transaction. Pass this value to Recurly.js so it can continue
                   the challenge flow.
                 maxLength: 22
+    CreditApplicationPolicy:
+      type: object
+      title: Credit Application Policy
+      description: |
+        Controls whether credit invoices are automatically applied to new invoices.
+        The `mode` field determines the application behavior. When mode is `all`,
+        the optional `allowed_origins` array can restrict which credit invoice origins
+        are applied.
+        - `all`: All available credit invoices are applied (default)
+        - `none`: No credit invoices are applied automatically
+      properties:
+        mode:
+          type: string
+          enum:
+          - all
+          - none
+          default: all
+        allowed_origins:
+          type: array
+          description: |
+            Optional array of credit invoice origin types to allow when mode is `all`.
+            If not specified when mode is `all`, credits from all origins are applied.
+            Only valid when mode is `all`.
+          items:
+            "$ref": "#/components/schemas/CreditApplicationAllowedOriginType"
+      required:
+      - mode
+    CreditApplicationAllowedOriginType:
+      type: string
+      title: Credit Application Allowed Origin Type
+      description: The origin type of a credit invoice that can be allowed in a credit
+        application policy
+      enum:
+      - line_item_refund
+      - open_amount_refund
+      - immediate_change
+      - termination
+      - credit
+      - write_off
+      - refund
+      - external_refund
+      - carryforward_credit
+      - usage_correction
+      - prepayment
+      - gift_card
+      - carryforward_gift_credit
     ExportDates:
       type: object
       properties:
