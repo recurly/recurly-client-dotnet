@@ -31,6 +31,10 @@ namespace Recurly.Resources
         [JsonProperty("billing_info_id")]
         public string BillingInfoId { get; set; }
 
+        /// <value>Optional field to be used only when needing to bypass the 60 second limit on creating subscriptions. Should only be used when creating subscriptions in bulk from the API.</value>
+        [JsonProperty("bulk")]
+        public bool? Bulk { get; set; }
+
         /// <value>Collection method</value>
         [JsonProperty("collection_method")]
         public string CollectionMethod { get; set; }
@@ -38,6 +42,17 @@ namespace Recurly.Resources
         /// <value>Optional coupon code to redeem on the account and discount the subscription. Please note, the subscription request will fail if the coupon is invalid.</value>
         [JsonProperty("coupon_code")]
         public string CouponCode { get; set; }
+
+        /// <value>
+        /// Controls whether credit invoices are automatically applied to new invoices.
+        /// The `mode` field determines the application behavior. When mode is `all`,
+        /// the optional `allowed_origins` array can restrict which credit invoice origins
+        /// are applied.
+        /// - `all`: All available credit invoices are applied (default)
+        /// - `none`: No credit invoices are applied automatically
+        /// </value>
+        [JsonProperty("credit_application_policy")]
+        public CreditApplicationPolicy CreditApplicationPolicy { get; set; }
 
         /// <value>If there are pending credits on the account that will be invoiced during the subscription creation, these will be used as the Customer Notes on the credit invoice.</value>
         [JsonProperty("credit_customer_notes")]
@@ -95,7 +110,7 @@ namespace Recurly.Resources
         [JsonProperty("shipping")]
         public SubscriptionShippingCreate Shipping { get; set; }
 
-        /// <value>If set, the subscription will begin in the future on this date. The subscription will apply the setup fee and trial period, unless the plan has no trial.</value>
+        /// <value>If set, the subscription will begin on this specified date. The subscription will apply the setup fee and trial period, unless the plan has no trial. Omit this field if the subscription should be started immediately.</value>
         [JsonProperty("starts_at")]
         public DateTime? StartsAt { get; set; }
 

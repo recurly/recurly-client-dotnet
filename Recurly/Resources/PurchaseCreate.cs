@@ -31,6 +31,17 @@ namespace Recurly.Resources
         [JsonProperty("coupon_codes")]
         public List<string> CouponCodes { get; set; }
 
+        /// <value>
+        /// Controls whether credit invoices are automatically applied to new invoices.
+        /// The `mode` field determines the application behavior. When mode is `all`,
+        /// the optional `allowed_origins` array can restrict which credit invoice origins
+        /// are applied.
+        /// - `all`: All available credit invoices are applied (default)
+        /// - `none`: No credit invoices are applied automatically
+        /// </value>
+        [JsonProperty("credit_application_policy_override")]
+        public CreditApplicationPolicy CreditApplicationPolicyOverride { get; set; }
+
         /// <value>Notes to be put on the credit invoice resulting from credits in the purchase, if any.</value>
         [JsonProperty("credit_customer_notes")]
         public string CreditCustomerNotes { get; set; }
@@ -82,6 +93,10 @@ namespace Recurly.Resources
         /// <value>VAT reverse charge notes for cross border European tax settlement.</value>
         [JsonProperty("vat_reverse_charge_notes")]
         public string VatReverseChargeNotes { get; set; }
+
+        /// <value>Used by Vertex for tax calculations. Possible values are sale, rental, lease.</value>
+        [JsonProperty("vertex_transaction_type")]
+        public string VertexTransactionType { get; set; }
 
     }
 }

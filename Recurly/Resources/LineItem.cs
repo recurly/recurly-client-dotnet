@@ -31,7 +31,7 @@ namespace Recurly.Resources
         [JsonProperty("add_on_id")]
         public string AddOnId { get; set; }
 
-        /// <value>`(quantity * unit_amount) - (discount + tax)`</value>
+        /// <value>`(quantity * unit_amount) - discount + tax`</value>
         [JsonProperty("amount")]
         public float? Amount { get; set; }
 
@@ -193,7 +193,7 @@ namespace Recurly.Resources
         [JsonProperty("tax")]
         public float? Tax { get; set; }
 
-        /// <value>Used by Avalara, Vertex, and Recurly’s EU VAT tax feature. The tax code values are specific to each tax system. If you are using Recurly’s EU VAT feature you can use `unknown`, `physical`, or `digital`.</value>
+        /// <value>Optional field used by Avalara, Vertex, and Recurly's In-the-Box tax solution to determine taxation rules. You can pass in specific tax codes using any of these tax integrations. For Recurly's In-the-Box tax offering you can also choose to instead use simple values of `unknown`, `physical`, or `digital` tax codes.</value>
         [JsonProperty("tax_code")]
         public string TaxCode { get; set; }
 
@@ -228,6 +228,10 @@ namespace Recurly.Resources
         /// <value>The UUID is useful for matching data with the CSV exports and building URLs into Recurly's UI.</value>
         [JsonProperty("uuid")]
         public string Uuid { get; set; }
+
+        /// <value>Used by Vertex for tax calculations. Possible values are sale, rental, lease.</value>
+        [JsonProperty("vertex_transaction_type")]
+        public string VertexTransactionType { get; set; }
 
     }
 }

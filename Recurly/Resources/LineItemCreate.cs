@@ -75,7 +75,7 @@ namespace Recurly.Resources
         [JsonProperty("start_date")]
         public DateTime? StartDate { get; set; }
 
-        /// <value>Optional field used by Avalara, Vertex, and Recurly's EU VAT tax feature to determine taxation rules. If you have your own AvaTax or Vertex account configured, use their tax codes to assign specific tax rules. If you are using Recurly's EU VAT feature, you can use values of `unknown`, `physical`, or `digital`.</value>
+        /// <value>Optional field used by Avalara, Vertex, and Recurly's In-the-Box tax solution to determine taxation rules. You can pass in specific tax codes using any of these tax integrations. For Recurly's In-the-Box tax offering you can also choose to instead use simple values of `unknown`, `physical`, or `digital` tax codes.</value>
         [JsonProperty("tax_code")]
         public string TaxCode { get; set; }
 
@@ -99,6 +99,10 @@ namespace Recurly.Resources
         /// </value>
         [JsonProperty("unit_amount")]
         public float? UnitAmount { get; set; }
+
+        /// <value>Used by Vertex for tax calculations. Possible values are sale, rental, lease.</value>
+        [JsonProperty("vertex_transaction_type")]
+        public string VertexTransactionType { get; set; }
 
     }
 }
