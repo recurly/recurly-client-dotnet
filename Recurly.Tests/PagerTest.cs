@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
-using Moq;
+using System.Net;
+using System.Net.Http;
+using System.Text;
 using Newtonsoft.Json;
-using RestSharp;
 using Xunit;
 
 namespace Recurly.Tests
@@ -155,123 +156,69 @@ namespace Recurly.Tests
             Assert.Equal(42, count);
         }
 
-        private Mock<IRestResponse<Pager<MyResource>>> PagerSuccessPage1Response()
+        private HttpResponseMessage PagerSuccessPage1Response()
         {
-            // When there are no results, the server returns
-            // an empty array with HasMore == false
-            var page = new Pager<MyResource>()
-            {
-                HasMore = true,
-                Next = "/next-page",
-                Data = new List<MyResource>()
-                {
-                    new MyResource() { MyString = "A page 1 String" },
-                    new MyResource() { MyString = "A page 1 String" },
-                    new MyResource() { MyString = "A page 1 String" },
-                }
-            };
-            var response = new Mock<IRestResponse<Pager<MyResource>>>();
-            response.Setup(_ => _.StatusCode).Returns(System.Net.HttpStatusCode.OK);
-            response.Setup(_ => _.Headers).Returns(new List<Parameter> { });
-            response.Setup(_ => _.Data).Returns(page);
-
+            var json = "{\"has_more\":true,\"next\":\"/next-page\",\"data\":[{\"my_string\":\"A page 1 String\"},{\"my_string\":\"A page 1 String\"},{\"my_string\":\"A page 1 String\"}]}";
+            var response = new HttpResponseMessage(HttpStatusCode.OK);
+            response.Content = new StringContent(json, Encoding.UTF8, "application/json");
             return response;
         }
 
-        private Mock<IRestResponse<Pager<MyResource>>> PagerSuccessPage2Response()
+        private HttpResponseMessage PagerSuccessPage2Response()
         {
-            // When there are no results, the server returns
-            // an empty array with HasMore == false
-            var page = new Pager<MyResource>()
-            {
-                HasMore = false,
-                Data = new List<MyResource>()
-                {
-                    new MyResource() { MyString = "A page 2 String" },
-                    new MyResource() { MyString = "A page 2 String" },
-                }
-            };
-            var response = new Mock<IRestResponse<Pager<MyResource>>>();
-            response.Setup(_ => _.StatusCode).Returns(System.Net.HttpStatusCode.OK);
-            response.Setup(_ => _.Headers).Returns(new List<Parameter> { });
-            response.Setup(_ => _.Data).Returns(page);
-
+            var json = "{\"has_more\":false,\"data\":[{\"my_string\":\"A page 2 String\"},{\"my_string\":\"A page 2 String\"}]}";
+            var response = new HttpResponseMessage(HttpStatusCode.OK);
+            response.Content = new StringContent(json, Encoding.UTF8, "application/json");
             return response;
         }
 
         private MockClient GetPagerSuccessClient(Dictionary<string, object> expectedParams)
         {
             var paramsMatcher = MockClient.QueryParameterMatcher(expectedParams);
-            var page1Response = PagerSuccessPage1Response();
-            Func<IRestRequest, bool> page1Matcher = delegate (IRestRequest request)
+
+            Func<HttpRequestMessage, bool> page1Matcher = request =>
             {
-                if (request.Resource == "/resources")
-                {
+                var path = request.RequestUri.AbsolutePath.TrimEnd('/');
+                if (path.EndsWith("/resources"))
                     return paramsMatcher(request);
-                }
                 return false;
             };
-            var page2Response = PagerSuccessPage2Response();
-            Func<IRestRequest, bool> page2Matcher = delegate (IRestRequest request)
+
+            Func<HttpRequestMessage, bool> page2Matcher = request =>
             {
-                if (request.Resource == "/next-page")
-                {
-                    return true;
-                }
-                return false;
+                var path = request.RequestUri.AbsolutePath.TrimEnd('/');
+                return path.EndsWith("/next-page");
             };
-            var mockCollection = new Dictionary<Func<IRestRequest, bool>, Mock<IRestResponse<Pager<MyResource>>>> {
-                { page1Matcher, page1Response },
-                { page2Matcher, page2Response },
+
+            var routes = new Dictionary<Func<HttpRequestMessage, bool>, HttpResponseMessage>
+            {
+                { page1Matcher, PagerSuccessPage1Response() },
+                { page2Matcher, PagerSuccessPage2Response() },
             };
-            return MockClient.Build(mockCollection);
+            return MockClient.Build(routes);
         }
 
-        private Mock<IRestResponse<Pager<MyResource>>> PagerEmptyResponse()
+        private HttpResponseMessage PagerEmptyResponse()
         {
-            // When there are no results, the server returns
-            // an empty array with HasMore == false
-            var page = new Pager<MyResource>()
-            {
-                HasMore = false,
-                Data = new List<MyResource>() { }
-            };
-            var response = new Mock<IRestResponse<Pager<MyResource>>>();
-            response.Setup(_ => _.StatusCode).Returns(System.Net.HttpStatusCode.OK);
-            response.Setup(_ => _.Headers).Returns(new List<Parameter> { });
-            response.Setup(_ => _.Data).Returns(page);
-
+            var json = "{\"has_more\":false,\"data\":[]}";
+            var response = new HttpResponseMessage(HttpStatusCode.OK);
+            response.Content = new StringContent(json, Encoding.UTF8, "application/json");
             return response;
         }
 
-        private Mock<IRestResponse<Pager<MyResource>>> PagerFirstResponse()
+        private HttpResponseMessage PagerFirstResponse()
         {
-            // When there are no results, the server returns
-            // an empty array with HasMore == false
-            var page = new Pager<MyResource>()
-            {
-                HasMore = true,
-                Data = new List<MyResource>()
-                {
-                    new MyResource() { MyString = "First Resource" }
-                }
-            };
-            var response = new Mock<IRestResponse<Pager<MyResource>>>();
-            response.Setup(_ => _.StatusCode).Returns(System.Net.HttpStatusCode.OK);
-            response.Setup(_ => _.Headers).Returns(new List<Parameter> { });
-            response.Setup(_ => _.Data).Returns(page);
-
+            var json = "{\"has_more\":true,\"data\":[{\"my_string\":\"First Resource\"}]}";
+            var response = new HttpResponseMessage(HttpStatusCode.OK);
+            response.Content = new StringContent(json, Encoding.UTF8, "application/json");
             return response;
         }
 
-        private Mock<IRestResponse<EmptyResource>> PagerCountResponse()
+        private HttpResponseMessage PagerCountResponse()
         {
-            var response = new Mock<IRestResponse<EmptyResource>>();
-            response.Setup(_ => _.StatusCode).Returns(System.Net.HttpStatusCode.OK);
-            response.Setup(_ => _.Headers).Returns(new List<Parameter> {
-                new RestSharp.Parameter("Recurly-Total-Records", "42", ParameterType.HttpHeader),
-            });
-
+            var response = new HttpResponseMessage(HttpStatusCode.OK);
+            response.Headers.Add("Recurly-Total-Records", "42");
+            response.Content = new StringContent("", Encoding.UTF8, "application/json");
             return response;
         }
     }

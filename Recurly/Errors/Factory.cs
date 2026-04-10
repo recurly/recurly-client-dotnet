@@ -6,9 +6,7 @@
  */
 using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Runtime.Serialization;
-using RestSharp;
+using System.Net;
 
 namespace Recurly.Errors
 {
@@ -16,9 +14,9 @@ namespace Recurly.Errors
     [ExcludeFromCodeCoverage]
     public static class Factory
     {
-        public static RecurlyError Create(IRestResponse resp, string message, Recurly.Resources.ErrorMayHaveTransaction nestedError)
+        public static RecurlyError Create(HttpStatusCode statusCode, string message, Recurly.Resources.ErrorMayHaveTransaction nestedError)
         {
-            switch ((int)resp.StatusCode)
+            switch ((int)statusCode)
             {
                 case 500:
                     return new InternalServer(message)
@@ -91,7 +89,7 @@ namespace Recurly.Errors
                         Error = nestedError
                     };
                 default:
-                    return new RecurlyError(resp.ErrorMessage);
+                    return new RecurlyError(message);
             }
         }
 

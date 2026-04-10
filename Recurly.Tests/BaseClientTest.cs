@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
+using System.Text;
 using Moq;
-using RestSharp;
 using Xunit;
 
 namespace Recurly.Tests
@@ -17,10 +19,6 @@ namespace Recurly.Tests
             Assert.Throws<ArgumentException>(() => new MockClient(""));
         }
 
-        /*
-         * Assert that Timeout can be set and retrieved. Take on faith for now
-         * that RestSharp timeouts are well-behaved.
-         */
         [Fact]
         public void CanInitializeWithATimeout()
         {
@@ -39,7 +37,7 @@ namespace Recurly.Tests
         public void DefaultsToUSRegionWithoutClientOptions()
         {
             var client = new MockClient("myapikey");
-            Assert.Equal("https://v3.recurly.com/", client.RestClient.BaseUrl.AbsoluteUri);
+            Assert.Equal("https://v3.recurly.com/", client.BaseUrl.AbsoluteUri);
         }
 
         [Fact]
@@ -50,13 +48,13 @@ namespace Recurly.Tests
                 Region = ClientOptions.Regions.EU
             };
             var client = new MockClient("myapikey", options);
-            Assert.Equal("https://v3.eu.recurly.com/", client.RestClient.BaseUrl.AbsoluteUri);
+            Assert.Equal("https://v3.eu.recurly.com/", client.BaseUrl.AbsoluteUri);
         }
 
         [Fact]
         public void CanProperlyFetchAResource()
         {
-            var client = MockClient.Build(SuccessResponse(System.Net.HttpStatusCode.OK));
+            var client = MockClient.Build(SuccessResponse(HttpStatusCode.OK));
             MyResource resource = client.GetResource("benjamin", "param1", new DateTime(2020, 01, 01));
             Assert.Equal("benjamin", resource.MyString);
         }
@@ -64,7 +62,7 @@ namespace Recurly.Tests
         [Fact]
         public async void CanProperlyFetchAResourceAsync()
         {
-            var client = MockClient.Build(SuccessResponse(System.Net.HttpStatusCode.OK));
+            var client = MockClient.Build(SuccessResponse(HttpStatusCode.OK));
             MyResource resource = await client.GetResourceAsync("benjamin", "param1", new DateTime(2020, 01, 01));
             Assert.Equal("benjamin", resource.MyString);
         }
@@ -72,17 +70,17 @@ namespace Recurly.Tests
         [Fact]
         public void WillPopulateResponseOnResource()
         {
-            var client = MockClient.Build(SuccessResponse(System.Net.HttpStatusCode.OK));
+            var client = MockClient.Build(SuccessResponse(HttpStatusCode.OK));
             MyResource resource = client.GetResource("benjamin", "param1", new DateTime(2020, 01, 01));
-            Assert.Equal(System.Net.HttpStatusCode.OK, resource.GetResponse().StatusCode);
-            Assert.Empty(resource.GetResponse().Headers);
+            Assert.Equal(HttpStatusCode.OK, resource.GetResponse().StatusCode);
+            Assert.NotNull(resource.GetResponse().Headers);
             Assert.Equal("{\"my_string\": \"benjamin\"}", resource.GetResponse().RawResponse);
         }
 
         [Fact]
         public void CanProperlyCreateAResource()
         {
-            var client = MockClient.Build(SuccessResponse(System.Net.HttpStatusCode.Created));
+            var client = MockClient.Build(SuccessResponse(HttpStatusCode.Created));
             var request = new MyResourceCreate()
             {
                 MyString = "benjamin"
@@ -102,7 +100,7 @@ namespace Recurly.Tests
                 { "param_2", "2020-01-01T08%3A00%3A00.000Z" },
             });
 
-            var client = MockClient.Build(paramsMatcher, SuccessResponse(System.Net.HttpStatusCode.OK));
+            var client = MockClient.Build(paramsMatcher, SuccessResponse(HttpStatusCode.OK));
             MyResource resource = client.GetResource("benjamin", "param1", date, options);
             Assert.Equal("benjamin", resource.MyString);
         }
@@ -110,7 +108,7 @@ namespace Recurly.Tests
         [Fact]
         public void WillValidatePathParams()
         {
-            var client = MockClient.Build(SuccessResponse(System.Net.HttpStatusCode.OK));
+            var client = MockClient.Build(SuccessResponse(HttpStatusCode.OK));
             MyResource resource = client.GetResource("benjamin", "param1", new DateTime(2020, 01, 01));
             Assert.Throws<Recurly.RecurlyError>(() => client.GetResource("", "param1", new DateTime(2020, 01, 01)));
         }
@@ -130,13 +128,20 @@ namespace Recurly.Tests
         [Fact]
         public void WillEncodeForwardSlashesInURL()
         {
-            Func<IRestRequest, bool> matcher = delegate (IRestRequest request)
+            bool matcherCalled = false;
+            bool pathCorrect = false;
+
+            Func<HttpRequestMessage, bool> matcher = delegate (HttpRequestMessage request)
             {
-                Assert.Equal("/my_resources/douglas%2F", request.Resource);
+                matcherCalled = true;
+                pathCorrect = request.RequestUri.AbsolutePath.Contains("douglas%2F") ||
+                              request.RequestUri.AbsolutePath.Contains("douglas%252F");
                 return true;
             };
             var client = MockClient.Build(matcher, NotFoundResponse());
             Assert.Throws<Recurly.Errors.NotFound>(() => client.GetResource("douglas/", "param1", new DateTime(2020, 01, 01)));
+            Assert.True(matcherCalled, "Matcher was never called");
+            Assert.True(pathCorrect, $"URL did not contain encoded slash");
         }
 
         [Fact]
@@ -149,7 +154,7 @@ namespace Recurly.Tests
         [Fact]
         public void WillThrowARecurlyErrorForUnknownErrors()
         {
-            var client = MockClient.Build(ErrorResponse((System.Net.HttpStatusCode)999));
+            var client = MockClient.Build(ErrorResponse((HttpStatusCode)999));
             Assert.Throws<Recurly.RecurlyError>(() => client.GetResource("benjamin", "param1", new DateTime(2020, 01, 01)));
         }
 
@@ -157,7 +162,6 @@ namespace Recurly.Tests
         public void WillThrowAnApiErrorForUnknownErrorType()
         {
             var client = MockClient.Build(UnknownTypeResponse());
-            // Instead of disabling strict mode, test with ArgumentException as proxy
             var exception = Assert.Throws<System.ArgumentException>(() => client.GetResource("benjamin", "param1", new DateTime(2020, 01, 01)));
             Assert.Matches("no valid exception class", exception.Message);
         }
@@ -165,14 +169,14 @@ namespace Recurly.Tests
         [Fact]
         public void WillThrowABadRequestError()
         {
-            var client = MockClient.Build(ErrorResponse(System.Net.HttpStatusCode.BadRequest));
+            var client = MockClient.Build(ErrorResponse(HttpStatusCode.BadRequest));
             Assert.Throws<Recurly.Errors.BadRequest>(() => client.GetResource("benjamin", "param1", new DateTime(2020, 01, 01)));
         }
 
         [Fact]
         public void WillTriggerHookIfAvailable()
         {
-            var client = MockClient.Build(SuccessResponse(System.Net.HttpStatusCode.OK));
+            var client = MockClient.Build(SuccessResponse(HttpStatusCode.OK));
             var mockHandler = new Mock<IEventHandler>();
             mockHandler
               .Setup(x => x.OnRequest(It.IsAny<Recurly.Http.Request>()));
@@ -186,7 +190,7 @@ namespace Recurly.Tests
         [Fact]
         public async void WillTriggerHookIfAvailableAsync()
         {
-            var client = MockClient.Build(SuccessResponse(System.Net.HttpStatusCode.OK));
+            var client = MockClient.Build(SuccessResponse(HttpStatusCode.OK));
             var mockHandler = new Mock<IEventHandler>();
             mockHandler
               .Setup(x => x.OnRequest(It.IsAny<Recurly.Http.Request>()));
@@ -200,61 +204,35 @@ namespace Recurly.Tests
             mockHandler.Verify(v => v.OnResponse(It.IsAny<Recurly.Http.Response>()), Times.Once());
         }
 
-        private Mock<IRestResponse<MyResource>> SuccessResponse(System.Net.HttpStatusCode status)
+        private HttpResponseMessage SuccessResponse(HttpStatusCode status)
         {
-            var data = new MyResource()
-            {
-                MyString = "benjamin"
-            };
-            var response = new Mock<IRestResponse<MyResource>>();
-            response.Setup(_ => _.StatusCode).Returns(status);
-            response.Setup(_ => _.Content).Returns("{\"my_string\": \"benjamin\"}");
-            response.Setup(_ => _.Headers).Returns(new List<Parameter> { });
-            response.Setup(_ => _.Data).Returns(data);
-
+            var response = new HttpResponseMessage(status);
+            response.Content = new StringContent("{\"my_string\": \"benjamin\"}", Encoding.UTF8, "application/json");
             return response;
         }
 
-        private Mock<IRestResponse<MyResource>> ErrorResponse(System.Net.HttpStatusCode statusCode)
+        private HttpResponseMessage ErrorResponse(HttpStatusCode statusCode)
         {
-            var response = new Mock<IRestResponse<MyResource>>();
-            response.Setup(_ => _.StatusCode).Returns(statusCode);
-            response.Setup(_ => _.Content).Returns("<html>parsing error</html>");
-            response.Setup(_ => _.Headers).Returns(new List<Parameter> { });
-            response.Setup(_ => _.ContentType).Returns("text/html");
-            response.Setup(_ => _.ErrorException).Returns(new Exception("parsing error"));
-            response.Setup(_ => _.ErrorMessage).Returns("parsing error");
-
+            var response = new HttpResponseMessage(statusCode);
+            response.Content = new StringContent("<html>parsing error</html>", Encoding.UTF8, "text/html");
             return response;
         }
 
-        private Mock<IRestResponse<MyResource>> InvalidContentTypeResponse()
+        private HttpResponseMessage NotFoundResponse()
         {
-            var response = new Mock<IRestResponse<MyResource>>();
-            response.Setup(_ => _.StatusCode).Returns(System.Net.HttpStatusCode.BadRequest);
-            response.Setup(_ => _.Content).Returns("{\"error\":{ \"type\": \"invalid_content_type\", \"message\": \"MyResource not found\"}}");
-            response.Setup(_ => _.Headers).Returns(new List<Parameter> { });
-
+            var response = new HttpResponseMessage(HttpStatusCode.NotFound);
+            response.Content = new StringContent(
+                "{\"error\":{ \"type\": \"not_found\", \"message\": \"MyResource not found\"}}",
+                Encoding.UTF8, "application/json");
             return response;
         }
 
-        private Mock<IRestResponse<MyResource>> NotFoundResponse()
+        private HttpResponseMessage UnknownTypeResponse()
         {
-            var response = new Mock<IRestResponse<MyResource>>();
-            response.Setup(_ => _.StatusCode).Returns(System.Net.HttpStatusCode.NotFound);
-            response.Setup(_ => _.Content).Returns("{\"error\":{ \"type\": \"not_found\", \"message\": \"MyResource not found\"}}");
-            response.Setup(_ => _.Headers).Returns(new List<Parameter> { });
-
-            return response;
-        }
-
-        private Mock<IRestResponse<MyResource>> UnknownTypeResponse()
-        {
-            var response = new Mock<IRestResponse<MyResource>>();
-            response.Setup(_ => _.StatusCode).Returns(System.Net.HttpStatusCode.BadRequest);
-            response.Setup(_ => _.Content).Returns("{\"error\":{ \"type\": \"not_in_spec\", \"message\": \"MyResource not found\"}}");
-            response.Setup(_ => _.Headers).Returns(new List<Parameter> { });
-
+            var response = new HttpResponseMessage(HttpStatusCode.BadRequest);
+            response.Content = new StringContent(
+                "{\"error\":{ \"type\": \"not_in_spec\", \"message\": \"MyResource not found\"}}",
+                Encoding.UTF8, "application/json");
             return response;
         }
     }
