@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Moq;
 using Recurly;
 using Recurly.Http;
-using RestSharp;
 using Xunit;
 
 namespace Recurly.Tests

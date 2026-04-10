@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Net;
-using RestSharp;
+using System.Net.Http;
 
 namespace Recurly.Http
 {
     public class Request
     {
-        public Method Method { get; set; }
+        public HttpMethod Method { get; set; }
 
         public string Url { get; set; }
 
@@ -38,18 +38,30 @@ namespace Recurly.Http
 
         public Response() { }
 
-        internal static Response Build(IRestResponse resp, Request request)
+        internal static Response Build(HttpResponseMessage resp, string rawContent, Request request)
         {
-            // Map List<Parameter> to List<Header>
             var headers = new List<Header>();
             foreach (var header in resp.Headers)
             {
-                headers.Add(new Header(header.Name, (string)header.Value));
+                foreach (var value in header.Value)
+                {
+                    headers.Add(new Header(header.Key, value));
+                }
+            }
+            if (resp.Content != null)
+            {
+                foreach (var header in resp.Content.Headers)
+                {
+                    foreach (var value in header.Value)
+                    {
+                        headers.Add(new Header(header.Key, value));
+                    }
+                }
             }
             return new Response()
             {
                 Request = request,
-                RawResponse = resp.Content,
+                RawResponse = rawContent,
                 StatusCode = resp.StatusCode,
                 Headers = headers,
             };

@@ -4,12 +4,14 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using RestSharp;
-using RestSharp.Authenticators;
 
 [assembly: InternalsVisibleTo("Recurly.Tests")]
 
@@ -22,7 +24,10 @@ namespace Recurly
         private List<IEventHandler> EventHandlers = new List<IEventHandler>();
         public virtual string ApiVersion { get; protected set; }
 
-        internal IRestClient RestClient { get; set; }
+        private Uri _baseUrl;
+        internal HttpClient HttpClient { get; set; }
+
+        private int _timeoutMs;
 
         public BaseClient(string apiKey) : this(apiKey, new ClientOptions()) { }
 
@@ -32,33 +37,33 @@ namespace Recurly
                 throw new ArgumentException($"apiKey is required. You passed in {apiKey}");
 
             ApiKey = apiKey;
-            RestClient = new RestClient();
-            RestClient.BaseUrl = new Uri(options.BaseUrl);
-            RestClient.Authenticator = new HttpBasicAuthenticator(ApiKey, "");
+            _baseUrl = new Uri(options.BaseUrl);
 
-            // AddDefaultHeader does not work for user-agent
+            HttpClient = new HttpClient();
+            _timeoutMs = (int)HttpClient.Timeout.TotalMilliseconds;
+
+            var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes($"{ApiKey}:"));
+            HttpClient.DefaultRequestHeaders.Authorization =
+                new AuthenticationHeaderValue("Basic", credentials);
+
             var libVersion = typeof(Recurly.Client).Assembly.GetName().Version;
-            RestClient.UserAgent = $"Recurly/{libVersion}; .NET";
+            HttpClient.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", $"Recurly/{libVersion}; {RuntimeInformation.FrameworkDescription}");
 
-            Array.ForEach(BinaryTypes, contentType =>
-                RestClient.AddHandler(contentType, () => { return new Recurly.FileSerializer(); })
-            );
-            RestClient.AddHandler("application/json", () => { return new JsonSerializer(); });
-
-
-            // These are the default headers to send on every request
-            RestClient.AddDefaultHeader("Accept", $"application/vnd.recurly.{ApiVersion}");
-            RestClient.AddDefaultHeader("Content-Type", "application/json");
+            HttpClient.DefaultRequestHeaders.Accept.ParseAdd($"application/vnd.recurly.{ApiVersion}");
         }
 
         /// <value>Timeout in milliseconds to be used for the request</value>
         public int Timeout
         {
-            get { return RestClient.Timeout; }
-            set { RestClient.Timeout = value; }
+            get { return _timeoutMs; }
+            set
+            {
+                _timeoutMs = value;
+                HttpClient.Timeout = TimeSpan.FromMilliseconds(value);
+            }
         }
 
-        public async Task<T> MakeRequestAsync<T>(Method method, string url, Request body = null, Dictionary<string, object> queryParams = null, RequestOptions options = null, CancellationToken cancellationToken = default(CancellationToken)) where T : Resource
+        public async Task<T> MakeRequestAsync<T>(HttpMethod method, string url, Request body = null, Dictionary<string, object> queryParams = null, RequestOptions options = null, CancellationToken cancellationToken = default(CancellationToken)) where T : Resource
         {
             Debug.WriteLine($"Calling {url}");
             var httpRequest = new Http.Request()
@@ -67,81 +72,64 @@ namespace Recurly
                 Url = url,
                 Body = body
             };
-            var restRequest = BuildRequest(method, url, body, queryParams, options);
+            var requestMessage = BuildRequest(method, url, body, queryParams, options);
 
             foreach (var handler in this.EventHandlers)
             {
                 handler.OnRequest(httpRequest);
             }
 
-            var task = RestClient.ExecuteAsync<T>(restRequest, cancellationToken);
-            return await task.ContinueWith(t =>
+            HttpResponseMessage responseMessage;
+            try
             {
-                var restResponse = t.Result;
-                this.HandleResponse(restResponse);
-                var httpResponse = Http.Response.Build(restResponse, httpRequest);
-
-                foreach (var handler in this.EventHandlers)
-                {
-                    handler.OnResponse(httpResponse);
-                }
-
-                if (restResponse.Data is Resource)
-                    restResponse.Data.SetResponse(httpResponse);
-                return restResponse.Data;
-            });
-        }
-
-        public T MakeRequest<T>(Method method, string url, Request body = null, Dictionary<string, object> queryParams = null, RequestOptions options = null) where T : Resource, new()
-        {
-            Debug.WriteLine($"Calling {url}");
-            var httpRequest = new Http.Request()
+                responseMessage = await HttpClient.SendAsync(requestMessage, cancellationToken);
+            }
+            catch (TaskCanceledException ex) when (!cancellationToken.IsCancellationRequested)
             {
-                Method = method,
-                Url = url,
-                Body = body
-            };
-            var restRequest = BuildRequest(method, url, body, queryParams, options);
-
-            foreach (var handler in this.EventHandlers)
+                throw new Errors.NetworkError("Request timed out: " + ex.Message);
+            }
+            catch (HttpRequestException ex)
             {
-                handler.OnRequest(httpRequest);
+                throw new Errors.NetworkError(ex.Message);
             }
 
-            var restResponse = RestClient.Execute<T>(restRequest);
-            var httpResponse = Http.Response.Build(restResponse, httpRequest);
+            var rawBytes = await responseMessage.Content.ReadAsByteArrayAsync();
+            var contentType = responseMessage.Content.Headers.ContentType?.MediaType ?? "";
+            var rawContent = BinaryTypes.Contains(contentType) ? string.Empty : Encoding.UTF8.GetString(rawBytes);
+
+            var httpResponse = Http.Response.Build(responseMessage, rawContent, httpRequest);
 
             foreach (var handler in this.EventHandlers)
             {
                 handler.OnResponse(httpResponse);
             }
 
-            this.HandleResponse(restResponse);
+            HandleResponse(responseMessage, rawContent);
 
-            if (typeof(T).Equals(typeof(EmptyResource)))
+            T data;
+            if (BinaryTypes.Contains(contentType))
             {
-                var empty = new T();
-                empty.SetResponse(httpResponse);
-                return empty;
+                data = (T)(object)new FileSerializer().Deserialize(rawBytes);
+            }
+            else if (typeof(T) == typeof(EmptyResource))
+            {
+                data = (T)(object)new EmptyResource();
+            }
+            else
+            {
+                data = Recurly.JsonSerializer.Default.Deserialize<T>(rawContent);
             }
 
-            if (restResponse.Data is Resource)
-                restResponse.Data.SetResponse(httpResponse);
+            if (data is Resource resource)
+                resource.SetResponse(httpResponse);
 
-            return restResponse.Data;
+            return data;
         }
 
-        public int GetResourceCount(string url, Dictionary<string, object> queryParams)
+        public T MakeRequest<T>(HttpMethod method, string url, Request body = null, Dictionary<string, object> queryParams = null, RequestOptions options = null) where T : Resource, new()
         {
-            Debug.WriteLine($"Calling {url}");
-            var request = BuildRequest(Method.HEAD, url, null, queryParams);
-            var resp = RestClient.Execute(request);
-            this.HandleResponse(resp);
-            var headers = resp.Headers.ToList();
-            var recordCount = headers
-                .Find(x => x.Name == "Recurly-Total-Records")
-                .Value.ToString();
-            return int.Parse(recordCount);
+            return MakeRequestAsync<T>(method, url, body, queryParams, options)
+                .GetAwaiter().GetResult();
         }
 
         public void AddEventHandler(IEventHandler handler)
@@ -155,7 +143,7 @@ namespace Recurly
             Console.WriteLine("[SECURITY WARNING] _SetApiUrl is for testing only and not supported in production.");
             if (System.Environment.GetEnvironmentVariable("RECURLY_INSECURE") == "true")
             {
-                this.RestClient.BaseUrl = new Uri(uri);
+                _baseUrl = new Uri(uri);
             }
             else
             {
@@ -163,7 +151,10 @@ namespace Recurly
             }
         }
 
-        private RestRequest BuildRequest(Method method, string url, Request body = null, Dictionary<string, object> queryParams = null, RequestOptions options = null)
+        // Internal for testability
+        internal Uri BaseUrl => _baseUrl;
+
+        private HttpRequestMessage BuildRequest(HttpMethod method, string url, Request body = null, Dictionary<string, object> queryParams = null, RequestOptions options = null)
         {
             if (options == null)
             {
@@ -175,74 +166,67 @@ namespace Recurly
                 url += Utils.QueryString(queryParams);
             }
 
-            var request = new RestRequest(url, method);
-            request.JsonSerializer = Recurly.JsonSerializer.Default;
-            request.AddHeaders(options.Headers);
+            // Build the full URL as a string to preserve %2F encoding in path segments
+            var uriString = _baseUrl.ToString().TrimEnd('/') + "/" + url.TrimStart('/');
+            var request = new HttpRequestMessage(method, uriString);
+
+            foreach (var header in options.Headers)
+            {
+                request.Headers.TryAddWithoutValidation(header.Key, header.Value);
+            }
 
             // If we have a body, serialize it and add it to the request
+            var json = "";
             if (body != null)
             {
-                request.AddJsonBody(body);
+                json = Recurly.JsonSerializer.Default.Serialize(body);
             }
+            request.Content = new StringContent(json, Encoding.UTF8, "application/json");
 
             return request;
         }
 
-        private void HandleResponse(IRestResponse resp)
+        private void HandleResponse(HttpResponseMessage resp, string rawContent)
         {
-            if (resp.Headers.Any(t => t.Name == "Recurly-Deprecated"))
+            if (resp.Headers.Contains("Recurly-Deprecated"))
             {
-                var headers = resp.Headers.ToList();
-                var deprecated = headers
-                    .Find(x => x.Name == "Recurly-Deprecated")
-                    .Value.ToString();
-                var sunset = headers
-                    .Find(x => x.Name == "Recurly-Sunset-Date")
-                    .Value.ToString();
-
+                var deprecated = resp.Headers.GetValues("Recurly-Deprecated").FirstOrDefault() ?? "";
                 if (deprecated.ToUpper() == "TRUE")
                 {
+                    var sunset = resp.Headers.Contains("Recurly-Sunset-Date")
+                        ? resp.Headers.GetValues("Recurly-Sunset-Date").FirstOrDefault()
+                        : "unknown";
                     Debug.WriteLine($"[recurly-client-net] WARNING: Your current API version \"${ApiVersion}\" is deprecated and will be sunset on ${sunset}");
                 }
             }
 
             var status = (int)resp.StatusCode;
             Debug.WriteLine($"Status: {status}");
-            Debug.WriteLine($"Content: {resp.Content}");
+            Debug.WriteLine($"Content: {rawContent}");
 
-            // If the response has an ErrorException,
-            // an error casting the json to a Resource
-            // has likely occurred
-            if (resp.ErrorException != null)
+            if (status < 200 || status >= 300)
             {
-                var message = resp.ErrorMessage;
-                if (resp.Headers.Any(t => t.Name == "X-Request-ID"))
+                // Try to parse a structured API error from the JSON body
+                Errors.ApiErrorWrapper wrapper = null;
+                try
                 {
-                    var requestId = resp.Headers.ToList().Find(x => x.Name == "X-Request-ID").Value.ToString();
-                    message += $" Recurly Request Id: {requestId}";
+                    wrapper = Recurly.JsonSerializer.Default.Deserialize<Errors.ApiErrorWrapper>(rawContent);
                 }
-                var error = new Recurly.Resources.ErrorMayHaveTransaction()
+                catch
                 {
-                    Message = message
-                };
-                throw Errors.Factory.Create(resp, message, error);
-            }
-            else if (status < 200 || status >= 300)
-            {
-                // Turn web exceptions into Recurly.NetworkErrors
-                if (resp.ErrorException is WebException)
-                {
-                    var netError = new Errors.NetworkError(resp.ErrorMessage);
-                    netError.ExceptionStatus = ((WebException)resp.ErrorException).Status;
-                    throw netError;
+                    // JSON parsing failed — will fall back to status-code-based error below
                 }
-                // everything else becomes a Recurly.ApiError
+
+                if (wrapper?.Error != null)
+                {
+                    // Let Factory.Create throw directly (e.g. ArgumentException in strict mode)
+                    throw Errors.Factory.Create(wrapper.Error);
+                }
                 else
                 {
-                    var serializer = Recurly.JsonSerializer.Default;
-                    var err = serializer.Deserialize<Errors.ApiErrorWrapper>(resp).Error;
-                    var ex = Errors.Factory.Create(err);
-                    throw ex;
+                    var message = $"Unexpected error (HTTP {status})";
+                    var error = new Recurly.Resources.ErrorMayHaveTransaction() { Message = message };
+                    throw Errors.Factory.Create(resp.StatusCode, message, error);
                 }
             }
         }
@@ -264,8 +248,8 @@ namespace Recurly
             var regex = new Regex("{([A-Za-z|_]*)}");
             // TODO ToString() here might not appropriately format all data types
             // such as datetimes
-            // Encode forward slashes in the url components. Standard encoding will happen within
-            // the RestSharp library.
+            // Encode forward slashes in the url components to preserve them through
+            // URI construction in BuildRequest.
             return regex.Replace(path, m => urlParams[m.Groups[1].Value].ToString().Replace("/", "%2F"));
         }
     }

@@ -2,10 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using RestSharp;
 
 namespace Recurly
 {
@@ -53,13 +53,13 @@ namespace Recurly
         {
             Dictionary<string, object> firstParams = new Dictionary<string, object>(QueryParams);
             firstParams["limit"] = 1;
-            var pager = RecurlyClient.MakeRequest<Pager<T>>(Method.GET, Url, null, firstParams, Options);
+            var pager = RecurlyClient.MakeRequest<Pager<T>>(HttpMethod.Get, Url, null, firstParams, Options);
             return pager.Data.FirstOrDefault();
         }
 
         public int Count()
         {
-            var empty = RecurlyClient.MakeRequest<EmptyResource>(Method.HEAD, Url, null, QueryParams, Options);
+            var empty = RecurlyClient.MakeRequest<EmptyResource>(HttpMethod.Head, Url, null, QueryParams, Options);
 
             var meta = empty.GetResponse();
             if (meta.RecordCount is null)
@@ -71,7 +71,7 @@ namespace Recurly
         public Pager<T> FetchNextPage()
         {
             Dictionary<string, object> NextParams = _pristine ? QueryParams : null;
-            var pager = RecurlyClient.MakeRequest<Pager<T>>(Method.GET, Next, null, NextParams, Options);
+            var pager = RecurlyClient.MakeRequest<Pager<T>>(HttpMethod.Get, Next, null, NextParams, Options);
             this.Clone(pager);
             return this;
         }
@@ -79,7 +79,7 @@ namespace Recurly
         public async Task<Pager<T>> FetchNextPageAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             Dictionary<string, object> NextParams = _pristine ? QueryParams : null;
-            var task = RecurlyClient.MakeRequestAsync<Pager<T>>(Method.GET, Next, null, NextParams, Options, cancellationToken);
+            var task = RecurlyClient.MakeRequestAsync<Pager<T>>(HttpMethod.Get, Next, null, NextParams, Options, cancellationToken);
             return await task.ContinueWith(t =>
             {
                 var pager = t.Result;
