@@ -205,11 +205,12 @@ namespace Recurly
         /// An account.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public Account DeactivateAccount(string accountId, RequestOptions options = null)
+        public Account DeactivateAccount(string accountId, DeactivateAccountParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
+            var queryParams = (optionalParams ?? new DeactivateAccountParams()).ToDictionary();
             var url = this.InterpolatePath("/accounts/{account_id}", urlParams);
-            return MakeRequest<Account>(HttpMethod.Delete, url, null, null, options);
+            return MakeRequest<Account>(HttpMethod.Delete, url, null, queryParams, options);
         }
 
 
@@ -222,11 +223,46 @@ namespace Recurly
         /// An account.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public Task<Account> DeactivateAccountAsync(string accountId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        public Task<Account> DeactivateAccountAsync(string accountId, DeactivateAccountParams optionalParams = null, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
+            var queryParams = (optionalParams ?? new DeactivateAccountParams()).ToDictionary();
             var url = this.InterpolatePath("/accounts/{account_id}", urlParams);
-            return MakeRequestAsync<Account>(HttpMethod.Delete, url, null, null, options, cancellationToken);
+            return MakeRequestAsync<Account>(HttpMethod.Delete, url, null, queryParams, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// Redact an account (GDPR Right to Erasure) <see href="https://developers.recurly.com/api/v2021-02-25#operation/redact_account">redact_account api documentation</see>
+        /// </summary>
+        /// <param name="RedactAccountParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Account has been accepted for redaction and will be processed asynchronously.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Account RedactAccount(string accountId, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
+            var url = this.InterpolatePath("/accounts/{account_id}/redact", urlParams);
+            return MakeRequest<Account>(HttpMethod.Put, url, null, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Redact an account (GDPR Right to Erasure) <see href="https://developers.recurly.com/api/v2021-02-25#operation/redact_account">redact_account api documentation</see>
+        /// </summary>
+        /// <param name="RedactAccountParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Account has been accepted for redaction and will be processed asynchronously.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<Account> RedactAccountAsync(string accountId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
+            var url = this.InterpolatePath("/accounts/{account_id}/redact", urlParams);
+            return MakeRequestAsync<Account>(HttpMethod.Put, url, null, null, options, cancellationToken);
         }
 
 
