@@ -232,6 +232,40 @@ namespace Recurly
 
 
         /// <summary>
+        /// Redact an account (GDPR Right to Erasure) <see href="https://developers.recurly.com/api/v2021-02-25#operation/redact_account">redact_account api documentation</see>
+        /// </summary>
+        /// <param name="RedactAccountParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Account has been accepted for redaction and will be processed asynchronously.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Account RedactAccount(string accountId, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
+            var url = this.InterpolatePath("/accounts/{account_id}/redact", urlParams);
+            return MakeRequest<Account>(HttpMethod.Put, url, null, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Redact an account (GDPR Right to Erasure) <see href="https://developers.recurly.com/api/v2021-02-25#operation/redact_account">redact_account api documentation</see>
+        /// </summary>
+        /// <param name="RedactAccountParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Account has been accepted for redaction and will be processed asynchronously.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<Account> RedactAccountAsync(string accountId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
+            var url = this.InterpolatePath("/accounts/{account_id}/redact", urlParams);
+            return MakeRequestAsync<Account>(HttpMethod.Put, url, null, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
         /// Fetch an account's acquisition data <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_account_acquisition">get_account_acquisition api documentation</see>
         /// </summary>
         /// <param name="GetAccountAcquisitionParams">Optional Parameters for the request</param>
@@ -1836,6 +1870,40 @@ namespace Recurly
             var urlParams = new Dictionary<string, object> { { "coupon_id", couponId } };
             var url = this.InterpolatePath("/coupons/{coupon_id}/generate", urlParams);
             return MakeRequestAsync<UniqueCouponCodeParams>(HttpMethod.Post, url, body, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// Generate unique coupon codes synchronously <see href="https://developers.recurly.com/api/v2021-02-25#operation/generate_unique_coupon_codes_sync">generate_unique_coupon_codes_sync api documentation</see>
+        /// </summary>
+        /// <param name="GenerateUniqueCouponCodesSyncParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// The newly generated unique coupon codes.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public UniqueCouponCodeGenerationResponse GenerateUniqueCouponCodesSync(string couponId, CouponBulkCreateSync body, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "coupon_id", couponId } };
+            var url = this.InterpolatePath("/coupons/{coupon_id}/generate_sync", urlParams);
+            return MakeRequest<UniqueCouponCodeGenerationResponse>(HttpMethod.Post, url, body, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Generate unique coupon codes synchronously <see href="https://developers.recurly.com/api/v2021-02-25#operation/generate_unique_coupon_codes_sync">generate_unique_coupon_codes_sync api documentation</see>
+        /// </summary>
+        /// <param name="GenerateUniqueCouponCodesSyncParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// The newly generated unique coupon codes.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<UniqueCouponCodeGenerationResponse> GenerateUniqueCouponCodesSyncAsync(string couponId, CouponBulkCreateSync body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "coupon_id", couponId } };
+            var url = this.InterpolatePath("/coupons/{coupon_id}/generate_sync", urlParams);
+            return MakeRequestAsync<UniqueCouponCodeGenerationResponse>(HttpMethod.Post, url, body, null, options, cancellationToken);
         }
 
 

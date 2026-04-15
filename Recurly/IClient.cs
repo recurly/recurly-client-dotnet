@@ -151,6 +151,26 @@ namespace Recurly
         Task<Account> DeactivateAccountAsync(string accountId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
 
         /// <summary>
+        /// Redact an account (GDPR Right to Erasure) <see href="https://developers.recurly.com/api/v2021-02-25#operation/redact_account">redact_account api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <returns>
+        /// Account has been accepted for redaction and will be processed asynchronously.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Account RedactAccount(string accountId, RequestOptions options = null);
+
+        /// <summary>
+        /// Redact an account (GDPR Right to Erasure) <see href="https://developers.recurly.com/api/v2021-02-25#operation/redact_account">redact_account api documentation</see>
+        /// </summary>
+        /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <returns>
+        /// Account has been accepted for redaction and will be processed asynchronously.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<Account> RedactAccountAsync(string accountId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
         /// Fetch an account's acquisition data <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_account_acquisition">get_account_acquisition api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
@@ -1218,6 +1238,28 @@ namespace Recurly
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
         Task<UniqueCouponCodeParams> GenerateUniqueCouponCodesAsync(string couponId, CouponBulkCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// Generate unique coupon codes synchronously <see href="https://developers.recurly.com/api/v2021-02-25#operation/generate_unique_coupon_codes_sync">generate_unique_coupon_codes_sync api documentation</see>
+        /// </summary>
+        /// <param name="couponId">Coupon ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-10off`.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// The newly generated unique coupon codes.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        UniqueCouponCodeGenerationResponse GenerateUniqueCouponCodesSync(string couponId, CouponBulkCreateSync body, RequestOptions options = null);
+
+        /// <summary>
+        /// Generate unique coupon codes synchronously <see href="https://developers.recurly.com/api/v2021-02-25#operation/generate_unique_coupon_codes_sync">generate_unique_coupon_codes_sync api documentation</see>
+        /// </summary>
+        /// <param name="couponId">Coupon ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-10off`.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// The newly generated unique coupon codes.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<UniqueCouponCodeGenerationResponse> GenerateUniqueCouponCodesSyncAsync(string couponId, CouponBulkCreateSync body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
 
         /// <summary>
         /// Restore an inactive coupon <see href="https://developers.recurly.com/api/v2021-02-25#operation/restore_coupon">restore_coupon api documentation</see>
