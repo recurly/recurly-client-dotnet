@@ -35,7 +35,7 @@ namespace Recurly.Resources
         [JsonProperty("first_name")]
         public string FirstName { get; set; }
 
-        /// <value>Code that represents a geographic entity (location or object). Only returned for Sling Vertex Integration</value>
+        /// <value>Code that represents a geographic entity (location or object). Only returned when Vertex or Avalara for Communications is enabled.</value>
         [JsonProperty("geo_code")]
         public string GeoCode { get; set; }
 
