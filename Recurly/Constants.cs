@@ -2633,5 +2633,23 @@ namespace Recurly
 
         };
 
+        public enum SourceRecordType
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "account")]
+            Account,
+
+            [EnumMember(Value = "plan")]
+            Plan,
+
+            [EnumMember(Value = "product")]
+            Product,
+
+            [EnumMember(Value = "subscription")]
+            Subscription,
+
+        };
+
     }
 }
