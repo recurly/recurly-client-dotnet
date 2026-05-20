@@ -56,6 +56,10 @@ namespace Recurly.Resources
         [JsonProperty("currency")]
         public string Currency { get; set; }
 
+        /// <value>A list of custom fields that were on the account at the time of invoice creation and were marked to be displayed on invoices. Read-only; cannot be set directly on the invoice.</value>
+        [JsonProperty("custom_fields")]
+        public List<CustomField> CustomFields { get; set; }
+
         /// <value>This will default to the Customer Notes text specified on the Invoice Settings. Specify custom notes to add or override Customer Notes.</value>
         [JsonProperty("customer_notes")]
         public string CustomerNotes { get; set; }

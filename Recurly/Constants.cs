@@ -579,6 +579,9 @@ namespace Recurly
             [EnumMember(Value = "year")]
             Year,
 
+            [EnumMember(Value = "billing_period")]
+            BillingPeriod,
+
         };
 
         public enum FreeTrialUnit
@@ -2630,6 +2633,24 @@ namespace Recurly
 
             [EnumMember(Value = "merchant")]
             Merchant,
+
+        };
+
+        public enum SourceRecordType
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "account")]
+            Account,
+
+            [EnumMember(Value = "plan")]
+            Plan,
+
+            [EnumMember(Value = "product")]
+            Product,
+
+            [EnumMember(Value = "subscription")]
+            Subscription,
 
         };
 
