@@ -19,6 +19,15 @@ namespace Recurly.Resources
         [JsonProperty("name")]
         public string Name { get; set; }
 
+        /// <value>The UUID of the record this custom field was automatically copied from. Only present when the field was copied from another record.</value>
+        [JsonProperty("source_record_id")]
+        public string SourceRecordId { get; set; }
+
+        /// <value>The type of record this custom field was automatically copied from. Only present when the field was copied from another record.</value>
+        [JsonProperty("source_record_type")]
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.SourceRecordType? SourceRecordType { get; set; }
+
         /// <value>Any values that resemble a credit card number or security code (CVV/CVC) will be rejected.</value>
         [JsonProperty("value")]
         public string Value { get; set; }

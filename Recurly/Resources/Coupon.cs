@@ -124,11 +124,11 @@ namespace Recurly.Resources
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
         public Constants.CouponState? State { get; set; }
 
-        /// <value>If `duration` is "temporal" than `temporal_amount` is an integer which is multiplied by `temporal_unit` to define the duration that the coupon will be applied to invoices for.</value>
+        /// <value>If `duration` is "temporal" than `temporal_amount` is an integer which is multiplied by `temporal_unit` to define the duration that the coupon will be applied to invoices for. When `temporal_unit` is "billing_period", this is the number of complete billing cycles.</value>
         [JsonProperty("temporal_amount")]
         public int? TemporalAmount { get; set; }
 
-        /// <value>If `duration` is "temporal" than `temporal_unit` is multiplied by `temporal_amount` to define the duration that the coupon will be applied to invoices for.</value>
+        /// <value>If `duration` is "temporal" than `temporal_unit` is multiplied by `temporal_amount` to define the duration that the coupon will be applied to invoices for. Use "billing_period" to apply the coupon for a fixed number of billing cycles. Requires `redemption_resource=subscription`.</value>
         [JsonProperty("temporal_unit")]
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
         public Constants.TemporalUnit? TemporalUnit { get; set; }
