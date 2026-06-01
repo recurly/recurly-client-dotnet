@@ -1,6 +1,8 @@
 name: CI
 on: [push]
-concurrency: 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+concurrency:
   group: ${{ github.ref }}
   cancel-in-progress: true
 jobs:
@@ -11,9 +13,9 @@ jobs:
       matrix:
         dotnet: [2.2.x]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6.0.2
       - name: Setup dotnet
-        uses: actions/setup-dotnet@v2
+        uses: actions/setup-dotnet@v5.3.0
         with:
           dotnet-version: ${{ matrix.dotnet }}
       - run: ./scripts/build
