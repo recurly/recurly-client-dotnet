@@ -77,9 +77,13 @@ namespace Recurly.Resources
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
         public Constants.DestinationTaxAddressSource? DestinationTaxAddressSource { get; set; }
 
-        /// <value>The discount applied to the line item.</value>
+        /// <value>The sum of all discounts applied to the line item.</value>
         [JsonProperty("discount")]
         public decimal? Discount { get; set; }
+
+        /// <value>The breakdown of discounts applied to the line item by coupon redemption.</value>
+        [JsonProperty("discounts")]
+        public List<LineItemDiscount> Discounts { get; set; }
 
         /// <value>If this date is provided, it indicates the end of a time range.</value>
         [JsonProperty("end_date")]

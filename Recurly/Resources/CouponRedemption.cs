@@ -43,6 +43,10 @@ namespace Recurly.Resources
         [JsonProperty("object")]
         public string Object { get; set; }
 
+
+        [JsonProperty("remaining_duration")]
+        public CouponRedemptionRemainingDuration RemainingDuration { get; set; }
+
         /// <value>The date and time the redemption was removed from the account (un-redeemed).</value>
         [JsonProperty("removed_at")]
         public DateTime? RemovedAt { get; set; }

@@ -44,6 +44,10 @@ namespace Recurly.Resources
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
         public Constants.CollectionMethod? CollectionMethod { get; set; }
 
+        /// <value>The coupon redemptions applied to this invoice.</value>
+        [JsonProperty("coupon_redemptions")]
+        public List<CouponRedemptionMini> CouponRedemptions { get; set; }
+
         /// <value>Created at</value>
         [JsonProperty("created_at")]
         public DateTime? CreatedAt { get; set; }

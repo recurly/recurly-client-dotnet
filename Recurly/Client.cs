@@ -3503,6 +3503,40 @@ namespace Recurly
 
 
         /// <summary>
+        /// Create an invoice for revenue recovery <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_invoice_retry">create_invoice_retry api documentation</see>
+        /// </summary>
+        /// <param name="CreateInvoiceRetryParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Returns the new invoices.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public InvoiceCollection CreateInvoiceRetry(RecoveryInvoiceCreate body, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var url = this.InterpolatePath("/invoices/recovery", urlParams);
+            return MakeRequest<InvoiceCollection>(HttpMethod.Post, url, body, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Create an invoice for revenue recovery <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_invoice_retry">create_invoice_retry api documentation</see>
+        /// </summary>
+        /// <param name="CreateInvoiceRetryParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// Returns the new invoices.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<InvoiceCollection> CreateInvoiceRetryAsync(RecoveryInvoiceCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var url = this.InterpolatePath("/invoices/recovery", urlParams);
+            return MakeRequestAsync<InvoiceCollection>(HttpMethod.Post, url, body, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
         /// List a site's line items <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_line_items">list_line_items api documentation</see>
         /// </summary>
         /// <param name="ListLineItemsParams">Optional Parameters for the request</param>

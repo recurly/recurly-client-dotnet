@@ -597,6 +597,9 @@ namespace Recurly
             [EnumMember(Value = "week")]
             Week,
 
+            [EnumMember(Value = "billing_period")]
+            BillingPeriod,
+
         };
 
         public enum RedemptionResource
