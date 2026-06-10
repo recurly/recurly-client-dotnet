@@ -9,7 +9,7 @@ jobs:
     name: Dotnet ${{ matrix.dotnet }} tests
     strategy:
       matrix:
-        dotnet: [2.2.x]
+        dotnet: [2.2.x, 8.0.x, 9.0.x, 10.0.x]
     steps:
       - uses: actions/checkout@v6.0.2
       - name: Setup dotnet
