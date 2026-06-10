@@ -1,5 +1,17 @@
 # Changelog
 
+## [5.17.0](https://github.com/recurly/recurly-client-dotnet/tree/5.17.0) (2026-06-10)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/5.16.0...5.17.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 [#905](https://github.com/recurly/recurly-client-dotnet/pull/905) ([recurly-integrations](https://github.com/recurly-integrations))
+- ci: Remediate Node.js 20 deprecation [#904](https://github.com/recurly/recurly-client-dotnet/pull/904) ([jparrabedoya](https://github.com/jparrabedoya))
+
+
+
 ## [5.16.0](https://github.com/recurly/recurly-client-dotnet/tree/5.16.0) (2026-05-20)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/5.15.0...5.16.0)
