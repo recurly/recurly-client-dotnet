@@ -69,7 +69,7 @@ namespace Recurly.Resources
         [JsonProperty("free_trial_amount")]
         public int? FreeTrialAmount { get; set; }
 
-        /// <value>Description of the unit of time the coupon is for. Used with `free_trial_amount` to determine the duration of time the coupon is for.  Required if `discount_type` is `free_trial`.</value>
+        /// <value>Description of the unit of time the coupon is for. Used with `free_trial_amount` to determine the duration of time the coupon is for. Required if `discount_type` is `free_trial`. Use `billing_period` to grant a free trial for a number of billing cycles.</value>
         [JsonProperty("free_trial_unit")]
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
         public Constants.FreeTrialUnit? FreeTrialUnit { get; set; }
@@ -124,7 +124,7 @@ namespace Recurly.Resources
         [JsonProperty("temporal_amount")]
         public int? TemporalAmount { get; set; }
 
-        /// <value>If `duration` is "temporal" than `temporal_unit` is multiplied by `temporal_amount` to define the duration that the coupon will be applied to invoices for. Use "billing_period" to apply the coupon for a fixed number of billing cycles. Requires `redemption_resource=subscription`.</value>
+        /// <value>If `duration` is "temporal" than `temporal_unit` is multiplied by `temporal_amount` to define the duration that the coupon will be applied to invoices for. Use "billing_period" to apply the coupon for a fixed number of billing cycles. Requires `redemption_resource=subscription`. Not compatible with `discount_type=free_trial`; use `free_trial_unit=billing_period` and `free_trial_amount` instead.</value>
         [JsonProperty("temporal_unit")]
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
         public Constants.TemporalUnit? TemporalUnit { get; set; }

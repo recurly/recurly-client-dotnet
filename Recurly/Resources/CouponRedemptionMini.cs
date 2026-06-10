@@ -35,7 +35,11 @@ namespace Recurly.Resources
         [JsonProperty("object")]
         public string Object { get; set; }
 
-        /// <value>Invoice state</value>
+
+        [JsonProperty("remaining_duration")]
+        public CouponRedemptionRemainingDuration RemainingDuration { get; set; }
+
+        /// <value>Coupon Redemption state</value>
         [JsonProperty("state")]
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
         public Constants.ActiveState? State { get; set; }

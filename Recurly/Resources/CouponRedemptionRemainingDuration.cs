@@ -12,17 +12,17 @@ using Newtonsoft.Json;
 namespace Recurly.Resources
 {
     [ExcludeFromCodeCoverage]
-    public class CouponDiscountTrial : Resource
+    public class CouponRedemptionRemainingDuration : Resource
     {
 
-        /// <value>Trial length measured in the units specified by the sibling `unit` property</value>
-        [JsonProperty("length")]
-        public int? Length { get; set; }
+        /// <value>Present when `type` is `temporal`. The datetime after which this redemption will no longer apply.</value>
+        [JsonProperty("expires_at")]
+        public DateTime? ExpiresAt { get; set; }
 
-        /// <value>Temporal unit of the free trial. When `billing_period`, `length` represents the number of billing cycles.</value>
-        [JsonProperty("unit")]
+        /// <value>The coupon's duration type. `temporal` includes an `expires_at` timestamp. `forever` and `single_use` have no additional fields.</value>
+        [JsonProperty("type")]
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
-        public Constants.FreeTrialUnit? Unit { get; set; }
+        public Constants.CouponDuration? Type { get; set; }
 
     }
 }
