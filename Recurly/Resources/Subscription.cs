@@ -202,6 +202,10 @@ namespace Recurly.Resources
         [JsonProperty("renewal_billing_cycles")]
         public int? RenewalBillingCycles { get; set; }
 
+        /// <value>The date the subscription billing resumes following a pause. Null unless the subscription is paused or scheduled to be paused.</value>
+        [JsonProperty("resume_at")]
+        public DateTime? ResumeAt { get; set; }
+
         /// <value>Revenue schedule type</value>
         [JsonProperty("revenue_schedule_type")]
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
