@@ -134,21 +134,23 @@ namespace Recurly
         /// Deactivate an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/deactivate_account">deactivate_account api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="redact">Permanently removes all personally identifiable information (PII) from this account after it has been deactivated, to fulfill a data subject's right to erasure under GDPR and similar privacy regulations (e.g. CCPA). Cannot be undone.</param>
         /// <returns>
         /// An account.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        Account DeactivateAccount(string accountId, RequestOptions options = null);
+        Account DeactivateAccount(string accountId, DeactivateAccountParams optionalParams = null, RequestOptions options = null);
 
         /// <summary>
         /// Deactivate an account <see href="https://developers.recurly.com/api/v2021-02-25#operation/deactivate_account">deactivate_account api documentation</see>
         /// </summary>
         /// <param name="accountId">Account ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For code use prefix `code-`, e.g. `code-bob`.</param>
+        /// <param name="redact">Permanently removes all personally identifiable information (PII) from this account after it has been deactivated, to fulfill a data subject's right to erasure under GDPR and similar privacy regulations (e.g. CCPA). Cannot be undone.</param>
         /// <returns>
         /// An account.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        Task<Account> DeactivateAccountAsync(string accountId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+        Task<Account> DeactivateAccountAsync(string accountId, DeactivateAccountParams optionalParams = null, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
 
         /// <summary>
         /// Redact an account (GDPR Right to Erasure) <see href="https://developers.recurly.com/api/v2021-02-25#operation/redact_account">redact_account api documentation</see>
@@ -3637,7 +3639,7 @@ namespace Recurly
         /// <returns>
         /// A list of the entitlements granted to an account.
         /// </returns>
-        Pager<Entitlements> ListEntitlements(string accountId, ListEntitlementsParams optionalParams = null, RequestOptions options = null);
+        Pager<Entitlement> ListEntitlements(string accountId, ListEntitlementsParams optionalParams = null, RequestOptions options = null);
 
 
         /// <summary>

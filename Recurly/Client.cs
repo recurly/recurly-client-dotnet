@@ -205,11 +205,12 @@ namespace Recurly
         /// An account.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public Account DeactivateAccount(string accountId, RequestOptions options = null)
+        public Account DeactivateAccount(string accountId, DeactivateAccountParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
+            var queryParams = (optionalParams ?? new DeactivateAccountParams()).ToDictionary();
             var url = this.InterpolatePath("/accounts/{account_id}", urlParams);
-            return MakeRequest<Account>(HttpMethod.Delete, url, null, null, options);
+            return MakeRequest<Account>(HttpMethod.Delete, url, null, queryParams, options);
         }
 
 
@@ -222,11 +223,12 @@ namespace Recurly
         /// An account.
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
-        public Task<Account> DeactivateAccountAsync(string accountId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        public Task<Account> DeactivateAccountAsync(string accountId, DeactivateAccountParams optionalParams = null, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
+            var queryParams = (optionalParams ?? new DeactivateAccountParams()).ToDictionary();
             var url = this.InterpolatePath("/accounts/{account_id}", urlParams);
-            return MakeRequestAsync<Account>(HttpMethod.Delete, url, null, null, options, cancellationToken);
+            return MakeRequestAsync<Account>(HttpMethod.Delete, url, null, queryParams, options, cancellationToken);
         }
 
 
@@ -5651,12 +5653,12 @@ namespace Recurly
         /// <returns>
         /// A list of the entitlements granted to an account.
         /// </returns>
-        public Pager<Entitlements> ListEntitlements(string accountId, ListEntitlementsParams optionalParams = null, RequestOptions options = null)
+        public Pager<Entitlement> ListEntitlements(string accountId, ListEntitlementsParams optionalParams = null, RequestOptions options = null)
         {
             var urlParams = new Dictionary<string, object> { { "account_id", accountId } };
             var queryParams = (optionalParams ?? new ListEntitlementsParams()).ToDictionary();
             var url = this.InterpolatePath("/accounts/{account_id}/entitlements", urlParams);
-            return Pager<Entitlements>.Build(url, queryParams, options, this);
+            return Pager<Entitlement>.Build(url, queryParams, options, this);
         }
 
 
