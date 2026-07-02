@@ -78,7 +78,6 @@ namespace Recurly.Resources
         /// <value>
         /// Allows up to 9 decimal places. Optionally, override the add-on's default unit amount.
         /// If the plan add-on's `tier_type` is `tiered`, `volume`, or `stairstep`, then `unit_amount_decimal` cannot be provided.
-        /// Only supported when the plan add-on's `add_on_type` = `usage`.
         /// If `unit_amount_decimal` is provided, `unit_amount` cannot be provided.
         /// </value>
         [JsonProperty("unit_amount_decimal")]
