@@ -561,6 +561,9 @@ namespace Recurly
             [EnumMember(Value = "temporal")]
             Temporal,
 
+            [EnumMember(Value = "billing_periods")]
+            BillingPeriods,
+
         };
 
         public enum TemporalUnit
@@ -2522,6 +2525,24 @@ namespace Recurly
 
             [EnumMember(Value = "mercadopago")]
             Mercadopago,
+
+            [EnumMember(Value = "upi-autopay")]
+            UpiAutopay,
+
+        };
+
+        public enum UpiAutopayAuthenticationMethod
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "vpa")]
+            Vpa,
+
+            [EnumMember(Value = "qr-code")]
+            QrCode,
+
+            [EnumMember(Value = "app-deep-links")]
+            AppDeepLinks,
 
         };
 

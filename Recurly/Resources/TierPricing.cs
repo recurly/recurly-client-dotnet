@@ -24,7 +24,7 @@ namespace Recurly.Resources
         public decimal? UnitAmount { get; set; }
 
         /// <value>
-        /// Allows up to 9 decimal places. Only supported when `add_on_type` = `usage`.
+        /// Allows up to 9 decimal places.
         /// If `unit_amount_decimal` is provided, `unit_amount` cannot be provided.
         /// </value>
         [JsonProperty("unit_amount_decimal")]

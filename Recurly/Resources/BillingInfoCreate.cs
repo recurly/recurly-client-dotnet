@@ -36,6 +36,11 @@ namespace Recurly.Resources
         [JsonProperty("amazon_billing_agreement_id")]
         public string AmazonBillingAgreementId { get; set; }
 
+        /// <value>UPI Autopay authentication method. Specifies how the customer authorizes the enrollment mandate. Defaults to 'vpa' if omitted.</value>
+        [JsonProperty("authentication_method")]
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.UpiAutopayAuthenticationMethod? AuthenticationMethod { get; set; }
+
         /// <value>The `backup_payment_method` field is used to designate a billing info as a backup on the account that will be tried if the initial billing info used for an invoice is declined. All payment methods, including the billing info marked `primary_payment_method` can be set as a backup. An account can have a maximum of 1 backup, if a user sets a different payment method as a backup, the existing backup will no longer be marked as such.</value>
         [JsonProperty("backup_payment_method")]
         public bool? BackupPaymentMethod { get; set; }
@@ -166,7 +171,7 @@ namespace Recurly.Resources
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
         public Constants.GatewayTransactionType? TransactionType { get; set; }
 
-        /// <value>The payment method type for a non-credit card based billing info. `bacs`, `becs`, `pix-automatico`, `mercadopago` are the only accepted values.</value>
+        /// <value>The payment method type for a non-credit card based billing info. `bacs`, `becs`, `pix-automatico`, `mercadopago`, `upi-autopay` are the only accepted values.</value>
         [JsonProperty("type")]
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
         public Constants.AchType? Type { get; set; }

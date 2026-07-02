@@ -19,7 +19,11 @@ namespace Recurly.Resources
         [JsonProperty("expires_at")]
         public DateTime? ExpiresAt { get; set; }
 
-        /// <value>The coupon's duration type. `temporal` includes an `expires_at` timestamp. `forever` and `single_use` have no additional fields.</value>
+        /// <value>The number of redemption periods remaining for which this coupon will still apply.</value>
+        [JsonProperty("redemptions_remaining")]
+        public int? RedemptionsRemaining { get; set; }
+
+        /// <value>The coupon's duration type. `temporal` includes an `expires_at` timestamp. `billing_periods` includes a `redemptions_remaining` count of billing cycles. `forever` and `single_use` have no additional fields.</value>
         [JsonProperty("type")]
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
         public Constants.CouponDuration? Type { get; set; }
