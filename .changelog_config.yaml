@@ -1,7 +1,7 @@
 ---
 owner: recurly
 repo: recurly-client-dotnet
-tag_matcher: ^6\..*
+tag_matcher: ^7\..*
 required_issue_labels:
   - V7
 exclude_labels:

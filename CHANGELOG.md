@@ -2,25 +2,14 @@
 
 ## [7.0.0](https://github.com/recurly/recurly-client-dotnet/tree/7.0.0) (2026-09-02)
 
-[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/6.1.0...7.0.0)
 
+# Major Version Release
 
-**Merged Pull Requests**
+The 7.x major version of the client pairs with the `v2021-02-25` API version. While there are no breaking changes in the API, the client code does include breaking changes.
 
-- Generated Latest Changes for v2021-02-25 [#914](https://github.com/recurly/recurly-client-dotnet/pull/914) ([recurly-integrations](https://github.com/recurly-integrations))
+## Breaking Changes in the Client
 
-
-
-## [6.1.0](https://github.com/recurly/recurly-client-dotnet/tree/6.1.0) (2026-07-02)
-
-[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/6.0.0...6.1.0)
-
-
-
-
-
-## [6.0.0](https://github.com/recurly/recurly-client-dotnet/tree/6.0.0) (2026-06-22)
-
+- The data type for the `Recurly.Resources.Transaction` `GatewayResponseValues` property has been changed from `Dictionary<string, string>` to `Dictionary<string, object>` to properly handle non-string values
 
 
 
