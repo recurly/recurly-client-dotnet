@@ -3,7 +3,7 @@ owner: recurly
 repo: recurly-client-dotnet
 tag_matcher: ^6\..*
 required_issue_labels:
-  - V6
+  - V7
 exclude_labels:
   - bug?
   - internal
