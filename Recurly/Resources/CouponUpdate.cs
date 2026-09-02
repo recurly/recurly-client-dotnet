@@ -35,9 +35,18 @@ namespace Recurly.Resources
         [JsonProperty("name")]
         public string Name { get; set; }
 
-        /// <value>The date and time the coupon will expire and can no longer be redeemed. Time is always 11:59:59, the end-of-day Pacific time.</value>
+        /// <value>The date and time the coupon will expire and can no longer be redeemed. Time is always 11:59:59, the end-of-day Pacific time. Mutually exclusive with redeem_by_interval_unit/redeem_by_interval_amount.</value>
         [JsonProperty("redeem_by_date")]
         public string RedeemByDate { get; set; }
+
+        /// <value>Quantity of redeem_by_interval_unit. Must be paired with redeem_by_interval_unit.</value>
+        [JsonProperty("redeem_by_interval_amount")]
+        public int? RedeemByIntervalAmount { get; set; }
+
+        /// <value>Unit of the relative redemption window. Must be paired with redeem_by_interval_amount. Mutually exclusive with redeem_by_date. Bulk coupons only.</value>
+        [JsonProperty("redeem_by_interval_unit")]
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.CouponRedeemByIntervalUnit? RedeemByIntervalUnit { get; set; }
 
     }
 }

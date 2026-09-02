@@ -179,6 +179,35 @@ info:
     header contains an integer value representing the time, measured in
     seconds since the UNIX Epoch, at which the request count will be reset.
 
+    ## Idempotent Requests
+
+    Recurly supports idempotent requests via the `Idempotency-Key` header for
+    `POST`, `PUT`, `PATCH`, and `DELETE` requests. This allows API clients to
+    safely retry these requests without risk of duplicate operations.
+
+    When you send a request with an `Idempotency-Key` header, Recurly stores the
+    response for **1 hour**. If you send an identical request (same key, method,
+    path, and API key) within that window, Recurly replays the original response
+    rather than processing a new one. The replay response includes an
+    `Idempotency-Prior: true` header.
+
+    If a request with the same key is **already in flight** when a second arrives,
+    the server returns `409 Conflict` with `Recurly-Should-Retry: true` and a
+    `Retry-After` header indicating how long to wait in seconds before retrying.
+
+    > **Note:** `429 Too Many Requests` responses are intentionally **not** cached.
+    > You may retry freely once your rate limit resets without risk of unintended
+    > replay behavior.
+
+    Keys must be **255 characters or fewer**. Keys exceeding this limit will
+    receive a `400 Bad Request` response. We recommend using a UUID v4 as your
+    key to guarantee uniqueness.
+
+    > **SDK support:** Native `Idempotency-Key` management (automatic key
+    > generation, retry handling, and replay detection) is currently supported only
+    > in the **Ruby SDK**. When using other SDKs or raw HTTP clients, you must
+    > supply and manage the `Idempotency-Key` header yourself.
+
     ## Change Log
 
     A list of changes for this version can be found [in the changelog](https://recurly.com/developers/api/changelog.html#v2021-02-25---current-ga-version).
@@ -18737,6 +18766,14 @@ components:
             at the root level and must not be included in individual line items.
           items:
             "$ref": "#/components/schemas/RecoveryLineItemCreate"
+        transaction_descriptor_suffix:
+          type: string
+          title: Transaction Descriptor Suffix
+          maxLength: 255
+          description: Optionally overrides the suffix component of the composed transaction
+            descriptor. If omitted, the suffix is derived from the subscription's
+            plan name or the invoice description, with a Trial prefix on Visa trial
+            conversions. Subject to gateway availability and payment method support.
       required:
       - currency
       - due_at
@@ -18807,13 +18844,14 @@ components:
           type: array
           title: Transactions
           description: Transactions from previous collection attempts for this payment
-            method.
+            method. Optional, unless this billing_info is the primary payment method
+            and the account's dunning campaign skips Recurly's own retry attempts
+            entirely -- in that case at least one entry is required.
           items:
             "$ref": "#/components/schemas/RecoveryTransactionCreate"
       required:
       - gateway_code
       - payment_gateway_references
-      - transactions
     RecoveryAccountCreate:
       type: object
       properties:
@@ -20062,8 +20100,24 @@ components:
           type: string
           title: Redeem by
           description: The date and time the coupon will expire and can no longer
-            be redeemed. Time is always 11:59:59, the end-of-day Pacific time.
+            be redeemed. Time is always 11:59:59, the end-of-day Pacific time. Null
+            for bulk coupons configured with a relative redeem-by interval (see redeem_by_interval_unit
+            and redeem_by_interval_amount).
           format: date-time
+        redeem_by_interval_unit:
+          title: Redeem by interval unit
+          description: For a bulk coupon with a relative redeem-by, the unit of the
+            interval after which each generated unique code expires. Null unless the
+            coupon uses a relative redeem-by.
+          readOnly: true
+          "$ref": "#/components/schemas/CouponRedeemByIntervalUnitEnum"
+        redeem_by_interval_amount:
+          type: integer
+          title: Redeem by interval amount
+          description: For a bulk coupon with a relative redeem-by, the number of
+            redeem_by_interval_unit intervals after a code's generation that it remains
+            redeemable. Null unless the coupon uses a relative redeem-by.
+          readOnly: true
         created_at:
           type: string
           title: Created at
@@ -20494,7 +20548,19 @@ components:
           type: string
           title: Redeem by
           description: The date and time the coupon will expire and can no longer
-            be redeemed. Time is always 11:59:59, the end-of-day Pacific time.
+            be redeemed. Time is always 11:59:59, the end-of-day Pacific time. Mutually
+            exclusive with redeem_by_interval_unit/redeem_by_interval_amount.
+        redeem_by_interval_unit:
+          title: Redeem by interval unit
+          description: Unit of the relative redemption window. Must be paired with
+            redeem_by_interval_amount. Mutually exclusive with redeem_by_date. Bulk
+            coupons only.
+          "$ref": "#/components/schemas/CouponRedeemByIntervalUnitEnum"
+        redeem_by_interval_amount:
+          type: integer
+          title: Redeem by interval amount
+          description: Quantity of redeem_by_interval_unit. Must be paired with redeem_by_interval_unit.
+          minimum: 1
     CreditPayment:
       type: object
       properties:
@@ -21585,6 +21651,14 @@ components:
             with the original subscription.
         vertex_transaction_type:
           "$ref": "#/components/schemas/VertexTransactionTypeEnum"
+        transaction_descriptor_suffix:
+          type: string
+          title: Transaction Descriptor Suffix
+          maxLength: 255
+          description: Optionally overrides the suffix component of the composed transaction
+            descriptor. If omitted, the suffix is derived from the subscription's
+            plan name or the invoice description, with a Trial prefix on Visa trial
+            conversions. Subject to gateway availability and payment method support.
       required:
       - currency
     InvoiceCollect:
@@ -24708,6 +24782,14 @@ components:
           default: false
         proration_settings:
           "$ref": "#/components/schemas/SubscriptionCreateProrationSettings"
+        transaction_descriptor_suffix:
+          type: string
+          title: Transaction Descriptor Suffix
+          maxLength: 255
+          description: Optionally overrides the suffix component of the composed transaction
+            descriptor. If omitted, the suffix is derived from the subscription's
+            plan name or the invoice description, with a Trial prefix on Visa trial
+            conversions. Subject to gateway availability and payment method support.
       required:
       - plan_code
       - currency
@@ -24927,6 +25009,14 @@ components:
             billing info to the subscription, all future billing events for the subscription
             will bill to the specified billing info. `billing_info_id` can ONLY be
             used for sites utilizing the Wallet feature.
+        transaction_descriptor_suffix:
+          type: string
+          title: Transaction Descriptor Suffix
+          maxLength: 255
+          description: Optionally overrides the suffix component of the composed transaction
+            descriptor. If omitted, the suffix is derived from the subscription's
+            plan name or the invoice description, with a Trial prefix on Visa trial
+            conversions. Subject to gateway availability and payment method support.
     SubscriptionPause:
       type: object
       properties:
@@ -25244,6 +25334,12 @@ components:
           "$ref": "#/components/schemas/CollectionMethodEnum"
         payment_method:
           "$ref": "#/components/schemas/PaymentMethod"
+        payment_gateway_references:
+          type: array
+          description: Array of Payment Gateway References captured at transaction
+            time, each a reference to a third-party gateway object of varying types.
+          items:
+            "$ref": "#/components/schemas/PaymentGatewayReferences"
         ip_address_v4:
           type: string
           title: IP address
@@ -25480,6 +25576,15 @@ components:
           description: The date and time the coupon was expired early or reached its
             `max_redemptions`.
           format: date-time
+        redeem_by_date:
+          type: string
+          title: Redeem by
+          description: Absolute expiry computed and stored at code-generation time.
+            Set only for Window (relative redeem-by) coupons. Null for Anytime coupons
+            and Specific Date coupons — those resolve expiry from the parent coupon's
+            redeem_by at redemption time, not at code-generation time.
+          format: date-time
+          readOnly: true
     UniqueCouponCodeList:
       type: object
       properties:
@@ -25786,6 +25891,15 @@ components:
                   including both gateway-level fraud checks and Recurly's fraud detection
                   services. This is useful for trusted transactions where fraud screening
                   is not required.
+              descriptor_suffix:
+                type: string
+                title: Transaction Descriptor Suffix
+                maxLength: 255
+                description: Optionally overrides the suffix component of the composed
+                  transaction descriptor. If omitted, the suffix is derived from the
+                  subscription's plan name or the invoice description, with a Trial
+                  prefix on Visa trial conversions. Subject to gateway availability
+                  and payment method support.
         customer_notes:
           type: string
           title: Customer notes
@@ -27955,6 +28069,15 @@ components:
       enum:
       - days
       - months
+    CouponRedeemByIntervalUnitEnum:
+      type: string
+      title: Redeem by interval unit
+      description: Unit of the relative redemption window. Bulk coupons only.
+      enum:
+      - day
+      - week
+      - month
+      - year
     AddressRequirementEnum:
       type: string
       enum:
@@ -28120,6 +28243,7 @@ components:
       - mercadopago
       - klarna
       - braintree_google_pay
+      - stripe_link
     CardTypeEnum:
       type: string
       enum:

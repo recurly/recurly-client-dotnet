@@ -100,7 +100,7 @@ namespace Recurly.Resources
 
         /// <value>The values in this field will vary from gateway to gateway.</value>
         [JsonProperty("gateway_response_values")]
-        public Dictionary<string, string> GatewayResponseValues { get; set; }
+        public Dictionary<string, object> GatewayResponseValues { get; set; }
 
         /// <value>Transaction ID</value>
         [JsonProperty("id")]
@@ -164,6 +164,10 @@ namespace Recurly.Resources
 
         [JsonProperty("payment_gateway")]
         public TransactionPaymentGateway PaymentGateway { get; set; }
+
+        /// <value>Array of Payment Gateway References captured at transaction time, each a reference to a third-party gateway object of varying types.</value>
+        [JsonProperty("payment_gateway_references")]
+        public List<PaymentGatewayReferences> PaymentGatewayReferences { get; set; }
 
 
         [JsonProperty("payment_method")]

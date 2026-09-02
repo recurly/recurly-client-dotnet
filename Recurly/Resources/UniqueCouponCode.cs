@@ -43,6 +43,10 @@ namespace Recurly.Resources
         [JsonProperty("object")]
         public string Object { get; set; }
 
+        /// <value>Absolute expiry computed and stored at code-generation time. Set only for Window (relative redeem-by) coupons. Null for Anytime coupons and Specific Date coupons — those resolve expiry from the parent coupon's redeem_by at redemption time, not at code-generation time.</value>
+        [JsonProperty("redeem_by_date")]
+        public DateTime? RedeemByDate { get; set; }
+
         /// <value>The date and time the unique coupon code was redeemed.</value>
         [JsonProperty("redeemed_at")]
         public DateTime? RedeemedAt { get; set; }
