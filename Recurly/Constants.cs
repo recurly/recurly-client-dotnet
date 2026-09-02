@@ -1241,6 +1241,24 @@ namespace Recurly
 
         };
 
+        public enum CouponRedeemByIntervalUnit
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "day")]
+            Day,
+
+            [EnumMember(Value = "week")]
+            Week,
+
+            [EnumMember(Value = "month")]
+            Month,
+
+            [EnumMember(Value = "year")]
+            Year,
+
+        };
+
         public enum AddressRequirement
         {
             Undefined = 0,
@@ -1688,6 +1706,9 @@ namespace Recurly
 
             [EnumMember(Value = "braintree_google_pay")]
             BraintreeGooglePay,
+
+            [EnumMember(Value = "stripe_link")]
+            StripeLink,
 
         };
 

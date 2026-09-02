@@ -110,9 +110,18 @@ namespace Recurly.Resources
         [JsonProperty("plans")]
         public List<PlanMini> Plans { get; set; }
 
-        /// <value>The date and time the coupon will expire and can no longer be redeemed. Time is always 11:59:59, the end-of-day Pacific time.</value>
+        /// <value>The date and time the coupon will expire and can no longer be redeemed. Time is always 11:59:59, the end-of-day Pacific time. Null for bulk coupons configured with a relative redeem-by interval (see redeem_by_interval_unit and redeem_by_interval_amount).</value>
         [JsonProperty("redeem_by")]
         public DateTime? RedeemBy { get; set; }
+
+        /// <value>For a bulk coupon with a relative redeem-by, the number of redeem_by_interval_unit intervals after a code's generation that it remains redeemable. Null unless the coupon uses a relative redeem-by.</value>
+        [JsonProperty("redeem_by_interval_amount")]
+        public int? RedeemByIntervalAmount { get; set; }
+
+        /// <value>For a bulk coupon with a relative redeem-by, the unit of the interval after which each generated unique code expires. Null unless the coupon uses a relative redeem-by.</value>
+        [JsonProperty("redeem_by_interval_unit")]
+        [JsonConverter(typeof(RecurlyStringEnumConverter))]
+        public Constants.CouponRedeemByIntervalUnit? RedeemByIntervalUnit { get; set; }
 
         /// <value>Whether the discount is for all eligible charges on the account, or only a specific subscription.</value>
         [JsonProperty("redemption_resource")]

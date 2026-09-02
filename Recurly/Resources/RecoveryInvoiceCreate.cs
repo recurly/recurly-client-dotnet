@@ -39,5 +39,9 @@ namespace Recurly.Resources
         [JsonProperty("po_number")]
         public string PoNumber { get; set; }
 
+        /// <value>Optionally overrides the suffix component of the composed transaction descriptor. If omitted, the suffix is derived from the subscription's plan name or the invoice description, with a Trial prefix on Visa trial conversions. Subject to gateway availability and payment method support.</value>
+        [JsonProperty("transaction_descriptor_suffix")]
+        public string TransactionDescriptorSuffix { get; set; }
+
     }
 }

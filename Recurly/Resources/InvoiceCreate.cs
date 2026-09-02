@@ -86,6 +86,10 @@ namespace Recurly.Resources
         [JsonProperty("terms_and_conditions")]
         public string TermsAndConditions { get; set; }
 
+        /// <value>Optionally overrides the suffix component of the composed transaction descriptor. If omitted, the suffix is derived from the subscription's plan name or the invoice description, with a Trial prefix on Visa trial conversions. Subject to gateway availability and payment method support.</value>
+        [JsonProperty("transaction_descriptor_suffix")]
+        public string TransactionDescriptorSuffix { get; set; }
+
         /// <value>VAT Reverse Charge Notes only appear if you have EU VAT enabled or are using your own Avalara AvaTax account and the customer is in the EU, has a VAT number, and is in a different country than your own. This will default to the VAT Reverse Charge Notes text specified on the Tax Settings page in your Recurly admin, unless custom notes were created with the original subscription.</value>
         [JsonProperty("vat_reverse_charge_notes")]
         public string VatReverseChargeNotes { get; set; }

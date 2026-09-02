@@ -62,7 +62,7 @@ namespace Recurly.Resources
         [JsonProperty("primary_payment_method")]
         public bool? PrimaryPaymentMethod { get; set; }
 
-        /// <value>Transactions from previous collection attempts for this payment method.</value>
+        /// <value>Transactions from previous collection attempts for this payment method. Optional, unless this billing_info is the primary payment method and the account's dunning campaign skips Recurly's own retry attempts entirely -- in that case at least one entry is required.</value>
         [JsonProperty("transactions")]
         public List<RecoveryTransactionCreate> Transactions { get; set; }
 
