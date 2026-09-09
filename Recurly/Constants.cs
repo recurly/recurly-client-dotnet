@@ -14,6 +14,27 @@ namespace Recurly
     namespace Constants
     {
 
+        public enum RecoveryPaymentMethod
+        {
+            Undefined = 0,
+
+            [EnumMember(Value = "credit_card")]
+            CreditCard,
+
+            [EnumMember(Value = "apple_pay")]
+            ApplePay,
+
+            [EnumMember(Value = "google_pay")]
+            GooglePay,
+
+            [EnumMember(Value = "google_pay_device_pan")]
+            GooglePayDevicePan,
+
+            [EnumMember(Value = "paypal_billing_agreement")]
+            PaypalBillingAgreement,
+
+        };
+
         public enum ProrationSettingsCharge
         {
             Undefined = 0,
