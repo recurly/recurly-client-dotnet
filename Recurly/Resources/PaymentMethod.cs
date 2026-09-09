@@ -46,7 +46,13 @@ namespace Recurly.Resources
         [JsonProperty("exp_year")]
         public int? ExpYear { get; set; }
 
-        /// <value>Credit card number's first six digits.</value>
+        /// <value>
+        /// Credit card number's first six digits.
+        /// 
+        /// For a tokenized wallet payment (`apple_pay`, `google_pay`, or
+        /// `google_pay_device_pan`), this is the DPAN's (the wallet/device token's own
+        /// number) first six digits, not the underlying card's (FPAN).
+        /// </value>
         [JsonProperty("first_six")]
         public string FirstSix { get; set; }
 
@@ -67,7 +73,14 @@ namespace Recurly.Resources
         [JsonProperty("gateway_token")]
         public string GatewayToken { get; set; }
 
-        /// <value>Credit card number's last four digits. Will refer to bank account if payment method is ACH.</value>
+        /// <value>
+        /// Credit card number's last four digits. Will refer to bank account if payment
+        /// method is ACH.
+        /// 
+        /// For a tokenized wallet payment (`apple_pay`, `google_pay`, or
+        /// `google_pay_device_pan`), this is the DPAN's last four digits, not the
+        /// underlying card's (FPAN).
+        /// </value>
         [JsonProperty("last_four")]
         public string LastFour { get; set; }
 

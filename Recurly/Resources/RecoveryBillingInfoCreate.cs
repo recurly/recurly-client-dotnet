@@ -58,6 +58,10 @@ namespace Recurly.Resources
         [JsonProperty("payment_gateway_references")]
         public List<PaymentGatewayReferences> PaymentGatewayReferences { get; set; }
 
+        /// <value>Merchant-supplied fallback payment method metadata. Recurly's own gateway-token lookup is authoritative and will override any of these fields it can determine itself; these fields are only used to fill gaps when that lookup is unavailable.</value>
+        [JsonProperty("payment_method")]
+        public RecoveryPaymentMethodCreate PaymentMethod { get; set; }
+
         /// <value>The `primary_payment_method` field is used to designate the primary billing info on the account. An account can have a maximum of 1 primary. If a user sets a different payment method as a primary, then the existing primary will no longer be marked as such.</value>
         [JsonProperty("primary_payment_method")]
         public bool? PrimaryPaymentMethod { get; set; }
