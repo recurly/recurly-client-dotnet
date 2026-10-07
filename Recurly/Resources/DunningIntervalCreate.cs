@@ -12,18 +12,14 @@ using Newtonsoft.Json;
 namespace Recurly.Resources
 {
     [ExcludeFromCodeCoverage]
-    public class DunningInterval : Resource
+    public class DunningIntervalCreate : Request
     {
 
         /// <value>Number of days before sending the next email.</value>
         [JsonProperty("days")]
         public int? Days { get; set; }
 
-        /// <value>Email template being used.</value>
-        [JsonProperty("email_template")]
-        public string EmailTemplate { get; set; }
-
-        /// <value>The id of the custom email template assigned to this interval, from `GET /dunning_campaigns/email_templates`. `null` means the system default template for this interval. Accepted on write; round-tripped on read.</value>
+        /// <value>The id of the custom email template to assign to this interval, from `GET /dunning_campaigns/email_templates`. `null` uses the system default template for this interval.</value>
         [JsonProperty("email_template_id")]
         public string EmailTemplateId { get; set; }
 
