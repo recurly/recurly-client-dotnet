@@ -3493,6 +3493,26 @@ namespace Recurly
 
 
         /// <summary>
+        /// Create a new dunning campaign <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_dunning_campaign">create_dunning_campaign api documentation</see>
+        /// </summary>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// A new dunning campaign.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        DunningCampaign CreateDunningCampaign(DunningCampaignCreate body, RequestOptions options = null);
+
+        /// <summary>
+        /// Create a new dunning campaign <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_dunning_campaign">create_dunning_campaign api documentation</see>
+        /// </summary>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// A new dunning campaign.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<DunningCampaign> CreateDunningCampaignAsync(DunningCampaignCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
         /// Fetch a dunning campaign <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_dunning_campaign">get_dunning_campaign api documentation</see>
         /// </summary>
         /// <param name="dunningCampaignId">Dunning Campaign ID, e.g. `e28zov4fw0v2`.</param>
@@ -3511,6 +3531,57 @@ namespace Recurly
         /// </returns>
         /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
         Task<DunningCampaign> GetDunningCampaignAsync(string dunningCampaignId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// Update a dunning campaign <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_dunning_campaign">update_dunning_campaign api documentation</see>
+        /// </summary>
+        /// <param name="dunningCampaignId">Dunning Campaign ID, e.g. `e28zov4fw0v2`.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// The updated dunning campaign.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        DunningCampaign UpdateDunningCampaign(string dunningCampaignId, DunningCampaignUpdate body, RequestOptions options = null);
+
+        /// <summary>
+        /// Update a dunning campaign <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_dunning_campaign">update_dunning_campaign api documentation</see>
+        /// </summary>
+        /// <param name="dunningCampaignId">Dunning Campaign ID, e.g. `e28zov4fw0v2`.</param>
+        /// <param name="body">The body of the request.</param>
+        /// <returns>
+        /// The updated dunning campaign.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<DunningCampaign> UpdateDunningCampaignAsync(string dunningCampaignId, DunningCampaignUpdate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// Deactivate a dunning campaign <see href="https://developers.recurly.com/api/v2021-02-25#operation/deactivate_dunning_campaign">deactivate_dunning_campaign api documentation</see>
+        /// </summary>
+        /// <param name="dunningCampaignId">Dunning Campaign ID, e.g. `e28zov4fw0v2`.</param>
+        /// <returns>
+        /// The deactivated dunning campaign.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        DunningCampaign DeactivateDunningCampaign(string dunningCampaignId, RequestOptions options = null);
+
+        /// <summary>
+        /// Deactivate a dunning campaign <see href="https://developers.recurly.com/api/v2021-02-25#operation/deactivate_dunning_campaign">deactivate_dunning_campaign api documentation</see>
+        /// </summary>
+        /// <param name="dunningCampaignId">Dunning Campaign ID, e.g. `e28zov4fw0v2`.</param>
+        /// <returns>
+        /// The deactivated dunning campaign.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        Task<DunningCampaign> DeactivateDunningCampaignAsync(string dunningCampaignId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null);
+
+        /// <summary>
+        /// List the custom email templates assignable to a dunning campaign interval <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_dunning_campaign_email_templates">list_dunning_campaign_email_templates api documentation</see>
+        /// </summary>
+        /// <returns>
+        /// A list of the site's assignable custom email templates.
+        /// </returns>
+        Pager<DunningCampaignEmailTemplate> ListDunningCampaignEmailTemplates(RequestOptions options = null);
+
 
         /// <summary>
         /// Assign a dunning campaign to multiple plans <see href="https://developers.recurly.com/api/v2021-02-25#operation/put_dunning_campaign_bulk_update">put_dunning_campaign_bulk_update api documentation</see>

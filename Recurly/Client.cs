@@ -5420,6 +5420,40 @@ namespace Recurly
 
 
         /// <summary>
+        /// Create a new dunning campaign <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_dunning_campaign">create_dunning_campaign api documentation</see>
+        /// </summary>
+        /// <param name="CreateDunningCampaignParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// A new dunning campaign.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public DunningCampaign CreateDunningCampaign(DunningCampaignCreate body, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var url = this.InterpolatePath("/dunning_campaigns", urlParams);
+            return MakeRequest<DunningCampaign>(HttpMethod.Post, url, body, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Create a new dunning campaign <see href="https://developers.recurly.com/api/v2021-02-25#operation/create_dunning_campaign">create_dunning_campaign api documentation</see>
+        /// </summary>
+        /// <param name="CreateDunningCampaignParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// A new dunning campaign.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<DunningCampaign> CreateDunningCampaignAsync(DunningCampaignCreate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var url = this.InterpolatePath("/dunning_campaigns", urlParams);
+            return MakeRequestAsync<DunningCampaign>(HttpMethod.Post, url, body, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
         /// Fetch a dunning campaign <see href="https://developers.recurly.com/api/v2021-02-25#operation/get_dunning_campaign">get_dunning_campaign api documentation</see>
         /// </summary>
         /// <param name="GetDunningCampaignParams">Optional Parameters for the request</param>
@@ -5450,6 +5484,92 @@ namespace Recurly
             var url = this.InterpolatePath("/dunning_campaigns/{dunning_campaign_id}", urlParams);
             return MakeRequestAsync<DunningCampaign>(HttpMethod.Get, url, null, null, options, cancellationToken);
         }
+
+
+
+        /// <summary>
+        /// Update a dunning campaign <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_dunning_campaign">update_dunning_campaign api documentation</see>
+        /// </summary>
+        /// <param name="UpdateDunningCampaignParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// The updated dunning campaign.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public DunningCampaign UpdateDunningCampaign(string dunningCampaignId, DunningCampaignUpdate body, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "dunning_campaign_id", dunningCampaignId } };
+            var url = this.InterpolatePath("/dunning_campaigns/{dunning_campaign_id}", urlParams);
+            return MakeRequest<DunningCampaign>(HttpMethod.Put, url, body, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Update a dunning campaign <see href="https://developers.recurly.com/api/v2021-02-25#operation/update_dunning_campaign">update_dunning_campaign api documentation</see>
+        /// </summary>
+        /// <param name="UpdateDunningCampaignParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// The updated dunning campaign.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<DunningCampaign> UpdateDunningCampaignAsync(string dunningCampaignId, DunningCampaignUpdate body, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "dunning_campaign_id", dunningCampaignId } };
+            var url = this.InterpolatePath("/dunning_campaigns/{dunning_campaign_id}", urlParams);
+            return MakeRequestAsync<DunningCampaign>(HttpMethod.Put, url, body, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// Deactivate a dunning campaign <see href="https://developers.recurly.com/api/v2021-02-25#operation/deactivate_dunning_campaign">deactivate_dunning_campaign api documentation</see>
+        /// </summary>
+        /// <param name="DeactivateDunningCampaignParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// The deactivated dunning campaign.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public DunningCampaign DeactivateDunningCampaign(string dunningCampaignId, RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "dunning_campaign_id", dunningCampaignId } };
+            var url = this.InterpolatePath("/dunning_campaigns/{dunning_campaign_id}", urlParams);
+            return MakeRequest<DunningCampaign>(HttpMethod.Delete, url, null, null, options);
+        }
+
+
+
+        /// <summary>
+        /// Deactivate a dunning campaign <see href="https://developers.recurly.com/api/v2021-02-25#operation/deactivate_dunning_campaign">deactivate_dunning_campaign api documentation</see>
+        /// </summary>
+        /// <param name="DeactivateDunningCampaignParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// The deactivated dunning campaign.
+        /// </returns>
+        /// <exception cref="Recurly.Errors.ApiError">Thrown when the request is invalid.</exception>
+        public Task<DunningCampaign> DeactivateDunningCampaignAsync(string dunningCampaignId, CancellationToken cancellationToken = default(CancellationToken), RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { { "dunning_campaign_id", dunningCampaignId } };
+            var url = this.InterpolatePath("/dunning_campaigns/{dunning_campaign_id}", urlParams);
+            return MakeRequestAsync<DunningCampaign>(HttpMethod.Delete, url, null, null, options, cancellationToken);
+        }
+
+
+
+        /// <summary>
+        /// List the custom email templates assignable to a dunning campaign interval <see href="https://developers.recurly.com/api/v2021-02-25#operation/list_dunning_campaign_email_templates">list_dunning_campaign_email_templates api documentation</see>
+        /// </summary>
+        /// <param name="ListDunningCampaignEmailTemplatesParams">Optional Parameters for the request</param>
+        /// <returns>
+        /// A list of the site's assignable custom email templates.
+        /// </returns>
+        public Pager<DunningCampaignEmailTemplate> ListDunningCampaignEmailTemplates(RequestOptions options = null)
+        {
+            var urlParams = new Dictionary<string, object> { };
+            var url = this.InterpolatePath("/dunning_campaigns/email_templates", urlParams);
+            return Pager<DunningCampaignEmailTemplate>.Build(url, null, options, this);
+        }
+
+
 
 
 
