@@ -1,5 +1,16 @@
 # Changelog
 
+## [7.3.0](https://github.com/recurly/recurly-client-dotnet/tree/7.3.0) (2026-10-08)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/7.2.0...7.3.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 [#918](https://github.com/recurly/recurly-client-dotnet/pull/918) ([recurly-integrations](https://github.com/recurly-integrations))
+
+
+
 ## [7.2.0](https://github.com/recurly/recurly-client-dotnet/tree/7.2.0) (2026-09-18)
 
 [Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/7.1.0...7.2.0)
