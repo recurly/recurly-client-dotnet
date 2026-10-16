@@ -40,6 +40,10 @@ namespace Recurly.Resources
         [JsonProperty("custom_fields")]
         public List<CustomField> CustomFields { get; set; }
 
+        /// <value>Specify custom notes to add or override Customer Notes. Custom notes will stay with a subscription on all renewals.</value>
+        [JsonProperty("customer_notes")]
+        public string CustomerNotes { get; set; }
+
         /// <value>If present, this sets the date the subscription's next billing period will start (`current_period_ends_at`). This can be used to align the subscription’s billing to a specific day of the month. The initial invoice will be prorated for the period between the subscription's activation date and the billing period end date. Subsequent periods will be based off the plan interval. For a subscription with a trial period, this will change when the trial expires.</value>
         [JsonProperty("next_bill_date")]
         public DateTime? NextBillDate { get; set; }
@@ -89,6 +93,10 @@ namespace Recurly.Resources
         [JsonProperty("tax_inclusive")]
         public bool? TaxInclusive { get; set; }
 
+        /// <value>Specify custom notes to add or override Terms and Conditions. Custom notes will stay with a subscription on all renewals.</value>
+        [JsonProperty("terms_and_conditions")]
+        public string TermsAndConditions { get; set; }
+
         /// <value>The number of cycles/billing periods in a term. When `remaining_billing_cycles=0`, if `auto_renew=true` the subscription will renew and a new term will begin, otherwise the subscription will expire.</value>
         [JsonProperty("total_billing_cycles")]
         public int? TotalBillingCycles { get; set; }
@@ -100,6 +108,10 @@ namespace Recurly.Resources
         /// <value>Override the unit amount of the subscription plan by setting this value. If not provided, the subscription will inherit the price from the subscription plan for the provided currency.</value>
         [JsonProperty("unit_amount")]
         public decimal? UnitAmount { get; set; }
+
+        /// <value>Specify custom notes to add or override VAT reverse charge notes. Custom notes will stay with a subscription on all renewals.</value>
+        [JsonProperty("vat_reverse_charge_notes")]
+        public string VatReverseChargeNotes { get; set; }
 
     }
 }

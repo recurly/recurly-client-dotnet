@@ -51,6 +51,10 @@ namespace Recurly.Resources
         [JsonProperty("external_payment_phases")]
         public List<ExternalPaymentPhase> ExternalPaymentPhases { get; set; }
 
+        /// <value>Just the important parts.</value>
+        [JsonProperty("external_product")]
+        public ExternalProductMini ExternalProduct { get; set; }
+
         /// <value>External Product Reference details</value>
         [JsonProperty("external_product_reference")]
         public ExternalProductReferenceMini ExternalProductReference { get; set; }
@@ -74,6 +78,10 @@ namespace Recurly.Resources
         /// <value>Object type</value>
         [JsonProperty("object")]
         public string Object { get; set; }
+
+        /// <value>Just the important parts.</value>
+        [JsonProperty("plan")]
+        public PlanMini Plan { get; set; }
 
         /// <value>An indication of the quantity of a subscribed item's quantity.</value>
         [JsonProperty("quantity")]
