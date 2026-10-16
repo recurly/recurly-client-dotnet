@@ -192,5 +192,9 @@ namespace Recurly.Resources
         [JsonProperty("unit_amount")]
         public decimal? UnitAmount { get; set; }
 
+        /// <value>This will default to the VAT reverse charge notes text specified on the Invoice Settings. Specify custom notes to add or override VAT reverse charge notes. Custom notes will stay with a subscription on all renewals.</value>
+        [JsonProperty("vat_reverse_charge_notes")]
+        public string VatReverseChargeNotes { get; set; }
+
     }
 }

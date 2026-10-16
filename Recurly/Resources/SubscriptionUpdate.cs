@@ -119,5 +119,9 @@ namespace Recurly.Resources
         [JsonProperty("transaction_descriptor_suffix")]
         public string TransactionDescriptorSuffix { get; set; }
 
+        /// <value>Specify custom notes to add or override VAT reverse charge notes. Custom notes will stay with a subscription on all renewals.</value>
+        [JsonProperty("vat_reverse_charge_notes")]
+        public string VatReverseChargeNotes { get; set; }
+
     }
 }
