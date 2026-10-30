@@ -1,7 +1,70 @@
 # Changelog
 
+## [7.5.0](https://github.com/recurly/recurly-client-dotnet/tree/7.5.0) (2026-10-30)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/7.4.0...7.5.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 [#920](https://github.com/recurly/recurly-client-dotnet/pull/920) ([recurly-integrations](https://github.com/recurly-integrations))
+
+
+
 ## [7.4.0](https://github.com/recurly/recurly-client-dotnet/tree/7.4.0) (2026-10-22)
 
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/7.3.0...7.4.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 [#919](https://github.com/recurly/recurly-client-dotnet/pull/919) ([recurly-integrations](https://github.com/recurly-integrations))
+
+
+
+## [7.3.0](https://github.com/recurly/recurly-client-dotnet/tree/7.3.0) (2026-10-08)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/7.2.0...7.3.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 [#918](https://github.com/recurly/recurly-client-dotnet/pull/918) ([recurly-integrations](https://github.com/recurly-integrations))
+
+
+
+## [7.2.0](https://github.com/recurly/recurly-client-dotnet/tree/7.2.0) (2026-09-18)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/7.1.0...7.2.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 [#917](https://github.com/recurly/recurly-client-dotnet/pull/917) ([recurly-integrations](https://github.com/recurly-integrations))
+
+
+
+## [7.1.0](https://github.com/recurly/recurly-client-dotnet/tree/7.1.0) (2026-09-09)
+
+[Full Changelog](https://github.com/recurly/recurly-client-dotnet/compare/7.0.0...7.1.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 [#915](https://github.com/recurly/recurly-client-dotnet/pull/915) ([recurly-integrations](https://github.com/recurly-integrations))
+
+
+
+## [7.0.0](https://github.com/recurly/recurly-client-dotnet/tree/7.0.0) (2026-09-02)
+
+
+# Major Version Release
+
+The 7.x major version of the client pairs with the `v2021-02-25` API version. While there are no breaking changes in the API, the client code does include breaking changes.
+
+## Breaking Changes in the Client
+
+- The data type for the `Recurly.Resources.Transaction` `GatewayResponseValues` property has been changed from `Dictionary<string, string>` to `Dictionary<string, object>` to properly handle non-string values
 
 
 
