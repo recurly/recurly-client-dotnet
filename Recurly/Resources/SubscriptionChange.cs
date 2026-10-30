@@ -67,6 +67,10 @@ namespace Recurly.Resources
         [JsonProperty("plan")]
         public PlanMini Plan { get; set; }
 
+        /// <value>The price segment ID, e.g. `e28zov4fw0v2`.</value>
+        [JsonProperty("price_segment_id")]
+        public string PriceSegmentId { get; set; }
+
         /// <value>Subscription quantity</value>
         [JsonProperty("quantity")]
         public int? Quantity { get; set; }

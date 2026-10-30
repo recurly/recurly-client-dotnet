@@ -15,7 +15,7 @@ namespace Recurly.Resources
     public class PaymentGatewayReferences : Request
     {
 
-        /// <value>The type of reference token. Required if token is passed in for Stripe Gateway or Ebanx UPI.</value>
+        /// <value>The type of reference token. The value can be omitted for gateways that only support one type of token.</value>
         [JsonProperty("reference_type")]
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
         public Constants.PaymentGatewayReferences? ReferenceType { get; set; }

@@ -41,6 +41,10 @@ namespace Recurly.Resources
         [JsonConverter(typeof(RecurlyStringEnumConverter))]
         public Constants.UpiAutopayAuthenticationMethod? AuthenticationMethod { get; set; }
 
+        /// <value>Identifies a backup gateway. Applies only when `gateway_code` is provided and that gateway is in failover. Providing this code overrides gateway exclusion configurations and restricts the backup to this gateway.</value>
+        [JsonProperty("backup_gateway_code")]
+        public string BackupGatewayCode { get; set; }
+
         /// <value>The `backup_payment_method` field is used to designate a billing info as a backup on the account that will be tried if the initial billing info used for an invoice is declined. All payment methods, including the billing info marked `primary_payment_method` can be set as a backup. An account can have a maximum of 1 backup, if a user sets a different payment method as a backup, the existing backup will no longer be marked as such.</value>
         [JsonProperty("backup_payment_method")]
         public bool? BackupPaymentMethod { get; set; }
@@ -148,6 +152,10 @@ namespace Recurly.Resources
         /// <value>Bank identifier code for UK based banks. Required for Bacs based billing infos. (Bacs only)</value>
         [JsonProperty("sort_code")]
         public string SortCode { get; set; }
+
+        /// <value>Whether to store this billing info onto its associated account. Defaults to `true`.</value>
+        [JsonProperty("store_billing_info")]
+        public bool? StoreBillingInfo { get; set; }
 
         /// <value>Tax identifier is required if adding a billing info that is a consumer card in Brazil or in Argentina. This would be the customer's CPF/CNPJ (Brazil) and CUIT (Argentina). CPF, CNPJ and CUIT are tax identifiers for all residents who pay taxes in Brazil and Argentina respectively.</value>
         [JsonProperty("tax_identifier")]
